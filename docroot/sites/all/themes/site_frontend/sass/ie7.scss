@@ -1,0 +1,356 @@
+// Import SagePay specific SASS mixins
+@import "_sagepaylib.scss";
+
+
+/**
+ * Fixes for IE7 browser
+ */
+
+/* country select popup hides behind branding region */
+#zone-header-wrapper {
+	position: relative;
+	z-index: 4;
+}
+#zone-branding-wrapper {
+	position: relative;
+	z-index: 3;
+}
+/* icons in popup of country select list don't line up with top level flag */
+.country-menu {
+	.om-maximenu-middle-right ul.menu li {
+		position: relative;
+		left: -20px;
+	}
+}
+
+/* global search - text box is too tall and too wide */
+.global-search {
+	top: -12px;
+	margin-bottom: -12px;
+	input[type="text"] {
+		height: 14px;
+		width: 130px;
+	}
+}
+
+/* mega menu popup appears below content that proceeds it */
+#zone-menu-wrapper {
+	position: relative;
+	z-index: 2;
+}
+#zone-user-wrapper,
+#zone-content-wrapper,
+#zone-footer-wrapper {
+	position: relative;
+	z-index: 1;
+}
+
+/* mega menu - menus in the popup are not positioned correctly - they all appear one below the other in a long menu */
+.main-mega-menu {
+	/* make absolute positioning posible */
+	.om-maximenu-no-style .om-maximenu-middle-right {
+		width: 840px;
+		height: 338px;
+		padding: 10px;
+		position: relative;
+	}
+	/* adjust height for support popup box */
+	.om-maximenu-no-style .leaf-support .om-maximenu-middle-right {
+		height: 368px;
+	}
+	/* override existing styling  */
+	.om-maximenu-no-style .om-maximenu-content .block-menu.block-menu-id-menu-mail-telephone-payments,
+	.om-maximenu-no-style .om-maximenu-content .block-menu.block-menu-id-menu-existing-partners,
+	.om-maximenu-no-style .om-maximenu-content .block-menu.block-menu-id-menu-online-shoppers,
+	.om-maximenu-no-style .om-maximenu-content .block-menu.block-menu-id-menu-our-customers {
+		clear: none;
+		float: none;
+	}
+	/* override existing styling - defualt second level menu bocks */
+	.om-maximenu-no-style .om-maximenu-content .block-menu {
+		display: block;
+		float: none;
+	}
+	
+	/* ========= menu tab popup: our payment solutions ============ */
+	
+	/* row 1 column 1 */
+	.om-maximenu-content .block.block-menu.block-menu-id-menu-online-payments {
+		position: absolute;
+		top: 10px;
+		left: 10px;
+	}
+	
+	/* row 1 column 2 */
+	.om-maximenu-content .block.block-menu.block-menu-id-menu-card-machine-payments {
+		position: absolute;
+		top: 10px;
+		left: 283px;
+	}
+	
+	/* row 1 column 3 */
+	.om-maximenu-content .block.block-menu.block-menu-id-menu-getting-started {
+		position: absolute;
+		top: 10px;
+		left: 556px;
+	}
+	
+	/* row 2 column 1 */
+	.om-maximenu-content .block.block-menu.block-menu-id-menu-mail-telephone-payments {
+		position: absolute;
+		top: 182px;
+		left: 10px;
+	}
+	
+	/* row 2 column 2 */
+	.om-maximenu-content .block.block-menu.block-menu-id-menu-einvoice-payments {
+		position: absolute;
+		top: 182px;
+		left: 283px;
+	}
+	
+	/* row 2 column 3 */
+	.om-maximenu-content .block.block-menu.block-menu-id-menu-additional-services {
+		position: absolute;
+		top: 182px;
+		left: 556px;
+	}
+	
+	/* ========== menu tab popup: partners and developers ========= */
+	
+	/* row 1 column 1 */
+	.om-maximenu-content .block.block-menu.block-menu-id-menu-partner-programme {
+		position: absolute;
+		top: 10px;
+		left: 10px;
+	}
+	
+	/* row 1 column 2 */
+	.om-maximenu-content .block.block-menu.block-menu-id-menu-developer-resources {
+		position: absolute;
+		top: 10px;
+		left: 283px;
+	}
+	
+	/* row 1 column 3 */
+	.om-maximenu-content .block.block-menu.block-menu-id-menu-3rd-party-integrations {
+		position: absolute;
+		top: 10px;
+		left: 556px;
+	}
+	
+	/* =========== menu tab popup: support ======================== */
+	
+	/* row 1 column 1 */
+	.om-maximenu-content .block.block-menu.block-menu-id-menu-support {
+		position: absolute;
+		top: 10px;
+		left: 10px;
+	}
+	
+	/* row 1 column 2 */
+	.om-maximenu-content .block.block-menu.block-menu-id-menu-developer-resources-support {
+		position: absolute;
+		top: 10px;
+		left: 283px;
+	}
+	
+	/* row 1 column 3 */
+	.om-maximenu-content .block.block-menu.block-menu-id-menu-free-24-7-support {
+		position: absolute;
+		top: 10px;
+		left: 556px;
+	}
+	
+	/* row 2 column 1 */
+	.om-maximenu-content .block.block-menu.block-menu-id-menu-online-shoppers {
+		position: absolute;
+		top: 242px;
+		left: 10px;
+	}
+	
+	/* row 2 column 2 */
+	.om-maximenu-content .block.block-menu.block-menu-id-menu-useful-tools {
+		position: absolute;
+		top: 242px;
+		left: 283px;
+	}
+	
+	/* =========== menu tab popup: about us ======================= */
+	
+	/* row 1 column 1 */
+	.om-maximenu-content .block.block-menu.block-menu-id-menu-company-information {
+		position: absolute;
+		top: 10px;
+		left: 10px;
+	}
+	
+	/* row 1 column 2 */
+	.om-maximenu-content .block.block-menu.block-menu-id-menu-news-events {
+		position: absolute;
+		top: 10px;
+		left: 283px;
+	}
+	
+	/* row 1 column 3 */
+	.om-maximenu-content .block.block-menu.block-menu-id-menu-careers {
+		position: absolute;
+		top: 10px;
+		left: 556px;
+	}
+	
+	/* row 2 column 1 */
+	.om-maximenu-content .block.block-menu.block-menu-id-menu-our-customers {
+		position: absolute;
+		top: 212px;
+		left: 10px;
+	}
+}
+
+/** slideshow text breaks because of lack of media query support - so we are going to fix the slideshow width here to widest view
+  * Slideshow region layout: same CSS as main stylesheet except it has been removed from its media query 
+  */
+.zone-user.container-16 {
+  width: 100%;
+}
+.container-16 .grid-16.region-preface-third {
+  width: 100%;	
+  margin-left: 0;
+  margin-right: 0;
+}
+/* tidy up admin grid overlay */
+.alpha-grid-debug .zone-user.container-16 {
+  background: none;
+  padding-top: 10px;
+}
+.alpha-region-debug .zone-user .alpha-debug-block h2 {
+	width: 920px;
+	margin: 0 auto;
+}
+#zone-header-wrapper,
+#zone-branding-wrapper,
+#zone-menu-wrapper,
+#zone-user-wrapper,
+#zone-preface-wrapper,
+#zone-content-wrapper,
+#zone-postscript-wrapper,
+#zone-footer-wrapper,
+#zone-bottom-banner-wrapper {
+	width: 1280px;
+	margin-left: auto;
+	margin-right: auto;
+}
+/* there is a gap between slideshow and icons below it */
+#block-views-home-page-slide-show-block {
+	margin-bottom: -2px;
+}
+
+/* social media block is is partially hidden below slide show, top strips 
+ * Note: part of the fix was to set a higher z-index for branding area than menu area
+ * because the socila media block lives in the branding area, even though it has a fixed position.
+ */
+#block-social-tab-social-tab {
+	z-index: 600;
+}
+
+/* footer legal menu positioning problem */
+#block-menu-block-4 {
+	padding-top: 16px;
+	width: 470px;
+	float: right;
+}
+
+/* case study slides are not visible in case study slide shows - but the nav buttons are */
+.views-slideshow-cycle-main-frame-row ,
+.views-slideshow-cycle-main-frame-row[style] {
+  width: 940px;
+  height: 220px;
+}
+
+/* search box in main content area breaks - general search and support search */
+.help-topic-search,
+.supoort-article-search {
+	input[type="submit"] {
+		position: relative;
+		top: 1px;
+		left: 100px;
+		background-color: #57585c;
+	}
+}
+/* search box in main content area breaks - error code search */
+.view-search-error-messages .view-filters {
+	input[type="submit"] {
+		position: relative;
+		top: 18px;
+		left: 100px;
+		background-color: #57585c;
+	}
+}
+/* text fileds are too tall */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+	line-height: 1;
+	height: 16px;
+}
+
+/* textarea gripe does not line up with teaxtarea box */
+.resizable-textarea {
+	textarea {
+		width: auto
+	}
+	.grippie {
+		display: none;
+	}
+}
+
+/* partner node customer images wrapper needs some margin below it */
+.node-type-partner {
+	.field-name-field-partner-customer-logos {
+		overflow: hidden;
+		margin-bottom: 20px;
+	}
+}
+
+/* search form in main comntent area does not look good - search button is in the wrong place */
+#section-content {
+	.partner-search-form {
+		/* warapper containing the background color */
+		.content {
+			height: 55px;
+		}
+		/* wrapper for each search widget - wraps the text box and the submit button */
+		.views-exposed-widgets {
+			position: relative;
+		}
+		/* search text filed wrapper - not the actual text field */
+		.views-exposed-widget.views-widget-filter-keyword {
+			position: absolute;
+			top: 0px;
+			left: 0px;
+		}
+		/* submit button wrapper - not the actula button though */
+		.views-exposed-widget.views-submit-button {
+			position: absolute;
+			top: 1px;
+			left: 483px;
+		}
+		input[type="text"] {}
+		input[type="submit"] {
+			display: block;
+			float: none;
+			position: relative;
+			top: 0px;
+			left: 0px;
+			background-color: #000000;
+		}
+	}	
+}
+
+
+
+
+
+
+
+

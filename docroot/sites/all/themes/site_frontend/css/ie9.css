@@ -1,0 +1,56 @@
+/**
+ * Fixes for IE9 browser
+ */
+/* icons below slideshow are not floating correctly */
+/* line 10, ../sass/ie9.scss */
+.icons-below-slide-show {
+  /* text editor is adding blank a-tags, let's remove them */
+  /* now we need to display the a-tags we need */
+}
+/* line 11, ../sass/ie9.scss */
+.icons-below-slide-show .grid-4 {
+  display: block;
+  position: static;
+}
+/* line 16, ../sass/ie9.scss */
+.icons-below-slide-show a {
+  display: none;
+}
+/* line 20, ../sass/ie9.scss */
+.icons-below-slide-show a.link-wrapper {
+  display: block;
+}
+
+/* text in text boxes - epescially search results - are vertically misaligned */
+/* line 28, ../sass/ie9.scss */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  line-height: 1;
+}
+
+/* social tab has a border radius that needs to be removed */
+/* line 33, ../sass/ie9.scss */
+.addthis_toolbox.addthis_floating_style.addthis_counter_style {
+  border-radius: 0px;
+}
+
+/* text in the select lists in views exposed filters is slightly cut off */
+/* line 39, ../sass/ie9.scss */
+.region-sidebar-second .views-exposed-widgets select.form-select,
+.region-sidebar-first .views-exposed-widgets select.form-select {
+  height: 2em;
+}
+
+/* line 45, ../sass/ie9.scss */
+.region-sidebar-second .block-facetapi select.form-select,
+.region-sidebar-first .block-facetapi select.form-select {
+  height: 2em;
+}
+
+/* specific to partners search filters */
+/* line 54, ../sass/ie9.scss */
+.region-sidebar-second .partner-filter .form-select,
+.region-sidebar-first .partner-filter .form-select {
+  height: 2em;
+}

@@ -1,0 +1,7 @@
+name = Local
+description = Small tweaks specific to this site.
+core = 7.x
+package = Local
+
+
+

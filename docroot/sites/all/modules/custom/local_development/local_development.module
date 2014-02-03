@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * Configure each of the modules being installed.
+ */
+function local_development_modules_configure() {
+  local_development_shield_config();
+  local_development_reroute_email_config();
+  local_development_views_ui_config();
+}
+
+/**
+ * Configure the Shield module.
+ */
+function local_development_shield_config() {
+	variable_set('shield_allow_cli', 1);
+	variable_set('shield_pass', 'down'); 
+	variable_set('shield_print', '');
+	variable_set('shield_user', 'shield'); 
+}
+
+/**
+ * Configure the Reroute Email module.
+ */
+function local_development_reroute_email_config() {
+	variable_set('reroute_email_address', 'services@codepositive.com');
+	variable_set('reroute_email_enable', 1); 
+	variable_set('reroute_email_enable_message', 1);
+	variable_set('update_notify_emails', 'robert@codepositive.com'); 
+}
+
+/**
+ * Configure the Views UI module.
+ */
+function local_development_views_ui_config() {
+	variable_set('views_ui_show_advanced_column', 1);
+	variable_set('views_ui_show_listing_filters', 1); 
+	variable_set('views_ui_show_preview_information', 1);
+	variable_set('views_ui_show_sql_query_where', 'above');
+}
+

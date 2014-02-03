@@ -1,0 +1,336 @@
+/* Styles defined here only effect the way the content within the ckeditor window looks. The styles that will be 
+ * applied to the actual out output are defined in global.scss and compiled into global.css
+ */
+
+body {
+	background-color: #ffffff;
+	font-family: arial, helvetica, sans-serif;
+  	font-size: 14px;
+  	font-weight: normal;
+  	color: #4d4f53;
+  	line-height: 1.285;
+}
+
+
+h1 {
+	font-family: foco, arial, helvetica, sans-serif;
+	font-size: 34px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+
+h2 {
+	font-family: foco, arial, helvetica, sans-serif;
+	font-size: 30px;
+	font-weight: bold;
+	margin-bottom: 15px;
+}
+
+
+h3 {
+	font-family: foco, arial, helvetica, sans-serif;
+	font-size: 24px;
+	font-weight: normal;
+	line-height: 1.1;
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+
+
+h4 {
+	font-family: foco, arial, helvetica, sans-serif;
+	font-size: 20px;
+	font-weight: bold;
+	line-height: 1.1;
+	margin-bottom: 10px;
+}
+
+
+h5 {
+	font-family: foco, arial, helvetica, sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 1.1;
+	margin-bottom: 10px;
+}
+
+
+h6 {
+  font-family: foco, arial, helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+
+a:link, a:visited {
+  text-decoration: none;
+  color: #41a940;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #007f64;
+}
+
+/* class for these styles are added to p-tags by ckeditor.styles.js in the theme folder */
+.text-align-left {
+	text-align: left;
+}
+.text-align-right {
+	text-align: right;
+}
+.text-align-center {
+	text-align: center;
+}
+a.arrow-link {
+  font-family: arial, helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.285;
+  text-decoration: none;
+  color: #41a940;
+  margin-bottom: 10px;
+  background-image: url("images/read-more-icon.png");
+  background-repeat: no-repeat;
+  background-position: left center;
+  padding-left: 13px;
+}
+a.arrow-link:link, a.arrow-link:visited {
+  text-decoration: none;
+  color: #41a940;
+}
+a.arrow-link:hover {
+  text-decoration: underline;
+  color: #41a940;
+}
+.email-icon-small {
+  background-image: url("images/assets/Support_icon_email-us.png");
+  background-repeat: no-repeat;
+  background-position: left top;
+  padding-left: 30px;
+  display: block;
+  min-height: 24px;
+  margin-bottom: 4px;
+  padding-top: 4px;
+}
+.email-icon-small a {
+  font-family: arial, helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.285;
+  text-decoration: none;
+  color: #41a940;
+}
+.email-icon-small a:link, .email-icon-small a:visited {
+  text-decoration: none;
+  color: #41a940;
+}
+.email-icon-small a:hover {
+  text-decoration: underline;
+  color: #41a940;
+}
+.twitter-icon-small {
+  background-image: url("images/assets/Support_icon_twitter.png");
+  background-repeat: no-repeat;
+  background-position: left top;
+  padding-left: 30px;
+  display: block;
+  min-height: 24px;
+  margin-bottom: 4px;
+  padding-top: 4px;
+}
+.twitter-icon-small a {
+  font-family: arial, helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.285;
+  text-decoration: none;
+  color: #41a940;
+}
+.twitter-icon-small a:link, .twitter-icon-small a:visited {
+  text-decoration: none;
+  color: #41a940;
+}
+.twitter-icon-small a:hover {
+  text-decoration: underline;
+  color: #41a940;
+}
+.phone-icon-small {
+  font-size: 18px;
+  line-height: 1.1;
+  background-image: url("images/assets/Support_icon_phone.png");
+  background-repeat: no-repeat;
+  background-position: left top;
+  padding-left: 30px;
+  display: block;
+  min-height: 24px;
+  padding-top: 3px;
+  margin-bottom: 5px;
+}
+.phone-icon-small a {
+  text-decoration: none;
+  color: #41a940;
+}
+.phone-icon-small a:link, .phone-icon-small a:visited {
+  text-decoration: none;
+  color: #41a940;
+}
+.phone-icon-small a:hover {
+  text-decoration: underline;
+  color: #41a940;
+}
+.pdf-icon-small {
+  background-image: url("images/assets/pdf-icon.png");
+  background-repeat: no-repeat;
+  background-position: left top;
+  padding-left: 24px;
+  display: block;
+  min-height: 16px;
+  margin-bottom: 4px;
+}
+.pdf-icon-small a {
+  font-family: arial, helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.285;
+  text-decoration: none;
+  color: #41a940;
+}
+.pdf-icon-small a:link, .pdf-icon-small a:visited {
+  text-decoration: none;
+  color: #41a940;
+}
+.pdf-icon-small a:hover {
+  text-decoration: underline;
+  color: #41a940;
+}
+.zip-icon-small {
+  background-image: url("images/assets/zip-icon.png");
+  background-repeat: no-repeat;
+  background-position: left top;
+  padding-left: 24px;
+  display: block;
+  min-height: 16px;
+  margin-bottom: 4px;
+}
+.zip-icon-small a {
+  font-family: arial, helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.285;
+  text-decoration: none;
+  color: #41a940;
+}
+.zip-icon-small a:link, .pdf-icon-small a:visited {
+  text-decoration: none;
+  color: #41a940;
+}
+.zip-icon-small a:hover {
+  text-decoration: underline;
+  color: #41a940;
+}
+/* make getting started blocks visible in editor - not we are not setting up a style for this. 
+ * Note: I needed to remove the .getting-started class as prefix to make this work and also
+ * remember to change the path to images to "images/assets" from "../images/assets"
+ */
+.new,
+.switching,
+.build,
+.apply {
+  float: left;
+}
+.new,
+.switching,
+.build {
+  width: 220px;
+  height: 78px;
+  margin-right: 20px;
+}
+.new a,
+.switching a,
+.build a {
+  display: block;
+  font-family: foco, arial, helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 1.1;
+  text-decoration: none;
+  color: #ffffff;
+}
+.new a:link, .new a:visited,
+.switching a:link,
+.switching a:visited,
+.build a:link,
+.build a:visited {
+  text-decoration: none;
+  color: #ffffff;
+}
+.new a:hover,
+.switching a:hover,
+.build a:hover {
+  text-decoration: underline;
+  color: #ffffff;
+}
+.new {
+  background-image: url("images/assets/home_icon_new_normal.png");
+  background-repeat: no-repeat;
+  background-position: 12px top;
+  background-color: #4d4f53;
+  margin-bottom: 20px;
+}
+.new a {
+  padding: 18px 20px 18px 107px;
+}
+.switching {
+  background-image: url("images/assets/home_icon_switch-to-sagepay_normal.png");
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-color: #4d4f53;
+  margin-bottom: 20px;
+}
+.switching a {
+  padding: 18px 20px 18px 82px;
+}
+.build {
+  background: url("images/assets/home_icon_corporate-solutions_normal.png");
+  background-repeat: no-repeat;
+  background-position: -2px top;
+  background-color: #4d4f53;
+  margin-bottom: 20px;
+}
+.build a {
+  padding: 18px 20px 18px 80px;
+}
+.apply {
+  width: 220px;
+  height: 78px;
+  margin-bottom: 20px;
+}
+.apply a {
+  font-family: foco, arial, helvetica, sans-serif;
+  font-size: 28px;
+  font-weight: bold;
+  line-height: 1px;
+  color: #ffffff;
+  background-color: #41a940;
+  padding: 36px 10px 0px 10px;
+  border: none;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  width: 200px;
+  /* 220px-10px-10px */
+  height: 42px;
+  /* 78px-36px */
+}
+.apply a:hover {
+  color: #ffffff;
+  background: #418240;
+  background: -moz-linear-gradient(bottom, #41a940, #418240);
+  background: -webkit-gradient(linear, left top, left bottom, from(#41a940), to(#418240));
+  filter: progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#41a940', EndColorStr='#418240', GradientType=0);
+  text-decoration: none;
+}
+

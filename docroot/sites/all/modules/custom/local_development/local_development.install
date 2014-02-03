@@ -1,0 +1,54 @@
+<?php
+
+/**
+ * @file
+ * Update functions for scripting deployment of development modules to development sites.
+ */
+
+/**
+ * Identify development sites.
+ * These are sites we want developer modules ENABLED on.
+ */
+function local_development_sites_identify() {
+  $sites = array('dev' => 'http://scratch.worldpay.clients.codepositive.com', 'robert' => 'http://www.worldpay.dev');
+  return $sites;
+}
+
+/**
+ * Define modules that are to be installed only on dev sites.
+ */
+function local_development_modules() {
+
+  $modules = array('demo',
+                   'context_ui',
+                   'devel',
+                   'field_tools',
+                   'masquerade',
+                   'module_filter',
+                   'omega_tools',
+                   'reroute_email',
+                   'shield',
+                   'stage_file_proxy',
+                   'views_ui',
+                   'styleguide',
+                 );
+
+  return $modules;
+}
+
+
+
+function local_development_install() {
+	global $base_url;
+
+  $modules = local_development_modules();
+  $sites = local_development_sites_identify();
+
+	if (in_array($base_url, $sites)) {
+	  module_enable($modules);
+	  local_development_modules_configure();
+	}
+
+  module_disable(array('local_development'));
+}
+

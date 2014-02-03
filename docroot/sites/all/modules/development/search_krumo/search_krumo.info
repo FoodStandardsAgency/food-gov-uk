@@ -1,0 +1,12 @@
+name = Search Krumo
+description = Search krumo's and highlight query results.
+core = 7.x
+stylesheets[all][] = search_krumo.css
+package = Development
+dependencies[] = devel
+; Information added by drupal.org packaging script on 2012-09-18
+version = "7.x-1.2"
+core = "7.x"
+project = "search_krumo"
+datestamp = "1347956428"
+

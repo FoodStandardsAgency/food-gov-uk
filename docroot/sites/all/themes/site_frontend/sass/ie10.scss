@@ -1,0 +1,14 @@
+// Import SagePay specific SASS mixins
+@import "_sagepaylib.scss";
+
+
+/**
+ * Fixes for IE10 browser
+ */
+
+/* text in text boxes - epescially search results - are vertically misaligned */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  line-height: 1;
+}

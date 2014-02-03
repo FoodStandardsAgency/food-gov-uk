@@ -1,0 +1,7 @@
+name = Local Deployment
+description = Update functions for scripting deployment to staging and production sites.
+core = 7.x
+package = Local
+
+
+

@@ -1,0 +1,26 @@
+<?php
+
+function local_menu_alter(&$items) {
+  $items['node/%webform_menu/done']['page callback'] = 'local_webform_confirmation';
+}
+
+/**
+ * Prints the confirmation message after a successful submission.
+ */
+function local_webform_confirmation($node) {
+
+  $field = field_get_items('node', $node, 'field_title');
+
+  if (isset($field[0])) {
+    $field_title = field_view_value('node', $node, 'field_title', $field[0]);
+  }
+
+  if (!empty($field_title['#markup'])) {
+    $node->title = $field_title['#markup'];
+  }
+
+  drupal_set_title($node->title);
+  webform_set_breadcrumb($node);
+  $sid = isset($_GET['sid']) ? $_GET['sid'] : NULL;
+  return theme(array('webform_confirmation_' . $node->nid, 'webform_confirmation'), array('node' => $node, 'sid' => $sid));
+}

@@ -1,0 +1,79 @@
+// Import SagePay specific SASS mixins
+@import "_sagepaylib.scss";
+
+
+/**
+ * Print style sheet overrides all other styles
+ */
+
+/* hide top black banner and its content */
+#zone-header-wrapper {
+	display: none;
+}
+
+/* hide main menu */
+#zone-menu {
+	display: none;
+}
+
+/* hide home page slide show and the icons that appear below it */
+#block-views-home-page-slide-show-block,
+#block-nodeblock-aa348b15-1c49-4302-9c02-239e117a25bf {
+	display: none;
+}
+
+
+/* hide the footer */
+#section-footer {
+	display: none;
+}
+
+/* hide bottom banner - this has the cookie waring in it */
+#section-bottom-banner {
+	display: none;
+}
+
+
+/* prevent images from been cut off */
+img {
+	max-width: 100%;
+	border: 0;
+}
+
+/* define a margin for printed pages */
+@page {
+	margin: 1cm;
+}
+
+/* set a general print fornt for better printing */
+body {
+	font: 12pt Georgia, "Times New Roman", Times, serif;
+	line-height: 1.3;
+}
+
+/* show actual links for browsers that can handle this */
+p a:after {
+	content: " (" attr(href) ")";
+	font-size: 80%;
+}
+
+/* allow long links to wrap */
+p a {
+	word-wrap: break-word;
+}
+
+/* set link colour */
+a, a:visited, a:hover {
+	color: #000;
+	text-decoration: none;
+}
+
+/* hide tabs when logged in users print the page */
+.logged-in .tabs {
+	display: none;
+}
+
+
+
+
+

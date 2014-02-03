@@ -1,0 +1,193 @@
+// Import SagePay specific SASS mixins
+@import "_sagepaylib.scss";
+
+
+/**
+ * Fixes for IE8 browser
+ */
+
+/** slideshow text breaks because of lack of media query support - so we are going to fix the slideshow width here to widest view
+  * Slideshow region layout: same CSS as main stylesheet except it has been removed from its media query 
+  */
+.zone-user.container-16 {
+  width: 100%;
+}
+.container-16 .grid-16.region-preface-third {
+  width: 100%;	
+  margin-left: 0;
+  margin-right: 0;
+}
+/* tidy up admin grid overlay */
+.alpha-grid-debug .zone-user.container-16 {
+  background: none;
+  padding-top: 10px;
+}
+.alpha-region-debug .zone-user .alpha-debug-block h2 {
+	width: 920px;
+	margin: 0 auto;
+}
+#zone-header-wrapper,
+#zone-branding-wrapper,
+#zone-menu-wrapper,
+#zone-user-wrapper,
+#zone-preface-wrapper,
+#zone-content-wrapper,
+#zone-postscript-wrapper,
+#zone-footer-wrapper,
+#zone-bottom-banner-wrapper {
+	width: 1280px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* icons below slideshow are not floating correctly */
+.icons-below-slide-show {
+	.grid-4 {
+		display: block;
+		position: static;
+	}
+	/* text editor is adding blank a-tags, let's remove them */
+	a {
+		display: none;
+	}
+	/* now we need to display the a-tags we need */
+	a.link-wrapper {
+		display: block;
+	}
+	/* hover background on second icon just won't work so let's disable the hover */
+	.tag-wrapper:hover {
+		background-color: transparent;
+	}
+}
+
+/* case study slides are not visible in case study slide shows - but the nav buttons are */
+.views-slideshow-cycle-main-frame-row ,
+.views-slideshow-cycle-main-frame-row[style] {
+  width: 940px;
+  height: 220px;
+}
+
+/* text in text boxes - epescially search results - are vertically misaligned */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+	line-height: 1;
+}
+
+/* add select list styling - ie 8 does not understand media queries */
+select {
+	@include border(6);
+}
+
+/* date selector - ie 8 does not understand media queries */
+.webform-component-date {
+	select {
+		@include border(6);
+	}
+	select.month {
+		-webkit-border-top-right-radius: 0px;
+		-moz-border-top-right-radius: 0px;
+		-ms-border-top-right-radius-: 0px;
+		-o-border-top-right-radius: 0px;
+		border-top-right-radius: 0px;
+		-webkit-border-bottom-right-radius: 0px;
+		-moz-border-bottom-right-radius: 0px;
+		-ms-border-bottom-right-radius-: 0px;
+		-o-border-bottom-right-radius: 0px;
+		border-bottom-right-radius: 0px;
+	}
+	select.day {
+		-webkit-border-radius: 0px;
+		-moz-border-radius: 0px;
+		-ms-border-radius: 0px;
+		-o-border-radius: 0px;
+		border-radius: 0px;
+	}
+	select.year {
+		webkit-border-top-left-radius: 0px;
+		-moz-border-top-left-radius: 0px;
+		-ms-border-top-left-radius-: 0px;
+		-o-border-top-right-radius: 0px;
+		border-top-left-radius: 0px;
+		webkit-border-bottom-left-radius: 0px;
+		-moz-border-bottom-left-radius: 0px;
+		-ms-border-bottom-left-radius-: 0px;
+		-o-border-bottom-right-radius: 0px;
+		border-bottom-left-radius: 0px;
+	}
+	select:focus {}
+	select:active {}
+}
+	
+/* time selector - ie 8 does not understand media queries */
+.webform-component-webform_time {
+	/* label for am and pm */
+	.webform-container-inline label {
+		margin-right: 0px;
+	}
+	select {
+		@include border(6);
+	}
+	.form-item-submitted-time-hour select {
+		-webkit-border-top-right-radius: 0px;
+		-moz-border-top-right-radius: 0px;
+		-ms-border-top-right-radius-: 0px;
+		-o-border-top-right-radius: 0px;
+		border-top-right-radius: 0px;
+		-webkit-border-bottom-right-radius: 0px;
+		-moz-border-bottom-right-radius: 0px;
+		-ms-border-bottom-right-radius-: 0px;
+		-o-border-bottom-right-radius: 0px;
+		border-bottom-right-radius: 0px;
+	}
+	.form-item-submitted-time-minute select {
+		webkit-border-top-left-radius: 0px;
+		-moz-border-top-left-radius: 0px;
+		-ms-border-top-left-radius-: 0px;
+		-o-border-top-right-radius: 0px;
+		border-top-left-radius: 0px;
+		webkit-border-bottom-left-radius: 0px;
+		-moz-border-bottom-left-radius: 0px;
+		-ms-border-bottom-left-radius-: 0px;
+		-o-border-bottom-right-radius: 0px;
+		border-bottom-left-radius: 0px;
+	}
+	select:focus {}
+	select:active {}
+	input[type="radio"] {}
+	input[type="radio"]:focus {}
+	input[type="radio"]:active {}
+	/* individual radio button wrapper */
+	.form-item-submitted-time-ampm {
+		margin-left: 10px;
+	}
+}
+
+/* select lists in views exposed filters in the sidebar are too wide */
+.region-sidebar-second .views-exposed-widgets select.form-select, 
+.region-sidebar-first .views-exposed-widgets select.form-select {
+	min-width: 190px;
+	width: 190px;
+	height: 2em;
+}
+.region-sidebar-second,
+.region-sidebar-first {
+	.block-facetapi {
+		select.form-select {
+			min-width: 190px;
+			width: 190px;
+			height: 2em;
+		}
+	}
+}
+/* specific to partners search filters */
+.region-sidebar-second,
+.region-sidebar-first {
+	.partner-filter {
+		.form-select {
+			min-width: 190px;
+			width: 190px;
+			height: 2em;
+		}
+	}
+}

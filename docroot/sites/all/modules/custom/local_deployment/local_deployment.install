@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * @file
+ * Update functions for scripting deployment to staging and production sites.
+ */
+
+function local_deployment_install() {
+	// Enable custom theme.
+	//$default_theme = variable_get('theme_default', 'worldpay');
+	$admin_theme = 'seven';
+
+	// $enable = array(
+	//    'theme_default' => 'worldpay',
+	//    'admin_theme' => 'seven',
+	//  );
+	//
+	// theme_enable($enable);
+
+  foreach ($enable as $var => $theme) {
+    if (!is_numeric($var)) {
+	    variable_set($var, $theme);
+    }
+  }
+
+  // Disable the default Bartik theme.
+  theme_disable(array('bartik'));
+
+  // Set this to make Context respect block weights.
+  variable_set('context_reaction_block_expose_weights', TRUE);
+
+  // Contrib modules specificly for this project.
+  module_enable(array('menu_position'), TRUE);
+  module_enable(array('disable_term_node_listings'), TRUE);
+  module_enable(array('redirect'), TRUE);
+  module_enable(array('entity_token'), TRUE);
+  module_enable(array('count_modify'), TRUE);
+  module_enable(array('field_widgets'), TRUE);
+
+}
+
+
+
+
+

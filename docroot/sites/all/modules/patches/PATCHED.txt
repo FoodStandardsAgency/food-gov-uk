@@ -1,0 +1,44 @@
+PATCHED MODULES
+
+===========================================
+
+CKEditor
+sites/all/modules/contrib/ckeditor_link
+
+Compatibility with Editor in-line editing
+https://drupal.org/node/1882646#comment-7629485
+
+-filter_ckeditor_link_filter_has_no_type_specified-1882646-3.patch
+
+
+===========================================
+
+Media
+Upload image freeze on wysiwyg integration with multi field media
+https://drupal.org/node/1630288#comment-7806387
+
+===========================================
+CKEditor Link File
+
+Provides integration with Media module document files.
+ckeditor_link_file-1.diff
+
+===========================================
+
+Token
+
+https://www.pivotaltracker.com/s/projects/575339/stories/57108878
+- temporary fix, didn't find the root problem, but by commenting
+out this caching code avoided the infinite loop
+
+#57108878 Page Edit Timeout.diff
+
+===========================================
+
+Apache Solr Views Integration
+
+Fixes issue where HTML was being stripped out of fields by Views.
+apachesolr_views_handler-include_html.patch
+
+
+

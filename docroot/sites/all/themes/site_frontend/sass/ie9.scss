@@ -1,0 +1,58 @@
+// Import SagePay specific SASS mixins
+@import "_sagepaylib.scss";
+
+
+/**
+ * Fixes for IE9 browser
+ */
+
+/* icons below slideshow are not floating correctly */
+.icons-below-slide-show {
+	.grid-4 {
+		display: block;
+		position: static;
+	}
+	/* text editor is adding blank a-tags, let's remove them */
+	a {
+		display: none;
+	}
+	/* now we need to display the a-tags we need */
+	a.link-wrapper {
+		display: block;
+	}
+}
+
+/* text in text boxes - epescially search results - are vertically misaligned */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+	line-height: 1;
+}
+
+/* social tab has a border radius that needs to be removed */
+.addthis_toolbox.addthis_floating_style.addthis_counter_style {
+	border-radius: 0px;
+}
+
+/* text in the select lists in views exposed filters is slightly cut off */
+.region-sidebar-second .views-exposed-widgets select.form-select, 
+.region-sidebar-first .views-exposed-widgets select.form-select {
+	height: 2em;
+}
+.region-sidebar-second,
+.region-sidebar-first {
+	.block-facetapi {
+		select.form-select {
+			height: 2em;
+		}
+	}
+}
+/* specific to partners search filters */
+.region-sidebar-second,
+.region-sidebar-first {
+	.partner-filter {
+		.form-select {
+			height: 2em;
+		}
+	}
+}

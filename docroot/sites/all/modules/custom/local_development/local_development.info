@@ -1,0 +1,9 @@
+name = Local Development Deployment
+description = Update functions for scripting deployment of development modules to dev sites.
+core = 7.x
+package = Local
+
+
+
+
+
