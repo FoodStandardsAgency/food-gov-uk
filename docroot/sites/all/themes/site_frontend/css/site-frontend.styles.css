@@ -1,12 +1,12 @@
 @charset "UTF-8";
 /* No files to import found in abstractions/**\/* */
 /* bocks in sidebar second */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\000032}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\000032}}
 .l-region--sidebar-second .block {
   margin-bottom: 11px; }
 
 /* block class usage example: Interactive block - to apply to block, in block admin, edit block and add "grey-block" to the block class textbox */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\000038}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\000038}}
 .grey-block {
   border: 1px solid #e8e8e8;
   -webkit-border-radius: 9px;
@@ -14,7 +14,7 @@
   -o-border-radius: 9px;
   -ms-border-radius: 9px;
   border-radius: 9px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\0000315}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\0000315}}
   .grey-block h2.block__title {
     font-size: 1.5em;
     color: #fff;
@@ -35,13 +35,13 @@
     background: linear-gradient(top, #999999 6%, #3e3e3e 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#999999',endColorstr='#3e3e3e',GradientType=0);
     border-bottom: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\0000336}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\0000336}}
   .grey-block .block__content {
     padding: 1em 11px .3em 11px;
     background: #fff; }
 
 /* block class usage example: Popular links block or Search for guidance block - to apply to block, in block admin, edit block and add "purple-block" to the block class textbox */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\0000343}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\0000343}}
 .purple-block {
   -webkit-border-radius: 9px;
   -moz-border-radius: 9px;
@@ -57,19 +57,19 @@
   background: -ms-linear-gradient(top, #9e218a 1%, #5d0050 100%);
   background: linear-gradient(top, #9e218a 1%, #5d0050 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#9e218a',endColorstr='#5d0050',GradientType=0); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\0000358}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\0000358}}
   .purple-block h2.block__title {
     font-size: 1.5em;
     color: #fff;
     padding: .5em 11px .15em 11px;
     margin: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\0000364}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\0000364}}
   .purple-block .block__content {
     color: #fff;
     padding: .5em 11px .3em 11px; }
 
 /* block class usage example: Current topics or Resources - to apply to block, in block admin, edit block and add "blue-block" to the block class textbox */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\0000371}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\0000371}}
 .blue-block {
   -webkit-border-radius: 0 0 9px 9px;
   -moz-border-radius: 0 0 9px 9px;
@@ -85,7 +85,7 @@
   background: -ms-linear-gradient(top, #f9fcfd 1%, #d2e8f1 100%);
   background: linear-gradient(top, #f9fcfd 1%, #d2e8f1 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9fcfd',endColorstr='#d2e8f1',GradientType=0); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\0000386}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\0000386}}
   .blue-block h2.block__title {
     font-size: 1.5em;
     color: #fff;
@@ -105,15 +105,15 @@
     background: linear-gradient(to bottom, #0781af 50%, #027099 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0781af',endColorstr='#027099',GradientType=0);
     border-bottom: 1px solid #64b1cf; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003106}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003106}}
   .blue-block .block__content {
     padding: 1em 11px .3em 11px; }
 
 /* block class usage example: FSA in the nations - to apply to block, in block admin, edit block and add "blue-block-white-background" to the block class textbox */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003112}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003112}}
 .blue-block-white-background {
   background: #fff; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003114}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003114}}
   .blue-block-white-background h2.block__title {
     font-size: 1.5em;
     color: #fff;
@@ -133,7 +133,7 @@
     background: linear-gradient(to bottom, #0781af 50%, #027099 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0781af',endColorstr='#027099',GradientType=0);
     border-bottom: 1px solid #64b1cf; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003134}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003134}}
   .blue-block-white-background .block__content {
     padding: 1em 11px .3em 11px;
     border: 1px solid #bbddea;
@@ -144,7 +144,7 @@
     border-radius: 0 0 9px 9px; }
 
 /* block class usage example: Business and industry or Enforcement and regulation or Science and research - to apply to block, in block admin, edit block and add "green-block" to the block class textbox*/
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003146}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003146}}
 .green-block {
   -moz-border-radius-topleft: 0;
   -moz-border-radius-topright: 0;
@@ -160,7 +160,7 @@
   background: -ms-linear-gradient(top, #f0f5e7 0, #dde9c9 100%);
   background: linear-gradient(top, #f0f5e7 0%, #dde9c9 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f0f5e7',endColorstr='#dde9c9',GradientType=0); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003161}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003161}}
   .green-block h2.block__title {
     font-size: 1.5em;
     color: #fff;
@@ -183,11 +183,11 @@
     background: -ms-linear-gradient(top, #3b9356 0, #02684a 100%);
     background: linear-gradient(top, #3b9356 0%, #02684a 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3b9356',endColorstr='#02684a',GradientType=0); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003184}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003184}}
   .green-block .block__content {
     padding: 1em 11px .3em 11px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003189}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003189}}
 .light-grey-block {
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
@@ -195,43 +195,43 @@
   -ms-border-radius: 8px;
   border-radius: 8px;
   background: #f5f8f1; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003196}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003196}}
   .light-grey-block h2.block__title {
     font-size: 1.5em;
     color: #4b800d;
     padding: .5em 11px .15em 11px;
     margin: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003202}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003202}}
   .light-grey-block .block__content {
     padding: .5em 11px .3em 11px; }
 
 /* blocks in main content area */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003210}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003210}}
 .l-content .green-block,
 .l-content .blue-block {
   margin-bottom: 11px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003214}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003214}}
 .l-content .light-grey-block h2.block__title {
   font-size: 1.6em;
   font-weight: normal;
   padding: .46875em 11px .140625em 11px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/base\/_media\.scss}line{font-family:\000031}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_media\.scss}line{font-family:\000031}}
 img, media {
   max-width: 100%; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/base\/_typography\.scss}line{font-family:\000031}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_typography\.scss}line{font-family:\000031}}
 html {
   -webkit-font-smoothing: antialiased; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/base\/_typography\.scss}line{font-family:\000035}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_typography\.scss}line{font-family:\000035}}
 body {
   font-size: 62.5%;
   line-height: 1.3em;
   font-family: Arial, Verdana, Helvetica, sans-serif;
   color: #333; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/base\/_typography\.scss}line{font-family:\0000312}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_typography\.scss}line{font-family:\0000312}}
 h1 {
   font-size: 2.8em;
   line-height: 1.2em;
@@ -239,34 +239,34 @@ h1 {
   color: #4b800d;
   margin: 0 0 .4642857em 0; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/base\/_typography\.scss}line{font-family:\0000319}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_typography\.scss}line{font-family:\0000319}}
 h2 {
   font-size: 1.5em;
   line-height: 1.2em;
   font-weight: bold;
   margin: 0 0 .867em 0; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/base\/_typography\.scss}line{font-family:\0000325}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_typography\.scss}line{font-family:\0000325}}
 h3, h4, h5, h6 {
   font-size: 1.3em;
   line-height: 1.2em;
   font-weight: bold;
   margin: 0 0 1em 0; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/base\/_typography\.scss}line{font-family:\0000331}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_typography\.scss}line{font-family:\0000331}}
 h1, h2, h3, h4, h5, h6 {
   text-rendering: optimizeLegibility; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/base\/_typography\.scss}line{font-family:\0000335}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_typography\.scss}line{font-family:\0000335}}
 p, li, dt, dd, blockquote, pre, address, label, th, td, code {
   font-size: 1.2em;
   line-height: 1.4em; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/base\/_typography\.scss}line{font-family:\0000339}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_typography\.scss}line{font-family:\0000339}}
 p, ul, ol, dl, address, blockquote {
   margin: 0 0 1.3em 0; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/components\/_bottom_menu_section\.scss}line{font-family:\000031}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_bottom_menu_section\.scss}line{font-family:\000031}}
 .bottom-menu-wrapper {
   border-top: 1px solid #61873b;
   background: #565656;
@@ -279,25 +279,25 @@ p, ul, ol, dl, address, blockquote {
   background: linear-gradient(top, #565656 0%, #242423 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#565656',endColorstr='#242423',GradientType=0); }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/components\/_breadcrumb_accessibility_section\.scss}line{font-family:\000031}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_breadcrumb_accessibility_section\.scss}line{font-family:\000031}}
 .breadcrumb-accessibility-wrapper {
   border-top: 1px solid #348971; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/components\/_content_section\.scss}line{font-family:\000031}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_content_section\.scss}line{font-family:\000031}}
 .main-wrapper {
   border-bottom: 4px solid #68A82A; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_section\.scss}line{font-family:\000031}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_section\.scss}line{font-family:\000031}}
 .footer-wrapper {
   background: #f1f1f1;
   border-bottom: 16px solid #FFF; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_section\.scss}line{font-family:\000035}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_section\.scss}line{font-family:\000035}}
 .footer-wrapper-inner {
   border-top: 1px solid #f9f9f9;
   border-bottom: 1px solid #f6f6f6; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/components\/_header_section\.scss}line{font-family:\000031}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_header_section\.scss}line{font-family:\000031}}
 .header-wrapper {
   border-bottom: 3px solid #74ae27;
   background: -moz-linear-gradient(top, #2a8641 0, #016c4e 100%);
@@ -307,10 +307,10 @@ p, ul, ol, dl, address, blockquote {
   background: -ms-linear-gradient(top, #2a8641 0, #016c4e 100%);
   background: linear-gradient(top, #2a8641 0%, #016c4e 100%); }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/components\/_header_section\.scss}line{font-family:\0000310}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_header_section\.scss}line{font-family:\0000310}}
 .header-top {
   min-height: 80px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa\/sites\/all\/themes\/site_frontend\/sass\/components\/_header_section\.scss}line{font-family:\0000313}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_header_section\.scss}line{font-family:\0000313}}
 .site-logo img {
   margin-top: 10px; }
