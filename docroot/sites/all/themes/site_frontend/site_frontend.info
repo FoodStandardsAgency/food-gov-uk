@@ -1,0 +1,109 @@
+name = Site Frontend
+description = HTML5 subtheme built with Omega 4.
+base theme = omega
+screenshot = screenshot.png
+engine = phptemplate
+core = 7.x
+
+; ========================================
+; Stylesheets
+; ========================================
+stylesheets[all][] = css/site-frontend.normalize.css
+stylesheets[all][] = css/site-frontend.hacks.css
+stylesheets[all][] = css/site-frontend.styles.css
+stylesheets[all][] = css/site-frontend.no-query.css
+
+; ========================================
+; Layout
+; ========================================
+layout[site-frontend-three-column][stylesheets][all][] = css/layouts/site-frontend-three-column/site-frontend-three-column.layout.css
+layout[site-frontend-two-column][stylesheets][all][] = css/layouts/site-frontend-two-column/site-frontend-two-column.layout.css
+
+; ========================================
+; Scripts
+; ========================================
+scripts[] = js/site-frontend.behaviors.js
+
+; ========================================
+; Regions
+; ========================================
+regions[header_branding] = Header Branding
+regions[header_top_menu] = Header Top Menu
+regions[header_search] = Header Search
+regions[header_main_menu] = Header Main Menu
+regions[header_social_media] = Header Social Media
+regions[breadcrumb] = Breadcrumb
+regions[accessibility] = Accessibility
+regions[system_highlighted] = System Highlighted
+regions[system_help] = System Help
+regions[content] = Content
+regions[sidebar_first] = First Sidebar
+regions[sidebar_second] = Second Sidebar
+regions[bottom_menu] = Bottom Menu
+regions[footer_copyright] = Footer Copyright
+regions[footer_menu] = Footer Menu
+regions[footer_buttons] = Footer Buttons
+
+; ========================================
+; Settings
+; ========================================
+settings[toggle_logo] = 1
+settings[toggle_name] = 0
+settings[toggle_slogan] = 0
+settings[toggle_node_user_picture] = 0
+settings[toggle_comment_user_picture] = 0
+settings[toggle_comment_user_verification] = 0
+settings[toggle_favicon] = 1
+settings[toggle_main_menu] = 1
+settings[toggle_secondary_menu] = 0
+settings[omega_toggle_front_page_content] = 1
+settings[default_logo] = 1
+settings[logo_path] = ""
+settings[logo_upload] = ""
+settings[default_favicon] = 1
+settings[favicon_path] = ""
+settings[favicon_upload] = ""
+settings[omega_enable_warning] = 1
+settings[omega_toggle_extension_layouts] = 1
+settings[omega_layout] = site-frontend-three-column
+settings[omega_toggle_extension_development] = 1
+settings[omega_rebuild_theme_registry] = 1
+settings[omega_rebuild_aggregates] = 1
+settings[omega_browser_width_indicator] = 1
+settings[omega_livereload] = 1
+settings[omega_livereload_script] = http://localhost:35729/livereload.js
+settings[omega_livereload_host] = localhost
+settings[omega_livereload_port] = 35729
+settings[omega_demo_regions] = 1
+settings[omega_demo_regions_list][header_branding] = header_branding
+settings[omega_demo_regions_list][header_top_menu] = header_top_menu
+settings[omega_demo_regions_list][header_search] = header_search
+settings[omega_demo_regions_list][header_main_menu] = header_main_menu
+settings[omega_demo_regions_list][header_social_media] = header_social_media
+settings[omega_demo_regions_list][breadcrumb] = breadcrumb
+settings[omega_demo_regions_list][accessibility] = accessibility
+settings[omega_demo_regions_list][system_highlighted] = system_highlighted
+settings[omega_demo_regions_list][system_help] = system_help
+settings[omega_demo_regions_list][content] = content
+settings[omega_demo_regions_list][sidebar_first] = sidebar_first
+settings[omega_demo_regions_list][bottom_menu] = bottom_menu
+settings[omega_demo_regions_list][footer_copyright] = footer_copyright
+settings[omega_demo_regions_list][footer_menu] = footer_menu
+settings[omega_demo_regions_list][footer_buttons] = footer_buttons
+settings[omega_demo_regions_list][sidebar_second] = 0
+settings[omega_toggle_extension_compatibility] = 1
+settings[omega_conditional_classes_html] = 1
+settings[omega_apple_touch] = 1
+settings[omega_cleartype] = 1
+settings[omega_handheld_friendly] = 1
+settings[omega_mobile_optimized] = 1
+settings[omega_viewport] = 1
+settings[omega_viewport_user_scaleable] = 1
+settings[omega_chrome_edge] = 1
+settings[omega_chrome_popup] = 0
+settings[omega_chrome_notice] = 0
+settings[omega_toggle_extension_assets] = 1
+settings[omega_libraries][selectivizr][status] = 1
+settings[omega_libraries][respond][status] = 1
+settings[omega_libraries][pie][status] = 1
+settings[omega_libraries][html5shiv][status] = 1

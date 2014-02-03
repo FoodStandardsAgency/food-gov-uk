@@ -1,0 +1,94 @@
+a, a:visited {
+	
+}
+a:hover {
+	
+}
+a.active {
+	
+}
+
+// example application: <a class="orange-arrow green-link">Some link</a>
+a {
+	&.orange-arrow {
+		
+	}
+	&.green-arrow {
+		
+	}
+	&.green-link {
+		
+		&:visited {
+			
+		}
+		&:hover {
+			
+		}
+	}
+	&.black-link {
+		
+		&:visited {
+			
+		}
+		&:hover {
+			
+		}
+	}
+	&.blue-link {
+		
+		&:visited {
+			
+		}
+		&:hover {
+			
+		}
+	}
+}
+
+// example application is in the block class field, like this: green-arrow green-link OR like this: orange-arrow green-link
+.orange-arrow {
+  .block__content li a {
+	
+	}
+}
+.green-arrow {
+	.block__content li a {
+	
+	}
+}
+.green-link {
+	.block__content {
+	  li {
+		  a, a:visited {
+			
+			}
+			a:hover {
+				
+			}
+		}
+  }
+}
+.black-link {
+	.block__content {
+	  li {
+		  a, a:visited {
+			
+			}
+			a:hover {
+				
+			}
+		}
+  }
+}
+.blue-link {
+	.block__content {
+	  li {
+		  a, a:visited {
+			
+			}
+			a:hover {
+				
+			}
+		}
+  }
+}

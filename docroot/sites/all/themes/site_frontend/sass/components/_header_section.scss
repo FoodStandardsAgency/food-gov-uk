@@ -1,0 +1,15 @@
+.header-wrapper {
+  border-bottom: 3px solid #74ae27;
+  background: -moz-linear-gradient(top,#2a8641 0,#016c4e 100%);
+	background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#2a8641),color-stop(100%,#016c4e));
+	background: -webkit-linear-gradient(top,#2a8641 0,#016c4e 100%);
+	background: -o-linear-gradient(top,#2a8641 0,#016c4e 100%);
+	background: -ms-linear-gradient(top,#2a8641 0,#016c4e 100%);
+	background: linear-gradient(top,#2a8641 0,#016c4e 100%);
+}
+.header-top {
+	min-height: 80px;
+}
+.site-logo img {
+	margin-top: 10px;
+}

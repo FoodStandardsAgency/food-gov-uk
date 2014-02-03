@@ -1,0 +1,205 @@
+@import "compass";
+@import "breakpoint";
+@import "singularitygs";
+
+// Globbing from within sub-folders only works with relative paths.
+@import "../../variables/**/*";
+
+.header-wrapper {
+	background-color: green;
+	overflow: hidden;
+}
+.header-top {
+	overflow: hidden;
+}
+.header-bottom {
+	overflow: hidden;
+}
+.l-breadcrumb-accessibility {
+	overflow: hidden;
+}
+.l-main {
+	overflow: hidden;
+}
+.bottom-menu-wrapper-inner {
+  overflow: hidden;	
+}
+.l-footer {
+	overflow: hidden;
+}
+.footer-top {
+	overflow: hidden;
+} 
+.footer-bottom {
+	overflow: hidden;
+}
+.footer-wrapper {
+	overflow: hidden;
+}
+.footer-wrapper-inner {
+	overflow: hidden;
+}
+
+/* layout - desktop first approach */
+.header-wrapper-inner,
+.l-breadcrumb-accessibility,
+.l-main,
+.bottom-menu-wrapper-inner,
+.l-footer {
+	width: 960px;		// we are using border box plugin so padding will not increase the width of the box 
+	padding-left: 6px;
+	padding-right: 6px;
+	margin: 0 auto;
+}
+.l-header-branding {
+	@include grid-span(3,1);
+}
+.l-header-top-menu {
+	@include grid-span(6,4);
+}
+.l-header-search {
+	@include grid-span(3,10);
+}
+.header-bottom {
+	@include clearfix;
+}
+.l-header-main-menu {
+	@include grid-span(9,1);
+}
+.l-header-social-media {
+	@include grid-span(3,10);
+}
+.breadcrumb-accessibility-wrapper {
+	 @include clearfix;
+}
+.l-breadcrumb {
+	@include grid-span(9,1);
+}
+.l-accessibility {
+	@include grid-span(3,10);
+}
+.main-wrapper {
+	@include clearfix;
+}
+.l-sidebar-first {
+	@include grid-span(3,1);
+}
+.l-content {
+	@include grid-span(6,4);
+}
+.l-sidebar-second {
+	@include grid-span(3,10);
+}
+.bottom-menu-wrapper {
+	@include clearfix;
+}
+.l-bottom-menu {
+	@include grid-span(12,1);
+}
+.footer-bottom {
+	@include clearfix;
+}
+.l-footer-copyright {
+	@include grid-span(12,1);
+}
+.l-footer-menu {
+	@include grid-span(9,1);
+}
+.l-footer-buttons {
+	@include grid-span(3,10);
+}
+
+/* mobile layout */
+@include breakpoint($mobile) {
+	.header-wrapper-inner,
+	.l-breadcrumb-accessibility,
+	.l-main,
+	.bottom-menu-wrapper-inner,
+	.l-footer {
+		width: 100%;		// we are using border box plugin so padding will not increase the width of the box 
+		padding-left: 6px;
+		padding-right: 6px;
+		margin: 0;
+	}
+	.l-header-branding {
+		@include grid-span(6,1);
+	}
+	.l-header-top-menu {
+		@include grid-span(6,7);
+	}
+	.l-header-search {
+		@include grid-span(12,1);
+		clear: both;
+		float: none;
+	}
+	.header-bottom {
+		@include clearfix;
+	}
+	.l-header-main-menu {
+		@include grid-span(12,1);
+		clear: both;
+		float: none;
+	}
+	.l-header-social-media {
+		@include grid-span(0,0);
+		clear: both;
+		float: none;
+		display: none;
+	}
+	.breadcrumb-accessibility-wrapper {
+		 @include clearfix;
+	}
+	.l-breadcrumb {
+		@include grid-span(12,1);
+		clear: both;
+		float: none;
+	}
+	.l-accessibility {
+		@include grid-span(0,0);
+		display: none;
+	}
+	.main-wrapper {
+		@include clearfix;
+	}
+	.l-sidebar-first {
+		@include grid-span(12,1);
+		clear: both;
+		float: none;
+	}
+	.l-content {
+		@include grid-span(12,1);
+		clear: both;
+		float: none;
+	}
+	.l-sidebar-second {
+		@include grid-span(12,1);
+		clear: both;
+		float: none;
+	}
+	.bottom-menu-wrapper {
+		@include clearfix;
+	}
+	.l-bottom-menu {
+		@include grid-span(12,1);
+		clear: both;
+		float: none;
+	}
+	.footer-bottom {
+		@include clearfix;
+	}
+	.l-footer-copyright {
+		@include grid-span(12,1);
+		clear: both;
+		float: none;
+	}
+	.l-footer-menu {
+		@include grid-span(12,1);
+		clear: both;
+		float: none;
+	}
+	.l-footer-buttons {
+		@include grid-span(12,1);
+		clear: both;
+		float: none;
+	}	
+}

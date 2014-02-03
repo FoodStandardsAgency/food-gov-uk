@@ -1,0 +1,220 @@
+/* bocks in sidebar second */
+.l-region--sidebar-second .block {
+	margin-bottom: 11px;
+}
+
+
+/* block class usage example: Interactive block - to apply to block, in block admin, edit block and add "grey-block" to the block class textbox */
+.grey-block {
+	border: 1px solid #e8e8e8;
+	-webkit-border-radius: 9px;
+	-moz-border-radius: 9px;
+	-o-border-radius: 9px;
+	-ms-border-radius: 9px;
+	border-radius: 9px;
+	h2.block__title {
+		font-size: 1.5em;
+		color: #fff;
+		padding: .3em 11px;
+		margin: 0;
+		-webkit-border-radius: 9px 9px 0 0;
+		-moz-border-radius: 9px 9px 0 0;
+		-o-border-radius: 9px 9px 0 0;
+		-ms-border-radius: 9px 9px 0 0;
+		border-radius: 9px 9px 0 0;
+		background: #999;
+		background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+		background: -moz-linear-gradient(top,#999 6%,#3e3e3e 100%);
+		background: -webkit-gradient(linear,left top,left bottom,color-stop(6%,#999),color-stop(100%,#3e3e3e));
+		background: -webkit-linear-gradient(top,#999 6%,#3e3e3e 100%);
+		background: -o-linear-gradient(top,#999 6%,#3e3e3e 100%);
+		background: -ms-linear-gradient(top,#999 6%,#3e3e3e 100%);
+		background: linear-gradient(top,#999 6%,#3e3e3e 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#999999',endColorstr='#3e3e3e',GradientType=0);
+		border-bottom: none;
+	}
+	.block__content {
+		padding: 1em 11px .3em 11px;
+		background: #fff;
+	}
+}
+
+/* block class usage example: Popular links block or Search for guidance block - to apply to block, in block admin, edit block and add "purple-block" to the block class textbox */
+.purple-block {
+	-webkit-border-radius: 9px;
+	-moz-border-radius: 9px;
+	-o-border-radius: 9px;
+	-ms-border-radius: 9px;
+	border-radius: 9px;
+	background: #9e218a;
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+	background: -moz-linear-gradient(top,#9e218a 1%,#5d0050 100%);
+	background: -webkit-gradient(linear,left top,left bottom,color-stop(1%,#9e218a),color-stop(100%,#5d0050));
+	background: -webkit-linear-gradient(top,#9e218a 1%,#5d0050 100%);
+	background: -o-linear-gradient(top,#9e218a 1%,#5d0050 100%);
+	background: -ms-linear-gradient(top,#9e218a 1%,#5d0050 100%);
+	background: linear-gradient(top,#9e218a 1%,#5d0050 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#9e218a',endColorstr='#5d0050',GradientType=0);
+	h2.block__title {
+		font-size: 1.5em;
+		color: #fff;
+		padding: .5em 11px .15em 11px;
+		margin: 0;
+	}
+	.block__content {
+		color: #fff;
+		padding: .5em 11px .3em 11px;
+	}
+}
+
+/* block class usage example: Current topics or Resources - to apply to block, in block admin, edit block and add "blue-block" to the block class textbox */
+.blue-block {
+	-webkit-border-radius: 0 0 9px 9px;
+	-moz-border-radius: 0 0 9px 9px;
+	-o-border-radius: 0 0 9px 9px;
+	-ms-border-radius: 0 0 9px 9px;
+	border-radius: 0 0 9px 9px;
+	background: #f9fcfd;
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+	background: -moz-linear-gradient(top,#f9fcfd 1%,#d2e8f1 100%);
+	background: -webkit-gradient(linear,left top,left bottom,color-stop(1%,#f9fcfd),color-stop(100%,#d2e8f1));
+	background: -webkit-linear-gradient(top,#f9fcfd 1%,#d2e8f1 100%);
+	background: -o-linear-gradient(top,#f9fcfd 1%,#d2e8f1 100%);
+	background: -ms-linear-gradient(top,#f9fcfd 1%,#d2e8f1 100%);
+	background: linear-gradient(top,#f9fcfd 1%,#d2e8f1 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9fcfd',endColorstr='#d2e8f1',GradientType=0);
+	h2.block__title {
+		font-size: 1.5em;
+		color: #fff;
+		padding: .3em 11px;
+		margin: 0;
+		-webkit-border-radius: 9px 9px 0 0;
+		-moz-border-radius: 9px 9px 0 0;
+		-o-border-radius: 9px 9px 0 0;
+		-ms-border-radius: 9px 9px 0 0;
+		border-radius: 9px 9px 0 0;
+		background: #0781af;
+		background: -moz-linear-gradient(top,#0781af 50%,#027099 100%);
+		background: -webkit-gradient(linear,left top,left bottom,color-stop(50%,#0781af),color-stop(100%,#027099));
+		background: -webkit-linear-gradient(top,#0781af 50%,#027099 100%);
+		background: -o-linear-gradient(top,#0781af 50%,#027099 100%);
+		background: -ms-linear-gradient(top,#0781af 50%,#027099 100%);
+		background: linear-gradient(to bottom,#0781af 50%,#027099 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0781af',endColorstr='#027099',GradientType=0);
+		border-bottom: 1px solid #64b1cf;
+	}
+	.block__content {
+		padding: 1em 11px .3em 11px;
+	}
+}
+
+/* block class usage example: FSA in the nations - to apply to block, in block admin, edit block and add "blue-block-white-background" to the block class textbox */
+.blue-block-white-background {
+  background: #fff;
+	h2.block__title {
+		font-size: 1.5em;
+		color: #fff;
+		padding: .3em 11px;
+		margin: 0;
+		-webkit-border-radius: 9px 9px 0 0;
+		-moz-border-radius: 9px 9px 0 0;
+		-o-border-radius: 9px 9px 0 0;
+		-ms-border-radius: 9px 9px 0 0;
+		border-radius: 9px 9px 0 0;
+		background: #0781af;
+		background: -moz-linear-gradient(top,#0781af 50%,#027099 100%);
+		background: -webkit-gradient(linear,left top,left bottom,color-stop(50%,#0781af),color-stop(100%,#027099));
+		background: -webkit-linear-gradient(top,#0781af 50%,#027099 100%);
+		background: -o-linear-gradient(top,#0781af 50%,#027099 100%);
+		background: -ms-linear-gradient(top,#0781af 50%,#027099 100%);
+		background: linear-gradient(to bottom,#0781af 50%,#027099 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0781af',endColorstr='#027099',GradientType=0);
+		border-bottom: 1px solid #64b1cf;
+	}
+	.block__content {
+		padding: 1em 11px .3em 11px;
+		border: 1px solid #bbddea;
+		-webkit-border-radius: 0 0 9px 9px;
+		-moz-border-radius: 0 0 9px 9px;
+		-o-border-radius: 0 0 9px 9px;
+		-ms-border-radius: 0 0 9px 9px;
+		border-radius: 0 0 9px 9px;
+	}
+}
+
+/* block class usage example: Business and industry or Enforcement and regulation or Science and research - to apply to block, in block admin, edit block and add "green-block" to the block class textbox*/
+.green-block {
+	-moz-border-radius-topleft: 0;
+	-moz-border-radius-topright: 0;
+	-moz-border-radius-bottomright: 9px;
+	-moz-border-radius-bottomleft: 9px;
+	-webkit-border-radius: 0 0 9px 9px;
+	border-radius: 0 0 9px 9px;
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+	background: -moz-linear-gradient(top,#f0f5e7 0,#dde9c9 100%);
+	background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#f0f5e7),color-stop(100%,#dde9c9));
+	background: -webkit-linear-gradient(top,#f0f5e7 0,#dde9c9 100%);
+	background: -o-linear-gradient(top,#f0f5e7 0,#dde9c9 100%);
+	background: -ms-linear-gradient(top,#f0f5e7 0,#dde9c9 100%);
+	background: linear-gradient(top,#f0f5e7 0,#dde9c9 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f0f5e7',endColorstr='#dde9c9',GradientType=0);
+	h2.block__title {
+		font-size: 1.5em;
+		color: #fff;
+		padding: .3em 11px;
+		margin: 0;
+		-moz-border-radius-topleft: 9px;
+		-moz-border-radius-topright: 9px;
+		-moz-border-radius-bottomright: 0;
+		-moz-border-radius-bottomleft: 0;
+		-webkit-border-radius: 9px 9px 0 0;
+		-o-border-radius: 9px 9px 0 0;
+		-ms-border-radius: 9px 9px 0 0;
+		border-radius: 9px 9px 0 0;
+		background: #3b9356;
+		background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+		background: -moz-linear-gradient(top,#3b9356 0,#02684a 100%);
+		background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#3b9356),color-stop(100%,#02684a));
+		background: -webkit-linear-gradient(top,#3b9356 0,#02684a 100%);
+		background: -o-linear-gradient(top,#3b9356 0,#02684a 100%);
+		background: -ms-linear-gradient(top,#3b9356 0,#02684a 100%);
+		background: linear-gradient(top,#3b9356 0,#02684a 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3b9356',endColorstr='#02684a',GradientType=0);
+	}
+	.block__content {
+		padding: 1em 11px .3em 11px;
+	}
+}
+
+.light-grey-block {
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	-o-border-radius: 8px;
+	-ms-border-radius: 8px;
+	border-radius: 8px;
+	background: #f5f8f1;
+	h2.block__title {
+		font-size: 1.5em;
+		color: #4b800d;
+		padding: .5em 11px .15em 11px;
+		margin: 0;
+	}
+	.block__content {
+		padding: .5em 11px .3em 11px;
+	}
+}
+
+/* blocks in main content area */
+.l-content {
+	.green-block,
+	.blue-block {
+		margin-bottom: 11px;
+	}
+	.light-grey-block {
+		h2.block__title {
+			font-size: 1.6em;
+			font-weight: normal;
+			padding: .46875em 11px .140625em 11px;
+		}
+	}
+}

@@ -1,0 +1,5 @@
+$grids: 12;               // sets total number of columns for the theme
+$gutters: 12px;           // sets space between columns
+$gutter-styles: 'split';  // this means that the width of the gutter will be split 50% on the left of the column and 50% on the right. A 12px gutter would then be implemnted as 6px on the left and 6px on the right.
+
+$mobile: 0px 480px;       // min and max width that mobile view kicks in
