@@ -124,7 +124,8 @@ switch (getenv('AH_SITE_ENVIRONMENT')) {
 
     // Enable some handy module
     $conf['environment_modules'] = array(
-      'devel' => 'sites/all/modules/contrib/devel/devel.module',
+      'devel' => 'sites/all/modules/development/devel/devel.module',
+      //'shield' => 'sites/all/modules/development/shield/shield.module',
       //'stage_file_proxy' => 'sites/all/modules/contrib/contrib/stage_file_proxy/stage_file_proxy.module',
     );
 
@@ -188,7 +189,7 @@ switch (getenv('AH_SITE_ENVIRONMENT')) {
 
     // Enable some handy module
     $conf['environment_modules'] = array(
-      'devel' => 'sites/all/modules/contrib/devel/devel.module',
+      'devel' => 'sites/all/modules/development/devel/devel.module',
       //'stage_file_proxy' => 'sites/all/modules/contrib/contrib/stage_file_proxy/stage_file_proxy.module',
     );
     // Disable memcache.
