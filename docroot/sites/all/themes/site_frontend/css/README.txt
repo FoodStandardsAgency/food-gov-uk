@@ -1,1 +1,0 @@
-This theme uses SASS and no edits should be made directly to the CSS files. All theme CSS is added to the SASS folder within this theme. When the SASS files are compiled, they will overwrite ALL these CSS files. Any CSS edits you add directly to CSS files WILL be overwritten. Be warned.
