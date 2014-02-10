@@ -1,0 +1,43 @@
+.nation-menu {
+	ul {
+		padding: 0;
+		margin: 0;
+	}
+	ul.menu .leaf {
+		list-style-image: none;
+		list-style-type: none;
+	}
+	li {
+		font-size: 1.1em;
+		display: inline-block;
+		margin: 0;
+		padding: 0 10px 0 10px;
+		border-right: 1px solid #ffffff;
+		*display: inline;	// for IE old versions
+		zoom: 1;					// for IE old versions
+	}
+	li.last {
+		border-right: none;
+	}
+	a, a:visited {
+		color: #ffffff;
+		text-decoration: none;
+	}
+	a:hover {
+		text-decoration: underline;
+	}
+	a.active {
+		font-weight: bold;
+	}
+}
+/* mobile layout */
+@include breakpoint($mobile) {
+	.nation-menu {
+		li {
+			display: block;
+			padding: 0 0 0.75em 0;
+			text-align: right;
+		}
+	}
+}
+

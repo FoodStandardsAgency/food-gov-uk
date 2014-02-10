@@ -314,3 +314,36 @@ p, ul, ol, dl, address, blockquote {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_header_section\.scss}line{font-family:\0000313}}
 .site-logo img {
   margin-top: 10px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_nation_menu\.scss}line{font-family:\000032}}
+.nation-menu ul {
+  padding: 0;
+  margin: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_nation_menu\.scss}line{font-family:\000036}}
+.nation-menu ul.menu .leaf {
+  list-style-image: none;
+  list-style-type: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_nation_menu\.scss}line{font-family:\0000310}}
+.nation-menu li {
+  font-size: 1.1em;
+  display: inline-block;
+  margin: 0;
+  padding: 0 10px 0 10px;
+  border-right: 1px solid #ffffff;
+  *display: inline;
+  zoom: 1; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_nation_menu\.scss}line{font-family:\0000319}}
+.nation-menu li.last {
+  border-right: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_nation_menu\.scss}line{font-family:\0000322}}
+.nation-menu a, .nation-menu a:visited {
+  color: #ffffff;
+  text-decoration: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_nation_menu\.scss}line{font-family:\0000326}}
+.nation-menu a:hover {
+  text-decoration: underline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_nation_menu\.scss}line{font-family:\0000329}}
+.nation-menu a.active {
+  font-weight: bold; }
+
+/* mobile layout */
