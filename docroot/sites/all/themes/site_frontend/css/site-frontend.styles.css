@@ -352,4 +352,5 @@ p, ul, ol, dl, address, blockquote {
   .nation-menu li {
     display: block;
     padding: 0 0 0.75em 0;
-    text-align: right; } }
+    text-align: right;
+    border-right: 0px; } }
