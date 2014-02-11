@@ -1,0 +1,34 @@
+.footer-menu {
+	margin-top: 10px;
+	ul {
+		padding: 0;
+		margin: 0;
+	}
+	ul.menu .leaf {
+		list-style-image: none;
+		list-style-type: none;
+	}
+	li {
+		font-size: 1.1em;
+		line-height: 1em;
+		display: inline-block;
+		margin: 0;
+		padding: 0 4px 0 4px;
+		border-right: 1px solid #333333;
+		*display: inline;	// for IE old versions
+		zoom: 1;					// for IE old versions
+	}
+	li.last {
+		border-right: none;
+	}
+	a, a:visited {
+		color: #333333;
+		text-decoration: none;
+	}
+	a:hover {
+		text-decoration: underline;
+	}
+	a.active {
+		font-weight: bold;
+	}
+}
