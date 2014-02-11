@@ -1,5 +1,4 @@
 .footer-menu {
-	margin-top: 10px;
 	ul {
 		padding: 0;
 		margin: 0;
@@ -12,9 +11,9 @@
 		font-size: 1.1em;
 		line-height: 1em;
 		display: inline-block;
-		margin: 0;
-		padding: 0 4px 0 4px;
-		border-right: 1px solid #333333;
+		margin: 0 0 0.909em 0;	// 1.1em x 10px x 0.909em = 10px bottom margin
+		padding: 0 5px 0 4px;
+		border-right: 1px solid #333;
 		*display: inline;	// for IE old versions
 		zoom: 1;					// for IE old versions
 	}
@@ -22,13 +21,13 @@
 		border-right: none;
 	}
 	a, a:visited {
-		color: #333333;
+		color: #333;
 		text-decoration: none;
 	}
 	a:hover {
 		text-decoration: underline;
 	}
 	a.active {
-		font-weight: bold;
+		font-weight: normal;
 	}
 }

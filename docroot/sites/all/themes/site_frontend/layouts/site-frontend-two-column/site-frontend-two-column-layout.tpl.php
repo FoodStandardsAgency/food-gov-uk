@@ -125,6 +125,7 @@
 	      <div class="footer-top">
 	        <div class="l-footer-copyright">
 		      <div class="footer-copyright-inner">
+				<span class="copyright">&copy; Crown Copyright</span>
 		        <?php print render($page['footer_copyright']); ?>
 		      </div> <!-- end l-footer-copyright -->
 		    </div> <!-- end footer-copyright-inner -->

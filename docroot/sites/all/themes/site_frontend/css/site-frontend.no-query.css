@@ -287,40 +287,37 @@ p, ul, ol, dl, address, blockquote {
 .main-wrapper {
   border-bottom: 4px solid #68A82A; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_menu\.scss}line{font-family:\000031}}
-.footer-menu {
-  margin-top: 10px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_menu\.scss}line{font-family:\000033}}
-  .footer-menu ul {
-    padding: 0;
-    margin: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_menu\.scss}line{font-family:\000037}}
-  .footer-menu ul.menu .leaf {
-    list-style-image: none;
-    list-style-type: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_menu\.scss}line{font-family:\0000311}}
-  .footer-menu li {
-    font-size: 1.1em;
-    line-height: 1em;
-    display: inline-block;
-    margin: 0;
-    padding: 0 4px 0 4px;
-    border-right: 1px solid #333333;
-    *display: inline;
-    zoom: 1; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_menu\.scss}line{font-family:\0000321}}
-  .footer-menu li.last {
-    border-right: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_menu\.scss}line{font-family:\0000324}}
-  .footer-menu a, .footer-menu a:visited {
-    color: #333333;
-    text-decoration: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_menu\.scss}line{font-family:\0000328}}
-  .footer-menu a:hover {
-    text-decoration: underline; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_menu\.scss}line{font-family:\0000331}}
-  .footer-menu a.active {
-    font-weight: bold; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_menu\.scss}line{font-family:\000032}}
+.footer-menu ul {
+  padding: 0;
+  margin: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_menu\.scss}line{font-family:\000036}}
+.footer-menu ul.menu .leaf {
+  list-style-image: none;
+  list-style-type: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_menu\.scss}line{font-family:\0000310}}
+.footer-menu li {
+  font-size: 1.1em;
+  line-height: 1em;
+  display: inline-block;
+  margin: 0 0 0.909em 0;
+  padding: 0 5px 0 4px;
+  border-right: 1px solid #333;
+  *display: inline;
+  zoom: 1; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_menu\.scss}line{font-family:\0000320}}
+.footer-menu li.last {
+  border-right: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_menu\.scss}line{font-family:\0000323}}
+.footer-menu a, .footer-menu a:visited {
+  color: #333;
+  text-decoration: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_menu\.scss}line{font-family:\0000327}}
+.footer-menu a:hover {
+  text-decoration: underline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_menu\.scss}line{font-family:\0000330}}
+.footer-menu a.active {
+  font-weight: normal; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_section\.scss}line{font-family:\000031}}
 .footer-wrapper {
@@ -331,6 +328,19 @@ p, ul, ol, dl, address, blockquote {
 .footer-wrapper-inner {
   border-top: 1px solid #f9f9f9;
   border-bottom: 1px solid #f6f6f6; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_section\.scss}line{font-family:\000039}}
+.footer-inner {
+  padding-top: 10px;
+  padding-bottom: 10px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_section\.scss}line{font-family:\0000313}}
+span.copyright {
+  display: block;
+  font-size: 1.1em;
+  line-height: 1em;
+  margin-bottom: 0.909em;
+  color: #333; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_global_search\.scss}line{font-family:\000031}}
 .global-search {

@@ -6,3 +6,14 @@
 	border-top: 1px solid #f9f9f9;
 	border-bottom: 1px solid #f6f6f6;
 }
+.footer-inner {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+span.copyright {
+	display: block;
+	font-size: 1.1em;
+	line-height: 1em;
+	margin-bottom: 0.909em;		// 1.1em x 10px x 0.909em = 10px
+	color: #333;
+}
