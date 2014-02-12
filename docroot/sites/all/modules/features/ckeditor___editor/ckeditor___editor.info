@@ -1,0 +1,15 @@
+name = CKEditor
+description = CKEditor settings
+core = 7.x
+package = Base
+version = 7.x-1.1
+project = ckeditor___editor
+dependencies[] = ckeditor
+dependencies[] = features
+features[ckeditor_profile][] = CKEditor Global Profile
+features[ckeditor_profile][] = Filtered
+features[ckeditor_profile][] = Full
+features[features_api][] = api:2
+features[user_permission][] = administer ckeditor
+features[user_permission][] = customize ckeditor
+project path = sites/all/modules/features
