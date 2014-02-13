@@ -640,3 +640,14 @@ span.copyright {
     font-weight: bold; }
 
 /* mobile layout */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_social_media_icons\.scss}line{font-family:\000033}}
+.social-media-icons {
+  list-style-type: none;
+  padding: 0;
+  margin: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_social_media_icons\.scss}line{font-family:\000037}}
+  .social-media-icons li {
+    list-style-type: none;
+    float: right;
+    padding: 0;
+    margin-left: 0 0 0 7px; }
