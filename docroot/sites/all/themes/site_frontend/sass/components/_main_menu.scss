@@ -119,8 +119,10 @@
 	  top: 43px;
 	  left: -35px;
 	}
+	/* top level tabs */
 	li.sf-depth-1 {
 		margin-right: 5px;
+		max-width: 122px;
 	}
 	li.sf-depth-1 > a {
 		border-top: 2px solid #fff;
@@ -154,6 +156,16 @@
 		-ms-border-radius: 0 0 3px 3px;
 		-o-border-radius: 0 0 3px 3px;
 		border-radius: 0 0 3px 3px;
+	}
+	/* when there is only one child menu item */
+	li.sf-depth-2.firstandlast a {
+		border-top: 3px solid #d0d0d0;
+		border-bottom: 3px solid #d0d0d0;
+		-moz-border-radius: 3px 3px 3px 3px;
+		-webkit-border-radius: 3px 3px 3px 3px;
+		-ms-border-radius: 3px 3px 3px 3px;
+		-o-border-radius: 3px 3px 3px 3px;
+		border-radius: 3px 3px 3px 3px;
 	}
 	li li:hover > ul,
 	li li.sfHover > ul {
