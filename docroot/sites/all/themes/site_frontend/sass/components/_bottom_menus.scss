@@ -1,0 +1,39 @@
+.bottom-menu {
+	width: 16.6%;	// 16.6% x 6 = 99.6% of bottom menu section area
+	float: left;
+	padding-right: 12px;	// remember this themes uses box model plugin so width does not increase with padding.
+	margin-top: 10px;
+	ul {
+		padding: 0;
+		margin: 0;
+	}
+	ul.menu .leaf {
+		list-style-image: none;
+		list-style-type: none;
+	}
+	li {
+		list-style-type: none;
+		font-size: 1em;	// so we can work on a 10px base for nested em's
+		margin: 0;
+		padding: 0;
+	}
+	li.first a {
+		font-size: 1.4em;
+		line-height: 1.4em;
+		font-weight: bold;
+		min-height: 2.5em;
+	}
+	li a {
+		font-size: 1.1em;
+		line-height: 1.4em;
+		margin: 0 0 .5em 0;
+	}
+	a, a:visited {
+		color: #ffffff;
+		text-decoration: none;
+		display: block;
+	}
+	a:hover {
+		text-decoration: underline;
+	}
+}
