@@ -1,0 +1,7 @@
+name = Preserve Filter
+description = Input filter that changes filtering when it finds a preserve tag.
+core = 7.x
+package = Local
+
+
+

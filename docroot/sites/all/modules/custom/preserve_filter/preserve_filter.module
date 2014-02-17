@@ -1,0 +1,111 @@
+<?php
+
+
+/**
+ * Implements hook_filter_info().
+ */
+function preserve_filter_filter_info() {
+  $filters = array();
+  $filters['preserve_filter'] = array(
+    'title' => t('Preserve formatter'),
+    'description' => t('Preserve HTML found within preserve tags.'),
+    'settings callback' => '_preserve_filter_settings',
+    'default settings' => array(
+      'allowed_html' => '<a> <em> <strong> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd>',
+      'filter_html_help' => 0,
+      'filter_html_nofollow' => 0,
+    ),
+    //'prepare callback' => '_preserve_filter_prepare',
+    'process callback' => '_preserve_filter_process',
+    //'tips callback' => '_preserve_filter_tips',
+    'cache' => FALSE,
+  );
+  return $filters;
+}
+
+/**
+ * Implements filter settings callback.
+ */
+function _preserve_filter_settings($form, &$form_state, $filter, $format, $defaults) {
+  $filter->settings += $defaults;
+
+  $settings['allowed_html'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Allowed HTML tags'),
+    '#default_value' => $filter->settings['allowed_html'],
+    '#maxlength' => 1024,
+    '#description' => t('A list of HTML tags that can be used. Anything inside preserve tags will be left unchanged.'),
+  );
+
+  return $settings;
+}
+
+/**
+ * Implements filter prepare callback.
+ */
+function _preserve_filter_prepare() {
+
+}
+
+/**
+ * Implements callback_filter_process().
+ *
+ * Provides filtering of input into accepted HTML.
+ */
+function _preserve_filter_process($text, $filter) {
+  $allowed_tags = preg_split('/\s+|<|>/', $filter->settings['allowed_html'], -1, PREG_SPLIT_NO_EMPTY);
+  $allowed_tags[] = 'preserve';
+
+  $text = preg_replace_callback('/<preserve>(.*?)<\/preserve>/s', '_preserve_filter_placeholders', $text);
+  $text = filter_xss($text, $allowed_tags);
+  $text = preg_replace_callback('/<preserve>(.*?)<\/preserve>/s', '_preserve_filter_placeholders_fill', $text);
+
+  return trim($text);
+}
+
+/**
+ * Implements filter tips callback.
+ */
+function _preserve_filter_tips() {
+
+}
+
+/**
+ * Replace preserved elements with a placeholder so the rest of the content can be sanitised.
+ *
+ **/
+function _preserve_filter_placeholders($matches) {
+
+  static $count = 0;
+  $count++;
+  _preserve_filter_preserved($matches[1]);
+
+  return '<preserve>' . $count . '</preserve>';
+}
+
+/**
+ * Replace placeholders with orginal text after content has been sanitised.
+ *
+ **/
+function _preserve_filter_placeholders_fill($matches) {
+
+  static $count = 0;
+  $count++;
+  $content = _preserve_filter_preserved();
+
+  return '<preserve>' . $content[$count - 1] . '</preserve>';
+}
+
+/**
+ * Store preserved content temporarely.
+ *
+ **/
+function _preserve_filter_preserved($match = NULL) {
+  static $matches = array();
+
+  if ($match) {
+    $matches[] = $match;
+  }
+
+  return $matches;
+}
