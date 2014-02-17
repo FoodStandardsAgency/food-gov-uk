@@ -9,7 +9,6 @@
  */
 
 (function ($) {
-
   // Make sure our objects are defined.
   Drupal.CTools = Drupal.CTools || {};
   Drupal.CTools.Modal = Drupal.CTools.Modal || {};
@@ -33,7 +32,7 @@
     var defaults = {
       modalTheme: 'CToolsModalDialog',
       throbberTheme: 'CToolsModalThrobber',
-      animation: 'fadeIn',
+      animation: 'show',
       animationSpeed: 'fast',
       modalSize: {
         type: 'scale',
@@ -62,16 +61,49 @@
 
     Drupal.CTools.Modal.currentSettings = settings;
 
+    var resize = function(e) {
+      // When creating the modal, it actually exists only in a theoretical
+      // place that is not in the DOM. But once the modal exists, it is in the
+      // DOM so the context must be set appropriately.
+      var context = e ? document : Drupal.CTools.Modal.modal;
+
+      if (Drupal.CTools.Modal.currentSettings.modalSize.type == 'scale') {
+        var width = $(window).width() * Drupal.CTools.Modal.currentSettings.modalSize.width;
+        var height = $(window).height() * Drupal.CTools.Modal.currentSettings.modalSize.height;
+      }
+      else {
+        var width = Drupal.CTools.Modal.currentSettings.modalSize.width;
+        var height = Drupal.CTools.Modal.currentSettings.modalSize.height;
+      }
+
+      // Use the additionol pixels for creating the width and height.
+      $('div.ctools-modal-content', context).css({
+        'width': width + Drupal.CTools.Modal.currentSettings.modalSize.addWidth + 'px',
+        'height': height + Drupal.CTools.Modal.currentSettings.modalSize.addHeight + 'px'
+      });
+      $('div.ctools-modal-content .modal-content', context).css({
+        'width': (width - Drupal.CTools.Modal.currentSettings.modalSize.contentRight) + 'px',
+        'height': (height - Drupal.CTools.Modal.currentSettings.modalSize.contentBottom) + 'px'
+      });
+    }
+
     if (!Drupal.CTools.Modal.modal) {
       Drupal.CTools.Modal.modal = $(Drupal.theme(settings.modalTheme));
-    };
+      if (settings.modalSize.type == 'scale') {
+        $(window).bind('resize', resize);
+      }
+    }
 
+    resize();
 
     $('span.modal-title', Drupal.CTools.Modal.modal).html(Drupal.CTools.Modal.currentSettings.loadingText);
     Drupal.CTools.Modal.modalContent(Drupal.CTools.Modal.modal, settings.modalOptions, settings.animation, settings.animationSpeed);
     $('#modalContent .modal-content').html(Drupal.theme(settings.throbberTheme));
 
-    $(window).trigger('resize');
+    // Position autocomplete results based on the scroll position of the modal.
+    $('#modalContent .modal-content').delegate('input.form-autocomplete', 'keyup', function() {
+      $('#autocomplete').css('top', $(this).position().top + $(this).outerHeight() + $(this).offsetParent().filter('#modal-content').scrollTop());
+    });
   };
 
   /**
@@ -195,7 +227,11 @@
         // AJAX submits specified in this manner automatically submit to the
         // normal form action.
         element_settings.url = Drupal.CTools.Modal.findURL(this);
+        if (element_settings.url == '') {
+          element_settings.url = $(this).closest('form').attr('action');
+        }
         element_settings.event = 'click';
+        element_settings.setClick = true;
 
         var base = $this.attr('id');
         Drupal.ajax[base] = new Drupal.ajax(base, this, element_settings);
@@ -255,9 +291,10 @@
     // content. This is helpful for allowing users to see error messages at the
     // top of a form, etc.
     $('#modal-content').html(response.output).scrollTop(0);
-    // Trigger a resize event to make sure modal is in the right place.
-    $(window).trigger('resize');
-    Drupal.attachBehaviors();
+
+    // Attach behaviors within a modal dialog.
+    var settings = response.settings || ajax.settings || Drupal.settings;
+    Drupal.attachBehaviors('#modalContent', settings);
   }
 
   /**
@@ -342,6 +379,15 @@
     if ( $('#modalBackdrop')) $('#modalBackdrop').remove();
     if ( $('#modalContent')) $('#modalContent').remove();
 
+    // position code lifted from http://www.quirksmode.org/viewport/compatibility.html
+    if (self.pageYOffset) { // all except Explorer
+    var wt = self.pageYOffset;
+    } else if (document.documentElement && document.documentElement.scrollTop) { // Explorer 6 Strict
+      var wt = document.documentElement.scrollTop;
+    } else if (document.body) { // all other Explorers
+      var wt = document.body.scrollTop;
+    }
+
     // Get our dimensions
 
     // Get the docHeight and (ugly hack) add 50 pixels to make sure we dont have a *visible* border below our div
@@ -353,48 +399,6 @@
 
     // Create our divs
     $('body').append('<div id="modalBackdrop" style="z-index: 1000; display: none;"></div><div id="modalContent" style="z-index: 1001; position: absolute;">' + $(content).html() + '</div>');
-
-    setSize = function(context) {
-      var width = 0;
-      var height = 0;
-
-      if (Drupal.CTools.Modal.currentSettings.modalSize.type == 'scale') {
-        width = $(window).width() * Drupal.CTools.Modal.currentSettings.modalSize.width;
-        height = $(window).height() * Drupal.CTools.Modal.currentSettings.modalSize.height;
-      }
-      else {
-        width = Drupal.CTools.Modal.currentSettings.modalSize.width;
-        height = Drupal.CTools.Modal.currentSettings.modalSize.height;
-      }
-
-      if (Drupal.CTools.Modal.currentSettings.modalSize.type == 'dynamic') {
-        // Use the additionol pixels for creating the width and height.
-        $('div.ctools-modal-content', context).css({
-          'min-width': Drupal.CTools.Modal.currentSettings.modalSize.width,
-          'min-height': Drupal.CTools.Modal.currentSettings.modalSize.height,
-          'width': 'auto',
-          'height': 'auto'
-        });
-        $('#modalContent').css({'width': 'auto'});
-      }
-      else {
-        // Use the additional pixels for creating the width and height.
-        $('div.ctools-modal-content', context).css({
-          'width': width + Drupal.CTools.Modal.currentSettings.modalSize.addWidth + 'px',
-          'height': height + Drupal.CTools.Modal.currentSettings.modalSize.addHeight + 'px'
-        });
-        $('#modalContent', context).css({
-          'width': width + Drupal.CTools.Modal.currentSettings.modalSize.addWidth + 'px',
-          'height': height + Drupal.CTools.Modal.currentSettings.modalSize.addHeight + 'px'
-        });
-        $('div.ctools-modal-content .modal-content', context).css({
-          'width': (width - Drupal.CTools.Modal.currentSettings.modalSize.contentRight) + 'px',
-          'height': (height - Drupal.CTools.Modal.currentSettings.modalSize.contentBottom) + 'px'
-        });
-      }
-    }
-
-    setSize(document);
 
     // Keyboard and focus event handler ensures focus stays on modal elements only
     modalEventHandler = function( event ) {
@@ -425,11 +429,10 @@
 
     // Create our content div, get the dimensions, and hide it
     var modalContent = $('#modalContent').css('top','-1000px');
-    var mdcTop = Math.max($(document).scrollTop() + ( winHeight / 2 ) - (  modalContent.outerHeight() / 2), 10);
-
-    var mdcLeft = Math.max(( winWidth / 2 ) - ( modalContent.outerWidth() / 2), 10);
+    var mdcTop = wt + ( winHeight / 2 ) - (  modalContent.outerHeight() / 2);
+    var mdcLeft = ( winWidth / 2 ) - ( modalContent.outerWidth() / 2);
     $('#modalBackdrop').css(css).css('top', 0).css('height', docHeight + 'px').css('width', docWidth + 'px').show();
-    modalContent.css({top: mdcTop + 'px', left: mdcLeft + 'px'}).hide()[animation](speed, function () { /* $(window).trigger('resize'); */ });
+    modalContent.css({top: mdcTop + 'px', left: mdcLeft + 'px'}).hide()[animation](speed);
 
     // Bind a click for closing the modalContent
     modalContentClose = function(){close(); return false;};
@@ -469,14 +472,7 @@
     };
 
     // Move and resize the modalBackdrop and modalContent on resize of the window
-    modalContentResize = function(e) {
-      // When creating the modal, it actually exists only in a theoretical
-      // place that is not in the DOM. But once the modal exists, it is in the
-      // DOM so the context must be set appropriately.
-      var context = e ? document : Drupal.CTools.Modal.modal;
-
-      setSize(context);
-
+     modalContentResize = function(){
       // Get our heights
       var docHeight = $(document).height();
       var docWidth = $(document).width();
@@ -486,38 +482,14 @@
 
       // Get where we should move content to
       var modalContent = $('#modalContent');
-
-      var height = Math.max(modalContent.outerHeight(), $('div.ctools-modal-content', context).outerHeight());
-      var width = Math.max(modalContent.outerWidth(), $('div.ctools-modal-content', context).outerWidth());
-
-      var mdcTop = Math.max($(document).scrollTop() + ( winHeight / 2 ) - (  height / 2), 10);
-      var mdcLeft = Math.max(( winWidth / 2 ) - ( width / 2), 10);
-
-      // Apply attributes to fix the position of the modal relative to current
-      // position of page. This is required when the modal is larger than the
-      // browser window. This enables the modal to scroll with the rest of the
-      // page, rather than remaining centered in the page whilst scrolling.
-      if (height > $(window).height()) {
-        if (e.type === 'resize') {
-          // Is a resize event so get the position of top relative to current
-          // position of document in browser window.
-          mdcTop = 10 + $(document).scrollTop();
-        }
-        else if (e.type === 'scroll') {
-          // Is a scroll event so mantain to current position of the modal
-          // relative to page.
-          var modalOffSet = modalContent.offset();
-          mdcTop = modalOffSet.y;
-        }
-      }
+      var mdcTop = ( winHeight / 2 ) - (  modalContent.outerHeight() / 2);
+      var mdcLeft = ( winWidth / 2 ) - ( modalContent.outerWidth() / 2);
 
       // Apply the changes
-      $('#modalBackdrop').css({'height': winHeight + 'px', 'width': winWidth + 'px', 'top': $(document).scrollTop()}).show();
+      $('#modalBackdrop').css('height', docHeight + 'px').css('width', docWidth + 'px').show();
       modalContent.css('top', mdcTop + 'px').css('left', mdcLeft + 'px').show();
     };
-
     $(window).bind('resize', modalContentResize);
-    $(window).bind('scroll', modalContentResize);
 
     $('#modalContent').focus();
   };
@@ -540,7 +512,6 @@
 
     // Unbind the events we bound
     $(window).unbind('resize', modalContentResize);
-    $(window).unbind('scroll', modalContentResize);
     $('body').unbind('focus', modalEventHandler);
     $('body').unbind('keypress', modalEventHandler);
     $('.close').unbind('click', modalContentClose);
