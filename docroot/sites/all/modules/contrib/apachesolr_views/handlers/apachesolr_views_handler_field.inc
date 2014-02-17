@@ -19,6 +19,18 @@ class apachesolr_views_handler_field extends views_handler_field {
   }
 
   /**
+   *  PATCHED: https://drupal.org/node/2037877#comment-7736559
+   *
+   **/
+  // Render the value.
+  function render($values) {
+    $value = $this->get_value($values);
+    $value = filter_xss($value, array('a', 'em', 'strong', 'cite', 'blockquote', 'code', 'ul', 'ol', 'li', 'dl', 'dt', 'dd',
+                                      'img', 'button', 'div', 'span', 'h2', 'h3', 'h4', 'article', 'br', 'p', 'table', 'tr', 'td'));
+    return $value;
+  }
+
+  /**
    * Called to determine what to tell the clicksorter.
    */
   function click_sort($order) {
