@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @file
+ * Filter for preserving content.
+ */
 
 /**
  * Implements hook_filter_info().
@@ -9,65 +13,33 @@ function preserve_filter_filter_info() {
   $filters['preserve_filter'] = array(
     'title' => t('Preserve formatter'),
     'description' => t('Preserve HTML found within preserve tags.'),
-    'settings callback' => '_preserve_filter_settings',
-    'default settings' => array(
-      'allowed_html' => '<a> <em> <strong> <cite> <blockquote> <code> <ul> <ol> <li> <dl> <dt> <dd>',
-      'filter_html_help' => 0,
-      'filter_html_nofollow' => 0,
-    ),
-    //'prepare callback' => '_preserve_filter_prepare',
+    'prepare callback' => '_preserve_filter_prepare',
     'process callback' => '_preserve_filter_process',
-    //'tips callback' => '_preserve_filter_tips',
-    'cache' => FALSE,
+    'cache' => TRUE,
   );
   return $filters;
 }
 
 /**
- * Implements filter settings callback.
- */
-function _preserve_filter_settings($form, &$form_state, $filter, $format, $defaults) {
-  $filter->settings += $defaults;
-
-  $settings['allowed_html'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Allowed HTML tags'),
-    '#default_value' => $filter->settings['allowed_html'],
-    '#maxlength' => 1024,
-    '#description' => t('A list of HTML tags that can be used. Anything inside preserve tags will be left unchanged.'),
-  );
-
-  return $settings;
-}
-
-/**
  * Implements filter prepare callback.
+ * Store preserved content and add placeholders before other filters are run.
  */
-function _preserve_filter_prepare() {
-
+function _preserve_filter_prepare($text, $filter) {
+  $text = preg_replace_callback('/<preserve>(.*?)<\/preserve>/s', '_preserve_filter_placeholders', $text);
+  return $text;
 }
 
 /**
  * Implements callback_filter_process().
  *
- * Provides filtering of input into accepted HTML.
+ * Fill in placeholders with preserved content after other filters have run.
  */
 function _preserve_filter_process($text, $filter) {
-  $allowed_tags = preg_split('/\s+|<|>/', $filter->settings['allowed_html'], -1, PREG_SPLIT_NO_EMPTY);
-  $allowed_tags[] = 'preserve';
 
-  $text = preg_replace_callback('/<preserve>(.*?)<\/preserve>/s', '_preserve_filter_placeholders', $text);
-  $text = filter_xss($text, $allowed_tags);
-  $text = preg_replace_callback('/<preserve>(.*?)<\/preserve>/s', '_preserve_filter_placeholders_fill', $text);
-
+  $text = preg_replace_callback('/----preserve----(.*?)----\/preserve----/s', '_preserve_filter_placeholders_fill', $text);
+  $text = str_replace('----preserve----', '', $text);
+  $text = str_replace('----/preserve----', '', $text);
   return trim($text);
-}
-
-/**
- * Implements filter tips callback.
- */
-function _preserve_filter_tips() {
-
 }
 
 /**
@@ -80,7 +52,7 @@ function _preserve_filter_placeholders($matches) {
   $count++;
   _preserve_filter_preserved($matches[1]);
 
-  return '<preserve>' . $count . '</preserve>';
+  return '----preserve----' . $count . '----/preserve----';
 }
 
 /**
@@ -93,7 +65,7 @@ function _preserve_filter_placeholders_fill($matches) {
   $count++;
   $content = _preserve_filter_preserved();
 
-  return '<preserve>' . $content[$count - 1] . '</preserve>';
+  return $content[$count - 1];
 }
 
 /**
