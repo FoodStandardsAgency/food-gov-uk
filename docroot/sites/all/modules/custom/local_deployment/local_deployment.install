@@ -35,6 +35,11 @@ function local_deployment_install() {
   variable_set('context_reaction_block_expose_weights', TRUE);
 
   // Contrib modules specificly for this project.
+  module_enable(array('bigmenu'), TRUE);
+  module_enable(array('ds'), TRUE);
+  module_enable(array('preserve_filter'), TRUE);
+  module_enable(array('migrate'), TRUE);
+
   //module_enable(array('menu_position'), TRUE);
   //module_enable(array('disable_term_node_listings'), TRUE);
   //module_enable(array('redirect'), TRUE);

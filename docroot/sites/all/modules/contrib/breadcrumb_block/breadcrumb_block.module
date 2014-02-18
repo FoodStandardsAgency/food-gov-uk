@@ -1,0 +1,35 @@
+<?php
+/*
+ * Implements hook_block_info().
+ * Create the block instance
+ */
+function breadcrumb_block_block_info() {
+  $blocks['breadcrumb'] = array(
+    'info' => t('Breadcrumbs'),
+  );
+  return $blocks;
+}
+
+/*
+ * Implements hook_block_view().
+ * Create the render array to render the breadcrumbs when the block is displayed
+ */
+function breadcrumb_block_block_view($delta) {
+  $block = array();
+  if ($delta == 'breadcrumb') {
+    $block['content'] = array(
+      '#pre_render' => array('breadcrumb_block_pre_render_breadcrumb'),
+      '#theme' => 'breadcrumb',
+    );
+  }
+  return $block;
+}
+
+/*
+ * Create a function wrapper to fetch the breadcrumb trail for the
+ * current page so we can pass it to the render array
+ */
+function breadcrumb_block_pre_render_breadcrumb($element) {
+  $element['#breadcrumb'] = drupal_get_breadcrumb();
+  return $element;
+}

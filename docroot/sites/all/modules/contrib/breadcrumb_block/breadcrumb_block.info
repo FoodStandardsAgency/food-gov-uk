@@ -1,0 +1,3 @@
+name = "Breadcrumb Block"
+description = "Create a block containing the breadcrumbs that can be administered via the UI"
+core = 7.x

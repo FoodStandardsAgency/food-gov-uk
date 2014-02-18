@@ -1,0 +1,12 @@
+name = Disable Term Node Listings
+description = Disable the node listings on taxonomy term pages in selected vocabularies
+core = 7.x
+
+dependencies[] = taxonomy
+
+; Information added by drupal.org packaging script on 2013-03-09
+version = "7.x-1.1"
+core = "7.x"
+project = "disable_term_node_listings"
+datestamp = "1362872115"
+
