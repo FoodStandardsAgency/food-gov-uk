@@ -1,0 +1,6 @@
+<?php
+
+/**
+ * @file
+ * This file contains the specific hooks used for the migration of FSA.
+ */

@@ -1,0 +1,10 @@
+name = "Food Standards Agency Migration"
+description = "Migrate data from the legacy FSA Oracle database into Drupal."
+package = "Food Standards Agency - Migration"
+core = 7.x
+
+files[] = fsa_migrate.migrate.inc
+files[] = classes/fsa_migrate_base.migrate.inc
+files[] = classes/fsa_migrate_uberpage.migrate.inc
+
+dependencies[] = migrate

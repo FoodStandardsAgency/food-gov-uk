@@ -2,14 +2,13 @@
 
 /**
  * @file
-
  * Command line utlity to check that you can connect to and query the Oracle 10g database.
  *
  * @note Requires the oci8 PHP module: @see https://help.ubuntu.com/community/PHPOracle
  */
 
 // Configuration.
-$SQL = "SELECT *
+$SQL = "SELECT OBJ.OBJECTID
 FROM FIELDVALUE, OBJ, OBJTYPE, FIELDNAME
 WHERE FIELDVALUE.OBJECTID = OBJ.OBJECTID
 AND OBJ.OBJECTTYPEID = OBJTYPE.OBJECTTYPEID
