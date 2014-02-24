@@ -699,6 +699,154 @@ span.copyright {
     padding: 0 0 0.75em 0;
     text-align: right;
     border-right: 0px; } }
+/**
+ * Sidebar menu with first top level menu item looking different to the rest of the top level items.
+ * Requires a block class: sidebar-menu
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\000035}}
+.sidebar-menu {
+  margin-bottom: 12px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\000038}}
+  .sidebar-menu .menu-block-wrapper ul, .sidebar-menu .menu-block-wrapper li {
+    font-size: 1em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\0000311}}
+  .sidebar-menu .menu-block-wrapper ul {
+    display: block;
+    list-style: none;
+    margin: 0;
+    padding: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\0000318}}
+  .sidebar-menu .menu-block-wrapper ul.menu .leaf,
+  .sidebar-menu .menu-block-wrapper ul.menu .expanded {
+    list-style-image: none;
+    list-style-type: none;
+    list-style: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\0000323}}
+  .sidebar-menu .menu-block-wrapper li {
+    margin: 0;
+    padding: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\0000327}}
+  .sidebar-menu .menu-block-wrapper a {
+    font-size: 1.2em;
+    text-decoration: none;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #c4c4c4;
+    background-color: #f0f0f0;
+    background-image: url("../images/sidebar-arrow-right.png");
+    background-repeat: no-repeat;
+    background-position: 10px center; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\0000337}}
+  .sidebar-menu .menu-block-wrapper a.active {
+    color: #02684a;
+    font-weight: bold; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\0000341}}
+  .sidebar-menu .menu-block-wrapper a:hover {
+    text-decoration: underline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\0000344}}
+  .sidebar-menu .menu-block-wrapper li a {
+    display: block;
+    padding: 8px 12px 8px 24px;
+    color: #333; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\0000349}}
+  .sidebar-menu .menu-block-wrapper li li a {
+    background-color: #f7f7f7;
+    padding-left: 33px;
+    background-image: url("../images/sidebar-sub-arrow-right.png");
+    background-repeat: no-repeat;
+    background-position: 23px center; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\0000356}}
+  .sidebar-menu .menu-block-wrapper li.expanded > a {
+    color: #02684a;
+    font-weight: bold;
+    background-image: url("../images/sidebar-arrow-down.png");
+    background-repeat: no-repeat;
+    background-position: 9px center; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\0000364}}
+  .sidebar-menu .menu-block-wrapper li.first a {
+    font-weight: bold;
+    color: #fff;
+    background-color: #02684a;
+    background-image: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\0000370}}
+  .sidebar-menu .menu-block-wrapper li.first a.active {
+    font-weight: bold;
+    color: #fff; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\0000376}}
+  .sidebar-menu .menu-block-wrapper li li.first a {
+    font-weight: normal;
+    color: #333;
+    background-color: #f7f7f7;
+    background-image: url("../images/sidebar-sub-arrow-right.png");
+    background-repeat: no-repeat;
+    background-position: 23px center; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\0000384}}
+  .sidebar-menu .menu-block-wrapper li li.first a.active {
+    color: #02684a;
+    font-weight: bold; }
+
+/**
+ * Sidebar menu with all top level menu items looking the same
+ * Requires a block class: sidebar-menu-option-2
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\0000396}}
+.sidebar-menu-2 {
+  margin-bottom: 12px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\0000399}}
+  .sidebar-menu-2 .menu-block-wrapper ul, .sidebar-menu-2 .menu-block-wrapper li {
+    font-size: 1em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\00003102}}
+  .sidebar-menu-2 .menu-block-wrapper ul {
+    display: block;
+    list-style: none;
+    margin: 0;
+    padding: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\00003109}}
+  .sidebar-menu-2 .menu-block-wrapper ul.menu .leaf,
+  .sidebar-menu-2 .menu-block-wrapper ul.menu .expanded {
+    list-style-image: none;
+    list-style-type: none;
+    list-style: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\00003114}}
+  .sidebar-menu-2 .menu-block-wrapper li {
+    margin: 0;
+    padding: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\00003118}}
+  .sidebar-menu-2 .menu-block-wrapper a {
+    font-size: 1.2em;
+    text-decoration: none;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #c4c4c4;
+    background-color: #f0f0f0;
+    background-image: url("../images/sidebar-arrow-right.png");
+    background-repeat: no-repeat;
+    background-position: 10px center; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\00003128}}
+  .sidebar-menu-2 .menu-block-wrapper a.active {
+    color: #02684a;
+    font-weight: bold; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\00003132}}
+  .sidebar-menu-2 .menu-block-wrapper a:hover {
+    text-decoration: underline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\00003135}}
+  .sidebar-menu-2 .menu-block-wrapper li a {
+    display: block;
+    padding: 8px 12px 8px 24px;
+    color: #333; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\00003140}}
+  .sidebar-menu-2 .menu-block-wrapper li li a {
+    background-color: #f7f7f7;
+    padding-left: 33px;
+    background-image: url("../images/sidebar-sub-arrow-right.png");
+    background-repeat: no-repeat;
+    background-position: 23px center; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\00003147}}
+  .sidebar-menu-2 .menu-block-wrapper li.expanded > a {
+    color: #02684a;
+    font-weight: bold;
+    background-image: url("../images/sidebar-arrow-down.png");
+    background-repeat: no-repeat;
+    background-position: 9px center; }
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_social_media_icons\.scss}line{font-family:\000033}}
 .social-media-icons {
   list-style-type: none;

@@ -1,0 +1,155 @@
+/**
+ * Sidebar menu with first top level menu item looking different to the rest of the top level items.
+ * Requires a block class: sidebar-menu
+ */
+.sidebar-menu {
+	margin-bottom: 12px;
+	.menu-block-wrapper {
+		ul, li {
+			font-size: 1em;	// sets fornt base fornt as 10px, same a s body base fornt.
+		}
+		ul {
+			display: block;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+		ul.menu .leaf,
+		ul.menu .expanded {
+			list-style-image: none;
+			list-style-type: none;
+			list-style: none;
+		}
+		li {
+			margin: 0;
+			padding: 0;
+		}
+		a {
+			font-size: 1.2em;
+			text-decoration: none;
+			border-top: 1px solid #fff;
+			border-bottom: 1px solid #c4c4c4;
+			background-color: #f0f0f0;
+			background-image: url('../images/sidebar-arrow-right.png');
+		  background-repeat: no-repeat;
+		  background-position: 10px center;
+		}
+		a.active {
+			color: #02684a;
+			font-weight: bold;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+		li a {
+			display: block;
+			padding: 8px 12px 8px 24px;
+			color: #333;
+		}
+		li li a {
+			background-color: #f7f7f7;
+			padding-left: 33px;
+			background-image: url('../images/sidebar-sub-arrow-right.png');
+			background-repeat: no-repeat;
+			background-position: 23px center;
+		}
+		li.expanded > a {
+			color: #02684a;
+			font-weight: bold;
+			background-image: url('../images/sidebar-arrow-down.png');
+		  background-repeat: no-repeat;
+		  background-position: 9px center;
+		}
+		li.first {
+			a {
+				font-weight: bold;
+				color: #fff;
+				background-color: #02684a;
+				background-image: none;
+			}
+			a.active {
+				font-weight: bold;
+				color: #fff;
+			}
+		}
+		li li.first {
+			a {
+				font-weight: normal;
+				color: #333;
+				background-color: #f7f7f7;
+				background-image: url('../images/sidebar-sub-arrow-right.png');
+			  background-repeat: no-repeat;
+			  background-position: 23px center;
+			}
+			a.active {
+				color: #02684a;
+				font-weight: bold;
+			}
+		}
+	}
+}
+
+/**
+ * Sidebar menu with all top level menu items looking the same
+ * Requires a block class: sidebar-menu-option-2
+ */
+.sidebar-menu-2 {
+	margin-bottom: 12px;
+	.menu-block-wrapper {
+		ul, li {
+			font-size: 1em;	// sets fornt base fornt as 10px, same a s body base fornt.
+		}
+		ul {
+			display: block;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+		ul.menu .leaf,
+		ul.menu .expanded {
+			list-style-image: none;
+			list-style-type: none;
+			list-style: none;
+		}
+		li {
+			margin: 0;
+			padding: 0;
+		}
+		a {
+			font-size: 1.2em;
+			text-decoration: none;
+			border-top: 1px solid #fff;
+			border-bottom: 1px solid #c4c4c4;
+			background-color: #f0f0f0;
+			background-image: url('../images/sidebar-arrow-right.png');
+		  background-repeat: no-repeat;
+		  background-position: 10px center;
+		}
+		a.active {
+			color: #02684a;
+			font-weight: bold;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+		li a {
+			display: block;
+			padding: 8px 12px 8px 24px;
+			color: #333;
+		}
+		li li a {
+			background-color: #f7f7f7;
+			padding-left: 33px;
+			background-image: url('../images/sidebar-sub-arrow-right.png');
+			background-repeat: no-repeat;
+			background-position: 23px center;
+		}
+		li.expanded > a {
+			color: #02684a;
+			font-weight: bold;
+			background-image: url('../images/sidebar-arrow-down.png');
+		  background-repeat: no-repeat;
+		  background-position: 9px center;
+		}
+	}
+}
