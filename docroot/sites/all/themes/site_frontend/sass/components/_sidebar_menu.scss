@@ -15,7 +15,9 @@
 			padding: 0;
 		}
 		ul.menu .leaf,
-		ul.menu .expanded {
+		ul.menu .expanded,
+		ul.menu .collapsed,
+		ul.menu li {
 			list-style-image: none;
 			list-style-type: none;
 			list-style: none;
@@ -106,7 +108,9 @@
 			padding: 0;
 		}
 		ul.menu .leaf,
-		ul.menu .expanded {
+		ul.menu .expanded,
+		ul.menu .collapsed,
+		ul.menu li {
 			list-style-image: none;
 			list-style-type: none;
 			list-style: none;
