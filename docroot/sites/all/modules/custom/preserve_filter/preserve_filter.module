@@ -25,7 +25,7 @@ function preserve_filter_filter_info() {
  * Store preserved content and add placeholders before other filters are run.
  */
 function _preserve_filter_prepare($text, $filter) {
-  $text = preg_replace_callback('/<preserve>(.*?)<\/preserve>/s', '_preserve_filter_placeholders', $text);
+  $text = preg_replace_callback('/<!-- preserve start -->(.*?)<!-- preserve end -->/s', '_preserve_filter_placeholders', $text);
   return $text;
 }
 
