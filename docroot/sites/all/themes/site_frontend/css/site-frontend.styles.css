@@ -216,6 +216,13 @@
   font-weight: normal;
   padding: .46875em 11px .140625em 11px; }
 
+/* override default styling that comes with field collections */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_field_collections\.scss}line{font-family:\000032}}
+.field-collection-view {
+  padding: 0;
+  margin: 0;
+  border: 0; }
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_media\.scss}line{font-family:\000031}}
 img, media {
   max-width: 100%; }
