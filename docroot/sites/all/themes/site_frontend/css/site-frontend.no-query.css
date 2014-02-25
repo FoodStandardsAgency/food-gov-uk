@@ -320,9 +320,43 @@ p, ul, ol, dl, address, blockquote {
   .bottom-menu a:hover {
     text-decoration: underline; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_breadcrumb\.scss}line{font-family:\000031}}
+ul.breadcrumb {
+  list-style: none;
+  padding: 0;
+  margin: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_breadcrumb\.scss}line{font-family:\000037}}
+.breadcrumb a {
+  color: #333;
+  text-decoration: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_breadcrumb\.scss}line{font-family:\0000311}}
+.breadcrumb a:hover {
+  text-decoration: underline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_breadcrumb\.scss}line{font-family:\0000314}}
+.breadcrumb li {
+  margin: 0 3px 0 0;
+  padding: 0 3px 0 8px;
+  font-size: 1.2em;
+  color: #00684a;
+  background-image: url("../images/breadcrumb-arrow.png");
+  background-repeat: no-repeat;
+  background-position: left center;
+  float: left; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_breadcrumb\.scss}line{font-family:\0000324}}
+.breadcrumb li:first-child {
+  padding: 0;
+  background-image: none; }
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_breadcrumb_accessibility_section\.scss}line{font-family:\000031}}
 .breadcrumb-accessibility-wrapper {
   border-top: 1px solid #348971; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_breadcrumb_accessibility_section\.scss}line{font-family:\000034}}
+.breadcrumb-accessibility-inner {
+  overflow: hidden;
+  margin: 12px 0;
+  min-height: 17px; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_content_section\.scss}line{font-family:\000031}}
 .main-wrapper {
