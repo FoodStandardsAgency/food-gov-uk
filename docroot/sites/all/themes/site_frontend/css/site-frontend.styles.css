@@ -362,6 +362,11 @@ ul.breadcrumb {
 .main-wrapper {
   border-bottom: 4px solid #68A82A; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_date_updated\.scss}line{font-family:\000031}}
+.field--name-field-updated {
+  font-size: 1.2em;
+  margin-bottom: 12px; }
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_menu\.scss}line{font-family:\000031}}
 .footer-menu {
   position: relative;
@@ -523,6 +528,13 @@ span.copyright {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_header_section\.scss}line{font-family:\0000313}}
 .site-logo img {
   margin-top: 10px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_image_featured_image\.scss}line{font-family:\000032}}
+.field--name-field-feature-image img {
+  float: right;
+  margin: 0 0 17px 10px;
+  padding: 0;
+  border: 0; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\000037}}
 #block-superfish-1 {
@@ -896,3 +908,38 @@ span.copyright {
     float: right;
     padding: 0;
     margin: 0 0 0 7px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_quote\.scss}line{font-family:\000031}}
+.field--name-field-fc-section-quote {
+  width: 200px;
+  float: right;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  font-size: 1.6em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_quote\.scss}line{font-family:\000037}}
+  .field--name-field-fc-section-quote p {
+    margin-bottom: 0px;
+    font-size: 1em; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_section_heading\.scss}line{font-family:\000031}}
+.field--name-field-fc-section-heading {
+  margin: 0 0 1em 0;
+  padding: .3em 11px;
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #fff;
+  background: #5d9711;
+  clear: both; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_section_heading\.scss}line{font-family:\000039}}
+  .field--name-field-fc-section-heading h1, .field--name-field-fc-section-heading h2, .field--name-field-fc-section-heading h3, .field--name-field-fc-section-heading h4, .field--name-field-fc-section-heading h5, .field--name-field-fc-section-heading h6 {
+    font-size: 1em; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_summary\.scss}line{font-family:\000031}}
+.field--name-field-summary {
+  font-size: 1.6em;
+  color: #006f51;
+  margin-bottom: 20px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_summary\.scss}line{font-family:\000035}}
+  .field--name-field-summary p {
+    margin-bottom: 11px;
+    font-size: 1em; }
