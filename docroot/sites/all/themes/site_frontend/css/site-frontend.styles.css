@@ -932,14 +932,17 @@ span.copyright {
   clear: both; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_section_heading\.scss}line{font-family:\000039}}
   .field--name-field-fc-section-heading h1, .field--name-field-fc-section-heading h2, .field--name-field-fc-section-heading h3, .field--name-field-fc-section-heading h4, .field--name-field-fc-section-heading h5, .field--name-field-fc-section-heading h6 {
-    font-size: 1em; }
+    font-size: 1em;
+    margin-bottom: 0; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_summary\.scss}line{font-family:\000031}}
 .field--name-field-summary {
   font-size: 1.6em;
+  line-height: 1.4em;
   color: #006f51;
   margin-bottom: 20px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_summary\.scss}line{font-family:\000035}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_summary\.scss}line{font-family:\000036}}
   .field--name-field-summary p {
     margin-bottom: 11px;
-    font-size: 1em; }
+    font-size: 1em;
+    line-height: 1.4em; }
