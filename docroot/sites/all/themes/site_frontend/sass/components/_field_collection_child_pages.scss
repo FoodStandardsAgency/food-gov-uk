@@ -31,9 +31,7 @@
 	}
 }
 
-.field--name-field-child-page {
-	padding-left: 10px;
-	padding-right: 10px;
+.field-collection-item-field-child-pages {
 	font-size: 1em;	// sets base font size to 10px
 	line-height: 1.4em;
 	margin-bottom: 18px;
@@ -41,10 +39,10 @@
 		font-size: 1.4em; 
 		line-height: 1.4em;
 		margin-bottom: 0;
-		font-weight: normal;
+		font-weight: bold;
 	}
 	.field--name-title {
-		font-weight: normal;
+		font-weight: bold;
 		display: block;
 		a {
 			text-decoration: none;
@@ -58,9 +56,15 @@
 		font-size: 1.2em; 
 		line-height: 1.4em;
 		display: block;
-		padding-left: 14px;
+		color: #333;
 	}
 	.field__item {
 		margin-bottom: 0.5em;
 	}
+}
+
+/* this is the content bit that is nested inside class field-collection-item-field-child-pages */
+.field--name-field-child-page {
+	padding-left: 10px;
+	padding-right: 10px;
 }
