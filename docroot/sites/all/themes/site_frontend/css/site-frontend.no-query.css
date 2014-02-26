@@ -490,8 +490,8 @@ ul.breadcrumb {
           text-decoration: underline; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\0000367}}
       .field-collection-item-field-child-pages .field--name-field-child-page .view-mode-teaser .field--name-field-updated {
-        font-size: 1em;
-        margin-bottom: 0.24em; }
+        font-size: 1.1em;
+        margin-bottom: 0.2em; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\0000372}}
       .field-collection-item-field-child-pages .field--name-field-child-page .view-mode-teaser .field--name-field-summary {
         font-size: 1.2em;
