@@ -1,0 +1,7 @@
+name = Menu Link Break
+description = Enable break tags to be added to menu links.
+core = 7.x
+package = Local
+
+
+
