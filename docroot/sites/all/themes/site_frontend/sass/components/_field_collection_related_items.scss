@@ -12,16 +12,14 @@
 	}
 }
 .field--name-field-fc-related-items {
-	font-size: 1.2em;
+	font-size: 1em;	// sets base font size to 10px
 	line-height: 1.4em;
 	margin-bottom: 12px;
 	h2.node__title {
-		font-size: 1em;	// will display at 1.2em as set by class field--name-field-fc-related-items 
+		font-size: 1.2em; 
+		line-height: 1.4em;
 		margin-bottom: 0;
 		font-weight: normal;
-	}
-	p {
-		font-size: 1em;	// will display at 1.2em as set by class field--name-field-fc-related-items
 	}
 	.node__title {
 		font-weight: normal;
@@ -34,7 +32,8 @@
 		}
 	}
 	.field--name-field-subtitle {
-		font-size: 1em; // will display at 1.2em as set by class field--name-field-fc-related-items
+		font-size: 1.2em; 
+		line-height: 1.4em;
 	}
 	.field__item {
 		margin-bottom: 0.5em;
