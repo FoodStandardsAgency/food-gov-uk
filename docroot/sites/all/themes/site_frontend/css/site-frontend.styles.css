@@ -422,72 +422,82 @@ ul.breadcrumb {
 /**
  *	See base/_field_collections.scss for implementation of block styling for this field collection
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\000035}}
-.field--name-field-child-pages-heading {
-  font-size: 1.4em;
-  color: #fff;
-  font-weight: bold;
-  margin: 0 0 .7em 0;
-  padding: 7px 9px 8px 9px;
-  -moz-border-radius-topleft: 8px;
-  -moz-border-radius-topright: 8px;
-  -moz-border-radius-bottomright: 0;
-  -moz-border-radius-bottomleft: 0;
-  -webkit-border-radius: 8px 8px 0 0;
-  -o-border-radius: 8px 8px 0 0;
-  -ms-border-radius: 8px 8px 0 0;
-  border-radius: 8px 8px 0 0;
-  background: #5d931a;
-  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzVkOTMxYSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM3NGE5MmYiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-  background: -moz-linear-gradient(top, #5d931a 0, #74a92f 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #5d931a), color-stop(100%, #74a92f));
-  background: -webkit-linear-gradient(top, #5d931a 0, #74a92f 100%);
-  background: -o-linear-gradient(top, #5d931a 0, #74a92f 100%);
-  background: -ms-linear-gradient(top, #5d931a 0, #74a92f 100%);
-  background: linear-gradient(top, #5d931a 0%, #74a92f 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5d931a',endColorstr='#74a92f',GradientType=0); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\0000328}}
-  .field--name-field-child-pages-heading h1, .field--name-field-child-pages-heading h2, .field--name-field-child-pages-heading h3, .field--name-field-child-pages-heading h4, .field--name-field-child-pages-heading h5, .field--name-field-child-pages-heading h6 {
-    font-size: 1em;
-    margin-bottom: 0; }
-
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\0000334}}
+/* one instance of the child pages field collection with respect to the page section or the calling node, example Document Page content type */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\000036}}
 .field-collection-item-field-child-pages {
-  font-size: 1em;
-  line-height: 1.4em;
-  margin-bottom: 18px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\0000338}}
-  .field-collection-item-field-child-pages .field--name-title h3 {
+  margin-bottom: 18px;
+  /* the heading of the field collection instance */
+  /* wraps ALL the referenced (multiple) child page teasers - does not wrap individual teasers - don't be confused by the singular name */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\000039}}
+  .field-collection-item-field-child-pages .field--name-field-child-pages-heading {
     font-size: 1.4em;
-    line-height: 1.4em;
-    margin-bottom: 0;
-    font-weight: bold; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\0000344}}
-  .field-collection-item-field-child-pages .field--name-title {
+    color: #fff;
     font-weight: bold;
-    display: block; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\0000347}}
-    .field-collection-item-field-child-pages .field--name-title a {
-      text-decoration: none;
-      color: #006f51; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\0000351}}
-    .field-collection-item-field-child-pages .field--name-title a:hover {
-      text-decoration: underline; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\0000355}}
-  .field-collection-item-field-child-pages .field--name-field-summary {
-    font-size: 1.2em;
-    line-height: 1.4em;
-    display: block;
-    color: #333; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\0000361}}
-  .field-collection-item-field-child-pages .field__item {
-    margin-bottom: 0.5em; }
-
-/* this is the content bit that is nested inside class field-collection-item-field-child-pages */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\0000367}}
-.field--name-field-child-page {
-  padding-left: 10px;
-  padding-right: 10px; }
+    margin: 0 0 .7em 0;
+    padding: 7px 9px 8px 9px;
+    -moz-border-radius-topleft: 8px;
+    -moz-border-radius-topright: 8px;
+    -moz-border-radius-bottomright: 0;
+    -moz-border-radius-bottomleft: 0;
+    -webkit-border-radius: 8px 8px 0 0;
+    -o-border-radius: 8px 8px 0 0;
+    -ms-border-radius: 8px 8px 0 0;
+    border-radius: 8px 8px 0 0;
+    background: #5d931a;
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzVkOTMxYSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM3NGE5MmYiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, #5d931a 0, #74a92f 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #5d931a), color-stop(100%, #74a92f));
+    background: -webkit-linear-gradient(top, #5d931a 0, #74a92f 100%);
+    background: -o-linear-gradient(top, #5d931a 0, #74a92f 100%);
+    background: -ms-linear-gradient(top, #5d931a 0, #74a92f 100%);
+    background: linear-gradient(top, #5d931a 0%, #74a92f 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5d931a',endColorstr='#74a92f',GradientType=0); }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\0000332}}
+    .field-collection-item-field-child-pages .field--name-field-child-pages-heading h1, .field-collection-item-field-child-pages .field--name-field-child-pages-heading h2, .field-collection-item-field-child-pages .field--name-field-child-pages-heading h3, .field-collection-item-field-child-pages .field--name-field-child-pages-heading h4, .field-collection-item-field-child-pages .field--name-field-child-pages-heading h5, .field-collection-item-field-child-pages .field--name-field-child-pages-heading h6 {
+      font-size: 1em;
+      margin-bottom: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\0000336}}
+    .field-collection-item-field-child-pages .field--name-field-child-pages-heading .field__item {
+      margin-bottom: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\0000341}}
+  .field-collection-item-field-child-pages .field--name-field-child-page {
+    padding-left: 10px;
+    padding-right: 10px;
+    /* wraps each child page teaser */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\0000345}}
+    .field-collection-item-field-child-pages .field--name-field-child-page .view-mode-teaser {
+      margin-bottom: 0.5em;
+      font-size: 1em;
+      line-height: 1.4em;
+      /* teaser title */
+      /* teaser updated date */
+      /* teaser summary */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\0000350}}
+      .field-collection-item-field-child-pages .field--name-field-child-page .view-mode-teaser .field--name-title h3 {
+        font-size: 1.4em;
+        line-height: 1.4em;
+        margin-bottom: 0;
+        font-weight: bold; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\0000356}}
+      .field-collection-item-field-child-pages .field--name-field-child-page .view-mode-teaser .field--name-title {
+        font-weight: bold;
+        display: block; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\0000359}}
+        .field-collection-item-field-child-pages .field--name-field-child-page .view-mode-teaser .field--name-title a {
+          text-decoration: none;
+          color: #006f51; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\0000363}}
+        .field-collection-item-field-child-pages .field--name-field-child-page .view-mode-teaser .field--name-title a:hover {
+          text-decoration: underline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\0000369}}
+      .field-collection-item-field-child-pages .field--name-field-child-page .view-mode-teaser .field--name-field-updated .field__item {
+        margin-bottom: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\0000374}}
+      .field-collection-item-field-child-pages .field--name-field-child-page .view-mode-teaser .field--name-field-summary {
+        font-size: 1.2em;
+        line-height: 1.4em;
+        display: block;
+        color: #333; }
 
 /**
  *	See base/_field_collections.scss for implementation of block styling for this field collection
