@@ -416,6 +416,21 @@ ul.breadcrumb {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_related_items\.scss}line{font-family:\0000314}}
 .field--name-field-fc-related-items {
   margin-bottom: 12px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_related_items\.scss}line{font-family:\0000316}}
+  .field--name-field-fc-related-items h2.node__title {
+    font-size: 1.2em;
+    line-height: 1.4em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_related_items\.scss}line{font-family:\0000321}}
+  .field--name-field-fc-related-items .node__title a {
+    text-decoration: none;
+    color: #006f51; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_related_items\.scss}line{font-family:\0000325}}
+  .field--name-field-fc-related-items .node__title a:hover {
+    text-decoration: underline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_related_items\.scss}line{font-family:\0000329}}
+  .field--name-field-fc-related-items .field--name-field-subtitle {
+    font-size: 1.2em;
+    line-height: 1.4em; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_menu\.scss}line{font-family:\000031}}
 .footer-menu {
