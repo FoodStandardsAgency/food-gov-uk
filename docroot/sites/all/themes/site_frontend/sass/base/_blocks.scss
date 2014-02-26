@@ -5,7 +5,8 @@
 
 
 /* block class usage example: Interactive block - to apply to block, in block admin, edit block and add "grey-block" to the block class textbox */
-.grey-block {
+.grey-block,
+.field--name-field-fc-related-items {
 	border: 1px solid #e8e8e8;
 	-webkit-border-radius: 9px;
 	-moz-border-radius: 9px;
