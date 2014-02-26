@@ -11,16 +11,16 @@
 		margin-bottom: 0;
 	}
 }
-.field--name-field-fc-section-body {
+.field--name-field-fc-related-items {
 	margin-bottom: 12px;
 	h2.node__title {
 		font-size: 1.2em;
 		line-height: 1.4em;
 		margin-bottom: 0;
+		font-weight: normal;
 	}
-}
-.field--name-field-fc-related-items {
 	.node__title {
+		font-weight: normal;
 		a {
 			text-decoration: none;
 			color: #006f51;

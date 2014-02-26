@@ -414,25 +414,28 @@ ul.breadcrumb {
     margin-bottom: 0; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_related_items\.scss}line{font-family:\0000314}}
-.field--name-field-fc-section-body {
+.field--name-field-fc-related-items {
   margin-bottom: 12px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_related_items\.scss}line{font-family:\0000316}}
-  .field--name-field-fc-section-body h2.node__title {
+  .field--name-field-fc-related-items h2.node__title {
     font-size: 1.2em;
     line-height: 1.4em;
-    margin-bottom: 0; }
-
+    margin-bottom: 0;
+    font-weight: normal; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_related_items\.scss}line{font-family:\0000322}}
+  .field--name-field-fc-related-items .node__title {
+    font-weight: normal; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_related_items\.scss}line{font-family:\0000324}}
-.field--name-field-fc-related-items .node__title a {
-  text-decoration: none;
-  color: #006f51; }
+    .field--name-field-fc-related-items .node__title a {
+      text-decoration: none;
+      color: #006f51; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_related_items\.scss}line{font-family:\0000328}}
-.field--name-field-fc-related-items .node__title a:hover {
-  text-decoration: underline; }
+    .field--name-field-fc-related-items .node__title a:hover {
+      text-decoration: underline; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_related_items\.scss}line{font-family:\0000332}}
-.field--name-field-fc-related-items .field--name-field-subtitle {
-  font-size: 1.2em;
-  line-height: 1.4em; }
+  .field--name-field-fc-related-items .field--name-field-subtitle {
+    font-size: 1.2em;
+    line-height: 1.4em; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_menu\.scss}line{font-family:\000031}}
 .footer-menu {
