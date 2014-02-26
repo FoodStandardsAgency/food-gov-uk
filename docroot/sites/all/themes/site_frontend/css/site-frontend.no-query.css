@@ -250,7 +250,7 @@
 
 /* grey type outer box applied to specific field collections that have a block-type heading */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_field_collections\.scss}line{font-family:\0000333}}
-.field--name-field-child-pages {
+.field-collection-item-field-child-pages {
   border: 1px solid #c4c4c4;
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
@@ -466,9 +466,9 @@ ul.breadcrumb {
     /* wraps each child page teaser */ }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\0000345}}
     .field-collection-item-field-child-pages .field--name-field-child-page .view-mode-teaser {
-      margin-bottom: 0.5em;
       font-size: 1em;
       line-height: 1.4em;
+      margin-bottom: 0.5em;
       /* teaser title */
       /* teaser updated date */
       /* teaser summary */ }
@@ -476,28 +476,28 @@ ul.breadcrumb {
       .field-collection-item-field-child-pages .field--name-field-child-page .view-mode-teaser .field--name-title h3 {
         font-size: 1.4em;
         line-height: 1.4em;
-        margin-bottom: 0;
+        margin-bottom: 0.2em;
         font-weight: bold; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\0000356}}
       .field-collection-item-field-child-pages .field--name-field-child-page .view-mode-teaser .field--name-title {
-        font-weight: bold;
         display: block; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\0000359}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\0000358}}
         .field-collection-item-field-child-pages .field--name-field-child-page .view-mode-teaser .field--name-title a {
           text-decoration: none;
           color: #006f51; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\0000363}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\0000362}}
         .field-collection-item-field-child-pages .field--name-field-child-page .view-mode-teaser .field--name-title a:hover {
           text-decoration: underline; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\0000369}}
-      .field-collection-item-field-child-pages .field--name-field-child-page .view-mode-teaser .field--name-field-updated .field__item {
-        margin-bottom: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\0000374}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\0000367}}
+      .field-collection-item-field-child-pages .field--name-field-child-page .view-mode-teaser .field--name-field-updated {
+        margin-bottom: 0.2em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_field_collection_child_pages\.scss}line{font-family:\0000371}}
       .field-collection-item-field-child-pages .field--name-field-child-page .view-mode-teaser .field--name-field-summary {
         font-size: 1.2em;
         line-height: 1.4em;
         display: block;
-        color: #333; }
+        color: #333;
+        margin-bottom: 0.2em; }
 
 /**
  *	See base/_field_collections.scss for implementation of block styling for this field collection

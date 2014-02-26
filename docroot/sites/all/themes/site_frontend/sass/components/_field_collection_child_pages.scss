@@ -43,18 +43,17 @@
 		padding-right: 10px;
 		/* wraps each child page teaser */
 		.view-mode-teaser {
-			margin-bottom: 0.5em;
 			font-size: 1em;	// sets base font size to 10px
 			line-height: 1.4em;
+			margin-bottom: 0.5em;
 			/* teaser title */
 			.field--name-title h3 {
 				font-size: 1.4em; 
 				line-height: 1.4em;
-				margin-bottom: 0;
+				margin-bottom: 0.2em;
 				font-weight: bold;
 			}
 			.field--name-title {
-				font-weight: bold;
 				display: block;
 				a {
 					text-decoration: none;
@@ -66,9 +65,7 @@
 			}
 			/* teaser updated date */
 			.field--name-field-updated {
-				.field__item {
-					margin-bottom: 0;
-				}
+				margin-bottom: 0.2em;
 			}
 			/* teaser summary */
 			.field--name-field-summary {
@@ -76,6 +73,7 @@
 				line-height: 1.4em;
 				display: block;
 				color: #333;
+				margin-bottom: 0.2em;
 			}
 		}
 	}
