@@ -9,8 +9,9 @@
 	margin-bottom: 0px;
 }
 
-/* styling applied to specific field collections */
-.field--name-field-fc-related-items {
+/* grey type outer box applied to specific field collections */
+.field--name-field-fc-related-items,
+.field--name-field-child-pages {
 	border: 1px solid #c4c4c4;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
