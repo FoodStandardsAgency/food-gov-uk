@@ -148,6 +148,10 @@ function theme_menu_link_break_superfish_menu_item_link($variables) {
   return l($title, $menu_item['link']['href'], $link_options);
 }
 
+/*
+ * @todo add theme override for core menu link.
+ */
+
 /**
  * Get raw title from the database.
  */
