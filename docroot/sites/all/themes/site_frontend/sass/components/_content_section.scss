@@ -1,3 +1,10 @@
 .main-wrapper {
 	border-bottom: 4px solid #68A82A;
 }
+
+/* mobile layout */
+@include breakpoint($mobile) {
+	.main-wrapper {
+		border-bottom: 4px solid #006f51;
+	}
+}
