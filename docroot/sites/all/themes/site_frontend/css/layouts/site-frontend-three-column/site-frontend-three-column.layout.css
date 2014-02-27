@@ -47,6 +47,10 @@
   margin: 0 auto; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000348}}
+.l-main {
+  padding-bottom: 12px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000351}}
 .l-header-branding {
   width: 25%;
   float: left;
@@ -56,7 +60,7 @@
   padding-left: 6px;
   padding-right: 6px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000351}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000354}}
 .l-header-top-menu {
   width: 50%;
   float: left;
@@ -66,7 +70,7 @@
   padding-left: 6px;
   padding-right: 6px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000354}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000357}}
 .l-header-search {
   width: 25%;
   float: right;
@@ -76,7 +80,7 @@
   padding-left: 6px;
   padding-right: 6px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000357}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000360}}
 .header-bottom {
   /* for IE 6/7 */
   *zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).style.cssText="clear:both;font:0/0 serif");
@@ -92,7 +96,7 @@
   .header-bottom:after {
     clear: both; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000360}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000363}}
 .l-header-main-menu {
   width: 75%;
   float: left;
@@ -102,7 +106,7 @@
   padding-left: 6px;
   padding-right: 6px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000363}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000366}}
 .l-header-social-media {
   width: 25%;
   float: right;
@@ -112,7 +116,7 @@
   padding-left: 6px;
   padding-right: 6px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000366}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000369}}
 .breadcrumb-accessibility-wrapper {
   /* for IE 6/7 */
   *zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).style.cssText="clear:both;font:0/0 serif");
@@ -128,7 +132,7 @@
   .breadcrumb-accessibility-wrapper:after {
     clear: both; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000369}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000372}}
 .l-breadcrumb {
   width: 75%;
   float: left;
@@ -138,7 +142,7 @@
   padding-left: 6px;
   padding-right: 6px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000372}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000375}}
 .l-accessibility {
   width: 25%;
   float: right;
@@ -148,7 +152,7 @@
   padding-left: 6px;
   padding-right: 6px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000375}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000378}}
 .main-wrapper {
   /* for IE 6/7 */
   *zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).style.cssText="clear:both;font:0/0 serif");
@@ -164,7 +168,7 @@
   .main-wrapper:after {
     clear: both; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000378}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000381}}
 .l-sidebar-first {
   width: 25%;
   float: left;
@@ -174,7 +178,7 @@
   padding-left: 6px;
   padding-right: 6px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000381}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000384}}
 .l-content {
   width: 50%;
   float: left;
@@ -184,7 +188,7 @@
   padding-left: 6px;
   padding-right: 6px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000384}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000387}}
 .l-sidebar-second {
   width: 25%;
   float: right;
@@ -194,7 +198,7 @@
   padding-left: 6px;
   padding-right: 6px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000387}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000390}}
 .bottom-menu-wrapper {
   /* for IE 6/7 */
   *zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).style.cssText="clear:both;font:0/0 serif");
@@ -210,7 +214,7 @@
   .bottom-menu-wrapper:after {
     clear: both; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000390}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000393}}
 .l-bottom-menu {
   width: 100%;
   float: right;
@@ -220,7 +224,7 @@
   padding-left: 6px;
   padding-right: 6px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000393}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000396}}
 .footer-bottom {
   /* for IE 6/7 */
   *zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).style.cssText="clear:both;font:0/0 serif");
@@ -236,7 +240,7 @@
   .footer-bottom:after {
     clear: both; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000396}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000399}}
 .l-footer-copyright {
   width: 100%;
   float: right;
@@ -246,7 +250,7 @@
   padding-left: 6px;
   padding-right: 6px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\0000399}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003102}}
 .l-footer-menu {
   width: 75%;
   float: left;
@@ -256,7 +260,7 @@
   padding-left: 6px;
   padding-right: 6px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003102}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003105}}
 .l-footer-buttons {
   width: 25%;
   float: right;
@@ -268,7 +272,7 @@
 
 /* mobile layout */
 @media (min-width: 0px) and (max-width: 480px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003112}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003115}}
   .header-wrapper-inner,
   .l-breadcrumb-accessibility,
   .l-main,
@@ -279,7 +283,7 @@
     padding-right: 6px;
     margin: 0; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003118}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003121}}
   .l-header-branding {
     width: 50%;
     float: left;
@@ -289,7 +293,7 @@
     padding-left: 6px;
     padding-right: 6px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003121}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003124}}
   .l-header-top-menu {
     width: 50%;
     float: right;
@@ -299,7 +303,7 @@
     padding-left: 6px;
     padding-right: 6px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003124}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003127}}
   .l-header-search {
     width: 100%;
     float: right;
@@ -311,7 +315,7 @@
     clear: both;
     float: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003129}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003132}}
   .header-bottom {
     /* for IE 6/7 */
     *zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).style.cssText="clear:both;font:0/0 serif");
@@ -327,7 +331,7 @@
     .header-bottom:after {
       clear: both; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003132}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003135}}
   .l-header-main-menu {
     width: 100%;
     float: right;
@@ -339,7 +343,7 @@
     clear: both;
     float: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003137}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003140}}
   .l-header-social-media {
     width: 0%;
     float: left;
@@ -352,7 +356,7 @@
     float: none;
     display: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003143}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003146}}
   .breadcrumb-accessibility-wrapper {
     /* for IE 6/7 */
     *zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).style.cssText="clear:both;font:0/0 serif");
@@ -368,7 +372,7 @@
     .breadcrumb-accessibility-wrapper:after {
       clear: both; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003146}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003149}}
   .l-breadcrumb {
     width: 100%;
     float: right;
@@ -380,7 +384,7 @@
     clear: both;
     float: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003151}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003154}}
   .l-accessibility {
     width: 0%;
     float: left;
@@ -391,7 +395,7 @@
     padding-right: 6px;
     display: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003155}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003158}}
   .main-wrapper {
     /* for IE 6/7 */
     *zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).style.cssText="clear:both;font:0/0 serif");
@@ -407,7 +411,7 @@
     .main-wrapper:after {
       clear: both; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003158}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003161}}
   .l-sidebar-first {
     width: 100%;
     float: right;
@@ -419,7 +423,7 @@
     clear: both;
     float: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003163}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003166}}
   .l-content {
     width: 100%;
     float: right;
@@ -431,7 +435,7 @@
     clear: both;
     float: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003168}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003171}}
   .l-sidebar-second {
     width: 100%;
     float: right;
@@ -443,12 +447,13 @@
     clear: both;
     float: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003173}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003176}}
   .bottom-menu-wrapper {
     /* for IE 6/7 */
     *zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).style.cssText="clear:both;font:0/0 serif");
     /* non-JS fallback */
-    *zoom: 1; }
+    *zoom: 1;
+    display: none; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/anthonyalbertyn\/\.rvm\/gems\/ruby-1\.9\.3-p484\@omega\.site_frontend\/gems\/singularitygs-1\.1\.2\/stylesheets\/singularitygs\/helpers\/_clearfix\.scss}line{font-family:\0000348}}
     .bottom-menu-wrapper:before, .bottom-menu-wrapper:after {
       content: ".";
@@ -459,7 +464,7 @@
     .bottom-menu-wrapper:after {
       clear: both; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003176}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003180}}
   .l-bottom-menu {
     width: 100%;
     float: right;
@@ -471,7 +476,7 @@
     clear: both;
     float: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003181}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003185}}
   .footer-bottom {
     /* for IE 6/7 */
     *zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).style.cssText="clear:both;font:0/0 serif");
@@ -487,7 +492,7 @@
     .footer-bottom:after {
       clear: both; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003184}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003188}}
   .l-footer-copyright {
     width: 100%;
     float: right;
@@ -499,7 +504,7 @@
     clear: both;
     float: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003189}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003193}}
   .l-footer-menu {
     width: 100%;
     float: right;
@@ -511,7 +516,7 @@
     clear: both;
     float: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003194}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-three-column\/site-frontend-three-column\.layout\.scss}line{font-family:\00003198}}
   .l-footer-buttons {
     width: 100%;
     float: right;

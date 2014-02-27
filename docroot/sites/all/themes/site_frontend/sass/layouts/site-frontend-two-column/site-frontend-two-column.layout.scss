@@ -112,6 +112,9 @@
 		padding-right: 6px;
 		margin: 0;
 	}
+	.l-main {
+		padding-bottom: 12px;
+	}
 	.l-header-branding {
 		@include grid-span(6,1);
 	}
@@ -164,6 +167,7 @@
 	}
 	.bottom-menu-wrapper {
 		@include clearfix;
+		display: none;
 	}
 	.l-bottom-menu {
 		@include grid-span(12,1);
