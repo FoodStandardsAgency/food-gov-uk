@@ -904,18 +904,29 @@ span.copyright {
   .main-menu-desktop {
     display: none; } }
 /** Mobile menu is just a menu block applied to main menu with only first level items displayed
-  * Requires a block class: main-menu-mobile
+  * Requires tinynav module to apply a select list to class (include the dots in class): .main-menu-mobile ul.menu
+  * Requires setting on tinynav admin for media query: max width 480px.
+  * Requires a block class on the menublock (without dots in class): main-menu-mobile
   */
 /* hide main menu mobile by default */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu_mobile\.scss}line{font-family:\000036}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu_mobile\.scss}line{font-family:\000038}}
 .main-menu-mobile {
   display: none; }
 
 /* mobile layout show main menu mobile */
 @media (min-width: 0px) and (max-width: 480px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu_mobile\.scss}line{font-family:\0000312}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu_mobile\.scss}line{font-family:\0000314}}
   .main-menu-mobile {
-    display: block; } }
+    display: block;
+    margin-bottom: 12px;
+    /* select list created by tinynav module */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu_mobile\.scss}line{font-family:\0000318}}
+    .main-menu-mobile .tinynav-wrapper {
+      width: 100%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu_mobile\.scss}line{font-family:\0000320}}
+      .main-menu-mobile .tinynav-wrapper select.tinynav {
+        width: 100%;
+        font-size: 20px; } }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_nation_menu\.scss}line{font-family:\000031}}
 .nation-menu {
   margin-top: 10px; }

@@ -885,10 +885,12 @@ span.copyright {
 
 /* mobile layout */
 /** Mobile menu is just a menu block applied to main menu with only first level items displayed
-  * Requires a block class: main-menu-mobile
+  * Requires tinynav module to apply a select list to class (include the dots in class): .main-menu-mobile ul.menu
+  * Requires setting on tinynav admin for media query: max width 480px.
+  * Requires a block class on the menublock (without dots in class): main-menu-mobile
   */
 /* hide main menu mobile by default */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu_mobile\.scss}line{font-family:\000036}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu_mobile\.scss}line{font-family:\000038}}
 .main-menu-mobile {
   display: none; }
 
