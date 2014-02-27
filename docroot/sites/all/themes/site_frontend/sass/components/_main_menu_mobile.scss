@@ -1,0 +1,15 @@
+/** Mobile menu is just a menu block applied to main menu with only first level items displayed
+  * Requires a block class: main-menu-mobile
+  */
+
+/* hide main menu mobile by default */
+.main-menu-mobile {
+	display: none;
+}
+
+/* mobile layout show main menu mobile */
+@include breakpoint($mobile) {
+	.main-menu-mobile {
+		display: block;
+	}
+}

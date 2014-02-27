@@ -728,7 +728,7 @@ span.copyright {
   * Superfish settings:
   * Type: horizontal, style: simple, path class: active-trail, slide-in-effect: vertical, auto-arrows: off, drop-shadows: on
   * supersubs: on, min-width: 21em, max-width: 21em, SF-smallscreen: disabled, multi-column sub-menus: off 
-  * The superfihs menu block needs a block class: main-menu-desktop
+  * The Superfish menu block needs a block class: main-menu-desktop
   */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\000038}}
 .main-menu-desktop {
@@ -903,6 +903,19 @@ span.copyright {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003188}}
   .main-menu-desktop {
     display: none; } }
+/** Mobile menu is just a menu block applied to main menu with only first level items displayed
+  * Requires a block class: main-menu-mobile
+  */
+/* hide main menu mobile by default */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu_mobile\.scss}line{font-family:\000036}}
+.main-menu-mobile {
+  display: none; }
+
+/* mobile layout show main menu mobile */
+@media (min-width: 0px) and (max-width: 480px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu_mobile\.scss}line{font-family:\0000312}}
+  .main-menu-mobile {
+    display: block; } }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_nation_menu\.scss}line{font-family:\000031}}
 .nation-menu {
   margin-top: 10px; }
