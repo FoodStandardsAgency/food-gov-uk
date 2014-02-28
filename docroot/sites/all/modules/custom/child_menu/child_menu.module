@@ -65,19 +65,25 @@ function child_menu_form_submit(&$form, &$form_state) {
 
 function child_menu_add_node_to_menu($needs_save, $entity, $parent_mlid) {
 
-  if (!$needs_save || isset($entity->menu['mlid'])) {
+  if (!$needs_save) {
     return;
   }
 
-  // isset($entity->menu['mlid'])
-
-  $item = array(
-    'link_path' => 'node/' . $entity->nid,
-    'link_title' => $entity->title,
-    'menu_name' => 'main-menu',
-    'mlid' => 0,
-    'plid' => $parent_mlid,
-  );
+  // We save existing menu items here because Inline Entity Form has a bug
+  // which loses menu items when the child node is edited.
+  // https://drupal.org/node/2207679
+  if (isset($entity->menu['mlid']) && !empty($entity->menu['mlid'])) {
+    $item = $entity->menu;
+  }
+  else {
+    $item = array(
+      'link_path' => 'node/' . $entity->nid,
+      'link_title' => $entity->title,
+      'menu_name' => 'main-menu',
+      'mlid' => 0,
+      'plid' => $parent_mlid,
+    );
+  }
 
   $mlid = menu_link_save($item);
   return $mlid;
