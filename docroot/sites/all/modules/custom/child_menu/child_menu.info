@@ -1,0 +1,5 @@
+name = Child Menu
+description = Adds a node to the Main Menu as a child of the parent node.
+core = 7.x
+package = Local
+dependencies[] = "inline_entity_form"
