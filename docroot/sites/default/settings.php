@@ -122,10 +122,11 @@ switch (getenv('AH_SITE_ENVIRONMENT')) {
     $conf['preprocess_js'] = 0;
     $conf['less_devel'] = TRUE;
 
+
     // Enable some handy module
     $conf['environment_modules'] = array(
       'devel' => 'sites/all/modules/development/devel/devel.module',
-      //'shield' => 'sites/all/modules/development/shield/shield.module',
+      'shield' => 'sites/all/modules/development/shield/shield.module',
       //'stage_file_proxy' => 'sites/all/modules/contrib/contrib/stage_file_proxy/stage_file_proxy.module',
     );
 
@@ -158,6 +159,12 @@ switch (getenv('AH_SITE_ENVIRONMENT')) {
     // Disable google experiments on every page of the site (so we don't get annoying redirects ALL the time)
     $conf['content_experiments_visibility'] = 0;
     $conf['content_experiments_pages'] = '*';
+
+    // Enable some handy module
+    $conf['environment_modules'] = array(
+      'shield' => 'sites/all/modules/development/shield/shield.module',
+      //'stage_file_proxy' => 'sites/all/modules/contrib/contrib/stage_file_proxy/stage_file_proxy.module',
+    );
     break;
 
  case 'production':
@@ -346,3 +353,9 @@ $conf['fast_404_HTML_error_all_paths'] = FALSE;
 
 
 
+# ========================= General Variable Overrides
+//shield settings
+$conf['shield_user'] = 'shield';
+$conf['shield_pass'] = 'down';
+$conf['shield_allow_cli'] = 1;
+$conf['shield_print'] =  'Hello, user: [user], pass: [pass]!';
