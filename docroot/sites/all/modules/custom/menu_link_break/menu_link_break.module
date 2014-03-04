@@ -1,0 +1,175 @@
+<?php
+
+/**
+ * @file
+ * Enable break tags to be added to menu links.
+ */
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ * Alter the node form, add raw link title if node is being edited.
+ */
+function menu_link_break_form_node_form_alter(&$form, $form_state) {
+  $form['#after_build'][] = 'menu_link_break_node_form_after_build';
+}
+
+/**
+ * FAPI after_build callback.
+ * Alter the node form, add raw link title if node is being edited.
+ */
+function menu_link_break_node_form_after_build(&$element, &$form_state) {
+  // Get custom link title if menu is being edited.
+  if (isset($element['menu']['link']['mlid']['#value']) && !empty($element['menu']['link']['mlid']['#value'])) {
+
+    $link_title_raw = menu_link_break_link_title_raw_get($element['menu']['link']['mlid']['#value']);
+    $element['menu']['link']['link_title']['#value'] = empty($link_title_raw) ? $element['menu']['link']['link_title']['#value'] : $link_title_raw;
+  }
+
+  // Confirm this is an edit to trigger a save.
+  menu_link_break_edited(TRUE);
+
+  return $element;
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ * Alter administration menu item form, add raw link title before link is edited.
+ */
+function menu_link_break_form_menu_edit_item_alter(&$form, &$form_state, $form_id) {
+
+  $link_title_raw = menu_link_break_link_title_raw_get($form['mlid']['#value']);
+  $form['link_title']['#default_value'] = empty($link_title_raw) ? $form['link_title']['#default_value'] : $link_title_raw;
+  $form['#submit'][] = 'menu_link_break_form_menu_edit_item_submit';
+}
+
+function menu_link_break_form_menu_edit_item_submit(&$form, &$form_state) {
+  menu_link_break_menu_link_set($form_state['values']['mlid'], $form_state['values']['link_title']);
+}
+
+/**
+ * Implements hook_menu_link_insert().
+ */
+function menu_link_break_menu_link_insert($link) {
+  // Only change custom menu links.
+  if ($link['module'] != 'system' && menu_link_break_edited()) {
+    menu_link_break_menu_link_set($link['mlid'], $link['link_title']);
+  }
+}
+
+/**
+ * Implements hook_menu_link_update().
+ */
+function menu_link_break_menu_link_update($link) {
+  // Only change custom menu links.
+  if ($link['module'] != 'system' && menu_link_break_edited()) {
+    menu_link_break_menu_link_set($link['mlid'], $link['link_title']);
+  }
+}
+
+/**
+ * Save raw and core titles to the database.
+ */
+function menu_link_break_menu_link_set($mlid, $link_title) {
+
+  // Save raw title.
+  db_merge('menu_link_break')
+    ->key(array('mlid' => $mlid))
+    ->fields(array(
+      'mlid' => $mlid,
+      'link_title_raw' => $link_title,
+    ))
+    ->execute();
+
+  // Strip out HTML.
+  $link_title = strip_tags($link_title);
+
+  // Set core title.
+  db_update('menu_links')->fields(array(
+    'link_title' => $link_title,
+  ))->condition('mlid', $mlid)->execute();
+}
+
+/**
+ * Implements hook_menu_link_delete().
+ * Delete our raw link title.
+ */
+function menu_link_break_menu_link_delete($link) {
+  db_delete('menu_link_break')->condition('mlid', $link['mlid'])->execute();
+}
+
+/*
+ * Implements hook_theme_registry_alter().
+ */
+function menu_link_break_theme_registry_alter(&$theme_registry) {
+
+  if (isset($theme_registry['superfish_menu_item_link']['function'])) {
+    $theme_registry['superfish_menu_item_link']['function'] = 'theme_menu_link_break_superfish_menu_item_link';
+  }
+}
+
+/*
+ * Implements moduleName_preprocess_hook().
+ */
+function menu_link_break_preprocess_superfish_menu_item_link($variables) {
+  $variables['menu_item']['link']['menu_link_break_title'] = menu_link_break_link_title_raw_get($variables['menu_item']['link']['mlid']);
+}
+
+/**
+ * Theme a menu item link.
+ *
+ * Allow break tags to be included in links <br>, <br/>, or <br />.
+ * All other HTML is stripped out.
+ *
+ * @param $variables
+ *   An array of variables containing:
+ *    - menu_item: The menu item array.
+ *    - link_options: An array of link options.
+ *
+ * @ingroup themeable
+ */
+function theme_menu_link_break_superfish_menu_item_link($variables) {
+  $menu_item = $variables['menu_item'];
+  $link_options = $variables['link_options'];
+  $title = $menu_item['link']['title'];
+
+  // Use our custom link title if it's available
+  if (isset($menu_item['link']['menu_link_break_title']) && !empty($menu_item['link']['menu_link_break_title'])) {
+    $link_options['html'] = TRUE;
+
+    // Sanitise HTML.
+    $title = $menu_item['link']['menu_link_break_title'];
+    $title = check_plain($title);
+
+    // Convert break tags back into HTML
+    $break_tags = array('&lt;br /&gt;', '&lt;br/&gt;', '&lt;br&gt;');
+    $title = str_replace($break_tags, '<br />', $title);
+  }
+
+  return l($title, $menu_item['link']['href'], $link_options);
+}
+
+/*
+ * @todo add theme override for core menu link.
+ */
+
+/**
+ * Get raw title from the database.
+ */
+function menu_link_break_link_title_raw_get($mlid) {
+  $link_title_raw = db_query("SELECT link_title_raw FROM {menu_link_break} WHERE mlid = :mlid", array(':mlid' => $mlid))->fetchField();
+  return $link_title_raw;
+}
+
+/**
+ * Record if the menu item is being edited via the node form or the admin menu item form.
+ * This enables us to ignore other edits such as menu items being re-ordered.
+ */
+function menu_link_break_edited($edit = FALSE) {
+  static $edited = FALSE;
+
+  if ($edit == TRUE) {
+    $edited = TRUE;
+  }
+
+  return $edited;
+}

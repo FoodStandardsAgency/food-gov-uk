@@ -1,0 +1,17 @@
+/**
+ * Cross-browser fixes for ie7
+ */
+
+/**
+ * box-sizing: border-box does not work in IE7 and needs a polyfill, but the polyfill was
+ * having no effect on IE7 and this was breaking the grid layout. It turns out that
+ * we needed to override the path for "behavior" for the boxsizing polyfill to work in IE7
+ * compass toolkit/box-sizing does implement this below but not correctly,
+ * see https://github.com/Team-Sass/toolkit/issues/19 and https://drupal.org/node/2102959
+ */
+*, *:after, *:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  behavior: url('/sites/all/themes/site_frontend/behaviors/box-sizing/boxsizing.php'); 
+}

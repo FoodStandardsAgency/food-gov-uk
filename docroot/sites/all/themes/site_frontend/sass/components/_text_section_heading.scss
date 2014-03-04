@@ -1,0 +1,13 @@
+.field--name-field-fc-section-heading {
+	margin: 0 0 1em 0;
+	padding: .3em 11px;
+	font-size: 1.4em;
+	font-weight: bold;
+	color: #fff;
+	background: #5d9711;
+	clear: both;
+	h1, h2, h3, h4, h5, h6 {
+		font-size: 1em;	// ie use the same font size assigned to section heding field
+		margin-bottom: 0;
+	}
+}

@@ -84,13 +84,14 @@ dependencies[] = simple_field_formatter
 dependencies[] = site_verify
 dependencies[] = strongarm
 dependencies[] = taxonomy
-dependencies[] = textformatter                       
+dependencies[] = textformatter
 dependencies[] = token
+dependencies[] = tinynav
 dependencies[] = uuid
 dependencies[] = uuid_path
 dependencies[] = views
 dependencies[] = views_column_class
 dependencies[] = views_ui_basic
-dependencies[] = webform 
-dependencies[] = xmlsitemap 
+dependencies[] = webform
+dependencies[] = xmlsitemap
 

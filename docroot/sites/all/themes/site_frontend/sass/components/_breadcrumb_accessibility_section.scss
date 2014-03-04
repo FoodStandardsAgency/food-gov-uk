@@ -1,3 +1,8 @@
 .breadcrumb-accessibility-wrapper {
   border-top: 1px solid #348971;
 }
+.breadcrumb-accessibility-inner {
+	overflow: hidden;
+	margin: 12px 0;
+	min-height: 17px;	// to help retain spacing of no breadcrumbs on a page
+}

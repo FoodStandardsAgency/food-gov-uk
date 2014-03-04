@@ -1,0 +1,60 @@
+<?php
+
+/**
+ * @file
+ * Install and uninstall hooks for Menu Line Break module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function menu_link_break_install() {
+  // Increase the module weight, so menu_link_break can
+  // alter the menu link title before it's saved.
+  db_update('system')
+    ->fields(array('weight' => 100))
+    ->condition('type', 'module')
+    ->condition('name', 'menu_link_break')
+    ->execute();
+}
+
+
+///**
+// * Implements hook_uninstall().
+// */
+//function menu_link_break_uninstall() {
+//
+//}
+
+/**
+ * Implements hook_schema().
+ */
+function menu_link_break_schema() {
+
+  $schema['menu_link_break'] = array(
+    'description' => 'Stores link label that is displayed only on actual link.',
+    'fields' => array(
+      'mlid' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'small',
+        'description' => 'The menu ID.',
+      ),
+      'link_title_raw' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'Link label that can include break tag.',
+      ),
+
+    ),
+    'primary key' => array('mlid'),
+    'indexes' => array(
+      'mlid' => array('mlid'),
+    ),
+  );
+
+  return $schema;
+}

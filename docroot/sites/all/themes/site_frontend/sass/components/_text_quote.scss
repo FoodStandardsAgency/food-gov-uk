@@ -1,0 +1,11 @@
+.field--name-field-fc-section-quote {
+	width: 200px;
+	float: right;
+	margin-left: 10px;
+	margin-bottom: 20px;
+	font-size: 1.6em;
+	p {
+		margin-bottom: 0px;
+		font-size: 1em;	// ie same font size as this field
+	}
+}

@@ -1,0 +1,28 @@
+/** Mobile menu is just a menu block applied to main menu with only first level items displayed
+  * Requires tinynav module to apply a select list to class (include the dots in class): .main-menu-mobile ul.menu
+  * Requires setting on tinynav admin for media query: max width 480px.
+  * Requires a block class on the menublock (without dots in class): main-menu-mobile
+  */
+
+/* hide main menu mobile by default */
+.main-menu-mobile {
+	display: none;
+}
+
+/* mobile layout show main menu mobile */
+@include breakpoint($mobile) {
+	.main-menu-mobile {
+		display: block;
+		margin-bottom: 12px;
+		/* select list created by tinynav module */
+		.tinynav-wrapper {
+			width: 100%;
+			select.tinynav {
+				width: 100%;
+				font-size: 18px;
+				border-color: #fff;
+				border-width: 2px;
+			}
+		}
+	}
+}
