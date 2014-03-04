@@ -14,6 +14,7 @@ function fsa_migrate_migrate_api() {
     'api' => 2,
     'migrations' => array(
       'FSAUberpage' => array('class_name' => 'FSAUberpageMigration'),
+      'FSAUberpageCollection' => array('class_name' => 'FSAUberpageCollectionMigration'),
     )
   );
 

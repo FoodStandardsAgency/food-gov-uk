@@ -79,7 +79,7 @@ ENDSQL;
     $this->destination = new MigrateDestinationNode('uberpage');
 
     // Fields mapping.
-    $this->addFieldMapping('title', 'SIMPLENAME');
+    $this->addFieldMapping('title', 'title');
     $this->addFieldMapping('field_global_summary', 'summary');
   }
 
@@ -91,24 +91,38 @@ ENDSQL;
     if (!is_null($row->FIELDIDS)) {
       // Query the oracle DB to look for Fields from the object id.
       $fields_res_array = $this->oracleQueryAll(
-          $this->relatedFieldsObjects,
+          $this->relatedFieldsCollectionTextObjects,
           array(
             ':obj_id' => $row->OBJECTID,
           )
       );
 
+      // var_dump($fields_res_array);
+
+      $row->summary = $fields_res_array['summary'];
+      $row->title = $fields_res_array['title'];
+
       $i_field = 0;
       // Loop to the fields results variable and values.
       // Variable is the readable name of the field in oracle.
-      foreach ($fields_res_array['VARIABLE'] as $field_variable) {
+      /*foreach ($fields_res_array['VARIABLE'] as $field_variable) {
         $field_value = $fields_res_array['VALUE'][$i_field];
+        var_dump($field_variable);
+        var_dump(substr($field_variable, 0, 14));
+        var_dump(substr($field_variable, 0, 4));
         // Load the summary into a row.
         if ($field_variable == 'summary') {
           $row->summary = $field_value;
         }
+        elseif (substr($field_variable, 0, 14) == 'sectionheading') {
+          $row->section[$field_variable] = $field_value;
+        }
+        elseif (substr($field_variable, 0, 4) == 'text') {
+          $row->section[$field_variable] = $field_value;
+        }
         $i_field++;
-      }
+      }*/
+      // var_dump($row->section);
     }
   }
-
 }
