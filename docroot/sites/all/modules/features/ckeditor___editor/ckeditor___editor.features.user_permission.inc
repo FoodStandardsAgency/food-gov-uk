@@ -14,7 +14,7 @@ function ckeditor___editor_user_default_permissions() {
   $permissions['administer ckeditor'] = array(
     'name' => 'administer ckeditor',
     'roles' => array(
-      'administrator' => 'administrator',
+      'Administrator' => 'Administrator',
     ),
     'module' => 'ckeditor',
   );
@@ -23,7 +23,7 @@ function ckeditor___editor_user_default_permissions() {
   $permissions['customize ckeditor'] = array(
     'name' => 'customize ckeditor',
     'roles' => array(
-      'administrator' => 'administrator',
+      'Administrator' => 'Administrator',
     ),
     'module' => 'ckeditor',
   );
