@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the File Entities feature.
+ */
+
+include_once 'file_entities_feature.features.inc';

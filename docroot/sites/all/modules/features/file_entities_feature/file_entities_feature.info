@@ -1,0 +1,11 @@
+name = File Entities
+description = File entities
+core = 7.x
+package = Global
+version = 7.x-1.0
+project = file_entities_feature
+dependencies[] = ctools
+dependencies[] = file_entity
+features[ctools][] = file_entity:file_default_displays:1
+features[features_api][] = api:2
+features[file_display][] = image__full__file_image
