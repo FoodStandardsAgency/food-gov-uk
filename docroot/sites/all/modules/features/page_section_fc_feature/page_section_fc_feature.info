@@ -1,0 +1,10 @@
+name = Page Section FC
+description = Page Section field collection
+core = 7.x
+package = Field Collections
+version = 7.x-1.0
+project = page_section_fc_feature
+dependencies[] = features
+dependencies[] = field_collection
+features[features_api][] = api:2
+features[field_base][] = field_fc_page_section
