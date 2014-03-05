@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Document Content Type feature.
+ */
+
+include_once 'document_content_type_feature.features.inc';
