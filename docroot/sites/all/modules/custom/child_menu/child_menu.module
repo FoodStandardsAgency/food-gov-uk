@@ -7,6 +7,44 @@
 
 
 /**
+ * Implements hook_field_info_alter().
+ * Add default child menu settings to the entity reference field.
+ */
+function child_menu_field_info_alter(&$info) {
+
+  // Change the default widget for fields of type 'foo'.
+  if (isset($info['entityreference'])) {
+    $info['entityreference']['settings']['child_menu'] = 'none';
+  }
+}
+
+/**
+ * Implements hook_form_field_ui_field_edit_form_alter().
+ * Add child menu settings selector to the entity reference field.
+ */
+function child_menu_form_field_ui_field_edit_form_alter(&$form, &$form_state, $form_id) {
+  if ($form['#field']['type'] == 'entityreference') {
+    $default_value = 'none';
+
+    if (isset($form['instance']['settings']['settings']['#instance']['settings']['child_menu'])) {
+      $default_value = $form['instance']['settings']['settings']['#instance']['settings']['child_menu'];
+    }
+
+    $form['instance']['settings']['child_menu'] = array(
+      '#type'          => 'select',
+      '#required'      => FALSE,
+      '#title'         => t('Child Menu'),
+      '#description'   => t('Automatically add nodes created via a parent node to a menu as a child node. Select which menu to add to.'),
+      '#default_value' => $default_value,
+      '#empty_option'  => t('Do not add to menu'),
+      '#options'       => array('main-menu' => t('Main Menu')),
+    );
+  }
+
+}
+
+
+/**
  * Implements hook_form_alter().
  * Alter the node form if it uses Inline Entity Form
  */
@@ -14,8 +52,21 @@ function child_menu_form_alter(&$form, &$form_state, $form_id) {
   // Check for Inline Entity Form
   if (!empty($form_state['inline_entity_form'])) {
 
+    $child_menu_not_enabled = TRUE;
+
+    foreach ($form_state['inline_entity_form'] as $key => $inline_entity_form) {
+      if (isset($inline_entity_form['instance']['settings']['child_menu']) && $inline_entity_form['instance']['settings']['child_menu'] == 'main-menu') {
+        $child_menu_not_enabled = FALSE;
+      }
+    }
+
+    if ($child_menu_not_enabled) {
+      return;
+    }
+
     // Node is being created, or has no menu item, hide inline entity form.
     if (empty($form['nid']['#value']) || empty($form['#node']->menu['mlid'])) {
+
       $form['field_child_pages']['#access'] = FALSE;
 
       $form['child_pages_message'] = array(
