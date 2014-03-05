@@ -1,7 +1,7 @@
 name = Child Pages FC
 description = Child Pages field collection
 core = 7.x
-package = Field Collection
+package = Field Collections
 version = 7.x-1.0
 project = child_pages_fc_feature
 dependencies[] = features
