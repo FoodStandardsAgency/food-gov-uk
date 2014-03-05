@@ -14,7 +14,7 @@ function fonts___feature_user_default_permissions() {
   $permissions['administer @font-your-face'] = array(
     'name' => 'administer @font-your-face',
     'roles' => array(
-      'administrator' => 'administrator',
+      'Administrator' => 'Administrator',
     ),
     'module' => 'fontyourface',
   );
