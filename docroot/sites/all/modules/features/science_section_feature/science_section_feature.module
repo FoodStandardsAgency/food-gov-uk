@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Science Section feature.
+ */
+
+include_once 'science_section_feature.features.inc';

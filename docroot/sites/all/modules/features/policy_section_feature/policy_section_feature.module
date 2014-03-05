@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Policy Section feature.
+ */
+
+include_once 'policy_section_feature.features.inc';

@@ -1,0 +1,12 @@
+name = Policy Section
+description = Policy & Advice section
+core = 7.x
+package = Sections
+version = 7.x-1.0
+project = policy_section_feature
+dependencies[] = context
+dependencies[] = ctools
+dependencies[] = menu_block
+features[context][] = submenu_policy_and_advice
+features[ctools][] = context:context:3
+features[features_api][] = api:2
