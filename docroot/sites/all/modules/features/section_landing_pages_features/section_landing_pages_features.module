@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Section Landing Pages feature.
+ */
+
+include_once 'section_landing_pages_features.features.inc';
