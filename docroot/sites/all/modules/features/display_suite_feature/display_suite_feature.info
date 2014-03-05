@@ -1,0 +1,13 @@
+name = Display Suite
+description = Display Suite settings
+core = 7.x
+package = Global
+version = 7.x-1.0
+project = display_suite_feature
+dependencies[] = ctools
+dependencies[] = ds
+features[ctools][] = ds:ds:1
+features[ds_field_settings][] = node|document_page|teaser
+features[ds_layout_settings][] = node|document_page|teaser
+features[ds_view_modes][] = short_teaser
+features[features_api][] = api:2
