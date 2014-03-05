@@ -116,5 +116,43 @@ function text_formats_filter_default_formats() {
     ),
   );
 
+  // Exported format: Preserve.
+  $formats['preserve'] = array(
+    'format' => 'preserve',
+    'name' => 'Preserve',
+    'cache' => 1,
+    'status' => 1,
+    'weight' => -7,
+    'filters' => array(
+      'ckeditor_link_filter' => array(
+        'weight' => 0,
+        'status' => 1,
+        'settings' => array(),
+      ),
+      'filter_autop' => array(
+        'weight' => 0,
+        'status' => 1,
+        'settings' => array(),
+      ),
+      'filter_url' => array(
+        'weight' => 0,
+        'status' => 1,
+        'settings' => array(
+          'filter_url_length' => 72,
+        ),
+      ),
+      'preserve_filter' => array(
+        'weight' => 0,
+        'status' => 1,
+        'settings' => array(),
+      ),
+      'filter_htmlcorrector' => array(
+        'weight' => 10,
+        'status' => 1,
+        'settings' => array(),
+      ),
+    ),
+  );
+
   return $formats;
 }
