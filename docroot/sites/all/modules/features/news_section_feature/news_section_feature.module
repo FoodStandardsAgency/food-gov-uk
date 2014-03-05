@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the News Section feature.
+ */
+
+include_once 'news_section_feature.features.inc';

@@ -1,0 +1,12 @@
+name = About Us Section
+description = The About Us section.
+core = 7.x
+package = Sections
+version = 7.x-1.0
+project = about_us_section_feature
+dependencies[] = context
+dependencies[] = ctools
+dependencies[] = menu_block
+features[context][] = submenu_about_us
+features[ctools][] = context:context:3
+features[features_api][] = api:2
