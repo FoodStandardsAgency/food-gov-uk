@@ -1,0 +1,15 @@
+name = Apache Solr
+description = Apache Solr settup
+core = 7.x
+package = Global
+version = 7.x-1.0
+project = apache_solr_feature
+dependencies[] = apachesolr
+dependencies[] = apachesolr_search
+dependencies[] = ctools
+features[apachesolr_environment][] = solr
+features[apachesolr_search_page][] = core_search
+features[apachesolr_search_page][] = taxonomy_search
+features[ctools][] = apachesolr:apachesolr_environments:1
+features[ctools][] = apachesolr_search:apachesolr_search_defaults:3
+features[features_api][] = api:2
