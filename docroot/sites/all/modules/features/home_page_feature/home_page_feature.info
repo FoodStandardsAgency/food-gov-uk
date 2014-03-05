@@ -1,0 +1,11 @@
+name = Home Page
+description = Home page elements
+core = 7.x
+package = Sections
+version = 7.x-1.0
+project = home_page_feature
+dependencies[] = context
+dependencies[] = ctools
+features[context][] = font_page_layout
+features[ctools][] = context:context:3
+features[features_api][] = api:2
