@@ -1,0 +1,13 @@
+name = ImageCache
+description = ImageCache presets
+core = 7.x
+package = Base
+version = 7.x-1.0
+project = imagecache_feature
+dependencies[] = image
+features[features_api][] = api:2
+features[image][] = banner_image__main_content_
+features[image][] = feature_image
+features[image][] = page_section__left_right_
+features[image][] = section_top_bottom
+project path = sites/all/modules/features

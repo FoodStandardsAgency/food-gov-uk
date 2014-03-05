@@ -1,0 +1,11 @@
+name = Taxonomy
+description = Vocabularies
+core = 7.x
+package = Base
+version = 7.x-1.0
+project = taxonomy_feature
+dependencies[] = features
+dependencies[] = taxonomy
+features[features_api][] = api:2
+features[taxonomy][] = news_type
+features[taxonomy][] = tags
