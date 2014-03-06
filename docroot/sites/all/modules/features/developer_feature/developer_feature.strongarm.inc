@@ -13,6 +13,13 @@ function developer_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'additional_settings__active_tab_base';
+  $strongarm->value = 'edit-submission';
+  $export['additional_settings__active_tab_base'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'comment_anonymous_base';
   $strongarm->value = 0;
   $export['comment_anonymous_base'] = $strongarm;
@@ -131,6 +138,20 @@ function developer_feature_strongarm() {
   $strongarm->name = 'node_submitted_base';
   $strongarm->value = 1;
   $export['node_submitted_base'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_base_pattern';
+  $strongarm->value = '[node:title]';
+  $export['pathauto_node_base_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'save_continue_base';
+  $strongarm->value = 'Save and add fields';
+  $export['save_continue_base'] = $strongarm;
 
   return $export;
 }
