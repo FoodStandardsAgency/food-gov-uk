@@ -702,18 +702,21 @@ span.copyright {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_header_section\.scss}line{font-family:\000031}}
 .header-wrapper {
   border-bottom: 3px solid #74ae27;
+  background: #2a8641;
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzJhODY0MSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMTZjNGUiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
   background: -moz-linear-gradient(top, #2a8641 0, #016c4e 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #2a8641), color-stop(100%, #016c4e));
   background: -webkit-linear-gradient(top, #2a8641 0, #016c4e 100%);
   background: -o-linear-gradient(top, #2a8641 0, #016c4e 100%);
   background: -ms-linear-gradient(top, #2a8641 0, #016c4e 100%);
-  background: linear-gradient(top, #2a8641 0%, #016c4e 100%); }
+  background: linear-gradient(top, #2a8641 0%, #016c4e 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#2a8641',endColorstr='#016c4e',GradientType=0); }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_header_section\.scss}line{font-family:\0000310}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_header_section\.scss}line{font-family:\0000313}}
 .header-top {
   padding-bottom: 16px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_header_section\.scss}line{font-family:\0000313}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_header_section\.scss}line{font-family:\0000316}}
 .site-logo img {
   margin-top: 10px; }
 
@@ -847,8 +850,9 @@ span.copyright {
       left: -35px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003127}}
     .main-menu-desktop .sf-menu.sf-style-none.sf-horizontal li.sf-depth-1 {
-      margin-right: 5px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003130}}
+      margin-right: 5px;
+      background: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003131}}
     .main-menu-desktop .sf-menu.sf-style-none.sf-horizontal li.sf-depth-1 > a {
       border-top: 2px solid #fff;
       border-left: 2px solid #fff;
@@ -858,14 +862,16 @@ span.copyright {
       -webkit-border-radius: 17px 17px 0 0;
       -ms-border-radius: 17px 17px 0 0;
       -o-border-radius: 17px 17px 0 0;
-      border-radius: 17px 17px 0 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003141}}
+      border-radius: 17px 17px 0 0;
+      overflow: hidden;
+      /* fixes IE9 issue with background exposed past the rounded borders */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003143}}
     .main-menu-desktop .sf-menu.sf-style-none.sf-horizontal li.sf-depth-2 a {
       border-left: 3px solid #d0d0d0;
       border-right: 3px solid #d0d0d0;
       border-bottom: 1px solid #ebebeb;
       border-top: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003147}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003149}}
     .main-menu-desktop .sf-menu.sf-style-none.sf-horizontal li.sf-depth-2.first a {
       border-top: 3px solid #d0d0d0;
       -moz-border-radius: 3px 3px 0 0;
@@ -873,7 +879,7 @@ span.copyright {
       -ms-border-radius: 3px 3px 0 0;
       -o-border-radius: 3px 3px 0 0;
       border-radius: 3px 3px 0 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003155}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003157}}
     .main-menu-desktop .sf-menu.sf-style-none.sf-horizontal li.sf-depth-2.last a {
       border-bottom: 3px solid #d0d0d0;
       -moz-border-radius: 0 0 3px 3px;
@@ -881,7 +887,7 @@ span.copyright {
       -ms-border-radius: 0 0 3px 3px;
       -o-border-radius: 0 0 3px 3px;
       border-radius: 0 0 3px 3px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003164}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003166}}
     .main-menu-desktop .sf-menu.sf-style-none.sf-horizontal li.sf-depth-2.firstandlast a {
       border-top: 3px solid #d0d0d0;
       border-bottom: 3px solid #d0d0d0;
@@ -890,17 +896,17 @@ span.copyright {
       -ms-border-radius: 3px 3px 3px 3px;
       -o-border-radius: 3px 3px 3px 3px;
       border-radius: 3px 3px 3px 3px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003174}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003176}}
     .main-menu-desktop .sf-menu.sf-style-none.sf-horizontal li li:hover > ul,
     .main-menu-desktop .sf-menu.sf-style-none.sf-horizontal li li.sfHover > ul {
       top: -1px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003180}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003182}}
   .main-menu-desktop .sf-menu.sf-style-none.sf-horizontal.sf-shadow ul {
     padding: 0 8px 7px 0 !important; }
 
 /* mobile layout */
 @media (min-width: 0px) and (max-width: 480px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003188}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003190}}
   .main-menu-desktop {
     display: none; } }
 /** Mobile menu is just a menu block applied to main menu with only first level items displayed

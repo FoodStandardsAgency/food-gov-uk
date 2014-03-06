@@ -126,6 +126,7 @@
 		/* top level tabs */
 		li.sf-depth-1 {
 			margin-right: 5px;
+			background: none;
 		}
 		li.sf-depth-1 > a {
 			border-top: 2px solid #fff;
@@ -137,6 +138,7 @@
 			-ms-border-radius: 17px 17px 0 0;
 			-o-border-radius: 17px 17px 0 0;
 			border-radius: 17px 17px 0 0;
+			overflow: hidden;	 /* fixes IE9 issue with background exposed past the rounded borders */
 		}
 		li.sf-depth-2 a {
 			border-left: 3px solid #d0d0d0;
