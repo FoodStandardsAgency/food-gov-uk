@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Local feature.
+ */
+
+include_once 'local___feature.features.inc';
