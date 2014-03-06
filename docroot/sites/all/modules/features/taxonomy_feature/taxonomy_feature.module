@@ -1,5 +1,7 @@
 <?php
 /**
  * @file
- * Drupal needs this blank file.
+ * Code for the Taxonomy feature.
  */
+
+include_once 'taxonomy_feature.features.inc';
