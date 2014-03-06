@@ -1,0 +1,14 @@
+<?php
+/**
+ * @file
+ * menus_feature.features.inc
+ */
+
+/**
+ * Implements hook_ctools_plugin_api().
+ */
+function menus_feature_ctools_plugin_api($module = NULL, $api = NULL) {
+  if ($module == "strongarm" && $api == "strongarm") {
+    return array("version" => "1");
+  }
+}
