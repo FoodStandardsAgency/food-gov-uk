@@ -133,12 +133,6 @@ function administration___feature_strongarm() {
     4 => 'menu-nation-menu',
     5 => 'navigation',
     6 => 'user-menu',
-    7 => 'menu-submenu-news-and-updates',
-    8 => 'menu-submenu-policy-and-advice',
-    9 => 'menu-submenu-business-and-indust',
-    10 => 'menu-submenu-enforcement-and-reg',
-    11 => 'menu-submenu-science-and-researc',
-    12 => 'menu-submenu-about-us',
     13 => 'devel',
   );
   $export['menu_default_active_menus'] = $strongarm;
