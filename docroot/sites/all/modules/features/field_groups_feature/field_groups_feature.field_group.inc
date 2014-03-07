@@ -57,7 +57,7 @@ function field_groups_feature_field_group_info() {
       1 => 'group_feature_image',
       2 => 'group_main_text',
       3 => 'group_page_sections',
-      4 => 'group_child_pages',
+      4 => 'group_featured_items',
     ),
     'format_type' => 'accordion',
     'format_settings' => array(
@@ -155,6 +155,33 @@ function field_groups_feature_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_featured_items|node|document_page|form';
+  $field_group->group_name = 'group_featured_items';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'document_page';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_accordion';
+  $field_group->data = array(
+    'label' => 'Featured items',
+    'weight' => '7',
+    'children' => array(
+      0 => 'field_featured_item',
+    ),
+    'format_type' => 'accordion-item',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-featured-items field-group-accordion-item',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_featured_items|node|document_page|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_images|field_collection_item|field_fc_page_section|form';
   $field_group->group_name = 'group_images';
   $field_group->entity_type = 'field_collection_item';
@@ -165,10 +192,8 @@ function field_groups_feature_field_group_info() {
     'label' => 'Images',
     'weight' => '13',
     'children' => array(
-      0 => 'field_fc_top_image',
-      1 => 'field_fc_left_image',
-      2 => 'field_fc_right_image',
-      3 => 'field_fc_bottom_image',
+      0 => 'field_fc_section_image',
+      1 => 'field_fc_image_position',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -222,7 +247,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Main text',
-    'weight' => '6',
+    'weight' => '5',
     'children' => array(
       0 => 'body',
     ),
@@ -249,7 +274,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Page sections',
-    'weight' => '7',
+    'weight' => '6',
     'children' => array(
       0 => 'field_fc_page_section',
     ),
