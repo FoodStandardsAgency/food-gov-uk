@@ -76,6 +76,40 @@ function sitewide_feature_context_default_contexts() {
   $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
+  $context->name = 'featured_items';
+  $context->description = 'Adds featured items block in right sidebar';
+  $context->tag = 'Content type blocks';
+  $context->conditions = array(
+    'path' => array(
+      'values' => array(
+        '*' => '*',
+        '~<front>' => '~<front>',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'views-featured_items-block' => array(
+          'module' => 'views',
+          'delta' => 'featured_items-block',
+          'region' => 'sidebar_second',
+          'weight' => '-10',
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 0;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Adds featured items block in right sidebar');
+  t('Content type blocks');
+  $export['featured_items'] = $context;
+
+  $context = new stdClass();
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
   $context->name = 'footer_menu';
   $context->description = 'Ads footer menu to footer menu region';
   $context->tag = 'Menus';
