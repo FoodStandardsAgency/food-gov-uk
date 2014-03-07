@@ -1,94 +1,60 @@
-a, a:visited {
-	
-}
-a:hover {
-	
-}
-a.active {
-	
-}
-
-// example application: <a class="orange-arrow green-link">Some link</a>
-a {
-	&.orange-arrow {
-		
+/* apply this class to the block, not to the link itself */
+.green-sidebar-links1 {
+	ul {
+		margin: 0;
+		padding: 0;
+		list-style-type: none;
 	}
-	&.green-arrow {
-		
-	}
-	&.green-link {
-		
-		&:visited {
-			
+	.li {
+		font-size: 1em;	// set base to 10px
+		font-weight: normal;
+		display: block;
+		padding-left: 14px;
+		background-image: url('../images/green-arrow-thin-right.png');
+		background-repeat: no-repeat;
+		background-position: left 3px;
+		a {
+			text-decoration: none;
+			font-size: 1.2em; 
+			line-height: 1.4em;
+			display: block;
+			color: #006f51;
+			margin-bottom: 0.35em;
 		}
-		&:hover {
-			
-		}
-	}
-	&.black-link {
-		
-		&:visited {
-			
-		}
-		&:hover {
-			
-		}
-	}
-	&.blue-link {
-		
-		&:visited {
-			
-		}
-		&:hover {
-			
+		a:hover {
+			text-decoration: underline;
 		}
 	}
 }
-
-// example application is in the block class field, like this: green-arrow green-link OR like this: orange-arrow green-link
-.orange-arrow {
-  .block__content li a {
-	
+/* apply this class to the block, not to the link itself */
+.green-sidebar-links2 {
+	ul {
+		margin: 0;
+		padding: 0;
 	}
-}
-.green-arrow {
-	.block__content li a {
-	
+	.li {
+		font-size: 1em;	// set base to 10px
+		font-weight: normal;
+		display: block;
+		padding-left: 14px;
+		background-image: url('../images/green-arrow-thin-right.png');
+		background-repeat: no-repeat;
+		background-position: left 3px;
+		a {
+			text-decoration: none;
+			font-size: 1.2em; 
+			line-height: 1.4em;
+			display: block;
+			color: #006f51;
+			margin-bottom: 0.5em;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
 	}
-}
-.green-link {
-	.block__content {
-	  li {
-		  a, a:visited {
-			
-			}
-			a:hover {
-				
-			}
-		}
-  }
-}
-.black-link {
-	.block__content {
-	  li {
-		  a, a:visited {
-			
-			}
-			a:hover {
-				
-			}
-		}
-  }
-}
-.blue-link {
-	.block__content {
-	  li {
-		  a, a:visited {
-			
-			}
-			a:hover {
-				
-			}
-		}
-  }
+	.field--name-field-subtitle {
+		font-size: 1.2em; 
+		line-height: 1.4em;
+		margin-bottom: 0.5em;
+	}
 }
