@@ -318,6 +318,16 @@ p, li, dt, dd, blockquote, pre, address, label, th, td, code {
 p, ul, ol, dl, address, blockquote {
   margin: 0 0 1.3em 0; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_admin_menu\.scss}line{font-family:\000031}}
+#admin-menu {
+  font-size: 1em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_admin_menu\.scss}line{font-family:\000033}}
+  #admin-menu li {
+    font-size: 1em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_admin_menu\.scss}line{font-family:\000035}}
+    #admin-menu li a {
+      font-size: 1.2em; }
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_bottom_menu_section\.scss}line{font-family:\000031}}
 .bottom-menu-wrapper {
   border-top: 1px solid #61873b;
