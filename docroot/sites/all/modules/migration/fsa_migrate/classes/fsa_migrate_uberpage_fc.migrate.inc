@@ -11,36 +11,6 @@
  */
 class FSAUberpageCollectionMigration extends FSAMigration {
 
-  protected $textsection;
-
-  /**
-   * SQL Query to get the fields we will use as field collections.
-   *
-   * @var string
-   */
-  protected $query = <<<'ENDSQL'
-    SELECT OBJ.OBJECTID, WM_CONCAT(FIELDVALUE.FIELDID) as FIELDIDS
-      FROM FIELDVALUE, OBJ, FIELDNAME
-      WHERE OBJ.PATH LIKE '/multimedia/webpage/uber-page/'
-      AND FIELDVALUE.FIELDID = FIELDNAME.FIELDID
-      AND FIELDVALUE.OBJECTID = OBJ.OBJECTID
-      AND ( FIELDNAME.VARIABLE LIKE 'text%'
-      OR  FIELDNAME.VARIABLE LIKE 'sectionheading%'
-      OR FIELDNAME.VARIABLE LIKE 'imageposition%')
-      GROUP BY OBJ.OBJECTID
-ENDSQL;
-
-  /**
-   * SQL Query to count the total amount of items to be migrated.
-   *
-   * @var string
-   */
-  protected $countQuery = <<<'ENDSQL'
-    SELECT count(OBJECTID)
-      FROM OBJ
-      WHERE PATH LIKE '/multimedia/webpage/uber-page/'
-ENDSQL;
-
   public function __construct($arguments) {
     global $conf;
     // Calls to parent constructor from official doc.
@@ -84,12 +54,10 @@ ENDSQL;
 //      $fields
 //    );
 
-    $fieldId = ':id';
-
-    // @TODO use variables and functions here.
     // @TODO Just use the path as parameter "/multimedia/webpage/uber-page/".
-    $this->source = new MigrateSourceList(new MigrateListOracleTextCollection(array('674037')),
-      new MigrateItemOracleTextCollection($fieldId));
+    // Object ids ex: 674037, 11421.
+    $this->source = new MigrateSourceList(new MigrateListOracleTextCollection(array(674037, 11421), $conf['oracle_db']),
+      new MigrateItemOracleTextCollection());
 
     // Destination detail.
     $this->destination = new MigrateDestinationFieldCollection(
