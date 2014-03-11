@@ -14,105 +14,105 @@ function local___feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'cache_content_flush_cache_block';
-  $strongarm->value = 1394202513;
+  $strongarm->value = 1394548337;
   $export['cache_content_flush_cache_block'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'cache_flush_cache';
-  $strongarm->value = 1394202514;
+  $strongarm->value = 1394548331;
   $export['cache_flush_cache'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'cache_flush_cache_admin_menu';
-  $strongarm->value = 1394202507;
+  $strongarm->value = 1394548324;
   $export['cache_flush_cache_admin_menu'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'cache_flush_cache_apachesolr';
-  $strongarm->value = 1394202514;
+  $strongarm->value = 1394548331;
   $export['cache_flush_cache_apachesolr'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'cache_flush_cache_block';
-  $strongarm->value = 1394202514;
+  $strongarm->value = 1394548331;
   $export['cache_flush_cache_block'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'cache_flush_cache_bootstrap';
-  $strongarm->value = 1394202514;
+  $strongarm->value = 1394548331;
   $export['cache_flush_cache_bootstrap'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'cache_flush_cache_field';
-  $strongarm->value = 1394202514;
+  $strongarm->value = 1394548331;
   $export['cache_flush_cache_field'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'cache_flush_cache_filter';
-  $strongarm->value = 1394202514;
+  $strongarm->value = 1394548331;
   $export['cache_flush_cache_filter'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'cache_flush_cache_image';
-  $strongarm->value = 1394202514;
+  $strongarm->value = 1394548331;
   $export['cache_flush_cache_image'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'cache_flush_cache_libraries';
-  $strongarm->value = 1394202514;
+  $strongarm->value = 1394548331;
   $export['cache_flush_cache_libraries'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'cache_flush_cache_menu';
-  $strongarm->value = 1394202513;
+  $strongarm->value = 1394548337;
   $export['cache_flush_cache_menu'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'cache_flush_cache_metatag';
-  $strongarm->value = 1394202514;
+  $strongarm->value = 1394548331;
   $export['cache_flush_cache_metatag'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'cache_flush_cache_path';
-  $strongarm->value = 1394202514;
+  $strongarm->value = 1394548331;
   $export['cache_flush_cache_path'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'cache_flush_cache_path_breadcrumbs';
-  $strongarm->value = 1394202514;
+  $strongarm->value = 1394548331;
   $export['cache_flush_cache_path_breadcrumbs'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'cache_flush_cache_token';
-  $strongarm->value = 1394202514;
+  $strongarm->value = 1394548331;
   $export['cache_flush_cache_token'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -126,14 +126,14 @@ function local___feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'cache_flush_cache_views';
-  $strongarm->value = 1394202514;
+  $strongarm->value = 1394548331;
   $export['cache_flush_cache_views'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'cache_flush_cache_views_data';
-  $strongarm->value = 1394202514;
+  $strongarm->value = 1394548331;
   $export['cache_flush_cache_views_data'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -161,21 +161,21 @@ function local___feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'cron_last';
-  $strongarm->value = 1394200762;
+  $strongarm->value = 1394537911;
   $export['cron_last'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'css_js_query_string';
-  $strongarm->value = 'n22lje';
+  $strongarm->value = 'n2a0de';
   $export['css_js_query_string'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'ctools_last_cron';
-  $strongarm->value = 1394200763;
+  $strongarm->value = 1394523938;
   $export['ctools_last_cron'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -255,17 +255,17 @@ function local___feature_strongarm() {
       ),
       'entity_' => array(
         12 => 1394188553,
-        21 => 1393917837,
+        21 => 1394523982,
         11 => 1393415107,
       ),
       'node_ty' => array(
         11 => 1394013059,
       ),
       'context' => array(
-        7 => 1393917837,
+        7 => 1394523982,
       ),
       'plugins' => array(
-        15 => 1393917837,
+        15 => 1394523982,
       ),
       'omega:s' => array(
         20 => 1391441176,
@@ -296,13 +296,13 @@ function local___feature_strongarm() {
     ),
     'cache_menu' => array(
       'admin_menu:' => array(
-        11 => 1393872855,
+        11 => 1394523933,
       ),
       'links:manag' => array(
         17 => 1394022319,
       ),
       'links:navig' => array(
-        17 => 1393583041,
+        17 => 1394538115,
       ),
       'links:main-' => array(
         16 => 1394041961,
@@ -438,7 +438,7 @@ function local___feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'node_cron_last';
-  $strongarm->value = '1394192858';
+  $strongarm->value = '1394532125';
   $export['node_cron_last'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -473,21 +473,21 @@ function local___feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'update_last_check';
-  $strongarm->value = 1394200769;
+  $strongarm->value = 1394537922;
   $export['update_last_check'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'xmlsitemap_generated_last';
-  $strongarm->value = 1394200762;
+  $strongarm->value = 1394537911;
   $export['xmlsitemap_generated_last'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'xmlsitemap_regenerate_needed';
-  $strongarm->value = FALSE;
+  $strongarm->value = TRUE;
   $export['xmlsitemap_regenerate_needed'] = $strongarm;
 
   return $export;
