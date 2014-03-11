@@ -11,6 +11,11 @@ body.font-plus-2 {
 	font-size: 73%;
 }
 
+/* hide contextual links - gets in the way when logged in */
+html.js l-region--accessibility .contextual-links-wrapper {
+	display: none !important;
+}
+
 /* for mobile */
 @include breakpoint($mobile) {
 	/* keep fonts the same as default */

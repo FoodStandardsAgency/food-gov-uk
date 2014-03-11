@@ -13,10 +13,15 @@ body.font-plus-1 {
 body.font-plus-2 {
   font-size: 73%; }
 
+/* hide contextual links - gets in the way when logged in */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_accessibility\.scss}line{font-family:\0000315}}
+html.js l-region--accessibility .contextual-links-wrapper {
+  display: none !important; }
+
 /* for mobile */
 @media (min-width: 0px) and (max-width: 480px) {
   /* keep fonts the same as default */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_accessibility\.scss}line{font-family:\0000318}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_accessibility\.scss}line{font-family:\0000323}}
   body.font-plus-1,
   body.font-plus-2 {
     font-size: 62.5%; } }
