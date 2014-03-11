@@ -49,14 +49,14 @@ ENDSQL;
    *
    * @return array|null
    *   The results returned or NULL if empty.
+   *
+   * @TODO Remove $type.
    */
-  public function oracleQueryAll($query, array $params, $connection) {
-    // $connection = $this->source->getConnection();
+  public function oracleQueryAll($query, array $params, $connection, $type = 'string') {
     $statement = oci_parse($connection, $query);
 
     // Associate key and value.
     foreach ($params as $key => $value) {
-      // @TODO Try to cast using SQLT_INT.
       oci_bind_by_name($statement, $key, $value);
     }
 
@@ -65,27 +65,54 @@ ENDSQL;
 
     $rows = array();
 
-//    // While loop test for performance improvment.
-//    while (($row = oci_fetch_assoc($statement)) != false) {
-//      // No migration for the field if no value.
-//      if (!is_null($row['VALUE'])) {
-//        // $rows['VARIABLE'][] = $row['VARIABLE'];
-//        // $rows['VALUE'][] = $row['VALUE']->read($row['VALUE']->size());
-//        $rows[$row['VARIABLE']] = $row['VALUE']->read($row['VALUE']->size());
-//      }
-//    }
-
     // No significal improvment of the performance. Back to normal for more flexibility.
     $number_of_results = oci_fetch_all($statement, $rows);
 
     // $number_of_results = oci_fetch_all($statement, $rows);
 
     oci_free_statement($statement);
-    // Double check if we need to close the connexion.
-    oci_close($connection);
 
     if ($number_of_results) {
       return $rows;
+    }
+
+    return NULL;
+  }
+
+
+  /**
+   * Queries the oracle database.
+   *
+   * @param string $query
+   *   The string containing an oracle query to run against the db.
+   * @param array $params
+   *   Parameters as an array
+   *
+   * @return array|null
+   *   The result returned or NULL if empty
+   *
+   * @TODO Is this used?
+   */
+  public function oracleQuerySingle($query, array $params, $connection, $type = 'string') {
+    $statement = oci_parse($connection, $query);
+
+    foreach ($params as $key => $value) {
+
+      if ($type == 'int') {
+        oci_bind_by_name($statement, $key, intval($value));
+      }
+      else {
+        oci_bind_by_name($statement, $key, $value);
+      }
+    }
+
+    oci_execute($statement);
+
+    $row = oci_fetch_array($statement, $flags = OCI_ASSOC);
+    oci_free_statement($statement);
+
+    if (!empty($row)) {
+      return $row;
     }
 
     return NULL;
