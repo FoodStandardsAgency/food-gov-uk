@@ -1,0 +1,7 @@
+name = Features Site Frontpage
+core = 7.x
+package = Local
+dependencies[] = features
+dependencies[] = uuid
+
+
