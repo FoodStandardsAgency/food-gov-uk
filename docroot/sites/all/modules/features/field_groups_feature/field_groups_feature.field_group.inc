@@ -83,7 +83,8 @@ function field_groups_feature_field_group_info() {
     'label' => 'Child pages',
     'weight' => '17',
     'children' => array(
-      0 => 'field_child_pages',
+      0 => 'field_child_pages_heading',
+      1 => 'field_child_page',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -190,7 +191,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Images',
-    'weight' => '13',
+    'weight' => '14',
     'children' => array(
       0 => 'field_fc_section_image',
       1 => 'field_fc_image_position',
@@ -330,7 +331,8 @@ function field_groups_feature_field_group_info() {
     'label' => 'Related items',
     'weight' => '16',
     'children' => array(
-      0 => 'field_fc_related_items',
+      0 => 'field_fc_related_items_heading',
+      1 => 'field_fc_related_item',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(

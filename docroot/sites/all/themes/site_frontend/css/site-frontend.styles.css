@@ -1,5 +1,44 @@
 @charset "UTF-8";
 /* No files to import found in abstractions/**\/* */
+/* default font size for body is set to 62.5% in _typography.scss */
+/**
+ * font scale adjustments 
+ * requires accessibility_links local module to be enabled
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_accessibility\.scss}line{font-family:\000037}}
+body.font-plus-1 {
+  font-size: 68%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_accessibility\.scss}line{font-family:\0000310}}
+body.font-plus-2 {
+  font-size: 73%; }
+
+/* hide contextual links - gets in the way when logged in */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_accessibility\.scss}line{font-family:\0000315}}
+html.js l-region--accessibility .contextual-links-wrapper {
+  display: none !important; }
+
+/* for mobile */
+@media (min-width: 0px) and (max-width: 480px) {
+  /* keep fonts the same as default */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_accessibility\.scss}line{font-family:\0000323}}
+  body.font-plus-1,
+  body.font-plus-2 {
+    font-size: 62.5%; } }
+/* hide contextual links - gets in the way when logged in */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_accessibility\.scss}line{font-family:\0000333}}
+.l-region--accessibility .contextual-links-wrapper,
+.l-region--accessibility .contextual-links-trigger,
+.l-region--accessibility .contextual-links {
+  display: none !important; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_accessibility\.scss}line{font-family:\0000341}}
+html.js .l-region--accessibility .contextual-links-wrapper,
+html.js .l-region--accessibility .contextual-links-region:hover .contextual-links-trigger,
+html.js .l-region--accessibility .contextual-links-active .contextual-links-trigger,
+html.js .l-region--accessibility .contextual-links-active .contextual-links {
+  display: none !important; }
+
 /* bocks in sidebar second */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\000032}}
 .l-region--sidebar-second .block {

@@ -61,19 +61,19 @@
 	@include clearfix;
 }
 .l-header-main-menu {
-	@include grid-span(9,1);
+	@include grid-span(10,1);
 }
 .l-header-social-media {
-	@include grid-span(3,10);
+	@include grid-span(2,11);
 }
 .breadcrumb-accessibility-wrapper {
 	 @include clearfix;
 }
 .l-breadcrumb {
-	@include grid-span(9,1);
+	@include grid-span(8,1);
 }
 .l-accessibility {
-	@include grid-span(3,10);
+	@include grid-span(4,9);
 }
 .main-wrapper {
 	@include clearfix;

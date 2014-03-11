@@ -10,7 +10,7 @@
  * These are sites we want developer modules ENABLED on.
  */
 function local_development_sites_identify() {
-  $sites = array('dev' => 'http://scratch.worldpay.clients.codepositive.com', 'robert' => 'http://www.worldpay.dev');
+  $sites = array('dev' => 'http://dev.fsa.dev-1.codepositive.com', 'robert' => 'http://www.fsa.dev');
   return $sites;
 }
 
@@ -19,10 +19,10 @@ function local_development_sites_identify() {
  */
 function local_development_modules() {
 
-  $modules = array('demo',
-                   'context_ui',
+  $modules = array('context_ui',
                    'devel',
                    'field_tools',
+                   'fpa',
                    'masquerade',
                    'module_filter',
                    'omega_tools',
@@ -50,5 +50,6 @@ function local_development_install() {
 	}
 
   module_disable(array('local_development'));
+  module_enable(array('developer_feature'), TRUE);
 }
 
