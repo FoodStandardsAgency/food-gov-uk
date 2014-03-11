@@ -43,6 +43,7 @@ dependencies[] = field_ui
 dependencies[] = file
 dependencies[] = file_entity
 dependencies[] = fontyourface
+dependencies[] = features_site_frontpage
 dependencies[] = globalredirect
 dependencies[] = googleanalytics
 dependencies[] = help

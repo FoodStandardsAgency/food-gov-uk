@@ -41,42 +41,41 @@ function local_deployment_install() {
   module_enable(array('migrate'), TRUE);
 
   // Enable Feature modules.
-  module_enable(array('about_us_section_feature'), TRUE);
+  module_enable(array('fonts___feature'), TRUE);
+  module_enable(array('imagecache_feature'), TRUE);
+  module_enable(array('menus_feature'), TRUE);
+  module_enable(array('node_export___feature'), TRUE);
+  module_enable(array('roles_feature'), TRUE);
+  module_enable(array('taxonomy_feature'), TRUE);
+  module_enable(array('text_formats'), TRUE);
   module_enable(array('administration___feature'), TRUE);
   module_enable(array('apache_solr_feature'), TRUE);
-  module_enable(array('business_section_feature'), TRUE);
-  module_enable(array('child_pages_fc_feature'), TRUE);
-  module_enable(array('ckeditor___editor'), TRUE);
+  module_enable(array('blocks___feature'), TRUE);
   module_enable(array('display_suite_feature'), TRUE);
-  module_enable(array('document_content_type_feature'), TRUE);
-  module_enable(array('enforcement_section_feature'), TRUE);
   module_enable(array('field_bases_feature'), TRUE);
   module_enable(array('field_groups_feature'), TRUE);
   module_enable(array('field_instances_feature'), TRUE);
   module_enable(array('file_entities_feature'), TRUE);
-  module_enable(array('fonts___feature'), TRUE);
-  module_enable(array('home_page_feature'), TRUE);
-  module_enable(array('imagecache_feature'), TRUE);
-  module_enable(array('landing_page_content_type_feature'), TRUE);
   module_enable(array('media_feature'), TRUE);
+  module_enable(array('sitewide_feature'), TRUE);
+  module_enable(array('about_us_section_feature'), TRUE);
+  module_enable(array('business_section_feature'), TRUE);
+  module_enable(array('child_pages_fc_feature'), TRUE);
+  module_enable(array('ckeditor___editor'), TRUE);
+  module_enable(array('document_content_type_feature'), TRUE);
+  module_enable(array('enforcement_section_feature'), TRUE);
+  module_enable(array('home_page_feature'), TRUE);
+  module_enable(array('landing_page_content_type_feature'), TRUE);
   module_enable(array('menu_links_feature'), TRUE);
-  module_enable(array('menus_feature'), TRUE);
   module_enable(array('news_content_type_feature'), TRUE);
   module_enable(array('news_section_feature'), TRUE);
-  module_enable(array('node_export___feature'), TRUE);
   module_enable(array('page_section_fc_feature'), TRUE);
-  module_enable(array('permissions_feature'), TRUE);
   module_enable(array('policy_section_feature'), TRUE);
   module_enable(array('related_items_fc_feature'), TRUE);
-  module_enable(array('roles_feature'), TRUE);
   module_enable(array('science_section_feature'), TRUE);
   module_enable(array('section_landing_pages_features'), TRUE);
-  module_enable(array('sitewide_feature'), TRUE);
-  module_enable(array('taxonomy_feature'), TRUE);
-  module_enable(array('text_formats'), TRUE);
   module_enable(array('webform_content_type'), TRUE);
-
-
+  module_enable(array('permissions_feature'), TRUE);
 }
 
 
