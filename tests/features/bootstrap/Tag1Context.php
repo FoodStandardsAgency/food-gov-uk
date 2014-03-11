@@ -55,6 +55,7 @@ class Tag1Context extends DrupalContext {
     );
     $this->mailCreds = array();
     $this->mailMessages = array();
+    print_r($this->tag1Parameters);
   }
 
   /**
@@ -1147,19 +1148,6 @@ class Tag1Context extends DrupalContext {
     return $url;
   }
 
-  /**
-   * If the website is access protected with HTTP basic auth,
-   * we perform an authentication before each scenario with the credentials
-   * from the configuration
-   *
-   * @BeforeScenario
-   */
-  public function performBasicHttpAuthentication(ScenarioEvent $event) {
-    $this->getSession()->setBasicAuth(
-    $this->parameters['authentication']['username'],
-    $this->parameters['authentication']['password']
-    )
-}
   
   /**
    * @} End of "defgroup Helper functions".

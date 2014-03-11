@@ -25,11 +25,13 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext
      *
      * @param array $parameters context parameters (set them up through behat.yml)
      */
-    public function __construct(array $parameters)
+    public function __construct(array $parameters) 
     {  
         // Initialize your context here
+        $this->parameters = $parameters;
     }
 
+    
 //
 // Place your definition and hook methods here:
 //
@@ -47,4 +49,24 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext
   public function iWaitSeconds($seconds) {
     $this->getSession()->wait($seconds*1000);  
   }
-}
+  
+   /**
+   * If the website is access protected with HTTP basic auth,
+   * we perform an authentication before each scenario with the credentials
+   * from the configuration
+   *
+   * @BeforeScenario
+   */
+  
+  public function performBasicHttpAuthentication($event) {
+    $driver = $this->getSession()->getDriver();
+    // only use this with drivers that support it
+    if ($driver instanceof Behat\Mink\Driver\GoutteDriver) {
+  
+        $this->getSession()->setBasicAuth(
+          $this->parameters['authentication']['username'],
+          $this->parameters['authentication']['password']
+        );
+    } 
+   }
+ }

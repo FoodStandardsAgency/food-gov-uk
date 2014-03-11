@@ -4,9 +4,13 @@ default:
     bootstrap: %behat.paths.features%/bootstrap
   context:
     parameters:
+       authentication:
+          username: "shield"
+          password: "down"
   extensions:
     Behat\MinkExtension\Extension:
-      base_url: http://dev.fsa.dev-1.codepositive.com/ 
+    # include http auth data in base url when needed
+      base_url: http://shield:down@dev.fsa.dev-1.codepositive.com/ 
       goutte: ~
       selenium2: ~
     Drupal\DrupalExtension\Extension:
