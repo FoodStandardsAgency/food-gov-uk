@@ -219,10 +219,10 @@ function field_bases_feature_field_default_field_bases() {
     'module' => 'list',
     'settings' => array(
       'allowed_values' => array(
-        1 => 'Top',
-        2 => 'Bottom',
-        3 => 'Left',
-        4 => 'Right',
+        'img-pos-top' => 'Top',
+        'img-pos-bottom' => 'Bottom',
+        'img-pos-left' => 'Left',
+        'img-pos-right' => 'Right',
       ),
       'allowed_values_function' => '',
     ),
