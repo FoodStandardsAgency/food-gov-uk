@@ -24,3 +24,21 @@ html.js l-region--accessibility .contextual-links-wrapper {
 		font-size: 62.5%;
 	}
 }
+
+
+/* hide contextual links - gets in the way when logged in */
+.l-region--accessibility {
+	.contextual-links-wrapper,
+	.contextual-links-trigger,
+	.contextual-links {
+	  display: none !important;
+	}
+}
+html.js .l-region--accessibility {
+	.contextual-links-wrapper,
+	.contextual-links-region:hover .contextual-links-trigger,
+	.contextual-links-active .contextual-links-trigger,
+	.contextual-links-active .contextual-links {
+	  display: none !important;
+	}
+}

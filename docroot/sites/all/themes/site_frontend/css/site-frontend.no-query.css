@@ -19,6 +19,20 @@ html.js l-region--accessibility .contextual-links-wrapper {
   display: none !important; }
 
 /* for mobile */
+/* hide contextual links - gets in the way when logged in */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_accessibility\.scss}line{font-family:\0000333}}
+.l-region--accessibility .contextual-links-wrapper,
+.l-region--accessibility .contextual-links-trigger,
+.l-region--accessibility .contextual-links {
+  display: none !important; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_accessibility\.scss}line{font-family:\0000341}}
+html.js .l-region--accessibility .contextual-links-wrapper,
+html.js .l-region--accessibility .contextual-links-region:hover .contextual-links-trigger,
+html.js .l-region--accessibility .contextual-links-active .contextual-links-trigger,
+html.js .l-region--accessibility .contextual-links-active .contextual-links {
+  display: none !important; }
+
 /* bocks in sidebar second */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\000032}}
 .l-region--sidebar-second .block {
