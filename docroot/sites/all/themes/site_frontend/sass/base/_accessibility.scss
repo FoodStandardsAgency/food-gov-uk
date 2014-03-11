@@ -1,0 +1,21 @@
+/* default font size for body is set to 62.5% in _typography.scss */
+
+/**
+ * font scale adjustments 
+ * requires accessibility_links local module to be enabled
+ */
+body.font-plus-1 {
+	font-size: 68%;
+}
+body.font-plus-2 {
+	font-size: 73%;
+}
+
+/* for mobile */
+@include breakpoint($mobile) {
+	/* keep fonts the same as default */
+  body.font-plus-1,
+  body.font-plus-2 {
+		font-size: 62.5%;
+	}
+}

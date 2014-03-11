@@ -1,5 +1,25 @@
 @charset "UTF-8";
 /* No files to import found in abstractions/**\/* */
+/* default font size for body is set to 62.5% in _typography.scss */
+/**
+ * font scale adjustments 
+ * requires accessibility_links local module to be enabled
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_accessibility\.scss}line{font-family:\000037}}
+body.font-plus-1 {
+  font-size: 68%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_accessibility\.scss}line{font-family:\0000310}}
+body.font-plus-2 {
+  font-size: 73%; }
+
+/* for mobile */
+@media (min-width: 0px) and (max-width: 480px) {
+  /* keep fonts the same as default */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_accessibility\.scss}line{font-family:\0000318}}
+  body.font-plus-1,
+  body.font-plus-2 {
+    font-size: 62.5%; } }
 /* bocks in sidebar second */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\000032}}
 .l-region--sidebar-second .block {
