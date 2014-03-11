@@ -131,9 +131,6 @@ class MigrateDestinationFieldCollection extends MigrateDestinationEntity {
       }
     }
 
-    var_dump('$entity');
-    var_dump($entity);
-
     migrate_instrument_start('field_collection_save');
     $status = entity_save('field_collection_item', $entity);
     migrate_instrument_stop('field_collection_save');
