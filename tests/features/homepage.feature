@@ -43,3 +43,9 @@ Feature: Test Homepage
     Then I should see "About us"
 	When I click "About us" in the "Menu" region
     Then I should be on "/about-us"
+    
+#  @javascript  
+#  Scenario: Main menu 
+#    Given I am on the homepage
+#    Given I mouse over "News & updates"
+#    Then I should see "Test document page 1"
