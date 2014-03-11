@@ -1,0 +1,85 @@
+/* styles for accessibility links */
+#accessTools {
+  display: block;
+  margin-top: 2px;
+}
+#dixeritRefererForm {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+#accessTools p {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  text-indent: 2px;
+}
+#accessTools ul {
+  float: right;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#accessTools li {
+  float: left;
+  margin: 0 0 0 4px;
+  padding: 0 0 0 4px;
+  font-size: 1em;
+  background: none;
+  border-left: 1px solid #333;
+}
+#accessTools li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 1.1em;
+  line-height: 1.1em;
+}
+#accessTools li a:hover {
+	text-decoration: underline;
+}
+#accessTools li#accessListen {
+	position: relative;
+	margin-left: 0;
+	padding-left: 0;
+	border: 0;
+}
+#accessTools li#accessListen .icon {
+  display: block;
+  position: absolute;
+  left: -21px;
+  top: -2px;
+  width: 16px;
+  height: 16px;
+  overflow: hidden;
+  background: url('listen.png') 0 0 no-repeat;
+}
+#accessTools li#fontScale {
+  margin-top: -.3em;
+}
+#accessTools li {
+  float: left;
+  margin: 0 0 0 4px;
+  padding: 0 0 0 4px;
+  font-size: 1em;
+  line-height: 1em;
+  background: none;
+  border-left: 1px solid #333;
+}
+#accessTools a#fontScale0 {
+  font-size: 1.1em;
+}
+#accessTools a#fontScale1 {
+  font-size: 1.3em;
+}
+#accessTools a#fontScale2 {
+  font-size: 1.5em;
+}
+
+/* set these font sizes in your theme */
+body {}
+body.font-plus-1 {}
+body.font-plus-2 {}
+

@@ -1,0 +1,44 @@
+/* default font size for body is set to 62.5% in _typography.scss */
+
+/**
+ * font scale adjustments 
+ * requires accessibility_links local module to be enabled
+ */
+body.font-plus-1 {
+	font-size: 68%;
+}
+body.font-plus-2 {
+	font-size: 73%;
+}
+
+/* hide contextual links - gets in the way when logged in */
+html.js l-region--accessibility .contextual-links-wrapper {
+	display: none !important;
+}
+
+/* for mobile */
+@include breakpoint($mobile) {
+	/* keep fonts the same as default */
+  body.font-plus-1,
+  body.font-plus-2 {
+		font-size: 62.5%;
+	}
+}
+
+
+/* hide contextual links - gets in the way when logged in */
+.l-region--accessibility {
+	.contextual-links-wrapper,
+	.contextual-links-trigger,
+	.contextual-links {
+	  display: none !important;
+	}
+}
+html.js .l-region--accessibility {
+	.contextual-links-wrapper,
+	.contextual-links-region:hover .contextual-links-trigger,
+	.contextual-links-active .contextual-links-trigger,
+	.contextual-links-active .contextual-links {
+	  display: none !important;
+	}
+}

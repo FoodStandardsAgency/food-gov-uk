@@ -50,13 +50,13 @@ ENDSQL;
    * @return array|null
    *   The results returned or NULL if empty.
    */
-  protected function oracleQueryAll($query, array $params) {
-    // Connexion to oracle db.
-    $connection = $this->source->getConnection();
+  public function oracleQueryAll($query, array $params, $connection) {
+    // $connection = $this->source->getConnection();
     $statement = oci_parse($connection, $query);
 
     // Associate key and value.
     foreach ($params as $key => $value) {
+      // @TODO Try to cast using SQLT_INT.
       oci_bind_by_name($statement, $key, $value);
     }
 
@@ -65,15 +65,18 @@ ENDSQL;
 
     $rows = array();
 
-    // While loop test for performance improvment.
-    while (($row = oci_fetch_assoc($statement)) != false) {
-      // No migration for the field if no value.
-      if (!is_null($row['VALUE'])) {
-        // $rows['VARIABLE'][] = $row['VARIABLE'];
-        // $rows['VALUE'][] = $row['VALUE']->read($row['VALUE']->size());
-        $rows[$row['VARIABLE']] = $row['VALUE']->read($row['VALUE']->size());
-      }
-    }
+//    // While loop test for performance improvment.
+//    while (($row = oci_fetch_assoc($statement)) != false) {
+//      // No migration for the field if no value.
+//      if (!is_null($row['VALUE'])) {
+//        // $rows['VARIABLE'][] = $row['VARIABLE'];
+//        // $rows['VALUE'][] = $row['VALUE']->read($row['VALUE']->size());
+//        $rows[$row['VARIABLE']] = $row['VALUE']->read($row['VALUE']->size());
+//      }
+//    }
+
+    // No significal improvment of the performance. Back to normal for more flexibility.
+    $number_of_results = oci_fetch_all($statement, $rows);
 
     // $number_of_results = oci_fetch_all($statement, $rows);
 
@@ -81,12 +84,11 @@ ENDSQL;
     // Double check if we need to close the connexion.
     oci_close($connection);
 
-//    if ($number_of_results) {
-//      return $rows;
-//    }
-//
-//    return NULL;
-    return $rows;
+    if ($number_of_results) {
+      return $rows;
+    }
+
+    return NULL;
   }
 
   public function get_numerics ($str) {

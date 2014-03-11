@@ -91,10 +91,11 @@ ENDSQL;
     if (!is_null($row->FIELDIDS)) {
       // Query the oracle DB to look for Fields from the object id.
       $fields_res_array = $this->oracleQueryAll(
-          $this->relatedFieldsCollectionTextObjects,
-          array(
-            ':obj_id' => $row->OBJECTID,
-          )
+        $this->relatedFieldsCollectionTextObjects,
+        array(
+          ':obj_id' => $row->OBJECTID,
+        ),
+        $this->source->getConnection()
       );
 
       // var_dump($fields_res_array);

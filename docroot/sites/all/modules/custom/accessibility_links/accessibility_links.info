@@ -1,0 +1,5 @@
+name = Accessibility Links
+description = Creates a block containing FSA accessibility links.
+dependencies[] = block
+package = Local
+core = 7.x
