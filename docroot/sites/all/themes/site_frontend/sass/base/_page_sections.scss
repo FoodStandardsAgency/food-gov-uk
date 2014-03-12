@@ -69,6 +69,7 @@
 	.field--name-field-updated {
 		font-size: 1.1em;
 		margin-bottom: 0.2em;
+		padding-left: 14px;
 	}
 	/* teaser summary */
 	.field--name-field-summary {
@@ -77,8 +78,20 @@
 		display: block;
 		color: #333;
 		margin-bottom: 0.2em;
+		padding-left: 14px;
 	}
 	.field__item {
 		margin-bottom: 0.5em;
+	}
+	/* node links like read more (if enabled) */
+	.node__links {
+	  padding-left: 14px;
+	  a {
+			text-decoration: none;
+			color: #006f51;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
 	}
 }
