@@ -28,18 +28,87 @@
  * @see template_process()
  */
 
+  $image = '';
+  $image_position = '';
+
+  // Determine the language.
   $language = isset($field_collection_item->lancode) ? $field_collection_item->lancode : 'und';
 
+  // Create image markup.
+  if (!empty($field_collection_item->field_fc_section_image)) {
+
+    // Remove image field from content so we can render it separately.
+    hide($content['field_fc_section_image']);
+
+    // Determine the image position.
+    $image_position = empty($field_collection_item->field_fc_image_position) ? 'img-pos-right' : $field_collection_item->field_fc_image_position[$language][0]['value'];
+
+    // Determine which image style to use.
+    if ($image_position == 'img-pos-top' || $image_position == 'img-pos-bottom') {
+      $image_style = 'section_top_bottom';
+    }
+    else {
+      $image_style = 'page_section__left_right_';
+    }
+
+    // Create the image markup.
+    $image = theme('image_style',
+      array(
+        'style_name' => $image_style,
+        'path' => $field_collection_item->field_fc_section_image[$language][0]['uri'],
+        'alt' => $field_collection_item->field_fc_section_image[$language][0]['alt'],
+        'title' => $field_collection_item->field_fc_section_image[$language][0]['title'],
+        'attributes' => array('class' => $image_position),
+      )
+    );
+
+  }
+
+  // Related items.
+  // Heading will display even if there's no content, so hide it here.
+  hide($content['field_fc_related_items_heading']);
+
+  if (!empty($field_collection_item->field_fc_related_item)) {
+    $related_items_heading = render($content['field_fc_related_items_heading']);
+    $related_item = render($content['field_fc_related_item']);
+  }
+
+  // Child pages.
+  // Heading will display even if there's no content, so hide it here.
+  hide($content['field_child_pages_heading']);
+
+  if (!empty($field_collection_item->field_fc_related_item)) {
+    $child_pages_heading = render($content['field_child_pages_heading']);
+    $child_page = render($content['field_child_page']);
+  }
 
 ?>
 <div class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
   <div class="content"<?php print $content_attributes; ?>>
     <?php
-    $image_position = empty($field_collection_item->field_fc_image_position) ? 1 : $field_collection_item->field_fc_image_position[$language][0]['value'];
 
-    hide($content['field_fc_section_image']);
-    print render($content);
-    print render($content['field_fc_section_image']);
+      print render($content['field_fc_section_heading']);
+
+      if ($image_position != 'img-pos-bottom') {
+        print $image;
+      }
+
+      print render($content);
+
+      if ($image_position == 'img-pos-bottom') {
+        print $image;
+      }
+
+      if (isset($related_item)) {
+        print $related_items_heading;
+        print $related_item;
+      }
+
+      if (isset($child_page)) {
+        print $child_pages_heading;
+        print $child_page;
+      }
+
     ?>
   </div>
 </div>
