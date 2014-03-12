@@ -118,13 +118,6 @@ function developer_feature_user_default_permissions() {
     'module' => 'context_ui',
   );
 
-  // Exported permission: 'delete any base content'.
-  $permissions['delete any base content'] = array(
-    'name' => 'delete any base content',
-    'roles' => array(),
-    'module' => 'node',
-  );
-
   // Exported permission: 'delete backup files'.
   $permissions['delete backup files'] = array(
     'name' => 'delete backup files',
@@ -132,27 +125,6 @@ function developer_feature_user_default_permissions() {
       'Administrator' => 'Administrator',
     ),
     'module' => 'backup_migrate',
-  );
-
-  // Exported permission: 'delete own base content'.
-  $permissions['delete own base content'] = array(
-    'name' => 'delete own base content',
-    'roles' => array(),
-    'module' => 'node',
-  );
-
-  // Exported permission: 'edit any base content'.
-  $permissions['edit any base content'] = array(
-    'name' => 'edit any base content',
-    'roles' => array(),
-    'module' => 'node',
-  );
-
-  // Exported permission: 'edit own base content'.
-  $permissions['edit own base content'] = array(
-    'name' => 'edit own base content',
-    'roles' => array(),
-    'module' => 'node',
   );
 
   // Exported permission: 'edit views basic settings'.
