@@ -1,0 +1,84 @@
+/**
+ * requires classes to be added to fields (example: page-section-heading)- done in field preprocess
+ */
+
+/* example usage: section headings on page section field collection */
+.page-section-heading {
+	display: block;
+	margin: 0 0 1em 0;
+	padding: .3em 11px;
+	font-size: 1.4em;
+	font-weight: bold;
+	color: #fff;
+	background: #5d9711;
+	clear: both;
+	h1, h2, h3, h4, h5, h6 {
+		font-size: 1em;	// ie use the same font size assigned to section heding field
+		margin-bottom: 0;
+	}
+}
+
+/* example usage: related items and child page headings on page section field collection */
+.page-section-subheading {
+	display: block;
+	font-size: 1.4em;
+	color: #5d9711;
+	font-weight: bold;
+	margin-bottom: 0.5em;
+	h1, h2, h3, h4, h5, h6 {
+		font-size: 1em;	// force the size to the one specified for this field above
+		margin-bottom: 0;
+	}
+}
+
+/* example usage: related items and child page teaser listings on page section field collection */
+.page-section-teaser {
+	font-size: 1em;	// sets base font size to 10px
+	line-height: 1.4em;
+	margin-bottom: 18px;
+	/* node title */
+	h2.node__title {
+		font-size: 1.4em; 
+		line-height: 1.4em;
+		margin-bottom: 0;
+		font-weight: normal;
+	}
+	.node__title {
+		font-weight: normal;
+		display: block;
+		padding-left: 14px;
+		background-image: url('../images/green-arrow-thin-right.png');
+		background-repeat: no-repeat;
+		background-position: left center;
+		a {
+			text-decoration: none;
+			color: #006f51;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+	}
+	/* subtitle */
+	.field--name-field-subtitle {
+		font-size: 1.2em; 
+		line-height: 1.4em;
+		display: block;
+		padding-left: 14px;
+	}
+	/* teaser updated date */
+	.field--name-field-updated {
+		font-size: 1.1em;
+		margin-bottom: 0.2em;
+	}
+	/* teaser summary */
+	.field--name-field-summary {
+		font-size: 1.2em; 
+		line-height: 1.4em;
+		display: block;
+		color: #333;
+		margin-bottom: 0.2em;
+	}
+	.field__item {
+		margin-bottom: 0.5em;
+	}
+}
