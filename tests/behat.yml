@@ -1,0 +1,38 @@
+default:
+  paths:
+    features: features
+    bootstrap: %behat.paths.features%/bootstrap
+  context:
+    parameters:
+       authentication:
+          username: "shield"
+          password: "down"
+  extensions:
+    Behat\MinkExtension\Extension:
+    # include http auth data in base url when needed
+      base_url: http://shield:down@dev.fsa.dev-1.codepositive.com/ 
+      goutte: ~
+      selenium2: ~
+    Drupal\DrupalExtension\Extension:
+        blackbox: ~
+        region_map:
+          My region: 
+          Menu: "#block-superfish-1" 
+          Content: 
+          Right sidebar: 
+          Log In: "#edit-actions"
+          Page Title: "#branding"
+          Drupal Menu: "#admin-menu-wrapper"
+          Submit: "#edit-actions"
+#        text:
+#          log_out: "Sign out"
+#          log_in: "Sign in"
+#          password_field: "Enter your password"
+#          username_field: "Nickname"
+annotations:
+  paths:
+    features: features/annotations
+
+closures:
+  paths:
+    features: features/closures

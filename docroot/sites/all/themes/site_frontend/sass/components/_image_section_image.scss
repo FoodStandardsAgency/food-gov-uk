@@ -1,0 +1,28 @@
+/**
+ * Image placement is dependant on the field collection template: field-collection-item--field_fc_page_section.tpl.php
+ */
+.field-collection-item-field-fc-page-section {
+	img.img-pos-top {
+		margin: 0 0 17px 0;
+		padding: 0;
+		border: 0;
+	}
+	img.img-pos-left {
+		float: left;
+		margin: 0 10px 17px 0px;
+		padding: 0;
+		border: 0;
+	}
+	img.img-pos-right {
+		float: right;
+		margin: 0 0 17px 10px;
+		padding: 0;
+		border: 0;
+	}
+	img.img-pos-bottom {
+		margin: 0 0 17px 0;
+		padding: 0;
+		border: 0;
+	}
+}
+

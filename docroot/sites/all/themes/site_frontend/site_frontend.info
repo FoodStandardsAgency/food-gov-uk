@@ -18,6 +18,8 @@ stylesheets[all][] = css/site-frontend.no-query.css
 ; ========================================
 layout[site-frontend-three-column][stylesheets][all][] = css/layouts/site-frontend-three-column/site-frontend-three-column.layout.css
 layout[site-frontend-two-column][stylesheets][all][] = css/layouts/site-frontend-two-column/site-frontend-two-column.layout.css
+layout[site-frontend-one-column][stylesheets][all][] = css/layouts/site-frontend-one-column/site-frontend-one-column.layout.css
+layout[site-frontend-blank-one-column][stylesheets][all][] = css/layouts/site-frontend-blank-one-column/site-frontend-blank-one-column.layout.css
 
 ; ========================================
 ; Scripts

@@ -1,0 +1,45 @@
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-blank-one-column\/site-frontend-blank-one-column\.layout\.scss}line{font-family:\000039}}
+.l-main {
+  overflow: hidden; }
+
+/* layout - desktop first approach */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-blank-one-column\/site-frontend-blank-one-column\.layout\.scss}line{font-family:\0000314}}
+.l-main {
+  width: 960px;
+  padding-left: 6px;
+  padding-right: 6px;
+  margin: 0 auto; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-blank-one-column\/site-frontend-blank-one-column\.layout\.scss}line{font-family:\0000320}}
+.main-wrapper {
+  /* for IE 6/7 */
+  *zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).style.cssText="clear:both;font:0/0 serif");
+  /* non-JS fallback */
+  *zoom: 1;
+  padding-top: 20px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/anthonyalbertyn\/\.rvm\/gems\/ruby-1\.9\.3-p484\@omega\.site_frontend\/gems\/singularitygs-1\.1\.2\/stylesheets\/singularitygs\/helpers\/_clearfix\.scss}line{font-family:\0000348}}
+  .main-wrapper:before, .main-wrapper:after {
+    content: ".";
+    display: block;
+    height: 0;
+    overflow: hidden; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/anthonyalbertyn\/\.rvm\/gems\/ruby-1\.9\.3-p484\@omega\.site_frontend\/gems\/singularitygs-1\.1\.2\/stylesheets\/singularitygs\/helpers\/_clearfix\.scss}line{font-family:\0000355}}
+  .main-wrapper:after {
+    clear: both; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-blank-one-column\/site-frontend-blank-one-column\.layout\.scss}line{font-family:\0000324}}
+.l-content {
+  width: 100%;
+  float: right;
+  margin-left: 0;
+  margin-right: 0;
+  clear: none;
+  padding-left: 6px;
+  padding-right: 6px; }
+
+/* override styling from _content_section.scss */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-blank-one-column\/site-frontend-blank-one-column\.layout\.scss}line{font-family:\0000329}}
+.blank .main-wrapper {
+  border-bottom: none; }
+
+/* mobile layout */

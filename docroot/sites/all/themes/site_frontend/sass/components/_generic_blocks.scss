@@ -1,0 +1,43 @@
+/**
+ * Requires a block class: generic-blocks
+ */
+.generic-blocks {
+	overflow: hidden;
+	
+	 /* content title per generic block instance */
+	 .field--name-field-title-side-content-generic {
+		  font-size: 1.5em;
+		  color: #4b800d;
+		  padding: 0;
+		  margin: .15em 0 .3em 0;
+		  h1, h2, h3, h4, h5, h6 {
+			  padding: 0;
+			  margin: 0;
+			  font-size: 1em; // ie use size applied to the parent field - works out to 1.5em
+			}
+	 }
+	/* content main text body per generic block instance */
+	.field--name-field-body-side-content-generic {}
+	/* wrapper per generic block field collection instance */
+	.field-collection-view {
+		border: 1px solid #e8e8e8;
+		-webkit-border-radius: 10px;
+		-moz-border-radius: 10px;
+		-o-border-radius: 10px;
+		-ms-border-radius: 10px;
+		border-radius: 10px;
+		background: #fff;
+		padding: .5em 11px .3em 11px;
+		margin-bottom: 11px;
+		overflow: hidden;
+		clear: both;
+		img {
+			max-width: 100%;
+			height: auto;
+		}
+	}
+}
+/* remove bottom margin of block - inner content already has bottom margin */
+.l-region--sidebar-second .block.generic-blocks {
+	margin-bottom: 0;
+}
