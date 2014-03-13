@@ -1,0 +1,47 @@
+@import "compass";
+@import "breakpoint";
+@import "singularitygs";
+
+// Globbing from within sub-folders only works with relative paths.
+@import "../../variables/**/*";
+
+
+.l-main {
+	overflow: hidden;
+}
+
+/* layout - desktop first approach */
+.l-main {
+	width: 960px;		// we are using border box plugin so padding will not increase the width of the box 
+	padding-left: 6px;
+	padding-right: 6px;
+	margin: 0 auto;
+}
+.main-wrapper {
+	@include clearfix;
+}
+.l-content {
+	@include grid-span(12,1);
+}
+
+
+/* mobile layout */
+@include breakpoint($mobile) {
+	.l-main {
+		width: 100%;		// we are using border box plugin so padding will not increase the width of the box 
+		padding-left: 6px;
+		padding-right: 6px;
+		margin: 0;
+	}
+	.l-main {
+		padding-bottom: 12px;
+	}
+	.main-wrapper {
+		@include clearfix;
+	}
+	.l-content {
+		@include grid-span(12,1);
+		clear: both;
+		float: none;
+	}
+}
