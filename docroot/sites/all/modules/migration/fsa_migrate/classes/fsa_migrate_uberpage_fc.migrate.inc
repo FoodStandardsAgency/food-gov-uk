@@ -30,11 +30,17 @@ class FSAUberpageCollectionMigration extends FSAMigration {
           'not null' => TRUE,
           'description' => 'Object ID',
         ),
-        'field_source_id' => array(
+        'field_source_id1' => array(
           'type' => 'int',
           'unsigned' => TRUE,
-          'not null' => TRUE,
-          'description' => 'Field ID',
+          'not null' => FALSE,
+          'description' => 'Field ID1',
+        ),
+        'field_source_id2' => array(
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => FALSE,
+          'description' => 'Field ID2',
         ),
       ),
       MigrateDestinationFieldCollection::getKeySchema()
@@ -65,6 +71,7 @@ class FSAUberpageCollectionMigration extends FSAMigration {
   public function prepareRow($row) {
     // Assigning sources keys.
     $row->object_source_id = $row->OBJECTID;
-    $row->field_source_id = $row->FIELDID;
+    $row->field_source_id1 = $row->FIELDID1;
+    $row->field_source_id2 = $row->FIELDID2;
   }
 }

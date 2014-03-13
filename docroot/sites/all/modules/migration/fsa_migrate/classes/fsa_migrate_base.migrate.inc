@@ -23,20 +23,11 @@ ENDSQL;
   protected $relatedFieldsCollectionTextObjects = <<<'ENDSQL'
     SELECT FIELDNAME.VARIABLE, FIELDVALUE.VALUE
       FROM FIELDVALUE, FIELDNAME
-      WHERE FIELDVALUE.OBJECTID = 674037
-      AND FIELDVALUE.FIELDID = FIELDNAME.FIELDID
+      WHERE FIELDVALUE.FIELDID = FIELDNAME.FIELDID
       AND FIELDNAME.VARIABLE NOT LIKE 'text%'
       AND  FIELDNAME.VARIABLE NOT LIKE 'sectionheading%'
       AND FIELDNAME.VARIABLE NOT LIKE 'imageposition%'
       AND FIELDVALUE.OBJECTID = :obj_id
-ENDSQL;
-
-  protected $relatedFieldsIdsObjects = <<<'ENDSQL'
-    SELECT FIELDNAME.VARIABLE, FIELDVALUE.VALUE
-      FROM FIELDVALUE, FIELDNAME
-      WHERE FIELDVALUE.FIELDID = FIELDNAME.FIELDID
-      AND FIELDVALUE.OBJECTID = :obj_id
-      AND ( FIELDVALUE.FIELDID = 2475 OR FIELDVALUE.FIELDID = 2476 OR FIELDVALUE.FIELDID = 2478 OR FIELDVALUE.FIELDID = 2479 )
 ENDSQL;
 
   /**
@@ -46,13 +37,13 @@ ENDSQL;
    *   The string containing an oracle query to run against the db.
    * @param array $params
    *   Parameters as an array.
+   * @param resource $connection
+   *  An active connection to the Oracle Server.
    *
    * @return array|null
    *   The results returned or NULL if empty.
-   *
-   * @TODO Remove $type.
    */
-  public function oracleQueryAll($query, array $params, $connection, $type = 'string') {
+  public function oracleQueryAll($query, array $params, $connection) {
     $statement = oci_parse($connection, $query);
 
     // Associate key and value.
@@ -63,12 +54,8 @@ ENDSQL;
     // Execute and fetch the results.
     oci_execute($statement);
 
-    $rows = array();
-
     // No significal improvment of the performance. Back to normal for more flexibility.
     $number_of_results = oci_fetch_all($statement, $rows);
-
-    // $number_of_results = oci_fetch_all($statement, $rows);
 
     oci_free_statement($statement);
 
@@ -79,47 +66,50 @@ ENDSQL;
     return NULL;
   }
 
-
   /**
-   * Queries the oracle database.
+   * Queries the oracle database for several results with columns 'VARIABLE' and 'VALUE', for CLOB results.
    *
    * @param string $query
    *   The string containing an oracle query to run against the db.
    * @param array $params
-   *   Parameters as an array
+   *   Parameters as an array.
+   * @param resource $connection
+   *  An active connection to the Oracle Server.
+   * @param array $fieldsVariables
+   *  Optional, an array of fields variable (field name) you want to migrate.
    *
    * @return array|null
-   *   The result returned or NULL if empty
-   *
-   * @TODO Is this used?
+   *   The results returned or NULL if empty.
    */
-  public function oracleQuerySingle($query, array $params, $connection, $type = 'string') {
+  public function oracleQueryMultiVariableValue($query, array $params, $connection, $fieldsVariables = array()) {
     $statement = oci_parse($connection, $query);
 
+    // Associate key and value.
     foreach ($params as $key => $value) {
-
-      if ($type == 'int') {
-        oci_bind_by_name($statement, $key, intval($value));
-      }
-      else {
-        oci_bind_by_name($statement, $key, $value);
-      }
+      oci_bind_by_name($statement, $key, $value);
     }
 
+    // Execute and fetch the results.
     oci_execute($statement);
 
-    $row = oci_fetch_array($statement, $flags = OCI_ASSOC);
-    oci_free_statement($statement);
+    // Initialize the number of fields we need, if zero (default value), all fields migrated.
+    $numberFields = count($fieldsVariables);
 
-    if (!empty($row)) {
-      return $row;
+    $rows = array();
+
+    // While loop test for performance improvment.
+    while (($row = oci_fetch_assoc($statement)) != false) {
+      // No migration for the field if no value.
+      if (!is_null($row['VALUE'])) {
+        // Check if the field needs to be migrated.
+        if ($numberFields == 0 || in_array($row['VARIABLE'], $fieldsVariables)) {
+          $rows[$row['VARIABLE']] = $row['VALUE']->read($row['VALUE']->size());
+        }
+      }
     }
 
-    return NULL;
-  }
+    oci_free_statement($statement);
 
-  public function get_numerics ($str) {
-    preg_match_all('/\d+/', $str, $matches);
-    return $matches[0];
+    return $rows;
   }
 }

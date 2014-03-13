@@ -10,6 +10,7 @@
  * Migration class for the FSA Uber page.
  */
 class FSAUberpageMigration extends FSAMigration {
+
   /**
    * SQL Query to get the primary info and the object id.
    *
@@ -35,6 +36,9 @@ ENDSQL;
     WHERE OBJ.PATH LIKE '/multimedia/webpage/uber-page/'
 ENDSQL;
 
+  /**
+   * Class constructor.
+   */
   public function __construct($arguments) {
     global $conf;
     // Calls to parent constructor from official doc.
@@ -90,40 +94,18 @@ ENDSQL;
     // Retrieve the fields.
     if (!is_null($row->FIELDIDS)) {
       // Query the oracle DB to look for Fields from the object id.
-      $fields_res_array = $this->oracleQueryAll(
+      $fields_res_array = $this->oracleQueryMultiVariableValue(
         $this->relatedFieldsCollectionTextObjects,
         array(
           ':obj_id' => $row->OBJECTID,
         ),
-        $this->source->getConnection()
+        $this->source->getConnection(),
+        array('title', 'summary')
       );
 
-      // var_dump($fields_res_array);
-
-      $row->summary = $fields_res_array['summary'];
-      $row->title = $fields_res_array['title'];
-
-      $i_field = 0;
-      // Loop to the fields results variable and values.
-      // Variable is the readable name of the field in oracle.
-      /*foreach ($fields_res_array['VARIABLE'] as $field_variable) {
-        $field_value = $fields_res_array['VALUE'][$i_field];
-        var_dump($field_variable);
-        var_dump(substr($field_variable, 0, 14));
-        var_dump(substr($field_variable, 0, 4));
-        // Load the summary into a row.
-        if ($field_variable == 'summary') {
-          $row->summary = $field_value;
-        }
-        elseif (substr($field_variable, 0, 14) == 'sectionheading') {
-          $row->section[$field_variable] = $field_value;
-        }
-        elseif (substr($field_variable, 0, 4) == 'text') {
-          $row->section[$field_variable] = $field_value;
-        }
-        $i_field++;
-      }*/
-      // var_dump($row->section);
+      foreach ($fields_res_array as $fieldVariable => $fieldValue) {
+        $row->{$fieldVariable} = $fieldValue;
+      }
     }
   }
 }

@@ -9,14 +9,16 @@
  * Implementation: http://drupalcode.org/project/migrate.git/blob/refs/heads/7.x-2.x:/plugins/sources/json.inc.
  */
 
-GLOBAL $FSAOracleObjectID;
-
 /**
- * Implementation of MigrateList, for retrieving a list of IDs to be migrated
- * from a JSON object.
+ * Implementation of MigrateList, for retrieving a list of IDs to be migrated.
  */
 class MigrateListOracleTextCollection extends MigrateList {
 
+  /**
+   * SQL Query to get the primary info and the object id.
+   *
+   * @var string
+   */
   protected $query = <<<'ENDSQL'
     SELECT OBJ.OBJECTID, FIELDNAME.FIELDID
       FROM FIELDVALUE, FIELDNAME, OBJ
@@ -28,6 +30,11 @@ class MigrateListOracleTextCollection extends MigrateList {
       ORDER BY FIELDNAME.FIELDID ASC
 ENDSQL;
 
+  /**
+   * SQL Query to get the field value.
+   *
+   * @var string
+   */
   protected $queryFieldValue = <<<'ENDSQL'
     SELECT OBJ.OBJECTID, FIELDNAME.FIELDID, FIELDNAME.VARIABLE, FIELDVALUE.VALUE
       FROM FIELDVALUE, FIELDNAME, OBJ
@@ -39,7 +46,12 @@ ENDSQL;
       ORDER BY FIELDNAME.FIELDID ASC
 ENDSQL;
 
-  // Excluded images atm, "OR FIELDNAME.VARIABLE LIKE 'imageposition%')".
+  /**
+   * SQL Query to get the primary info and the object id.
+   * Excluded images atm, "OR FIELDNAME.VARIABLE LIKE 'imageposition%')".
+   *
+   * @var string
+   */
   protected $countQuery = <<<'ENDSQL'
     SELECT OBJ.OBJECTID, FIELDNAME.FIELDID, FIELDNAME.VARIABLE
       FROM FIELDVALUE, FIELDNAME, OBJ
@@ -57,13 +69,18 @@ ENDSQL;
    */
   protected $listObjectsIds;
 
-
+  /**
+   * Property getter.
+   */
   public function __get($property) {
     if (property_exists($this, $property)) {
       return $this->$property;
     }
   }
 
+  /**
+   * Property setter.
+   */
   public function __set($property, $value) {
     if (property_exists($this, $property)) {
       $this->$property = $value;
@@ -72,12 +89,13 @@ ENDSQL;
     return $this;
   }
 
-
   /**
    * Class constructor.
    *
    * @param $listObjectsIds
    *  List of object ids to be processed.
+   * @param $dbOracleDetails
+   *  Connexion details for the Oracle db.
    */
   public function __construct($listObjectsIds, $dbOracleDetails) {
     parent::__construct();
@@ -124,15 +142,10 @@ ENDSQL;
     }
 
     foreach ($textSplit as $textSplitItem) {
-      $generatedObjectidFieldid[] = $this->generateCustomId($textSplitItem);
+      $generatedObjectidFieldid[] = implode('-', $textSplitItem);
     }
 
     return $generatedObjectidFieldid;
-  }
-
-  // @TODO Remove, useless function.
-  protected function generateCustomId($textSplitList) {
-    return implode('-', $textSplitList);
   }
 
   /**
@@ -152,10 +165,10 @@ ENDSQL;
   public function computeCount() {
     GLOBAL $connectionOracle;
 
+    // @TODO Pass a list of ids to oracleQueryAll instead of str_replace() directly in the request.
     $this->countQuery = str_replace(':obj_ids', implode(',', $this->listObjectsIds), $this->countQuery);
 
     // Query the oracle DB to count the number for items.
-    // @TODO Pass a list of ids to oracleQueryAll instead of str_replace() directly in the request.
     $query_results_array = FSAMigration::oracleQueryAll(
       $this->countQuery,
       array(),
@@ -193,7 +206,6 @@ ENDSQL;
         $int_variable = (int)substr($field_variable, 4);
         // Insert a new row for the object and the type of data.
         if (!isset($array_variable[$int_variable])) {
-          var_dump('initialize $array_variable');
           $array_variable[$int_variable][] = $queryResults['OBJECTID'][$iObjectVariable];
         }
         $array_variable[$int_variable][] = $queryResults['FIELDID'][$iObjectVariable];
@@ -203,13 +215,11 @@ ENDSQL;
         $int_variable = (int)substr($field_variable, 14);
 
         if (!isset($array_variable[$int_variable])) {
-          var_dump('initialize $array_variable');
           $array_variable[$int_variable][] = $queryResults['OBJECTID'][$iObjectVariable];
         }
         $array_variable[$int_variable][] = $queryResults['FIELDID'][$iObjectVariable];
       }
       $iObjectVariable++;
-      var_dump($array_variable[$int_variable]);
     }
 
     return $array_variable;
@@ -270,15 +280,33 @@ ENDSQL;
       }
     }
 
-    // @TODO Use variable.
     $object->OBJECTID = $objectId;
-    // @TODO implode to make a string out of the id list. Change the ID to be VARCHAR into the main source class.
-    $object->FIELDID = $oracleIds[1];
+
+    // Add more keys if you add fields to the field collection.
+    if(isset($oracleIds[1])) {
+      $object->FIELDID1 = $oracleIds[1];
+    }
+    if(isset($oracleIds[2])) {
+      $object->FIELDID2 = $oracleIds[2];
+    }
 
     return $object;
   }
 
-  // Due to oci_bind_by_name use for integer and string at same time, needs to be a separate function.
+  /**
+   * Queries the oracle database.
+   * Due to oci_bind_by_name use for integer and string at same time, needs to be a separate function.
+   *
+   * @param string $query
+   *   The string containing an oracle query to run against the db.
+   * @param array $params
+   *   Parameters as an array.
+   * @param resource $connection
+   *  An active connection to the Oracle Server.
+   *
+   * @return array|null
+   *   The results returned or NULL if empty.
+   */
   public function oracleQueryTextFieldsGroup($query, array $params, $connection) {
     // @TODO use oci_bind_by_name() instead of str_replace.
     $query = str_replace(':field_ids', $params[':field_ids'], $query);
@@ -301,5 +329,4 @@ ENDSQL;
 
     return NULL;
   }
-
 }
