@@ -1,6 +1,6 @@
-name = Site Frontend Two Column
-description = 12 Column grid layout with main content and second sidebar
-template = site-frontend-two-column-layout
+name = Site Frontend One Column
+description = 12 Column grid layout with main content and no sidebars
+template = site-frontend-one-column-layout
 preview = preview.png
 
 ; Regions - these also need to exist in site_frontend.info
@@ -15,12 +15,12 @@ regions[system_highlighted] = System Highlighted
 regions[system_help] = System Help
 regions[content] = Content
 ; regions[sidebar_first] = First Sidebar
-regions[sidebar_second] = Second Sidebar
+; regions[sidebar_second] = Second Sidebar
 regions[bottom_menu] = Bottom Menu
 regions[footer_copyright] = Footer Copyright
 regions[footer_menu] = Footer Menu
 regions[footer_buttons] = Footer Buttons
 
 ; Styles
-stylesheets[all][] = css/layouts/site-frontend-two-column/site-frontend-two-column.layout.css
-stylesheets[all][] = css/layouts/site-frontend-two-column/site-frontend-two-column.layout.no-query.css
+stylesheets[all][] = css/layouts/site-frontend-one-column/site-frontend-one-column.layout.css
+stylesheets[all][] = css/layouts/site-frontend-one-column/site-frontend-one-column.layout.no-query.css
