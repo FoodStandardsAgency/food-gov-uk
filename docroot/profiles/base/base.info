@@ -18,6 +18,7 @@ dependencies[] = context
 dependencies[] = contextual
 dependencies[] = context_omega
 dependencies[] = ctools
+dependencies[] = current_search
 dependencies[] = dashboard
 dependencies[] = date
 dependencies[] = date_popup
