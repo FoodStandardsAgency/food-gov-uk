@@ -814,36 +814,43 @@ span.copyright {
  */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_generic_blocks\.scss}line{font-family:\000034}}
 .generic-blocks {
+  overflow: hidden;
   /* content title per generic block instance */
   /* content main text body per generic block instance */
   /* wrapper per generic block field collection instance */ }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_generic_blocks\.scss}line{font-family:\000036}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_generic_blocks\.scss}line{font-family:\000038}}
   .generic-blocks .field--name-field-title-side-content-generic {
     font-size: 1.5em;
     color: #4b800d;
     padding: 0;
-    margin: 0 0 .15em 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_generic_blocks\.scss}line{font-family:\0000311}}
+    margin: .15em 0 .15em 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_generic_blocks\.scss}line{font-family:\0000313}}
     .generic-blocks .field--name-field-title-side-content-generic h1, .generic-blocks .field--name-field-title-side-content-generic h2, .generic-blocks .field--name-field-title-side-content-generic h3, .generic-blocks .field--name-field-title-side-content-generic h4, .generic-blocks .field--name-field-title-side-content-generic h5, .generic-blocks .field--name-field-title-side-content-generic h6 {
       padding: 0;
       margin: 0;
       font-size: 1em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_generic_blocks\.scss}line{font-family:\0000320}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_generic_blocks\.scss}line{font-family:\0000322}}
   .generic-blocks .field-collection-view {
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    -o-border-radius: 8px;
-    -ms-border-radius: 8px;
-    border-radius: 8px;
-    background: #f5f8f1;
+    border: 1px solid #e8e8e8;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -o-border-radius: 10px;
+    -ms-border-radius: 10px;
+    border-radius: 10px;
+    background: #fff;
     padding: .5em 11px .3em 11px;
     margin-bottom: 11px;
     overflow: hidden;
     clear: both; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_generic_blocks\.scss}line{font-family:\0000331}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_generic_blocks\.scss}line{font-family:\0000334}}
     .generic-blocks .field-collection-view img {
       max-width: 100%;
       height: auto; }
+
+/* remove bottom margin of block - inner content already has bottom margin */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_generic_blocks\.scss}line{font-family:\0000341}}
+.l-region--sidebar-second .block.generic-blocks {
+  margin-bottom: 0; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_global_search\.scss}line{font-family:\000031}}
 .global-search {
