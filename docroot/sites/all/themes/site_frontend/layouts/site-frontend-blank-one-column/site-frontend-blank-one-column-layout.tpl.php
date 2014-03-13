@@ -8,7 +8,7 @@
 
 <!-- begin site-frontend-blank-one-column-layout.tpl.php -->
 
-<div class="l-page">
+<div class="l-page blank">
 	
   <div class="main-wrapper">
     <div class="l-main">

@@ -26,12 +26,12 @@
 }
 
 /* override styling from _content_section.scss */
-.l-main .main-wrapper {
-	border-bottom: 0;
+.blank .main-wrapper {
+	border-bottom: none;
 }
 @include breakpoint($mobile) {
-	.l-main .main-wrapper {
-		border-bottom: 0;
+	.blank .main-wrapper {
+		border-bottom: none;
 	}
 }
 

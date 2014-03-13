@@ -39,13 +39,13 @@
 
 /* override styling from _content_section.scss */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-blank-one-column\/site-frontend-blank-one-column\.layout\.scss}line{font-family:\0000329}}
-.l-main .main-wrapper {
-  border-bottom: 0; }
+.blank .main-wrapper {
+  border-bottom: none; }
 
 @media (min-width: 0px) and (max-width: 480px) {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-blank-one-column\/site-frontend-blank-one-column\.layout\.scss}line{font-family:\0000333}}
-  .l-main .main-wrapper {
-    border-bottom: 0; } }
+  .blank .main-wrapper {
+    border-bottom: none; } }
 /* mobile layout */
 @media (min-width: 0px) and (max-width: 480px) {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-blank-one-column\/site-frontend-blank-one-column\.layout\.scss}line{font-family:\0000340}}
