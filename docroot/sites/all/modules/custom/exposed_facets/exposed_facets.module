@@ -1,0 +1,30 @@
+<?php
+/**
+ * Allows for alterations to the searcher definitions.
+ *
+ * @param array &$searcher_info
+ *   The return values of hook_facetapi_searcher_info() implementations.
+ *
+ * Implements hook_facetapi_searcher_info().
+ */
+function exposed_facets_facetapi_searcher_info_alter(array &$searcher_info) {
+  foreach ($searcher_info as &$info) {
+    // Activate custom URL processor.
+    $id = 'exposed_facets_searcher_' . $info['name'];
+    $info['url processor'] = 'exposed_facets';
+  }
+}
+
+/**
+ * Implements hook_facetapi_url_processors().
+ */
+function exposed_facets_facetapi_url_processors() {
+  return array(
+    'exposed_facets' => array(
+      'handler' => array(
+        'label' => t('Custom URL processor'),
+        'class' => 'FacetapiUrlProcessorExposedFacets',
+      ),
+    ),
+  );
+}

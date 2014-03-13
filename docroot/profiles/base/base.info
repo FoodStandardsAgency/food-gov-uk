@@ -30,6 +30,7 @@ dependencies[] = email
 dependencies[] = entity
 dependencies[] = entityreference
 dependencies[] = environment_modules
+dependencies[] = exposed_facets
 dependencies[] = facetapi
 dependencies[] = facetapi_bonus
 dependencies[] = facetapi_select

@@ -1,0 +1,6 @@
+name = Exposed Facets
+description = Enables Views exposed facets to work with Current Search Links.
+package = FacetAPI
+core = "7.x"
+files[] = exposed_facets.module
+files[] = plugins/facetapi/url_processor_exposed_facets.inc
