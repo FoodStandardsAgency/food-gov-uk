@@ -15,7 +15,8 @@
   /* for IE 6/7 */
   *zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).style.cssText="clear:both;font:0/0 serif");
   /* non-JS fallback */
-  *zoom: 1; }
+  *zoom: 1;
+  padding-top: 20px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/anthonyalbertyn\/\.rvm\/gems\/ruby-1\.9\.3-p484\@omega\.site_frontend\/gems\/singularitygs-1\.1\.2\/stylesheets\/singularitygs\/helpers\/_clearfix\.scss}line{font-family:\0000348}}
   .main-wrapper:before, .main-wrapper:after {
     content: ".";
@@ -26,7 +27,7 @@
   .main-wrapper:after {
     clear: both; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-blank-one-column\/site-frontend-blank-one-column\.layout\.scss}line{font-family:\0000323}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-blank-one-column\/site-frontend-blank-one-column\.layout\.scss}line{font-family:\0000324}}
 .l-content {
   width: 100%;
   float: right;
@@ -36,20 +37,30 @@
   padding-left: 6px;
   padding-right: 6px; }
 
+/* override styling from _content_section.scss */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-blank-one-column\/site-frontend-blank-one-column\.layout\.scss}line{font-family:\0000329}}
+.l-main .main-wrapper {
+  border-bottom: 0; }
+
+@media (min-width: 0px) and (max-width: 480px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-blank-one-column\/site-frontend-blank-one-column\.layout\.scss}line{font-family:\0000333}}
+  .l-main .main-wrapper {
+    border-bottom: 0; } }
 /* mobile layout */
 @media (min-width: 0px) and (max-width: 480px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-blank-one-column\/site-frontend-blank-one-column\.layout\.scss}line{font-family:\0000330}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-blank-one-column\/site-frontend-blank-one-column\.layout\.scss}line{font-family:\0000340}}
   .l-main {
     width: 100%;
     padding-left: 6px;
     padding-right: 6px;
     margin: 0; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-blank-one-column\/site-frontend-blank-one-column\.layout\.scss}line{font-family:\0000336}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-blank-one-column\/site-frontend-blank-one-column\.layout\.scss}line{font-family:\0000346}}
   .l-main {
+    padding-top: 12px;
     padding-bottom: 12px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-blank-one-column\/site-frontend-blank-one-column\.layout\.scss}line{font-family:\0000339}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-blank-one-column\/site-frontend-blank-one-column\.layout\.scss}line{font-family:\0000350}}
   .main-wrapper {
     /* for IE 6/7 */
     *zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).style.cssText="clear:both;font:0/0 serif");
@@ -65,7 +76,7 @@
     .main-wrapper:after {
       clear: both; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-blank-one-column\/site-frontend-blank-one-column\.layout\.scss}line{font-family:\0000342}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-blank-one-column\/site-frontend-blank-one-column\.layout\.scss}line{font-family:\0000353}}
   .l-content {
     width: 100%;
     float: right;
