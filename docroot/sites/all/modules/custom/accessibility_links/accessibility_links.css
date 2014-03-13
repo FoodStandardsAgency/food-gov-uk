@@ -83,3 +83,7 @@ body {}
 body.font-plus-1 {}
 body.font-plus-2 {}
 
+/* prevent external links module from inserting icons within the links */
+#accessTools span.ext[style] {
+	display: none !important;
+}
