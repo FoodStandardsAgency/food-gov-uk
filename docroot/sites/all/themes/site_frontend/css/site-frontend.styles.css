@@ -833,7 +833,7 @@ span.copyright {
     font-size: 1.5em;
     color: #4b800d;
     padding: 0;
-    margin: .15em 0 .15em 0; }
+    margin: .15em 0 .3em 0; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_generic_blocks\.scss}line{font-family:\0000313}}
     .generic-blocks .field--name-field-title-side-content-generic h1, .generic-blocks .field--name-field-title-side-content-generic h2, .generic-blocks .field--name-field-title-side-content-generic h3, .generic-blocks .field--name-field-title-side-content-generic h4, .generic-blocks .field--name-field-title-side-content-generic h5, .generic-blocks .field--name-field-title-side-content-generic h6 {
       padding: 0;
