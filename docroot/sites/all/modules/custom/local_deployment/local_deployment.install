@@ -39,6 +39,7 @@ function local_deployment_install() {
   module_enable(array('ds'), TRUE);
   module_enable(array('preserve_filter'), TRUE);
   module_enable(array('migrate'), TRUE);
+  module_enable(array('date_facets'), TRUE);
 
   // Enable Feature modules.
   module_enable(array('fonts___feature'), TRUE);
