@@ -1,0 +1,12 @@
+name = Current Search Links
+description = Uses current search links but turns the current search keywords into links such that you can remove them from the search.
+dependencies[] = current_search
+package = Search Toolkit
+core = 7.x
+files[] = plugins/item_active_links.inc
+; Information added by drupal.org packaging script on 2013-02-21
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "current_search_links"
+datestamp = "1361451146"
+
