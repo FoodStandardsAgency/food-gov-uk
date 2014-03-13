@@ -270,3 +270,32 @@ function date_facets_default_ranges() {
     ),
   );
 }
+
+
+
+function date_facets_select_facet_form($form_state, $options, $count = 0) {
+  drupal_add_js(drupal_get_path('module', 'date_facets') .'/js/date_facets.js');
+
+  $name = 'date_facets_select_facet_form_' . $count;
+  $form['facets'] = array(
+    '#type' => 'select',
+    '#id' => $name,
+    '#default_value' => '',
+    '#options' => $options,
+    '#attributes' => array('onchange' => "top.location.href=document.getElementById('$name').options[document.getElementById('$name').selectedIndex].value"),
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#attributes' => array('class' => array('facetapi-select-submit')),
+    '#value' => t('Submit'),
+  );
+  return $form;
+}
+
+/**
+ * Submit function for facetapi_select_form().
+ */
+function date_facets_select_facet_form_submit($form, &$form_state) {
+  preg_match('/^\/(.*)\?(.*)/', $form_state['values']['facets'], $filters);
+  drupal_goto($filters[1], $query = $filters[2]);
+}

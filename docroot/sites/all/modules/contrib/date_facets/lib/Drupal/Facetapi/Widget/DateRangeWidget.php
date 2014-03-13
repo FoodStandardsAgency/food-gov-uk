@@ -24,34 +24,62 @@ class Drupal_Apachesolr_Facetapi_Widget_DateRangeWidget extends FacetapiWidgetLi
    * @see http://drupal.org/node/1393928
    */
   public function execute() {
+//    $element = &$this->build[$this->facet['field alias']];
+//
+//    // Get all variables we will need to hack the query string in order to
+//    // ensure that only one item is active at a time.
+//    $filter_key = $this->facet->getAdapter()->getUrlProcessor()->getFilterKey();
+//    $facet = $this->facet->getFacet();
+//    $field_alias = rawurlencode($facet['field alias']);
+//    $value_start_pos = strlen($field_alias) + 1;
+//
+//    // Re-build query string for all date range facets.
+//    foreach ($element as &$item) {
+//
+//      // Filters out all other values from the query string excluding the value
+//      // of the current item.
+//      if (!$item['#active']) {
+//        foreach ($item['#query'][$filter_key] as $pos => $filter) {
+//          if (0 === strpos($filter, $field_alias . ':')) {
+//            $value = substr($filter, $value_start_pos);
+//            if ($value !== $item['#indexed_value']) {
+//              unset($item['#query'][$filter_key][$pos]);
+//            }
+//          }
+//        }
+//      }
+//    }
+//
+//    // Render the links.
+//    parent::execute();
+
+
+    /////////
+
+    static $count = 0;
+    $count++;
     $element = &$this->build[$this->facet['field alias']];
 
-    // Get all variables we will need to hack the query string in order to
-    // ensure that only one item is active at a time.
-    $filter_key = $this->facet->getAdapter()->getUrlProcessor()->getFilterKey();
-    $facet = $this->facet->getFacet();
-    $field_alias = rawurlencode($facet['field alias']);
-    $value_start_pos = strlen($field_alias) + 1;
-
-    // Re-build query string for all date range facets.
-    foreach ($element as &$item) {
-
-      // Filters out all other values from the query string excluding the value
-      // of the current item.
-      if (!$item['#active']) {
-        foreach ($item['#query'][$filter_key] as $pos => $filter) {
-          if (0 === strpos($filter, $field_alias . ':')) {
-            $value = substr($filter, $value_start_pos);
-            if ($value !== $item['#indexed_value']) {
-              unset($item['#query'][$filter_key][$pos]);
-            }
-          }
-        }
-      }
+    $settings = $this->settings;
+    if (!empty($settings->settings['default_option_label'])) {
+      $options[] = $settings->settings['default_option_label'];
+    } else {
+      $options[] = t('--Choose--');
     }
 
-    // Render the links.
-    parent::execute();
+    foreach ($element as $value => $item) {
+      $path = !empty($this->settings->settings['submit_page']) ? $this->settings->settings['submit_page'] : $item['#path'];
+      $url = url($path, array('query' => $item['#query']));
+      $options[$url] = $item['#markup'].' ('.$item['#count'].')';
+    }
+    // We keep track of how many facets we're adding, because each facet form
+    // needs a different form id.
+    if (end($options) !== '(-)') {
+      if (!isset($form_state)) {
+        $form_state = array();
+      }
+      $element = date_facets_select_facet_form($form_state, $options, $count);
+    }
   }
 
   /**
