@@ -819,6 +819,42 @@ span.copyright {
   margin-bottom: 0.909em;
   color: #333; }
 
+/**
+ * Requires a block class: generic-blocks
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_generic_blocks\.scss}line{font-family:\000034}}
+.generic-blocks {
+  /* content title per generic block instance */
+  /* content main text body per generic block instance */
+  /* wrapper per generic block field collection instance */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_generic_blocks\.scss}line{font-family:\000036}}
+  .generic-blocks .field--name-field-title-side-content-generic {
+    font-size: 1.5em;
+    color: #4b800d;
+    padding: .5em 11px .15em 11px;
+    margin: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_generic_blocks\.scss}line{font-family:\0000311}}
+    .generic-blocks .field--name-field-title-side-content-generic h1, .generic-blocks .field--name-field-title-side-content-generic h2, .generic-blocks .field--name-field-title-side-content-generic h3, .generic-blocks .field--name-field-title-side-content-generic h4, .generic-blocks .field--name-field-title-side-content-generic h5, .generic-blocks .field--name-field-title-side-content-generic h6 {
+      padding: 0;
+      margin: 0;
+      font-size: 1em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_generic_blocks\.scss}line{font-family:\0000320}}
+  .generic-blocks .field-collection-view {
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -o-border-radius: 8px;
+    -ms-border-radius: 8px;
+    border-radius: 8px;
+    background: #f5f8f1;
+    padding: .5em 11px .3em 11px;
+    margin-bottom: 11px;
+    overflow: hidden;
+    clear: both; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_generic_blocks\.scss}line{font-family:\0000331}}
+    .generic-blocks .field-collection-view img {
+      max-width: 100%;
+      height: auto; }
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_global_search\.scss}line{font-family:\000031}}
 .global-search {
   margin: 0;
