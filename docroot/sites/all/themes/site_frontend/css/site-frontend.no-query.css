@@ -1397,6 +1397,10 @@ span.copyright {
     margin-bottom: 0.2em;
     color: #333; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\0000368}}
+.page-search .l-content {
+  margin-bottom: 20px; }
+
 /**
  * Sidebar menu with first top level menu item looking different to the rest of the top level items.
  * Requires a block class: sidebar-menu
