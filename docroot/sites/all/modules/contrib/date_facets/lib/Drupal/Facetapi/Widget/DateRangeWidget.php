@@ -350,6 +350,16 @@ class Drupal_Apachesolr_Facetapi_Widget_DateRangeWidget extends FacetapiWidgetLi
         '#weight' => 10,
       );
     }
+
+    if (module_exists('facetapi_select')) {
+      $form['date_ranges_select'] = array(
+        '#type'          => 'checkbox',
+        '#title'         => t('Select Field'),
+        '#description'   => t('Display as select field (dropdown)'),
+        '#default_value' => empty($this->settings->settings['date_ranges_select']) ? 0 : $this->settings->settings['date_ranges_select'],
+      );
+    }
+
     $form['#validate'] = array('date_facets_tabledrag_form_validate');
     $form['#theme'] = 'date_facets_tabledrag_form';
     $form['#prefix'] = '<div id="date_facets_facet_config_form">';
