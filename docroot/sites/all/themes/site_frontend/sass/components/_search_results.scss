@@ -1,0 +1,63 @@
+.current-search-item-text {
+	.result-count {
+		color: #666;
+		display: block;
+		font-weight: normal;
+		padding: 3px 0;
+		font-size: 1.2em;
+		line-height: 1.4em;
+		margin-bottom: 12px;
+	}
+	.search-results-heading,
+	h2.search-results-heading {
+		display: block;
+		margin: 0 0 1em 0;
+		padding: .3em 11px;
+		font-size: 1.4em;
+		font-weight: bold;
+		color: #fff;
+		background: #5d9711;
+	}
+}
+
+.views-field-zs-view-mode-search-result {
+	border-bottom: 1px solid #5d9711;
+	padding: 7px 0 7px 0;
+	li {
+		font-size: 1em; // set base as 10px just in case
+	}
+	p {
+		font-size: 1em;	// let font be inherited from parent item
+	}
+	h1.node__title,
+	h2.node__title,
+	h3.node__title {
+		font-size: 1.2em;
+		line-height: 1.3em;
+		margin-bottom: .4em;
+	}
+	.node__title {
+		color: #006f51;
+		a {
+			color: #006f51;
+			text-decoration: none;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+	}
+	.field--name-field-summary {
+		font-size: 1.2em;
+		margin-bottom: .6em;
+		line-height: 1.5em;
+	}
+	.field--name-field-subtitle {
+		font-size: 1.2em;
+		margin-bottom: .6em;
+		line-height: 1.5em;
+	}
+	.field--name-field-updated {
+		font-size: 1.1em;
+		margin-bottom: 0.2em;
+	}
+}

@@ -4,7 +4,7 @@
 	input.form-text {
 		width: 90%;
 		margin-bottom: .8em;
-		padding: 2px 0;
+		padding: 2px 4px;
 		background: #fff;
 		font-size: 1.2em;
 		vertical-align: middle;
@@ -34,13 +34,13 @@
 		-o-border-radius: 5px;
 		-ms-border-radius: 5px;
 		border-radius: 5px;
-		background-color: #fa953e; // #fb9d44;
+		background-color: #fa953e;
 		background-image: url("../images/search.png");
 		background-repeat: no-repeat;
 		background-position: 5px 3px;
 		text-indent: -9999px;
 		&:hover {
-			background-color: #f67f2a; // #f67d28;
+			background-color: #f67f2a;
 		}
 	}
 }
@@ -83,29 +83,7 @@
 		font-size: 1.2em;
   } 
 }
-	
-	
-.current-search-item-text {
-	.result-count {
-		color: #666;
-		display: block;
-		font-weight: normal;
-		padding: 3px 0;
-		font-size: 1.2em;
-		line-height: 1.4em;
-		margin-bottom: 12px;
-	}
-	.search-results-heading,
-	h2.search-results-heading {
-		display: block;
-		margin: 0 0 1em 0;
-		padding: .3em 11px;
-		font-size: 1.4em;
-		font-weight: bold;
-		color: #fff;
-		background: #5d9711;
-	}
-}
+
 .current-search-item-active-links {
 	margin-bottom: 20px;
 	ul {
