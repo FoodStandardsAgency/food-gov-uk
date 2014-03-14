@@ -96,7 +96,13 @@ class Drupal_Apachesolr_Facetapi_Widget_DateRangeWidget extends FacetapiWidgetLi
     unset($form['widget']['widget_settings']['links'][$this->id]['show_expanded']);
 
     if (module_exists('facetapi_select')) {
-      $form['date_ranges_select'] = array(
+      $form['date_ranges_select_display'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Display'),
+        '#attributes' => array('class' => array('clearfix')),
+      );
+
+      $form['date_ranges_select_display']['date_ranges_select'] = array(
         '#type'          => 'checkbox',
         '#title'         => t('Select Field'),
         '#description'   => t('Display as select field (dropdown)'),
