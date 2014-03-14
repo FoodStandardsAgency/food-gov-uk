@@ -1,0 +1,70 @@
+<?php
+
+/**
+ * @file
+ * Provide blocks that contain other blocks.
+ */
+
+/**
+ * Implements hook_block_info().
+ */
+function container_blocks_block_info() {
+  $blocks['search_all_facets'] = array(
+    'info' => t('Search All Facets'),
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function container_blocks_block_view($delta = '') {
+
+  $block = array();
+
+  switch ($delta) {
+    case 'search_all_facets':
+
+      $blocks[] = block_load('views', '-exp-search_sitewide-page');
+      $blocks[] = block_load('facetapi', 'bLPXAQDJqA1Re1OTSoyUJM9gUBaIgZMG');
+      $blocks[] = block_load('facetapi', 'JA1S7gqOdiVJQxg5zwM1Pb8KjhJNGZjx');
+
+      $content = container_blocks_concatenate_content($blocks);
+
+      $block['subject'] = NULL;
+      $block['content'] = array(
+        '#markup' => $content,
+      );
+      break;
+
+//    case 'recent':
+//      if (user_access('access content')) {
+//        $block['subject'] = t('Recent content');
+//        if ($nodes = node_get_recent(variable_get('node_recent_block_count', 10))) {
+//          $block['content'] = array(
+//            '#theme' => 'node_recent_block',
+//            '#nodes' => $nodes,
+//          );
+//        }
+//        else {
+//          $block['content'] = t('No content available.');
+//        }
+//      }
+//      break;
+  }
+  return $block;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function container_blocks_concatenate_content($blocks) {
+  $content = '';
+
+  foreach ($blocks as $block) {
+    $content .= drupal_render(_block_get_renderable_array(_block_render_blocks(array($block))));
+  }
+
+  return $content;
+}
