@@ -1424,7 +1424,7 @@ span.copyright {
   .views-field-zs-view-mode-search-result h1.node__title,
   .views-field-zs-view-mode-search-result h2.node__title,
   .views-field-zs-view-mode-search-result h3.node__title {
-    font-size: 1.2em;
+    font-size: 1.4em;
     line-height: 1.3em;
     margin-bottom: .4em; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\0000339}}
@@ -1441,16 +1441,19 @@ span.copyright {
   .views-field-zs-view-mode-search-result .field--name-field-summary {
     font-size: 1.2em;
     margin-bottom: .6em;
-    line-height: 1.5em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\0000354}}
+    line-height: 1.5em;
+    color: #333; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\0000355}}
   .views-field-zs-view-mode-search-result .field--name-field-subtitle {
     font-size: 1.2em;
     margin-bottom: .6em;
-    line-height: 1.5em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\0000359}}
+    line-height: 1.5em;
+    color: #333; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\0000361}}
   .views-field-zs-view-mode-search-result .field--name-field-updated {
     font-size: 1.1em;
-    margin-bottom: 0.2em; }
+    margin-bottom: 0.2em;
+    color: #333; }
 
 /**
  * Sidebar menu with first top level menu item looking different to the rest of the top level items.
