@@ -81,7 +81,7 @@ class Drupal_Apachesolr_Facetapi_Widget_DateRangeWidget extends FacetapiWidgetLi
         if (!isset($form_state)) {
           $form_state = array();
         }
-        $element = facetapi_select_facet_form($form_state, $options, $count);
+        $element = date_facets_select_facet_form($form_state, $options, $count);
       }
     }
 
