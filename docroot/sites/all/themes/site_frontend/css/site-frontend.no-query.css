@@ -1204,6 +1204,76 @@ span.copyright {
     font-weight: bold; }
 
 /* mobile layout */
+/* search form */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\000036}}
+.current-search-item-text .result-count {
+  color: #666;
+  display: block;
+  font-weight: normal;
+  padding: 3px 0;
+  font-size: 1.2em;
+  line-height: 1.4em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000315}}
+.current-search-item-text .search-results-heading,
+.current-search-item-text h2.search-results-heading {
+  display: block;
+  margin: 0 0 1em 0;
+  padding: .3em 11px;
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #fff;
+  background: #5d9711; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000325}}
+.current-search-item-active-links {
+  margin-bottom: 20px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000327}}
+  .current-search-item-active-links ul {
+    margin: 0 0 0.75em 0;
+    padding: 0;
+    list-style-type: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000331}}
+    .current-search-item-active-links ul li {
+      font-size: 1em;
+      margin: 0px 5px 5px 0px;
+      display: inline-block;
+      *display: inline;
+      zoom: 1; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000337}}
+      .current-search-item-active-links ul li a {
+        font-size: 1.2em;
+        font-weight: normal;
+        color: #ffffff;
+        background-color: #ff5800;
+        padding: 5px 8px 5px 8px;
+        border: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000345}}
+      .current-search-item-active-links ul li a:hover {
+        color: #ffffff;
+        background-color: #ff0000;
+        text-decoration: none; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000354}}
+.grey-container-block {
+  border: 1px solid #e8e8e8;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -o-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px;
+  background: #fff;
+  padding: .5em 11px .3em 11px;
+  margin-bottom: 11px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000364}}
+  .grey-container-block h2.block__title {
+    color: #5d9711;
+    background: none;
+    padding-left: 0;
+    margin: 0 0 .6em 0;
+    padding: 0;
+    font-size: 1.4em;
+    font-weight: bold; }
+
 /**
  * Sidebar menu with first top level menu item looking different to the rest of the top level items.
  * Requires a block class: sidebar-menu
