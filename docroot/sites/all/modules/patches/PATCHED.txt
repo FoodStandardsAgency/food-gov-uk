@@ -41,4 +41,9 @@ Fixes issue where HTML was being stripped out of fields by Views.
 apachesolr_views_handler-include_html.patch
 
 
+===========================================
 
+Date Facets
+
+Display facets as a select dropdown
+https://drupal.org/comment/8575023#comment-8575023
