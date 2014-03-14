@@ -28,6 +28,8 @@ class Drupal_Apachesolr_Facetapi_Widget_DateRangeWidget extends FacetapiWidgetLi
 
     // Display as standard links or as a select dropdown.
     if (empty($this->settings->settings['date_ranges_select']) || !module_exists('facetapi_select')) {
+      // As standard links.
+
       // Get all variables we will need to hack the query string in order to
       // ensure that only one item is active at a time.
       $filter_key = $this->facet->getAdapter()->getUrlProcessor()->getFilterKey();
@@ -56,6 +58,8 @@ class Drupal_Apachesolr_Facetapi_Widget_DateRangeWidget extends FacetapiWidgetLi
       parent::execute();
     }
     else {
+      // As a select dropdown.
+      // Code borrowed from facetapi_select.module.
       static $count = 0;
       $count++;
 
@@ -77,7 +81,7 @@ class Drupal_Apachesolr_Facetapi_Widget_DateRangeWidget extends FacetapiWidgetLi
         if (!isset($form_state)) {
           $form_state = array();
         }
-        $element = date_facets_select_facet_form($form_state, $options, $count);
+        $element = facetapi_select_facet_form($form_state, $options, $count);
       }
     }
 
