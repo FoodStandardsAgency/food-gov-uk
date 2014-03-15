@@ -9,64 +9,6 @@
  */
 function ckeditor___editor_ckeditor_profile_defaults() {
   $data = array(
-    'Advanced' => array(
-      'name' => 'Advanced',
-      'settings' => array(
-        'filebrowser' => 'none',
-        'quickupload' => 'f',
-        'ss' => 2,
-        'filters' => array(
-          'filter_html' => 1,
-        ),
-        'default' => 't',
-        'show_toggle' => 't',
-        'popup' => 'f',
-        'toolbar' => '
-[
-    [\'Source\'],
-    [\'Cut\',\'Copy\',\'Paste\',\'PasteText\',\'PasteFromWord\',\'-\',\'SpellChecker\', \'Scayt\'],
-    [\'Undo\',\'Redo\',\'Find\',\'Replace\',\'-\',\'SelectAll\',\'RemoveFormat\'],
-    [\'Image\',\'Media\',\'Flash\',\'Table\',\'HorizontalRule\',\'Smiley\',\'SpecialChar\'],
-    [\'Maximize\', \'ShowBlocks\'],
-    \'/\',
-    [\'Format\'],
-    [\'Bold\',\'Italic\',\'Underline\',\'Strike\',\'-\',\'Subscript\',\'Superscript\'],
-    [\'NumberedList\',\'BulletedList\',\'-\',\'Outdent\',\'Indent\',\'Blockquote\'],
-    [\'JustifyLeft\',\'JustifyCenter\',\'JustifyRight\',\'JustifyBlock\',\'-\',\'BidiLtr\',\'BidiRtl\'],
-    [\'Link\',\'Unlink\',\'Anchor\', \'Linkit\']
-]
-    ',
-        'expand' => 't',
-        'width' => '100%',
-        'lang' => 'en',
-        'auto_lang' => 't',
-        'language_direction' => 'default',
-        'enter_mode' => 'p',
-        'shift_enter_mode' => 'br',
-        'font_format' => 'p;div;pre;address;h1;h2;h3;h4;h5;h6',
-        'format_source' => 't',
-        'format_output' => 't',
-        'custom_formatting' => 'f',
-        'formatting' => array(
-          'custom_formatting_options' => array(
-            'indent' => 'indent',
-            'breakBeforeOpen' => 'breakBeforeOpen',
-            'breakAfterOpen' => 'breakAfterOpen',
-            'breakAfterClose' => 'breakAfterClose',
-          ),
-        ),
-        'css_mode' => 'none',
-        'css_path' => '',
-        'user_choose' => 'f',
-        'ckeditor_load_method' => 'ckeditor.js',
-        'ckeditor_load_time_out' => 0,
-        'scayt_autoStartup' => 'f',
-        'html_entities' => 'f',
-      ),
-      'input_formats' => array(
-        'filtered_html' => 'Filtered HTML',
-      ),
-    ),
     'CKEditor Global Profile' => array(
       'name' => 'CKEditor Global Profile',
       'settings' => array(
@@ -94,7 +36,7 @@ function ckeditor___editor_ckeditor_profile_defaults() {
         'toolbar' => '[
     [\'PasteText\',\'PasteFromWord\'],
     [\'RemoveFormat\'],
-    [\'Image\',\'Table\',\'SpecialChar\'],
+    [\'Table\',\'SpecialChar\'],
     [\'Link\',\'Unlink\',\'Anchor\'],
     [\'Source\'],
     [\'Maximize\',\'ShowBlocks\'],
@@ -102,7 +44,6 @@ function ckeditor___editor_ckeditor_profile_defaults() {
     [\'Format\'],
     [\'Outdent\',\'Indent\',\'Blockquote\'],
     [\'JustifyLeft\',\'NumberedList\',\'BulletedList\'],
-    
     [\'Bold\',\'Italic\',\'Strike\']
 ]',
         'expand' => 't',
@@ -110,6 +51,8 @@ function ckeditor___editor_ckeditor_profile_defaults() {
         'lang' => 'en',
         'auto_lang' => 't',
         'language_direction' => 'default',
+        'allowed_content' => 't',
+        'extraAllowedContent' => '',
         'enter_mode' => 'p',
         'shift_enter_mode' => 'br',
         'font_format' => 'p;div;pre;address;h1;h2;h3;h4;h5;h6',
@@ -150,6 +93,18 @@ function ckeditor___editor_ckeditor_profile_defaults() {
               ),
             ),
             'default' => 't',
+          ),
+          'media' => array(
+            'name' => 'media',
+            'desc' => 'Plugin for inserting images from Drupal media module',
+            'path' => '%plugin_dir%media/',
+            'buttons' => array(
+              'Media' => array(
+                'label' => 'Media',
+                'icon' => 'images/icon.gif',
+              ),
+            ),
+            'default' => 'f',
           ),
         ),
       ),
@@ -224,17 +179,28 @@ function ckeditor___editor_ckeditor_profile_defaults() {
             'path' => '%base_path%sites/all/modules/contrib/ckeditor_link/plugins/link/',
             'buttons' => FALSE,
           ),
-          'mediaembed' => array(
-            'name' => 'mediaembed',
-            'desc' => 'Plugin for inserting Drupal embeded media',
-            'path' => '%plugin_dir%mediaembed/',
+          'media' => array(
+            'name' => 'media',
+            'desc' => 'Plugin for inserting images from Drupal media module',
+            'path' => '%plugin_dir%media/',
             'buttons' => array(
-              'MediaEmbed' => array(
-                'label' => 'MediaEmbed',
-                'icon' => 'images/icon.png',
+              'Media' => array(
+                'label' => 'Media',
+                'icon' => 'images/icon.gif',
               ),
             ),
             'default' => 'f',
+          ),
+          'token_insert_ckeditor' => array(
+            'name' => 'token_insert_ckeditor',
+            'desc' => 'Token insert',
+            'path' => '%base_path%sites/all/modules/contrib/token_insert/token_insert_ckeditor/plugins/token_insert_ckeditor/',
+            'buttons' => array(
+              'TokenInsert' => array(
+                'icon' => 'images/insert.png',
+                'label' => 'Token insert',
+              ),
+            ),
           ),
         ),
       ),
@@ -261,8 +227,7 @@ function ckeditor___editor_ckeditor_profile_defaults() {
     [\'Outdent\',\'Indent\',\'Blockquote\'],
     [\'NumberedList\',\'BulletedList\'],
     [\'JustifyLeft\',\'JustifyCenter\',\'JustifyRight\',\'JustifyBlock\'],
-    [\'Bold\',\'Italic\',\'Strike\'],
-    
+    [\'Bold\',\'Italic\',\'Strike\',\'TokenInsert\'],
     \'/\',
     [\'ShowBlocks\']
 ]',
@@ -308,17 +273,28 @@ function ckeditor___editor_ckeditor_profile_defaults() {
             'path' => '%base_path%sites/all/modules/contrib/ckeditor_link/plugins/link/',
             'buttons' => FALSE,
           ),
-          'mediaembed' => array(
-            'name' => 'mediaembed',
-            'desc' => 'Plugin for inserting Drupal embeded media',
-            'path' => '%plugin_dir%mediaembed/',
+          'media' => array(
+            'name' => 'media',
+            'desc' => 'Plugin for inserting images from Drupal media module',
+            'path' => '%plugin_dir%media/',
             'buttons' => array(
-              'MediaEmbed' => array(
-                'label' => 'MediaEmbed',
-                'icon' => 'images/icon.png',
+              'Media' => array(
+                'label' => 'Media',
+                'icon' => 'images/icon.gif',
               ),
             ),
             'default' => 'f',
+          ),
+          'token_insert_ckeditor' => array(
+            'name' => 'token_insert_ckeditor',
+            'desc' => 'Token insert',
+            'path' => '%base_path%sites/all/modules/contrib/token_insert/token_insert_ckeditor/plugins/token_insert_ckeditor/',
+            'buttons' => array(
+              'TokenInsert' => array(
+                'icon' => 'images/insert.png',
+                'label' => 'Token insert',
+              ),
+            ),
           ),
         ),
       ),
