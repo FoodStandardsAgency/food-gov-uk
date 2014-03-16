@@ -11,7 +11,7 @@ function section_landing_pages_features_node_export_features_default() {
   $node_export = array(
   'code_string' => 'array(
   (object) array(
-      \'vid\' => \'3\',
+      \'vid\' => \'66\',
       \'uid\' => \'1\',
       \'title\' => \'Policy and advice\',
       \'log\' => \'\',
@@ -19,16 +19,16 @@ function section_landing_pages_features_node_export_features_default() {
       \'comment\' => \'1\',
       \'promote\' => \'0\',
       \'sticky\' => \'0\',
-      \'vuuid\' => \'82152aa3-9ced-4f77-af40-a82e6b0fe875\',
+      \'vuuid\' => \'11f617bf-cc4e-4bd1-9fca-9ea56394bfce\',
       \'nid\' => \'3\',
       \'type\' => \'landing_page\',
       \'language\' => \'und\',
       \'created\' => \'1391442141\',
-      \'changed\' => \'1393377239\',
+      \'changed\' => \'1394643301\',
       \'tnid\' => \'0\',
       \'translate\' => \'0\',
       \'uuid\' => \'347a84d6-9e63-48bc-a5ef-3e7861750fe4\',
-      \'revision_timestamp\' => \'1393377239\',
+      \'revision_timestamp\' => \'1394643301\',
       \'revision_uid\' => \'1\',
       \'body\' => array(
         \'und\' => array(
@@ -78,8 +78,23 @@ function section_landing_pages_features_node_export_features_default() {
           ),
         ),
       ),
-      \'field_subtitle\' => array(),
-      \'field_path\' => array(),
+      \'field_subtitle\' => array(
+        \'und\' => array(
+          array(
+            \'value\' => \'policy and advice subtitle\',
+            \'format\' => NULL,
+            \'safe_value\' => \'policy and advice subtitle\',
+          ),
+        ),
+      ),
+      \'field_path\' => array(
+        \'und\' => array(
+          array(
+            \'human\' => NULL,
+            \'machine\' => \'policy-and-advice\',
+          ),
+        ),
+      ),
       \'metatags\' => array(),
       \'rdf_mapping\' => array(
         \'rdftype\' => array(
@@ -144,17 +159,11 @@ function section_landing_pages_features_node_export_features_default() {
       \'name\' => \'Tharg\',
       \'picture\' => \'0\',
       \'data\' => \'b:0;\',
-      \'num_revisions\' => \'1\',
-      \'current_revision_id\' => \'3\',
+      \'num_revisions\' => \'2\',
+      \'current_revision_id\' => \'66\',
       \'is_current\' => TRUE,
       \'is_pending\' => FALSE,
       \'revision_moderation\' => FALSE,
-      \'path\' => array(
-        \'pid\' => \'5\',
-        \'source\' => \'node/3\',
-        \'alias\' => \'policy-advice\',
-        \'language\' => \'und\',
-      ),
       \'menu\' => array(
         \'link_title\' => \'Policy & advice\',
         \'mlid\' => 0,
@@ -170,6 +179,12 @@ function section_landing_pages_features_node_export_features_default() {
         \'parent_depth_limit\' => 8,
         \'description\' => \'\',
         \'enabled\' => 1,
+      ),
+      \'path\' => array(
+        \'pid\' => \'5\',
+        \'source\' => \'node/3\',
+        \'alias\' => \'policy-advice\',
+        \'language\' => \'und\',
       ),
       \'node_export_drupal_version\' => \'7\',
     ),
@@ -312,12 +327,6 @@ function section_landing_pages_features_node_export_features_default() {
       \'is_current\' => TRUE,
       \'is_pending\' => FALSE,
       \'revision_moderation\' => FALSE,
-      \'path\' => array(
-        \'pid\' => \'3\',
-        \'source\' => \'node/5\',
-        \'alias\' => \'enforcement\',
-        \'language\' => \'und\',
-      ),
       \'menu\' => array(
         \'link_title\' => \'Enforcement & regulation\',
         \'mlid\' => 0,
@@ -333,6 +342,12 @@ function section_landing_pages_features_node_export_features_default() {
         \'parent_depth_limit\' => 8,
         \'description\' => \'\',
         \'enabled\' => 1,
+      ),
+      \'path\' => array(
+        \'pid\' => \'3\',
+        \'source\' => \'node/5\',
+        \'alias\' => \'enforcement\',
+        \'language\' => \'und\',
       ),
       \'node_export_drupal_version\' => \'7\',
     ),
@@ -483,12 +498,6 @@ function section_landing_pages_features_node_export_features_default() {
       \'is_current\' => TRUE,
       \'is_pending\' => FALSE,
       \'revision_moderation\' => FALSE,
-      \'path\' => array(
-        \'pid\' => \'6\',
-        \'source\' => \'node/2\',
-        \'alias\' => \'news-updates\',
-        \'language\' => \'und\',
-      ),
       \'menu\' => array(
         \'link_title\' => \'News & updates\',
         \'mlid\' => 0,
@@ -504,6 +513,12 @@ function section_landing_pages_features_node_export_features_default() {
         \'parent_depth_limit\' => 8,
         \'description\' => \'\',
         \'enabled\' => 1,
+      ),
+      \'path\' => array(
+        \'pid\' => \'6\',
+        \'source\' => \'node/2\',
+        \'alias\' => \'news-updates\',
+        \'language\' => \'und\',
       ),
       \'node_export_drupal_version\' => \'7\',
     ),
@@ -646,12 +661,6 @@ function section_landing_pages_features_node_export_features_default() {
       \'is_current\' => TRUE,
       \'is_pending\' => FALSE,
       \'revision_moderation\' => FALSE,
-      \'path\' => array(
-        \'pid\' => \'1\',
-        \'source\' => \'node/7\',
-        \'alias\' => \'about-us\',
-        \'language\' => \'und\',
-      ),
       \'menu\' => array(
         \'link_title\' => \'About us\',
         \'mlid\' => 0,
@@ -667,6 +676,12 @@ function section_landing_pages_features_node_export_features_default() {
         \'parent_depth_limit\' => 8,
         \'description\' => \'\',
         \'enabled\' => 1,
+      ),
+      \'path\' => array(
+        \'pid\' => \'1\',
+        \'source\' => \'node/7\',
+        \'alias\' => \'about-us\',
+        \'language\' => \'und\',
       ),
       \'node_export_drupal_version\' => \'7\',
     ),
@@ -696,8 +711,6 @@ function section_landing_pages_features_node_export_features_default() {
             \'value\' => "<p>Welcome to the home page.</p>\\r\\n\\r\\n<p>&nbsp;</p>\\r\\n",
             \'summary\' => \'\',
             \'format\' => \'full_html\',
-            \'safe_value\' => "<p>Welcome to the home page.</p>\\n\\n<p> </p>",
-            \'safe_summary\' => \'\',
           ),
         ),
       ),
@@ -774,7 +787,6 @@ function section_landing_pages_features_node_export_features_default() {
       \'is_current\' => TRUE,
       \'is_pending\' => FALSE,
       \'revision_moderation\' => FALSE,
-      \'path\' => FALSE,
       \'menu\' => array(
         \'link_title\' => \'Home\',
         \'mlid\' => 0,
@@ -791,6 +803,7 @@ function section_landing_pages_features_node_export_features_default() {
         \'description\' => \'\',
         \'enabled\' => 1,
       ),
+      \'path\' => FALSE,
       \'node_export_drupal_version\' => \'7\',
     ),
   (object) array(
@@ -932,12 +945,6 @@ function section_landing_pages_features_node_export_features_default() {
       \'is_current\' => TRUE,
       \'is_pending\' => FALSE,
       \'revision_moderation\' => FALSE,
-      \'path\' => array(
-        \'pid\' => \'4\',
-        \'source\' => \'node/4\',
-        \'alias\' => \'business-industry\',
-        \'language\' => \'und\',
-      ),
       \'menu\' => array(
         \'link_title\' => \'Business & industry\',
         \'mlid\' => 0,
@@ -953,6 +960,12 @@ function section_landing_pages_features_node_export_features_default() {
         \'parent_depth_limit\' => 8,
         \'description\' => \'\',
         \'enabled\' => 1,
+      ),
+      \'path\' => array(
+        \'pid\' => \'4\',
+        \'source\' => \'node/4\',
+        \'alias\' => \'business-industry\',
+        \'language\' => \'und\',
       ),
       \'node_export_drupal_version\' => \'7\',
     ),
@@ -1103,12 +1116,6 @@ function section_landing_pages_features_node_export_features_default() {
       \'is_current\' => TRUE,
       \'is_pending\' => FALSE,
       \'revision_moderation\' => FALSE,
-      \'path\' => array(
-        \'pid\' => \'2\',
-        \'source\' => \'node/6\',
-        \'alias\' => \'science\',
-        \'language\' => \'und\',
-      ),
       \'menu\' => array(
         \'link_title\' => \'Science & research\',
         \'mlid\' => 0,
@@ -1124,6 +1131,12 @@ function section_landing_pages_features_node_export_features_default() {
         \'parent_depth_limit\' => 8,
         \'description\' => \'\',
         \'enabled\' => 1,
+      ),
+      \'path\' => array(
+        \'pid\' => \'2\',
+        \'source\' => \'node/6\',
+        \'alias\' => \'science\',
+        \'language\' => \'und\',
       ),
       \'node_export_drupal_version\' => \'7\',
     ),
