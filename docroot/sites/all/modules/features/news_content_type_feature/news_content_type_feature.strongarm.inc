@@ -41,6 +41,55 @@ function news_content_type_feature_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'apachesolr_view_modes_comment_node_news';
+  $strongarm->value = array(
+    'full' => 'full',
+    'teaser' => 'teaser',
+    'rss' => 'rss',
+    'search_index' => 'search_index',
+    'search_result' => 'search_result',
+    'diff_standard' => 'diff_standard',
+    'token' => 'token',
+    'short_teaser' => 'short_teaser',
+    'revision' => 'revision',
+  );
+  $export['apachesolr_view_modes_comment_node_news'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'apachesolr_view_modes_news';
+  $strongarm->value = array(
+    'rss' => 'rss',
+    'search_index' => 'search_index',
+    'diff_standard' => 'diff_standard',
+    'token' => 'token',
+    'short_teaser' => 'short_teaser',
+    'revision' => 'revision',
+    'search_result' => 'search_result',
+  );
+  $export['apachesolr_view_modes_news'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'apachesolr_view_modes_news_type';
+  $strongarm->value = array(
+    'full' => 'full',
+    'teaser' => 'teaser',
+    'rss' => 'rss',
+    'search_index' => 'search_index',
+    'search_result' => 'search_result',
+    'diff_standard' => 'diff_standard',
+    'token' => 'token',
+    'short_teaser' => 'short_teaser',
+    'revision' => 'revision',
+  );
+  $export['apachesolr_view_modes_news_type'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'comment_anonymous_news';
   $strongarm->value = 0;
   $export['comment_anonymous_news'] = $strongarm;
@@ -120,32 +169,44 @@ function news_content_type_feature_strongarm() {
       'teaser' => array(
         'custom_settings' => TRUE,
       ),
+      'search_result' => array(
+        'custom_settings' => TRUE,
+      ),
+      'short_teaser' => array(
+        'custom_settings' => TRUE,
+      ),
       'rss' => array(
         'custom_settings' => FALSE,
       ),
       'search_index' => array(
         'custom_settings' => FALSE,
       ),
-      'search_result' => array(
+      'diff_standard' => array(
+        'custom_settings' => FALSE,
+      ),
+      'token' => array(
+        'custom_settings' => FALSE,
+      ),
+      'revision' => array(
         'custom_settings' => FALSE,
       ),
     ),
     'extra_fields' => array(
       'form' => array(
-        'title' => array(
-          'weight' => '0',
-        ),
         'metatags' => array(
-          'weight' => '7',
+          'weight' => '40',
+        ),
+        'title' => array(
+          'weight' => '-5',
         ),
         'path' => array(
-          'weight' => '6',
+          'weight' => '30',
         ),
         'redirect' => array(
-          'weight' => '5',
+          'weight' => '30',
         ),
         'xmlsitemap' => array(
-          'weight' => '4',
+          'weight' => '30',
         ),
       ),
       'display' => array(),
@@ -194,8 +255,6 @@ function news_content_type_feature_strongarm() {
   $strongarm->name = 'node_options_news';
   $strongarm->value = array(
     0 => 'status',
-    1 => 'promote',
-    2 => 'revision',
   );
   $export['node_options_news'] = $strongarm;
 
@@ -210,15 +269,8 @@ function news_content_type_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'node_submitted_news';
-  $strongarm->value = 1;
+  $strongarm->value = 0;
   $export['node_submitted_news'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'pathauto_node_news_pattern';
-  $strongarm->value = 'news/[node:field_path]';
-  $export['pathauto_node_news_pattern'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
