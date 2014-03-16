@@ -68,10 +68,6 @@ function apache_solr_feature_views_default_views() {
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['exposed_block'] = TRUE;
   $handler->display->display_options['path'] = 'search';
-
-  /* Display: Block */
-  $handler = $view->new_display('block', 'Block', 'block_1');
-  $handler->display->display_options['block_description'] = 'Search All';
   $export['search_sitewide'] = $view;
 
   return $export;
