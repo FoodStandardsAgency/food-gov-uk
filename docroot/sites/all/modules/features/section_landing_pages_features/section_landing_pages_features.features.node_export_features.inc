@@ -164,6 +164,12 @@ function section_landing_pages_features_node_export_features_default() {
       \'is_current\' => TRUE,
       \'is_pending\' => FALSE,
       \'revision_moderation\' => FALSE,
+      \'path\' => array(
+        \'pid\' => \'5\',
+        \'source\' => \'node/3\',
+        \'alias\' => \'policy-advice\',
+        \'language\' => \'und\',
+      ),
       \'menu\' => array(
         \'link_title\' => \'Policy & advice\',
         \'mlid\' => 0,
@@ -179,12 +185,6 @@ function section_landing_pages_features_node_export_features_default() {
         \'parent_depth_limit\' => 8,
         \'description\' => \'\',
         \'enabled\' => 1,
-      ),
-      \'path\' => array(
-        \'pid\' => \'5\',
-        \'source\' => \'node/3\',
-        \'alias\' => \'policy-advice\',
-        \'language\' => \'und\',
       ),
       \'node_export_drupal_version\' => \'7\',
     ),
@@ -327,6 +327,12 @@ function section_landing_pages_features_node_export_features_default() {
       \'is_current\' => TRUE,
       \'is_pending\' => FALSE,
       \'revision_moderation\' => FALSE,
+      \'path\' => array(
+        \'pid\' => \'3\',
+        \'source\' => \'node/5\',
+        \'alias\' => \'enforcement\',
+        \'language\' => \'und\',
+      ),
       \'menu\' => array(
         \'link_title\' => \'Enforcement & regulation\',
         \'mlid\' => 0,
@@ -342,12 +348,6 @@ function section_landing_pages_features_node_export_features_default() {
         \'parent_depth_limit\' => 8,
         \'description\' => \'\',
         \'enabled\' => 1,
-      ),
-      \'path\' => array(
-        \'pid\' => \'3\',
-        \'source\' => \'node/5\',
-        \'alias\' => \'enforcement\',
-        \'language\' => \'und\',
       ),
       \'node_export_drupal_version\' => \'7\',
     ),
@@ -498,6 +498,12 @@ function section_landing_pages_features_node_export_features_default() {
       \'is_current\' => TRUE,
       \'is_pending\' => FALSE,
       \'revision_moderation\' => FALSE,
+      \'path\' => array(
+        \'pid\' => \'6\',
+        \'source\' => \'node/2\',
+        \'alias\' => \'news-updates\',
+        \'language\' => \'und\',
+      ),
       \'menu\' => array(
         \'link_title\' => \'News & updates\',
         \'mlid\' => 0,
@@ -513,12 +519,6 @@ function section_landing_pages_features_node_export_features_default() {
         \'parent_depth_limit\' => 8,
         \'description\' => \'\',
         \'enabled\' => 1,
-      ),
-      \'path\' => array(
-        \'pid\' => \'6\',
-        \'source\' => \'node/2\',
-        \'alias\' => \'news-updates\',
-        \'language\' => \'und\',
       ),
       \'node_export_drupal_version\' => \'7\',
     ),
@@ -661,6 +661,12 @@ function section_landing_pages_features_node_export_features_default() {
       \'is_current\' => TRUE,
       \'is_pending\' => FALSE,
       \'revision_moderation\' => FALSE,
+      \'path\' => array(
+        \'pid\' => \'1\',
+        \'source\' => \'node/7\',
+        \'alias\' => \'about-us\',
+        \'language\' => \'und\',
+      ),
       \'menu\' => array(
         \'link_title\' => \'About us\',
         \'mlid\' => 0,
@@ -677,11 +683,126 @@ function section_landing_pages_features_node_export_features_default() {
         \'description\' => \'\',
         \'enabled\' => 1,
       ),
-      \'path\' => array(
-        \'pid\' => \'1\',
-        \'source\' => \'node/7\',
-        \'alias\' => \'about-us\',
-        \'language\' => \'und\',
+      \'node_export_drupal_version\' => \'7\',
+    ),
+  (object) array(
+      \'vid\' => \'1\',
+      \'uid\' => \'1\',
+      \'title\' => \'Home Page\',
+      \'log\' => \'\',
+      \'status\' => \'1\',
+      \'comment\' => \'1\',
+      \'promote\' => \'0\',
+      \'sticky\' => \'0\',
+      \'vuuid\' => \'3ab80956-ca1b-42e0-a8b2-19284f6a1990\',
+      \'nid\' => \'1\',
+      \'type\' => \'landing_page\',
+      \'language\' => \'und\',
+      \'created\' => \'1391441873\',
+      \'changed\' => \'1392978505\',
+      \'tnid\' => \'0\',
+      \'translate\' => \'0\',
+      \'uuid\' => \'9aeebc91-574a-42ec-8b2c-8bdf4e1b5493\',
+      \'revision_timestamp\' => \'1392978505\',
+      \'revision_uid\' => \'1\',
+      \'body\' => array(
+        \'und\' => array(
+          array(
+            \'value\' => "<p>Welcome to the home page.</p>\\r\\n\\r\\n<p>&nbsp;</p>\\r\\n",
+            \'summary\' => \'\',
+            \'format\' => \'full_html\',
+          ),
+        ),
+      ),
+      \'field_summary\' => array(),
+      \'field_banner_image\' => array(),
+      \'field_subtitle\' => array(),
+      \'field_path\' => array(),
+      \'metatags\' => array(),
+      \'rdf_mapping\' => array(
+        \'rdftype\' => array(
+          \'sioc:Item\',
+          \'foaf:Document\',
+        ),
+        \'title\' => array(
+          \'predicates\' => array(
+            \'dc:title\',
+          ),
+        ),
+        \'created\' => array(
+          \'predicates\' => array(
+            \'dc:date\',
+            \'dc:created\',
+          ),
+          \'datatype\' => \'xsd:dateTime\',
+          \'callback\' => \'date_iso8601\',
+        ),
+        \'changed\' => array(
+          \'predicates\' => array(
+            \'dc:modified\',
+          ),
+          \'datatype\' => \'xsd:dateTime\',
+          \'callback\' => \'date_iso8601\',
+        ),
+        \'body\' => array(
+          \'predicates\' => array(
+            \'content:encoded\',
+          ),
+        ),
+        \'uid\' => array(
+          \'predicates\' => array(
+            \'sioc:has_creator\',
+          ),
+          \'type\' => \'rel\',
+        ),
+        \'name\' => array(
+          \'predicates\' => array(
+            \'foaf:name\',
+          ),
+        ),
+        \'comment_count\' => array(
+          \'predicates\' => array(
+            \'sioc:num_replies\',
+          ),
+          \'datatype\' => \'xsd:integer\',
+        ),
+        \'last_activity\' => array(
+          \'predicates\' => array(
+            \'sioc:last_activity_date\',
+          ),
+          \'datatype\' => \'xsd:dateTime\',
+          \'callback\' => \'date_iso8601\',
+        ),
+      ),
+      \'cid\' => \'0\',
+      \'last_comment_timestamp\' => \'1391441873\',
+      \'last_comment_name\' => NULL,
+      \'last_comment_uid\' => \'1\',
+      \'comment_count\' => \'0\',
+      \'name\' => \'Tharg\',
+      \'picture\' => \'0\',
+      \'data\' => \'b:0;\',
+      \'num_revisions\' => \'1\',
+      \'current_revision_id\' => \'1\',
+      \'is_current\' => TRUE,
+      \'is_pending\' => FALSE,
+      \'revision_moderation\' => FALSE,
+      \'path\' => FALSE,
+      \'menu\' => array(
+        \'link_title\' => \'Home\',
+        \'mlid\' => 0,
+        \'plid\' => \'0\',
+        \'menu_name\' => \'main-menu\',
+        \'weight\' => \'-50\',
+        \'options\' => array(),
+        \'module\' => \'menu\',
+        \'expanded\' => \'0\',
+        \'hidden\' => \'0\',
+        \'has_children\' => \'0\',
+        \'customized\' => 0,
+        \'parent_depth_limit\' => 8,
+        \'description\' => \'\',
+        \'enabled\' => 1,
       ),
       \'node_export_drupal_version\' => \'7\',
     ),
@@ -824,6 +945,12 @@ function section_landing_pages_features_node_export_features_default() {
       \'is_current\' => TRUE,
       \'is_pending\' => FALSE,
       \'revision_moderation\' => FALSE,
+      \'path\' => array(
+        \'pid\' => \'4\',
+        \'source\' => \'node/4\',
+        \'alias\' => \'business-industry\',
+        \'language\' => \'und\',
+      ),
       \'menu\' => array(
         \'link_title\' => \'Business & industry\',
         \'mlid\' => 0,
@@ -840,12 +967,124 @@ function section_landing_pages_features_node_export_features_default() {
         \'description\' => \'\',
         \'enabled\' => 1,
       ),
+      \'node_export_drupal_version\' => \'7\',
+    ),
+  (object) array(
+      \'vid\' => \'73\',
+      \'uid\' => \'1\',
+      \'title\' => \'Search All\',
+      \'log\' => \'\',
+      \'status\' => \'1\',
+      \'comment\' => \'1\',
+      \'promote\' => \'0\',
+      \'sticky\' => \'0\',
+      \'vuuid\' => \'1976b9ee-0912-42b5-97ef-677967a38fae\',
+      \'nid\' => \'45\',
+      \'type\' => \'landing_page\',
+      \'language\' => \'und\',
+      \'created\' => \'1394801456\',
+      \'changed\' => \'1394801456\',
+      \'tnid\' => \'0\',
+      \'translate\' => \'0\',
+      \'uuid\' => \'e3ab63c1-0bc1-4c39-8318-52119ec19140\',
+      \'revision_timestamp\' => \'1394801456\',
+      \'revision_uid\' => \'1\',
+      \'body\' => array(
+        \'und\' => array(
+          array(
+            \'value\' => "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc faucibus nulla quis ligula consequat, vel vehicula lorem dapibus! Quisque facilisis vel tellus convallis placerat! Suspendisse at venenatis enim. Fusce ac massa porttitor, posuere sapien at, ornare diam. Integer mollis faucibus tempor. Etiam sit amet bibendum sem? Sed pellentesque magna vehicula ligula elementum placerat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce a arcu lorem. Nam lorem tortor, luctus consequat ultrices semper, fringilla id augue. Suspendisse mollis quis nisl vel elementum. Ut tristique, lectus ac tincidunt mollis, massa diam dignissim massa, sed imperdiet nulla magna quis elit! Aenean id viverra enim. Curabitur dui ante, consectetur vel dui non, feugiat interdum lorem! Vivamus porttitor mattis lorem in rhoncus. Praesent dictum in urna et convallis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in leo nec enim volutpat scelerisque sit amet sed dolor. Fusce a elit sodales lacus condimentum placerat eget eget nisi. Quisque hendrerit est nec mattis vulputate. Suspendisse potenti. Ut aliquet elit eros. Sed dignissim diam ut vestibulum laoreet. Nulla varius tortor lacus, quis commodo eros dignissim vitae. Etiam ultrices in urna nec molestie. Mauris fringilla sodales hendrerit? Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean non arcu in massa convallis commodo at ac sapien. Integer at risus accumsan, dignissim neque nec, pellentesque arcu. Quisque eu fringilla mauris. Cras ac elementum libero, vel pellentesque tellus.</p>\\r\\n",
+            \'summary\' => \'\',
+            \'format\' => \'full_html\',
+          ),
+        ),
+      ),
+      \'field_summary\' => array(),
+      \'field_banner_image\' => array(),
+      \'field_subtitle\' => array(),
+      \'field_path\' => array(
+        \'und\' => array(
+          array(
+            \'human\' => NULL,
+            \'machine\' => \'search-all\',
+          ),
+        ),
+      ),
+      \'metatags\' => array(),
+      \'rdf_mapping\' => array(
+        \'rdftype\' => array(
+          \'sioc:Item\',
+          \'foaf:Document\',
+        ),
+        \'title\' => array(
+          \'predicates\' => array(
+            \'dc:title\',
+          ),
+        ),
+        \'created\' => array(
+          \'predicates\' => array(
+            \'dc:date\',
+            \'dc:created\',
+          ),
+          \'datatype\' => \'xsd:dateTime\',
+          \'callback\' => \'date_iso8601\',
+        ),
+        \'changed\' => array(
+          \'predicates\' => array(
+            \'dc:modified\',
+          ),
+          \'datatype\' => \'xsd:dateTime\',
+          \'callback\' => \'date_iso8601\',
+        ),
+        \'body\' => array(
+          \'predicates\' => array(
+            \'content:encoded\',
+          ),
+        ),
+        \'uid\' => array(
+          \'predicates\' => array(
+            \'sioc:has_creator\',
+          ),
+          \'type\' => \'rel\',
+        ),
+        \'name\' => array(
+          \'predicates\' => array(
+            \'foaf:name\',
+          ),
+        ),
+        \'comment_count\' => array(
+          \'predicates\' => array(
+            \'sioc:num_replies\',
+          ),
+          \'datatype\' => \'xsd:integer\',
+        ),
+        \'last_activity\' => array(
+          \'predicates\' => array(
+            \'sioc:last_activity_date\',
+          ),
+          \'datatype\' => \'xsd:dateTime\',
+          \'callback\' => \'date_iso8601\',
+        ),
+      ),
+      \'cid\' => \'0\',
+      \'last_comment_timestamp\' => \'1394801456\',
+      \'last_comment_name\' => NULL,
+      \'last_comment_uid\' => \'1\',
+      \'comment_count\' => \'0\',
+      \'name\' => \'Tharg\',
+      \'picture\' => \'0\',
+      \'data\' => \'b:0;\',
+      \'num_revisions\' => \'1\',
+      \'current_revision_id\' => \'73\',
+      \'is_current\' => TRUE,
+      \'is_pending\' => FALSE,
+      \'revision_moderation\' => FALSE,
       \'path\' => array(
-        \'pid\' => \'4\',
-        \'source\' => \'node/4\',
-        \'alias\' => \'business-industry\',
+        \'pid\' => \'48\',
+        \'source\' => \'node/45\',
+        \'alias\' => \'search-all\',
         \'language\' => \'und\',
       ),
+      \'menu\' => NULL,
       \'node_export_drupal_version\' => \'7\',
     ),
   (object) array(
@@ -995,6 +1234,12 @@ function section_landing_pages_features_node_export_features_default() {
       \'is_current\' => TRUE,
       \'is_pending\' => FALSE,
       \'revision_moderation\' => FALSE,
+      \'path\' => array(
+        \'pid\' => \'2\',
+        \'source\' => \'node/6\',
+        \'alias\' => \'science\',
+        \'language\' => \'und\',
+      ),
       \'menu\' => array(
         \'link_title\' => \'Science & research\',
         \'mlid\' => 0,
@@ -1010,12 +1255,6 @@ function section_landing_pages_features_node_export_features_default() {
         \'parent_depth_limit\' => 8,
         \'description\' => \'\',
         \'enabled\' => 1,
-      ),
-      \'path\' => array(
-        \'pid\' => \'2\',
-        \'source\' => \'node/6\',
-        \'alias\' => \'science\',
-        \'language\' => \'und\',
       ),
       \'node_export_drupal_version\' => \'7\',
     ),
