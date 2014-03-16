@@ -14,7 +14,7 @@ function document_content_type_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'additional_settings__active_tab_document_page';
-  $strongarm->value = 'edit-auto-nodetitle';
+  $strongarm->value = 'edit-webform';
   $export['additional_settings__active_tab_document_page'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -127,7 +127,7 @@ function document_content_type_feature_strongarm() {
         'custom_settings' => FALSE,
       ),
       'search_result' => array(
-        'custom_settings' => FALSE,
+        'custom_settings' => TRUE,
       ),
       'short_teaser' => array(
         'custom_settings' => TRUE,
@@ -148,16 +148,16 @@ function document_content_type_feature_strongarm() {
           'weight' => '0',
         ),
         'metatags' => array(
-          'weight' => '7',
+          'weight' => '10',
         ),
         'path' => array(
-          'weight' => '5',
+          'weight' => '8',
         ),
         'redirect' => array(
-          'weight' => '6',
+          'weight' => '9',
         ),
         'xmlsitemap' => array(
-          'weight' => '4',
+          'weight' => '7',
         ),
       ),
       'display' => array(),
