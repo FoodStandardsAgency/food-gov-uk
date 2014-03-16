@@ -14,7 +14,7 @@ function landing_page_content_type_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'additional_settings__active_tab_landing_page';
-  $strongarm->value = 'edit-webform';
+  $strongarm->value = 'edit-xmlsitemap';
   $export['additional_settings__active_tab_landing_page'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -127,7 +127,7 @@ function landing_page_content_type_feature_strongarm() {
         'custom_settings' => FALSE,
       ),
       'search_result' => array(
-        'custom_settings' => FALSE,
+        'custom_settings' => TRUE,
       ),
       'diff_standard' => array(
         'custom_settings' => FALSE,
@@ -259,7 +259,7 @@ function landing_page_content_type_feature_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'xmlsitemap_settings_node_landing_page';
   $strongarm->value = array(
-    'status' => '0',
+    'status' => '1',
     'priority' => '0.5',
   );
   $export['xmlsitemap_settings_node_landing_page'] = $strongarm;
