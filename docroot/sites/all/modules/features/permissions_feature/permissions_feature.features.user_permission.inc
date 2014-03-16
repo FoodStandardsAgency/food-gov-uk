@@ -539,13 +539,6 @@ function permissions_feature_user_default_permissions() {
     'module' => 'user',
   );
 
-  // Exported permission: 'create base content'.
-  $permissions['create base content'] = array(
-    'name' => 'create base content',
-    'roles' => array(),
-    'module' => 'node',
-  );
-
   // Exported permission: 'create files'.
   $permissions['create files'] = array(
     'name' => 'create files',
