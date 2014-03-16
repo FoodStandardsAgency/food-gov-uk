@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Audit Report Content Type feature.
+ */
+
+include_once 'audit_report_content_type_feature.features.inc';
