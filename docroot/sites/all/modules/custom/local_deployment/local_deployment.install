@@ -75,6 +75,9 @@ function local_deployment_install() {
   module_enable(array('section_landing_pages_features'), TRUE);
   module_enable(array('webform_content_type'), TRUE);
   module_enable(array('permissions_feature'), TRUE);
+
+  module_enable(array('facets_select'), TRUE);
+
 }
 
 
