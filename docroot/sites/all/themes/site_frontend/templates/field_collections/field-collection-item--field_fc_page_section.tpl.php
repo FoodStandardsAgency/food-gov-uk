@@ -36,7 +36,19 @@
   // Determine the language.
   $language = isset($field_collection_item->lancode) ? $field_collection_item->lancode : 'und';
 
+
   // Create image and wrapper markup.
+
+  if (!empty($field_collection_item->field_fc_image_caption)) {
+		
+      // Remove image caption field from content so we can render it separately,
+      // if there is no image, it won't render at all
+      hide($content['field_fc_image_caption']);
+
+      // Determine the image caption.
+      $image_caption = $field_collection_item->field_fc_image_caption[$language][0]['value'];
+  }
+
   if (!empty($field_collection_item->field_fc_section_image)) {
 
     // Remove image field from content so we can render it separately.
@@ -51,17 +63,6 @@
     }
     else {
       $image_style = 'page_section__left_right_';
-    }
-
-    // Take care of image caption.
-    if (!empty($field_collection_item->field_fc_image_caption)) {
-		
-        // Remove image caption field from content so we can render it separately.
-        hide($content['field_fc_image_caption']);
-
-        // Determine the image caption.
-        $image_caption = $field_collection_item->field_fc_image_caption[$language][0]['value'];
-
     }
 
     // Create the image markup.
@@ -86,6 +87,7 @@
 	}
 
   }  // end --- Create image and wrapper markup.
+
 
   // Related items.
   // Heading will display even if there's no content, so hide it here.
