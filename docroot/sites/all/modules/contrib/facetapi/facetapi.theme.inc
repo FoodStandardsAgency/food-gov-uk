@@ -6,6 +6,21 @@
  */
 
 /**
+ * Returns HTML for a widget_links widget.
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - element: A render element representing the form.
+ *
+ * @ingroup themeable
+ */
+function theme_facetapi_widget_links($variables) {
+  $element = $variables['element'];
+  $element['#theme'] = 'item_list';
+  return drupal_render($element);
+}
+
+/**
  * Returns HTML for a "missing" facet link.
  *
  * @param $variables

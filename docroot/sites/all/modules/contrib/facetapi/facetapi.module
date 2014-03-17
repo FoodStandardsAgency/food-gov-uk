@@ -250,6 +250,10 @@ function facetapi_ctools_plugin_type() {
  */
 function facetapi_theme() {
   return array(
+    'facetapi_widget_links' => array(
+    'render element' => 'element',
+    'file' => 'facetapi.theme.inc',
+    ),
     'facetapi_title' => array(
       'arguments' => array('title' => NULL, 'facet' => array()),
       'file' => 'facetapi.theme.inc',

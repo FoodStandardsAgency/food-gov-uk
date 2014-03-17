@@ -1,4 +1,4 @@
-name = Facetapi Select
+name = Facetapi Select - PATCHED
 description = Display search facets as select dropdowns
 package = Search Toolkit
 core = 7.x

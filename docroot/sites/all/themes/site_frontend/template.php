@@ -42,3 +42,7 @@ function site_frontend_facetapi_link_active($variables) {
   $variables['options']['html'] = TRUE;
   return theme_link($variables);
 }
+
+
+
+

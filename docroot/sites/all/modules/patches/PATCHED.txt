@@ -40,10 +40,24 @@ Apache Solr Views Integration
 Fixes issue where HTML was being stripped out of fields by Views.
 apachesolr_views_handler-include_html.patch
 
+===========================================
+
+Facet API
+
+* Themeable links Widget
+
+This patch enabled us to display date range facets as drop down selects, and also to add field labels for improved accessibility
+
+https://drupal.org/comment/7804553#comment-7804553
 
 ===========================================
 
-Date Facets
+Facetapi Select
 
-Display facets as a select dropdown
-https://drupal.org/comment/8575023#comment-8575023
+* Allow users to alter field settings before it is rendered.
+
+We needed this to add field labels to improve accessability.
+
+https://drupal.org/comment/8180883#comment-8180883
+
+
