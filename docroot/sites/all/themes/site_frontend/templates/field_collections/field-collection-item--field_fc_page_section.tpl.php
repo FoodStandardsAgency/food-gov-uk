@@ -30,6 +30,8 @@
 
   $image = '';
   $image_position = '';
+  $image_caption = '';
+  $image_with_wrapper = '';
 
   // Determine the language.
   $language = isset($field_collection_item->lancode) ? $field_collection_item->lancode : 'und';
@@ -51,6 +53,17 @@
       $image_style = 'page_section__left_right_';
     }
 
+    // Take care of image caption.
+    if (!empty($field_collection_item->field_fc_image_caption)) {
+		
+        // Remove image caption field from content so we can render it separately.
+        hide($content['field_fc_image_caption']);
+
+        // Determine the image caption.
+        $image_caption = $field_collection_item->field_fc_image_caption[$language][0]['value'];
+
+    }
+
     // Create the image markup.
     $image = theme('image_style',
       array(
@@ -62,6 +75,13 @@
       )
     );
 
+    // Wrap the image, and add the caption if available.
+    $image_with_wrapper = '<div class="wrapper-' . $image_position .'">';
+    $image_with_wrapper .= $image;
+    if(!empty($image_caption)) {
+	    $image_with_wrapper .= '<div class="image-caption">' . $image_caption . '</div>';
+    }
+    $image_with_wrapper .= '</div>';
   }
 
   // Related items.
@@ -90,13 +110,13 @@
       print render($content['field_fc_section_heading']);
 
       if ($image_position != 'img-pos-bottom') {
-        print $image;
+        print $image_with_wrapper;
       }
 
       print render($content);
 
       if ($image_position == 'img-pos-bottom') {
-        print $image;
+        print $image_with_wrapper;
       }
 
       if (isset($related_item)) {
