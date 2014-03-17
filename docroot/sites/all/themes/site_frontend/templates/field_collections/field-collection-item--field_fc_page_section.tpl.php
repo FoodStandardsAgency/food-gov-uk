@@ -36,7 +36,7 @@
   // Determine the language.
   $language = isset($field_collection_item->lancode) ? $field_collection_item->lancode : 'und';
 
-  // Create image markup.
+  // Create image and wrapper markup.
   if (!empty($field_collection_item->field_fc_section_image)) {
 
     // Remove image field from content so we can render it separately.
@@ -75,14 +75,17 @@
       )
     );
 
-    // Wrap the image, and add the caption if available.
-    $image_with_wrapper = '<div class="wrapper-' . $image_position .'">';
-    $image_with_wrapper .= $image;
+    // Wrap the image, and add the caption (if available).
     if(!empty($image_caption)) {
+	    $image_with_wrapper = '<div class="wrapper-' . $image_position .' with-caption">';
+	    $image_with_wrapper .= $image;
 	    $image_with_wrapper .= '<div class="image-caption">' . $image_caption . '</div>';
-    }
-    $image_with_wrapper .= '</div>';
-  }
+	    $image_with_wrapper .= '</div>';
+	} else {
+	    $image_with_wrapper = '<div class="wrapper-' . $image_position .' without-caption">' . $image . '</div>';	
+	}
+
+  }  // end --- Create image and wrapper markup.
 
   // Related items.
   // Heading will display even if there's no content, so hide it here.
