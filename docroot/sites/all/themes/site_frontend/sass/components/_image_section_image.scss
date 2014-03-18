@@ -2,27 +2,45 @@
  * Image placement is dependant on the field collection template: field-collection-item--field_fc_page_section.tpl.php
  */
 .field-collection-item-field-fc-page-section {
-	img.img-pos-top {
-		margin: 0 0 17px 0;
+		
+	img {
+		display: block;
+		border: none;
+		margin: 0;
 		padding: 0;
-		border: 0;
 	}
-	img.img-pos-left {
+	
+	.wrapper-img-pos-left,
+	.wrapper-img-pos-right {
+		width: 200px;
+		overflow: hidden;
+		margin-bottom: 10px;
+	}
+	
+	.wrapper-img-pos-left {
 		float: left;
-		margin: 0 10px 17px 0px;
-		padding: 0;
-		border: 0;
+		margin-right: 10px;
 	}
-	img.img-pos-right {
+	
+	.wrapper-img-pos-right {
 		float: right;
-		margin: 0 0 17px 10px;
-		padding: 0;
-		border: 0;
+		margin-left: 10px;
 	}
-	img.img-pos-bottom {
-		margin: 0 0 17px 0;
-		padding: 0;
-		border: 0;
+	
+	.wrapper-img-pos-top,
+	.wrapper-img-pos-bottom {
+		width: 462px;
+		overflow: hidden;
+		margin-bottom: 15px;
 	}
+	
+	.image-caption {
+		background-color: #e6e6e6;
+		margin: 0;
+		padding: 0.5em 11px;
+		font-size: 1.2em;
+		font-style: italic;
+	}
+	
 }
 

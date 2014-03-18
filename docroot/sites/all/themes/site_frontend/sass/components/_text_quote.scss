@@ -1,11 +1,40 @@
 .field--name-field-fc-section-quote {
-	width: 200px;
+	width: 220px;
 	float: right;
 	margin-left: 10px;
-	margin-bottom: 20px;
-	font-size: 1.6em;
+	margin-bottom: 10px;
+	font-size: 1.4em;
+	line-height: 1.3em;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	-o-border-radius: 8px;
+	-ms-border-radius: 8px;
+	border-radius: 8px;
+	background-color: #eef4e7;
+	color: #5d9711;
+	overflow: hidden;
 	p {
 		margin-bottom: 0px;
 		font-size: 1em;	// ie same font size as this field
+	}
+	.field__items {
+		background-image: url('../images/quote-top-left.gif');
+		background-repeat: no-repeat;
+		background-position: top left;
+		margin-left: 11px;
+		margin-top: 11px;
+		padding-left: 36px;
+		overflow: hidden;
+		.field__item {
+			padding-top: 6px;
+			padding-right: 12px;
+			padding-bottom: 23px;
+			background-image: url('../images/quote-bottom-right.gif');
+			background-repeat: no-repeat;
+			background-position: bottom right;
+			margin-right: 11px;
+			margin-bottom: 11px;
+			overflow: hidden;
+		}
 	}
 }

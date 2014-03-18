@@ -30,11 +30,25 @@
 
   $image = '';
   $image_position = '';
+  $image_caption = '';
+  $image_with_wrapper = '';
 
   // Determine the language.
   $language = isset($field_collection_item->lancode) ? $field_collection_item->lancode : 'und';
 
-  // Create image markup.
+
+  // Create image and wrapper markup.
+
+  if (!empty($field_collection_item->field_fc_image_caption)) {
+		
+      // Remove image caption field from content so we can render it separately,
+      // if there is no image, it won't render at all
+      hide($content['field_fc_image_caption']);
+
+      // Determine the image caption.
+      $image_caption = $field_collection_item->field_fc_image_caption[$language][0]['value'];
+  }
+
   if (!empty($field_collection_item->field_fc_section_image)) {
 
     // Remove image field from content so we can render it separately.
@@ -62,7 +76,18 @@
       )
     );
 
-  }
+    // Wrap the image, and add the caption (if available).
+    if(!empty($image_caption)) {
+	    $image_with_wrapper = '<div class="wrapper-' . $image_position .' with-caption">';
+	    $image_with_wrapper .= $image;
+	    $image_with_wrapper .= '<div class="image-caption">' . $image_caption . '</div>';
+	    $image_with_wrapper .= '</div>';
+	} else {
+	    $image_with_wrapper = '<div class="wrapper-' . $image_position .' without-caption">' . $image . '</div>';	
+	}
+
+  }  // end --- Create image and wrapper markup.
+
 
   // Related items.
   // Heading will display even if there's no content, so hide it here.
@@ -90,13 +115,13 @@
       print render($content['field_fc_section_heading']);
 
       if ($image_position != 'img-pos-bottom') {
-        print $image;
+        print $image_with_wrapper;
       }
 
       print render($content);
 
       if ($image_position == 'img-pos-bottom') {
-        print $image;
+        print $image_with_wrapper;
       }
 
       if (isset($related_item)) {
