@@ -42,3 +42,31 @@ function site_frontend_facetapi_link_active($variables) {
   $variables['options']['html'] = TRUE;
   return theme_link($variables);
 }
+
+  /**
+   * Helper function returns who the current user is.
+   *
+   * There is no good solution for this with standard Drupal.
+   *
+   * The following HTML should be added to the footer:
+   *
+   * @code
+   *   <div class="username"><!--username--></div>
+   * @endcode
+   *
+   * One solution is to do this in template.php:
+   *
+   * @code
+   */
+   function site_frontend_preprocess_page(&$vars) {
+      if (user_is_logged_in()) {
+        $vars['page']['footer']['username'] = array(
+        '#prefix' => '<div class="username"><!--',
+        '#markup' => check_plain($GLOBALS['user']->name),
+        '#suffix' => '--></div>',
+    );
+  }
+}
+
+
+
