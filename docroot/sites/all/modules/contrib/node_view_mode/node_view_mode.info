@@ -1,0 +1,14 @@
+name = Node View Mode
+description = Per node selection of view mode for field collections.
+dependencies[] = field_collection
+package = Local
+core = 7.x
+
+
+
+; Information added by drupal.org packaging script on 2013-10-20
+version = "7.x-1.0"
+core = "7.x"
+project = "node_view_mode"
+datestamp = "1382285744"
+
