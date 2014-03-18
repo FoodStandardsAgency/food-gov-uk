@@ -1639,12 +1639,37 @@ span.copyright {
   width: 200px;
   float: right;
   margin-left: 10px;
-  margin-bottom: 20px;
-  font-size: 1.6em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_quote\.scss}line{font-family:\000037}}
+  margin-bottom: 10px;
+  font-size: 1.4em;
+  line-height: 1.3em;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px;
+  background-color: #eef4e7;
+  color: #5d9711;
+  font-weight: bold; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_quote\.scss}line{font-family:\0000316}}
   .field--name-field-fc-section-quote p {
     margin-bottom: 0px;
     font-size: 1em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_quote\.scss}line{font-family:\0000320}}
+  .field--name-field-fc-section-quote .field__items {
+    background-image: url("../images/quote-top-left.gif");
+    background-repeat: no-repeat;
+    background-position: top left;
+    margin-left: 11px;
+    margin-top: 11px;
+    padding-left: 17px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_quote\.scss}line{font-family:\0000327}}
+    .field--name-field-fc-section-quote .field__items .field__item {
+      padding-top: 6px;
+      padding-right: 17px;
+      padding-bottom: 28px;
+      background-image: url("../images/quote-bottom-right.gif");
+      background-repeat: no-repeat;
+      background-position: bottom right; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_summary\.scss}line{font-family:\000031}}
 .field--name-field-summary {
