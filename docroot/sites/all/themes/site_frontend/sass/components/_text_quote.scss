@@ -12,7 +12,7 @@
 	border-radius: 8px;
 	background-color: #eef4e7;
 	color: #5d9711;
-	font-weight: bold;
+	overflow: hidden;
 	p {
 		margin-bottom: 0px;
 		font-size: 1em;	// ie same font size as this field
@@ -23,16 +23,18 @@
 		background-position: top left;
 		margin-left: 11px;
 		margin-top: 11px;
-		padding-left: 17px;
+		padding-left: 34px;
+		overflow: hidden;
 		.field__item {
 			padding-top: 6px;
-			padding-right: 6px;
-			padding-bottom: 17px;
+			padding-right: 12px;
+			padding-bottom: 23px;
 			background-image: url('../images/quote-bottom-right.gif');
 			background-repeat: no-repeat;
 			background-position: bottom right;
 			margin-right: 11px;
 			margin-bottom: 11px;
+			overflow: hidden;
 		}
 	}
 }

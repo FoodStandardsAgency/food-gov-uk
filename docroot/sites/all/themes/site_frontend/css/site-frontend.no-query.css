@@ -1591,7 +1591,7 @@ span.copyright {
   border-radius: 8px;
   background-color: #eef4e7;
   color: #5d9711;
-  font-weight: bold; }
+  overflow: hidden; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_quote\.scss}line{font-family:\0000316}}
   .field--name-field-fc-section-quote p {
     margin-bottom: 0px;
@@ -1603,17 +1603,19 @@ span.copyright {
     background-position: top left;
     margin-left: 11px;
     margin-top: 11px;
-    padding-left: 17px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_quote\.scss}line{font-family:\0000327}}
+    padding-left: 34px;
+    overflow: hidden; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_quote\.scss}line{font-family:\0000328}}
     .field--name-field-fc-section-quote .field__items .field__item {
       padding-top: 6px;
-      padding-right: 6px;
-      padding-bottom: 17px;
+      padding-right: 12px;
+      padding-bottom: 23px;
       background-image: url("../images/quote-bottom-right.gif");
       background-repeat: no-repeat;
       background-position: bottom right;
       margin-right: 11px;
-      margin-bottom: 11px; }
+      margin-bottom: 11px;
+      overflow: hidden; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_summary\.scss}line{font-family:\000031}}
 .field--name-field-summary {
