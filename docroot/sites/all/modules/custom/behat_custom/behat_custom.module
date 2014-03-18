@@ -15,7 +15,7 @@ function behat_custom_init(){
     '#tag' => 'meta',
     '#attributes' => array(
       'name' => 'drupal_username',
-      'content' => $GLOBALS['user'],
+      'content' => $GLOBALS['user']->name,
     ),
   );
 
