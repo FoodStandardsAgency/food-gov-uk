@@ -1,26 +1,32 @@
 <?php
 
-function local_menu_alter(&$items) {
-  $items['node/%webform_menu/done']['page callback'] = 'local_webform_confirmation';
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function local_theme_registry_alter(&$theme_registry) {
+
+  // Add our override function, which will adjust the variables then pass them through the original function.
+  if (isset($theme_registry['superfish_build'])) {
+    $theme_registry['superfish_build']['function'] = 'theme_local_superfish_build';
+  }
 }
 
 /**
- * Prints the confirmation message after a successful submission.
- */
-function local_webform_confirmation($node) {
+ *  Adjust the Superfish main menu.
+ *
+ **/
+function theme_local_superfish_build($variables) {
 
-  $field = field_get_items('node', $node, 'field_title');
+  // Links to be hidden on Main Menu.
+  $hide_links = array('FSA in UK', 'FSA in Scotland', 'FSA in Wales', 'FSA in Northern Ireland');
 
-  if (isset($field[0])) {
-    $field_title = field_view_value('node', $node, 'field_title', $field[0]);
+  foreach ($variables['menu'] as $key => $menu_item) {
+    if (in_array($menu_item['link']['title'], $hide_links)) {
+      unset($variables['menu'][$key]);
+    }
   }
 
-  if (!empty($field_title['#markup'])) {
-    $node->title = $field_title['#markup'];
-  }
-
-  drupal_set_title($node->title);
-  webform_set_breadcrumb($node);
-  $sid = isset($_GET['sid']) ? $_GET['sid'] : NULL;
-  return theme(array('webform_confirmation_' . $node->nid, 'webform_confirmation'), array('node' => $node, 'sid' => $sid));
+  $output = theme_superfish_build($variables);
+  return $output;
 }
+

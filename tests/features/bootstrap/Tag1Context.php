@@ -55,7 +55,6 @@ class Tag1Context extends DrupalContext {
     );
     $this->mailCreds = array();
     $this->mailMessages = array();
-    print_r($this->tag1Parameters);
   }
 
   /**
@@ -81,7 +80,19 @@ class Tag1Context extends DrupalContext {
     }
     $this->vars = NULL;
   }
-
+  
+  /**
+   * @Given /^I log in as test user$/
+   */
+  public function iLogInAsTestUser() {  
+    return array(
+        new Step\Given("I am on \"/user\""),
+        new Step\Then("I fill in \"edit-name\" with \"test\""),
+        new Step\Then("I fill in \"edit-pass\" with \"password\""),
+        new Step\Then("I press \"edit-submit\" in the \"Log In\" region")
+    );
+}
+ 
   /**
    * @} End of "defgroup initialization".
    *

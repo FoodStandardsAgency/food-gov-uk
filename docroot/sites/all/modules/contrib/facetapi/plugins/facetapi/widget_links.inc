@@ -9,7 +9,8 @@
  * Widget that renders facets as a list of clickable links.
  *
  * Links make it easy for users to narrow down their search results by clicking
- * on them. The render arrays use theme_item_list() to generate the HTML markup.
+ * on them. The render arrays use theme_facetapi_widget_links() to generate the
+ * HTML markup via theme_item_list().
  */
 class FacetapiWidgetLinks extends FacetapiWidget {
 
@@ -43,8 +44,11 @@ class FacetapiWidgetLinks extends FacetapiWidget {
     $this->setThemeHooks($element);
     $element = array(
       '#theme' => 'item_list',
+      '#theme' => 'facetapi_widget_links',
       '#items' => $this->buildListItems($element),
       '#attributes' => $this->build['#attributes'],
+      '#build' => $element,
+      '#widget' => $this,
     );
   }
 

@@ -55,15 +55,6 @@ function permissions_feature_user_default_permissions() {
     'module' => 'views',
   );
 
-  // Exported permission: 'access comments'.
-  $permissions['access comments'] = array(
-    'name' => 'access comments',
-    'roles' => array(
-      'Administrator' => 'Administrator',
-    ),
-    'module' => 'comment',
-  );
-
   // Exported permission: 'access content'.
   $permissions['access content'] = array(
     'name' => 'access content',
@@ -211,15 +202,6 @@ function permissions_feature_user_default_permissions() {
       'Administrator' => 'Administrator',
     ),
     'module' => 'block',
-  );
-
-  // Exported permission: 'administer comments'.
-  $permissions['administer comments'] = array(
-    'name' => 'administer comments',
-    'roles' => array(
-      'Administrator' => 'Administrator',
-    ),
-    'module' => 'comment',
   );
 
   // Exported permission: 'administer content types'.
@@ -592,15 +574,6 @@ function permissions_feature_user_default_permissions() {
     'module' => 'metatag',
   );
 
-  // Exported permission: 'edit own comments'.
-  $permissions['edit own comments'] = array(
-    'name' => 'edit own comments',
-    'roles' => array(
-      'Administrator' => 'Administrator',
-    ),
-    'module' => 'comment',
-  );
-
   // Exported permission: 'edit revisions'.
   $permissions['edit revisions'] = array(
     'name' => 'edit revisions',
@@ -645,15 +618,6 @@ function permissions_feature_user_default_permissions() {
       'Administrator' => 'Administrator',
     ),
     'module' => 'pathauto',
-  );
-
-  // Exported permission: 'post comments'.
-  $permissions['post comments'] = array(
-    'name' => 'post comments',
-    'roles' => array(
-      'Administrator' => 'Administrator',
-    ),
-    'module' => 'comment',
   );
 
   // Exported permission: 'publish revisions'.
@@ -765,15 +729,6 @@ function permissions_feature_user_default_permissions() {
       'Administrator' => 'Administrator',
     ),
     'module' => 'better_formats',
-  );
-
-  // Exported permission: 'skip comment approval'.
-  $permissions['skip comment approval'] = array(
-    'name' => 'skip comment approval',
-    'roles' => array(
-      'Administrator' => 'Administrator',
-    ),
-    'module' => 'comment',
   );
 
   // Exported permission: 'unpublish current revision'.
