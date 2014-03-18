@@ -62,6 +62,6 @@ function nation_banners_block_view($delta = '') {
 }
 
 function theme_nation_banners_block($variables) {
-  $output = '<h1 class="nation-'. $variables['country_class'] .'"> FSA in '. $variables['country_name'] .'</h1>';
+  $output = '<h1 class="nation-'. $variables['country_class'] .'">' . t('FSA in %country', array('%country' => $variables['country_name'])) .'</h1>';
   return $output;
 }
