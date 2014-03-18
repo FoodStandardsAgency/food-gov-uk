@@ -6,7 +6,7 @@
  */
 
 /**
- * Implements hook_theme_registry_alter
+ * Implements hook_theme_registry_alter().
  */
 function facets_select_theme_registry_alter(&$theme_registry) {
 
