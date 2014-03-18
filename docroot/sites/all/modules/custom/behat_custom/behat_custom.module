@@ -9,7 +9,7 @@
  *
  * Add username meta tag to header
  */
-function behat_custom_links_init(){
+function behat_custom_init(){
   // initialise data for meta tag
   $userdata = array(
     '#tag' => 'meta',
