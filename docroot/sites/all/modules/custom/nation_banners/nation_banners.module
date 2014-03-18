@@ -1,0 +1,67 @@
+<?php
+/**
+ * @file
+ * Module file for nation_banners.
+ */
+
+
+/**
+ * Implements hook_theme().
+ */
+function nation_banners_theme() {
+  $theme = array(
+    'nation_banners_block' => array(
+	  'variables' => array('country_name' => NULL, 'country_class' => NULL),
+      'render element' => 'nation_banners_block'
+    )
+  );
+  return $theme;
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function nation_banners_block_info() {
+  $blocks['scotland_banner'] = array(
+    'info' => t('Scotland Banner'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+  $blocks['northern_ireland_banner'] = array(
+    'info' => t('Northern Ireland Banner'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+  $blocks['wales_banner'] = array(
+    'info' => t('Wales Banner'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function nation_banners_block_view($delta = '') {
+
+  $block = array();
+
+  switch ($delta) {
+    case 'scotland_banner':
+      $block['subject'] = NULL;
+      $block['content'] = theme('nation_banners_block', array('country_name' => 'Scotland', 'country_class' => 'scotland'));
+      break;
+    case 'northern_ireland_banner':
+      $block['subject'] = NULL;
+      $block['content'] = theme('nation_banners_block', array('country_name' => 'Northern Ireland', 'country_class' => 'northern-ireland'));
+      break;
+    case 'wales_banner':
+      $block['subject'] = NULL;
+      $block['content'] = theme('nation_banners_block', array('country_name' => 'Wales', 'country_class' => 'wales'));
+      break;
+  }
+  return $block;
+}
+
+function theme_nation_banners_block($variables) {
+  $output = '<h1 class="nation-'. $variables['country_class'] .'"> FSA in '. $variables['country_name'] .'</h1>';
+  return $output;
+}
