@@ -1,0 +1,4 @@
+name = Behat custom
+description = Custom extensions for behat testing
+package = Local
+core = 7.x
