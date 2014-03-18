@@ -1,0 +1,26 @@
+<?php
+/**
+ * @file
+ * Module file for accessibility_links.
+ */
+
+/**
+ * Implements hook init
+ *
+ * Add username meta tag to header
+ */
+function behat_custom_links_init(){
+  // initialise data for meta tag
+  $userdata = array(
+    '#tag' => 'meta',
+    '#attributes' => array(
+      'name' => 'drupal_username',
+      'content' => $GLOBALS['user'],
+    ),
+  );
+
+  if (user_is_logged_in()) {
+    drupal_add_html_head($userdata, 'behat_drupal_username');
+  }
+}
+
