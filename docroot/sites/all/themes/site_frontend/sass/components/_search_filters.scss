@@ -34,9 +34,7 @@
 		color: #333;
 	}
 	input.form-submit {
-		display: inline-block;
-		*display: inline;
-		zoom: 1;
+    display: block;
 		margin: 0;
 		padding: 4px;
 		width: 24px;
@@ -57,6 +55,9 @@
 		&:hover {
 			background-color: #f67f2a;
 		}
+	}
+	.views-exposed-form .views-exposed-widget.views-submit-button {
+		float: none;	
 	}
 }
 /* mobile layout */
