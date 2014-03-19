@@ -74,6 +74,19 @@
   </div> <!-- end breadcrumb-accessibility-wrapper -->
 
 
+  <?php if ($page['preface']): ?>
+    <div class="preface-wrapper">
+	  <div class="preface-wrapper-inner">
+        <div class="l-preface">
+	      <div class="preface-inner">
+	        <?php print render($page['preface']); ?>
+	      </div> <!-- end preface-inner -->
+	    </div> <!-- end l-preface -->
+	  </div> <!-- end preface-wrapper-inner -->
+    </div> <!-- end preface-wrapper -->
+  <?php endif; ?>
+
+
   <div class="main-wrapper">
     <div class="l-main">
 	  <div class="main-inner">

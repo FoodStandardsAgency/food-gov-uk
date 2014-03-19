@@ -12,6 +12,9 @@
 .l-breadcrumb-accessibility {
 	overflow: hidden;
 }
+.l-preface {
+	overflow: hidden;
+}
 .l-main {
 	overflow: hidden;
 }
@@ -37,10 +40,11 @@
 /* layout - desktop first approach */
 .header-wrapper-inner,
 .l-breadcrumb-accessibility,
+.l-preface,
 .l-main,
 .bottom-menu-wrapper-inner,
 .l-footer {
-	width: 960px;		// we are using border box plugin so padding will not increase the width of the box 
+	width: 960px;		/* we are using border box plugin so padding will not increase the width of the box */
 	padding-left: 6px;
 	padding-right: 6px;
 	margin: 0 auto;
@@ -101,6 +105,7 @@
 @include breakpoint($mobile) {
 	.header-wrapper-inner,
 	.l-breadcrumb-accessibility,
+	.l-preface,
 	.l-main,
 	.bottom-menu-wrapper-inner,
 	.l-footer {
@@ -148,6 +153,11 @@
 	.l-accessibility {
 		@include grid-span(0,0);
 		display: none;
+	}
+	.l-preface {
+		@include grid-span(12,1);
+		clear: both;
+		float: none;
 	}
 	.main-wrapper {
 		@include clearfix;
