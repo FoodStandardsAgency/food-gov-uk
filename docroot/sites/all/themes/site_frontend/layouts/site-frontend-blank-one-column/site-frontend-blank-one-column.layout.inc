@@ -11,6 +11,7 @@ preview = preview.png
 ; regions[header_social_media] = Header Social Media
 ; regions[breadcrumb] = Breadcrumb
 ; regions[accessibility] = Accessibility
+regions[preface] = Preface
 ; regions[system_highlighted] = System Highlighted
 ; regions[system_help] = System Help
 regions[content] = Content

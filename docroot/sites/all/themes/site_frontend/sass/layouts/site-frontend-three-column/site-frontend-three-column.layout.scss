@@ -12,6 +12,9 @@
 .l-breadcrumb-accessibility {
 	overflow: hidden;
 }
+.l-preface {
+	overflow: hidden;
+}
 .l-main {
 	overflow: hidden;
 }
@@ -37,6 +40,7 @@
 /* layout - desktop first approach */
 .header-wrapper-inner,
 .l-breadcrumb-accessibility,
+.preface,
 .l-main,
 .bottom-menu-wrapper-inner,
 .l-footer {
@@ -71,6 +75,9 @@
 }
 .l-breadcrumb {
 	@include grid-span(8,1);
+}
+.l-preface {
+	@include grid-span(12,1);
 }
 .l-accessibility {
 	@include grid-span(4,9);
@@ -154,6 +161,9 @@
 	.l-accessibility {
 		@include grid-span(0,0);
 		display: none;
+	}
+	.l-preface {
+		@include grid-span(12,1);
 	}
 	.main-wrapper {
 		@include clearfix;
