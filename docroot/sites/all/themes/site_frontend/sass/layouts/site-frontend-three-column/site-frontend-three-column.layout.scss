@@ -44,10 +44,13 @@
 .l-main,
 .bottom-menu-wrapper-inner,
 .l-footer {
-	width: 960px;		// we are using border box plugin so padding will not increase the width of the box 
+	width: 960px;		/* we are using border box plugin so padding will not increase the width of the box */
 	padding-left: 6px;
 	padding-right: 6px;
 	margin: 0 auto;
+}
+.l-preface {
+	width: 948px;	/* need to reduce width because it is not a nested region and we want it to line up with other regions that are nested */
 }
 .l-main {
 	padding-bottom: 12px;
@@ -75,9 +78,6 @@
 }
 .l-breadcrumb {
 	@include grid-span(8,1);
-}
-.l-preface {
-	@include grid-span(12,1);
 }
 .l-accessibility {
 	@include grid-span(4,9);
@@ -121,7 +121,7 @@
 	.l-main,
 	.bottom-menu-wrapper-inner,
 	.l-footer {
-		width: 100%;		// we are using border box plugin so padding will not increase the width of the box 
+		width: 100%;		/* we are using border box plugin so padding will not increase the width of the box */
 		padding-left: 6px;
 		padding-right: 6px;
 		margin: 0;
@@ -165,6 +165,8 @@
 	}
 	.l-preface {
 		@include grid-span(12,1);
+		clear: both;
+		float: none;
 	}
 	.main-wrapper {
 		@include clearfix;
