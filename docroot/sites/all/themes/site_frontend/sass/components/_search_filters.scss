@@ -1,5 +1,8 @@
 
-/* search form */
+/** 
+ * search form 
+ * dependant on having block class: search-keyword-page
+ */
 .search-keyword-page {
 	input.form-text {
 		width: 90%;
@@ -58,8 +61,14 @@
 	}
 }
 
+/**
+ * Search facet
+ * depandant on black class: search-facet
+ */
+
 .search-facet {
-  label {
+  label,
+  .views-exposed-form label {
 	  padding-bottom: 2px;
 		display: block;
 		padding-left: 3px;
@@ -67,7 +76,7 @@
 		font-size: 1.2em;
 		line-height: 1.4em;
   }
-  .select {
+  select {
 	  color: #666;
 		width: 99%;
 		padding: 1px 2px;
@@ -84,6 +93,7 @@
   } 
 }
 
+/* active links tabs */
 .current-search-item-active-links {
 	margin-bottom: 20px;
 	ul {
@@ -114,6 +124,10 @@
 	}
 }
 
+/**
+ * container around the search filter wrapper 
+ * dependant on container_blocks custom module and block class: grey-container-block
+ */
 .grey-container-block {	
 	margin-bottom: 20px;
 	padding: 11px 9px 21px 11px;
