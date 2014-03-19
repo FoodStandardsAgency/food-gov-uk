@@ -49,6 +49,9 @@
 	padding-right: 6px;
 	margin: 0 auto;
 }
+.l-preface {
+	width: 948px;	/* need to reduce width because it is not a nested region and we want it to line up with other regions that are nested */
+}
 .l-main {
 	padding-bottom: 12px;
 }
