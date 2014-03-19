@@ -5,7 +5,7 @@
  */
 .search-keyword-page {
 	input.form-text {
-		width: 90%;
+		width: 100%;	/* input form text is restricted by width of its wrapper */
 		margin-bottom: .8em;
 		padding: 2px 4px;
 		background: #fff;
@@ -63,13 +63,14 @@
 
 /**
  * Search facet
- * depandant on black class: search-facet
+ * dependant on black class: search-facet
  */
-
 .search-facet {
   label,
-  .views-exposed-form label {
-	  padding-bottom: 2px;
+  .views-exposed-form label,
+  .form-item label, 
+  .form-actions label {
+	  padding-bottom: 0.25em;
 		display: block;
 		padding-left: 3px;
 		color: #333;

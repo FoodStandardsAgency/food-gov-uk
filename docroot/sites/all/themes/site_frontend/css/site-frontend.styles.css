@@ -1356,7 +1356,8 @@ ul.pager {
  */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\000037}}
 .search-keyword-page input.form-text {
-  width: 90%;
+  width: 100%;
+  /* input form text is restricted by width of its wrapper */
   margin-bottom: .8em;
   padding: 2px 4px;
   background: #fff;
@@ -1411,18 +1412,20 @@ ul.pager {
       width: 90%; } }
 /**
  * Search facet
- * depandant on black class: search-facet
+ * dependant on black class: search-facet
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000371}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000372}}
 .search-facet label,
-.search-facet .views-exposed-form label {
-  padding-bottom: 2px;
+.search-facet .views-exposed-form label,
+.search-facet .form-item label,
+.search-facet .form-actions label {
+  padding-bottom: 0.25em;
   display: block;
   padding-left: 3px;
   color: #333;
   font-size: 1.2em;
   line-height: 1.4em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000379}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000380}}
 .search-facet select {
   color: #666;
   width: 99%;
@@ -1439,22 +1442,22 @@ ul.pager {
   font-size: 1.2em; }
 
 /* active links tabs */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000397}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000398}}
 .current-search-item-active-links {
   margin-bottom: 20px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000399}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\00003100}}
   .current-search-item-active-links ul {
     margin: 0 0 0.75em 0;
     padding: 0;
     list-style-type: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\00003103}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\00003104}}
     .current-search-item-active-links ul li {
       font-size: 1em;
       margin: 0px 5px 5px 0px;
       display: inline-block;
       *display: inline;
       zoom: 1; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\00003109}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\00003110}}
       .current-search-item-active-links ul li a {
         font-size: 1.2em;
         font-weight: normal;
@@ -1463,7 +1466,7 @@ ul.pager {
         padding: 5px 8px 5px 8px;
         border: none;
         text-decoration: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\00003118}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\00003119}}
       .current-search-item-active-links ul li a:hover {
         color: #ffffff;
         background-color: #f67f2a;
@@ -1473,7 +1476,7 @@ ul.pager {
  * container around the search filter wrapper 
  * dependant on container_blocks custom module and block class: grey-container-block
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\00003131}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\00003132}}
 .grey-container-block {
   margin-bottom: 20px;
   padding: 11px 9px 21px 11px;
@@ -1492,7 +1495,7 @@ ul.pager {
   background: -ms-linear-gradient(top, white 0, #e5e5e5 100%);
   background: linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#e5e5e5',GradientType=0); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\00003149}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\00003150}}
   .grey-container-block h2.block__title {
     color: #5d9711;
     background: none;
