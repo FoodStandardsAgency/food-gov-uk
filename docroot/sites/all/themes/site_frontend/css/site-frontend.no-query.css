@@ -1268,6 +1268,41 @@ h1.nation-wales {
     font-weight: bold; }
 
 /* mobile layout */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_pager\.scss}line{font-family:\000031}}
+ul.pager {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 1em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_pager\.scss}line{font-family:\000035}}
+  ul.pager li {
+    font-weight: bold;
+    font-size: 1.2em;
+    line-height: 1.4em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_pager\.scss}line{font-family:\000039}}
+    ul.pager li a {
+      color: #5d9711;
+      font-weight: normal;
+      text-decoration: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_pager\.scss}line{font-family:\0000314}}
+    ul.pager li a:hover {
+      text-decoration: underline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_pager\.scss}line{font-family:\0000318}}
+  ul.pager li.pager__item--current {
+    color: #333; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_pager\.scss}line{font-family:\0000325}}
+  ul.pager li.pager__item--first a,
+  ul.pager li.pager__item--previous a,
+  ul.pager li.pager__item--next a,
+  ul.pager li.pager__item--last a {
+    font-weight: bold;
+    text-decoration: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_pager\.scss}line{font-family:\0000329}}
+  ul.pager li.pager__item--first a:hover,
+  ul.pager li.pager__item--previous a:hover,
+  ul.pager li.pager__item--next a:hover,
+  ul.pager li.pager__item--last a:hover {
+    text-decoration: underline; }
+
 /* search form */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\000034}}
 .search-keyword-page input.form-text {
