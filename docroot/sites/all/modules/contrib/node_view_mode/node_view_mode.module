@@ -119,6 +119,8 @@ function node_view_mode_field_instance_settings_form($field, $instance) {
     '#required'      => TRUE,
   );
 
+
+
   return $form;
 }
 
@@ -143,10 +145,20 @@ function node_view_mode_field_widget_form(&$form, &$form_state, $field, $instanc
 
   switch ($instance['widget']['type']) {
     case 'field_collection_select':
-      $field_collection_options = array();
+      $view_mode_options = array();
 
       if (isset($instance['settings']['view_modes']) && is_array($instance['settings']['view_modes'])) {
         $view_mode_options = array_filter($instance['settings']['view_modes']);
+
+        // Add view mode labels.
+        $field_collection_item = entity_get_info('field_collection_item');
+
+        foreach ($field_collection_item['view modes'] as $mode => $info) {
+          if (isset($view_mode_options[$mode])) {
+            $view_mode_options[$mode] = $info['label'];
+          }
+        }
+
       }
 
       $element['field_collection_select'] = array(
