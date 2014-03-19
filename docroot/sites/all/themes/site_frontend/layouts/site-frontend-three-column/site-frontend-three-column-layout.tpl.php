@@ -73,7 +73,7 @@
 	</div> <!-- end l-breadcrumb-accessibility -->
   </div> <!-- end breadcrumb-accessibility-wrapper -->
 
-  <?php if ($preface): ?>
+  <?php if ($page['preface']): ?>
     <div class="preface-wrapper">
 	  <div class="preface-wrapper-inner">
         <div class="l-preface">
