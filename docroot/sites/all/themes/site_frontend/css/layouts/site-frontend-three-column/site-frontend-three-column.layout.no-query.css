@@ -47,6 +47,7 @@
 .bottom-menu-wrapper-inner,
 .l-footer {
   width: 960px;
+  /* we are using border box plugin so padding will not increase the width of the box */
   padding-left: 6px;
   padding-right: 6px;
   margin: 0 auto; }
