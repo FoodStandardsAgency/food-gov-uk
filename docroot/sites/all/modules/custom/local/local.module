@@ -18,7 +18,7 @@ function local_theme_registry_alter(&$theme_registry) {
 function theme_local_superfish_build($variables) {
 
   // Links to be hidden on Main Menu.
-  $hide_links = array('FSA in UK', 'FSA in Scotland', 'FSA in Wales', 'FSA in Northern Ireland');
+  $hide_links = array('FSA in UK', 'Scotland', 'Wales', 'Northern Ireland');
 
   foreach ($variables['menu'] as $key => $menu_item) {
     if (in_array($menu_item['link']['title'], $hide_links)) {
