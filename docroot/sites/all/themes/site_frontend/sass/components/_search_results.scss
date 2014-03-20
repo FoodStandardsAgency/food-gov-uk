@@ -45,8 +45,8 @@
 		text-decoration: underline;
 	}
 	/* setup defualt formatting for content */
-	.node__content,
-	.node .content {
+	.node__content .field,
+	.node .content .field {
 		font-size: 1.2em;
 		margin-bottom: .6em;
 		line-height: 1.5em;
