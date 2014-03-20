@@ -41,6 +41,9 @@ function local_deployment_install() {
   module_enable(array('migrate'), TRUE);
   module_enable(array('date_facets'), TRUE);
 
+  module_enable(array('admin_views'), TRUE);
+  module_enable(array('views_bulk_operations'), TRUE);
+
   // Enable Feature modules.
   module_enable(array('fonts___feature'), TRUE);
   module_enable(array('imagecache_feature'), TRUE);
