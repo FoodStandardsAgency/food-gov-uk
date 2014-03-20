@@ -12,6 +12,7 @@ preview = preview.png
 ; regions[breadcrumb] = Breadcrumb
 ; regions[accessibility] = Accessibility
 ; regions[preface] = Preface
+regions[content_top] = Content Top
 ; regions[system_highlighted] = System Highlighted
 ; regions[system_help] = System Help
 regions[content] = Content

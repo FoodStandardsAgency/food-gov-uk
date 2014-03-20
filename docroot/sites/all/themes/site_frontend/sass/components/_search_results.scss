@@ -31,33 +31,45 @@
 	}
 	h1.node__title,
 	h2.node__title,
-	h3.node__title {
+	h3.node__title,
+	h1, h2 {
 		font-size: 1.4em;
 		line-height: 1.3em;
 		margin-bottom: .4em;
 	}
-	.node__title {
+	a {
 		color: #006f51;
-		a {
-			color: #006f51;
-			text-decoration: none;
-		}
-		a:hover {
-			text-decoration: underline;
+		text-decoration: none;
+	}
+	a:hover {
+		text-decoration: underline;
+	}
+	/* setup defualt formatting for content */
+	.node__content .field,
+	.node .content .field {
+		font-size: 1.2em;
+		margin-bottom: .6em;
+		line-height: 1.5em;
+		color: #333;
+		li, p {
+			font-size: 1em;	// inherit font size of parent container ie. 1.2 em
 		}
 	}
+	/* override formatting of summary */
 	.field--name-field-summary {
 		font-size: 1.2em;
 		margin-bottom: .6em;
 		line-height: 1.5em;
 		color: #333;
 	}
+	/* override formatting of subtitle */
 	.field--name-field-subtitle {
 		font-size: 1.2em;
 		margin-bottom: .6em;
 		line-height: 1.5em;
 		color: #333;
 	}
+	/* override formatting of last updated */
 	.field--name-field-updated {
 		font-size: 1.1em;
 		margin-bottom: 0.2em;

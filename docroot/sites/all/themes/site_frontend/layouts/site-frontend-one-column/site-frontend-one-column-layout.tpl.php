@@ -92,7 +92,19 @@
 	  <div class="main-inner">
 		
         <div id="main-content" class="l-content" role="main">
+	
           <?php print render($page['highlighted']); ?>
+
+          <?php if ($page['content_top']): ?>
+	        <div class="content-top-wrapper">
+		        <div class="content-top-wrapper-inner">
+			        <div class="content-top">
+					  <?php print render($page['content_top']); ?>
+				    </div> <!-- end content-top -->
+			    </div> <!-- end content-top-wrapper-inner -->
+		    </div> <!-- end content-top-wrapper -->
+	      <?php endif; ?>
+
           <?php print render($title_prefix); ?>
           <?php if ($title): ?>
             <h1><?php print $title; ?></h1>

@@ -1,8 +1,28 @@
 
-/* search form */
+/** 
+ * search form 
+ * dependant on having block class: search-keyword-page
+ */
 .search-keyword-page {
+	/* wrapper for search text box and its label */
+	.views-exposed-form .views-exposed-widget.views-widget-filter-keyword {
+		padding: 0.5em 0.5em 0 0;
+		max-width: 80%;	/* need to restrict width to prevent wraping of submit button when increasing font size */
+	}
+	label,
+  .views-exposed-form label,
+  .form-item label, 
+  .form-actions label {
+	  padding-bottom: 0.25em;
+		display: block;
+		padding-left: 3px;
+		color: #333;
+		font-weight: normal;
+		font-size: 1.2em;
+		line-height: 1.4em;
+  }
 	input.form-text {
-		width: 90%;
+		width: 100%;	/* input form text is restricted by width of its wrapper */
 		margin-bottom: .8em;
 		padding: 2px 4px;
 		background: #fff;
@@ -19,9 +39,7 @@
 		color: #333;
 	}
 	input.form-submit {
-		display: inline-block;
-		*display: inline;
-		zoom: 1;
+    display: block;
 		margin: 0;
 		padding: 4px;
 		width: 24px;
@@ -43,6 +61,11 @@
 			background-color: #f67f2a;
 		}
 	}
+	/* wrapper for submit button */
+	.views-exposed-form .views-exposed-widget.views-submit-button {
+		position: relative;
+		top: -2px;
+	}
 }
 /* mobile layout */
 @include breakpoint($mobile) {
@@ -53,21 +76,33 @@
 		-ms-border-radius: 10px;
 		border-radius: 10px;
 		input.form-text {
-			width: 90%;
+			width: 100%;
+		}
+		/* wrapper for search text box and its label */
+		.views-exposed-form .views-exposed-widget.views-widget-filter-keyword {
+			max-width: 70%;	/* need to restrict this to prevent wrapping of submit button */
 		}
 	}
 }
 
+/**
+ * Search facet
+ * dependant on black class: search-facet
+ */
 .search-facet {
-  label {
-	  padding-bottom: 2px;
+  label,
+  .views-exposed-form label,
+  .form-item label, 
+  .form-actions label {
+	  padding-bottom: 0.25em;
 		display: block;
 		padding-left: 3px;
 		color: #333;
+		font-weight: normal;
 		font-size: 1.2em;
 		line-height: 1.4em;
   }
-  .select {
+  select {
 	  color: #666;
 		width: 99%;
 		padding: 1px 2px;
@@ -84,6 +119,7 @@
   } 
 }
 
+/* active links tabs */
 .current-search-item-active-links {
 	margin-bottom: 20px;
 	ul {
@@ -114,6 +150,10 @@
 	}
 }
 
+/**
+ * container around the search filter wrapper 
+ * dependant on container_blocks custom module and block class: grey-container-block
+ */
 .grey-container-block {	
 	margin-bottom: 20px;
 	padding: 11px 9px 21px 11px;
