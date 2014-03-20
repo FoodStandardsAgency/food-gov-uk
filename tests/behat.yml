@@ -18,7 +18,7 @@ default:
   extensions:
     Behat\MinkExtension\Extension:
     # include http auth data in base url when needed
-      base_url: http://shield:down@dev.fsa.dev-1.codepositive.com/ 
+      base_url: http://shield:down@stage.fsa.dev-1.siriusopensource.com/ 
       goutte: ~
       selenium2: ~
     Drupal\DrupalExtension\Extension:
