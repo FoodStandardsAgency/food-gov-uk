@@ -7,6 +7,7 @@
 	/* wrapper for search text box and its label */
 	.views-exposed-form .views-exposed-widget.views-widget-filter-keyword {
 		padding: 0.5em 0.5em 0 0;
+		max-width: 80%;	/* need to restrict width to prevent wraping of submit button when increasing font size */
 	}
 	label,
   .views-exposed-form label,
@@ -80,7 +81,7 @@
 		}
 		/* wrapper for search text box and its label */
 		.views-exposed-form .views-exposed-widget.views-widget-filter-keyword {
-			max-width: 70%;
+			max-width: 70%;	/* need to restrict this to prevent wrapping of submit button */
 		}
 	}
 }
