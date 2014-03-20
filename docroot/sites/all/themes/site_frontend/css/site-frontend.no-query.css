@@ -1009,31 +1009,35 @@ span.copyright {
   background: linear-gradient(top, #398e6e 15%, #02684a 55%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#398e6e',endColorstr='#02684a',GradientType=0);
   border: 1px solid #02684a;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+  border-radius: 3px;
   -moz-box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1);
   -o-box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1);
   -ms-box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1);
   box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_language_switcher\.scss}line{font-family:\0000324}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_language_switcher\.scss}line{font-family:\0000329}}
   .language-switcher a {
     display: block;
-    width: 100%;
-    height: 100%;
     padding-top: 9px;
     padding-left: 36px;
+    padding-bottom: 7px;
     color: #fff;
     font-size: 1.1em;
     font-weight: normal;
     text-decoration: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_language_switcher\.scss}line{font-family:\0000335}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_language_switcher\.scss}line{font-family:\0000339}}
   .language-switcher a:hover {
     text-decoration: underline; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_language_switcher\.scss}line{font-family:\0000338}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_language_switcher\.scss}line{font-family:\0000342}}
   .language-switcher a.cy {
     background-image: url("../images/flag-cy.gif");
     background-repeat: no-repeat;
     background-position: 5px 4px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_language_switcher\.scss}line{font-family:\0000343}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_language_switcher\.scss}line{font-family:\0000347}}
   .language-switcher a.en {
     background-image: url("../images/flag-en.gif");
     background-repeat: no-repeat;
