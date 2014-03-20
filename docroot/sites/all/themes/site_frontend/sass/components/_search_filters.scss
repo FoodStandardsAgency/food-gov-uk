@@ -4,6 +4,10 @@
  * dependant on having block class: search-keyword-page
  */
 .search-keyword-page {
+	/* wrapper for search text box and its label */
+	.views-exposed-form .views-exposed-widget.views-widget-filter-keyword {
+		padding: 0.5em 0.5em 0 0;
+	}
 	label,
   .views-exposed-form label,
   .form-item label, 
@@ -56,8 +60,11 @@
 			background-color: #f67f2a;
 		}
 	}
+	/* wrapper for submit button */
 	.views-exposed-form .views-exposed-widget.views-submit-button {
 		float: none;	
+		position: relative;
+		top: -2px;
 	}
 }
 /* mobile layout */
