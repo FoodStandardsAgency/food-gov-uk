@@ -76,7 +76,11 @@
 		-ms-border-radius: 10px;
 		border-radius: 10px;
 		input.form-text {
-			width: 90%;
+			width: 100%;
+		}
+		/* wrapper for search text box and its label */
+		.views-exposed-form .views-exposed-widget.views-widget-filter-keyword {
+			max-width: 70%;
 		}
 	}
 }
