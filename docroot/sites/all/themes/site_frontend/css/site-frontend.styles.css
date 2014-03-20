@@ -1557,49 +1557,63 @@ ul.pager {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\0000323}}
 .views-field-zs-view-mode-search-result {
   border-bottom: 1px solid #5d9711;
-  padding: 7px 0 7px 0; }
+  padding: 7px 0 7px 0;
+  /* setup defualt formatting for content */
+  /* override formatting of summary */
+  /* override formatting of subtitle */
+  /* override formatting of last updated */ }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\0000326}}
   .views-field-zs-view-mode-search-result li {
     font-size: 1em; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\0000329}}
   .views-field-zs-view-mode-search-result p {
     font-size: 1em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\0000334}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\0000335}}
   .views-field-zs-view-mode-search-result h1.node__title,
   .views-field-zs-view-mode-search-result h2.node__title,
-  .views-field-zs-view-mode-search-result h3.node__title {
+  .views-field-zs-view-mode-search-result h3.node__title,
+  .views-field-zs-view-mode-search-result h1, .views-field-zs-view-mode-search-result h2 {
     font-size: 1.4em;
     line-height: 1.3em;
     margin-bottom: .4em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\0000339}}
-  .views-field-zs-view-mode-search-result .node__title {
-    color: #006f51; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\0000341}}
-    .views-field-zs-view-mode-search-result .node__title a {
-      color: #006f51;
-      text-decoration: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\0000345}}
-    .views-field-zs-view-mode-search-result .node__title a:hover {
-      text-decoration: underline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\0000340}}
+  .views-field-zs-view-mode-search-result a {
+    color: #006f51;
+    text-decoration: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\0000344}}
+  .views-field-zs-view-mode-search-result a:hover {
+    text-decoration: underline; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\0000349}}
+  .views-field-zs-view-mode-search-result .node__content,
+  .views-field-zs-view-mode-search-result .node .content {
+    font-size: 1.2em;
+    margin-bottom: .6em;
+    line-height: 1.5em;
+    color: #333; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\0000354}}
+    .views-field-zs-view-mode-search-result .node__content li, .views-field-zs-view-mode-search-result .node__content p,
+    .views-field-zs-view-mode-search-result .node .content li,
+    .views-field-zs-view-mode-search-result .node .content p {
+      font-size: 1em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\0000359}}
   .views-field-zs-view-mode-search-result .field--name-field-summary {
     font-size: 1.2em;
     margin-bottom: .6em;
     line-height: 1.5em;
     color: #333; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\0000355}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\0000366}}
   .views-field-zs-view-mode-search-result .field--name-field-subtitle {
     font-size: 1.2em;
     margin-bottom: .6em;
     line-height: 1.5em;
     color: #333; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\0000361}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\0000373}}
   .views-field-zs-view-mode-search-result .field--name-field-updated {
     font-size: 1.1em;
     margin-bottom: 0.2em;
     color: #333; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\0000368}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\0000380}}
 .page-search .l-content {
   margin-bottom: 20px; }
 
