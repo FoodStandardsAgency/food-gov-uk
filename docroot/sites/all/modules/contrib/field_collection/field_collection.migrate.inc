@@ -110,9 +110,6 @@ class MigrateDestinationFieldCollection extends MigrateDestinationEntity {
 
     unset($collection->host_entity_id);
 
-    var_dump('collec');
-    var_dump($collection);
-
     foreach ((array) $collection as $field => $value) {
       $entity->{$field} = $value;
     }

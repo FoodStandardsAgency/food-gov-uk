@@ -62,6 +62,15 @@ ENDSQL;
       OR  FIELDNAME.VARIABLE LIKE 'sectionheading%')
 ENDSQL;
 
+  protected $imageQuery = <<<'ENDSQL'
+    SELECT LINK.PARENTID, OBJ.OBJECTID, OBJTYPE.NAME AS OBJECTTYPE
+      FROM OBJ, LINK, OBJTYPE
+      WHERE LINK.CHILDID = OBJ.OBJECTID
+      AND OBJTYPE.OBJECTTYPEID = OBJ.OBJECTTYPEID
+      AND OBJTYPE.MEDIATYPE = 'image/jpeg'
+      AND LINK.PARENTID IN ( :obj_ids )
+ENDSQL;
+
   /**
    * IDs to be processed.
    *
@@ -141,8 +150,37 @@ ENDSQL;
       $counter = $counter + count($singleObjectSplit);
     }
 
-    foreach ($textSplit as $textSplitItem) {
-      $generatedObjectidFieldid[] = implode('-', $textSplitItem);
+    $this->imageQuery = str_replace(':obj_ids', implode(',', $this->listObjectsIds), $this->imageQuery);
+
+    // Query the oracle DB to get the images into the different field collections.
+    // @TODO Pass a list of ids to oracleQueryAll instead of str_replace() directly in the request.
+    $query_image_results_array = FSAMigration::oracleQueryAll(
+      $this->imageQuery,
+      array(),
+      $connectionOracle
+    );
+
+    // Test if there is images for the objects.
+    if (isset($query_image_results_array['OBJECTID'][0])) {
+      foreach ($query_image_results_array['OBJECTTYPE'] as $imageItemNumber => $imageObjectType) {
+        $imageExtractedType = substr($imageObjectType, 0, 5);
+        if ($imageExtractedType == 'Image') {
+          $imageExtractedNumber = substr($imageObjectType, 5);
+
+          // @TODO Manage several objects ID. This will only work with ONE.
+          $textSplit[$imageExtractedNumber]['image'] = $query_image_results_array['OBJECTID'][$imageItemNumber];
+        }
+      }
+    }
+
+    // Change the format from array to string for each field collection,
+    // in order to be passed to the MigrateItem class.
+    foreach ($textSplit as $textSplitLine) {
+      $splitLine = NULL;
+      foreach ($textSplitLine as $textSplitType => $textSplitItem) {
+        $splitLine[] =  $textSplitType . ':' . $textSplitItem;
+      }
+      $generatedObjectidFieldid[] = implode('-', $splitLine);
     }
 
     return $generatedObjectidFieldid;
@@ -206,18 +244,18 @@ ENDSQL;
         $int_variable = (int)substr($field_variable, 4);
         // Insert a new row for the object and the type of data.
         if (!isset($array_variable[$int_variable])) {
-          $array_variable[$int_variable][] = $queryResults['OBJECTID'][$iObjectVariable];
+          $array_variable[$int_variable]['objectid'] = $queryResults['OBJECTID'][$iObjectVariable];
         }
-        $array_variable[$int_variable][] = $queryResults['FIELDID'][$iObjectVariable];
+        $array_variable[$int_variable]['text'] = $queryResults['FIELDID'][$iObjectVariable];
       }
       else {
         // This is a sectionheading.
         $int_variable = (int)substr($field_variable, 14);
 
         if (!isset($array_variable[$int_variable])) {
-          $array_variable[$int_variable][] = $queryResults['OBJECTID'][$iObjectVariable];
+          $array_variable[$int_variable]['objectid'] = $queryResults['OBJECTID'][$iObjectVariable];
         }
-        $array_variable[$int_variable][] = $queryResults['FIELDID'][$iObjectVariable];
+        $array_variable[$int_variable]['sectionheading'] = $queryResults['FIELDID'][$iObjectVariable];
       }
       $iObjectVariable++;
     }
@@ -237,6 +275,16 @@ class MigrateItemOracleTextCollection extends MigrateItem {
       AND FIELDVALUE.FIELDID IN ( :field_ids )
 ENDSQL;
 
+  protected $queryImage = <<<'ENDSQL'
+    SELECT OBJ.OBJECTID, OBJ.NAME, OBJ.SIMPLENAME, OBJ.PATH, OBJTYPE.NAME AS OBJECTTYPE
+      FROM OBJ, LINK, MEDIAIMAGE, OBJTYPE
+      WHERE LINK.CHILDID = OBJ.OBJECTID
+      AND OBJTYPE.OBJECTTYPEID = OBJ.OBJECTTYPEID
+      AND LINK.CHILDID = MEDIAIMAGE.OBJECTID
+      AND OBJ.OBJECTID = :image_id
+      AND LINK.PARENTID = :obj_id
+ENDSQL;
+
   /**
    * Given an ID obtained from a MigrateList class, returns the data for the
    * source item keyed by that ID, as an object.
@@ -250,16 +298,42 @@ ENDSQL;
     // Extract oracle ids from the array.
     $oracleIds = explode('-', $id);
 
+    foreach ($oracleIds as $oracleItem) {
+      $explodedItem = explode(':', $oracleItem);
+      $itemsList[$explodedItem[0]] = $explodedItem[1];
+    }
+
     // The object id is always first.
-    $objectId = $oracleIds[0];
-    unset($oracleIds[0]);
+    $objectId = $itemsList['objectid'];
+    unset($itemsList['objectid']);
+
+    $imagePath = NULL;
+
+    // Test if there is an image for the field collection.
+    if (isset($itemsList['image'])) {
+      $imageId = $itemsList['image'];
+      unset($itemsList['image']);
+
+      // @TODO Use oracle binding system.
+      $queryImageObject = str_replace(':obj_id', "'" . $objectId . "'", $this->queryImage);
+      $queryImageObjectImg = str_replace(':image_id', "'" . $imageId . "'", $queryImageObject);
+
+      // Query the oracle db.
+      $queryImageResults = FSAMigration::oracleQuerySingle(
+        $queryImageObjectImg,
+        array(),
+        $connectionOracle
+      );
+
+      $imagePath = 'public://' . $queryImageResults['PATH'];
+    }
 
     // Query the oracle db.
     $query_results_array = $this->oracleQueryTextFieldsGroup(
       $this->query,
       array(
         ':obj_id' => $objectId,
-        ':field_ids' => implode(',', $oracleIds),
+        ':field_ids' => implode(',', $itemsList),
       ),
       $connectionOracle
     );
@@ -283,12 +357,15 @@ ENDSQL;
     $object->OBJECTID = $objectId;
 
     // Add more keys if you add fields to the field collection.
-    if(isset($oracleIds[1])) {
-      $object->FIELDID1 = $oracleIds[1];
+    if(isset($itemsList['sectionheading'])) {
+      $object->FIELDID1 = $itemsList['sectionheading'];
     }
-    if(isset($oracleIds[2])) {
-      $object->FIELDID2 = $oracleIds[2];
+    if(isset($itemsList['text'])) {
+      $object->FIELDID2 = $itemsList['text'];
     }
+
+    // Assign image.
+    $object->IMAGEPATH = $imagePath;
 
     return $object;
   }
