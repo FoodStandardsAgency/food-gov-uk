@@ -624,6 +624,19 @@ ul.breadcrumb {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_content_section\.scss}line{font-family:\000037}}
   .main-wrapper {
     border-bottom: 4px solid #006f51; } }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_content_top_secton\.scss}line{font-family:\000031}}
+.content-top {
+  /* stops the region from collapsing when content is floated within it */
+  *zoom: 1; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/anthonyalbertyn\/\.rvm\/gems\/ruby-1\.9\.3-p484\@omega\.site_frontend\/gems\/compass-0\.12\.2\/frameworks\/compass\/stylesheets\/compass\/utilities\/general\/_clearfix\.scss}line{font-family:\0000322}}
+  .content-top:after {
+    content: "\0020";
+    display: block;
+    height: 0;
+    clear: both;
+    overflow: hidden;
+    visibility: hidden; }
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_date_updated\.scss}line{font-family:\000031}}
 .field--name-field-updated {
   font-size: 1.2em;
