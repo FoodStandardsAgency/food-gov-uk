@@ -58,7 +58,7 @@ function site_frontend_links__locale_block(&$vars) {
 
   foreach($vars['links'] as $language_code => $language_info) {
 
-    if ($language_code != $language->language && ($language_info['href'] != $href_default || $language_code == $language_default)) {
+    if ($language_code != $language->language && isset($language_info['href']) && ($language_info['href'] != $href_default || $language_code == $language_default)) {
       $options = $language_info['attributes'];
       $options['attributes']['class'][] = $language_code;
       $content .= l($language_info['title'], $language_info['href'], $options);
