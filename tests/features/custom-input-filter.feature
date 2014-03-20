@@ -6,11 +6,8 @@ Feature: Test Homepage
 #  @migration @javascript @production
 
   Scenario: Creating content with custom input filter test 1
-    Given I am on "/user"
-	And I fill in "edit-name" with "test"
-    And I fill in "edit-pass" with "password"
-    And I press "edit-submit" in the "Log In" region
-	Then I should see "Dashboard" in the "Drupal Menu" region
+    Given I log in as an existing "editor"
+    Then the response should contain "drupal_username"
 	Then I go to "/node/add/document-page"
     Given I should see "Create Document Page" in the "Page Title" region
     And I fill in "edit-title" with "test"
