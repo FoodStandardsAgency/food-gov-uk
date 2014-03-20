@@ -1315,72 +1315,148 @@ h1.nation-wales {
     padding: 0 0 0.75em 0;
     text-align: right;
     border-right: 0px; } }
-/* search form */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\000034}}
-.search-keyword-page input.form-text {
-  width: 90%;
-  margin-bottom: .8em;
-  padding: 2px 4px;
-  background: #fff;
-  font-size: 1.2em;
-  vertical-align: middle;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -o-border-radius: 3px;
-  -ms-border-radius: 3px;
-  border-radius: 3px;
-  border: 1px solid #ccc;
-  font-family: Arial,Verdana,Helvetica,sans-serif;
-  font-size: 1.2em;
-  color: #333; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000321}}
-.search-keyword-page input.form-submit {
-  display: inline-block;
-  *display: inline;
-  zoom: 1;
-  margin: 0;
-  padding: 4px;
-  width: 24px;
-  border: 1px solid #ccc;
-  border-left: none;
-  vertical-align: middle;
-  font-size: 1.2em;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -o-border-radius: 5px;
-  -ms-border-radius: 5px;
-  border-radius: 5px;
-  background-color: #fa953e;
-  background-image: url("../images/search.png");
-  background-repeat: no-repeat;
-  background-position: 5px 3px;
-  text-indent: -9999px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000342}}
-  .search-keyword-page input.form-submit:hover {
-    background-color: #f67f2a; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_pager\.scss}line{font-family:\000031}}
+ul.pager {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 1em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_pager\.scss}line{font-family:\000035}}
+  ul.pager li {
+    font-weight: bold;
+    font-size: 1.2em;
+    line-height: 1.4em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_pager\.scss}line{font-family:\000039}}
+    ul.pager li a {
+      color: #5d9711;
+      font-weight: normal;
+      text-decoration: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_pager\.scss}line{font-family:\0000314}}
+    ul.pager li a:hover {
+      text-decoration: underline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_pager\.scss}line{font-family:\0000318}}
+  ul.pager li.pager__item--current {
+    color: #333; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_pager\.scss}line{font-family:\0000325}}
+  ul.pager li.pager__item--first a,
+  ul.pager li.pager__item--previous a,
+  ul.pager li.pager__item--next a,
+  ul.pager li.pager__item--last a {
+    font-weight: bold;
+    text-decoration: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_pager\.scss}line{font-family:\0000329}}
+  ul.pager li.pager__item--first a:hover,
+  ul.pager li.pager__item--previous a:hover,
+  ul.pager li.pager__item--next a:hover,
+  ul.pager li.pager__item--last a:hover {
+    text-decoration: underline; }
+
+/** 
+ * search form 
+ * dependant on having block class: search-keyword-page
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\000036}}
+.search-keyword-page {
+  /* wrapper for search text box and its label */
+  /* wrapper for submit button */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\000038}}
+  .search-keyword-page .views-exposed-form .views-exposed-widget.views-widget-filter-keyword {
+    padding: 0.5em 0.5em 0 0;
+    max-width: 80%;
+    /* need to restrict width to prevent wraping of submit button when increasing font size */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000315}}
+  .search-keyword-page label,
+  .search-keyword-page .views-exposed-form label,
+  .search-keyword-page .form-item label,
+  .search-keyword-page .form-actions label {
+    padding-bottom: 0.25em;
+    display: block;
+    padding-left: 3px;
+    color: #333;
+    font-weight: normal;
+    font-size: 1.2em;
+    line-height: 1.4em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000324}}
+  .search-keyword-page input.form-text {
+    width: 100%;
+    /* input form text is restricted by width of its wrapper */
+    margin-bottom: .8em;
+    padding: 2px 4px;
+    background: #fff;
+    font-size: 1.2em;
+    vertical-align: middle;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    font-family: Arial,Verdana,Helvetica,sans-serif;
+    font-size: 1.2em;
+    color: #333; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000341}}
+  .search-keyword-page input.form-submit {
+    display: block;
+    margin: 0;
+    padding: 4px;
+    width: 24px;
+    border: 1px solid #ccc;
+    border-left: none;
+    vertical-align: middle;
+    font-size: 1.2em;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #fa953e;
+    background-image: url("../images/search.png");
+    background-repeat: no-repeat;
+    background-position: 5px 3px;
+    text-indent: -9999px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000360}}
+    .search-keyword-page input.form-submit:hover {
+      background-color: #f67f2a; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000365}}
+  .search-keyword-page .views-exposed-form .views-exposed-widget.views-submit-button {
+    float: none;
+    position: relative;
+    top: -2px; }
 
 /* mobile layout */
 @media (min-width: 0px) and (max-width: 480px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000349}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000373}}
   .search-keyword-page {
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     -o-border-radius: 10px;
     -ms-border-radius: 10px;
-    border-radius: 10px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000355}}
+    border-radius: 10px;
+    /* wrapper for search text box and its label */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000379}}
     .search-keyword-page input.form-text {
-      width: 90%; } }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000362}}
-.search-facet label {
-  padding-bottom: 2px;
+      width: 100%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000383}}
+    .search-keyword-page .views-exposed-form .views-exposed-widget.views-widget-filter-keyword {
+      max-width: 70%;
+      /* need to restrict this to prevent wrapping of submit button */ } }
+/**
+ * Search facet
+ * dependant on black class: search-facet
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000397}}
+.search-facet label,
+.search-facet .views-exposed-form label,
+.search-facet .form-item label,
+.search-facet .form-actions label {
+  padding-bottom: 0.25em;
   display: block;
   padding-left: 3px;
   color: #333;
+  font-weight: normal;
   font-size: 1.2em;
   line-height: 1.4em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000370}}
-.search-facet .select {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\00003106}}
+.search-facet select {
   color: #666;
   width: 99%;
   padding: 1px 2px;
@@ -1395,22 +1471,23 @@ h1.nation-wales {
   font-family: Arial, Verdana, Helvetica, sans-serif;
   font-size: 1.2em; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000387}}
+/* active links tabs */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\00003124}}
 .current-search-item-active-links {
   margin-bottom: 20px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000389}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\00003126}}
   .current-search-item-active-links ul {
     margin: 0 0 0.75em 0;
     padding: 0;
     list-style-type: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000393}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\00003130}}
     .current-search-item-active-links ul li {
       font-size: 1em;
       margin: 0px 5px 5px 0px;
       display: inline-block;
       *display: inline;
       zoom: 1; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\0000399}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\00003136}}
       .current-search-item-active-links ul li a {
         font-size: 1.2em;
         font-weight: normal;
@@ -1419,13 +1496,17 @@ h1.nation-wales {
         padding: 5px 8px 5px 8px;
         border: none;
         text-decoration: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\00003108}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\00003145}}
       .current-search-item-active-links ul li a:hover {
         color: #ffffff;
         background-color: #f67f2a;
         text-decoration: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\00003117}}
+/**
+ * container around the search filter wrapper 
+ * dependant on container_blocks custom module and block class: grey-container-block
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\00003158}}
 .grey-container-block {
   margin-bottom: 20px;
   padding: 11px 9px 21px 11px;
@@ -1444,7 +1525,7 @@ h1.nation-wales {
   background: -ms-linear-gradient(top, white 0, #e5e5e5 100%);
   background: linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#e5e5e5',GradientType=0); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\00003135}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\00003176}}
   .grey-container-block h2.block__title {
     color: #5d9711;
     background: none;
