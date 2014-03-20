@@ -20,12 +20,14 @@ function apache_solr_feature_apachesolr_search_default_searchers() {
   $searcher->page_title = 'Site';
   $searcher->env_id = 'solr';
   $searcher->settings = array(
+    'fq' => array(),
+    'apachesolr_search_custom_enable' => 0,
     'apachesolr_search_search_type' => 'custom',
     'apachesolr_search_per_page' => 10,
+    'apachesolr_search_spellcheck' => 1,
+    'apachesolr_search_search_box' => 1,
+    'apachesolr_search_allow_user_input' => 0,
     'apachesolr_search_browse' => 'browse',
-    'apachesolr_search_spellcheck' => TRUE,
-    'apachesolr_search_not_removable' => TRUE,
-    'apachesolr_search_search_box' => TRUE,
   );
   $export['core_search'] = $searcher;
 

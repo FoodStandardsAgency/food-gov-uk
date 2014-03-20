@@ -1,0 +1,5 @@
+name = Container Blocks
+description = Provide blocks that contain other blocks.
+core = 7.x
+package = Local
+

@@ -20,6 +20,19 @@ function safeword_theme() {
   );
 }
 
+/**
+ * Implements hook_menu().
+ */
+function safeword_menu() {
+  // Returns AJAX commands if the user has JavaScript turned on.
+  $items['safeword/ajax/transliterate'] = array(
+    'page callback' => 'safeword_ajax_callback',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+  );
+
+  return $items;
+}
 
 /**
  * Field definition code. Handles basic metadata for the field, and the settings
@@ -41,6 +54,8 @@ function safeword_field_info() {
       'default_formatter' => 'safeword_human',
       // Support default token formatter for field tokens.
       'default_token_formatter' => 'safeword_machine_basic',
+      'property_type' => 'safeword_field',
+      'property_callbacks' => array('safeword_field_property_info_callback'),
     ),
     'safeword_title' => array(
       'label' => t('Machine name from Title'),
@@ -49,10 +64,35 @@ function safeword_field_info() {
       'default_formatter' => 'safeword_machine_basic',
       // Support default token formatter for field tokens.
       'default_token_formatter' => 'safeword_machine_basic',
+      'property_type' => 'safeword_field',
+      'property_callbacks' => array('safeword_field_property_info_callback'),
     ),
   );
 }
 
+/**
+ * Implements property_callbacks for hook_field_info().
+ */
+function safeword_field_property_info_callback(&$info, $entity_type, $field, $instance, $field_type) {
+  $property = &$info[$entity_type]['bundles'][$instance['bundle']]['properties'][$field['field_name']];
+
+  $property['getter callback'] = 'entity_metadata_field_verbatim_get';
+  $property['setter callback'] = 'entity_metadata_field_verbatim_set';
+  unset($property['query callback']);
+
+  $property['property info'] = array(
+    'machine' => array(
+      'type' => 'text',
+      'label' => t('Machine name'),
+      'setter callback' => 'entity_property_verbatim_set',
+    ),
+    'human' => array(
+      'type' => 'text',
+      'label' => t('Human friendly name'),
+      'setter callback' => 'entity_property_verbatim_set',
+    ),
+  );
+}
 
 /**
  * Implements hook_field_validate().
@@ -60,21 +100,33 @@ function safeword_field_info() {
  * Verifies that both the human and machine readable values are populated.
  */
 function safeword_field_validate($entity_type, $entity, $field, $instance, $langcode, $items, &$errors) {
-  // This isn't working yet, haven't had a chance to troubleshoot.
-  return;
 
-  $regex = $field['settings']['replace_pattern'];
-  $machine_label = $field['settings']['machine_label'];
+  // Set error message if non-Roman letters are found, suggest corrected machine name.
+  if (function_exists('transliteration_get') && isset($field['settings']['transliterate']) && !empty($field['settings']['transliterate'])) {
 
-  foreach ($items as $delta => $item) {
-    if (!preg_match('/' . $regex . '/', $item['machine'])) {
-      $errors[$field['field_name']][$langcode][$delta][] = array(
-        'error' => 'safeword_invalid',
-        'message' => t('%machine_label may not contain characters matching the regular expression @regex.',
-          array('@regex' => $regex, '%machine_label' => $machine_label)),
-      );
+    $machine_label = $field['settings']['machine_label'];
+
+    foreach ($items as $delta => $item) {
+
+      $machine_suggestion = transliteration_get($item['machine'], '-', 'en');
+      $machine_suggestion = strtolower($machine_suggestion);
+
+      if ($machine_suggestion != $item['machine']) {
+
+        /*
+         * @todo use regex pattern to strip out characters that would cause an error.
+         */
+
+        $errors[$field['field_name']][$langcode][$delta][] = array(
+          'error' => 'safeword_invalid',
+          'message' => t('The machine-readable name may only contain Roman characters, without accent, such as: %machine_suggestion',
+            array('%machine_suggestion' => $machine_suggestion)),
+        );
+      }
     }
   }
+
+  return;
 }
 
 
@@ -141,6 +193,7 @@ function safeword_field_settings_form($field, $instance, $has_data) {
       '#description' => t('A regular expression matching the banned characters. (--|<[^<>]+>|[^/a-z0-9-])+ is recommended for URL paths.'),
     );
 
+
     $form['replace_value'] = array(
       '#type' => 'textfield',
       '#title' => t('Replacement value'),
@@ -168,6 +221,14 @@ function safeword_field_settings_form($field, $instance, $has_data) {
       '#default_value' => $settings['allow_machine_changes'],
       '#description' => t('If this option is disabled, machine-readable text will be locked after creation.'),
     );
+
+    if (function_exists('transliteration_get')) {
+      $form['transliterate'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Transliterate - convert to Roman characters, removing accents.'),
+        '#default_value' => isset($settings['transliterate']) ? $settings['transliterate'] : 0,
+      );
+    }
 
   }
 
@@ -305,7 +366,7 @@ function safeword_field_widget_form(&$form, &$form_state, $field, $instance, $la
         '#required' => $element['#required']
       );
 
-      $safeword_source = array($field['field_name'], $langcode, $delta, 'human');
+      $safeword_source = array_merge($element['#field_parents'], array($field['field_name'], $langcode, $delta, 'human'));
 
     case 'safeword_machine_name_only':
 
@@ -326,12 +387,14 @@ function safeword_field_widget_form(&$form, &$form_state, $field, $instance, $la
         '#disabled' => (!empty($items[$delta]['machine']) && empty($field['settings']['allow_machine_changes'])),
       );
 
+      // Load the JS file, provides transliteration.
+      drupal_add_js(drupal_get_path('module', 'safeword') . '/safeword.js', array('weight' => 1));
+
       // Show complete path functionality
       //   - use path auto settings to show the full URL to the user
       if ($field['settings']['show_complete_path'] && module_exists('pathauto')) {
 
-        // Load the JS & CSS files
-        drupal_add_js(drupal_get_path('module', 'safeword') . '/safeword.js', array('weight' => 1));
+        // Load the CSS file, styling for Pathauto path preffix and suffix.
         drupal_add_css(drupal_get_path('module', 'safeword') . '/safeword.css', array('group' => CSS_DEFAULT, 'type' => 'file'));
 
         // Get the pattern from pathauto
@@ -454,4 +517,18 @@ function safeword_field_views_data($field) {
 function theme_safeword_un_editable_path_parts($variables) {
 
   return '<span class="safeword-path-un-editable">' . $variables['path'] . '</span>';
+}
+
+/*
+ * Transliterate non-Roman characters to Roman characters without accents.
+ */
+function safeword_ajax_callback() {
+  // Retrieve our post value.
+  $source = $_POST['source'];
+
+  if (function_exists('transliteration_get')) {
+    $source = transliteration_get($source, '-', 'en');
+  }
+
+  drupal_json_output($source);
 }

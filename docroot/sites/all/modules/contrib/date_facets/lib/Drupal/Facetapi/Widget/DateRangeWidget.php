@@ -26,65 +26,32 @@ class Drupal_Apachesolr_Facetapi_Widget_DateRangeWidget extends FacetapiWidgetLi
   public function execute() {
     $element = &$this->build[$this->facet['field alias']];
 
-    // Display as standard links or as a select dropdown.
-    if (empty($this->settings->settings['date_ranges_select']) || !module_exists('facetapi_select')) {
-      // As standard links.
+    // Get all variables we will need to hack the query string in order to
+    // ensure that only one item is active at a time.
+    $filter_key = $this->facet->getAdapter()->getUrlProcessor()->getFilterKey();
+    $facet = $this->facet->getFacet();
+    $field_alias = rawurlencode($facet['field alias']);
+    $value_start_pos = strlen($field_alias) + 1;
 
-      // Get all variables we will need to hack the query string in order to
-      // ensure that only one item is active at a time.
-      $filter_key = $this->facet->getAdapter()->getUrlProcessor()->getFilterKey();
-      $facet = $this->facet->getFacet();
-      $field_alias = rawurlencode($facet['field alias']);
-      $value_start_pos = strlen($field_alias) + 1;
+    // Re-build query string for all date range facets.
+    foreach ($element as &$item) {
 
-      // Re-build query string for all date range facets.
-      foreach ($element as &$item) {
-
-        // Filters out all other values from the query string excluding the value
-        // of the current item.
-        if (!$item['#active']) {
-          foreach ($item['#query'][$filter_key] as $pos => $filter) {
-            if (0 === strpos($filter, $field_alias . ':')) {
-              $value = substr($filter, $value_start_pos);
-              if ($value !== $item['#indexed_value']) {
-                unset($item['#query'][$filter_key][$pos]);
-              }
+      // Filters out all other values from the query string excluding the value
+      // of the current item.
+      if (!$item['#active']) {
+        foreach ($item['#query'][$filter_key] as $pos => $filter) {
+          if (0 === strpos($filter, $field_alias . ':')) {
+            $value = substr($filter, $value_start_pos);
+            if ($value !== $item['#indexed_value']) {
+              unset($item['#query'][$filter_key][$pos]);
             }
           }
         }
       }
-
-      // Render the links.
-      parent::execute();
-    }
-    else {
-      // As a select dropdown.
-      // Code borrowed from facetapi_select.module.
-      static $count = 0;
-      $count++;
-
-      $settings = $this->settings;
-      if (!empty($settings->settings['default_option_label'])) {
-        $options[] = $settings->settings['default_option_label'];
-      } else {
-        $options[] = t('--Choose--');
-      }
-
-      foreach ($element as $value => $item) {
-        $path = !empty($this->settings->settings['submit_page']) ? $this->settings->settings['submit_page'] : $item['#path'];
-        $url = url($path, array('query' => $item['#query']));
-        $options[$url] = $item['#markup'].' ('.$item['#count'].')';
-      }
-      // We keep track of how many facets we're adding, because each facet form
-      // needs a different form id.
-      if (end($options) !== '(-)') {
-        if (!isset($form_state)) {
-          $form_state = array();
-        }
-        $element = facetapi_select_facet_form($form_state, $options, $count);
-      }
     }
 
+    // Render the links.
+    parent::execute();
   }
 
   /**
@@ -94,21 +61,6 @@ class Drupal_Apachesolr_Facetapi_Widget_DateRangeWidget extends FacetapiWidgetLi
     parent::settingsForm($form, $form_state);
     unset($form['widget']['widget_settings']['links'][$this->id]['soft_limit']);
     unset($form['widget']['widget_settings']['links'][$this->id]['show_expanded']);
-
-    if (module_exists('facetapi_select')) {
-      $form['date_ranges_select_display'] = array(
-        '#type' => 'fieldset',
-        '#title' => t('Display'),
-        '#attributes' => array('class' => array('clearfix')),
-      );
-
-      $form['date_ranges_select_display']['date_ranges_select'] = array(
-        '#type'          => 'checkbox',
-        '#title'         => t('Select Field'),
-        '#description'   => t('Display as select field (dropdown)'),
-        '#default_value' => empty($this->settings->settings['date_ranges_select']) ? 0 : $this->settings->settings['date_ranges_select'],
-      );
-    }
 
     $form['widget']['widget_settings']['date_ranges'] = array(
       '#type' => 'fieldset',
@@ -370,7 +322,6 @@ class Drupal_Apachesolr_Facetapi_Widget_DateRangeWidget extends FacetapiWidgetLi
         '#weight' => 10,
       );
     }
-
     $form['#validate'] = array('date_facets_tabledrag_form_validate');
     $form['#theme'] = 'date_facets_tabledrag_form';
     $form['#prefix'] = '<div id="date_facets_facet_config_form">';

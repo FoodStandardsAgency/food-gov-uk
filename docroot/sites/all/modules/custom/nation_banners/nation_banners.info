@@ -1,0 +1,5 @@
+name = Nation Banners
+description = Creates blocks for nation banners.
+dependencies[] = block
+package = Local
+core = 7.x

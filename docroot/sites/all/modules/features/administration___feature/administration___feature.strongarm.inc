@@ -165,6 +165,7 @@ function administration___feature_strongarm() {
   $strongarm->value = array(
     'file' => TRUE,
     'node' => TRUE,
+    'taxonomy' => TRUE,
   );
   $export['path_alias_whitelist'] = $strongarm;
 

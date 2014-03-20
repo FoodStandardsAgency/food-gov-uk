@@ -73,13 +73,38 @@
 	</div> <!-- end l-breadcrumb-accessibility -->
   </div> <!-- end breadcrumb-accessibility-wrapper -->
 
+  
+  <?php if ($page['preface']): ?>
+    <div class="preface-wrapper">
+	  <div class="preface-wrapper-inner">
+        <div class="l-preface">
+	      <div class="preface-inner">
+	        <?php print render($page['preface']); ?>
+	      </div> <!-- end preface-inner -->
+	    </div> <!-- end l-preface -->
+	  </div> <!-- end preface-wrapper-inner -->
+    </div> <!-- end preface-wrapper -->
+  <?php endif; ?>
+
 
   <div class="main-wrapper">
     <div class="l-main">
 	  <div class="main-inner">
 		
         <div id="main-content" class="l-content" role="main">
+	
           <?php print render($page['highlighted']); ?>
+
+          <?php if ($page['content_top']): ?>
+	        <div class="content-top-wrapper">
+		        <div class="content-top-wrapper-inner">
+			        <div class="content-top">
+					  <?php print render($page['content_top']); ?>
+				    </div> <!-- end content-top -->
+			    </div> <!-- end content-top-wrapper-inner -->
+		    </div> <!-- end content-top-wrapper -->
+	      <?php endif; ?>
+
           <?php print render($title_prefix); ?>
           <?php if ($title): ?>
             <h1><?php print $title; ?></h1>

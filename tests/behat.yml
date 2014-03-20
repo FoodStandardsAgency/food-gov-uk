@@ -3,7 +3,15 @@ default:
     features: features
     bootstrap: %behat.paths.features%/bootstrap
   context:
+    class: Drupal\DrupalExtension\Context\Tag1Context
     parameters:
+       drupal_users:
+        editor:
+          test/password
+        admin:
+          Tharg/password
+        mail:
+          test@codepositive.com/guWranujUnkot8/gmail.com/imap.gmail.com:993
        authentication:
           username: "shield"
           password: "down"
@@ -16,19 +24,11 @@ default:
     Drupal\DrupalExtension\Extension:
         blackbox: ~
         region_map:
-          My region: 
-          Menu: "#block-superfish-1" 
-          Content: 
-          Right sidebar: 
+          Menu: "#block-superfish-1"  
           Log In: "#edit-actions"
           Page Title: "#branding"
           Drupal Menu: "#admin-menu-wrapper"
           Submit: "#edit-actions"
-#        text:
-#          log_out: "Sign out"
-#          log_in: "Sign in"
-#          password_field: "Enter your password"
-#          username_field: "Nickname"
 annotations:
   paths:
     features: features/annotations

@@ -1,0 +1,17 @@
+diff --git a/token_filter.module b/token_filter.module
+index 8f613e3..fcf797c 100644
+--- a/token_filter.module
++++ b/token_filter.module
+@@ -16,6 +16,12 @@ function token_filter_filter_info() {
+     'tips callback' => '_token_filter_filter_tips',
+     'cache' => FALSE,
+   );
++
++  // Compatability with Edit module for in-line editing.
++  if (module_exists('edit')) {
++    $filters['filter_tokens']['type'] = FILTER_TYPE_TRANSFORM_REVERSIBLE;
++  }
++
+   return $filters;
+ }
+ 

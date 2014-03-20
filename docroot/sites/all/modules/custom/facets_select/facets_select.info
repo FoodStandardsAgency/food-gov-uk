@@ -1,0 +1,9 @@
+name = Facets Select
+description = Provides custom features for FacetAPI facets.
+core = 7.x
+package = Local
+dependencies[] = facetapi
+dependencies[] = facetapi_select
+dependencies[] = date_facets
+
+

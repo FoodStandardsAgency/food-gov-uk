@@ -1,4 +1,4 @@
-name = Facet API
+name = Facet API - PATCHED
 description = An abstracted facet API that can be used by various search backends.
 dependencies[] = ctools
 package = Search Toolkit

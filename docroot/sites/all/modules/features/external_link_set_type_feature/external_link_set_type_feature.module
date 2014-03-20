@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the External Link Set Content Type feature.
+ */
+
+include_once 'external_link_set_type_feature.features.inc';
