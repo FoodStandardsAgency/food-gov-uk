@@ -67,4 +67,14 @@
 			text-decoration: underline;
 		}
 	}
+	/* more link - omplemented in base/_links.scss */
+	.fsa-more-link {
+		font-weight: bold;
+	}
+	/* view footer */
+	.view-footer {
+		padding-top: 0.7em;
+		border-top: 1px solid #5d9711;
+		margin-bottom: 5px;
+	}
 }

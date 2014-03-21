@@ -1117,7 +1117,9 @@ span.copyright {
   /* subtitle */
   /* teaser updated date */
   /* teaser summary */
-  /* node links like read more (if enabled) */ }
+  /* node links like read more (if enabled) */
+  /* more link - omplemented in base/_links.scss */
+  /* view footer */ }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news\.scss}line{font-family:\0000313}}
   .latest-news h2.node__title,
   .field--type-blockreference .block--views-news-block h2.node__title {
@@ -1182,6 +1184,16 @@ span.copyright {
     .latest-news .node__links a:hover,
     .field--type-blockreference .block--views-news-block .node__links a:hover {
       text-decoration: underline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news\.scss}line{font-family:\0000371}}
+  .latest-news .fsa-more-link,
+  .field--type-blockreference .block--views-news-block .fsa-more-link {
+    font-weight: bold; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news\.scss}line{font-family:\0000375}}
+  .latest-news .view-footer,
+  .field--type-blockreference .block--views-news-block .view-footer {
+    padding-top: 0.7em;
+    border-top: 1px solid #5d9711;
+    margin-bottom: 5px; }
 
 /** Main menu depends on Superfish module
   * Superfish settings:
