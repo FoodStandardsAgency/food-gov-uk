@@ -5,11 +5,13 @@ PATCHED MODULES
 CKEditor
 sites/all/modules/contrib/ckeditor_link
 
-Compatibility with Editor in-line editing
-https://drupal.org/node/1882646#comment-7629485
+Compatibility with Edit module
+https://drupal.org/node/1965878#comment-7615497
+-token_filter-specify_filter_type-1965878-6.patch
 
--filter_ckeditor_link_filter_has_no_type_specified-1882646-3.patch
-
+Is there any valid reason why this filter can't cache?
+Performance improvement
+https://drupal.org/comment/7707699#comment-7707699
 
 ===========================================
 

@@ -1,0 +1,27 @@
+diff --git a/token.module b/token.module
+index 88bcc60..ca1eef1 100644
+--- a/token.module
++++ b/token.module
+@@ -1213,14 +1213,14 @@ function token_menu_link_load_all_parents($mlid) {
+     return array();
+   }
+ 
+-  if (!isset($cache[$mlid])) {
+-    $cache[$mlid] = array();
+-    $plid = db_query("SELECT plid FROM {menu_links} WHERE mlid = :mlid", array(':mlid' => $mlid))->fetchField();
+-    while ($plid && $parent = token_menu_link_load($plid)) {
+-      $cache[$mlid] = array($plid => $parent['title']) + $cache[$mlid];
+-      $plid = $parent['plid'];
+-    }
+-  }
++  // if (!isset($cache[$mlid])) {
++  //   $cache[$mlid] = array();
++  //   $plid = db_query("SELECT plid FROM {menu_links} WHERE mlid = :mlid", array(':mlid' => $mlid))->fetchField();
++  //   while ($plid && $parent = token_menu_link_load($plid)) {
++  //     $cache[$mlid] = array($plid => $parent['title']) + $cache[$mlid];
++  //     $plid = $parent['plid'];
++  //   }
++  // }
+ 
+   return $cache[$mlid];
+ }
