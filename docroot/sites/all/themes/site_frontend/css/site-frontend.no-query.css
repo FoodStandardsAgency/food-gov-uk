@@ -1395,10 +1395,10 @@ ul.pager {
 /** requires block class: popular-links and purple-block. 
  *  purple-block implemented in base/blocks.scss 
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_popular_links\.scss}line{font-family:\000036}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_popular_links\.scss}line{font-family:\000035}}
 .popular-links select {
   width: 100%;
-  margin-bottom: .8em;
+  margin-bottom: 1em;
   padding: 2px 0;
   background: #fff;
   vertical-align: middle;
