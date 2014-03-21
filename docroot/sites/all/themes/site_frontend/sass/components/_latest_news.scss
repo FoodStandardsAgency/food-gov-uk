@@ -81,3 +81,11 @@
 		margin-bottom: 5px;
 	}
 }
+
+/* mobile view */
+@include breakpoint($mobile) {
+	/* increase all font sizes that are nested in here */
+	.field--type-blockreference .block--views-news-block {
+		font-size: 1.1em;
+	}
+}

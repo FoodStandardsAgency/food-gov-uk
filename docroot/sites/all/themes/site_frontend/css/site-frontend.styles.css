@@ -63,6 +63,14 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
   .node-type-landing-page .field--type-blockreference .block .block__content {
     padding: .5em 11px .3em 11px; }
 
+/* mobile view */
+@media (min-width: 0px) and (max-width: 480px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blockreference_blocks\.scss}line{font-family:\0000333}}
+  .node-type-landing-page .field--type-blockreference .block {
+    /* increase the block title size */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blockreference_blocks\.scss}line{font-family:\0000335}}
+    .node-type-landing-page .field--type-blockreference .block h2.block__title {
+      font-size: 1.8em; } }
 /* bocks in sidebar second */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\000032}}
 .l-region--sidebar-second .block {
@@ -1219,6 +1227,12 @@ span.copyright {
     line-height: 1.4em;
     margin-bottom: 5px; }
 
+/* mobile view */
+@media (min-width: 0px) and (max-width: 480px) {
+  /* increase all font sizes that are nested in here */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news\.scss}line{font-family:\0000388}}
+  .field--type-blockreference .block--views-news-block {
+    font-size: 1.1em; } }
 /** Main menu depends on Superfish module
   * Superfish settings:
   * Type: horizontal, style: simple, path class: active-trail, slide-in-effect: vertical, auto-arrows: off, drop-shadows: on
