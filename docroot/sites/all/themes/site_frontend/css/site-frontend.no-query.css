@@ -383,6 +383,22 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
   line-height: 1.4em;
   margin-bottom: 0.5em; }
 
+/* apply this class to the a-tag */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000364}}
+a.fsa-more-link {
+  font-weight: normal;
+  display: block;
+  padding-left: 14px;
+  background-image: url("../images/green-arrow-thin-right.png");
+  background-repeat: no-repeat;
+  background-position: left 3px;
+  text-decoration: none;
+  color: #006f51; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000374}}
+a.fsa-more-link:hover {
+  text-decoration: underline; }
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_media\.scss}line{font-family:\000031}}
 img, media {
   max-width: 100%; }
@@ -983,6 +999,11 @@ span.copyright {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_header_section\.scss}line{font-family:\0000316}}
 .site-logo img {
   margin-top: 10px; }
+
+/* banner image on landing pages */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_image_banner_image\.scss}line{font-family:\000032}}
+.field--name-field-banner-image img {
+  margin-bottom: 17px; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_image_featured_image\.scss}line{font-family:\000032}}
 .field--name-field-feature-image img {
