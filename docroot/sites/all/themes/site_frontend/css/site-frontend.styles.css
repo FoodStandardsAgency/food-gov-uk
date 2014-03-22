@@ -746,6 +746,13 @@ ul.breadcrumb {
   margin-right: 6px;
   float: left; }
 
+/* mobile view */
+@media (min-width: 0px) and (max-width: 480px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_current_topics\.scss}line{font-family:\0000366}}
+  .node-type-landing-page .current-topics {
+    width: 100%;
+    margin-right: 0px;
+    float: none; } }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_date_updated\.scss}line{font-family:\000031}}
 .field--name-field-updated {
   font-size: 1.2em;
@@ -1263,7 +1270,7 @@ span.copyright {
     width: 100%;
     margin-left: 0px;
     margin-bottom: 17px;
-    float: right; } }
+    float: none; } }
 /** Main menu depends on Superfish module
   * Superfish settings:
   * Type: horizontal, style: simple, path class: active-trail, slide-in-effect: vertical, auto-arrows: off, drop-shadows: on
@@ -1623,6 +1630,73 @@ ul.pager {
   color: #333; }
 
 /* requires block class: resources and blokc class: blue-block */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\000032}}
+.resources {
+  font-size: 1em;
+  line-height: 1.4em;
+  /* node title */
+  /* subtitle */
+  /* teaser updated date */
+  /* teaser summary */
+  /* node links like read more (if enabled) */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\000036}}
+  .resources h2.node__title {
+    font-size: 1.4em;
+    line-height: 1.4em;
+    margin-bottom: 0;
+    font-weight: normal; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000312}}
+  .resources .node__title {
+    font-weight: normal;
+    display: block; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000315}}
+    .resources .node__title a {
+      text-decoration: none;
+      color: #006f51; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000319}}
+    .resources .node__title a:hover {
+      text-decoration: underline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000324}}
+  .resources .field--name-field-subtitle {
+    font-size: 1.2em;
+    line-height: 1.4em;
+    display: block; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000330}}
+  .resources .field--name-field-updated {
+    font-size: 1.1em;
+    margin-bottom: 0.2em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000335}}
+  .resources .field--name-field-summary {
+    font-size: 1.2em;
+    line-height: 1.4em;
+    display: block;
+    color: #333;
+    margin-bottom: 0.2em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000342}}
+  .resources .field__item {
+    margin-bottom: 0.5em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000347}}
+  .resources .node__links a {
+    text-decoration: none;
+    color: #006f51; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000351}}
+  .resources .node__links a:hover {
+    text-decoration: underline; }
+
+/* positioning of block on landing page */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000358}}
+.node-type-landing-page .resources {
+  width: 225px;
+  margin-left: 6px;
+  float: right; }
+
+/* mobile view */
+@media (min-width: 0px) and (max-width: 480px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000366}}
+  .node-type-landing-page .resources {
+    width: 100%;
+    margin-left: 0px;
+    float: none; } }
 /** 
  * search form 
  * dependant on having block class: search-keyword-page
