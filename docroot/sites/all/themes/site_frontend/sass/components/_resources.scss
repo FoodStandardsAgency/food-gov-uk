@@ -15,6 +15,7 @@
 		a {
 			text-decoration: none;
 			color: #00416c;
+			font-weight: bold;
 		}
 		a:hover {
 			text-decoration: underline;
@@ -22,7 +23,7 @@
 	}
 	/* subtitle */
 	.field--name-field-subtitle {
-		font-size: 1.2em; 
+		font-size: 1.1em; 
 		line-height: 1.4em;
 		display: block;
 	}
@@ -33,7 +34,7 @@
 	}
 	/* teaser summary */
 	.field--name-field-summary {
-		font-size: 1.2em; 
+		font-size: 1.1em; 
 		line-height: 1.4em;
 		display: block;
 		color: #333;
@@ -55,12 +56,12 @@
 	/* line separator */
 	.views-row {
 		border-bottom: 1px solid #c6d7dd;
-		padding-bottom: 4px;
-		margin-bottom: 4px;
+		padding-bottom: 2px;
+		margin-bottom: 5px;
 	}
 	.views-row.views-row-last {
 		border-bottom: none;
-		padding-bottom: 0;
+		padding-bottom: 2px;
 		margin-bottom: 0;
 	}
 }
@@ -75,6 +76,7 @@
 /* mobile view */
 @include breakpoint($mobile) {
 	.node-type-landing-page .resources {
+		font-size: 1.1em; // increase font sizes of children - we changing base from 1em to 1.1em here
 		width: 100%;
 		margin-left: 0px;
 		float: none;

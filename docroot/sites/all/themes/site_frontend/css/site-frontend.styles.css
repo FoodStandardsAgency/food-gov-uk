@@ -716,7 +716,7 @@ ul.breadcrumb {
       text-decoration: underline; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_current_topics\.scss}line{font-family:\0000325}}
   .current-topics .field--name-field-subtitle {
-    font-size: 1.2em;
+    font-size: 1.1em;
     line-height: 1.4em;
     display: block; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_current_topics\.scss}line{font-family:\0000331}}
@@ -725,7 +725,7 @@ ul.breadcrumb {
     margin-bottom: 0.2em; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_current_topics\.scss}line{font-family:\0000336}}
   .current-topics .field--name-field-summary {
-    font-size: 1.2em;
+    font-size: 1.1em;
     line-height: 1.4em;
     display: block;
     color: #333;
@@ -743,12 +743,12 @@ ul.breadcrumb {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_current_topics\.scss}line{font-family:\0000357}}
   .current-topics .views-row {
     border-bottom: 1px solid #c6d7dd;
-    padding-bottom: 4px;
-    margin-bottom: 4px; }
+    padding-bottom: 2px;
+    margin-bottom: 5px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_current_topics\.scss}line{font-family:\0000362}}
   .current-topics .views-row.views-row-last {
     border-bottom: none;
-    padding-bottom: 0;
+    padding-bottom: 2px;
     margin-bottom: 0; }
 
 /* positioning of block on landing page */
@@ -762,6 +762,7 @@ ul.breadcrumb {
 @media (min-width: 0px) and (max-width: 480px) {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_current_topics\.scss}line{font-family:\0000378}}
   .node-type-landing-page .current-topics {
+    font-size: 1.1em;
     width: 100%;
     margin-right: 0px;
     float: none; } }
@@ -1665,49 +1666,50 @@ ul.pager {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000315}}
     .resources .node__title a {
       text-decoration: none;
-      color: #00416c; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000319}}
+      color: #00416c;
+      font-weight: bold; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000320}}
     .resources .node__title a:hover {
       text-decoration: underline; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000324}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000325}}
   .resources .field--name-field-subtitle {
-    font-size: 1.2em;
+    font-size: 1.1em;
     line-height: 1.4em;
     display: block; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000330}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000331}}
   .resources .field--name-field-updated {
     font-size: 1.1em;
     margin-bottom: 0.2em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000335}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000336}}
   .resources .field--name-field-summary {
-    font-size: 1.2em;
+    font-size: 1.1em;
     line-height: 1.4em;
     display: block;
     color: #333;
     margin-bottom: 0.2em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000342}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000343}}
   .resources .field__item {
     margin-bottom: 0.5em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000347}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000348}}
   .resources .node__links a {
     text-decoration: none;
     color: #00416c; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000351}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000352}}
   .resources .node__links a:hover {
     text-decoration: underline; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000356}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000357}}
   .resources .views-row {
     border-bottom: 1px solid #c6d7dd;
-    padding-bottom: 4px;
-    margin-bottom: 4px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000361}}
+    padding-bottom: 2px;
+    margin-bottom: 5px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000362}}
   .resources .views-row.views-row-last {
     border-bottom: none;
-    padding-bottom: 0;
+    padding-bottom: 2px;
     margin-bottom: 0; }
 
 /* positioning of block on landing page */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000369}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000370}}
 .node-type-landing-page .resources {
   width: 225px;
   margin-left: 6px;
@@ -1715,8 +1717,9 @@ ul.pager {
 
 /* mobile view */
 @media (min-width: 0px) and (max-width: 480px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000377}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\0000378}}
   .node-type-landing-page .resources {
+    font-size: 1.1em;
     width: 100%;
     margin-left: 0px;
     float: none; } }
