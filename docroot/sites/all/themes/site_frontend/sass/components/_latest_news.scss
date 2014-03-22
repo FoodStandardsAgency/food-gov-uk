@@ -22,7 +22,7 @@
 		padding-left: 14px;
 		background-image: url('../images/green-arrow-thin-right.png');
 		background-repeat: no-repeat;
-		background-position: left center;
+		background-position: left 5px;
 		a {
 			text-decoration: none;
 			color: #006f51;
@@ -79,5 +79,28 @@
 		font-size: 1.2em; 
 		line-height: 1.4em;
 		margin-bottom: 5px;
+	}
+}
+
+/* positioning of block on landing page */
+.field--type-blockreference .block.block--views-news-block {
+	width: 225px;
+	margin-left: 12px;
+	margin-bottom: 20px;
+	float: right;
+}
+
+/* mobile view */
+@include breakpoint($mobile) {
+	/* increase all font sizes that are nested in here */
+	.field--type-blockreference .block--views-news-block {
+		font-size: 1.1em;
+	}
+	/* positioning of block on landing page */
+	.field--type-blockreference .block.block--views-news-block {
+		width: 100%;
+		margin-left: 0px;
+		margin-bottom: 17px;
+		float: right;
 	}
 }
