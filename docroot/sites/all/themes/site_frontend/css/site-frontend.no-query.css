@@ -1199,6 +1199,14 @@ span.copyright {
     line-height: 1.4em;
     margin-bottom: 5px; }
 
+/* positioning of block on landing page */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news\.scss}line{font-family:\0000386}}
+.field--type-blockreference .block.block--views-news-block {
+  width: 225px;
+  margin-left: 12px;
+  margin-bottom: 20px;
+  float: right; }
+
 /* mobile view */
 /** Main menu depends on Superfish module
   * Superfish settings:
