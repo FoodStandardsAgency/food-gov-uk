@@ -473,7 +473,7 @@ img, media {
     padding-left: 14px;
     background-image: url("../images/green-arrow-thin-right.png");
     background-repeat: no-repeat;
-    background-position: left 4px; }
+    background-position: left 5px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000353}}
     .page-section-teaser .node__title a {
       text-decoration: none;
@@ -1033,7 +1033,7 @@ span.copyright {
     padding-left: 14px;
     background-image: url("../images/green-arrow-thin-right.png");
     background-repeat: no-repeat;
-    background-position: left 4px; }
+    background-position: left 5px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news\.scss}line{font-family:\0000326}}
     .latest-news .node__title a,
     .field--type-blockreference .block--views-news-block .node__title a {
