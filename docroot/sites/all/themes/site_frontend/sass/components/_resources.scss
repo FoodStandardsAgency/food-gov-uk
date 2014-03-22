@@ -1,0 +1,71 @@
+/* requires block class: resources and blokc class: blue-block */
+.resources {
+	font-size: 1em;	// sets base font size to 10px
+	line-height: 1.4em;
+	/* node title */
+	h2.node__title {
+		font-size: 1.4em; 
+		line-height: 1.4em;
+		margin-bottom: 0;
+		font-weight: normal;
+	}
+	.node__title {
+		font-weight: normal;
+		display: block;
+		a {
+			text-decoration: none;
+			color: #006f51;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+	}
+	/* subtitle */
+	.field--name-field-subtitle {
+		font-size: 1.2em; 
+		line-height: 1.4em;
+		display: block;
+	}
+	/* teaser updated date */
+	.field--name-field-updated {
+		font-size: 1.1em;
+		margin-bottom: 0.2em;
+	}
+	/* teaser summary */
+	.field--name-field-summary {
+		font-size: 1.2em; 
+		line-height: 1.4em;
+		display: block;
+		color: #333;
+		margin-bottom: 0.2em;
+	}
+	.field__item {
+		margin-bottom: 0.5em;
+	}
+	/* node links like read more (if enabled) */
+	.node__links {
+	  a {
+			text-decoration: none;
+			color: #006f51;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+	}
+}
+
+/* positioning of block on landing page */
+.node-type-landing-page .resources {
+	width: 225px;
+	margin-left: 6px;
+	float: right;
+}
+
+/* mobile view */
+@include breakpoint($mobile) {
+	.node-type-landing-page .resources {
+		width: 100%
+		margin-left: 0px;
+		float: none;
+	}	
+}
