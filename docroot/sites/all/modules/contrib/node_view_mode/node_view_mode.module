@@ -258,9 +258,13 @@ function node_view_mode_field_formatter_settings_summary($field, $instance, $vie
  * Implements hook_field_formatter_view().
  */
 function node_view_mode_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
-  $display_mode_field = 'field_widget_style';
   $element = array();
   $settings = $display['settings'];
+
+  // Prevent Field Collection from trying to proccess a Node View Field Collection field.
+  if ($field['type'] == 'node_view_mode_field_collection') {
+    return $element;
+  }
 
   switch ($display['type']) {
 
