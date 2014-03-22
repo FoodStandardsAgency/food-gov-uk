@@ -5,7 +5,12 @@
  * dependant on the view been set as unformatted list
  */
 .latest-news,
-.field--type-blockreference .block--views-news-block {
+.field--type-blockreference .block--views-news-block,
+.field--type-blockreference .block--views-news-block-1,
+.field--type-blockreference .block--views-news-block-2,
+.field--type-blockreference .block--views-news-block-3,
+.field--type-blockreference .block--views-news-block-4,
+.field--type-blockreference .block--views-news-block-5 {
 	font-size: 1em;	// sets base font size to 10px
 	line-height: 1.4em;
 	margin-bottom: 18px;
@@ -83,7 +88,12 @@
 }
 
 /* positioning of block on landing page */
-.field--type-blockreference .block.block--views-news-block {
+.field--type-blockreference .block.block--views-news-block,
+.field--type-blockreference .block.block--views-news-block-1,
+.field--type-blockreference .block.block--views-news-block-2,
+.field--type-blockreference .block.block--views-news-block-3,
+.field--type-blockreference .block.block--views-news-block-4,
+.field--type-blockreference .block.block--views-news-block-5 {
 	width: 225px;
 	margin-left: 12px;
 	margin-bottom: 20px;
@@ -93,11 +103,21 @@
 /* mobile view */
 @include breakpoint($mobile) {
 	/* increase all font sizes that are nested in here */
-	.field--type-blockreference .block--views-news-block {
+	.field--type-blockreference .block--views-news-block,
+	.field--type-blockreference .block--views-news-block-1,
+	.field--type-blockreference .block--views-news-block-2,
+	.field--type-blockreference .block--views-news-block-3,
+	.field--type-blockreference .block--views-news-block-4,
+	.field--type-blockreference .block--views-news-block-5 {
 		font-size: 1.1em;
 	}
 	/* positioning of block on landing page */
-	.field--type-blockreference .block.block--views-news-block {
+	.field--type-blockreference .block.block--views-news-block,
+	.field--type-blockreference .block.block--views-news-block-1,
+	.field--type-blockreference .block.block--views-news-block-2,
+	.field--type-blockreference .block.block--views-news-block-3,
+	.field--type-blockreference .block.block--views-news-block-4,
+	.field--type-blockreference .block.block--views-news-block-5 {
 		width: 100%;
 		margin-left: 0px;
 		margin-bottom: 17px;
