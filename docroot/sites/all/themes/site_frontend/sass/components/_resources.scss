@@ -14,7 +14,7 @@
 		display: block;
 		a {
 			text-decoration: none;
-			color: #006f51;
+			color: #00416c;
 		}
 		a:hover {
 			text-decoration: underline;
@@ -46,11 +46,22 @@
 	.node__links {
 	  a {
 			text-decoration: none;
-			color: #006f51;
+			color: #00416c;
 		}
 		a:hover {
 			text-decoration: underline;
 		}
+	}
+	/* line separator */
+	.views-row {
+		border-bottom: 1px solid #c6d7dd;
+		padding-bottom: 4px;
+		margin-bottom: 4px;
+	}
+	.views-row.views-row-last {
+		border-bottom: none;
+		padding-bottom: 0;
+		margin-bottom: 0;
 	}
 }
 
