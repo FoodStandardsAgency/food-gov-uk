@@ -40,6 +40,13 @@ function local_deployment_install() {
   module_enable(array('preserve_filter'), TRUE);
   module_enable(array('migrate'), TRUE);
   module_enable(array('date_facets'), TRUE);
+  module_enable(array('i18n'), TRUE);
+  module_enable(array('i18n_variable'), TRUE);
+  module_enable(array('i18n_node'), TRUE);
+  module_enable(array('i18n_select'), TRUE);
+  module_enable(array('i18_string'), TRUE);
+  module_enable(array('neutral_paths'), TRUE);
+
 
   module_enable(array('admin_views'), TRUE);
   module_enable(array('views_bulk_operations'), TRUE);
