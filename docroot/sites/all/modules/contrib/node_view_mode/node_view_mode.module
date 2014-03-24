@@ -119,8 +119,6 @@ function node_view_mode_field_instance_settings_form($field, $instance) {
     '#required'      => TRUE,
   );
 
-
-
   return $form;
 }
 
