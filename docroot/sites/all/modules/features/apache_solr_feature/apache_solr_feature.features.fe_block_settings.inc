@@ -35,7 +35,7 @@ function apache_solr_feature_default_fe_block_settings() {
         'weight' => 0,
       ),
     ),
-    'title' => 'Search by section',
+    'title' => '<none>',
     'visibility' => 0,
   );
 
@@ -62,13 +62,13 @@ function apache_solr_feature_default_fe_block_settings() {
         'weight' => 0,
       ),
     ),
-    'title' => 'Search by date (updated/published)',
+    'title' => '<none>',
     'visibility' => 0,
   );
 
   $export['facetapi-mo10eVoL905Qwndxck1XcD0dZWgc0x7s'] = array(
     'cache' => -1,
-    'css_class' => '',
+    'css_class' => 'search-facet',
     'custom' => 0,
     'delta' => 'mo10eVoL905Qwndxck1XcD0dZWgc0x7s',
     'module' => 'facetapi',
@@ -89,7 +89,7 @@ function apache_solr_feature_default_fe_block_settings() {
         'weight' => 0,
       ),
     ),
-    'title' => '',
+    'title' => '<none>',
     'visibility' => 0,
   );
 
@@ -116,7 +116,7 @@ function apache_solr_feature_default_fe_block_settings() {
         'weight' => 0,
       ),
     ),
-    'title' => 'Search by word or phrase',
+    'title' => '<none>',
     'visibility' => 0,
   );
 
