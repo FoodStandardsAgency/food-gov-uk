@@ -475,7 +475,7 @@ sites/all/libraries/superfish/sfsmallscreen.js';
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'tinynav_css_selector';
-  $strongarm->value = '.main-menu-mobile ul.menu';
+  $strongarm->value = '.main-menu-mobile .menu';
   $export['tinynav_css_selector'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -489,7 +489,7 @@ sites/all/libraries/superfish/sfsmallscreen.js';
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'tinynav_media_query';
-  $strongarm->value = 'all and (max-width:480px)';
+  $strongarm->value = 'all and (max-width: 480px)';
   $export['tinynav_media_query'] = $strongarm;
 
   return $export;
