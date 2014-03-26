@@ -15,7 +15,7 @@ function enforcement_section_feature_context_default_contexts() {
   $context->api_version = 3;
   $context->name = 'submenu_enforcement_and_regulation';
   $context->description = 'Places submenu in left sidebar';
-  $context->tag = 'Submenus';
+  $context->tag = 'Enforcement and Regulation';
   $context->conditions = array(
     'path' => array(
       'values' => array(
@@ -40,8 +40,8 @@ function enforcement_section_feature_context_default_contexts() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Enforcement and Regulation');
   t('Places submenu in left sidebar');
-  t('Submenus');
   $export['submenu_enforcement_and_regulation'] = $context;
 
   return $export;
