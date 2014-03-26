@@ -49,6 +49,20 @@ function field_groups_feature_strongarm() {
     'group_science_data|field_collection_item|field_fc_page_section|form' => FALSE,
     'group_news|node|faq|form' => TRUE,
     'group_faq|node|faq|form' => FALSE,
+    'group_generic_side_content|node|audit_report|form' => FALSE,
+    'group_generic_side_content|node|job|form' => FALSE,
+    'group_generic_side_content|node|consultation|form' => FALSE,
+    'group_generic_side_content|node|news|form' => FALSE,
+    'group_featured_items|node|consultation|form' => TRUE,
+    'group_related_data|field_collection_item|field_fc_page_section|fc_teaser' => FALSE,
+    'group_last_updated|node|research_project|form' => TRUE,
+    'group_summary|node|landing_page|form' => FALSE,
+    'group_accordion|node|landing_page|form' => FALSE,
+    'group_banner|node|landing_page|form' => FALSE,
+    'group_main|node|landing_page|form' => FALSE,
+    'group_right_column|node|landing_page|form' => FALSE,
+    'group_page_settings|node|landing_page|form' => FALSE,
+    'group_meta_info|node|research_project|form' => FALSE,
   );
   $export['default_field_group'] = $strongarm;
 
