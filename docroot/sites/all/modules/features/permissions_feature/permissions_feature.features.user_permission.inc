@@ -204,6 +204,15 @@ function permissions_feature_user_default_permissions() {
     'module' => 'block',
   );
 
+  // Exported permission: 'administer content translations'.
+  $permissions['administer content translations'] = array(
+    'name' => 'administer content translations',
+    'roles' => array(
+      'Administrator' => 'Administrator',
+    ),
+    'module' => 'i18n_node',
+  );
+
   // Exported permission: 'administer content types'.
   $permissions['administer content types'] = array(
     'name' => 'administer content types',
@@ -211,6 +220,15 @@ function permissions_feature_user_default_permissions() {
       'Administrator' => 'Administrator',
     ),
     'module' => 'node',
+  );
+
+  // Exported permission: 'administer custom tokens'.
+  $permissions['administer custom tokens'] = array(
+    'name' => 'administer custom tokens',
+    'roles' => array(
+      'Administrator' => 'Administrator',
+    ),
+    'module' => 'token_custom',
   );
 
   // Exported permission: 'administer facets'.
@@ -292,6 +310,15 @@ function permissions_feature_user_default_permissions() {
       'Administrator' => 'Administrator',
     ),
     'module' => 'image',
+  );
+
+  // Exported permission: 'administer languages'.
+  $permissions['administer languages'] = array(
+    'name' => 'administer languages',
+    'roles' => array(
+      'Administrator' => 'Administrator',
+    ),
+    'module' => 'locale',
   );
 
   // Exported permission: 'administer menu'.
@@ -404,6 +431,15 @@ function permissions_feature_user_default_permissions() {
       'Administrator' => 'Administrator',
     ),
     'module' => 'system',
+  );
+
+  // Exported permission: 'administer token insert settings'.
+  $permissions['administer token insert settings'] = array(
+    'name' => 'administer token insert settings',
+    'roles' => array(
+      'Administrator' => 'Administrator',
+    ),
+    'module' => 'token_insert',
   );
 
   // Exported permission: 'administer url aliases'.
@@ -602,6 +638,15 @@ function permissions_feature_user_default_permissions() {
     'module' => 'features',
   );
 
+  // Exported permission: 'list custom tokens'.
+  $permissions['list custom tokens'] = array(
+    'name' => 'list custom tokens',
+    'roles' => array(
+      'Administrator' => 'Administrator',
+    ),
+    'module' => 'token_custom',
+  );
+
   // Exported permission: 'manage features'.
   $permissions['manage features'] = array(
     'name' => 'manage features',
@@ -657,15 +702,6 @@ function permissions_feature_user_default_permissions() {
       'Manager' => 'Manager',
     ),
     'module' => 'user',
-  );
-
-  // Exported permission: 'show format selection for comment'.
-  $permissions['show format selection for comment'] = array(
-    'name' => 'show format selection for comment',
-    'roles' => array(
-      'Administrator' => 'Administrator',
-    ),
-    'module' => 'better_formats',
   );
 
   // Exported permission: 'show format selection for field_collection_item'.
@@ -731,6 +767,42 @@ function permissions_feature_user_default_permissions() {
     'module' => 'better_formats',
   );
 
+  // Exported permission: 'translate admin strings'.
+  $permissions['translate admin strings'] = array(
+    'name' => 'translate admin strings',
+    'roles' => array(
+      'Administrator' => 'Administrator',
+    ),
+    'module' => 'i18n_string',
+  );
+
+  // Exported permission: 'translate content'.
+  $permissions['translate content'] = array(
+    'name' => 'translate content',
+    'roles' => array(
+      'Administrator' => 'Administrator',
+    ),
+    'module' => 'translation',
+  );
+
+  // Exported permission: 'translate interface'.
+  $permissions['translate interface'] = array(
+    'name' => 'translate interface',
+    'roles' => array(
+      'Administrator' => 'Administrator',
+    ),
+    'module' => 'locale',
+  );
+
+  // Exported permission: 'translate user-defined strings'.
+  $permissions['translate user-defined strings'] = array(
+    'name' => 'translate user-defined strings',
+    'roles' => array(
+      'Administrator' => 'Administrator',
+    ),
+    'module' => 'i18n_string',
+  );
+
   // Exported permission: 'unpublish current revision'.
   $permissions['unpublish current revision'] = array(
     'name' => 'unpublish current revision',
@@ -765,6 +837,15 @@ function permissions_feature_user_default_permissions() {
       'Administrator' => 'Administrator',
     ),
     'module' => 'bigmenu',
+  );
+
+  // Exported permission: 'use token insert'.
+  $permissions['use token insert'] = array(
+    'name' => 'use token insert',
+    'roles' => array(
+      'Administrator' => 'Administrator',
+    ),
+    'module' => 'token_insert',
   );
 
   // Exported permission: 'view files'.
