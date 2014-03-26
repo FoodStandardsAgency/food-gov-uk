@@ -14,7 +14,7 @@ function job_content_type_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'additional_settings__active_tab_job';
-  $strongarm->value = 'edit-xmlsitemap';
+  $strongarm->value = 'edit-menu';
   $export['additional_settings__active_tab_job'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -150,6 +150,9 @@ function job_content_type_feature_strongarm() {
       'revision' => array(
         'custom_settings' => FALSE,
       ),
+      'micro_teaser' => array(
+        'custom_settings' => TRUE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
@@ -168,11 +171,48 @@ function job_content_type_feature_strongarm() {
         'xmlsitemap' => array(
           'weight' => '3',
         ),
+        'language' => array(
+          'weight' => '0',
+        ),
       ),
-      'display' => array(),
+      'display' => array(
+        'language' => array(
+          'default' => array(
+            'weight' => '0',
+            'visible' => FALSE,
+          ),
+          'full' => array(
+            'weight' => '12',
+            'visible' => FALSE,
+          ),
+          'teaser' => array(
+            'weight' => '0',
+            'visible' => FALSE,
+          ),
+          'search_result' => array(
+            'weight' => '0',
+            'visible' => FALSE,
+          ),
+          'short_teaser' => array(
+            'weight' => '0',
+            'visible' => FALSE,
+          ),
+          'micro_teaser' => array(
+            'weight' => '0',
+            'visible' => FALSE,
+          ),
+        ),
+      ),
     ),
   );
   $export['field_bundle_settings_node__job'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'language_content_type_job';
+  $strongarm->value = '2';
+  $export['language_content_type_job'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -192,7 +232,9 @@ function job_content_type_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'menu_options_job';
-  $strongarm->value = array();
+  $strongarm->value = array(
+    0 => 'main-menu',
+  );
   $export['menu_options_job'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -224,7 +266,7 @@ function job_content_type_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'node_preview_job';
-  $strongarm->value = '1';
+  $strongarm->value = '0';
   $export['node_preview_job'] = $strongarm;
 
   $strongarm = new stdClass();
