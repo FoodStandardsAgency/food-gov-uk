@@ -4,8 +4,8 @@
 
 /* adjust the minimum height of main menu tabs to make it smaller */
 .main-menu-desktop .sf-menu.sf-style-none li.sf-depth-1 > a {
-	min-height: none;
-	height: 40px;
-	max-height: 50px;
+	min-height: 0;
+	height: 2em;
+	max-height: 2.2em;
 }
 
