@@ -67,6 +67,7 @@
 			background: -ms-linear-gradient(top,#e0e0e0 0,#fff 97%);
 			background: linear-gradient(to bottom,#e0e0e0 0,#fff 97%);
 			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e0e0e0',endColorstr='#ffffff',GradientType=0);
+			overflow: hidden;	/* fixes issues in IE 9 with backgrounds appearing beyond rounded corners */
 		}
 		li.sf-depth-1 > a:hover {
 		  background: #4f850c;
@@ -77,6 +78,7 @@
 			background: -ms-linear-gradient(top,#46750b 0,#4f850c 100%);
 			background: linear-gradient(top,#46750b 0,#4f850c 100%);
 			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#46750b',endColorstr='#4f850c',GradientType=0);
+			overflow: hidden;	/* fixes issues in IE 9 with backgrounds appearing beyond rounded corners */
 		}
 		li.sf-depth-1.active-trail > a {
 			color: #ffffff;
@@ -88,6 +90,7 @@
 			background: -ms-linear-gradient(top,#46750b 0,#4f850c 100%);
 			background: linear-gradient(top,#46750b 0,#4f850c 100%);
 			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#46750b',endColorstr='#4f850c',GradientType=0);
+			overflow: hidden;	/* fixes issues in IE 9 with backgrounds appearing beyond rounded corners */
 		}
 		li.sf-depth-2 > a {
 			background: #ffffff;
@@ -138,7 +141,7 @@
 			-ms-border-radius: 17px 17px 0 0;
 			-o-border-radius: 17px 17px 0 0;
 			border-radius: 17px 17px 0 0;
-			overflow: hidden;	 /* fixes IE9 issue with background exposed past the rounded borders */
+			overflow: hidden;	/* fixes issues in IE 9 with backgrounds appearing beyond rounded corners */
 		}
 		li.sf-depth-2 a {
 			border-left: 3px solid #d0d0d0;

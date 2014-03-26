@@ -1,11 +1,3 @@
 /**
  * Cross-browser fixes for ie9
  */
-/* background of menu tabs was apearing outside the rounded borders */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/ie\/ie9\.scss}line{font-family:\000036}}
-.main-menu-desktop {
-  /* apply to only top tabs */ }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/ie\/ie9\.scss}line{font-family:\000038}}
-  .main-menu-desktop a.sf-depth-1 {
-    /* prevents background from showing up past rounded borders */
-    overflow: hidden; }

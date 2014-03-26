@@ -1352,8 +1352,10 @@ span.copyright {
     background: -o-linear-gradient(top, #e0e0e0 0, white 97%);
     background: -ms-linear-gradient(top, #e0e0e0 0, white 97%);
     background: linear-gradient(to bottom, #e0e0e0 0%, #ffffff 97%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e0e0e0',endColorstr='#ffffff',GradientType=0); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\0000371}}
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e0e0e0',endColorstr='#ffffff',GradientType=0);
+    overflow: hidden;
+    /* fixes issues in IE 9 with backgrounds appearing beyond rounded corners */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\0000372}}
   .main-menu-desktop .sf-menu.sf-style-none li.sf-depth-1 > a:hover {
     background: #4f850c;
     background: -moz-linear-gradient(top, #46750b 0, #4f850c 100%);
@@ -1362,8 +1364,10 @@ span.copyright {
     background: -o-linear-gradient(top, #46750b 0, #4f850c 100%);
     background: -ms-linear-gradient(top, #46750b 0, #4f850c 100%);
     background: linear-gradient(top, #46750b 0%, #4f850c 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#46750b',endColorstr='#4f850c',GradientType=0); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\0000381}}
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#46750b',endColorstr='#4f850c',GradientType=0);
+    overflow: hidden;
+    /* fixes issues in IE 9 with backgrounds appearing beyond rounded corners */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\0000383}}
   .main-menu-desktop .sf-menu.sf-style-none li.sf-depth-1.active-trail > a {
     color: #ffffff;
     background: #4f850c;
@@ -1373,11 +1377,13 @@ span.copyright {
     background: -o-linear-gradient(top, #46750b 0, #4f850c 100%);
     background: -ms-linear-gradient(top, #46750b 0, #4f850c 100%);
     background: linear-gradient(top, #46750b 0%, #4f850c 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#46750b',endColorstr='#4f850c',GradientType=0); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\0000392}}
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#46750b',endColorstr='#4f850c',GradientType=0);
+    overflow: hidden;
+    /* fixes issues in IE 9 with backgrounds appearing beyond rounded corners */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\0000395}}
   .main-menu-desktop .sf-menu.sf-style-none li.sf-depth-2 > a {
     background: #ffffff; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\0000395}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\0000398}}
   .main-menu-desktop .sf-menu.sf-style-none li.sf-depth-2 > a:hover {
     background: #f9f9f9;
     background: -moz-linear-gradient(top, #f9f9f9 0, #dfdfdf 100%);
@@ -1388,32 +1394,32 @@ span.copyright {
     background: linear-gradient(top, #f9f9f9 0%, #dfdfdf 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9',endColorstr='#dfdfdf',GradientType=0); }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003108}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003111}}
 .main-menu-desktop {
   /* drop shadow */ }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003109}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003112}}
   .main-menu-desktop .sf-menu.sf-style-none.sf-horizontal {
     /* top level last tab */
     /* top level tabs */
     /* when there is only one child menu item */ }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003111}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003114}}
     .main-menu-desktop .sf-menu.sf-style-none.sf-horizontal > li.first:hover > ul,
     .main-menu-desktop .sf-menu.sf-style-none.sf-horizontal > li.first.sfHover > ul {
       left: 10px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003118}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003121}}
     .main-menu-desktop .sf-menu.sf-style-none.sf-horizontal > li:hover > ul,
     .main-menu-desktop .sf-menu.sf-style-none.sf-horizontal > li.sfHover > ul {
       left: -1px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003122}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003125}}
     .main-menu-desktop .sf-menu.sf-style-none.sf-horizontal li:hover > ul,
     .main-menu-desktop .sf-menu.sf-style-none.sf-horizontal li.sfHover > ul {
       top: 43px;
       left: -35px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003127}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003130}}
     .main-menu-desktop .sf-menu.sf-style-none.sf-horizontal li.sf-depth-1 {
       margin-right: 5px;
       background: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003131}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003134}}
     .main-menu-desktop .sf-menu.sf-style-none.sf-horizontal li.sf-depth-1 > a {
       border-top: 2px solid #fff;
       border-left: 2px solid #fff;
@@ -1425,14 +1431,14 @@ span.copyright {
       -o-border-radius: 17px 17px 0 0;
       border-radius: 17px 17px 0 0;
       overflow: hidden;
-      /* fixes IE9 issue with background exposed past the rounded borders */ }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003143}}
+      /* fixes issues in IE 9 with backgrounds appearing beyond rounded corners */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003146}}
     .main-menu-desktop .sf-menu.sf-style-none.sf-horizontal li.sf-depth-2 a {
       border-left: 3px solid #d0d0d0;
       border-right: 3px solid #d0d0d0;
       border-bottom: 1px solid #ebebeb;
       border-top: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003149}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003152}}
     .main-menu-desktop .sf-menu.sf-style-none.sf-horizontal li.sf-depth-2.first a {
       border-top: 3px solid #d0d0d0;
       -moz-border-radius: 3px 3px 0 0;
@@ -1440,7 +1446,7 @@ span.copyright {
       -ms-border-radius: 3px 3px 0 0;
       -o-border-radius: 3px 3px 0 0;
       border-radius: 3px 3px 0 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003157}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003160}}
     .main-menu-desktop .sf-menu.sf-style-none.sf-horizontal li.sf-depth-2.last a {
       border-bottom: 3px solid #d0d0d0;
       -moz-border-radius: 0 0 3px 3px;
@@ -1448,7 +1454,7 @@ span.copyright {
       -ms-border-radius: 0 0 3px 3px;
       -o-border-radius: 0 0 3px 3px;
       border-radius: 0 0 3px 3px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003166}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003169}}
     .main-menu-desktop .sf-menu.sf-style-none.sf-horizontal li.sf-depth-2.firstandlast a {
       border-top: 3px solid #d0d0d0;
       border-bottom: 3px solid #d0d0d0;
@@ -1457,17 +1463,17 @@ span.copyright {
       -ms-border-radius: 3px 3px 3px 3px;
       -o-border-radius: 3px 3px 3px 3px;
       border-radius: 3px 3px 3px 3px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003176}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003179}}
     .main-menu-desktop .sf-menu.sf-style-none.sf-horizontal li li:hover > ul,
     .main-menu-desktop .sf-menu.sf-style-none.sf-horizontal li li.sfHover > ul {
       top: -1px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003182}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003185}}
   .main-menu-desktop .sf-menu.sf-style-none.sf-horizontal.sf-shadow ul {
     padding: 0 8px 7px 0 !important; }
 
 /* mobile layout */
 @media (min-width: 0px) and (max-width: 480px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003190}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003193}}
   .main-menu-desktop {
     display: none; } }
 /** Mobile menu is just a menu block applied to main menu with only first level items displayed
