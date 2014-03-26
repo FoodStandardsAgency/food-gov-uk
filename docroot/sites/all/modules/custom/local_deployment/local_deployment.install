@@ -46,13 +46,13 @@ function local_deployment_install() {
   module_enable(array('i18n_select'), TRUE);
   module_enable(array('i18_string'), TRUE);
   module_enable(array('neutral_paths'), TRUE);
+  module_enable(array('node_view_mode'), TRUE);
 
 
   module_enable(array('admin_views'), TRUE);
   module_enable(array('views_bulk_operations'), TRUE);
 
   // Enable Feature modules.
-  module_enable(array('fonts___feature'), TRUE);
   module_enable(array('imagecache_feature'), TRUE);
   module_enable(array('menus_feature'), TRUE);
   module_enable(array('node_export___feature'), TRUE);
@@ -88,6 +88,8 @@ function local_deployment_install() {
 
   module_enable(array('facets_select'), TRUE);
 
+  // Disable modules that were enabled by the install profile but we don't need.
+  module_disable(array('fontyourface', 'local_fonts'), FALSE);
 }
 
 

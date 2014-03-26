@@ -40,6 +40,7 @@ dependencies[] = features
 dependencies[] = field
 dependencies[] = field_collection
 dependencies[] = field_collection_deploy
+dependencies[] = field_formatter_css_class
 dependencies[] = field_formatter_settings
 dependencies[] = field_group
 dependencies[] = field_ui

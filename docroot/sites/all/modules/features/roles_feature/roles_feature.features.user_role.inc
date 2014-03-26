@@ -16,12 +16,6 @@ function roles_feature_user_default_roles() {
     'weight' => 6,
   );
 
-  // Exported role: Administrator.
-  $roles['Administrator'] = array(
-    'name' => 'Administrator',
-    'weight' => 2,
-  );
-
   // Exported role: Business.
   $roles['Business'] = array(
     'name' => 'Business',
