@@ -2,3 +2,11 @@
  * Cross-browser fixes for ie9
  */
 
+/* background of menu tabs was apearing outside the rounded borders */
+.main-menu-desktop {
+	/* apply to only top tabs */
+	a.sf-depth-1 {
+		/* prevents background from showing up past rounded borders */
+		overflow: hidden;
+	}
+}
