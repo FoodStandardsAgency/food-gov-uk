@@ -5,4 +5,5 @@
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/ie\/ie8\.scss}line{font-family:\000036}}
 .main-menu-desktop .sf-menu.sf-style-none li.sf-depth-1 > a {
   min-height: none;
-  height: 50px; }
+  height: 40px;
+  max-height: 50px; }
