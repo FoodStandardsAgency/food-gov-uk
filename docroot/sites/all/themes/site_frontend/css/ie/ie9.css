@@ -2,12 +2,12 @@
  * Cross-browser fixes for ie9
  */
 /* prevent gradient on main menu tabs from extending past the rounded borders */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/ie\/ie9\.scss}line{font-family:\000037}}
-.main-menu-desktop li.sf-depth-1 > a {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/ie\/ie9\.scss}line{font-family:\000038}}
+.main-menu-desktop .sf-menu.sf-style-none li.sf-depth-1 > a {
   filter: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/ie\/ie9\.scss}line{font-family:\0000310}}
-.main-menu-desktop li.sf-depth-1 > a:hover {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/ie\/ie9\.scss}line{font-family:\0000311}}
+.main-menu-desktop .sf-menu.sf-style-none li.sf-depth-1 > a:hover {
   filter: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/ie\/ie9\.scss}line{font-family:\0000313}}
-.main-menu-desktop li.sf-depth-1.active-trail > a {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/ie\/ie9\.scss}line{font-family:\0000314}}
+.main-menu-desktop .sf-menu.sf-style-none li.sf-depth-1.active-trail > a {
   filter: none; }
