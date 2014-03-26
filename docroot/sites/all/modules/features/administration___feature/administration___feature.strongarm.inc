@@ -31,92 +31,107 @@ function administration___feature_strongarm() {
   $strongarm->value = array(
     'main-menu' => array(
       'enabled' => 1,
-      'weight' => 0,
+      'weight' => '0',
       'type' => 'menu',
+      'title' => 'Main menu',
       'name' => 'main-menu',
     ),
     'management' => array(
-      'enabled' => 1,
-      'weight' => 0,
+      'enabled' => 0,
+      'weight' => '0',
       'type' => 'menu',
+      'title' => 'Management',
       'name' => 'management',
     ),
     'menu-footer-menu' => array(
-      'enabled' => 1,
-      'weight' => 0,
+      'enabled' => 0,
+      'weight' => '0',
       'type' => 'menu',
+      'title' => 'Footer menu',
       'name' => 'menu-footer-menu',
     ),
     'menu-nation-menu' => array(
-      'enabled' => 1,
-      'weight' => 0,
+      'enabled' => 0,
+      'weight' => '0',
       'type' => 'menu',
+      'title' => 'Nation menu',
       'name' => 'menu-nation-menu',
     ),
     'menu-submenu-about-us' => array(
-      'enabled' => 1,
-      'weight' => 0,
+      'enabled' => 0,
+      'weight' => '0',
       'type' => 'menu',
+      'title' => 'menu-submenu-about-us',
       'name' => 'menu-submenu-about-us',
     ),
     'menu-submenu-business-and-indust' => array(
-      'enabled' => 1,
-      'weight' => 0,
+      'enabled' => 0,
+      'weight' => '0',
       'type' => 'menu',
+      'title' => 'menu-submenu-business-and-indust',
       'name' => 'menu-submenu-business-and-indust',
     ),
     'menu-submenu-enforcement-and-reg' => array(
-      'enabled' => 1,
-      'weight' => 0,
+      'enabled' => 0,
+      'weight' => '0',
       'type' => 'menu',
+      'title' => 'menu-submenu-enforcement-and-reg',
       'name' => 'menu-submenu-enforcement-and-reg',
     ),
     'menu-submenu-news-and-updates' => array(
-      'enabled' => 1,
-      'weight' => 0,
+      'enabled' => 0,
+      'weight' => '0',
       'type' => 'menu',
+      'title' => 'menu-submenu-news-and-updates',
       'name' => 'menu-submenu-news-and-updates',
     ),
     'menu-submenu-policy-and-advice' => array(
-      'enabled' => 1,
-      'weight' => 0,
+      'enabled' => 0,
+      'weight' => '0',
       'type' => 'menu',
+      'title' => 'menu-submenu-policy-and-advice',
       'name' => 'menu-submenu-policy-and-advice',
     ),
     'menu-submenu-science-and-researc' => array(
-      'enabled' => 1,
-      'weight' => 0,
+      'enabled' => 0,
+      'weight' => '0',
       'type' => 'menu',
+      'title' => 'menu-submenu-science-and-researc',
       'name' => 'menu-submenu-science-and-researc',
     ),
     'menu_breadcrumb_default_menu' => array(
-      'enabled' => 1,
-      'weight' => 0,
+      'enabled' => 0,
+      'weight' => '0',
       'type' => 'menu_breadcrumb_default_menu',
+      'title' => 'menu_breadcrumb_default_menu',
       'name' => 'menu_breadcrumb_default_menu',
     ),
     'navigation' => array(
-      'enabled' => 1,
-      'weight' => 0,
+      'enabled' => 0,
+      'weight' => '0',
       'type' => 'menu',
+      'title' => 'Navigation',
       'name' => 'navigation',
     ),
     'shortcut-set-1' => array(
-      'enabled' => 1,
-      'weight' => 0,
+      'enabled' => 0,
+      'weight' => '0',
       'type' => 'menu',
+      'title' => 'shortcut-set-1',
       'name' => 'shortcut-set-1',
     ),
     'user-menu' => array(
-      'enabled' => 1,
-      'weight' => 0,
+      'enabled' => 0,
+      'weight' => '0',
       'type' => 'menu',
+      'title' => 'User menu',
       'name' => 'user-menu',
     ),
     'devel' => array(
-      'enabled' => FALSE,
-      'weight' => 14,
+      'enabled' => 0,
+      'weight' => '14',
       'type' => 'menu',
+      'title' => 'Development',
       'name' => 'devel',
     ),
   );
@@ -141,7 +156,7 @@ function administration___feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_node_pattern';
-  $strongarm->value = '[node:title]';
+  $strongarm->value = '';
   $export['pathauto_node_pattern'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -201,14 +216,14 @@ function administration___feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'site_403';
-  $strongarm->value = '';
+  $strongarm->value = 'node/86';
   $export['site_403'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'site_404';
-  $strongarm->value = '';
+  $strongarm->value = 'node/85';
   $export['site_404'] = $strongarm;
 
   $strongarm = new stdClass();
