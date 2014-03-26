@@ -2,5 +2,8 @@
  * Cross-browser fixes for ie8
  */
 
-
+/* adjust the minimum height of main menu tabs to make it smaller */
+.main-menu-desktop .sf-menu.sf-style-none li.sf-depth-1 > a {
+	min-height: 1.94506321821;	// for other browsers we have 3.33765em;
+}
 
