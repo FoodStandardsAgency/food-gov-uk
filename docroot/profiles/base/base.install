@@ -40,6 +40,7 @@ function base_install() {
       ),
     ),
   );
+
   $filtered_html_format = (object) $filtered_html_format;
   filter_format_save($filtered_html_format);
 
@@ -65,13 +66,11 @@ function base_install() {
       ),
     ),
   );
+
   $full_html_format = (object) $full_html_format;
   filter_format_save($full_html_format);
 
   // Enable theme.
-  $default_theme = variable_get('theme_default', 'site_frontend');
-  $admin_theme = 'seven';
-
 	$enable = array(
 	    'theme_default' => 'site_frontend',
 	    'admin_theme' => 'seven',
@@ -87,12 +86,6 @@ function base_install() {
 
   // Disable the default Bartik theme
   theme_disable(array('bartik'));
-
-  $query = db_insert('block')->fields(array('module', 'delta', 'theme', 'status', 'weight', 'region', 'pages', 'cache'));
-  foreach ($blocks as $block) {
-    $query->values($block);
-  }
-  $query->execute();
 
   // Insert default pre-defined node types into the database. For a complete
   // list of available node type attributes, refer to the node type API
@@ -169,13 +162,10 @@ function base_install() {
   variable_set('admin_theme', 'seven');
   variable_set('node_admin_theme', '1');
   variable_set('clean_url', '1');
-  variable_set('pathauto_node_pattern', '[node:title]');
-  variable_set('pathauto_user_pattern', 'users/[user:name]');
   variable_set('site_default_country', 'GB');
   variable_set('date_default_timezone', 'Europe/London');
 
   // Set path to files directory.
   variable_set('file_public_path', 'files');
-
 
 }

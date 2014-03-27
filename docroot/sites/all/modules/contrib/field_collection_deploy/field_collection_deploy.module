@@ -179,6 +179,10 @@ function field_collection_deploy_import_field_collection($node, $field_collectio
 
 
 function field_collection_deploy_update_entity_reference($bundle_name, &$entity_field) {
+  // No need to process empty fields.
+  if (empty($entity_field)) {
+    return;
+  }
 
   // Get list of fields contained in this entity field.
   $field_instance = field_info_instances('field_collection_item', $bundle_name);
