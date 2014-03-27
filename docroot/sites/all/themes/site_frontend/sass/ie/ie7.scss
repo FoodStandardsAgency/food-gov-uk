@@ -2,3 +2,65 @@
  * Cross-browser fixes for ie7
  */
 
+/* IE7 layout fixes - IE7 does not respect our border-box model of Omega 4 so we for elements that
+ * havea width and padding set on them, we have to remove the padding, and then add the padding back to
+ * and inner element - that inner element muts not have a width set on it though. 
+ */
+.header-wrapper-inner,
+.l-header-branding,
+.l-header-top-menu,
+.l-header-search,
+.l-content,
+.l-header-main-menu,
+.l-header-social-media,
+.l-breadcrumb-accessibility,
+.l-breadcrumb,
+.l-accessibility,
+.l-sidebar-first,
+.l-sidebar-second,
+.l-footer,
+.l-footer-copyright,
+.l-footer-menu,
+.l-footer-buttons {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.l-header,
+.header-branding-inner,
+.header-top-menu-inner,
+.header-search-inner,
+.main-content-inner,
+.header-main-menu-inner,
+.header-social-media-inner,
+.breadcrumb-accessibility-inner,
+.breadcrumb-inner,
+.accessibility-inner,
+.sidebar-first-inner,
+.sidebar-second-inner,
+.footer-inner,
+.footer-copyright-inner,
+.footer-menu-inner,
+.footer-buttons-inner {
+	padding-left: 6px;
+	padding-right: 6px;
+}
+
+.bottom-menu-wrapper-inner,
+.l-bottom-menu {
+	padding-left: 0;
+	padding-right: 0;
+}
+.bottom-menu-inner {
+	padding-left: 12px;
+	padding-right: 12px;
+}
+
+.bottom-menu {
+	padding-right: 0;
+	.menu-block-wrapper {
+		padding-right: 12px;
+	}
+}
+
+
