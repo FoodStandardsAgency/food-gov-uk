@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Layouts feature.
+ */
+
+include_once 'layouts_feature.features.inc';
