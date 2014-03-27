@@ -66,6 +66,8 @@ function local_deployment_install() {
   module_enable(array('webform_content_type'), TRUE);
   module_enable(array('permissions_feature'), TRUE);
   module_enable(array('home_page_feature'), TRUE);
+  module_enable(array('faq_content_type_feature'), TRUE);
+  module_enable(array('general_block_content_type_feature'), TRUE);
 
   module_enable(array('facets_select'), TRUE);
 
