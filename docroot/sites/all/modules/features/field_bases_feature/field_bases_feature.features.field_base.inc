@@ -1025,7 +1025,7 @@ function field_bases_feature_field_default_field_bases() {
   // Exported field_base: 'field_fc_qanda'
   $field_bases['field_fc_qanda'] = array(
     'active' => 1,
-    'cardinality' => 1,
+    'cardinality' => -1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_fc_qanda',
