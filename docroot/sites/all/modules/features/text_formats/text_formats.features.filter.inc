@@ -51,7 +51,7 @@ function text_formats_filter_default_formats() {
   $formats['full_html'] = array(
     'format' => 'full_html',
     'name' => 'Full HTML',
-    'cache' => 0,
+    'cache' => 1,
     'status' => 1,
     'weight' => -8,
     'filters' => array(

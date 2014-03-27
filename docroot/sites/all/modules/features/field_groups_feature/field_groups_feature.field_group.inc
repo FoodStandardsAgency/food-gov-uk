@@ -51,7 +51,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Group',
-    'weight' => '2',
+    'weight' => '3',
     'children' => array(
       0 => 'group_subtitle_summary',
       1 => 'group_feature_image',
@@ -61,6 +61,7 @@ function field_groups_feature_field_group_info() {
       5 => 'group_ia',
       6 => 'group_page_settings',
       7 => 'group_audit',
+      8 => 'group_generic_side_content',
     ),
     'format_type' => 'accordion',
     'format_settings' => array(
@@ -89,12 +90,11 @@ function field_groups_feature_field_group_info() {
       0 => 'group_subtitle_summary',
       1 => 'group_feature_image',
       2 => 'group_page_sections',
-      3 => 'group_featured_items',
-      4 => 'group_ia',
-      5 => 'group_page_settings',
-      6 => 'group_generic_side_content',
-      7 => 'group_contact',
-      8 => 'group_consultation',
+      3 => 'group_ia',
+      4 => 'group_page_settings',
+      5 => 'group_contact',
+      6 => 'group_consultation',
+      7 => 'group_generic_side_content',
     ),
     'format_type' => 'accordion',
     'format_settings' => array(
@@ -193,6 +193,7 @@ function field_groups_feature_field_group_info() {
       5 => 'group_ia',
       6 => 'group_page_settings',
       7 => 'group_job',
+      8 => 'group_generic_side_content',
     ),
     'format_type' => 'accordion',
     'format_settings' => array(
@@ -204,6 +205,36 @@ function field_groups_feature_field_group_info() {
     ),
   );
   $export['group_accordion|node|job|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_accordion|node|landing_page|form';
+  $field_group->group_name = 'group_accordion';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'landing_page';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Group',
+    'weight' => '2',
+    'children' => array(
+      0 => 'group_summary',
+      1 => 'group_banner',
+      2 => 'group_main',
+      3 => 'group_right_column',
+      4 => 'group_page_settings',
+    ),
+    'format_type' => 'accordion',
+    'format_settings' => array(
+      'formatter' => '',
+      'instance_settings' => array(
+        'effect' => 'none',
+        'classes' => 'group-accordion field-group-accordion',
+      ),
+    ),
+  );
+  $export['group_accordion|node|landing_page|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -224,8 +255,8 @@ function field_groups_feature_field_group_info() {
       3 => 'group_featured_items',
       4 => 'group_ia',
       5 => 'group_page_settings',
-      6 => 'group_generic_side_content',
-      7 => 'group_news',
+      6 => 'group_news',
+      7 => 'group_generic_side_content',
     ),
     'format_type' => 'accordion',
     'format_settings' => array(
@@ -249,7 +280,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_group';
   $field_group->data = array(
     'label' => 'Additional Info',
-    'weight' => '20',
+    'weight' => '21',
     'children' => array(
       0 => 'field_rp_additional_info',
     ),
@@ -276,7 +307,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Audit',
-    'weight' => '7',
+    'weight' => '11',
     'children' => array(
       0 => 'field_nation',
       1 => 'field_audit_authority',
@@ -307,7 +338,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_group';
   $field_group->data = array(
     'label' => 'Background',
-    'weight' => '17',
+    'weight' => '18',
     'children' => array(
       0 => 'field_rp_background',
     ),
@@ -322,6 +353,33 @@ function field_groups_feature_field_group_info() {
     ),
   );
   $export['group_background|node|research_project|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_banner|node|landing_page|form';
+  $field_group->group_name = 'group_banner';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'landing_page';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_accordion';
+  $field_group->data = array(
+    'label' => 'Banner',
+    'weight' => '4',
+    'children' => array(
+      0 => 'field_banner_image',
+    ),
+    'format_type' => 'accordion-item',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-banner field-group-accordion-item',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_banner|node|landing_page|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -391,7 +449,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Consultation',
-    'weight' => '45',
+    'weight' => '47',
     'children' => array(
       0 => 'body',
       1 => 'field_consultation_dates',
@@ -422,7 +480,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Contact',
-    'weight' => '44',
+    'weight' => '46',
     'children' => array(
       0 => 'field_consultations_contact_name',
       1 => 'field_consultation_contact_tel',
@@ -453,7 +511,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_group';
   $field_group->data = array(
     'label' => 'Dissemination',
-    'weight' => '21',
+    'weight' => '22',
     'children' => array(
       0 => 'field_rp_dissemination',
     ),
@@ -480,7 +538,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'FAQ',
-    'weight' => '45',
+    'weight' => '47',
     'children' => array(
       0 => 'field_fc_qanda',
     ),
@@ -507,7 +565,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Feature image',
-    'weight' => '10',
+    'weight' => '13',
     'children' => array(
       0 => 'field_feature_image',
     ),
@@ -534,7 +592,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Feature image',
-    'weight' => '48',
+    'weight' => '49',
     'children' => array(
       0 => 'field_feature_image',
     ),
@@ -561,7 +619,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Feature image',
-    'weight' => '18',
+    'weight' => '25',
     'children' => array(
       0 => 'field_feature_image',
     ),
@@ -588,7 +646,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Feature image',
-    'weight' => '48',
+    'weight' => '49',
     'children' => array(
       0 => 'field_feature_image',
     ),
@@ -615,7 +673,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Feature image',
-    'weight' => '10',
+    'weight' => '11',
     'children' => array(
       0 => 'field_feature_image',
     ),
@@ -642,7 +700,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Feature image',
-    'weight' => '47',
+    'weight' => '54',
     'children' => array(
       0 => 'field_feature_image',
     ),
@@ -669,7 +727,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Featured items',
-    'weight' => '13',
+    'weight' => '17',
     'children' => array(
       0 => 'field_featured_item',
     ),
@@ -750,7 +808,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Featured items',
-    'weight' => '13',
+    'weight' => '15',
     'children' => array(
       0 => 'field_featured_item',
     ),
@@ -777,7 +835,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Featured items',
-    'weight' => '50',
+    'weight' => '57',
     'children' => array(
       0 => 'field_featured_item',
     ),
@@ -804,7 +862,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_group';
   $field_group->data = array(
     'label' => 'Final research report',
-    'weight' => '24',
+    'weight' => '25',
     'children' => array(
       0 => 'field_rp_final_research_report',
     ),
@@ -823,16 +881,20 @@ function field_groups_feature_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_generic_side_content|node|consultation|form';
+  $field_group->identifier = 'group_generic_side_content|node|audit_report|form';
   $field_group->group_name = 'group_generic_side_content';
   $field_group->entity_type = 'node';
-  $field_group->bundle = 'consultation';
+  $field_group->bundle = 'audit_report';
   $field_group->mode = 'form';
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
-    'label' => 'Generic side content',
-    'weight' => '50',
-    'children' => array(),
+    'label' => 'Right hand column',
+    'weight' => '16',
+    'children' => array(
+      0 => 'field_fc_side_content_generic',
+      1 => 'field_links_see_also',
+      2 => 'field_links_external',
+    ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
       'formatter' => 'closed',
@@ -841,6 +903,36 @@ function field_groups_feature_field_group_info() {
         'classes' => 'group-generic-side-content field-group-accordion-item',
         'required_fields' => 1,
       ),
+    ),
+  );
+  $export['group_generic_side_content|node|audit_report|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_generic_side_content|node|consultation|form';
+  $field_group->group_name = 'group_generic_side_content';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'consultation';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_accordion';
+  $field_group->data = array(
+    'label' => 'Right hand column',
+    'weight' => '51',
+    'children' => array(
+      0 => 'field_fc_side_content_generic',
+      1 => 'field_links_see_also',
+      2 => 'field_links_external',
+    ),
+    'format_type' => 'accordion-item',
+    'format_settings' => array(
+      'label' => 'Right hand column',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => 'group-generic-side-content field-group-accordion-item',
+        'description' => '',
+      ),
+      'formatter' => 'closed',
     ),
   );
   $export['group_generic_side_content|node|consultation|form'] = $field_group;
@@ -856,7 +948,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Right hand column',
-    'weight' => '21',
+    'weight' => '28',
     'children' => array(
       0 => 'field_fc_side_content_generic',
       1 => 'field_links_see_also',
@@ -866,7 +958,7 @@ function field_groups_feature_field_group_info() {
     'format_settings' => array(
       'label' => 'Right hand column',
       'instance_settings' => array(
-        'required_fields' => 1,
+        'required_fields' => 0,
         'classes' => 'group-generic-side-content field-group-accordion-item',
         'description' => '',
       ),
@@ -886,7 +978,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Right hand column',
-    'weight' => '51',
+    'weight' => '52',
     'children' => array(
       0 => 'field_links_external',
       1 => 'field_links_see_also',
@@ -908,6 +1000,35 @@ function field_groups_feature_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_generic_side_content|node|job|form';
+  $field_group->group_name = 'group_generic_side_content';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'job';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_accordion';
+  $field_group->data = array(
+    'label' => 'Right hand column',
+    'weight' => '14',
+    'children' => array(
+      0 => 'field_fc_side_content_generic',
+      1 => 'field_links_see_also',
+      2 => 'field_links_external',
+    ),
+    'format_type' => 'accordion-item',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-generic-side-content field-group-accordion-item',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_generic_side_content|node|job|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_generic_side_content|node|news|form';
   $field_group->group_name = 'group_generic_side_content';
   $field_group->entity_type = 'node';
@@ -915,10 +1036,12 @@ function field_groups_feature_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
-    'label' => 'Generic side content',
-    'weight' => '49',
+    'label' => 'Right hand column',
+    'weight' => '56',
     'children' => array(
       0 => 'field_fc_side_content_generic',
+      1 => 'field_links_see_also',
+      2 => 'field_links_external',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -943,20 +1066,20 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Group',
-    'weight' => '1',
+    'weight' => '2',
     'children' => array(
-      0 => 'group_last_updated',
-      1 => 'group_summary',
-      2 => 'group_project_information',
-      3 => 'group_page_settings',
-      4 => 'group_results',
-      5 => 'group_background',
-      6 => 'group_research_approach',
-      7 => 'group_additional_info',
-      8 => 'group_published_papers',
-      9 => 'group_dissemination',
-      10 => 'group_science_file',
-      11 => 'group_final_research_report',
+      0 => 'group_summary',
+      1 => 'group_project_information',
+      2 => 'group_page_settings',
+      3 => 'group_results',
+      4 => 'group_background',
+      5 => 'group_research_approach',
+      6 => 'group_additional_info',
+      7 => 'group_published_papers',
+      8 => 'group_dissemination',
+      9 => 'group_science_file',
+      10 => 'group_final_research_report',
+      11 => 'group_meta_info',
     ),
     'format_type' => 'accordion',
     'format_settings' => array(
@@ -980,18 +1103,19 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Information Architecture',
-    'weight' => '14',
+    'weight' => '10',
     'children' => array(
       0 => 'field_site_section',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
-      'formatter' => 'closed',
+      'label' => 'Information Architecture',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => '',
         'required_fields' => 1,
+        'classes' => '',
+        'description' => '',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_ia|node|audit_report|form'] = $field_group;
@@ -1007,19 +1131,20 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Information Architecture',
-    'weight' => '52',
+    'weight' => '45',
     'children' => array(
       0 => 'field_nation',
       1 => 'field_site_section',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
-      'formatter' => 'closed',
+      'label' => 'Information Architecture',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => '',
         'required_fields' => 1,
+        'classes' => '',
+        'description' => '',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_ia|node|consultation|form'] = $field_group;
@@ -1035,19 +1160,20 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Information Architecture',
-    'weight' => '24',
+    'weight' => '23',
     'children' => array(
       0 => 'field_site_section',
       1 => 'field_nation',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
-      'formatter' => 'closed',
+      'label' => 'Information Architecture',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => '',
         'required_fields' => 1,
+        'classes' => '',
+        'description' => '',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_ia|node|document_page|form'] = $field_group;
@@ -1063,19 +1189,20 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Information Architecture',
-    'weight' => '52',
+    'weight' => '46',
     'children' => array(
       0 => 'field_nation',
       1 => 'field_site_section',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
-      'formatter' => 'closed',
+      'label' => 'Information Architecture',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => '',
         'required_fields' => 1,
+        'classes' => '',
+        'description' => '',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_ia|node|faq|form'] = $field_group;
@@ -1091,19 +1218,20 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Information Architecture',
-    'weight' => '14',
+    'weight' => '8',
     'children' => array(
       0 => 'field_nation',
       1 => 'field_site_section',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
-      'formatter' => 'closed',
+      'label' => 'Information Architecture',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => '',
         'required_fields' => 1,
+        'classes' => '',
+        'description' => '',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_ia|node|job|form'] = $field_group;
@@ -1126,12 +1254,13 @@ function field_groups_feature_field_group_info() {
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
-      'formatter' => 'closed',
+      'label' => 'Information Architecture',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => '',
         'required_fields' => 1,
+        'classes' => '',
+        'description' => '',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_ia|node|news|form'] = $field_group;
@@ -1177,7 +1306,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Job',
-    'weight' => '7',
+    'weight' => '9',
     'children' => array(
       0 => 'field_job_reference',
       1 => 'field_job_salary',
@@ -1263,7 +1392,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Main text',
-    'weight' => '11',
+    'weight' => '14',
     'children' => array(
       0 => 'body',
     ),
@@ -1290,7 +1419,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Main text',
-    'weight' => '19',
+    'weight' => '26',
     'children' => array(
       0 => 'body',
     ),
@@ -1317,7 +1446,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Main text',
-    'weight' => '49',
+    'weight' => '50',
     'children' => array(
       0 => 'body',
     ),
@@ -1344,7 +1473,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Main text',
-    'weight' => '11',
+    'weight' => '12',
     'children' => array(
       0 => 'body',
     ),
@@ -1363,6 +1492,61 @@ function field_groups_feature_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_main|node|landing_page|form';
+  $field_group->group_name = 'group_main';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'landing_page';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_accordion';
+  $field_group->data = array(
+    'label' => 'Main Text',
+    'weight' => '5',
+    'children' => array(
+      0 => 'body',
+    ),
+    'format_type' => 'accordion-item',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-main field-group-accordion-item',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_main|node|landing_page|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_meta_info|node|research_project|form';
+  $field_group->group_name = 'group_meta_info';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'research_project';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_group';
+  $field_group->data = array(
+    'label' => 'Information Architecture',
+    'weight' => '15',
+    'children' => array(
+      0 => 'field_site_section',
+      1 => 'field_nation',
+    ),
+    'format_type' => 'accordion-item',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-meta-info field-group-accordion-item',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_meta_info|node|research_project|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_news|node|news|form';
   $field_group->group_name = 'group_news';
   $field_group->entity_type = 'node';
@@ -1371,7 +1555,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'News',
-    'weight' => '44',
+    'weight' => '52',
     'children' => array(
       0 => 'body',
       1 => 'field_news_type',
@@ -1399,9 +1583,10 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Page sections',
-    'weight' => '12',
+    'weight' => '15',
     'children' => array(
-      0 => 'field_fc_page_section',
+      0 => 'field_child_page_display_style',
+      1 => 'field_fc_page_section',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -1427,9 +1612,10 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Page sections',
-    'weight' => '49',
+    'weight' => '50',
     'children' => array(
-      0 => 'field_fc_page_section',
+      0 => 'field_child_page_display_style',
+      1 => 'field_fc_page_section',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -1455,9 +1641,10 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Page sections',
-    'weight' => '20',
+    'weight' => '27',
     'children' => array(
       0 => 'field_fc_page_section',
+      1 => 'field_child_page_style',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -1483,9 +1670,10 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Page sections',
-    'weight' => '50',
+    'weight' => '51',
     'children' => array(
-      0 => 'field_fc_page_section',
+      0 => 'field_child_page_display_style',
+      1 => 'field_fc_page_section',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -1511,9 +1699,10 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Page sections',
-    'weight' => '12',
+    'weight' => '13',
     'children' => array(
-      0 => 'field_fc_page_section',
+      0 => 'field_child_page_display_style',
+      1 => 'field_fc_page_section',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -1539,9 +1728,10 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Page sections',
-    'weight' => '48',
+    'weight' => '55',
     'children' => array(
-      0 => 'field_fc_page_section',
+      0 => 'field_child_page_display_style',
+      1 => 'field_fc_page_section',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -1567,12 +1757,12 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Page settings',
-    'weight' => '8',
+    'weight' => '18',
     'children' => array(
-      0 => 'field_child_page_display_style',
-      1 => 'field_display_updated_date',
-      2 => 'field_table_of_contents_level',
-      3 => 'field_updated',
+      0 => 'field_display_updated_date',
+      1 => 'field_table_of_contents_level',
+      2 => 'field_updated',
+      3 => 'language',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -1582,7 +1772,7 @@ function field_groups_feature_field_group_info() {
         'classes' => 'group-page-settings field-group-accordion-item',
         'description' => '',
       ),
-      'formatter' => 'open',
+      'formatter' => 'closed',
     ),
   );
   $export['group_page_settings|node|audit_report|form'] = $field_group;
@@ -1598,12 +1788,12 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Page settings',
-    'weight' => '46',
+    'weight' => '52',
     'children' => array(
-      0 => 'field_child_page_display_style',
-      1 => 'field_display_updated_date',
-      2 => 'field_table_of_contents_level',
-      3 => 'field_updated',
+      0 => 'field_display_updated_date',
+      1 => 'field_table_of_contents_level',
+      2 => 'field_updated',
+      3 => 'language',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -1629,12 +1819,12 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Page settings',
-    'weight' => '16',
+    'weight' => '29',
     'children' => array(
       0 => 'field_updated',
       1 => 'field_display_updated_date',
       2 => 'field_table_of_contents_level',
-      3 => 'field_child_page_style',
+      3 => 'language',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -1644,7 +1834,7 @@ function field_groups_feature_field_group_info() {
         'classes' => 'group-page-settings field-group-accordion-item',
         'description' => '',
       ),
-      'formatter' => 'open',
+      'formatter' => 'closed',
     ),
   );
   $export['group_page_settings|node|document_page|form'] = $field_group;
@@ -1660,12 +1850,12 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Page settings',
-    'weight' => '46',
+    'weight' => '53',
     'children' => array(
-      0 => 'field_child_page_display_style',
-      1 => 'field_display_updated_date',
-      2 => 'field_table_of_contents_level',
-      3 => 'field_updated',
+      0 => 'field_display_updated_date',
+      1 => 'field_table_of_contents_level',
+      2 => 'field_updated',
+      3 => 'language',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -1675,7 +1865,7 @@ function field_groups_feature_field_group_info() {
         'classes' => 'group-page-settings field-group-accordion-item',
         'description' => '',
       ),
-      'formatter' => 'open',
+      'formatter' => 'closed',
     ),
   );
   $export['group_page_settings|node|faq|form'] = $field_group;
@@ -1691,12 +1881,12 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Page settings',
-    'weight' => '8',
+    'weight' => '16',
     'children' => array(
-      0 => 'field_child_page_display_style',
-      1 => 'field_display_updated_date',
-      2 => 'field_table_of_contents_level',
-      3 => 'field_updated',
+      0 => 'field_display_updated_date',
+      1 => 'field_table_of_contents_level',
+      2 => 'field_updated',
+      3 => 'language',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -1706,10 +1896,37 @@ function field_groups_feature_field_group_info() {
         'classes' => 'group-page-settings field-group-accordion-item',
         'description' => '',
       ),
-      'formatter' => 'open',
+      'formatter' => 'closed',
     ),
   );
   $export['group_page_settings|node|job|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_page_settings|node|landing_page|form';
+  $field_group->group_name = 'group_page_settings';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'landing_page';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_accordion';
+  $field_group->data = array(
+    'label' => 'Page Settings',
+    'weight' => '7',
+    'children' => array(
+      0 => 'language',
+    ),
+    'format_type' => 'accordion-item',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-page-settings field-group-accordion-item',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_page_settings|node|landing_page|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1722,12 +1939,12 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Page settings',
-    'weight' => '45',
+    'weight' => '58',
     'children' => array(
-      0 => 'field_child_page_display_style',
-      1 => 'field_display_updated_date',
-      2 => 'field_table_of_contents_level',
-      3 => 'field_updated',
+      0 => 'field_display_updated_date',
+      1 => 'field_table_of_contents_level',
+      2 => 'field_updated',
+      3 => 'language',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -1737,7 +1954,7 @@ function field_groups_feature_field_group_info() {
         'classes' => 'group-page-settings field-group-accordion-item',
         'description' => '',
       ),
-      'formatter' => 'open',
+      'formatter' => 'closed',
     ),
   );
   $export['group_page_settings|node|news|form'] = $field_group;
@@ -1753,9 +1970,11 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_group';
   $field_group->data = array(
     'label' => 'Page settings',
-    'weight' => '16',
+    'weight' => '26',
     'children' => array(
       0 => 'field_table_of_contents_level',
+      1 => 'field_updated',
+      2 => 'language',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -1780,7 +1999,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_group';
   $field_group->data = array(
     'label' => 'Project information',
-    'weight' => '15',
+    'weight' => '17',
     'children' => array(
       0 => 'field_rp_project_contact',
       1 => 'field_rp_project_contractor',
@@ -1810,7 +2029,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_group';
   $field_group->data = array(
     'label' => 'Published papers',
-    'weight' => '22',
+    'weight' => '23',
     'children' => array(
       0 => 'field_rp_published_papers',
     ),
@@ -1857,6 +2076,37 @@ function field_groups_feature_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_related_data|field_collection_item|field_fc_page_section|fc_teaser';
+  $field_group->group_name = 'group_related_data';
+  $field_group->entity_type = 'field_collection_item';
+  $field_group->bundle = 'field_fc_page_section';
+  $field_group->mode = 'fc_teaser';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Related Data',
+    'weight' => '7',
+    'children' => array(
+      0 => 'field_fc_files_csv',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'Related Data',
+      'instance_settings' => array(
+        'classes' => 'group-related-data field-group-div',
+        'description' => '',
+        'show_label' => '1',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'fast',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_related_data|field_collection_item|field_fc_page_section|fc_teaser'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_related_items|field_collection_item|field_fc_page_section|form';
   $field_group->group_name = 'group_related_items';
   $field_group->entity_type = 'field_collection_item';
@@ -1869,6 +2119,7 @@ function field_groups_feature_field_group_info() {
     'children' => array(
       0 => 'field_fc_related_items_heading',
       1 => 'field_fc_related_item',
+      2 => 'field_fc_files_csv',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -1894,7 +2145,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_group';
   $field_group->data = array(
     'label' => 'Research Approach',
-    'weight' => '18',
+    'weight' => '19',
     'children' => array(
       0 => 'field_rp_project_research',
     ),
@@ -1921,7 +2172,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_group';
   $field_group->data = array(
     'label' => 'Results',
-    'weight' => '19',
+    'weight' => '20',
     'children' => array(
       0 => 'field_rp_results',
       1 => 'field_rp_results_added',
@@ -1937,6 +2188,37 @@ function field_groups_feature_field_group_info() {
     ),
   );
   $export['group_results|node|research_project|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_right_column|node|landing_page|form';
+  $field_group->group_name = 'group_right_column';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'landing_page';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_accordion';
+  $field_group->data = array(
+    'label' => 'Related content',
+    'weight' => '6',
+    'children' => array(
+      0 => 'field_popular_links',
+      1 => 'field_block_reference',
+      2 => 'field_current_topics',
+      3 => 'field_resources',
+    ),
+    'format_type' => 'accordion-item',
+    'format_settings' => array(
+      'label' => 'Related content',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => 'group-right-column field-group-accordion-item',
+        'description' => '',
+      ),
+      'formatter' => 'closed',
+    ),
+  );
+  $export['group_right_column|node|landing_page|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1976,7 +2258,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_group';
   $field_group->data = array(
     'label' => 'Science file',
-    'weight' => '23',
+    'weight' => '24',
     'children' => array(
       0 => 'field_fc_science_file',
     ),
@@ -2003,7 +2285,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Subtitle and summary',
-    'weight' => '9',
+    'weight' => '12',
     'children' => array(
       0 => 'field_subtitle',
       1 => 'field_summary',
@@ -2032,7 +2314,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Subtitle and summary',
-    'weight' => '47',
+    'weight' => '48',
     'children' => array(
       0 => 'field_subtitle',
       1 => 'field_summary',
@@ -2061,7 +2343,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Subtitle and summary',
-    'weight' => '17',
+    'weight' => '24',
     'children' => array(
       0 => 'field_summary',
       1 => 'field_subtitle',
@@ -2090,7 +2372,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Subtitle and summary',
-    'weight' => '47',
+    'weight' => '48',
     'children' => array(
       0 => 'field_subtitle',
       1 => 'field_summary',
@@ -2119,7 +2401,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Subtitle and summary',
-    'weight' => '9',
+    'weight' => '10',
     'children' => array(
       0 => 'field_subtitle',
       1 => 'field_summary',
@@ -2148,7 +2430,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Subtitle and summary',
-    'weight' => '46',
+    'weight' => '53',
     'children' => array(
       0 => 'field_subtitle',
       1 => 'field_summary',
@@ -2169,17 +2451,18 @@ function field_groups_feature_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_summary|node|research_project|form';
+  $field_group->identifier = 'group_summary|node|landing_page|form';
   $field_group->group_name = 'group_summary';
   $field_group->entity_type = 'node';
-  $field_group->bundle = 'research_project';
+  $field_group->bundle = 'landing_page';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_group';
+  $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
-    'label' => 'Summary',
-    'weight' => '14',
+    'label' => 'Subtitle and summary',
+    'weight' => '3',
     'children' => array(
       0 => 'field_summary',
+      1 => 'field_subtitle',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -2189,6 +2472,35 @@ function field_groups_feature_field_group_info() {
         'classes' => 'group-summary field-group-accordion-item',
         'required_fields' => 1,
       ),
+    ),
+  );
+  $export['group_summary|node|landing_page|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_summary|node|research_project|form';
+  $field_group->group_name = 'group_summary';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'research_project';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_group';
+  $field_group->data = array(
+    'label' => 'Subtitle and summary',
+    'weight' => '16',
+    'children' => array(
+      0 => 'field_summary',
+      1 => 'field_subtitle',
+    ),
+    'format_type' => 'accordion-item',
+    'format_settings' => array(
+      'label' => 'Subtitle and summary',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => 'group-summary field-group-accordion-item',
+        'description' => '',
+      ),
+      'formatter' => 'closed',
     ),
   );
   $export['group_summary|node|research_project|form'] = $field_group;

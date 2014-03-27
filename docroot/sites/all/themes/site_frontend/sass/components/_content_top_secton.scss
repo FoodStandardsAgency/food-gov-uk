@@ -1,0 +1,4 @@
+.content-top {
+	/* stops the region from collapsing when content is floated within it */
+	@include legacy-pie-clearfix;  // this compass mixin applies the clearfix but allows positioned content like contextual links popup not to be cut off 
+}

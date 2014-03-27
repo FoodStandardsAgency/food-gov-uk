@@ -41,6 +41,10 @@ function facets_select_facetapi_select_facet_form_alter(&$form, $form_state, $op
   if ($options[0] == t('Entire Website')) {
     $form['facets']['#title'] = t('Search by section');
   }
+
+  if ($options[0] == t('All news types')) {
+    $form['facets']['#title'] = t('Search by news type');
+  }
 }
 
 function theme_facets_select_facetapi_widget_links($variables) {
@@ -51,20 +55,25 @@ function theme_facets_select_facetapi_widget_links($variables) {
   $output = '';
 
   if ($options = facets_select_facetapi_link_options($build, t('anytime'))) {
-
-    drupal_add_js(drupal_get_path('module', 'facets_select') . '/js/facets_select.js', 'file');
-
-    $output = '<div class="facetapi-jumper-menu">';
-    $select = element_info('select');
     $title = t('Search by date (updated/published)');
-    $select['#title'] = $title;
-    $select['#options'] = $options;
-    $output .= render($select);
-    $output .= '</div>';
+    $output = facets_select_create_select($options, $title);
   }
 
   return $output;
 }
+
+function facets_select_create_select($options, $title) {
+  drupal_add_js(drupal_get_path('module', 'facets_select') . '/js/facets_select.js', 'file');
+
+  $output = '<div class="facetapi-jumper-menu">';
+  $select = element_info('select');
+  $select['#title'] = $title;
+  $select['#options'] = $options;
+  $output .= render($select);
+  $output .= '</div>';
+  return $output;
+}
+
 
 function facets_select_facetapi_link_options($items, $empty_option = NULL, $depth = 0) {
   global $base_url;

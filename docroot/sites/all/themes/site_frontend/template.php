@@ -51,14 +51,13 @@ function site_frontend_facetapi_link_active($variables) {
  *
  **/
 function site_frontend_links__locale_block(&$vars) {
-  global $language;
+
   $content = NULL;
-  $language_default = language_default('language');
-  $href_default = $vars['links'][$language_default]['href'];
+  $current_path = current_path();
 
   foreach($vars['links'] as $language_code => $language_info) {
 
-    if ($language_code != $language->language && isset($language_info['href']) && ($language_info['href'] != $href_default || $language_code == $language_default)) {
+    if (isset($language_info['href']) && $language_info['href'] != $current_path) {
       $options = $language_info['attributes'];
       $options['attributes']['class'][] = $language_code;
       $content .= l($language_info['title'], $language_info['href'], $options);

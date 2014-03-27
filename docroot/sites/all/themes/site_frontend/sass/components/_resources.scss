@@ -1,0 +1,84 @@
+/* requires block class: resources and blokc class: blue-block */
+.resources {
+	font-size: 1em;	// sets base font size to 10px
+	line-height: 1.4em;
+	/* node title */
+	h2.node__title {
+		font-size: 1.4em; 
+		line-height: 1.4em;
+		margin-bottom: 0;
+		font-weight: normal;
+	}
+	.node__title {
+		font-weight: normal;
+		display: block;
+		a {
+			text-decoration: none;
+			color: #00416c;
+			font-weight: bold;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+	}
+	/* subtitle */
+	.field--name-field-subtitle {
+		font-size: 1.1em; 
+		line-height: 1.4em;
+		display: block;
+	}
+	/* teaser updated date */
+	.field--name-field-updated {
+		font-size: 1.1em;
+		margin-bottom: 0.2em;
+	}
+	/* teaser summary */
+	.field--name-field-summary {
+		font-size: 1.1em; 
+		line-height: 1.4em;
+		display: block;
+		color: #333;
+		margin-bottom: 0.2em;
+	}
+	.field__item {
+		margin-bottom: 0.5em;
+	}
+	/* node links like read more (if enabled) */
+	.node__links {
+	  a {
+			text-decoration: none;
+			color: #00416c;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+	}
+	/* line separator */
+	.views-row {
+		border-bottom: 1px solid #c6d7dd;
+		padding-bottom: 2px;
+		margin-bottom: 5px;
+	}
+	.views-row.views-row-last {
+		border-bottom: none;
+		padding-bottom: 2px;
+		margin-bottom: 0;
+	}
+}
+
+/* positioning of block on landing page */
+.node-type-landing-page .resources {
+	width: 225px;
+	margin-left: 6px;
+	float: right;
+}
+
+/* mobile view */
+@include breakpoint($mobile) {
+	.node-type-landing-page .resources {
+		font-size: 1.1em; // increase font sizes of children - we changing base from 1em to 1.1em here
+		width: 100%;
+		margin-left: 0px;
+		float: none;
+	}	
+}

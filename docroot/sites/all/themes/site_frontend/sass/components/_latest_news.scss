@@ -1,0 +1,126 @@
+/** 
+ * the block itself is themed in base/_blockreference_blocks.scss 
+ * we are only theming the block content here 
+ * note: blockreference does not pull in the block class when the block is placed in landing page node
+ * dependant on the view been set as unformatted list
+ */
+.latest-news,
+.field--type-blockreference .block--views-news-block,
+.field--type-blockreference .block--views-news-block-1,
+.field--type-blockreference .block--views-news-block-2,
+.field--type-blockreference .block--views-news-block-3,
+.field--type-blockreference .block--views-news-block-4,
+.field--type-blockreference .block--views-news-block-5 {
+	font-size: 1em;	// sets base font size to 10px
+	line-height: 1.4em;
+	margin-bottom: 18px;
+	/* node title */
+	h2.node__title {
+		font-size: 1.4em; 
+		line-height: 1.4em;
+		margin-bottom: 0;
+		font-weight: normal;
+	}
+	.node__title {
+		font-weight: normal;
+		display: block;
+		padding-left: 14px;
+		background-image: url('../images/green-arrow-thin-right.png');
+		background-repeat: no-repeat;
+		background-position: left 5px;
+		a {
+			text-decoration: none;
+			color: #006f51;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+	}
+	/* subtitle */
+	.field--name-field-subtitle {
+		font-size: 1.2em; 
+		line-height: 1.4em;
+		display: block;
+		padding-left: 14px;
+	}
+	/* teaser updated date */
+	.field--name-field-updated {
+		font-size: 1.1em;
+		margin-bottom: 0.2em;
+		padding-left: 14px;
+	}
+	/* teaser summary */
+	.field--name-field-summary {
+		font-size: 1.2em; 
+		line-height: 1.4em;
+		display: block;
+		color: #333;
+		margin-bottom: 0.2em;
+		padding-left: 14px;
+	}
+	.field__item {
+		margin-bottom: 0.5em;
+	}
+	/* node links like read more (if enabled) */
+	.node__links {
+	  padding-left: 14px;
+	  a {
+			text-decoration: none;
+			color: #006f51;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+	}
+	/* more link - omplemented in base/_links.scss */
+	.fsa-more-link {
+		font-weight: bold;
+	}
+	/* view footer */
+	.view-footer {
+		margin-top: 0.5em;
+		padding-top: 0.5em;
+		border-top: 1px solid #5d9711;
+		font-size: 1.2em; 
+		line-height: 1.4em;
+		margin-bottom: 5px;
+	}
+}
+
+/* positioning of block on landing page */
+.field--type-blockreference .block.block--views-news-block,
+.field--type-blockreference .block.block--views-news-block-1,
+.field--type-blockreference .block.block--views-news-block-2,
+.field--type-blockreference .block.block--views-news-block-3,
+.field--type-blockreference .block.block--views-news-block-4,
+.field--type-blockreference .block.block--views-news-block-5 {
+	width: 225px;
+	margin-left: 12px;
+	margin-bottom: 20px;
+	float: right;
+}
+
+/* mobile view */
+@include breakpoint($mobile) {
+	/* increase all font sizes that are nested in here */
+	.field--type-blockreference .block--views-news-block,
+	.field--type-blockreference .block--views-news-block-1,
+	.field--type-blockreference .block--views-news-block-2,
+	.field--type-blockreference .block--views-news-block-3,
+	.field--type-blockreference .block--views-news-block-4,
+	.field--type-blockreference .block--views-news-block-5 {
+		font-size: 1.1em;
+	}
+	/* positioning of block on landing page */
+	.field--type-blockreference .block.block--views-news-block,
+	.field--type-blockreference .block.block--views-news-block-1,
+	.field--type-blockreference .block.block--views-news-block-2,
+	.field--type-blockreference .block.block--views-news-block-3,
+	.field--type-blockreference .block.block--views-news-block-4,
+	.field--type-blockreference .block.block--views-news-block-5 {
+		width: 100%;
+		margin-left: 0px;
+		margin-bottom: 17px;
+		float: none;
+	}
+}

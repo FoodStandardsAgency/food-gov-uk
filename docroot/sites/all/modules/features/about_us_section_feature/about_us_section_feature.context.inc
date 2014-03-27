@@ -15,7 +15,7 @@ function about_us_section_feature_context_default_contexts() {
   $context->api_version = 3;
   $context->name = 'submenu_about_us';
   $context->description = 'Places submenu in left sidebar';
-  $context->tag = 'Submenus';
+  $context->tag = 'About Us';
   $context->conditions = array(
     'path' => array(
       'values' => array(
@@ -40,8 +40,8 @@ function about_us_section_feature_context_default_contexts() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('About Us');
   t('Places submenu in left sidebar');
-  t('Submenus');
   $export['submenu_about_us'] = $context;
 
   return $export;

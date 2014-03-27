@@ -1,0 +1,7 @@
+name = Language Neutral Paths
+description = Makes and maintains url aliases language neutral
+
+dependencies[] = path
+
+configure = admin/config/search/path/language_settings
+core = "7.x"

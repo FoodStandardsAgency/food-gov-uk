@@ -92,7 +92,31 @@ class Tag1Context extends DrupalContext {
         new Step\Then("I press \"edit-submit\" in the \"Log In\" region")
     );
 }
- 
+
+   /**
+    * @Then /^the position of "([^"]*)" should be above "([^"]*)"$/
+    */
+   public function thePositionOfShouldBeAbove($selector1, $selector2) {
+    /*  $session = $this->getSession();
+      $top1 = $session->evaluateScript("
+        (function ($) {
+          var offset =  $('". $selector1. "').offset();
+          alert(offset.top);
+          return offset.top;
+        })(jQuery)");
+      print $top1;  */
+      /*$top2 = $session->evaluateScript("
+        (function ($) {
+          var offset2 =  $('". $selector2. "').offset();
+          return offset2.top;
+        })(jQuery)");  
+        print $top1;
+        echo "1: $top1  2: $top2";
+      if ($top2 <= $top1) { 
+        throw new \Exception('Elements "'. $selector1 ."' and '". $selector2 .'"are in incorrect order');
+      }*/
+    }
+
   /**
    * @} End of "defgroup initialization".
    *

@@ -2,3 +2,17 @@
  * Cross-browser fixes for ie9
  */
 
+/* prevent gradient on main menu tabs from extending past the rounded borders */
+.main-menu-desktop {
+	.sf-menu.sf-style-none {
+		li.sf-depth-1 > a {
+			filter: none;
+		}
+		li.sf-depth-1 > a:hover {
+			filter: none;
+		}
+		li.sf-depth-1.active-trail > a {
+			filter: none;
+		}
+	}
+}

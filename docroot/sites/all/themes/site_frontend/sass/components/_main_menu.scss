@@ -59,6 +59,15 @@
 		  padding-right: 3em;
 		}
 		li.sf-depth-1 > a {
+			border-top: 2px solid #fff;
+			border-left: 2px solid #fff;
+			border-right: 2px solid #fff;
+			border-bottom: 0;
+			-moz-border-radius: 17px 17px 0 0;
+			-webkit-border-radius: 17px 17px 0 0;
+			-ms-border-radius: 17px 17px 0 0;
+			-o-border-radius: 17px 17px 0 0;
+			border-radius: 17px 17px 0 0;
 			background: #e0e0e0;
 			background: -moz-linear-gradient(top,#e0e0e0 0,#fff 97%);
 			background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#e0e0e0),color-stop(97%,#fff));
@@ -69,6 +78,15 @@
 			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e0e0e0',endColorstr='#ffffff',GradientType=0);
 		}
 		li.sf-depth-1 > a:hover {
+			border-top: 2px solid #fff;
+			border-left: 2px solid #fff;
+			border-right: 2px solid #fff;
+			border-bottom: 0;
+			-moz-border-radius: 17px 17px 0 0;
+			-webkit-border-radius: 17px 17px 0 0;
+			-ms-border-radius: 17px 17px 0 0;
+			-o-border-radius: 17px 17px 0 0;
+			border-radius: 17px 17px 0 0;
 		  background: #4f850c;
 			background: -moz-linear-gradient(top,#46750b 0,#4f850c 100%);
 			background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#46750b),color-stop(100%,#4f850c));
@@ -79,6 +97,15 @@
 			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#46750b',endColorstr='#4f850c',GradientType=0);
 		}
 		li.sf-depth-1.active-trail > a {
+			border-top: 2px solid #fff;
+			border-left: 2px solid #fff;
+			border-right: 2px solid #fff;
+			border-bottom: 0;
+			-moz-border-radius: 17px 17px 0 0;
+			-webkit-border-radius: 17px 17px 0 0;
+			-ms-border-radius: 17px 17px 0 0;
+			-o-border-radius: 17px 17px 0 0;
+			border-radius: 17px 17px 0 0;
 			color: #ffffff;
 			background: #4f850c;
 			background: -moz-linear-gradient(top,#46750b 0,#4f850c 100%);
@@ -128,18 +155,7 @@
 			margin-right: 5px;
 			background: none;
 		}
-		li.sf-depth-1 > a {
-			border-top: 2px solid #fff;
-			border-left: 2px solid #fff;
-			border-right: 2px solid #fff;
-			border-bottom: 0;
-			-moz-border-radius: 17px 17px 0 0;
-			-webkit-border-radius: 17px 17px 0 0;
-			-ms-border-radius: 17px 17px 0 0;
-			-o-border-radius: 17px 17px 0 0;
-			border-radius: 17px 17px 0 0;
-			overflow: hidden;	 /* fixes IE9 issue with background exposed past the rounded borders */
-		}
+		li.sf-depth-1 > a {}
 		li.sf-depth-2 a {
 			border-left: 3px solid #d0d0d0;
 			border-right: 3px solid #d0d0d0;

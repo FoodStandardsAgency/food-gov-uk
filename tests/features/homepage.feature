@@ -14,12 +14,15 @@ Feature: Test Homepage
 	When I click "News & updates" in the "Menu" region
     Then I should be on "/news-updates"
 	
+   @javascript 
   Scenario: Policy & advice menu item
     Given I am on the homepage
     Then I should see "Policy & advice"
 	When I click "Policy & advice" in the "Menu" region
     Then I should be on "/policy-advice"
-	
+    Then the position of "#main-content" should be above ".l-main"
+	Then the position of ".l-main" should be above "#main-content"
+    
   Scenario: Business & industry menu item
     Given I am on the homepage
     Then I should see "Business & industry"

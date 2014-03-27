@@ -5,6 +5,7 @@
  */
 function local_theme_registry_alter(&$theme_registry) {
 
+  // Hide specific items in the main menu, so they don't display on the Primary Menu.
   // Add our override function, which will adjust the variables then pass them through the original function.
   if (isset($theme_registry['superfish_build'])) {
     $theme_registry['superfish_build']['function'] = 'theme_local_superfish_build';
@@ -13,7 +14,7 @@ function local_theme_registry_alter(&$theme_registry) {
 
 /**
  *  Adjust the Superfish main menu.
- *
+ *  Hide specific items in the main menu, so they don't display on the Primary Menu.
  **/
 function theme_local_superfish_build($variables) {
 
@@ -30,3 +31,11 @@ function theme_local_superfish_build($variables) {
   return $output;
 }
 
+/**
+ * Quick form alter to give the search forms their own unique submit button ids that do not clash with the overlay
+ * @param $form
+ * @param $form_state
+ */
+function local_form_search_block_form_alter(&$form, &$form_state, $form_id){
+  $form['actions']['submit']['#id'] = drupal_html_id('submit-search_block_form');
+}

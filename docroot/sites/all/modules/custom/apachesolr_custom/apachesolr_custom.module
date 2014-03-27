@@ -1,0 +1,19 @@
+<?php
+
+function apachesolr_custom_form_alter(&$form, &$form_state, $form_id) {
+
+  // Redirect standard search block form to Views generated search page.
+  if ($form_id == 'search_block_form') {
+    $form['#submit'][] = 'apachesolr_custom_search_form_submit_funtion';
+  }
+}
+
+/**
+ *  Redirect standard search block form to Views generated search page.
+ *
+ **/
+function apachesolr_custom_search_form_submit_funtion(&$form, &$form_state) {
+  $search_str = $form_state['values']['search_block_form'];
+  $form_state['rebuild'] = TRUE;
+  drupal_goto('search', array('query' => array('keyword' => $search_str)));
+}

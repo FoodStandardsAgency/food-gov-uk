@@ -13,6 +13,10 @@ function container_blocks_block_info() {
     'info' => t('Search All Facets'),
   );
 
+  $blocks['search_all_news_facets'] = array(
+    'info' => t('Search All News Facets'),
+  );
+
   return $blocks;
 }
 
@@ -26,7 +30,7 @@ function container_blocks_block_view($delta = '') {
   switch ($delta) {
     case 'search_all_facets':
 
-      $blocks[] = block_load('views', '-exp-search_sitewide-page');
+      $blocks[] = block_load('views', '-exp-news_centre___search-page');
       $blocks[] = block_load('facetapi', 'bLPXAQDJqA1Re1OTSoyUJM9gUBaIgZMG');
       $blocks[] = block_load('facetapi', 'JA1S7gqOdiVJQxg5zwM1Pb8KjhJNGZjx');
 
@@ -38,20 +42,19 @@ function container_blocks_block_view($delta = '') {
       );
       break;
 
-//    case 'recent':
-//      if (user_access('access content')) {
-//        $block['subject'] = t('Recent content');
-//        if ($nodes = node_get_recent(variable_get('node_recent_block_count', 10))) {
-//          $block['content'] = array(
-//            '#theme' => 'node_recent_block',
-//            '#nodes' => $nodes,
-//          );
-//        }
-//        else {
-//          $block['content'] = t('No content available.');
-//        }
-//      }
-//      break;
+    case 'search_all_news_facets':
+
+      $blocks[] = block_load('views', '-exp-news_centre___search-page');
+      $blocks[] = block_load('facetapi', 'mo10eVoL905Qwndxck1XcD0dZWgc0x7s');
+      $blocks[] = block_load('facetapi', 'bLPXAQDJqA1Re1OTSoyUJM9gUBaIgZMG');
+
+      $content = container_blocks_concatenate_content($blocks);
+
+      $block['subject'] = NULL;
+      $block['content'] = array(
+        '#markup' => $content,
+      );
+      break;
   }
   return $block;
 }

@@ -40,9 +40,19 @@ function local_deployment_install() {
   module_enable(array('preserve_filter'), TRUE);
   module_enable(array('migrate'), TRUE);
   module_enable(array('date_facets'), TRUE);
+  module_enable(array('i18n'), TRUE);
+  module_enable(array('i18n_variable'), TRUE);
+  module_enable(array('i18n_node'), TRUE);
+  module_enable(array('i18n_select'), TRUE);
+  module_enable(array('i18_string'), TRUE);
+  module_enable(array('neutral_paths'), TRUE);
+  module_enable(array('node_view_mode'), TRUE);
+
+
+  module_enable(array('admin_views'), TRUE);
+  module_enable(array('views_bulk_operations'), TRUE);
 
   // Enable Feature modules.
-  module_enable(array('fonts___feature'), TRUE);
   module_enable(array('imagecache_feature'), TRUE);
   module_enable(array('menus_feature'), TRUE);
   module_enable(array('node_export___feature'), TRUE);
@@ -64,7 +74,6 @@ function local_deployment_install() {
   module_enable(array('ckeditor___editor'), TRUE);
   module_enable(array('document_content_type_feature'), TRUE);
   module_enable(array('enforcement_section_feature'), TRUE);
-  module_enable(array('home_page_feature'), TRUE);
   module_enable(array('landing_page_content_type_feature'), TRUE);
   module_enable(array('menu_links_feature'), TRUE);
   module_enable(array('news_content_type_feature'), TRUE);
@@ -75,9 +84,12 @@ function local_deployment_install() {
   module_enable(array('section_landing_pages_features'), TRUE);
   module_enable(array('webform_content_type'), TRUE);
   module_enable(array('permissions_feature'), TRUE);
+  module_enable(array('home_page_feature'), TRUE);
 
   module_enable(array('facets_select'), TRUE);
 
+  // Disable modules that were enabled by the install profile but we don't need.
+  module_disable(array('fontyourface', 'local_fonts'), FALSE);
 }
 
 

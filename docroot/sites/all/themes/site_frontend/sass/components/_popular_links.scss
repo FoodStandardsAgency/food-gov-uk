@@ -1,0 +1,21 @@
+/** requires block class: popular-links and purple-block. 
+ *  purple-block implemented in base/blocks.scss 
+ */
+.popular-links {
+  select {
+	  width: 100%;
+		margin-bottom: 1em;
+		padding: 2px 0;
+		background: #fff;
+		vertical-align: middle;
+		-webkit-border-radius: 3px;
+		-moz-border-radius: 3px;
+		-o-border-radius: 3px;
+		-ms-border-radius: 3px;
+		border-radius: 3px;
+		border: 1px solid #ccc;
+		font-family: Arial, Verdana, Helvetica, sans-serif;
+		font-size: 1.2em;
+		color: #333;
+  }	
+}

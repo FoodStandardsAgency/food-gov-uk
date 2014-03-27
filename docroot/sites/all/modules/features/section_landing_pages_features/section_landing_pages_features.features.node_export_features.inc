@@ -11,7 +11,7 @@ function section_landing_pages_features_node_export_features_default() {
   $node_export = array(
   'code_string' => 'array(
   (object) array(
-      \'vid\' => \'66\',
+      \'vid\' => \'198\',
       \'uid\' => \'1\',
       \'title\' => \'Policy and advice\',
       \'log\' => \'\',
@@ -19,24 +19,24 @@ function section_landing_pages_features_node_export_features_default() {
       \'comment\' => \'1\',
       \'promote\' => \'0\',
       \'sticky\' => \'0\',
-      \'vuuid\' => \'11f617bf-cc4e-4bd1-9fca-9ea56394bfce\',
+      \'vuuid\' => \'cd3e56b2-551b-49f3-b74e-8924fc448a51\',
       \'nid\' => \'3\',
       \'type\' => \'landing_page\',
-      \'language\' => \'und\',
+      \'language\' => \'en\',
       \'created\' => \'1391442141\',
-      \'changed\' => \'1394643301\',
+      \'changed\' => \'1395490256\',
       \'tnid\' => \'0\',
       \'translate\' => \'0\',
       \'uuid\' => \'347a84d6-9e63-48bc-a5ef-3e7861750fe4\',
-      \'revision_timestamp\' => \'1394643301\',
+      \'revision_timestamp\' => \'1395490256\',
       \'revision_uid\' => \'1\',
       \'body\' => array(
         \'und\' => array(
           array(
-            \'value\' => "<p>Landing page</p>\\r\\n",
+            \'value\' => "<p>In this section you&#39;ll find background information on a range of topics as well as our ongoing work in these areas, including GM foods, additives, allergy and campylobacter.</p>\\r\\n",
             \'summary\' => \'\',
-            \'format\' => \'filtered_html\',
-            \'safe_value\' => \'<p>Landing page</p>\',
+            \'format\' => \'full_html\',
+            \'safe_value\' => "<p>In this section you\'ll find background information on a range of topics as well as our ongoing work in these areas, including GM foods, additives, allergy and campylobacter.</p>",
             \'safe_summary\' => \'\',
           ),
         ),
@@ -44,9 +44,9 @@ function section_landing_pages_features_node_export_features_default() {
       \'field_summary\' => array(
         \'und\' => array(
           array(
-            \'value\' => \'Landing page summary\',
+            \'value\' => \'The Food Standards Agency carries out a range of work to make sure food is safe to eat, including funding research on chemical, microbiological and radiological safety, as well as food hygiene, GM and allergy.\',
             \'format\' => NULL,
-            \'safe_value\' => \'Landing page summary\',
+            \'safe_value\' => \'The Food Standards Agency carries out a range of work to make sure food is safe to eat, including funding research on chemical, microbiological and radiological safety, as well as food hygiene, GM and allergy.\',
           ),
         ),
       ),
@@ -81,9 +81,9 @@ function section_landing_pages_features_node_export_features_default() {
       \'field_subtitle\' => array(
         \'und\' => array(
           array(
-            \'value\' => \'policy and advice subtitle\',
+            \'value\' => \'Subtitle here\',
             \'format\' => NULL,
-            \'safe_value\' => \'policy and advice subtitle\',
+            \'safe_value\' => \'Subtitle here\',
           ),
         ),
       ),
@@ -95,6 +95,16 @@ function section_landing_pages_features_node_export_features_default() {
           ),
         ),
       ),
+      \'field_popular_links\' => array(),
+      \'field_block_reference\' => array(
+        \'und\' => array(
+          array(
+            \'moddelta\' => \'views:news-block_1\',
+          ),
+        ),
+      ),
+      \'field_current_topics\' => array(),
+      \'field_resources\' => array(),
       \'metatags\' => array(),
       \'rdf_mapping\' => array(
         \'rdftype\' => array(
@@ -151,25 +161,14 @@ function section_landing_pages_features_node_export_features_default() {
           \'callback\' => \'date_iso8601\',
         ),
       ),
-      \'cid\' => \'0\',
-      \'last_comment_timestamp\' => \'1391442141\',
-      \'last_comment_name\' => NULL,
-      \'last_comment_uid\' => \'1\',
-      \'comment_count\' => \'0\',
       \'name\' => \'Tharg\',
       \'picture\' => \'0\',
       \'data\' => \'b:0;\',
-      \'num_revisions\' => \'2\',
-      \'current_revision_id\' => \'66\',
+      \'num_revisions\' => \'4\',
+      \'current_revision_id\' => \'198\',
       \'is_current\' => TRUE,
       \'is_pending\' => FALSE,
       \'revision_moderation\' => FALSE,
-      \'path\' => array(
-        \'pid\' => \'5\',
-        \'source\' => \'node/3\',
-        \'alias\' => \'policy-advice\',
-        \'language\' => \'und\',
-      ),
       \'menu\' => array(
         \'link_title\' => \'Policy & advice\',
         \'mlid\' => 0,
@@ -186,10 +185,16 @@ function section_landing_pages_features_node_export_features_default() {
         \'description\' => \'\',
         \'enabled\' => 1,
       ),
+      \'path\' => array(
+        \'pid\' => \'5\',
+        \'source\' => \'node/3\',
+        \'alias\' => \'policy-advice\',
+        \'language\' => \'und\',
+      ),
       \'node_export_drupal_version\' => \'7\',
     ),
   (object) array(
-      \'vid\' => \'5\',
+      \'vid\' => \'200\',
       \'uid\' => \'1\',
       \'title\' => \'Enforcement and regulation\',
       \'log\' => \'\',
@@ -197,24 +202,24 @@ function section_landing_pages_features_node_export_features_default() {
       \'comment\' => \'1\',
       \'promote\' => \'0\',
       \'sticky\' => \'0\',
-      \'vuuid\' => \'299c8247-3c1e-4a6b-808c-9285c4f924e0\',
+      \'vuuid\' => \'5f09b377-b7d5-4012-9e5c-9b32940d6872\',
       \'nid\' => \'5\',
       \'type\' => \'landing_page\',
-      \'language\' => \'und\',
+      \'language\' => \'en\',
       \'created\' => \'1391442205\',
-      \'changed\' => \'1393377301\',
+      \'changed\' => \'1395490422\',
       \'tnid\' => \'0\',
       \'translate\' => \'0\',
       \'uuid\' => \'35faa675-ba52-4be4-9a85-66356897d121\',
-      \'revision_timestamp\' => \'1393377301\',
+      \'revision_timestamp\' => \'1395490422\',
       \'revision_uid\' => \'1\',
       \'body\' => array(
         \'und\' => array(
           array(
-            \'value\' => "<p>Landing page</p>\\r\\n",
+            \'value\' => "<p>As well as information on food safety legislation, this section also provides enforcement officers with all the tools they need to ensure that food safety and legal requirements are maintained and monitored in their area.</p>\\r\\n",
             \'summary\' => \'\',
-            \'format\' => \'filtered_html\',
-            \'safe_value\' => \'<p>Landing page</p>\',
+            \'format\' => \'full_html\',
+            \'safe_value\' => \'<p>As well as information on food safety legislation, this section also provides enforcement officers with all the tools they need to ensure that food safety and legal requirements are maintained and monitored in their area.</p>\',
             \'safe_summary\' => \'\',
           ),
         ),
@@ -222,9 +227,9 @@ function section_landing_pages_features_node_export_features_default() {
       \'field_summary\' => array(
         \'und\' => array(
           array(
-            \'value\' => \'Landing page summary\',
+            \'value\' => \'The Food Standards Agency works closely with local authority enforcement officers to make sure food law is applied throughout the food chain.\',
             \'format\' => NULL,
-            \'safe_value\' => \'Landing page summary\',
+            \'safe_value\' => \'The Food Standards Agency works closely with local authority enforcement officers to make sure food law is applied throughout the food chain.\',
           ),
         ),
       ),
@@ -257,7 +262,24 @@ function section_landing_pages_features_node_export_features_default() {
         ),
       ),
       \'field_subtitle\' => array(),
-      \'field_path\' => array(),
+      \'field_path\' => array(
+        \'und\' => array(
+          array(
+            \'human\' => NULL,
+            \'machine\' => \'enforcement-and-regulation\',
+          ),
+        ),
+      ),
+      \'field_popular_links\' => array(),
+      \'field_block_reference\' => array(
+        \'und\' => array(
+          array(
+            \'moddelta\' => \'views:news-block_3\',
+          ),
+        ),
+      ),
+      \'field_current_topics\' => array(),
+      \'field_resources\' => array(),
       \'metatags\' => array(),
       \'rdf_mapping\' => array(
         \'rdftype\' => array(
@@ -314,25 +336,14 @@ function section_landing_pages_features_node_export_features_default() {
           \'callback\' => \'date_iso8601\',
         ),
       ),
-      \'cid\' => \'0\',
-      \'last_comment_timestamp\' => \'1391442205\',
-      \'last_comment_name\' => NULL,
-      \'last_comment_uid\' => \'1\',
-      \'comment_count\' => \'0\',
       \'name\' => \'Tharg\',
       \'picture\' => \'0\',
       \'data\' => \'b:0;\',
-      \'num_revisions\' => \'1\',
-      \'current_revision_id\' => \'5\',
+      \'num_revisions\' => \'3\',
+      \'current_revision_id\' => \'200\',
       \'is_current\' => TRUE,
       \'is_pending\' => FALSE,
       \'revision_moderation\' => FALSE,
-      \'path\' => array(
-        \'pid\' => \'3\',
-        \'source\' => \'node/5\',
-        \'alias\' => \'enforcement\',
-        \'language\' => \'und\',
-      ),
       \'menu\' => array(
         \'link_title\' => \'Enforcement & regulation\',
         \'mlid\' => 0,
@@ -349,10 +360,448 @@ function section_landing_pages_features_node_export_features_default() {
         \'description\' => \'\',
         \'enabled\' => 1,
       ),
+      \'path\' => array(
+        \'pid\' => \'3\',
+        \'source\' => \'node/5\',
+        \'alias\' => \'enforcement\',
+        \'language\' => \'und\',
+      ),
       \'node_export_drupal_version\' => \'7\',
     ),
   (object) array(
-      \'vid\' => \'2\',
+      \'vid\' => \'157\',
+      \'uid\' => \'1\',
+      \'title\' => \'Error 403 - Access denied \',
+      \'log\' => \'\',
+      \'status\' => \'1\',
+      \'comment\' => \'0\',
+      \'promote\' => \'0\',
+      \'sticky\' => \'0\',
+      \'vuuid\' => \'5d0be1af-c4aa-491f-ab7e-d1dedfb69ca9\',
+      \'nid\' => \'86\',
+      \'type\' => \'document_page\',
+      \'language\' => \'en\',
+      \'created\' => \'1395240347\',
+      \'changed\' => \'1395240347\',
+      \'tnid\' => \'0\',
+      \'translate\' => \'0\',
+      \'uuid\' => \'3e69dd26-2c2a-4ea3-babb-c1840323aa99\',
+      \'revision_timestamp\' => \'1395240347\',
+      \'revision_uid\' => \'1\',
+      \'body\' => array(),
+      \'field_updated\' => array(
+        \'und\' => array(
+          array(
+            \'value\' => \'2014-03-19 00:00:00\',
+            \'timezone\' => \'Europe/London\',
+            \'timezone_db\' => \'Europe/London\',
+            \'date_type\' => \'datetime\',
+          ),
+        ),
+      ),
+      \'field_summary\' => array(),
+      \'field_feature_image\' => array(),
+      \'field_subtitle\' => array(
+        \'und\' => array(
+          array(
+            \'value\' => \'Sorry, the page you are looking for cannot be found.\',
+            \'format\' => NULL,
+            \'safe_value\' => \'Sorry, the page you are looking for cannot be found.\',
+          ),
+        ),
+      ),
+      \'field_fc_page_section\' => array(
+        \'und\' => array(
+          array(
+            \'value\' => \'98\',
+            \'revision_id\' => \'275\',
+          ),
+          array(
+            \'value\' => \'99\',
+            \'revision_id\' => \'276\',
+          ),
+        ),
+      ),
+      \'field_path\' => array(
+        \'und\' => array(
+          array(
+            \'human\' => NULL,
+            \'machine\' => \'error-403\',
+          ),
+        ),
+      ),
+      \'field_featured_item\' => array(),
+      \'field_site_section\' => array(
+        \'und\' => array(
+          array(
+            \'tid\' => \'15\',
+          ),
+        ),
+      ),
+      \'field_nation\' => array(
+        \'und\' => array(
+          array(
+            \'tid\' => \'4\',
+          ),
+        ),
+      ),
+      \'field_display_updated_date\' => array(
+        \'und\' => array(
+          array(
+            \'value\' => \'1\',
+          ),
+        ),
+      ),
+      \'field_table_of_contents_level\' => array(
+        \'und\' => array(
+          array(
+            \'value\' => \'off\',
+          ),
+        ),
+      ),
+      \'field_fc_side_content_generic\' => array(),
+      \'field_links_see_also\' => array(),
+      \'field_links_external\' => array(),
+      \'field_child_page_style\' => array(
+        \'und\' => array(
+          array(
+            \'field_collection_select\' => \'fc_teaser\',
+          ),
+        ),
+      ),
+      \'metatags\' => array(),
+      \'rdf_mapping\' => array(
+        \'rdftype\' => array(
+          \'sioc:Item\',
+          \'foaf:Document\',
+        ),
+        \'title\' => array(
+          \'predicates\' => array(
+            \'dc:title\',
+          ),
+        ),
+        \'created\' => array(
+          \'predicates\' => array(
+            \'dc:date\',
+            \'dc:created\',
+          ),
+          \'datatype\' => \'xsd:dateTime\',
+          \'callback\' => \'date_iso8601\',
+        ),
+        \'changed\' => array(
+          \'predicates\' => array(
+            \'dc:modified\',
+          ),
+          \'datatype\' => \'xsd:dateTime\',
+          \'callback\' => \'date_iso8601\',
+        ),
+        \'body\' => array(
+          \'predicates\' => array(
+            \'content:encoded\',
+          ),
+        ),
+        \'uid\' => array(
+          \'predicates\' => array(
+            \'sioc:has_creator\',
+          ),
+          \'type\' => \'rel\',
+        ),
+        \'name\' => array(
+          \'predicates\' => array(
+            \'foaf:name\',
+          ),
+        ),
+        \'comment_count\' => array(
+          \'predicates\' => array(
+            \'sioc:num_replies\',
+          ),
+          \'datatype\' => \'xsd:integer\',
+        ),
+        \'last_activity\' => array(
+          \'predicates\' => array(
+            \'sioc:last_activity_date\',
+          ),
+          \'datatype\' => \'xsd:dateTime\',
+          \'callback\' => \'date_iso8601\',
+        ),
+      ),
+      \'name\' => \'Tharg\',
+      \'picture\' => \'0\',
+      \'data\' => \'b:0;\',
+      \'num_revisions\' => \'1\',
+      \'current_revision_id\' => \'157\',
+      \'is_current\' => TRUE,
+      \'is_pending\' => FALSE,
+      \'revision_moderation\' => FALSE,
+      \'path\' => array(
+        \'pid\' => \'90\',
+        \'source\' => \'node/86\',
+        \'alias\' => \'error-403\',
+        \'language\' => \'und\',
+      ),
+      \'menu\' => NULL,
+      \'node_export_drupal_version\' => \'7\',
+      \'field_collection_deploy\' => array(
+        \'field_fc_page_section\' => array(
+          NULL,
+          NULL,
+        ),
+        \'field_fc_side_content_generic\' => array(
+          NULL,
+          NULL,
+        ),
+      ),
+    ),
+  (object) array(
+      \'vid\' => \'103\',
+      \'uid\' => \'1\',
+      \'title\' => \'FSA in Northern Ireland\',
+      \'log\' => \'\',
+      \'status\' => \'1\',
+      \'comment\' => \'1\',
+      \'promote\' => \'0\',
+      \'sticky\' => \'0\',
+      \'vuuid\' => \'fea37d66-8363-47ca-907b-4f80d9279ff1\',
+      \'nid\' => \'50\',
+      \'type\' => \'landing_page\',
+      \'language\' => \'und\',
+      \'created\' => \'1395146644\',
+      \'changed\' => \'1395148057\',
+      \'tnid\' => \'0\',
+      \'translate\' => \'0\',
+      \'uuid\' => \'45eeab8d-023a-4970-9674-fe6ace84b0ba\',
+      \'revision_timestamp\' => \'1395148057\',
+      \'revision_uid\' => \'1\',
+      \'body\' => array(),
+      \'field_summary\' => array(),
+      \'field_banner_image\' => array(),
+      \'field_subtitle\' => array(),
+      \'field_path\' => array(
+        \'und\' => array(
+          array(
+            \'human\' => NULL,
+            \'machine\' => \'northern-ireland\',
+          ),
+        ),
+      ),
+      \'field_popular_links\' => array(),
+      \'field_block_reference\' => array(),
+      \'field_current_topics\' => array(),
+      \'field_resources\' => array(),
+      \'metatags\' => array(),
+      \'rdf_mapping\' => array(
+        \'rdftype\' => array(
+          \'sioc:Item\',
+          \'foaf:Document\',
+        ),
+        \'title\' => array(
+          \'predicates\' => array(
+            \'dc:title\',
+          ),
+        ),
+        \'created\' => array(
+          \'predicates\' => array(
+            \'dc:date\',
+            \'dc:created\',
+          ),
+          \'datatype\' => \'xsd:dateTime\',
+          \'callback\' => \'date_iso8601\',
+        ),
+        \'changed\' => array(
+          \'predicates\' => array(
+            \'dc:modified\',
+          ),
+          \'datatype\' => \'xsd:dateTime\',
+          \'callback\' => \'date_iso8601\',
+        ),
+        \'body\' => array(
+          \'predicates\' => array(
+            \'content:encoded\',
+          ),
+        ),
+        \'uid\' => array(
+          \'predicates\' => array(
+            \'sioc:has_creator\',
+          ),
+          \'type\' => \'rel\',
+        ),
+        \'name\' => array(
+          \'predicates\' => array(
+            \'foaf:name\',
+          ),
+        ),
+        \'comment_count\' => array(
+          \'predicates\' => array(
+            \'sioc:num_replies\',
+          ),
+          \'datatype\' => \'xsd:integer\',
+        ),
+        \'last_activity\' => array(
+          \'predicates\' => array(
+            \'sioc:last_activity_date\',
+          ),
+          \'datatype\' => \'xsd:dateTime\',
+          \'callback\' => \'date_iso8601\',
+        ),
+      ),
+      \'name\' => \'Tharg\',
+      \'picture\' => \'0\',
+      \'data\' => \'b:0;\',
+      \'num_revisions\' => \'6\',
+      \'current_revision_id\' => \'103\',
+      \'is_current\' => TRUE,
+      \'is_pending\' => FALSE,
+      \'revision_moderation\' => FALSE,
+      \'path\' => array(
+        \'pid\' => \'54\',
+        \'source\' => \'node/50\',
+        \'alias\' => \'northern-ireland\',
+        \'language\' => \'und\',
+      ),
+      \'menu\' => array(
+        \'link_title\' => \'Northern Ireland\',
+        \'mlid\' => 0,
+        \'plid\' => \'0\',
+        \'menu_name\' => \'main-menu\',
+        \'weight\' => \'0\',
+        \'options\' => array(),
+        \'module\' => \'menu\',
+        \'expanded\' => \'0\',
+        \'hidden\' => \'0\',
+        \'has_children\' => \'1\',
+        \'customized\' => 0,
+        \'parent_depth_limit\' => 8,
+        \'description\' => \'FSA in Northern Ireland\',
+        \'enabled\' => 1,
+      ),
+      \'node_export_drupal_version\' => \'7\',
+    ),
+  (object) array(
+      \'vid\' => \'100\',
+      \'uid\' => \'1\',
+      \'title\' => \'FSA in Scotland\',
+      \'log\' => \'\',
+      \'status\' => \'1\',
+      \'comment\' => \'1\',
+      \'promote\' => \'0\',
+      \'sticky\' => \'0\',
+      \'vuuid\' => \'992a118e-32b1-4259-bf30-96098982fc0a\',
+      \'nid\' => \'47\',
+      \'type\' => \'landing_page\',
+      \'language\' => \'und\',
+      \'created\' => \'1395109826\',
+      \'changed\' => \'1395147345\',
+      \'tnid\' => \'0\',
+      \'translate\' => \'0\',
+      \'uuid\' => \'45ff34ff-2788-41c6-984f-7cb1d5640c47\',
+      \'revision_timestamp\' => \'1395147345\',
+      \'revision_uid\' => \'1\',
+      \'body\' => array(),
+      \'field_summary\' => array(),
+      \'field_banner_image\' => array(),
+      \'field_subtitle\' => array(),
+      \'field_path\' => array(
+        \'und\' => array(
+          array(
+            \'human\' => NULL,
+            \'machine\' => \'scotland\',
+          ),
+        ),
+      ),
+      \'field_popular_links\' => array(),
+      \'field_block_reference\' => array(),
+      \'field_current_topics\' => array(),
+      \'field_resources\' => array(),
+      \'metatags\' => array(),
+      \'rdf_mapping\' => array(
+        \'rdftype\' => array(
+          \'sioc:Item\',
+          \'foaf:Document\',
+        ),
+        \'title\' => array(
+          \'predicates\' => array(
+            \'dc:title\',
+          ),
+        ),
+        \'created\' => array(
+          \'predicates\' => array(
+            \'dc:date\',
+            \'dc:created\',
+          ),
+          \'datatype\' => \'xsd:dateTime\',
+          \'callback\' => \'date_iso8601\',
+        ),
+        \'changed\' => array(
+          \'predicates\' => array(
+            \'dc:modified\',
+          ),
+          \'datatype\' => \'xsd:dateTime\',
+          \'callback\' => \'date_iso8601\',
+        ),
+        \'body\' => array(
+          \'predicates\' => array(
+            \'content:encoded\',
+          ),
+        ),
+        \'uid\' => array(
+          \'predicates\' => array(
+            \'sioc:has_creator\',
+          ),
+          \'type\' => \'rel\',
+        ),
+        \'name\' => array(
+          \'predicates\' => array(
+            \'foaf:name\',
+          ),
+        ),
+        \'comment_count\' => array(
+          \'predicates\' => array(
+            \'sioc:num_replies\',
+          ),
+          \'datatype\' => \'xsd:integer\',
+        ),
+        \'last_activity\' => array(
+          \'predicates\' => array(
+            \'sioc:last_activity_date\',
+          ),
+          \'datatype\' => \'xsd:dateTime\',
+          \'callback\' => \'date_iso8601\',
+        ),
+      ),
+      \'name\' => \'Tharg\',
+      \'picture\' => \'0\',
+      \'data\' => \'b:0;\',
+      \'num_revisions\' => \'5\',
+      \'current_revision_id\' => \'100\',
+      \'is_current\' => TRUE,
+      \'is_pending\' => FALSE,
+      \'revision_moderation\' => FALSE,
+      \'path\' => array(
+        \'pid\' => \'51\',
+        \'source\' => \'node/47\',
+        \'alias\' => \'scotland\',
+        \'language\' => \'und\',
+      ),
+      \'menu\' => array(
+        \'link_title\' => \'Scotland\',
+        \'mlid\' => 0,
+        \'plid\' => \'0\',
+        \'menu_name\' => \'main-menu\',
+        \'weight\' => \'48\',
+        \'options\' => array(),
+        \'module\' => \'menu\',
+        \'expanded\' => \'0\',
+        \'hidden\' => \'0\',
+        \'has_children\' => \'1\',
+        \'customized\' => 0,
+        \'parent_depth_limit\' => 8,
+        \'description\' => \'FSA in Scotland\',
+        \'enabled\' => 1,
+      ),
+      \'node_export_drupal_version\' => \'7\',
+    ),
+  (object) array(
+      \'vid\' => \'203\',
       \'uid\' => \'1\',
       \'title\' => \'News and Updates\',
       \'log\' => \'\',
@@ -360,24 +809,24 @@ function section_landing_pages_features_node_export_features_default() {
       \'comment\' => \'1\',
       \'promote\' => \'0\',
       \'sticky\' => \'0\',
-      \'vuuid\' => \'f5863bd6-662a-4fb9-823c-f8a5c02f8655\',
+      \'vuuid\' => \'c7efcd49-a9d6-45f7-90c8-6eb5820c35e6\',
       \'nid\' => \'2\',
       \'type\' => \'landing_page\',
-      \'language\' => \'und\',
+      \'language\' => \'en\',
       \'created\' => \'1391442104\',
-      \'changed\' => \'1393401345\',
+      \'changed\' => \'1395504154\',
       \'tnid\' => \'0\',
       \'translate\' => \'0\',
       \'uuid\' => \'6dd92932-f132-4138-8e61-ea7f947389e7\',
-      \'revision_timestamp\' => \'1393401345\',
+      \'revision_timestamp\' => \'1395504154\',
       \'revision_uid\' => \'1\',
       \'body\' => array(
         \'und\' => array(
           array(
-            \'value\' => "<p>Landing page.</p>\\r\\n",
+            \'value\' => "<p>You will also find information about our latest campaigns, consultations, food recalls and allergy alerts.</p>\\r\\n\\r\\n<p>Journalists requiring further information should contact the Press Office on 020 7276 8888.</p>\\r\\n\\r\\n<p>For other contact details please see contact us.</p>\\r\\n",
             \'summary\' => \'\',
-            \'format\' => \'filtered_html\',
-            \'safe_value\' => \'<p>Landing page.</p>\',
+            \'format\' => \'full_html\',
+            \'safe_value\' => "<p>You will also find information about our latest campaigns, consultations, food recalls and allergy alerts.</p>\\n\\n<p>Journalists requiring further information should contact the Press Office on 020 7276 8888.</p>\\n\\n<p>For other contact details please see contact us.</p>",
             \'safe_summary\' => \'\',
           ),
         ),
@@ -385,9 +834,9 @@ function section_landing_pages_features_node_export_features_default() {
       \'field_summary\' => array(
         \'und\' => array(
           array(
-            \'value\' => \'Landing page summary\',
+            \'value\' => "Keep up-to-date with the Agency\'s latest news in this section.",
             \'format\' => NULL,
-            \'safe_value\' => \'Landing page summary\',
+            \'safe_value\' => \'Keep up-to-date with the Agency&#039;s latest news in this section.\',
           ),
         ),
       ),
@@ -422,13 +871,66 @@ function section_landing_pages_features_node_export_features_default() {
       \'field_subtitle\' => array(
         \'und\' => array(
           array(
-            \'value\' => \'Subtitle for news and updates is similar to comment field on old site\',
+            \'value\' => \'Keep up-to-date with latest news\',
             \'format\' => NULL,
-            \'safe_value\' => \'Subtitle for news and updates is similar to comment field on old site\',
+            \'safe_value\' => \'Keep up-to-date with latest news\',
           ),
         ),
       ),
-      \'field_path\' => array(),
+      \'field_path\' => array(
+        \'und\' => array(
+          array(
+            \'human\' => NULL,
+            \'machine\' => \'news-and-updates\',
+          ),
+        ),
+      ),
+      \'field_popular_links\' => array(
+        \'und\' => array(
+          array(
+            \'target_id\' => \'93\',
+          ),
+        ),
+      ),
+      \'field_block_reference\' => array(
+        \'und\' => array(
+          array(
+            \'moddelta\' => \'views:news-block\',
+          ),
+        ),
+      ),
+      \'field_current_topics\' => array(
+        \'und\' => array(
+          array(
+            \'target_id\' => \'100\',
+          ),
+          array(
+            \'target_id\' => \'31\',
+          ),
+          array(
+            \'target_id\' => \'103\',
+          ),
+          array(
+            \'target_id\' => \'104\',
+          ),
+        ),
+      ),
+      \'field_resources\' => array(
+        \'und\' => array(
+          array(
+            \'target_id\' => \'99\',
+          ),
+          array(
+            \'target_id\' => \'101\',
+          ),
+          array(
+            \'target_id\' => \'100\',
+          ),
+          array(
+            \'target_id\' => \'31\',
+          ),
+        ),
+      ),
       \'metatags\' => array(),
       \'rdf_mapping\' => array(
         \'rdftype\' => array(
@@ -485,25 +987,14 @@ function section_landing_pages_features_node_export_features_default() {
           \'callback\' => \'date_iso8601\',
         ),
       ),
-      \'cid\' => \'0\',
-      \'last_comment_timestamp\' => \'1391442104\',
-      \'last_comment_name\' => NULL,
-      \'last_comment_uid\' => \'1\',
-      \'comment_count\' => \'0\',
       \'name\' => \'Tharg\',
       \'picture\' => \'0\',
       \'data\' => \'b:0;\',
-      \'num_revisions\' => \'1\',
-      \'current_revision_id\' => \'2\',
+      \'num_revisions\' => \'5\',
+      \'current_revision_id\' => \'203\',
       \'is_current\' => TRUE,
       \'is_pending\' => FALSE,
       \'revision_moderation\' => FALSE,
-      \'path\' => array(
-        \'pid\' => \'6\',
-        \'source\' => \'node/2\',
-        \'alias\' => \'news-updates\',
-        \'language\' => \'und\',
-      ),
       \'menu\' => array(
         \'link_title\' => \'News & updates\',
         \'mlid\' => 0,
@@ -520,10 +1011,16 @@ function section_landing_pages_features_node_export_features_default() {
         \'description\' => \'\',
         \'enabled\' => 1,
       ),
+      \'path\' => array(
+        \'pid\' => \'6\',
+        \'source\' => \'node/2\',
+        \'alias\' => \'news-updates\',
+        \'language\' => \'und\',
+      ),
       \'node_export_drupal_version\' => \'7\',
     ),
   (object) array(
-      \'vid\' => \'7\',
+      \'vid\' => \'206\',
       \'uid\' => \'1\',
       \'title\' => \'About us\',
       \'log\' => \'\',
@@ -531,24 +1028,24 @@ function section_landing_pages_features_node_export_features_default() {
       \'comment\' => \'1\',
       \'promote\' => \'0\',
       \'sticky\' => \'0\',
-      \'vuuid\' => \'0e075023-6803-4090-88db-59622b3faeeb\',
+      \'vuuid\' => \'8c2b6d30-0d48-46f2-8918-b1ed9d47c24a\',
       \'nid\' => \'7\',
       \'type\' => \'landing_page\',
-      \'language\' => \'und\',
+      \'language\' => \'en\',
       \'created\' => \'1391442261\',
-      \'changed\' => \'1392978432\',
+      \'changed\' => \'1395507611\',
       \'tnid\' => \'0\',
       \'translate\' => \'0\',
       \'uuid\' => \'8502d102-914b-44f9-b355-29f3c237035b\',
-      \'revision_timestamp\' => \'1392978432\',
+      \'revision_timestamp\' => \'1395507611\',
       \'revision_uid\' => \'1\',
       \'body\' => array(
         \'und\' => array(
           array(
-            \'value\' => "<p>Landing page</p>\\r\\n",
+            \'value\' => "<p>Everything we do reflects our vision of &lsquo;Safer food for the nation&rsquo;. We aim to ensure that food produced or sold in the UK is safe to eat, consumers have the information they need to make informed choices about where and what they eat and that regulation and enforcement is risk-based and focused on improving public health.</p>\\r\\n",
             \'summary\' => \'\',
-            \'format\' => \'filtered_html\',
-            \'safe_value\' => \'<p>Landing page</p>\',
+            \'format\' => \'full_html\',
+            \'safe_value\' => \'<p>Everything we do reflects our vision of ‘Safer food for the nation’. We aim to ensure that food produced or sold in the UK is safe to eat, consumers have the information they need to make informed choices about where and what they eat and that regulation and enforcement is risk-based and focused on improving public health.</p>\',
             \'safe_summary\' => \'\',
           ),
         ),
@@ -556,9 +1053,9 @@ function section_landing_pages_features_node_export_features_default() {
       \'field_summary\' => array(
         \'und\' => array(
           array(
-            \'value\' => \'Landing page summary\',
+            \'value\' => \'The Food Standards Agency is an independent government department responsible for food safety and hygiene across the UK. We work with businesses to help them produce safe food, and with local authorities to enforce food safety regulations.\',
             \'format\' => NULL,
-            \'safe_value\' => \'Landing page summary\',
+            \'safe_value\' => \'The Food Standards Agency is an independent government department responsible for food safety and hygiene across the UK. We work with businesses to help them produce safe food, and with local authorities to enforce food safety regulations.\',
           ),
         ),
       ),
@@ -590,8 +1087,33 @@ function section_landing_pages_features_node_export_features_default() {
           ),
         ),
       ),
-      \'field_subtitle\' => array(),
-      \'field_path\' => array(),
+      \'field_subtitle\' => array(
+        \'und\' => array(
+          array(
+            \'value\' => \'Subtitle here\',
+            \'format\' => NULL,
+            \'safe_value\' => \'Subtitle here\',
+          ),
+        ),
+      ),
+      \'field_path\' => array(
+        \'und\' => array(
+          array(
+            \'human\' => NULL,
+            \'machine\' => \'about-us\',
+          ),
+        ),
+      ),
+      \'field_popular_links\' => array(),
+      \'field_block_reference\' => array(
+        \'und\' => array(
+          array(
+            \'moddelta\' => \'views:news-block_5\',
+          ),
+        ),
+      ),
+      \'field_current_topics\' => array(),
+      \'field_resources\' => array(),
       \'metatags\' => array(),
       \'rdf_mapping\' => array(
         \'rdftype\' => array(
@@ -648,25 +1170,14 @@ function section_landing_pages_features_node_export_features_default() {
           \'callback\' => \'date_iso8601\',
         ),
       ),
-      \'cid\' => \'0\',
-      \'last_comment_timestamp\' => \'1391442261\',
-      \'last_comment_name\' => NULL,
-      \'last_comment_uid\' => \'1\',
-      \'comment_count\' => \'0\',
       \'name\' => \'Tharg\',
       \'picture\' => \'0\',
       \'data\' => \'b:0;\',
-      \'num_revisions\' => \'1\',
-      \'current_revision_id\' => \'7\',
+      \'num_revisions\' => \'5\',
+      \'current_revision_id\' => \'206\',
       \'is_current\' => TRUE,
       \'is_pending\' => FALSE,
       \'revision_moderation\' => FALSE,
-      \'path\' => array(
-        \'pid\' => \'1\',
-        \'source\' => \'node/7\',
-        \'alias\' => \'about-us\',
-        \'language\' => \'und\',
-      ),
       \'menu\' => array(
         \'link_title\' => \'About us\',
         \'mlid\' => 0,
@@ -682,6 +1193,12 @@ function section_landing_pages_features_node_export_features_default() {
         \'parent_depth_limit\' => 8,
         \'description\' => \'\',
         \'enabled\' => 1,
+      ),
+      \'path\' => array(
+        \'pid\' => \'1\',
+        \'source\' => \'node/7\',
+        \'alias\' => \'about-us\',
+        \'language\' => \'und\',
       ),
       \'node_export_drupal_version\' => \'7\',
     ),
@@ -711,6 +1228,8 @@ function section_landing_pages_features_node_export_features_default() {
             \'value\' => "<p>Welcome to the home page.</p>\\r\\n\\r\\n<p>&nbsp;</p>\\r\\n",
             \'summary\' => \'\',
             \'format\' => \'full_html\',
+            \'safe_value\' => "<p>Welcome to the home page.</p>\\n\\n<p> </p>",
+            \'safe_summary\' => \'\',
           ),
         ),
       ),
@@ -718,6 +1237,10 @@ function section_landing_pages_features_node_export_features_default() {
       \'field_banner_image\' => array(),
       \'field_subtitle\' => array(),
       \'field_path\' => array(),
+      \'field_popular_links\' => array(),
+      \'field_block_reference\' => array(),
+      \'field_current_topics\' => array(),
+      \'field_resources\' => array(),
       \'metatags\' => array(),
       \'rdf_mapping\' => array(
         \'rdftype\' => array(
@@ -774,11 +1297,6 @@ function section_landing_pages_features_node_export_features_default() {
           \'callback\' => \'date_iso8601\',
         ),
       ),
-      \'cid\' => \'0\',
-      \'last_comment_timestamp\' => \'1391441873\',
-      \'last_comment_name\' => NULL,
-      \'last_comment_uid\' => \'1\',
-      \'comment_count\' => \'0\',
       \'name\' => \'Tharg\',
       \'picture\' => \'0\',
       \'data\' => \'b:0;\',
@@ -787,7 +1305,6 @@ function section_landing_pages_features_node_export_features_default() {
       \'is_current\' => TRUE,
       \'is_pending\' => FALSE,
       \'revision_moderation\' => FALSE,
-      \'path\' => FALSE,
       \'menu\' => array(
         \'link_title\' => \'Home\',
         \'mlid\' => 0,
@@ -804,10 +1321,195 @@ function section_landing_pages_features_node_export_features_default() {
         \'description\' => \'\',
         \'enabled\' => 1,
       ),
+      \'path\' => FALSE,
       \'node_export_drupal_version\' => \'7\',
     ),
   (object) array(
-      \'vid\' => \'4\',
+      \'vid\' => \'156\',
+      \'uid\' => \'1\',
+      \'title\' => \'Error 404 - Page not found\',
+      \'log\' => \'\',
+      \'status\' => \'1\',
+      \'comment\' => \'0\',
+      \'promote\' => \'0\',
+      \'sticky\' => \'0\',
+      \'vuuid\' => \'5fcc8200-b02a-4aa5-ad33-1365b1ac46d1\',
+      \'nid\' => \'85\',
+      \'type\' => \'document_page\',
+      \'language\' => \'und\',
+      \'created\' => \'1395239969\',
+      \'changed\' => \'1395239969\',
+      \'tnid\' => \'0\',
+      \'translate\' => \'0\',
+      \'uuid\' => \'c9206553-dfb6-4cb8-978f-5873ea0eb605\',
+      \'revision_timestamp\' => \'1395239969\',
+      \'revision_uid\' => \'1\',
+      \'body\' => array(),
+      \'field_updated\' => array(
+        \'und\' => array(
+          array(
+            \'value\' => \'2014-03-19 00:00:00\',
+            \'timezone\' => \'Europe/London\',
+            \'timezone_db\' => \'Europe/London\',
+            \'date_type\' => \'datetime\',
+          ),
+        ),
+      ),
+      \'field_summary\' => array(
+        \'und\' => array(
+          array(
+            \'value\' => \'Sorry, the page you are looking for cannot be found.\',
+            \'format\' => NULL,
+            \'safe_value\' => \'Sorry, the page you are looking for cannot be found.\',
+          ),
+        ),
+      ),
+      \'field_feature_image\' => array(),
+      \'field_subtitle\' => array(),
+      \'field_fc_page_section\' => array(
+        \'und\' => array(
+          array(
+            \'value\' => \'96\',
+            \'revision_id\' => \'273\',
+          ),
+          array(
+            \'value\' => \'97\',
+            \'revision_id\' => \'274\',
+          ),
+        ),
+      ),
+      \'field_path\' => array(
+        \'und\' => array(
+          array(
+            \'human\' => NULL,
+            \'machine\' => \'error-404\',
+          ),
+        ),
+      ),
+      \'field_featured_item\' => array(),
+      \'field_site_section\' => array(
+        \'und\' => array(
+          array(
+            \'tid\' => \'15\',
+          ),
+        ),
+      ),
+      \'field_nation\' => array(
+        \'und\' => array(
+          array(
+            \'tid\' => \'4\',
+          ),
+        ),
+      ),
+      \'field_display_updated_date\' => array(
+        \'und\' => array(
+          array(
+            \'value\' => \'1\',
+          ),
+        ),
+      ),
+      \'field_table_of_contents_level\' => array(
+        \'und\' => array(
+          array(
+            \'value\' => \'off\',
+          ),
+        ),
+      ),
+      \'field_fc_side_content_generic\' => array(),
+      \'field_links_see_also\' => array(),
+      \'field_links_external\' => array(),
+      \'field_child_page_style\' => array(
+        \'und\' => array(
+          array(
+            \'field_collection_select\' => \'fc_teaser\',
+          ),
+        ),
+      ),
+      \'metatags\' => array(),
+      \'rdf_mapping\' => array(
+        \'rdftype\' => array(
+          \'sioc:Item\',
+          \'foaf:Document\',
+        ),
+        \'title\' => array(
+          \'predicates\' => array(
+            \'dc:title\',
+          ),
+        ),
+        \'created\' => array(
+          \'predicates\' => array(
+            \'dc:date\',
+            \'dc:created\',
+          ),
+          \'datatype\' => \'xsd:dateTime\',
+          \'callback\' => \'date_iso8601\',
+        ),
+        \'changed\' => array(
+          \'predicates\' => array(
+            \'dc:modified\',
+          ),
+          \'datatype\' => \'xsd:dateTime\',
+          \'callback\' => \'date_iso8601\',
+        ),
+        \'body\' => array(
+          \'predicates\' => array(
+            \'content:encoded\',
+          ),
+        ),
+        \'uid\' => array(
+          \'predicates\' => array(
+            \'sioc:has_creator\',
+          ),
+          \'type\' => \'rel\',
+        ),
+        \'name\' => array(
+          \'predicates\' => array(
+            \'foaf:name\',
+          ),
+        ),
+        \'comment_count\' => array(
+          \'predicates\' => array(
+            \'sioc:num_replies\',
+          ),
+          \'datatype\' => \'xsd:integer\',
+        ),
+        \'last_activity\' => array(
+          \'predicates\' => array(
+            \'sioc:last_activity_date\',
+          ),
+          \'datatype\' => \'xsd:dateTime\',
+          \'callback\' => \'date_iso8601\',
+        ),
+      ),
+      \'name\' => \'Tharg\',
+      \'picture\' => \'0\',
+      \'data\' => \'b:0;\',
+      \'num_revisions\' => \'1\',
+      \'current_revision_id\' => \'156\',
+      \'is_current\' => TRUE,
+      \'is_pending\' => FALSE,
+      \'revision_moderation\' => FALSE,
+      \'path\' => array(
+        \'pid\' => \'89\',
+        \'source\' => \'node/85\',
+        \'alias\' => \'error-404\',
+        \'language\' => \'und\',
+      ),
+      \'menu\' => NULL,
+      \'node_export_drupal_version\' => \'7\',
+      \'field_collection_deploy\' => array(
+        \'field_fc_page_section\' => array(
+          NULL,
+          NULL,
+        ),
+        \'field_fc_side_content_generic\' => array(
+          NULL,
+          NULL,
+        ),
+      ),
+    ),
+  (object) array(
+      \'vid\' => \'199\',
       \'uid\' => \'1\',
       \'title\' => \'Business and industry\',
       \'log\' => \'\',
@@ -815,24 +1517,24 @@ function section_landing_pages_features_node_export_features_default() {
       \'comment\' => \'1\',
       \'promote\' => \'0\',
       \'sticky\' => \'0\',
-      \'vuuid\' => \'8eb4d603-4ef2-4d38-b0fe-3d9771680471\',
+      \'vuuid\' => \'1e6136a9-ce29-476d-95ed-f2e8dfc1c3a1\',
       \'nid\' => \'4\',
       \'type\' => \'landing_page\',
-      \'language\' => \'und\',
+      \'language\' => \'en\',
       \'created\' => \'1391442166\',
-      \'changed\' => \'1393377271\',
+      \'changed\' => \'1395490337\',
       \'tnid\' => \'0\',
       \'translate\' => \'0\',
       \'uuid\' => \'cd92ac88-8d94-4bbd-b4fe-5c1367140ab4\',
-      \'revision_timestamp\' => \'1393377271\',
+      \'revision_timestamp\' => \'1395490337\',
       \'revision_uid\' => \'1\',
       \'body\' => array(
         \'und\' => array(
           array(
-            \'value\' => "<p>Landing page</p>\\r\\n",
+            \'value\' => "<p>The Food Standards Agency is concerned with the whole food industry &ndash; from farming, food production and distribution, to retail and catering. It addresses food safety issues at every stage of the chain, providing information and guidance on best practice and legal requirements.</p>\\r\\n",
             \'summary\' => \'\',
-            \'format\' => \'filtered_html\',
-            \'safe_value\' => \'<p>Landing page</p>\',
+            \'format\' => \'full_html\',
+            \'safe_value\' => \'<p>The Food Standards Agency is concerned with the whole food industry – from farming, food production and distribution, to retail and catering. It addresses food safety issues at every stage of the chain, providing information and guidance on best practice and legal requirements.</p>\',
             \'safe_summary\' => \'\',
           ),
         ),
@@ -840,9 +1542,9 @@ function section_landing_pages_features_node_export_features_default() {
       \'field_summary\' => array(
         \'und\' => array(
           array(
-            \'value\' => \'Landing page summary\',
+            \'value\' => "Whether you\'re a café or restaurant owner, farmer or butcher, this section has all the advice and guidance you need to produce safe food.",
             \'format\' => NULL,
-            \'safe_value\' => \'Landing page summary\',
+            \'safe_value\' => \'Whether you&#039;re a café or restaurant owner, farmer or butcher, this section has all the advice and guidance you need to produce safe food.\',
           ),
         ),
       ),
@@ -874,8 +1576,33 @@ function section_landing_pages_features_node_export_features_default() {
           ),
         ),
       ),
-      \'field_subtitle\' => array(),
-      \'field_path\' => array(),
+      \'field_subtitle\' => array(
+        \'und\' => array(
+          array(
+            \'value\' => \'Subtitle here\',
+            \'format\' => NULL,
+            \'safe_value\' => \'Subtitle here\',
+          ),
+        ),
+      ),
+      \'field_path\' => array(
+        \'und\' => array(
+          array(
+            \'human\' => NULL,
+            \'machine\' => \'business-and-industry\',
+          ),
+        ),
+      ),
+      \'field_popular_links\' => array(),
+      \'field_block_reference\' => array(
+        \'und\' => array(
+          array(
+            \'moddelta\' => \'views:news-block_2\',
+          ),
+        ),
+      ),
+      \'field_current_topics\' => array(),
+      \'field_resources\' => array(),
       \'metatags\' => array(),
       \'rdf_mapping\' => array(
         \'rdftype\' => array(
@@ -932,25 +1659,14 @@ function section_landing_pages_features_node_export_features_default() {
           \'callback\' => \'date_iso8601\',
         ),
       ),
-      \'cid\' => \'0\',
-      \'last_comment_timestamp\' => \'1391442166\',
-      \'last_comment_name\' => NULL,
-      \'last_comment_uid\' => \'1\',
-      \'comment_count\' => \'0\',
       \'name\' => \'Tharg\',
       \'picture\' => \'0\',
       \'data\' => \'b:0;\',
-      \'num_revisions\' => \'1\',
-      \'current_revision_id\' => \'4\',
+      \'num_revisions\' => \'3\',
+      \'current_revision_id\' => \'199\',
       \'is_current\' => TRUE,
       \'is_pending\' => FALSE,
       \'revision_moderation\' => FALSE,
-      \'path\' => array(
-        \'pid\' => \'4\',
-        \'source\' => \'node/4\',
-        \'alias\' => \'business-industry\',
-        \'language\' => \'und\',
-      ),
       \'menu\' => array(
         \'link_title\' => \'Business & industry\',
         \'mlid\' => 0,
@@ -965,6 +1681,136 @@ function section_landing_pages_features_node_export_features_default() {
         \'customized\' => 0,
         \'parent_depth_limit\' => 8,
         \'description\' => \'\',
+        \'enabled\' => 1,
+      ),
+      \'path\' => array(
+        \'pid\' => \'4\',
+        \'source\' => \'node/4\',
+        \'alias\' => \'business-industry\',
+        \'language\' => \'und\',
+      ),
+      \'node_export_drupal_version\' => \'7\',
+    ),
+  (object) array(
+      \'vid\' => \'165\',
+      \'uid\' => \'1\',
+      \'title\' => \'FSA in Wales\',
+      \'log\' => \'\',
+      \'status\' => \'1\',
+      \'comment\' => \'1\',
+      \'promote\' => \'0\',
+      \'sticky\' => \'0\',
+      \'vuuid\' => \'78102601-5519-4092-b8d9-eff46f8a02d3\',
+      \'nid\' => \'49\',
+      \'type\' => \'landing_page\',
+      \'language\' => \'en\',
+      \'created\' => \'1395146378\',
+      \'changed\' => \'1395255102\',
+      \'tnid\' => \'0\',
+      \'translate\' => \'0\',
+      \'uuid\' => \'d9eb598f-2831-4c0a-93f9-3712ff23a9f9\',
+      \'revision_timestamp\' => \'1395255102\',
+      \'revision_uid\' => \'1\',
+      \'body\' => array(),
+      \'field_summary\' => array(),
+      \'field_banner_image\' => array(),
+      \'field_subtitle\' => array(),
+      \'field_path\' => array(
+        \'und\' => array(
+          array(
+            \'human\' => NULL,
+            \'machine\' => \'wales\',
+          ),
+        ),
+      ),
+      \'field_popular_links\' => array(),
+      \'field_block_reference\' => array(),
+      \'field_current_topics\' => array(),
+      \'field_resources\' => array(),
+      \'metatags\' => array(),
+      \'rdf_mapping\' => array(
+        \'rdftype\' => array(
+          \'sioc:Item\',
+          \'foaf:Document\',
+        ),
+        \'title\' => array(
+          \'predicates\' => array(
+            \'dc:title\',
+          ),
+        ),
+        \'created\' => array(
+          \'predicates\' => array(
+            \'dc:date\',
+            \'dc:created\',
+          ),
+          \'datatype\' => \'xsd:dateTime\',
+          \'callback\' => \'date_iso8601\',
+        ),
+        \'changed\' => array(
+          \'predicates\' => array(
+            \'dc:modified\',
+          ),
+          \'datatype\' => \'xsd:dateTime\',
+          \'callback\' => \'date_iso8601\',
+        ),
+        \'body\' => array(
+          \'predicates\' => array(
+            \'content:encoded\',
+          ),
+        ),
+        \'uid\' => array(
+          \'predicates\' => array(
+            \'sioc:has_creator\',
+          ),
+          \'type\' => \'rel\',
+        ),
+        \'name\' => array(
+          \'predicates\' => array(
+            \'foaf:name\',
+          ),
+        ),
+        \'comment_count\' => array(
+          \'predicates\' => array(
+            \'sioc:num_replies\',
+          ),
+          \'datatype\' => \'xsd:integer\',
+        ),
+        \'last_activity\' => array(
+          \'predicates\' => array(
+            \'sioc:last_activity_date\',
+          ),
+          \'datatype\' => \'xsd:dateTime\',
+          \'callback\' => \'date_iso8601\',
+        ),
+      ),
+      \'name\' => \'Tharg\',
+      \'picture\' => \'0\',
+      \'data\' => \'b:0;\',
+      \'num_revisions\' => \'6\',
+      \'current_revision_id\' => \'165\',
+      \'is_current\' => TRUE,
+      \'is_pending\' => FALSE,
+      \'revision_moderation\' => FALSE,
+      \'path\' => array(
+        \'pid\' => \'53\',
+        \'source\' => \'node/49\',
+        \'alias\' => \'wales\',
+        \'language\' => \'und\',
+      ),
+      \'menu\' => array(
+        \'link_title\' => \'Wales\',
+        \'mlid\' => 0,
+        \'plid\' => \'0\',
+        \'menu_name\' => \'main-menu\',
+        \'weight\' => \'48\',
+        \'options\' => array(),
+        \'module\' => \'menu\',
+        \'expanded\' => \'0\',
+        \'hidden\' => \'0\',
+        \'has_children\' => \'1\',
+        \'customized\' => 0,
+        \'parent_depth_limit\' => 8,
+        \'description\' => \'FSA in Wales\',
         \'enabled\' => 1,
       ),
       \'node_export_drupal_version\' => \'7\',
@@ -995,6 +1841,8 @@ function section_landing_pages_features_node_export_features_default() {
             \'value\' => "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc faucibus nulla quis ligula consequat, vel vehicula lorem dapibus! Quisque facilisis vel tellus convallis placerat! Suspendisse at venenatis enim. Fusce ac massa porttitor, posuere sapien at, ornare diam. Integer mollis faucibus tempor. Etiam sit amet bibendum sem? Sed pellentesque magna vehicula ligula elementum placerat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce a arcu lorem. Nam lorem tortor, luctus consequat ultrices semper, fringilla id augue. Suspendisse mollis quis nisl vel elementum. Ut tristique, lectus ac tincidunt mollis, massa diam dignissim massa, sed imperdiet nulla magna quis elit! Aenean id viverra enim. Curabitur dui ante, consectetur vel dui non, feugiat interdum lorem! Vivamus porttitor mattis lorem in rhoncus. Praesent dictum in urna et convallis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in leo nec enim volutpat scelerisque sit amet sed dolor. Fusce a elit sodales lacus condimentum placerat eget eget nisi. Quisque hendrerit est nec mattis vulputate. Suspendisse potenti. Ut aliquet elit eros. Sed dignissim diam ut vestibulum laoreet. Nulla varius tortor lacus, quis commodo eros dignissim vitae. Etiam ultrices in urna nec molestie. Mauris fringilla sodales hendrerit? Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean non arcu in massa convallis commodo at ac sapien. Integer at risus accumsan, dignissim neque nec, pellentesque arcu. Quisque eu fringilla mauris. Cras ac elementum libero, vel pellentesque tellus.</p>\\r\\n",
             \'summary\' => \'\',
             \'format\' => \'full_html\',
+            \'safe_value\' => \'<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc faucibus nulla quis ligula consequat, vel vehicula lorem dapibus! Quisque facilisis vel tellus convallis placerat! Suspendisse at venenatis enim. Fusce ac massa porttitor, posuere sapien at, ornare diam. Integer mollis faucibus tempor. Etiam sit amet bibendum sem? Sed pellentesque magna vehicula ligula elementum placerat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce a arcu lorem. Nam lorem tortor, luctus consequat ultrices semper, fringilla id augue. Suspendisse mollis quis nisl vel elementum. Ut tristique, lectus ac tincidunt mollis, massa diam dignissim massa, sed imperdiet nulla magna quis elit! Aenean id viverra enim. Curabitur dui ante, consectetur vel dui non, feugiat interdum lorem! Vivamus porttitor mattis lorem in rhoncus. Praesent dictum in urna et convallis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in leo nec enim volutpat scelerisque sit amet sed dolor. Fusce a elit sodales lacus condimentum placerat eget eget nisi. Quisque hendrerit est nec mattis vulputate. Suspendisse potenti. Ut aliquet elit eros. Sed dignissim diam ut vestibulum laoreet. Nulla varius tortor lacus, quis commodo eros dignissim vitae. Etiam ultrices in urna nec molestie. Mauris fringilla sodales hendrerit? Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean non arcu in massa convallis commodo at ac sapien. Integer at risus accumsan, dignissim neque nec, pellentesque arcu. Quisque eu fringilla mauris. Cras ac elementum libero, vel pellentesque tellus.</p>\',
+            \'safe_summary\' => \'\',
           ),
         ),
       ),
@@ -1009,6 +1857,10 @@ function section_landing_pages_features_node_export_features_default() {
           ),
         ),
       ),
+      \'field_popular_links\' => array(),
+      \'field_block_reference\' => array(),
+      \'field_current_topics\' => array(),
+      \'field_resources\' => array(),
       \'metatags\' => array(),
       \'rdf_mapping\' => array(
         \'rdftype\' => array(
@@ -1065,11 +1917,6 @@ function section_landing_pages_features_node_export_features_default() {
           \'callback\' => \'date_iso8601\',
         ),
       ),
-      \'cid\' => \'0\',
-      \'last_comment_timestamp\' => \'1394801456\',
-      \'last_comment_name\' => NULL,
-      \'last_comment_uid\' => \'1\',
-      \'comment_count\' => \'0\',
       \'name\' => \'Tharg\',
       \'picture\' => \'0\',
       \'data\' => \'b:0;\',
@@ -1078,17 +1925,17 @@ function section_landing_pages_features_node_export_features_default() {
       \'is_current\' => TRUE,
       \'is_pending\' => FALSE,
       \'revision_moderation\' => FALSE,
+      \'menu\' => NULL,
       \'path\' => array(
         \'pid\' => \'48\',
         \'source\' => \'node/45\',
         \'alias\' => \'search-all\',
         \'language\' => \'und\',
       ),
-      \'menu\' => NULL,
       \'node_export_drupal_version\' => \'7\',
     ),
   (object) array(
-      \'vid\' => \'6\',
+      \'vid\' => \'201\',
       \'uid\' => \'1\',
       \'title\' => \'Science and research\',
       \'log\' => \'\',
@@ -1096,24 +1943,24 @@ function section_landing_pages_features_node_export_features_default() {
       \'comment\' => \'1\',
       \'promote\' => \'0\',
       \'sticky\' => \'0\',
-      \'vuuid\' => \'57da9b4d-8824-41b2-bdd4-2e6c88c9e01d\',
+      \'vuuid\' => \'1cce433c-fb81-4059-a614-fd5ffcaf7102\',
       \'nid\' => \'6\',
       \'type\' => \'landing_page\',
-      \'language\' => \'und\',
+      \'language\' => \'en\',
       \'created\' => \'1391442235\',
-      \'changed\' => \'1393377332\',
+      \'changed\' => \'1395490504\',
       \'tnid\' => \'0\',
       \'translate\' => \'0\',
       \'uuid\' => \'f19767bf-03dc-4c10-880c-a0a4972a39a6\',
-      \'revision_timestamp\' => \'1393377332\',
+      \'revision_timestamp\' => \'1395490504\',
       \'revision_uid\' => \'1\',
       \'body\' => array(
         \'und\' => array(
           array(
-            \'value\' => "<p>Landing page</p>\\r\\n",
+            \'value\' => "<p>In this section you&#39;ll find details of the Agency&#39;s research projects and how to apply for research funding.</p>\\r\\n",
             \'summary\' => \'\',
-            \'format\' => \'filtered_html\',
-            \'safe_value\' => \'<p>Landing page</p>\',
+            \'format\' => \'full_html\',
+            \'safe_value\' => "<p>In this section you\'ll find details of the Agency\'s research projects and how to apply for research funding.</p>",
             \'safe_summary\' => \'\',
           ),
         ),
@@ -1121,9 +1968,9 @@ function section_landing_pages_features_node_export_features_default() {
       \'field_summary\' => array(
         \'und\' => array(
           array(
-            \'value\' => \'Landing page summary\',
+            \'value\' => \'The Agency commissions scientific research to ensure that our advice is based on the best and most up-to-date science. We also work with a number of independent scientific committees.\',
             \'format\' => NULL,
-            \'safe_value\' => \'Landing page summary\',
+            \'safe_value\' => \'The Agency commissions scientific research to ensure that our advice is based on the best and most up-to-date science. We also work with a number of independent scientific committees.\',
           ),
         ),
       ),
@@ -1163,8 +2010,33 @@ function section_landing_pages_features_node_export_features_default() {
           ),
         ),
       ),
-      \'field_subtitle\' => array(),
-      \'field_path\' => array(),
+      \'field_subtitle\' => array(
+        \'und\' => array(
+          array(
+            \'value\' => \'Subtitle here\',
+            \'format\' => NULL,
+            \'safe_value\' => \'Subtitle here\',
+          ),
+        ),
+      ),
+      \'field_path\' => array(
+        \'und\' => array(
+          array(
+            \'human\' => NULL,
+            \'machine\' => \'science-and-research\',
+          ),
+        ),
+      ),
+      \'field_popular_links\' => array(),
+      \'field_block_reference\' => array(
+        \'und\' => array(
+          array(
+            \'moddelta\' => \'views:news-block_4\',
+          ),
+        ),
+      ),
+      \'field_current_topics\' => array(),
+      \'field_resources\' => array(),
       \'metatags\' => array(),
       \'rdf_mapping\' => array(
         \'rdftype\' => array(
@@ -1221,25 +2093,14 @@ function section_landing_pages_features_node_export_features_default() {
           \'callback\' => \'date_iso8601\',
         ),
       ),
-      \'cid\' => \'0\',
-      \'last_comment_timestamp\' => \'1391442235\',
-      \'last_comment_name\' => NULL,
-      \'last_comment_uid\' => \'1\',
-      \'comment_count\' => \'0\',
       \'name\' => \'Tharg\',
       \'picture\' => \'0\',
       \'data\' => \'b:0;\',
-      \'num_revisions\' => \'1\',
-      \'current_revision_id\' => \'6\',
+      \'num_revisions\' => \'3\',
+      \'current_revision_id\' => \'201\',
       \'is_current\' => TRUE,
       \'is_pending\' => FALSE,
       \'revision_moderation\' => FALSE,
-      \'path\' => array(
-        \'pid\' => \'2\',
-        \'source\' => \'node/6\',
-        \'alias\' => \'science\',
-        \'language\' => \'und\',
-      ),
       \'menu\' => array(
         \'link_title\' => \'Science & research\',
         \'mlid\' => 0,
@@ -1255,6 +2116,12 @@ function section_landing_pages_features_node_export_features_default() {
         \'parent_depth_limit\' => 8,
         \'description\' => \'\',
         \'enabled\' => 1,
+      ),
+      \'path\' => array(
+        \'pid\' => \'2\',
+        \'source\' => \'node/6\',
+        \'alias\' => \'science\',
+        \'language\' => \'und\',
       ),
       \'node_export_drupal_version\' => \'7\',
     ),

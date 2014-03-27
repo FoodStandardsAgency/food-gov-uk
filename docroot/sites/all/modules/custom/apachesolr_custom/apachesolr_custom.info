@@ -1,0 +1,9 @@
+name = ApacheSolr Custom
+description = Custom indexing and facets.
+dependencies[] = apachesolr
+dependencies[] = search
+dependencies[] = facetapi
+package = Local
+core = 7.x
+
+
