@@ -28,7 +28,7 @@ function local___feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'cache_flush_cache_admin_menu';
-  $strongarm->value = 1395954004;
+  $strongarm->value = 1395955804;
   $export['cache_flush_cache_admin_menu'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -161,7 +161,7 @@ function local___feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'cron_last';
-  $strongarm->value = 1395954001;
+  $strongarm->value = 1395955801;
   $export['cron_last'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -497,7 +497,7 @@ function local___feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'update_last_check';
-  $strongarm->value = 1395954008;
+  $strongarm->value = 1395955808;
   $export['update_last_check'] = $strongarm;
 
   $strongarm = new stdClass();
