@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the FAQ Content Type feature.
+ */
+
+include_once 'faq_content_type_feature.features.inc';
