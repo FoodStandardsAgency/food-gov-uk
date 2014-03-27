@@ -78,7 +78,7 @@ function local_deployment_install() {
   module_enable(array('facets_select'), TRUE);
 
   // Disable modules that were enabled by the install profile but we don't need.
-  module_disable(array('fontyourface', 'local_fonts'), FALSE);
+  module_disable(array('comment', 'fontyourface', 'local_fonts'), FALSE);
 }
 
 
