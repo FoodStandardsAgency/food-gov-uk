@@ -15,39 +15,52 @@
       <header class="l-header" role="banner">
 	    <div class="header-inner">
 		  <div class="header-top">
-          <div class="l-header-branding">
-            <?php if ($logo): ?>
-              <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" class="site-logo"><img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" /></a>
-            <?php endif; ?>
-            <?php if ($site_name || $site_slogan): ?>
-              <?php if ($site_name): ?>
-                <h1 class="site-name">
-                  <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home"><span><?php print $site_name; ?></span></a>
-                </h1>
-              <?php endif; ?>
-              <?php if ($site_slogan): ?>
-                <h2 class="site-slogan"><?php print $site_slogan; ?></h2>
-              <?php endif; ?>
-            <?php endif; ?>
-            <?php print render($page['header_branding']); ?>
-          </div> <!-- end l-header-branding -->
+	          <div class="l-header-branding">
+				<div class="header-branding-inner">
+				
+		            <?php if ($logo): ?>
+		              <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" class="site-logo"><img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" /></a>
+		            <?php endif; ?>
+		            <?php if ($site_name || $site_slogan): ?>
+		              <?php if ($site_name): ?>
+		                <h1 class="site-name">
+		                  <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home"><span><?php print $site_name; ?></span></a>
+		                </h1>
+		              <?php endif; ?>
+		              <?php if ($site_slogan): ?>
+		                <h2 class="site-slogan"><?php print $site_slogan; ?></h2>
+		              <?php endif; ?>
+		            <?php endif; ?>
+		            <?php print render($page['header_branding']); ?>
 
-          <div class="l-header-top-menu" role="navigation">
-	        <?php print render($page['header_top_menu']); ?>
-	      </div> <!-- end l-header-top-menu -->
+				</div> <!-- end header-branding-inner -->
+	          </div> <!-- end l-header-branding -->
+
+	          <div class="l-header-top-menu" role="navigation">
+				<div class ="header-top-menu-inner">
+		        	<?php print render($page['header_top_menu']); ?>
+				</div> <!-- end header-top-menu-inner -->
+		      </div> <!-- end l-header-top-menu -->
 	      
-	      <div id="search" class="l-header-search">
-	        <?php print render($page['header_search']); ?>
-	      </div> <!-- end l-header-search -->
+		      <div id="search" class="l-header-search">
+				<div class="header-search-inner">
+		        	<?php print render($page['header_search']); ?>
+				</div> <!-- end header-search-inner -->
+		      </div> <!-- end l-header-search -->
 	      </div> <!-- end header-top -->
-          <div class="header-bottom">	
-	        <div id="main-menu" class="l-header-main-menu" role="navigation">
-	          <?php print render($page['header_main_menu']); ?>
+	
+          <div class="header-bottom">
+			<div id="main-menu" class="l-header-main-menu" role="navigation">
+			  <div class="header-main-menu-inner">
+	          	<?php print render($page['header_main_menu']); ?>
+			  </div> <!-- end header-main-menu-inner -->
 	        </div> <!-- end l-header-main-menu -->
 	
-	        <div class="l-header-social-media">
-		      <?php print render($page['header_social_media']); ?>
-		     </div> <!-- end l-header-social-media -->
+			<div class="l-header-social-media">
+			  <div class="header-social-media-inner">
+		      	<?php print render($page['header_social_media']); ?>
+			  </div> <!-- end header-social-media-inner -->
+		    </div> <!-- end l-header-social-media -->
 		  </div> <!-- end header-bottom -->
 		
         </div> <!-- end header-inner -->
@@ -61,12 +74,16 @@
 	  <div class="breadcrumb-accessibility-inner">
 		
         <div class="l-breadcrumb">
-	      <?php print $breadcrumb; ?>
-	      <?php print render($page['breadcrumb']); ?>
+		  <div class="breadcrumb-inner">
+	      	<?php print $breadcrumb; ?>
+	      	<?php print render($page['breadcrumb']); ?>
+		  </div> <!-- end breadcrumb-inner -->
 	    </div> <!-- end l-breadcrumb -->
-	
+
 	    <div class="l-accessibility">
-	      <?php print render($page['accessibility']); ?>
+		  <div class="accessibility-inner">
+	      	<?php print render($page['accessibility']); ?>
+		  </div> <!-- end accessibility-inner -->
 	    </div> <!-- end l-accessibility -->
 	
 	  </div> <!-- end breadcrumb-accessibility-inner -->
@@ -92,32 +109,35 @@
 	  <div class="main-inner">
 		
         <div id="main-content" class="l-content" role="main">
+	      <div class="main-content-inner">
 	
-          <?php print render($page['highlighted']); ?>
+	          <?php print render($page['highlighted']); ?>
 
-          <?php if ($page['content_top']): ?>
-	        <div class="content-top-wrapper">
-		        <div class="content-top-wrapper-inner">
-			        <div class="content-top">
-					  <?php print render($page['content_top']); ?>
-				    </div> <!-- end content-top -->
-			    </div> <!-- end content-top-wrapper-inner -->
-		    </div> <!-- end content-top-wrapper -->
-	      <?php endif; ?>
+	          <?php if ($page['content_top']): ?>
+		        <div class="content-top-wrapper">
+			        <div class="content-top-wrapper-inner">
+				        <div class="content-top">
+						  <?php print render($page['content_top']); ?>
+					    </div> <!-- end content-top -->
+				    </div> <!-- end content-top-wrapper-inner -->
+			    </div> <!-- end content-top-wrapper -->
+		      <?php endif; ?>
 
-          <?php print render($title_prefix); ?>
-          <?php if ($title): ?>
-            <h1><?php print $title; ?></h1>
-          <?php endif; ?>
-          <?php print render($title_suffix); ?>
-          <?php print $messages; ?>
-          <?php print render($tabs); ?>
-          <?php print render($page['help']); ?>
-          <?php if ($action_links): ?>
-            <ul class="action-links"><?php print render($action_links); ?></ul>
-          <?php endif; ?>
-          <?php print render($page['content']); ?>
-          <?php print $feed_icons; ?>
+	          <?php print render($title_prefix); ?>
+	          <?php if ($title): ?>
+	            <h1><?php print $title; ?></h1>
+	          <?php endif; ?>
+	          <?php print render($title_suffix); ?>
+	          <?php print $messages; ?>
+	          <?php print render($tabs); ?>
+	          <?php print render($page['help']); ?>
+	          <?php if ($action_links): ?>
+	            <ul class="action-links"><?php print render($action_links); ?></ul>
+	          <?php endif; ?>
+	          <?php print render($page['content']); ?>
+	          <?php print $feed_icons; ?>
+
+          </div> <!-- end main-content-inner -->
         </div> <!-- end l-content -->
 		
       </div> <!-- end main-inner -->
