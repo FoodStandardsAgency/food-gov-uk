@@ -21,12 +21,12 @@ function apache_solr_feature_apachesolr_environments() {
     'apachesolr_direct_commit' => 1,
     'apachesolr_index_last' => array(
       'node' => array(
-        'last_changed' => '1395844913',
-        'last_entity_id' => '107',
+        'last_changed' => '1395938526',
+        'last_entity_id' => '43',
       ),
     ),
-    'apachesolr_index_updated' => 0,
-    'apachesolr_last_optimize' => 1395856801,
+    'apachesolr_index_updated' => 1395943801,
+    'apachesolr_last_optimize' => 1395943801,
     'apachesolr_read_only' => '0',
     'apachesolr_search_changed_boost' => '0:0',
     'apachesolr_search_comment_boost' => '0:0',

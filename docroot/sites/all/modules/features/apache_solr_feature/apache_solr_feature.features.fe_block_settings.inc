@@ -12,6 +12,60 @@ function apache_solr_feature_default_fe_block_settings() {
 
   $export['version'] = '2.0';
 
+  $export['current_search-news'] = array(
+    'cache' => -1,
+    'css_class' => '',
+    'custom' => 0,
+    'delta' => 'news',
+    'module' => 'current_search',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+      'site_frontend' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'site_frontend',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
+  );
+
+  $export['current_search-standard'] = array(
+    'cache' => -1,
+    'css_class' => '',
+    'custom' => 0,
+    'delta' => 'standard',
+    'module' => 'current_search',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+      'site_frontend' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'site_frontend',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '<none>',
+    'visibility' => 0,
+  );
+
   $export['facetapi-JA1S7gqOdiVJQxg5zwM1Pb8KjhJNGZjx'] = array(
     'cache' => -1,
     'css_class' => 'search-facet',
@@ -90,6 +144,33 @@ function apache_solr_feature_default_fe_block_settings() {
       ),
     ),
     'title' => '<none>',
+    'visibility' => 0,
+  );
+
+  $export['views--exp-news_centre___search-page'] = array(
+    'cache' => -1,
+    'css_class' => 'search-keyword-page',
+    'custom' => 0,
+    'delta' => '-exp-news_centre___search-page',
+    'module' => 'views',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+      'site_frontend' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'site_frontend',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
     'visibility' => 0,
   );
 
