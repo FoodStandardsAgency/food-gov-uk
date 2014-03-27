@@ -149,6 +149,34 @@ function display_suite_feature_ds_view_modes_info() {
 
   $ds_view_mode = new stdClass();
   $ds_view_mode->api_version = 1;
+  $ds_view_mode->view_mode = 'fc_teaser';
+  $ds_view_mode->label = 'Teaser';
+  $ds_view_mode->entities = array(
+    'field_collection_item' => 'field_collection_item',
+  );
+  $export['fc_teaser'] = $ds_view_mode;
+
+  $ds_view_mode = new stdClass();
+  $ds_view_mode->api_version = 1;
+  $ds_view_mode->view_mode = 'micro_teaser';
+  $ds_view_mode->label = 'Micro teaser';
+  $ds_view_mode->entities = array(
+    'field_collection_item' => 'field_collection_item',
+    'node' => 'node',
+  );
+  $export['micro_teaser'] = $ds_view_mode;
+
+  $ds_view_mode = new stdClass();
+  $ds_view_mode->api_version = 1;
+  $ds_view_mode->view_mode = 'search_results_2';
+  $ds_view_mode->label = 'Search Results 2';
+  $ds_view_mode->entities = array(
+    'node' => 'node',
+  );
+  $export['search_results_2'] = $ds_view_mode;
+
+  $ds_view_mode = new stdClass();
+  $ds_view_mode->api_version = 1;
   $ds_view_mode->view_mode = 'short_teaser';
   $ds_view_mode->label = 'Short teaser';
   $ds_view_mode->entities = array(
