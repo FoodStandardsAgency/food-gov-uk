@@ -71,6 +71,8 @@ function local_deployment_install() {
   module_enable(array('interactive_block_content_type_feature'), TRUE);
   module_enable(array('internal_link_set_content_type'), TRUE);
   module_enable(array('research_project_content_type_feature'), TRUE);
+  module_enable(array('national_feature'), TRUE);
+
 
   module_enable(array('facets_select'), TRUE);
 
