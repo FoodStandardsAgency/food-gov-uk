@@ -538,18 +538,19 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'FAQ',
-    'weight' => '47',
+    'weight' => '51',
     'children' => array(
       0 => 'field_fc_qanda',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
-      'formatter' => 'closed',
+      'label' => 'FAQ',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-faq field-group-accordion-item',
         'required_fields' => 1,
+        'classes' => 'group-faq field-group-accordion-item',
+        'description' => '',
       ),
+      'formatter' => 'open',
     ),
   );
   $export['group_faq|node|faq|form'] = $field_group;
@@ -646,7 +647,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Feature image',
-    'weight' => '49',
+    'weight' => '52',
     'children' => array(
       0 => 'field_feature_image',
     ),
@@ -978,7 +979,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Right hand column',
-    'weight' => '52',
+    'weight' => '54',
     'children' => array(
       0 => 'field_links_external',
       1 => 'field_links_see_also',
@@ -1189,7 +1190,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Information Architecture',
-    'weight' => '46',
+    'weight' => '49',
     'children' => array(
       0 => 'field_nation',
       1 => 'field_site_section',
@@ -1670,7 +1671,7 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Page sections',
-    'weight' => '51',
+    'weight' => '53',
     'children' => array(
       0 => 'field_child_page_display_style',
       1 => 'field_fc_page_section',
@@ -1762,7 +1763,8 @@ function field_groups_feature_field_group_info() {
       0 => 'field_display_updated_date',
       1 => 'field_table_of_contents_level',
       2 => 'field_updated',
-      3 => 'language',
+      3 => 'field_layout',
+      4 => 'language',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -1793,7 +1795,8 @@ function field_groups_feature_field_group_info() {
       0 => 'field_display_updated_date',
       1 => 'field_table_of_contents_level',
       2 => 'field_updated',
-      3 => 'language',
+      3 => 'field_layout',
+      4 => 'language',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -1824,7 +1827,8 @@ function field_groups_feature_field_group_info() {
       0 => 'field_updated',
       1 => 'field_display_updated_date',
       2 => 'field_table_of_contents_level',
-      3 => 'language',
+      3 => 'field_layout',
+      4 => 'language',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -1850,12 +1854,13 @@ function field_groups_feature_field_group_info() {
   $field_group->parent_name = 'group_accordion';
   $field_group->data = array(
     'label' => 'Page settings',
-    'weight' => '53',
+    'weight' => '55',
     'children' => array(
       0 => 'field_display_updated_date',
       1 => 'field_table_of_contents_level',
       2 => 'field_updated',
-      3 => 'language',
+      3 => 'field_layout',
+      4 => 'language',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -1886,7 +1891,8 @@ function field_groups_feature_field_group_info() {
       0 => 'field_display_updated_date',
       1 => 'field_table_of_contents_level',
       2 => 'field_updated',
-      3 => 'language',
+      3 => 'field_layout',
+      4 => 'language',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -1914,7 +1920,8 @@ function field_groups_feature_field_group_info() {
     'label' => 'Page Settings',
     'weight' => '7',
     'children' => array(
-      0 => 'language',
+      0 => 'field_layout',
+      1 => 'language',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -1944,7 +1951,8 @@ function field_groups_feature_field_group_info() {
       0 => 'field_display_updated_date',
       1 => 'field_table_of_contents_level',
       2 => 'field_updated',
-      3 => 'language',
+      3 => 'field_layout',
+      4 => 'language',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -1974,7 +1982,8 @@ function field_groups_feature_field_group_info() {
     'children' => array(
       0 => 'field_table_of_contents_level',
       1 => 'field_updated',
-      2 => 'language',
+      2 => 'field_layout',
+      3 => 'language',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
