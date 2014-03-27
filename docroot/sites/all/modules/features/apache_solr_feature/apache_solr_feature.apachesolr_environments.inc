@@ -26,7 +26,7 @@ function apache_solr_feature_apachesolr_environments() {
       ),
     ),
     'apachesolr_index_updated' => 0,
-    'apachesolr_last_optimize' => 1395769801,
+    'apachesolr_last_optimize' => 1395856801,
     'apachesolr_read_only' => '0',
     'apachesolr_search_changed_boost' => '0:0',
     'apachesolr_search_comment_boost' => '0:0',
