@@ -74,6 +74,7 @@ function local_deployment_install() {
   module_enable(array('national_feature'), TRUE);
   module_enable(array('side_content'), TRUE);
   module_enable(array('layouts_feature'), TRUE);
+  module_enable(array('languages_feature'), TRUE);
 
   module_enable(array('facets_select'), TRUE);
 
