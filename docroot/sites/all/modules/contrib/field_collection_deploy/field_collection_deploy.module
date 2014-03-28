@@ -35,7 +35,23 @@ function field_collection_deploy_entity(&$node, $field_collections) {
 		$items = entity_load("field_collection_item", $entity_ids);
 
 	  foreach($items as $item){
-	    $export[$field_collection][] = drupal_json_decode($item->export());
+	    //$export[$field_collection][] = drupal_json_decode($item->export());
+      $item_export = $item->export();
+      // At some point field collection stopped returning valid JSON here.
+      $prefix = "entity_import('" . $item->entityType() . "', '";
+
+      if (substr($item_export, 0, strlen($prefix)) === $prefix) {
+        // Re-construct it back into valid JSON.
+        $item_export = substr($item_export, strlen($prefix));
+        $item_export = substr($item_export, 0, -1 * strlen("')"));
+        // This almost certainly doesn't work in the general case
+        // because field_collection passed a 2nd param to addcslashes().
+        $item_export = stripcslashes($item_export);
+      }
+
+      $item_export = drupal_json_decode($item_export);
+      $export[$field_collection][] = $item_export;
+
 	  }
 
 	}
@@ -169,6 +185,11 @@ function field_collection_deploy_import_field_collection($node, $field_collectio
 			// This is a hack!
 			$item_id = db_query_range('SELECT item_id FROM {field_collection_item} WHERE field_name = :field_name ORDER BY item_id DESC', 0, 1, array(':field_name' => $bundle))->fetchField();
 			$field_values[$node->language][]['value'] = $item_id;
+      $rev_id = db_query_range('SELECT revision_id FROM {field_collection_item} WHERE field_name = :field_name ORDER BY item_id DESC', 0, 1, array(':field_name' => $bundle))->fetchField();
+      $language = ($node->language == '') ? LANGUAGE_NONE: $node->language;
+      $field_values[$language][] = array(
+        'value' => $item_id,
+        'revision_id' => $rev_id);
 		}
 
 		$node->$bundle = $field_values;
