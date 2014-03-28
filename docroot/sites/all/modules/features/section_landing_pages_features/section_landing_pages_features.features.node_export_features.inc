@@ -105,6 +105,7 @@ function section_landing_pages_features_node_export_features_default() {
       ),
       \'field_current_topics\' => array(),
       \'field_resources\' => array(),
+      \'field_layout\' => array(),
       \'metatags\' => array(),
       \'rdf_mapping\' => array(
         \'rdftype\' => array(
@@ -280,6 +281,7 @@ function section_landing_pages_features_node_export_features_default() {
       ),
       \'field_current_topics\' => array(),
       \'field_resources\' => array(),
+      \'field_layout\' => array(),
       \'metatags\' => array(),
       \'rdf_mapping\' => array(
         \'rdftype\' => array(
@@ -469,6 +471,7 @@ function section_landing_pages_features_node_export_features_default() {
           ),
         ),
       ),
+      \'field_layout\' => array(),
       \'metatags\' => array(),
       \'rdf_mapping\' => array(
         \'rdftype\' => array(
@@ -533,22 +536,234 @@ function section_landing_pages_features_node_export_features_default() {
       \'is_current\' => TRUE,
       \'is_pending\' => FALSE,
       \'revision_moderation\' => FALSE,
+      \'menu\' => NULL,
       \'path\' => array(
         \'pid\' => \'90\',
         \'source\' => \'node/86\',
         \'alias\' => \'error-403\',
         \'language\' => \'und\',
       ),
-      \'menu\' => NULL,
       \'node_export_drupal_version\' => \'7\',
       \'field_collection_deploy\' => array(
         \'field_fc_page_section\' => array(
-          NULL,
-          NULL,
+          array(
+            \'item_id\' => \'98\',
+            \'revision_id\' => \'275\',
+            \'field_name\' => \'field_fc_page_section\',
+            \'default_revision\' => \'1\',
+            \'archived\' => \'0\',
+            \'uuid\' => \'3086b205-9de5-4a64-b92d-e900273f64c0\',
+            \'field_fc_section_heading\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => \'This might be because\',
+                  \'format\' => NULL,
+                  \'safe_value\' => \'This might be because\',
+                ),
+              ),
+            ),
+            \'field_fc_section_quote\' => array(),
+            \'field_fc_section_image\' => array(),
+            \'field_fc_image_position\' => array(),
+            \'field_child_pages_heading\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => \'More in this section\',
+                  \'format\' => NULL,
+                  \'safe_value\' => \'More in this section\',
+                ),
+              ),
+            ),
+            \'field_child_page\' => array(),
+            \'field_fc_related_items_heading\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => \'Related items\',
+                  \'format\' => NULL,
+                  \'safe_value\' => \'Related items\',
+                ),
+              ),
+            ),
+            \'field_fc_related_item\' => array(),
+            \'field_fc_section_body\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => "<div class=\\"field field--name-field-fc-section-body field--type-text-long field--label-hidden\\">\\r\\n<div class=\\"field__items\\">\\r\\n<div class=\\"field__item even\\">\\r\\n<ul>\\r\\n\\t<li>You may have typed the web address incorrectly.</li>\\r\\n\\t<li>It is possible that the page you were looking for may have been moved, updated or deleted.</li>\\r\\n\\t<li>Our website may be experiencing technical problems and the page is temporarily unavailable - please try again later.</li>\\r\\n</ul>\\r\\n</div>\\r\\n</div>\\r\\n</div>\\r\\n",
+                  \'format\' => \'full_html\',
+                  \'safe_value\' => "<div class=\\"field field--name-field-fc-section-body field--type-text-long field--label-hidden\\">\\n<div class=\\"field__items\\">\\n<div class=\\"field__item even\\">\\n<ul><li>You may have typed the web address incorrectly.</li>\\n\\t<li>It is possible that the page you were looking for may have been moved, updated or deleted.</li>\\n\\t<li>Our website may be experiencing technical problems and the page is temporarily unavailable - please try again later.</li>\\n</ul></div>\\n</div>\\n</div>",
+                ),
+              ),
+            ),
+            \'field_fc_science_file\' => array(),
+            \'field_fc_image_caption\' => array(),
+            \'field_fc_files_csv\' => array(),
+            \'rdf_mapping\' => array(),
+            \'entity_view_prepared\' => TRUE,
+          ),
+          array(
+            \'item_id\' => \'99\',
+            \'revision_id\' => \'276\',
+            \'field_name\' => \'field_fc_page_section\',
+            \'default_revision\' => \'1\',
+            \'archived\' => \'0\',
+            \'uuid\' => \'0b903ffa-14ba-409c-a697-124d524de5a1\',
+            \'field_fc_section_heading\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => \'Please try the following\',
+                  \'format\' => NULL,
+                  \'safe_value\' => \'Please try the following\',
+                ),
+              ),
+            ),
+            \'field_fc_section_quote\' => array(),
+            \'field_fc_section_image\' => array(),
+            \'field_fc_image_position\' => array(),
+            \'field_child_pages_heading\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => \'More in this section\',
+                  \'format\' => NULL,
+                  \'safe_value\' => \'More in this section\',
+                ),
+              ),
+            ),
+            \'field_child_page\' => array(),
+            \'field_fc_related_items_heading\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => \'Related items\',
+                  \'format\' => NULL,
+                  \'safe_value\' => \'Related items\',
+                ),
+              ),
+            ),
+            \'field_fc_related_item\' => array(),
+            \'field_fc_section_body\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => "<div class=\\"field field--name-field-fc-section-body field--type-text-long field--label-hidden\\">\\r\\n<div class=\\"field__items\\">\\r\\n<div class=\\"field__item even\\">\\r\\n<ul>\\r\\n\\t<li>Check the address and spelling, ensuring that it does not contain capital letters or spaces.</li>\\r\\n\\t<li>Return to the <a class=\\"ext\\" href=\\"http://food.gov.uk/\\" target=\\"_blank\\">food.gov.uk home page.</a></li>\\r\\n\\t<li>Use our site search.</li>\\r\\n\\t<li>If you still encounter problems then try <a class=\\"ext\\" href=\\"http://food.gov.uk/about-us/aboutsite/\\" target=\\"_blank\\">&#39;About this website&#39;</a>.</li>\\r\\n</ul>\\r\\n</div>\\r\\n</div>\\r\\n</div>\\r\\n",
+                  \'format\' => \'full_html\',
+                  \'safe_value\' => "<div class=\\"field field--name-field-fc-section-body field--type-text-long field--label-hidden\\">\\n<div class=\\"field__items\\">\\n<div class=\\"field__item even\\">\\n<ul><li>Check the address and spelling, ensuring that it does not contain capital letters or spaces.</li>\\n\\t<li>Return to the <a class=\\"ext\\" href=\\"http://food.gov.uk/\\" target=\\"_blank\\">food.gov.uk home page.</a></li>\\n\\t<li>Use our site search.</li>\\n\\t<li>If you still encounter problems then try <a class=\\"ext\\" href=\\"http://food.gov.uk/about-us/aboutsite/\\" target=\\"_blank\\">\'About this website\'</a>.</li>\\n</ul></div>\\n</div>\\n</div>",
+                ),
+              ),
+            ),
+            \'field_fc_science_file\' => array(),
+            \'field_fc_image_caption\' => array(),
+            \'field_fc_files_csv\' => array(),
+            \'rdf_mapping\' => array(),
+            \'entity_view_prepared\' => TRUE,
+          ),
         ),
         \'field_fc_side_content_generic\' => array(
-          NULL,
-          NULL,
+          array(
+            \'item_id\' => \'98\',
+            \'revision_id\' => \'275\',
+            \'field_name\' => \'field_fc_page_section\',
+            \'default_revision\' => \'1\',
+            \'archived\' => \'0\',
+            \'uuid\' => \'3086b205-9de5-4a64-b92d-e900273f64c0\',
+            \'field_fc_section_heading\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => \'This might be because\',
+                  \'format\' => NULL,
+                  \'safe_value\' => \'This might be because\',
+                ),
+              ),
+            ),
+            \'field_fc_section_quote\' => array(),
+            \'field_fc_section_image\' => array(),
+            \'field_fc_image_position\' => array(),
+            \'field_child_pages_heading\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => \'More in this section\',
+                  \'format\' => NULL,
+                  \'safe_value\' => \'More in this section\',
+                ),
+              ),
+            ),
+            \'field_child_page\' => array(),
+            \'field_fc_related_items_heading\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => \'Related items\',
+                  \'format\' => NULL,
+                  \'safe_value\' => \'Related items\',
+                ),
+              ),
+            ),
+            \'field_fc_related_item\' => array(),
+            \'field_fc_section_body\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => "<div class=\\"field field--name-field-fc-section-body field--type-text-long field--label-hidden\\">\\r\\n<div class=\\"field__items\\">\\r\\n<div class=\\"field__item even\\">\\r\\n<ul>\\r\\n\\t<li>You may have typed the web address incorrectly.</li>\\r\\n\\t<li>It is possible that the page you were looking for may have been moved, updated or deleted.</li>\\r\\n\\t<li>Our website may be experiencing technical problems and the page is temporarily unavailable - please try again later.</li>\\r\\n</ul>\\r\\n</div>\\r\\n</div>\\r\\n</div>\\r\\n",
+                  \'format\' => \'full_html\',
+                  \'safe_value\' => "<div class=\\"field field--name-field-fc-section-body field--type-text-long field--label-hidden\\">\\n<div class=\\"field__items\\">\\n<div class=\\"field__item even\\">\\n<ul><li>You may have typed the web address incorrectly.</li>\\n\\t<li>It is possible that the page you were looking for may have been moved, updated or deleted.</li>\\n\\t<li>Our website may be experiencing technical problems and the page is temporarily unavailable - please try again later.</li>\\n</ul></div>\\n</div>\\n</div>",
+                ),
+              ),
+            ),
+            \'field_fc_science_file\' => array(),
+            \'field_fc_image_caption\' => array(),
+            \'field_fc_files_csv\' => array(),
+            \'rdf_mapping\' => array(),
+            \'entity_view_prepared\' => TRUE,
+          ),
+          array(
+            \'item_id\' => \'99\',
+            \'revision_id\' => \'276\',
+            \'field_name\' => \'field_fc_page_section\',
+            \'default_revision\' => \'1\',
+            \'archived\' => \'0\',
+            \'uuid\' => \'0b903ffa-14ba-409c-a697-124d524de5a1\',
+            \'field_fc_section_heading\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => \'Please try the following\',
+                  \'format\' => NULL,
+                  \'safe_value\' => \'Please try the following\',
+                ),
+              ),
+            ),
+            \'field_fc_section_quote\' => array(),
+            \'field_fc_section_image\' => array(),
+            \'field_fc_image_position\' => array(),
+            \'field_child_pages_heading\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => \'More in this section\',
+                  \'format\' => NULL,
+                  \'safe_value\' => \'More in this section\',
+                ),
+              ),
+            ),
+            \'field_child_page\' => array(),
+            \'field_fc_related_items_heading\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => \'Related items\',
+                  \'format\' => NULL,
+                  \'safe_value\' => \'Related items\',
+                ),
+              ),
+            ),
+            \'field_fc_related_item\' => array(),
+            \'field_fc_section_body\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => "<div class=\\"field field--name-field-fc-section-body field--type-text-long field--label-hidden\\">\\r\\n<div class=\\"field__items\\">\\r\\n<div class=\\"field__item even\\">\\r\\n<ul>\\r\\n\\t<li>Check the address and spelling, ensuring that it does not contain capital letters or spaces.</li>\\r\\n\\t<li>Return to the <a class=\\"ext\\" href=\\"http://food.gov.uk/\\" target=\\"_blank\\">food.gov.uk home page.</a></li>\\r\\n\\t<li>Use our site search.</li>\\r\\n\\t<li>If you still encounter problems then try <a class=\\"ext\\" href=\\"http://food.gov.uk/about-us/aboutsite/\\" target=\\"_blank\\">&#39;About this website&#39;</a>.</li>\\r\\n</ul>\\r\\n</div>\\r\\n</div>\\r\\n</div>\\r\\n",
+                  \'format\' => \'full_html\',
+                  \'safe_value\' => "<div class=\\"field field--name-field-fc-section-body field--type-text-long field--label-hidden\\">\\n<div class=\\"field__items\\">\\n<div class=\\"field__item even\\">\\n<ul><li>Check the address and spelling, ensuring that it does not contain capital letters or spaces.</li>\\n\\t<li>Return to the <a class=\\"ext\\" href=\\"http://food.gov.uk/\\" target=\\"_blank\\">food.gov.uk home page.</a></li>\\n\\t<li>Use our site search.</li>\\n\\t<li>If you still encounter problems then try <a class=\\"ext\\" href=\\"http://food.gov.uk/about-us/aboutsite/\\" target=\\"_blank\\">\'About this website\'</a>.</li>\\n</ul></div>\\n</div>\\n</div>",
+                ),
+              ),
+            ),
+            \'field_fc_science_file\' => array(),
+            \'field_fc_image_caption\' => array(),
+            \'field_fc_files_csv\' => array(),
+            \'rdf_mapping\' => array(),
+            \'entity_view_prepared\' => TRUE,
+          ),
         ),
       ),
     ),
@@ -588,6 +803,7 @@ function section_landing_pages_features_node_export_features_default() {
       \'field_block_reference\' => array(),
       \'field_current_topics\' => array(),
       \'field_resources\' => array(),
+      \'field_layout\' => array(),
       \'metatags\' => array(),
       \'rdf_mapping\' => array(
         \'rdftype\' => array(
@@ -652,12 +868,6 @@ function section_landing_pages_features_node_export_features_default() {
       \'is_current\' => TRUE,
       \'is_pending\' => FALSE,
       \'revision_moderation\' => FALSE,
-      \'path\' => array(
-        \'pid\' => \'54\',
-        \'source\' => \'node/50\',
-        \'alias\' => \'northern-ireland\',
-        \'language\' => \'und\',
-      ),
       \'menu\' => array(
         \'link_title\' => \'Northern Ireland\',
         \'mlid\' => 0,
@@ -673,6 +883,12 @@ function section_landing_pages_features_node_export_features_default() {
         \'parent_depth_limit\' => 8,
         \'description\' => \'FSA in Northern Ireland\',
         \'enabled\' => 1,
+      ),
+      \'path\' => array(
+        \'pid\' => \'54\',
+        \'source\' => \'node/50\',
+        \'alias\' => \'northern-ireland\',
+        \'language\' => \'und\',
       ),
       \'node_export_drupal_version\' => \'7\',
     ),
@@ -712,6 +928,7 @@ function section_landing_pages_features_node_export_features_default() {
       \'field_block_reference\' => array(),
       \'field_current_topics\' => array(),
       \'field_resources\' => array(),
+      \'field_layout\' => array(),
       \'metatags\' => array(),
       \'rdf_mapping\' => array(
         \'rdftype\' => array(
@@ -776,12 +993,6 @@ function section_landing_pages_features_node_export_features_default() {
       \'is_current\' => TRUE,
       \'is_pending\' => FALSE,
       \'revision_moderation\' => FALSE,
-      \'path\' => array(
-        \'pid\' => \'51\',
-        \'source\' => \'node/47\',
-        \'alias\' => \'scotland\',
-        \'language\' => \'und\',
-      ),
       \'menu\' => array(
         \'link_title\' => \'Scotland\',
         \'mlid\' => 0,
@@ -797,6 +1008,12 @@ function section_landing_pages_features_node_export_features_default() {
         \'parent_depth_limit\' => 8,
         \'description\' => \'FSA in Scotland\',
         \'enabled\' => 1,
+      ),
+      \'path\' => array(
+        \'pid\' => \'51\',
+        \'source\' => \'node/47\',
+        \'alias\' => \'scotland\',
+        \'language\' => \'und\',
       ),
       \'node_export_drupal_version\' => \'7\',
     ),
@@ -931,6 +1148,7 @@ function section_landing_pages_features_node_export_features_default() {
           ),
         ),
       ),
+      \'field_layout\' => array(),
       \'metatags\' => array(),
       \'rdf_mapping\' => array(
         \'rdftype\' => array(
@@ -1114,6 +1332,7 @@ function section_landing_pages_features_node_export_features_default() {
       ),
       \'field_current_topics\' => array(),
       \'field_resources\' => array(),
+      \'field_layout\' => array(),
       \'metatags\' => array(),
       \'rdf_mapping\' => array(
         \'rdftype\' => array(
@@ -1241,6 +1460,7 @@ function section_landing_pages_features_node_export_features_default() {
       \'field_block_reference\' => array(),
       \'field_current_topics\' => array(),
       \'field_resources\' => array(),
+      \'field_layout\' => array(),
       \'metatags\' => array(),
       \'rdf_mapping\' => array(
         \'rdftype\' => array(
@@ -1425,6 +1645,7 @@ function section_landing_pages_features_node_export_features_default() {
           ),
         ),
       ),
+      \'field_layout\' => array(),
       \'metatags\' => array(),
       \'rdf_mapping\' => array(
         \'rdftype\' => array(
@@ -1489,22 +1710,234 @@ function section_landing_pages_features_node_export_features_default() {
       \'is_current\' => TRUE,
       \'is_pending\' => FALSE,
       \'revision_moderation\' => FALSE,
+      \'menu\' => NULL,
       \'path\' => array(
         \'pid\' => \'89\',
         \'source\' => \'node/85\',
         \'alias\' => \'error-404\',
         \'language\' => \'und\',
       ),
-      \'menu\' => NULL,
       \'node_export_drupal_version\' => \'7\',
       \'field_collection_deploy\' => array(
         \'field_fc_page_section\' => array(
-          NULL,
-          NULL,
+          array(
+            \'item_id\' => \'96\',
+            \'revision_id\' => \'273\',
+            \'field_name\' => \'field_fc_page_section\',
+            \'default_revision\' => \'1\',
+            \'archived\' => \'0\',
+            \'uuid\' => \'2db50b4b-21bb-48e9-8889-6ed50e4db43e\',
+            \'field_fc_section_heading\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => \'This might be because\',
+                  \'format\' => NULL,
+                  \'safe_value\' => \'This might be because\',
+                ),
+              ),
+            ),
+            \'field_fc_section_quote\' => array(),
+            \'field_fc_section_image\' => array(),
+            \'field_fc_image_position\' => array(),
+            \'field_child_pages_heading\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => \'More in this section\',
+                  \'format\' => NULL,
+                  \'safe_value\' => \'More in this section\',
+                ),
+              ),
+            ),
+            \'field_child_page\' => array(),
+            \'field_fc_related_items_heading\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => \'Related items\',
+                  \'format\' => NULL,
+                  \'safe_value\' => \'Related items\',
+                ),
+              ),
+            ),
+            \'field_fc_related_item\' => array(),
+            \'field_fc_section_body\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => "<ul>\\r\\n\\t<li>You may have typed the web address incorrectly.</li>\\r\\n\\t<li>It is possible that the page you were looking for may have been moved, updated or deleted.</li>\\r\\n\\t<li>Our website may be experiencing technical problems and the page is temporarily unavailable - please try again later.</li>\\r\\n</ul>\\r\\n",
+                  \'format\' => \'full_html\',
+                  \'safe_value\' => "<ul><li>You may have typed the web address incorrectly.</li>\\n\\t<li>It is possible that the page you were looking for may have been moved, updated or deleted.</li>\\n\\t<li>Our website may be experiencing technical problems and the page is temporarily unavailable - please try again later.</li>\\n</ul>",
+                ),
+              ),
+            ),
+            \'field_fc_science_file\' => array(),
+            \'field_fc_image_caption\' => array(),
+            \'field_fc_files_csv\' => array(),
+            \'rdf_mapping\' => array(),
+            \'entity_view_prepared\' => TRUE,
+          ),
+          array(
+            \'item_id\' => \'97\',
+            \'revision_id\' => \'274\',
+            \'field_name\' => \'field_fc_page_section\',
+            \'default_revision\' => \'1\',
+            \'archived\' => \'0\',
+            \'uuid\' => \'73f80dd0-8e3d-41d9-ab97-9b6ae5101e07\',
+            \'field_fc_section_heading\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => \'Please try the following\',
+                  \'format\' => NULL,
+                  \'safe_value\' => \'Please try the following\',
+                ),
+              ),
+            ),
+            \'field_fc_section_quote\' => array(),
+            \'field_fc_section_image\' => array(),
+            \'field_fc_image_position\' => array(),
+            \'field_child_pages_heading\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => \'More in this section\',
+                  \'format\' => NULL,
+                  \'safe_value\' => \'More in this section\',
+                ),
+              ),
+            ),
+            \'field_child_page\' => array(),
+            \'field_fc_related_items_heading\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => \'Related items\',
+                  \'format\' => NULL,
+                  \'safe_value\' => \'Related items\',
+                ),
+              ),
+            ),
+            \'field_fc_related_item\' => array(),
+            \'field_fc_section_body\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => "<ul>\\r\\n\\t<li>Check the address and spelling, ensuring that it does not contain capital letters or spaces.</li>\\r\\n\\t<li>Return to the <a href=\\"http://food.gov.uk/\\">food.gov.uk home page.</a></li>\\r\\n\\t<li>Use our site search.</li>\\r\\n\\t<li>If you still encounter problems then try <a href=\\"http://food.gov.uk/about-us/aboutsite/\\">&#39;About this website&#39;</a>.</li>\\r\\n</ul>\\r\\n",
+                  \'format\' => \'full_html\',
+                  \'safe_value\' => "<ul><li>Check the address and spelling, ensuring that it does not contain capital letters or spaces.</li>\\n\\t<li>Return to the <a href=\\"http://food.gov.uk/\\">food.gov.uk home page.</a></li>\\n\\t<li>Use our site search.</li>\\n\\t<li>If you still encounter problems then try <a href=\\"http://food.gov.uk/about-us/aboutsite/\\">\'About this website\'</a>.</li>\\n</ul>",
+                ),
+              ),
+            ),
+            \'field_fc_science_file\' => array(),
+            \'field_fc_image_caption\' => array(),
+            \'field_fc_files_csv\' => array(),
+            \'rdf_mapping\' => array(),
+            \'entity_view_prepared\' => TRUE,
+          ),
         ),
         \'field_fc_side_content_generic\' => array(
-          NULL,
-          NULL,
+          array(
+            \'item_id\' => \'96\',
+            \'revision_id\' => \'273\',
+            \'field_name\' => \'field_fc_page_section\',
+            \'default_revision\' => \'1\',
+            \'archived\' => \'0\',
+            \'uuid\' => \'2db50b4b-21bb-48e9-8889-6ed50e4db43e\',
+            \'field_fc_section_heading\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => \'This might be because\',
+                  \'format\' => NULL,
+                  \'safe_value\' => \'This might be because\',
+                ),
+              ),
+            ),
+            \'field_fc_section_quote\' => array(),
+            \'field_fc_section_image\' => array(),
+            \'field_fc_image_position\' => array(),
+            \'field_child_pages_heading\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => \'More in this section\',
+                  \'format\' => NULL,
+                  \'safe_value\' => \'More in this section\',
+                ),
+              ),
+            ),
+            \'field_child_page\' => array(),
+            \'field_fc_related_items_heading\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => \'Related items\',
+                  \'format\' => NULL,
+                  \'safe_value\' => \'Related items\',
+                ),
+              ),
+            ),
+            \'field_fc_related_item\' => array(),
+            \'field_fc_section_body\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => "<ul>\\r\\n\\t<li>You may have typed the web address incorrectly.</li>\\r\\n\\t<li>It is possible that the page you were looking for may have been moved, updated or deleted.</li>\\r\\n\\t<li>Our website may be experiencing technical problems and the page is temporarily unavailable - please try again later.</li>\\r\\n</ul>\\r\\n",
+                  \'format\' => \'full_html\',
+                  \'safe_value\' => "<ul><li>You may have typed the web address incorrectly.</li>\\n\\t<li>It is possible that the page you were looking for may have been moved, updated or deleted.</li>\\n\\t<li>Our website may be experiencing technical problems and the page is temporarily unavailable - please try again later.</li>\\n</ul>",
+                ),
+              ),
+            ),
+            \'field_fc_science_file\' => array(),
+            \'field_fc_image_caption\' => array(),
+            \'field_fc_files_csv\' => array(),
+            \'rdf_mapping\' => array(),
+            \'entity_view_prepared\' => TRUE,
+          ),
+          array(
+            \'item_id\' => \'97\',
+            \'revision_id\' => \'274\',
+            \'field_name\' => \'field_fc_page_section\',
+            \'default_revision\' => \'1\',
+            \'archived\' => \'0\',
+            \'uuid\' => \'73f80dd0-8e3d-41d9-ab97-9b6ae5101e07\',
+            \'field_fc_section_heading\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => \'Please try the following\',
+                  \'format\' => NULL,
+                  \'safe_value\' => \'Please try the following\',
+                ),
+              ),
+            ),
+            \'field_fc_section_quote\' => array(),
+            \'field_fc_section_image\' => array(),
+            \'field_fc_image_position\' => array(),
+            \'field_child_pages_heading\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => \'More in this section\',
+                  \'format\' => NULL,
+                  \'safe_value\' => \'More in this section\',
+                ),
+              ),
+            ),
+            \'field_child_page\' => array(),
+            \'field_fc_related_items_heading\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => \'Related items\',
+                  \'format\' => NULL,
+                  \'safe_value\' => \'Related items\',
+                ),
+              ),
+            ),
+            \'field_fc_related_item\' => array(),
+            \'field_fc_section_body\' => array(
+              \'und\' => array(
+                array(
+                  \'value\' => "<ul>\\r\\n\\t<li>Check the address and spelling, ensuring that it does not contain capital letters or spaces.</li>\\r\\n\\t<li>Return to the <a href=\\"http://food.gov.uk/\\">food.gov.uk home page.</a></li>\\r\\n\\t<li>Use our site search.</li>\\r\\n\\t<li>If you still encounter problems then try <a href=\\"http://food.gov.uk/about-us/aboutsite/\\">&#39;About this website&#39;</a>.</li>\\r\\n</ul>\\r\\n",
+                  \'format\' => \'full_html\',
+                  \'safe_value\' => "<ul><li>Check the address and spelling, ensuring that it does not contain capital letters or spaces.</li>\\n\\t<li>Return to the <a href=\\"http://food.gov.uk/\\">food.gov.uk home page.</a></li>\\n\\t<li>Use our site search.</li>\\n\\t<li>If you still encounter problems then try <a href=\\"http://food.gov.uk/about-us/aboutsite/\\">\'About this website\'</a>.</li>\\n</ul>",
+                ),
+              ),
+            ),
+            \'field_fc_science_file\' => array(),
+            \'field_fc_image_caption\' => array(),
+            \'field_fc_files_csv\' => array(),
+            \'rdf_mapping\' => array(),
+            \'entity_view_prepared\' => TRUE,
+          ),
         ),
       ),
     ),
@@ -1603,6 +2036,7 @@ function section_landing_pages_features_node_export_features_default() {
       ),
       \'field_current_topics\' => array(),
       \'field_resources\' => array(),
+      \'field_layout\' => array(),
       \'metatags\' => array(),
       \'rdf_mapping\' => array(
         \'rdftype\' => array(
@@ -1727,6 +2161,7 @@ function section_landing_pages_features_node_export_features_default() {
       \'field_block_reference\' => array(),
       \'field_current_topics\' => array(),
       \'field_resources\' => array(),
+      \'field_layout\' => array(),
       \'metatags\' => array(),
       \'rdf_mapping\' => array(
         \'rdftype\' => array(
@@ -1791,12 +2226,6 @@ function section_landing_pages_features_node_export_features_default() {
       \'is_current\' => TRUE,
       \'is_pending\' => FALSE,
       \'revision_moderation\' => FALSE,
-      \'path\' => array(
-        \'pid\' => \'53\',
-        \'source\' => \'node/49\',
-        \'alias\' => \'wales\',
-        \'language\' => \'und\',
-      ),
       \'menu\' => array(
         \'link_title\' => \'Wales\',
         \'mlid\' => 0,
@@ -1812,6 +2241,12 @@ function section_landing_pages_features_node_export_features_default() {
         \'parent_depth_limit\' => 8,
         \'description\' => \'FSA in Wales\',
         \'enabled\' => 1,
+      ),
+      \'path\' => array(
+        \'pid\' => \'53\',
+        \'source\' => \'node/49\',
+        \'alias\' => \'wales\',
+        \'language\' => \'und\',
       ),
       \'node_export_drupal_version\' => \'7\',
     ),
@@ -1861,6 +2296,7 @@ function section_landing_pages_features_node_export_features_default() {
       \'field_block_reference\' => array(),
       \'field_current_topics\' => array(),
       \'field_resources\' => array(),
+      \'field_layout\' => array(),
       \'metatags\' => array(),
       \'rdf_mapping\' => array(
         \'rdftype\' => array(
@@ -2037,6 +2473,7 @@ function section_landing_pages_features_node_export_features_default() {
       ),
       \'field_current_topics\' => array(),
       \'field_resources\' => array(),
+      \'field_layout\' => array(),
       \'metatags\' => array(),
       \'rdf_mapping\' => array(
         \'rdftype\' => array(
