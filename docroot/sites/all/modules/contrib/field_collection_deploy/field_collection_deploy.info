@@ -8,9 +8,9 @@ dependencies[] = entity
 dependencies[] = uuid
 dependencies[] = node_export_features
 
-; Information added by Drupal.org packaging script on 2014-03-28
-version = "7.x-1.0-beta2"
+; Information added by Drupal.org packaging script on 2014-03-29
+version = "7.x-1.0-beta3"
 core = "7.x"
 project = "field_collection_deploy"
-datestamp = "1396042444"
+datestamp = "1396115044"
 
