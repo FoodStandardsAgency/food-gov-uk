@@ -2,14 +2,15 @@ name = Field Collection Deployment
 description = Packages and deploys field collections content.
 core = 7.x
 package = Features
+dependencies[] = features
 dependencies[] = field_collection
 dependencies[] = entity
 dependencies[] = uuid
-dependencies[] = node_export
+dependencies[] = node_export_features
 
-; Information added by drupal.org packaging script on 2013-09-30
-version = "7.x-1.0-beta1+1-dev"
+; Information added by Drupal.org packaging script on 2014-03-28
+version = "7.x-1.0-beta2"
 core = "7.x"
 project = "field_collection_deploy"
-datestamp = "1380578785"
+datestamp = "1396042444"
 

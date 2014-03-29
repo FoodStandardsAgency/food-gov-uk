@@ -7,13 +7,13 @@ function field_collection_deploy_node_export_alter(&$nodes, $format) {
 
   $bundles = field_collection_deploy_bundle_fields();
 
-	foreach ($nodes as $node) {
+  foreach ($nodes as $node) {
 
-	   // Check if node has Field Collection field.
-	   if (isset($bundles[$node->type])) {
+     // Check if node has Field Collection field.
+     if (isset($bundles[$node->type])) {
        $node->field_collection_deploy = field_collection_deploy_entity($node, $bundles[$node->type]);
-	   }
-	}
+     }
+  }
 
 }
 
@@ -21,40 +21,38 @@ function field_collection_deploy_node_export_alter(&$nodes, $format) {
  * Get the field collection entities of a node.
  */
 function field_collection_deploy_entity(&$node, $field_collections) {
-  $export = $entity_ids = array();
+  $export = array();
 
-	foreach ($field_collections as $field_collection => $fields) {
-		$field_collection_values = field_view_field('node', $node, $field_collection);
+  foreach ($field_collections as $field_collection => $fields) {
+    $entity_ids = array();
+    $field_collection_values = field_view_field('node', $node, $field_collection);
 
-		// Get entity IDs
-		foreach ($field_collection_values['#items'] as $delta => $entity_id) {
+    // Get entity IDs
+    foreach ($field_collection_values['#items'] as $delta => $entity_id) {
       $entity_ids[] = $entity_id['value'];
+    }
 
-		}
+    if (!empty($entity_ids)) {
 
-		$items = entity_load("field_collection_item", $entity_ids);
+      $items = entity_load("field_collection_item", $entity_ids);
 
-	  foreach($items as $item){
-	    //$export[$field_collection][] = drupal_json_decode($item->export());
-      $item_export = $item->export();
-      // At some point field collection stopped returning valid JSON here.
-      $prefix = "entity_import('" . $item->entityType() . "', '";
-
-      if (substr($item_export, 0, strlen($prefix)) === $prefix) {
-        // Re-construct it back into valid JSON.
-        $item_export = substr($item_export, strlen($prefix));
-        $item_export = substr($item_export, 0, -1 * strlen("')"));
-        // This almost certainly doesn't work in the general case
-        // because field_collection passed a 2nd param to addcslashes().
-        $item_export = stripcslashes($item_export);
+      foreach($items as $item){
+        $item_export = $item->export();
+        // At some point field collection stopped returning valid JSON here.
+        $prefix = "entity_import('" . $item->entityType() . "', '";
+        if (substr($item_export, 0, strlen($prefix)) === $prefix) {
+          // Re-construct it back into valid JSON.
+          $item_export = substr($item_export, strlen($prefix));
+          $item_export = substr($item_export, 0, -1 * strlen("')"));
+          // This almost certainly doesn't work in the general case
+          // because field_collection passed a 2nd param to addcslashes().
+          $item_export = stripcslashes($item_export);
+        }
+        $item_export = drupal_json_decode($item_export);
+        $export[$field_collection][] = $item_export;
       }
-
-      $item_export = drupal_json_decode($item_export);
-      $export[$field_collection][] = $item_export;
-
-	  }
-
-	}
+    }
+  }
 
   return $export;
 }
@@ -77,7 +75,7 @@ function field_collection_deploy_entity(&$node, $field_collections) {
 function field_collection_deploy_node_export_import_alter(&$nodes, $used_format, $save) {
 
   foreach ($nodes as $key => $node) {
-  	if (isset($node->field_collection_deploy)) {
+    if (isset($node->field_collection_deploy)) {
       field_collection_deploy_unset_fields($nodes, $key, $node, $node->field_collection_deploy);
     }
   }
@@ -88,10 +86,10 @@ function field_collection_deploy_node_export_import_alter(&$nodes, $used_format,
  */
 function field_collection_deploy_unset_fields(&$nodes, $key, $node, $field_collections) {
 
-	foreach ($field_collections as $field_name => $field) {
+  foreach ($field_collections as $field_name => $field) {
     $node->$field_name = array();
-	  $nodes[$key] = $node;
-	}
+    $nodes[$key] = $node;
+  }
 }
 
 /**
@@ -112,8 +110,8 @@ function field_collection_deploy_unset_fields(&$nodes, $key, $node, $field_colle
 function field_collection_deploy_node_export_after_import_alter(&$nodes, $format, $save) {
 
   foreach ($nodes as $key => $node) {
-  	if (isset($node->field_collection_deploy)) {
-	    field_collection_deploy_import_field_collection($node, $node->field_collection_deploy);
+    if (isset($node->field_collection_deploy)) {
+      field_collection_deploy_import_field_collection($node, $node->field_collection_deploy);
     }
   }
 }
@@ -126,15 +124,15 @@ function field_collection_deploy_node_export_after_import_alter(&$nodes, $format
 function field_collection_deploy_bundle_fields() {
   $field_collections = field_info_instances('field_collection_item');
 
-	foreach ($field_collections as $field_name => $info) {
+  foreach ($field_collections as $field_name => $info) {
     $field_info = field_info_field($field_name);
 
-		foreach ($field_info['bundles']['node'] as $bundle) {
-		  $bundles[$bundle][$field_name] = $info;
-		}
-	}
+    foreach ($field_info['bundles']['node'] as $bundle) {
+      $bundles[$bundle][$field_name] = $info;
+    }
+  }
 
-	return $bundles;
+  return $bundles;
 }
 
 
@@ -145,17 +143,17 @@ function field_collection_deploy_bundle_fields() {
  */
 function field_collection_deploy_add_field_collection_content(&$node, $field_collections) {
   $field_collection_export = NULL;
-	$node_wrapper = entity_metadata_wrapper('node', $node);
+  $node_wrapper = entity_metadata_wrapper('node', $node);
 
-	foreach ($field_collections as $field_collection_name => $field_collection_fields) {
+  foreach ($field_collections as $field_collection_name => $field_collection_fields) {
     $entity = $node_wrapper->$field_collection_name->value();
 
     if (isset($entity[0])) {
-		  $field_collection_export[] = (array) $entity[0];
+      $field_collection_export[] = (array) $entity[0];
     }
-	}
+  }
 
-	return $field_collection_export;
+  return $field_collection_export;
 }
 
 
@@ -165,45 +163,39 @@ function field_collection_deploy_add_field_collection_content(&$node, $field_col
  */
 function field_collection_deploy_import_field_collection($node, $field_collection_deploy) {
 
-	foreach ($field_collection_deploy as $bundle => $field_collection) {
+  foreach ($field_collection_deploy as $bundle => $field_collection) {
 
-		$field_values = array();
+    $field_values = array();
 
-		foreach ($field_collection as $item) {
+    foreach ($field_collection as $item) {
       // For entity reference field: adjust reference to point to new node.
       field_collection_deploy_update_entity_reference($bundle, $item);
 
-			$entity_controller = new EntityAPIController("field_collection_item");
+      $entity_controller = new EntityAPIController("field_collection_item");
       $item['item_id'] = NULL;
       $item['original'] = TRUE;
-			$item_encoded = drupal_json_encode($item);
+      $item_encoded = drupal_json_encode($item);
 
-			$entity = $entity_controller->import($item_encoded);
-			$saved = $entity_controller->save($entity);
+      $entity = $entity_controller->import($item_encoded);
+      $saved = $entity_controller->save($entity);
 
-			// Can't find a way to get the entity's item_id via the API.
-			// This is a hack!
-			$item_id = db_query_range('SELECT item_id FROM {field_collection_item} WHERE field_name = :field_name ORDER BY item_id DESC', 0, 1, array(':field_name' => $bundle))->fetchField();
-			$field_values[$node->language][]['value'] = $item_id;
+      // Can't find a way to get the entity's item_id via the API.
+      // This is a hack!
+      $item_id = db_query_range('SELECT item_id FROM {field_collection_item} WHERE field_name = :field_name ORDER BY item_id DESC', 0, 1, array(':field_name' => $bundle))->fetchField();
       $rev_id = db_query_range('SELECT revision_id FROM {field_collection_item} WHERE field_name = :field_name ORDER BY item_id DESC', 0, 1, array(':field_name' => $bundle))->fetchField();
       $language = ($node->language == '') ? LANGUAGE_NONE: $node->language;
       $field_values[$language][] = array(
         'value' => $item_id,
         'revision_id' => $rev_id);
-		}
+    }
 
-		$node->$bundle = $field_values;
-	}
-
-	node_save($node);
+    $node->$bundle = $field_values;
+  }
+  node_save($node);
 }
 
 
 function field_collection_deploy_update_entity_reference($bundle_name, &$entity_field) {
-  // No need to process empty fields.
-  if (empty($entity_field)) {
-    return;
-  }
 
   // Get list of fields contained in this entity field.
   $field_instance = field_info_instances('field_collection_item', $bundle_name);
@@ -222,12 +214,12 @@ function field_collection_deploy_update_entity_reference($bundle_name, &$entity_
 
       foreach ($field_values as $key => $entity_field_value) {
         // Get nid from uuid
-        $uuid = $entity_field_value['target_id'];
+        $uuid = $entity_field_value['entity']['uuid'];
         $nids = entity_get_id_by_uuid('node', array($uuid));
 
         // Update old nid to new nid.
         if (!empty($nids)) {
-          $entity_field[$field_name][$language][$key] = $nids[$uuid];
+          $entity_field[$field_name][$language][$key]['target_id'] = $nids[$uuid];
         }
 
       }
@@ -273,39 +265,28 @@ function field_collection_deploy_test() {
 
   return ' ';
 
-  //$field_definition = field_info_field($field_name);
-
-
-
-
-
   $bundles = field_collection_deploy_bundle_fields();
   $node = node_load(60);
 
-	if (isset($bundles[$node->type])) {
-	  //$node->field_collection_deploy = field_collection_deploy_add_field_collection_content($node, $bundles[$node->type]);
-	  $node->field_collection_deploy = field_collection_deploy_entity($node, $bundles[$node->type]);
-	}
+  if (isset($bundles[$node->type])) {
+    $node->field_collection_deploy = field_collection_deploy_entity($node, $bundles[$node->type]);
+  }
 
   return ' ';
 
+  $rows = db_query("SELECT * FROM field_collection_item")->fetchAll();
 
+    $all_ids = array();
 
-	$rows = db_query("SELECT * FROM field_collection_item")->fetchAll();
+    foreach($rows as $row){
+      $all_ids[] = $row->item_id;
+    }
 
+    $items = entity_load("field_collection_item", $all_ids);
 
-
-	  $all_ids = array();
-
-	  foreach($rows as $row){
-	    $all_ids[] = $row->item_id;
-	  }
-
-	  $items = entity_load("field_collection_item", $all_ids);
-
-	  foreach($items as $item){
-	    $export = $item->export();
-	  }
+    foreach($items as $item){
+      $export = $item->export();
+    }
 
     return $export;
 }
