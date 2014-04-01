@@ -14,7 +14,7 @@ function home_page_feature_context_default_contexts() {
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
   $context->name = 'font_page_layout';
-  $context->description = '';
+  $context->description = 'Front page path triggers two column layout template';
   $context->tag = 'Trigger Layouts';
   $context->conditions = array(
     'path' => array(
@@ -33,6 +33,7 @@ function home_page_feature_context_default_contexts() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Front page path triggers two column layout template');
   t('Trigger Layouts');
   $export['font_page_layout'] = $context;
 

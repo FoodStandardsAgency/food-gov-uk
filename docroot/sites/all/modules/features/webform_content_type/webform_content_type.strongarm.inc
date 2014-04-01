@@ -141,22 +141,28 @@ function webform_content_type_strongarm() {
       'revision' => array(
         'custom_settings' => FALSE,
       ),
+      'micro_teaser' => array(
+        'custom_settings' => FALSE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
         'metatags' => array(
-          'weight' => '5',
+          'weight' => '6',
         ),
         'title' => array(
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '4',
+          'weight' => '5',
         ),
         'redirect' => array(
-          'weight' => '3',
+          'weight' => '4',
         ),
         'xmlsitemap' => array(
+          'weight' => '3',
+        ),
+        'language' => array(
           'weight' => '2',
         ),
       ),
@@ -175,10 +181,31 @@ function webform_content_type_strongarm() {
             'visible' => TRUE,
           ),
         ),
+        'language' => array(
+          'default' => array(
+            'weight' => '0',
+            'visible' => FALSE,
+          ),
+          'teaser' => array(
+            'weight' => '0',
+            'visible' => FALSE,
+          ),
+          'search_result' => array(
+            'weight' => '0',
+            'visible' => FALSE,
+          ),
+        ),
       ),
     ),
   );
   $export['field_bundle_settings_node__webform'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'language_content_type_webform';
+  $strongarm->value = '2';
+  $export['language_content_type_webform'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -231,7 +258,7 @@ function webform_content_type_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'node_preview_webform';
-  $strongarm->value = '1';
+  $strongarm->value = '0';
   $export['node_preview_webform'] = $strongarm;
 
   $strongarm = new stdClass();

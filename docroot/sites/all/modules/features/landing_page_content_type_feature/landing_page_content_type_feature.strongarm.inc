@@ -14,7 +14,7 @@ function landing_page_content_type_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'additional_settings__active_tab_landing_page';
-  $strongarm->value = 'edit-xmlsitemap';
+  $strongarm->value = 'edit-submission';
   $export['additional_settings__active_tab_landing_page'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -141,6 +141,12 @@ function landing_page_content_type_feature_strongarm() {
       'revision' => array(
         'custom_settings' => FALSE,
       ),
+      'micro_teaser' => array(
+        'custom_settings' => TRUE,
+      ),
+      'search_results_2' => array(
+        'custom_settings' => FALSE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
@@ -148,22 +154,69 @@ function landing_page_content_type_feature_strongarm() {
           'weight' => '0',
         ),
         'metatags' => array(
-          'weight' => '9',
+          'weight' => '14',
         ),
         'path' => array(
-          'weight' => '6',
+          'weight' => '11',
         ),
         'redirect' => array(
-          'weight' => '8',
+          'weight' => '13',
         ),
         'xmlsitemap' => array(
-          'weight' => '7',
+          'weight' => '12',
+        ),
+        'language' => array(
+          'weight' => '10',
         ),
       ),
-      'display' => array(),
+      'display' => array(
+        'language' => array(
+          'default' => array(
+            'weight' => '0',
+            'visible' => FALSE,
+          ),
+          'teaser' => array(
+            'weight' => '0',
+            'visible' => FALSE,
+          ),
+          'search_result' => array(
+            'weight' => '0',
+            'visible' => FALSE,
+          ),
+          'short_teaser' => array(
+            'weight' => '0',
+            'visible' => FALSE,
+          ),
+          'full' => array(
+            'weight' => '4',
+            'visible' => FALSE,
+          ),
+          'micro_teaser' => array(
+            'weight' => '0',
+            'visible' => FALSE,
+          ),
+        ),
+        'news_entity_view_1' => array(
+          'default' => array(
+            'weight' => '10',
+            'visible' => FALSE,
+          ),
+          'full' => array(
+            'weight' => '1',
+            'visible' => TRUE,
+          ),
+        ),
+      ),
     ),
   );
   $export['field_bundle_settings_node__landing_page'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'language_content_type_landing_page';
+  $strongarm->value = '2';
+  $export['language_content_type_landing_page'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -216,7 +269,7 @@ function landing_page_content_type_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'node_preview_landing_page';
-  $strongarm->value = '1';
+  $strongarm->value = '0';
   $export['node_preview_landing_page'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -230,7 +283,7 @@ function landing_page_content_type_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_node_landing_page_pattern';
-  $strongarm->value = '[node:field_path]';
+  $strongarm->value = '[node:menu-link:parents:join-path]/[node:field_path]';
   $export['pathauto_node_landing_page_pattern'] = $strongarm;
 
   $strongarm = new stdClass();

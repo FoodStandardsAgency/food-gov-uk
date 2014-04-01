@@ -46,6 +46,7 @@ function apache_solr_feature_views_default_views() {
   $handler->display->display_options['filters']['keyword']['field'] = 'keyword';
   $handler->display->display_options['filters']['keyword']['exposed'] = TRUE;
   $handler->display->display_options['filters']['keyword']['expose']['operator_id'] = '';
+  $handler->display->display_options['filters']['keyword']['expose']['label'] = 'Search by word or phrase';
   $handler->display->display_options['filters']['keyword']['expose']['operator'] = 'keyword_op';
   $handler->display->display_options['filters']['keyword']['expose']['identifier'] = 'keyword';
   $handler->display->display_options['filters']['keyword']['expose']['remember_roles'] = array(
@@ -68,6 +69,24 @@ function apache_solr_feature_views_default_views() {
   $handler = $view->new_display('page', 'Page', 'page');
   $handler->display->display_options['exposed_block'] = TRUE;
   $handler->display->display_options['path'] = 'search';
+  $translatables['search_sitewide'] = array(
+    t('Master'),
+    t('Search'),
+    t('more'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('« first'),
+    t('‹ previous'),
+    t('next ›'),
+    t('last »'),
+    t('Search by word or phrase'),
+    t('Page'),
+  );
   $export['search_sitewide'] = $view;
 
   return $export;

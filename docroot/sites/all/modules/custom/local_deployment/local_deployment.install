@@ -6,25 +6,6 @@
  */
 
 function local_deployment_install() {
-	// Enable custom theme.
-	//$default_theme = variable_get('theme_default', 'worldpay');
-	$admin_theme = 'seven';
-
-	// $enable = array(
-	//    'theme_default' => 'worldpay',
-	//    'admin_theme' => 'seven',
-	//  );
-	//
-	// theme_enable($enable);
-
-//  foreach ($enable as $var => $theme) {
-//    if (!is_numeric($var)) {
-//	    variable_set($var, $theme);
-//    }
-//  }
-
-  // Disable the default Bartik theme.
-  theme_disable(array('bartik'));
 
 	if (!file_exists(DRUPAL_ROOT . '/' . conf_path() . '/settings.local.php')) {
 	  module_enable(array('memcache'), TRUE);
@@ -47,7 +28,7 @@ function local_deployment_install() {
   module_enable(array('i18_string'), TRUE);
   module_enable(array('neutral_paths'), TRUE);
   module_enable(array('node_view_mode'), TRUE);
-
+  module_enable(array('facets_select'), TRUE);
 
   module_enable(array('admin_views'), TRUE);
   module_enable(array('views_bulk_operations'), TRUE);
@@ -74,7 +55,6 @@ function local_deployment_install() {
   module_enable(array('ckeditor___editor'), TRUE);
   module_enable(array('document_content_type_feature'), TRUE);
   module_enable(array('enforcement_section_feature'), TRUE);
-  module_enable(array('home_page_feature'), TRUE);
   module_enable(array('landing_page_content_type_feature'), TRUE);
   module_enable(array('menu_links_feature'), TRUE);
   module_enable(array('news_content_type_feature'), TRUE);
@@ -83,13 +63,27 @@ function local_deployment_install() {
   module_enable(array('policy_section_feature'), TRUE);
   module_enable(array('science_section_feature'), TRUE);
   module_enable(array('section_landing_pages_features'), TRUE);
-  module_enable(array('webform_content_type'), TRUE);
   module_enable(array('permissions_feature'), TRUE);
+  module_enable(array('home_page_feature'), TRUE);
+  module_enable(array('faq_content_type_feature'), TRUE);
+  module_enable(array('general_block_content_type_feature'), TRUE);
+  module_enable(array('interactive_block_content_type_feature'), TRUE);
+  module_enable(array('internal_link_set_content_type'), TRUE);
+  module_enable(array('research_project_content_type_feature'), TRUE);
+  module_enable(array('national_feature'), TRUE);
+  module_enable(array('side_content'), TRUE);
+  module_enable(array('layouts_feature'), TRUE);
+  module_enable(array('languages_feature'), TRUE);
+  module_enable(array('audit_report_content_type_feature'), TRUE);
+  module_enable(array('consultation_content_type_feature'), TRUE);
+  module_enable(array('external_link_content_type_feature'), TRUE);
+  module_enable(array('external_link_set_type_feature'), TRUE);
+  module_enable(array('job_content_type_feature'), TRUE);
+  module_enable(array('webform_content_type'), TRUE);
 
-  module_enable(array('facets_select'), TRUE);
 
   // Disable modules that were enabled by the install profile but we don't need.
-  module_disable(array('fontyourface', 'local_fonts'), FALSE);
+  module_disable(array('comment', 'fontyourface', 'local_fonts'), FALSE);
 }
 
 

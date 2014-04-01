@@ -21,6 +21,20 @@ function taxonomy_feature_user_default_permissions() {
     'module' => 'taxonomy',
   );
 
+  // Exported permission: 'delete terms in layout'.
+  $permissions['delete terms in layout'] = array(
+    'name' => 'delete terms in layout',
+    'roles' => array(),
+    'module' => 'taxonomy',
+  );
+
+  // Exported permission: 'delete terms in nation'.
+  $permissions['delete terms in nation'] = array(
+    'name' => 'delete terms in nation',
+    'roles' => array(),
+    'module' => 'taxonomy',
+  );
+
   // Exported permission: 'delete terms in news_type'.
   $permissions['delete terms in news_type'] = array(
     'name' => 'delete terms in news_type',
@@ -28,6 +42,13 @@ function taxonomy_feature_user_default_permissions() {
       'Administrator' => 'Administrator',
       'Manager' => 'Manager',
     ),
+    'module' => 'taxonomy',
+  );
+
+  // Exported permission: 'delete terms in site_section'.
+  $permissions['delete terms in site_section'] = array(
+    'name' => 'delete terms in site_section',
+    'roles' => array(),
     'module' => 'taxonomy',
   );
 
@@ -41,6 +62,20 @@ function taxonomy_feature_user_default_permissions() {
     'module' => 'taxonomy',
   );
 
+  // Exported permission: 'edit terms in layout'.
+  $permissions['edit terms in layout'] = array(
+    'name' => 'edit terms in layout',
+    'roles' => array(),
+    'module' => 'taxonomy',
+  );
+
+  // Exported permission: 'edit terms in nation'.
+  $permissions['edit terms in nation'] = array(
+    'name' => 'edit terms in nation',
+    'roles' => array(),
+    'module' => 'taxonomy',
+  );
+
   // Exported permission: 'edit terms in news_type'.
   $permissions['edit terms in news_type'] = array(
     'name' => 'edit terms in news_type',
@@ -48,6 +83,13 @@ function taxonomy_feature_user_default_permissions() {
       'Administrator' => 'Administrator',
       'Manager' => 'Manager',
     ),
+    'module' => 'taxonomy',
+  );
+
+  // Exported permission: 'edit terms in site_section'.
+  $permissions['edit terms in site_section'] = array(
+    'name' => 'edit terms in site_section',
+    'roles' => array(),
     'module' => 'taxonomy',
   );
 

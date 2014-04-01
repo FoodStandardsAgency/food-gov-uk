@@ -1,0 +1,14 @@
+name = Layouts
+description = Layouts contexts
+core = 7.x
+package = Global
+version = 7.x-1.0
+project = layouts_feature
+dependencies[] = context
+dependencies[] = ctools
+features[context][] = layout___one_column
+features[context][] = layout___one_column_blank
+features[context][] = layout___three_columns
+features[context][] = layout___two_columns
+features[ctools][] = context:context:3
+features[features_api][] = api:2

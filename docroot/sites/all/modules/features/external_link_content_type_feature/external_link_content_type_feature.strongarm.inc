@@ -14,7 +14,7 @@ function external_link_content_type_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'additional_settings__active_tab_external_link';
-  $strongarm->value = 'edit-diff';
+  $strongarm->value = 'edit-xmlsitemap';
   $export['additional_settings__active_tab_external_link'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -148,6 +148,12 @@ function external_link_content_type_feature_strongarm() {
       'revision' => array(
         'custom_settings' => FALSE,
       ),
+      'micro_teaser' => array(
+        'custom_settings' => FALSE,
+      ),
+      'search_results_2' => array(
+        'custom_settings' => FALSE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
@@ -171,6 +177,13 @@ function external_link_content_type_feature_strongarm() {
     ),
   );
   $export['field_bundle_settings_node__external_link'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'language_content_type_external_link';
+  $strongarm->value = '0';
+  $export['language_content_type_external_link'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -297,7 +310,7 @@ function external_link_content_type_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'node_preview_external_link';
-  $strongarm->value = '1';
+  $strongarm->value = '0';
   $export['node_preview_external_link'] = $strongarm;
 
   $strongarm = new stdClass();

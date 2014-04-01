@@ -1,16 +1,64 @@
 /**
  * Cross-browser fixes for ie7
  */
-/**
- * box-sizing: border-box does not work in IE7 and needs a polyfill, but the polyfill was
- * having no effect on IE7 and this was breaking the grid layout. It turns out that
- * we needed to override the path for "behavior" for the boxsizing polyfill to work in IE7
- * compass toolkit/box-sizing does implement this below but not correctly,
- * see https://github.com/Team-Sass/toolkit/issues/19 and https://drupal.org/node/2102959
+/* IE7 layout fixes - IE7 does not respect our border-box model of Omega 4 so we for elements that
+ * havea width and padding set on them, we have to remove the padding, and then add the padding back to
+ * and inner element - that inner element muts not have a width set on it though. 
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/ie\/ie7\.scss}line{font-family:\0000312}}
-*, *:after, *:before {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  behavior: url("/sites/all/themes/site_frontend/behaviors/box-sizing/boxsizing.php"); }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/ie\/ie7\.scss}line{font-family:\0000324}}
+.header-wrapper-inner,
+.l-header-branding,
+.l-header-top-menu,
+.l-header-search,
+.l-content,
+.l-header-main-menu,
+.l-header-social-media,
+.l-breadcrumb-accessibility,
+.l-breadcrumb,
+.l-accessibility,
+.l-sidebar-first,
+.l-sidebar-second,
+.l-footer,
+.l-footer-copyright,
+.l-footer-menu,
+.l-footer-buttons {
+  padding-left: 0;
+  padding-right: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/ie\/ie7\.scss}line{font-family:\0000344}}
+.l-header,
+.header-branding-inner,
+.header-top-menu-inner,
+.header-search-inner,
+.main-content-inner,
+.header-main-menu-inner,
+.header-social-media-inner,
+.breadcrumb-accessibility-inner,
+.breadcrumb-inner,
+.accessibility-inner,
+.sidebar-first-inner,
+.sidebar-second-inner,
+.footer-inner,
+.footer-copyright-inner,
+.footer-menu-inner,
+.footer-buttons-inner {
+  padding-left: 6px;
+  padding-right: 6px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/ie\/ie7\.scss}line{font-family:\0000350}}
+.bottom-menu-wrapper-inner,
+.l-bottom-menu {
+  padding-left: 0;
+  padding-right: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/ie\/ie7\.scss}line{font-family:\0000354}}
+.bottom-menu-inner {
+  padding-left: 12px;
+  padding-right: 12px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/ie\/ie7\.scss}line{font-family:\0000359}}
+.bottom-menu {
+  padding-right: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/ie\/ie7\.scss}line{font-family:\0000361}}
+  .bottom-menu .menu-block-wrapper {
+    padding-right: 12px; }

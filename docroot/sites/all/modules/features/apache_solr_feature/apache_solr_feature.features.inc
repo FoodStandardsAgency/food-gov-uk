@@ -14,6 +14,12 @@ function apache_solr_feature_ctools_plugin_api($module = NULL, $api = NULL) {
   if ($module == "apachesolr_search" && $api == "apachesolr_search_defaults") {
     return array("version" => "3");
   }
+  if ($module == "context" && $api == "context") {
+    return array("version" => "3");
+  }
+  if ($module == "current_search" && $api == "current_search") {
+    return array("version" => "1");
+  }
   if ($module == "facetapi" && $api == "facetapi_defaults") {
     return array("version" => "1");
   }

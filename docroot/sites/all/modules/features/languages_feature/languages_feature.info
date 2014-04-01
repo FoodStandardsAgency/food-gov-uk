@@ -1,0 +1,11 @@
+name = Languages
+description = Languages elements
+core = 7.x
+package = Global
+version = 7.x-1.0
+project = languages_feature
+dependencies[] = features
+dependencies[] = locale
+features[features_api][] = api:2
+features[language][] = cy
+features[language][] = en

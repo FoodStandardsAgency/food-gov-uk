@@ -82,6 +82,62 @@ function display_suite_feature_ds_layout_settings_info() {
   );
   $export['node|document_page|teaser'] = $ds_layout;
 
+  $ds_layout = new stdClass();
+  $ds_layout->api_version = 1;
+  $ds_layout->id = 'node|internal_link_set|micro_teaser';
+  $ds_layout->entity_type = 'node';
+  $ds_layout->bundle = 'internal_link_set';
+  $ds_layout->view_mode = 'micro_teaser';
+  $ds_layout->layout = 'ds_1col';
+  $ds_layout->settings = array(
+    'regions' => array(
+      'ds_content' => array(
+        0 => 'field_links',
+      ),
+    ),
+    'fields' => array(
+      'field_links' => 'ds_content',
+    ),
+    'classes' => array(),
+    'wrappers' => array(
+      'ds_content' => 'div',
+    ),
+    'layout_wrapper' => 'div',
+    'layout_attributes' => '',
+    'layout_attributes_merge' => 1,
+    'layout_link_attribute' => '',
+    'layout_link_custom' => '',
+  );
+  $export['node|internal_link_set|micro_teaser'] = $ds_layout;
+
+  $ds_layout = new stdClass();
+  $ds_layout->api_version = 1;
+  $ds_layout->id = 'node|internal_link_set|short_teaser';
+  $ds_layout->entity_type = 'node';
+  $ds_layout->bundle = 'internal_link_set';
+  $ds_layout->view_mode = 'short_teaser';
+  $ds_layout->layout = 'ds_1col';
+  $ds_layout->settings = array(
+    'regions' => array(
+      'ds_content' => array(
+        0 => 'field_links',
+      ),
+    ),
+    'fields' => array(
+      'field_links' => 'ds_content',
+    ),
+    'classes' => array(),
+    'wrappers' => array(
+      'ds_content' => 'div',
+    ),
+    'layout_wrapper' => 'div',
+    'layout_attributes' => '',
+    'layout_attributes_merge' => 1,
+    'layout_link_attribute' => '',
+    'layout_link_custom' => '',
+  );
+  $export['node|internal_link_set|short_teaser'] = $ds_layout;
+
   return $export;
 }
 
@@ -93,9 +149,38 @@ function display_suite_feature_ds_view_modes_info() {
 
   $ds_view_mode = new stdClass();
   $ds_view_mode->api_version = 1;
+  $ds_view_mode->view_mode = 'fc_teaser';
+  $ds_view_mode->label = 'Teaser';
+  $ds_view_mode->entities = array(
+    'field_collection_item' => 'field_collection_item',
+  );
+  $export['fc_teaser'] = $ds_view_mode;
+
+  $ds_view_mode = new stdClass();
+  $ds_view_mode->api_version = 1;
+  $ds_view_mode->view_mode = 'micro_teaser';
+  $ds_view_mode->label = 'Micro teaser';
+  $ds_view_mode->entities = array(
+    'field_collection_item' => 'field_collection_item',
+    'node' => 'node',
+  );
+  $export['micro_teaser'] = $ds_view_mode;
+
+  $ds_view_mode = new stdClass();
+  $ds_view_mode->api_version = 1;
+  $ds_view_mode->view_mode = 'search_results_2';
+  $ds_view_mode->label = 'Search Results 2';
+  $ds_view_mode->entities = array(
+    'node' => 'node',
+  );
+  $export['search_results_2'] = $ds_view_mode;
+
+  $ds_view_mode = new stdClass();
+  $ds_view_mode->api_version = 1;
   $ds_view_mode->view_mode = 'short_teaser';
   $ds_view_mode->label = 'Short teaser';
   $ds_view_mode->entities = array(
+    'field_collection_item' => 'field_collection_item',
     'node' => 'node',
   );
   $export['short_teaser'] = $ds_view_mode;

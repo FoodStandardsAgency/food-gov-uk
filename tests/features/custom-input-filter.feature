@@ -5,100 +5,55 @@ Feature: Test Homepage
  
 #  @migration @javascript @production
 
-  Scenario: Creating content with custom input filter test 1
+  Scenario: Creating content with custom input filter
     Given I log in as an existing "editor"
-    Then the response should contain "drupal_username"
-	Then I go to "/node/add/document-page"
-    Given I should see "Create Document Page" in the "Page Title" region
+    And the response should contain "drupal_username"
+	When I go to "/node/add/document-page"
+    And I should see "Create General Page" in the "Page Title" region
     And I fill in "edit-title" with "test"
-	And I fill in "edit-body-und-0-value" with "<a href=\"#\" onclick=\"alert('Link A Javascript preserved')\">Link A</a>"
-    And I check the box "N/A" in "edit-field-site-section-und"
-	Given I press "edit-submit" in the "Submit" region
-    Then the response should contain "href=\"#\">Link A</a>"
-    And I should see "Link A"
-    
-   Scenario: Creating content with custom input filter test 2
-    Given I log in as an existing "editor"
-    Then the response should contain "drupal_username"
-	Then I go to "/node/add/document-page"
-    Given I should see "Create Document Page" in the "Page Title" region
-    And I fill in "edit-title" with "test"
-	And I fill in "edit-body-und-0-value" with "test"
-	And I check the box "N/A" in "edit-field-site-section-und"
-    Given I press "edit-submit" in the "Submit" region
-    Then the response should contain "<p>test</p>"
-    And I should see "test"
-    
-   Scenario: Creating content with custom input filter test 3
-    Given I log in as an existing "editor"
-    Then the response should contain "drupal_username"
-	Then I go to "/node/add/document-page"
-    Given I should see "Create Document Page" in the "Page Title" region
-    And I fill in "edit-title" with "test"
-    And I fill in "edit-body-und-0-value" with
+    And I select "Preserve" from "edit-body-und-0-format--2"
+	And I fill in "edit-body-und-0-value" with:
     """
-    test
-    test
+    Test 1: This text should be in it's own paragraph, check it's wrapped in paragraph tags.
+
+    Test 2:This text has line break spacing so that the next line starts
+    here, check there is a break tag dividing these two lines.
+
+    <p>Test 3: Check this text has paragraph tag on it.<br />Also a break tag</p>
+
+    <!-- preserve start -->
+    Test 4: Check this text ignores the line break and there is no break tag,
+    this should be on the same line, and so should the rest of this test.
+
+    Check this is on the same line, not a separate paragraph.
+    <!-- preserve end -->
     """
     And I check the box "N/A" in "edit-field-site-section-und"
-	Given I press "edit-submit" in the "Submit" region
-    Then the response should contain:
+	Then I press "edit-submit" in the "Submit" region
+    And the response should contain:
     """
-    test
+    <p>Test 1: This text should be in it's own paragraph, check it's wrapped in paragraph tags.</p>
+    <p>
+    Test 2:This text has line break spacing so that the next line starts
     <br>
-    test
+    here, check there is a break tag dividing these two lines.
+    </p>
+    <p>
+    Test 3: Check this text has paragraph tag on it.
+    <br>
+    Also a break tag
+    </p>
+    <p> Test 8: Check this text ignores the line break and there is no break tag, this should be on the same line, and so should the rest of this test. Check this is on the same line, not a separate paragraph. </p>
     """
     And I should see:
     """
-    test
-    test
-    """  
-    
-   Scenario: Creating content with custom input filter test 4
-    Given I log in as an existing "editor"
-    Then the response should contain "drupal_username"
-	Then I go to "/node/add/document-page"
-    Given I should see "Create Document Page" in the "Page Title" region
-    And I fill in "edit-title" with "test"
-	And I fill in "edit-body-und-0-value" with:
+    Test 1: This text should be in it's own paragraph, check it's wrapped in paragraph tags.
+
+    Test 2:This text has line break spacing so that the next line starts
+    here, check there is a break tag dividing these two lines.
+
+    Test 3: Check this text has paragraph tag on it.
+    Also a break tag
+
+    Test 4: Check this text ignores the line break and there is no break tag, this should be on the same line, and so should the rest of this test. Check this is on the same line, not a separate paragraph.   
     """
-    <!-- preserve start -->
-    <p>Test 4: Check Javascript onclick element in <a href="#" onclick="alert('Link B Javascript preserved')">Link B</a> has been <strong>preserved</strong>.</p>
-    <!-- preserve end --> 
-    """
-    And I check the box "N/A" in "edit-field-site-section-und"
-	Given I press "edit-submit" in the "Submit" region
-    Then the response should contain:
-    """
-    <!-- preserve start -->
-    <p>Test 4: Check Javascript onclick element in <a href="#" onclick="alert('Link B Javascript preserved')">Link B</a> has been <strong>preserved</strong>.</p>
-    <!-- preserve end --> 
-    """
-    And I should see "Test 4: Check Javascript onclick element in Link B has been preserved"
-    
-   Scenario: Creating content with custom input filter test 5
-    Given I log in as an existing "editor"
-    Then the response should contain "drupal_username"
-	Then I go to "/node/add/document-page"
-    Given I should see "Create Document Page" in the "Page Title" region
-    And I fill in "edit-title" with "test"
-	And I fill in "edit-body-und-0-value" with:
-    """
-    <script type="text/javascript">
-    document.getElementById('link-c').addEventListener("click", function(event) {
-      (function(event) {
-          alert("Link C Javascript preserved");
-      }).call(document.getElementById('link-c'), event);
-    });
-    </script>  
-    """
-    And I check the box "N/A" in "edit-field-site-section-und"
-	Given I press "edit-submit" in the "Submit" region
-    Then the response should contain:
-    """
-    <!-- preserve start -->
-    <p>Test 4: Check Javascript onclick element in <a href="#" onclick="alert('Link B Javascript preserved')">Link B</a> has been <strong>preserved</strong>.</p>
-    <!-- preserve end --> 
-    """
-    And I should see "Test 4: Check Javascript onclick element in Link B has been preserved"
-    

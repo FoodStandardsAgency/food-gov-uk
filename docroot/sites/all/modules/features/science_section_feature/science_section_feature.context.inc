@@ -15,7 +15,7 @@ function science_section_feature_context_default_contexts() {
   $context->api_version = 3;
   $context->name = 'submenu_science_and_research';
   $context->description = 'Places submenu in left sidebar';
-  $context->tag = 'Submenus';
+  $context->tag = 'Science and Research';
   $context->conditions = array(
     'path' => array(
       'values' => array(
@@ -41,7 +41,7 @@ function science_section_feature_context_default_contexts() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Places submenu in left sidebar');
-  t('Submenus');
+  t('Science and Research');
   $export['submenu_science_and_research'] = $context;
 
   return $export;

@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Internal Link Set Content Type feature.
+ */
+
+include_once 'internal_link_set_content_type.features.inc';

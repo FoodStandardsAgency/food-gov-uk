@@ -37,6 +37,15 @@
 	overflow: hidden;
 }
 
+/* force wrappers to expand beyond browser window size when browser made smaller */
+.header-wrapper,
+.breadcrumb-accessibility-wrapper,
+.main-wrapper,
+.bottom-menu-wrapper,
+.footer-wrapper {
+	min-width: 960px;
+}
+
 /* layout - desktop first approach */
 .header-wrapper-inner,
 .l-breadcrumb-accessibility,
@@ -205,4 +214,11 @@
 		clear: both;
 		float: none;
 	}	
+	.header-wrapper,
+	.breadcrumb-accessibility-wrapper,
+	.main-wrapper,
+	.bottom-menu-wrapper,
+	.footer-wrapper {
+		min-width: 0;	// note min-width: none has no effect (not valid), must be 0;
+	}
 }

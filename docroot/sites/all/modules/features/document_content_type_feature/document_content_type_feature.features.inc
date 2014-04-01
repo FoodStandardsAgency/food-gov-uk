@@ -19,7 +19,7 @@ function document_content_type_feature_ctools_plugin_api($module = NULL, $api = 
 function document_content_type_feature_node_info() {
   $items = array(
     'document_page' => array(
-      'name' => t('Document Page'),
+      'name' => t('General Page'),
       'base' => 'node_content',
       'description' => t('Used for general content across the site. Similar to as FSA document template.'),
       'has_title' => '1',

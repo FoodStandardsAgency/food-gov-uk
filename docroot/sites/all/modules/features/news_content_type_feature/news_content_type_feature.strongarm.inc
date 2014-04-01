@@ -64,9 +64,10 @@ function news_content_type_feature_strongarm() {
     'search_index' => 'search_index',
     'diff_standard' => 'diff_standard',
     'token' => 'token',
-    'short_teaser' => 'short_teaser',
     'revision' => 'revision',
     'search_result' => 'search_result',
+    'short_teaser' => 'short_teaser',
+    'search_results_2' => 'search_results_2',
   );
   $export['apachesolr_view_modes_news'] = $strongarm;
 
@@ -190,6 +191,12 @@ function news_content_type_feature_strongarm() {
       'revision' => array(
         'custom_settings' => FALSE,
       ),
+      'micro_teaser' => array(
+        'custom_settings' => TRUE,
+      ),
+      'search_results_2' => array(
+        'custom_settings' => TRUE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
@@ -208,11 +215,52 @@ function news_content_type_feature_strongarm() {
         'xmlsitemap' => array(
           'weight' => '30',
         ),
+        'language' => array(
+          'weight' => '0',
+        ),
       ),
-      'display' => array(),
+      'display' => array(
+        'language' => array(
+          'default' => array(
+            'weight' => '0',
+            'visible' => FALSE,
+          ),
+          'full' => array(
+            'weight' => '5',
+            'visible' => FALSE,
+          ),
+          'teaser' => array(
+            'weight' => '0',
+            'visible' => FALSE,
+          ),
+          'search_result' => array(
+            'weight' => '0',
+            'visible' => FALSE,
+          ),
+          'short_teaser' => array(
+            'weight' => '0',
+            'visible' => FALSE,
+          ),
+          'micro_teaser' => array(
+            'weight' => '0',
+            'visible' => FALSE,
+          ),
+          'search_results_2' => array(
+            'weight' => '2',
+            'visible' => FALSE,
+          ),
+        ),
+      ),
     ),
   );
   $export['field_bundle_settings_node__news'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'language_content_type_news';
+  $strongarm->value = '2';
+  $export['language_content_type_news'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -255,6 +303,7 @@ function news_content_type_feature_strongarm() {
   $strongarm->name = 'node_options_news';
   $strongarm->value = array(
     0 => 'status',
+    1 => 'revision',
   );
   $export['node_options_news'] = $strongarm;
 
@@ -262,7 +311,7 @@ function news_content_type_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'node_preview_news';
-  $strongarm->value = '1';
+  $strongarm->value = '0';
   $export['node_preview_news'] = $strongarm;
 
   $strongarm = new stdClass();

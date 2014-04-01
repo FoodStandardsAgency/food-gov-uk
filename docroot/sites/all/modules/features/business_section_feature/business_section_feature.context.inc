@@ -13,9 +13,9 @@ function business_section_feature_context_default_contexts() {
   $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
-  $context->name = 'sumenu_business_and_industry';
+  $context->name = 'submenu_business_and_industry';
   $context->description = 'Places submenu in left sidebar';
-  $context->tag = 'Submenus';
+  $context->tag = 'Business and Industry';
   $context->conditions = array(
     'path' => array(
       'values' => array(
@@ -40,9 +40,9 @@ function business_section_feature_context_default_contexts() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Business and Industry');
   t('Places submenu in left sidebar');
-  t('Submenus');
-  $export['sumenu_business_and_industry'] = $context;
+  $export['submenu_business_and_industry'] = $context;
 
   return $export;
 }

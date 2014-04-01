@@ -15,7 +15,7 @@ function policy_section_feature_context_default_contexts() {
   $context->api_version = 3;
   $context->name = 'submenu_policy_and_advice';
   $context->description = 'Places submenu in left sidebar';
-  $context->tag = 'Submenus';
+  $context->tag = 'Policy and Advice';
   $context->conditions = array(
     'path' => array(
       'values' => array(
@@ -41,7 +41,7 @@ function policy_section_feature_context_default_contexts() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Places submenu in left sidebar');
-  t('Submenus');
+  t('Policy and Advice');
   $export['submenu_policy_and_advice'] = $context;
 
   return $export;
