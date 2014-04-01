@@ -12,6 +12,7 @@
  * @see system_install()
  */
 function base_install() {
+
   // Add text formats.
   $filtered_html_format = array(
     'format' => 'filtered_html',
