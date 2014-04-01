@@ -20,6 +20,10 @@ sleep 30
 
 # Migrate content.
 
+drush dis pathauto -y
+drush mi FSAMedia
+drush en pathauto -y
+
 drush cc all
 
 drush -y vset "bbcgf_migration_date" "${DATE}"
