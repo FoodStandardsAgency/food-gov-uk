@@ -439,7 +439,7 @@ function field_instances_feature_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'hidden',
         'module' => 'file',
         'settings' => array(
           'custom_link_to_entity' => '',
@@ -935,7 +935,7 @@ function field_instances_feature_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'hidden',
         'module' => 'text',
         'settings' => array(
           'custom_link_to_entity' => '',
