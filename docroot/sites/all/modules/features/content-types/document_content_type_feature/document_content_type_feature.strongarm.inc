@@ -144,6 +144,9 @@ function document_content_type_feature_strongarm() {
       'micro_teaser' => array(
         'custom_settings' => TRUE,
       ),
+      'search_results_2' => array(
+        'custom_settings' => FALSE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
