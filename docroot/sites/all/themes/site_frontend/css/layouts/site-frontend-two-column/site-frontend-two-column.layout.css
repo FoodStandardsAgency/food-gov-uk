@@ -545,4 +545,4 @@
   .main-wrapper,
   .bottom-menu-wrapper,
   .footer-wrapper {
-    min-width: none; } }
+    min-width: 0; } }
