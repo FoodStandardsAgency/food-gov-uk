@@ -10,7 +10,7 @@
  * Migration class for the FSA Media content.
  */
 
-class FSAMediaMigration extends FSAMigration {
+class FSAMediaImagesMigration extends FSAMigration {
   /**
    * Class constructor.
    */
@@ -24,7 +24,7 @@ class FSAMediaMigration extends FSAMigration {
           'type' => 'varchar',
           'length' => 255,
           'not null' => TRUE,
-          'description' => 'Image filename',
+          'description' => 'Image filename path',
         )
       ),
       MigrateDestinationMedia::getKeySchema()
@@ -39,7 +39,7 @@ class FSAMediaMigration extends FSAMigration {
     );
 
     // The directory for images.
-    $file_directory = 'public://images/document';
+    $file_directory = 'public://images/source/document';
 
     $this->source = new MigrateSourceList(new MigrateListFilesPath($file_directory),
       new MigrateItemFilePath());
@@ -59,9 +59,21 @@ class FSAMediaMigration extends FSAMigration {
     // The source images are in a local directory.
     $this->addFieldMapping('source_dir', 'SOURCEDIRECTORY');
 
+    $this->addFieldMapping('destination_file', 'FILEPATHDEST');
+
     // Media migrated by admin.
     // @TODO Change the user to migration user.
     $this->addFieldMapping('uid')
       ->defaultValue(1);
+  }
+  /**
+   * Function prepareRow.
+   */
+  public function prepareRow($row) {
+    // Setup extra variables for file info.
+    $filepath = str_replace('sites/default/files/', '', $row->DRUPALPATH);
+    $row->FILEPATHDEST = preg_replace('/source\//', '', $filepath, 1);
+    // Doing this in the source class does not seems to work, needs to be in preparerow.
+    $row->FILEPATH = '/' . $row->FILEPATHDEST;
   }
 }

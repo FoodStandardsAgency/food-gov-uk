@@ -144,12 +144,6 @@ ENDSQL;
     // Split the SQLResults by objects and type of value.
     $textSplit = $this->textVariableSplit($query_results_array);
 
-    $counter = 0;
-    // Addition for each object.
-    foreach ($textSplit as $singleObjectSplit) {
-      $counter = $counter + count($singleObjectSplit);
-    }
-
     $this->imageQuery = str_replace(':obj_ids', implode(',', $this->listObjectsIds), $this->imageQuery);
 
     // Query the oracle DB to get the images into the different field collections.
@@ -168,19 +162,22 @@ ENDSQL;
           $imageExtractedNumber = substr($imageObjectType, 5);
 
           // @TODO Manage several objects ID. This will only work with ONE.
-          $textSplit[$imageExtractedNumber]['image'] = $query_image_results_array['OBJECTID'][$imageItemNumber];
+          $textSplit[$query_image_results_array['PARENTID'][$imageItemNumber]][$imageExtractedNumber]['image'] =
+            $query_image_results_array['OBJECTID'][$imageItemNumber];
         }
       }
     }
 
     // Change the format from array to string for each field collection,
     // in order to be passed to the MigrateItem class.
-    foreach ($textSplit as $textSplitLine) {
-      $splitLine = NULL;
-      foreach ($textSplitLine as $textSplitType => $textSplitItem) {
-        $splitLine[] =  $textSplitType . ':' . $textSplitItem;
+    foreach ($textSplit as $textSplitObject) {
+      foreach ($textSplitObject as $textSplitLine) {
+        $splitLine = NULL;
+        foreach ($textSplitLine as $textSplitType => $textSplitItem) {
+          $splitLine[] =  $textSplitType . ':' . $textSplitItem;
+        }
+        $generatedObjectidFieldid[] = implode('-', $splitLine);
       }
-      $generatedObjectidFieldid[] = implode('-', $splitLine);
     }
 
     return $generatedObjectidFieldid;
@@ -216,7 +213,14 @@ ENDSQL;
     // Split the SQLResults by objects and type of value.
     $textSplit = $this->textVariableSplit($query_results_array);
 
-    return count($textSplit);
+    // Loop on every object to get the amount of data to migrate.
+    $totalCount = NULL;
+    foreach ($textSplit as $textSplitObject) {
+      $totalCount += count($textSplitObject);
+    }
+
+    // return count($textSplit);
+    return $totalCount;
   }
 
   /**
@@ -243,19 +247,21 @@ ENDSQL;
       if ($text_variable == 'text') {
         $int_variable = (int)substr($field_variable, 4);
         // Insert a new row for the object and the type of data.
-        if (!isset($array_variable[$int_variable])) {
-          $array_variable[$int_variable]['objectid'] = $queryResults['OBJECTID'][$iObjectVariable];
+        if (!isset($array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable])) {
+          $array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable]['objectid'] =
+            $queryResults['OBJECTID'][$iObjectVariable];
         }
-        $array_variable[$int_variable]['text'] = $queryResults['FIELDID'][$iObjectVariable];
+        $array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable]['text'] =
+          $queryResults['FIELDID'][$iObjectVariable];
       }
       else {
         // This is a sectionheading.
         $int_variable = (int)substr($field_variable, 14);
 
-        if (!isset($array_variable[$int_variable])) {
-          $array_variable[$int_variable]['objectid'] = $queryResults['OBJECTID'][$iObjectVariable];
+        if (!isset($array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable])) {
+          $array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable]['objectid'] = $queryResults['OBJECTID'][$iObjectVariable];
         }
-        $array_variable[$int_variable]['sectionheading'] = $queryResults['FIELDID'][$iObjectVariable];
+        $array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable]['sectionheading'] = $queryResults['FIELDID'][$iObjectVariable];
       }
       $iObjectVariable++;
     }
@@ -325,7 +331,7 @@ ENDSQL;
         $connectionOracle
       );
 
-      $imagePath = 'public://' . $queryImageResults['PATH'];
+      $imagePath = $queryImageResults['PATH'];
     }
 
     // Query the oracle db.
@@ -360,8 +366,15 @@ ENDSQL;
     if(isset($itemsList['sectionheading'])) {
       $object->FIELDID1 = $itemsList['sectionheading'];
     }
+    else {
+      $object->FIELDID1 = 0;
+    }
+
     if(isset($itemsList['text'])) {
       $object->FIELDID2 = $itemsList['text'];
+    }
+    else {
+      $object->FIELDID2 = 0;
     }
 
     // Assign image.

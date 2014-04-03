@@ -33,13 +33,13 @@ class FSAUberpageCollectionMigration extends FSAMigration {
         'field_source_id1' => array(
           'type' => 'int',
           'unsigned' => TRUE,
-          'not null' => FALSE,
+          'not null' => TRUE,
           'description' => 'Field ID1',
         ),
         'field_source_id2' => array(
           'type' => 'int',
           'unsigned' => TRUE,
-          'not null' => FALSE,
+          'not null' => TRUE,
           'description' => 'Field ID2',
         ),
       ),
@@ -48,8 +48,10 @@ class FSAUberpageCollectionMigration extends FSAMigration {
 
     // @TODO Just use the path as parameter "/multimedia/webpage/uber-page/".
     // Object ids ex: 674037, 11421.
-    $this->source = new MigrateSourceList(new MigrateListOracleTextCollection(array(674037), $conf['oracle_db']),
-      new MigrateItemOracleTextCollection());
+    $this->source = new MigrateSourceList(
+      new MigrateListOracleTextCollection(array(674037, 654657), $conf['oracle_db']),
+      new MigrateItemOracleTextCollection()
+    );
 
     // Destination detail.
     $this->destination = new MigrateDestinationFieldCollection(
@@ -65,8 +67,12 @@ class FSAUberpageCollectionMigration extends FSAMigration {
     $this->addFieldMapping('field_uberpage_heading_text', 'text');
 
     // Image mapping.
-    $this->addFieldMapping('field_fc_section_image', 'IMAGEPATH');
-
+    $this->addFieldMapping('field_fc_section_image', 'IMAGEPATH')
+      ->sourceMigration('FSAMediaImages');
+    $this->addFieldMapping('field_fc_section_image:file_class')
+      ->defaultValue('migrateFileFid');
+    $this->addFieldMapping('field_fc_section_image:preserve_files')
+      ->defaultValue(TRUE);
   }
 
   /**
