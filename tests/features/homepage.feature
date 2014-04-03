@@ -1,27 +1,19 @@
-Feature: Test Homepage
+Feature: Homepage
   In order to prove the homepage is working properly
   As a developer
   I need to make sure the correct content is being displayed
-
-#  @Migration @JavaScript @Production
   
   Scenario: News & Updates menu item
     Given I am on the homepage
     Then I should see "News & updates"
-#    Then the "#menu-331-1" element should contain "News &"
-	And I should see "<br/>"
-#	And the "#menu-331-1" element should contain "updates"
 	When I click "News & updates" in the "Menu" region
     Then I should be on "/news-updates"
-	
-   @javascript 
+ 
   Scenario: Policy & advice menu item
     Given I am on the homepage
     Then I should see "Policy & advice"
 	When I click "Policy & advice" in the "Menu" region
     Then I should be on "/policy-advice"
-    Then the position of "#main-content" should be above ".l-main"
-	Then the position of ".l-main" should be above "#main-content"
     
   Scenario: Business & industry menu item
     Given I am on the homepage
@@ -47,8 +39,12 @@ Feature: Test Homepage
 	When I click "About us" in the "Menu" region
     Then I should be on "/about-us"
     
-#  @javascript  
-#  Scenario: Main menu 
-#    Given I am on the homepage
-#    Given I mouse over "News & updates"
-#    Then I should see "Test document page 1"
+  @javascript  
+  Scenario: Main menu 
+    Given I am on the homepage
+    When I mouse over "Policy & advice"
+    Then I should see "Test document page 1"
+    
+  Scenario: Nations do not show in main menu 
+    Given I am on the homepage
+    Then I should not see "FSA in Northern Ireland" in the "Menu" region

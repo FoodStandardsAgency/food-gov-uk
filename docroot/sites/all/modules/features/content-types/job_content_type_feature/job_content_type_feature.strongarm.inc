@@ -1,117 +1,126 @@
 <?php
 /**
  * @file
- * document_content_type_feature.strongarm.inc
+ * job_content_type_feature.strongarm.inc
  */
 
 /**
  * Implements hook_strongarm().
  */
-function document_content_type_feature_strongarm() {
+function job_content_type_feature_strongarm() {
   $export = array();
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'additional_settings__active_tab_document_page';
-  $strongarm->value = 'edit-auto-nodetitle';
-  $export['additional_settings__active_tab_document_page'] = $strongarm;
+  $strongarm->name = 'additional_settings__active_tab_job';
+  $strongarm->value = 'edit-menu';
+  $export['additional_settings__active_tab_job'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'ant_document_page';
+  $strongarm->name = 'ant_job';
   $strongarm->value = '0';
-  $export['ant_document_page'] = $strongarm;
+  $export['ant_job'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'ant_pattern_document_page';
+  $strongarm->name = 'ant_pattern_job';
   $strongarm->value = '';
-  $export['ant_pattern_document_page'] = $strongarm;
+  $export['ant_pattern_job'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'ant_php_document_page';
+  $strongarm->name = 'ant_php_job';
   $strongarm->value = 0;
-  $export['ant_php_document_page'] = $strongarm;
+  $export['ant_php_job'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_anonymous_document_page';
+  $strongarm->name = 'apachesolr_view_modes_job';
+  $strongarm->value = array(
+    'search_result' => 'search_result',
+  );
+  $export['apachesolr_view_modes_job'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'comment_anonymous_job';
   $strongarm->value = 0;
-  $export['comment_anonymous_document_page'] = $strongarm;
+  $export['comment_anonymous_job'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_default_mode_document_page';
+  $strongarm->name = 'comment_default_mode_job';
   $strongarm->value = 1;
-  $export['comment_default_mode_document_page'] = $strongarm;
+  $export['comment_default_mode_job'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_default_per_page_document_page';
+  $strongarm->name = 'comment_default_per_page_job';
   $strongarm->value = '50';
-  $export['comment_default_per_page_document_page'] = $strongarm;
+  $export['comment_default_per_page_job'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_document_page';
+  $strongarm->name = 'comment_form_location_job';
+  $strongarm->value = 1;
+  $export['comment_form_location_job'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'comment_job';
   $strongarm->value = '1';
-  $export['comment_document_page'] = $strongarm;
+  $export['comment_job'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_form_location_document_page';
-  $strongarm->value = 1;
-  $export['comment_form_location_document_page'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_preview_document_page';
+  $strongarm->name = 'comment_preview_job';
   $strongarm->value = '1';
-  $export['comment_preview_document_page'] = $strongarm;
+  $export['comment_preview_job'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_subject_field_document_page';
+  $strongarm->name = 'comment_subject_field_job';
   $strongarm->value = 1;
-  $export['comment_subject_field_document_page'] = $strongarm;
+  $export['comment_subject_field_job'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'diff_enable_revisions_page_node_document_page';
+  $strongarm->name = 'diff_enable_revisions_page_node_job';
   $strongarm->value = 1;
-  $export['diff_enable_revisions_page_node_document_page'] = $strongarm;
+  $export['diff_enable_revisions_page_node_job'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'diff_show_preview_changes_node_document_page';
+  $strongarm->name = 'diff_show_preview_changes_node_job';
   $strongarm->value = 0;
-  $export['diff_show_preview_changes_node_document_page'] = $strongarm;
+  $export['diff_show_preview_changes_node_job'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'diff_view_mode_preview_node_document_page';
+  $strongarm->name = 'diff_view_mode_preview_node_job';
   $strongarm->value = 'full';
-  $export['diff_view_mode_preview_node_document_page'] = $strongarm;
+  $export['diff_view_mode_preview_node_job'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'field_bundle_settings_node__document_page';
+  $strongarm->name = 'field_bundle_settings_node__job';
   $strongarm->value = array(
     'view_modes' => array(
       'full' => array(
@@ -120,19 +129,16 @@ function document_content_type_feature_strongarm() {
       'teaser' => array(
         'custom_settings' => TRUE,
       ),
-      'rss' => array(
-        'custom_settings' => FALSE,
-      ),
-      'search_index' => array(
-        'custom_settings' => FALSE,
-      ),
       'search_result' => array(
         'custom_settings' => TRUE,
       ),
       'short_teaser' => array(
         'custom_settings' => TRUE,
       ),
-      'revision' => array(
+      'rss' => array(
+        'custom_settings' => FALSE,
+      ),
+      'search_index' => array(
         'custom_settings' => FALSE,
       ),
       'diff_standard' => array(
@@ -141,26 +147,32 @@ function document_content_type_feature_strongarm() {
       'token' => array(
         'custom_settings' => FALSE,
       ),
+      'revision' => array(
+        'custom_settings' => FALSE,
+      ),
       'micro_teaser' => array(
         'custom_settings' => TRUE,
+      ),
+      'search_results_2' => array(
+        'custom_settings' => FALSE,
       ),
     ),
     'extra_fields' => array(
       'form' => array(
+        'metatags' => array(
+          'weight' => '6',
+        ),
         'title' => array(
           'weight' => '0',
         ),
-        'metatags' => array(
-          'weight' => '10',
-        ),
         'path' => array(
-          'weight' => '8',
+          'weight' => '5',
         ),
         'redirect' => array(
-          'weight' => '9',
+          'weight' => '4',
         ),
         'xmlsitemap' => array(
-          'weight' => '7',
+          'weight' => '3',
         ),
         'language' => array(
           'weight' => '0',
@@ -173,7 +185,7 @@ function document_content_type_feature_strongarm() {
             'visible' => FALSE,
           ),
           'full' => array(
-            'weight' => '0',
+            'weight' => '12',
             'visible' => FALSE,
           ),
           'teaser' => array(
@@ -184,11 +196,11 @@ function document_content_type_feature_strongarm() {
             'weight' => '0',
             'visible' => FALSE,
           ),
-          'micro_teaser' => array(
+          'short_teaser' => array(
             'weight' => '0',
             'visible' => FALSE,
           ),
-          'short_teaser' => array(
+          'micro_teaser' => array(
             'weight' => '0',
             'visible' => FALSE,
           ),
@@ -196,113 +208,100 @@ function document_content_type_feature_strongarm() {
       ),
     ),
   );
-  $export['field_bundle_settings_node__document_page'] = $strongarm;
+  $export['field_bundle_settings_node__job'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'language_content_type_document_page';
+  $strongarm->name = 'language_content_type_job';
   $strongarm->value = '2';
-  $export['language_content_type_document_page'] = $strongarm;
+  $export['language_content_type_job'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'maxlength_js_document_page';
+  $strongarm->name = 'maxlength_js_job';
   $strongarm->value = '';
-  $export['maxlength_js_document_page'] = $strongarm;
+  $export['maxlength_js_job'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'maxlength_js_label_document_page';
+  $strongarm->name = 'maxlength_js_label_job';
   $strongarm->value = 'Content limited to @limit characters, remaining: <strong>@remaining</strong>';
-  $export['maxlength_js_label_document_page'] = $strongarm;
+  $export['maxlength_js_label_job'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'menu_options_document_page';
+  $strongarm->name = 'menu_options_job';
   $strongarm->value = array(
     0 => 'main-menu',
   );
-  $export['menu_options_document_page'] = $strongarm;
+  $export['menu_options_job'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'menu_parent_document_page';
+  $strongarm->name = 'menu_parent_job';
   $strongarm->value = 'main-menu:0';
-  $export['menu_parent_document_page'] = $strongarm;
+  $export['menu_parent_job'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'new_revisions_document_page';
+  $strongarm->name = 'new_revisions_job';
   $strongarm->value = '0';
-  $export['new_revisions_document_page'] = $strongarm;
+  $export['new_revisions_job'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'node_options_document_page';
+  $strongarm->name = 'node_options_job';
   $strongarm->value = array(
     0 => 'status',
-    1 => 'revision',
+    1 => 'promote',
+    2 => 'revision',
   );
-  $export['node_options_document_page'] = $strongarm;
+  $export['node_options_job'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'node_preview_document_page';
+  $strongarm->name = 'node_preview_job';
   $strongarm->value = '0';
-  $export['node_preview_document_page'] = $strongarm;
+  $export['node_preview_job'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'node_submitted_document_page';
+  $strongarm->name = 'node_submitted_job';
   $strongarm->value = 0;
-  $export['node_submitted_document_page'] = $strongarm;
+  $export['node_submitted_job'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'pathauto_node_document_page_pattern';
-  $strongarm->value = '[node:menu-link:parents:join-path]/[node:field_path]';
-  $export['pathauto_node_document_page_pattern'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'revisioning_auto_publish_document_page';
+  $strongarm->name = 'revisioning_auto_publish_job';
   $strongarm->value = 0;
-  $export['revisioning_auto_publish_document_page'] = $strongarm;
+  $export['revisioning_auto_publish_job'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'save_continue_document_page';
-  $strongarm->value = 'Save and add fields';
-  $export['save_continue_document_page'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'webform_node_document_page';
+  $strongarm->name = 'webform_node_job';
   $strongarm->value = 0;
-  $export['webform_node_document_page'] = $strongarm;
+  $export['webform_node_job'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'xmlsitemap_settings_node_document_page';
+  $strongarm->name = 'xmlsitemap_settings_node_job';
   $strongarm->value = array(
     'status' => '1',
     'priority' => '0.5',
   );
-  $export['xmlsitemap_settings_node_document_page'] = $strongarm;
+  $export['xmlsitemap_settings_node_job'] = $strongarm;
 
   return $export;
 }

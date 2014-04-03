@@ -18,7 +18,7 @@ default:
   extensions:
     Behat\MinkExtension\Extension:
     # include http auth data in base url when needed
-      base_url: http://shield:down@stage.fsa.dev-1.siriusopensource.com/ 
+      base_url: http://shield:down@dev.fsa.dev-1.siriusopensource.com/ 
       goutte: ~
       selenium2: ~
     Drupal\DrupalExtension\Extension:
@@ -29,6 +29,10 @@ default:
           Page Title: "#branding"
           Drupal Menu: "#admin-menu-wrapper"
           Submit: "#edit-actions"
+          Left Sidebar: ".l-sidebar-first"
+          Right Sidebar: ".l-sidebar-second"
+          Quote: ".field--name-field-fc-section-quote"
+          News Block: "#block-views-news-block-1"
 annotations:
   paths:
     features: features/annotations

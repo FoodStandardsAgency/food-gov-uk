@@ -1,126 +1,117 @@
 <?php
 /**
  * @file
- * consultation_content_type_feature.strongarm.inc
+ * document_content_type_feature.strongarm.inc
  */
 
 /**
  * Implements hook_strongarm().
  */
-function consultation_content_type_feature_strongarm() {
+function document_content_type_feature_strongarm() {
   $export = array();
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'additional_settings__active_tab_consultation';
-  $strongarm->value = 'edit-menu';
-  $export['additional_settings__active_tab_consultation'] = $strongarm;
+  $strongarm->name = 'additional_settings__active_tab_document_page';
+  $strongarm->value = 'edit-auto-nodetitle';
+  $export['additional_settings__active_tab_document_page'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'ant_consultation';
+  $strongarm->name = 'ant_document_page';
   $strongarm->value = '0';
-  $export['ant_consultation'] = $strongarm;
+  $export['ant_document_page'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'ant_pattern_consultation';
+  $strongarm->name = 'ant_pattern_document_page';
   $strongarm->value = '';
-  $export['ant_pattern_consultation'] = $strongarm;
+  $export['ant_pattern_document_page'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'ant_php_consultation';
+  $strongarm->name = 'ant_php_document_page';
   $strongarm->value = 0;
-  $export['ant_php_consultation'] = $strongarm;
+  $export['ant_php_document_page'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'apachesolr_view_modes_consultation';
-  $strongarm->value = array(
-    'search_result' => 'search_result',
-  );
-  $export['apachesolr_view_modes_consultation'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_anonymous_consultation';
+  $strongarm->name = 'comment_anonymous_document_page';
   $strongarm->value = 0;
-  $export['comment_anonymous_consultation'] = $strongarm;
+  $export['comment_anonymous_document_page'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_consultation';
-  $strongarm->value = '1';
-  $export['comment_consultation'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_default_mode_consultation';
+  $strongarm->name = 'comment_default_mode_document_page';
   $strongarm->value = 1;
-  $export['comment_default_mode_consultation'] = $strongarm;
+  $export['comment_default_mode_document_page'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_default_per_page_consultation';
+  $strongarm->name = 'comment_default_per_page_document_page';
   $strongarm->value = '50';
-  $export['comment_default_per_page_consultation'] = $strongarm;
+  $export['comment_default_per_page_document_page'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_form_location_consultation';
-  $strongarm->value = 1;
-  $export['comment_form_location_consultation'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_preview_consultation';
+  $strongarm->name = 'comment_document_page';
   $strongarm->value = '1';
-  $export['comment_preview_consultation'] = $strongarm;
+  $export['comment_document_page'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_subject_field_consultation';
+  $strongarm->name = 'comment_form_location_document_page';
   $strongarm->value = 1;
-  $export['comment_subject_field_consultation'] = $strongarm;
+  $export['comment_form_location_document_page'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'diff_enable_revisions_page_node_consultation';
+  $strongarm->name = 'comment_preview_document_page';
+  $strongarm->value = '1';
+  $export['comment_preview_document_page'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'comment_subject_field_document_page';
   $strongarm->value = 1;
-  $export['diff_enable_revisions_page_node_consultation'] = $strongarm;
+  $export['comment_subject_field_document_page'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'diff_show_preview_changes_node_consultation';
+  $strongarm->name = 'diff_enable_revisions_page_node_document_page';
+  $strongarm->value = 1;
+  $export['diff_enable_revisions_page_node_document_page'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'diff_show_preview_changes_node_document_page';
   $strongarm->value = 0;
-  $export['diff_show_preview_changes_node_consultation'] = $strongarm;
+  $export['diff_show_preview_changes_node_document_page'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'diff_view_mode_preview_node_consultation';
+  $strongarm->name = 'diff_view_mode_preview_node_document_page';
   $strongarm->value = 'full';
-  $export['diff_view_mode_preview_node_consultation'] = $strongarm;
+  $export['diff_view_mode_preview_node_document_page'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'field_bundle_settings_node__consultation';
+  $strongarm->name = 'field_bundle_settings_node__document_page';
   $strongarm->value = array(
     'view_modes' => array(
       'full' => array(
@@ -129,16 +120,19 @@ function consultation_content_type_feature_strongarm() {
       'teaser' => array(
         'custom_settings' => TRUE,
       ),
+      'rss' => array(
+        'custom_settings' => FALSE,
+      ),
+      'search_index' => array(
+        'custom_settings' => FALSE,
+      ),
       'search_result' => array(
         'custom_settings' => TRUE,
       ),
       'short_teaser' => array(
         'custom_settings' => TRUE,
       ),
-      'rss' => array(
-        'custom_settings' => FALSE,
-      ),
-      'search_index' => array(
+      'revision' => array(
         'custom_settings' => FALSE,
       ),
       'diff_standard' => array(
@@ -147,29 +141,29 @@ function consultation_content_type_feature_strongarm() {
       'token' => array(
         'custom_settings' => FALSE,
       ),
-      'revision' => array(
-        'custom_settings' => FALSE,
-      ),
       'micro_teaser' => array(
         'custom_settings' => TRUE,
+      ),
+      'search_results_2' => array(
+        'custom_settings' => FALSE,
       ),
     ),
     'extra_fields' => array(
       'form' => array(
-        'metatags' => array(
-          'weight' => '40',
-        ),
         'title' => array(
-          'weight' => '-5',
+          'weight' => '0',
+        ),
+        'metatags' => array(
+          'weight' => '10',
         ),
         'path' => array(
-          'weight' => '30',
+          'weight' => '8',
         ),
         'redirect' => array(
-          'weight' => '30',
+          'weight' => '9',
         ),
         'xmlsitemap' => array(
-          'weight' => '30',
+          'weight' => '7',
         ),
         'language' => array(
           'weight' => '0',
@@ -181,6 +175,10 @@ function consultation_content_type_feature_strongarm() {
             'weight' => '0',
             'visible' => FALSE,
           ),
+          'full' => array(
+            'weight' => '0',
+            'visible' => FALSE,
+          ),
           'teaser' => array(
             'weight' => '0',
             'visible' => FALSE,
@@ -189,15 +187,11 @@ function consultation_content_type_feature_strongarm() {
             'weight' => '0',
             'visible' => FALSE,
           ),
-          'short_teaser' => array(
+          'micro_teaser' => array(
             'weight' => '0',
             'visible' => FALSE,
           ),
-          'full' => array(
-            'weight' => '12',
-            'visible' => FALSE,
-          ),
-          'micro_teaser' => array(
+          'short_teaser' => array(
             'weight' => '0',
             'visible' => FALSE,
           ),
@@ -205,98 +199,113 @@ function consultation_content_type_feature_strongarm() {
       ),
     ),
   );
-  $export['field_bundle_settings_node__consultation'] = $strongarm;
+  $export['field_bundle_settings_node__document_page'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'language_content_type_consultation';
+  $strongarm->name = 'language_content_type_document_page';
   $strongarm->value = '2';
-  $export['language_content_type_consultation'] = $strongarm;
+  $export['language_content_type_document_page'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'maxlength_js_consultation';
+  $strongarm->name = 'maxlength_js_document_page';
   $strongarm->value = '';
-  $export['maxlength_js_consultation'] = $strongarm;
+  $export['maxlength_js_document_page'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'maxlength_js_label_consultation';
+  $strongarm->name = 'maxlength_js_label_document_page';
   $strongarm->value = 'Content limited to @limit characters, remaining: <strong>@remaining</strong>';
-  $export['maxlength_js_label_consultation'] = $strongarm;
+  $export['maxlength_js_label_document_page'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'menu_options_consultation';
-  $strongarm->value = array();
-  $export['menu_options_consultation'] = $strongarm;
+  $strongarm->name = 'menu_options_document_page';
+  $strongarm->value = array(
+    0 => 'main-menu',
+  );
+  $export['menu_options_document_page'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'menu_parent_consultation';
+  $strongarm->name = 'menu_parent_document_page';
   $strongarm->value = 'main-menu:0';
-  $export['menu_parent_consultation'] = $strongarm;
+  $export['menu_parent_document_page'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'new_revisions_consultation';
+  $strongarm->name = 'new_revisions_document_page';
   $strongarm->value = '0';
-  $export['new_revisions_consultation'] = $strongarm;
+  $export['new_revisions_document_page'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'node_options_consultation';
+  $strongarm->name = 'node_options_document_page';
   $strongarm->value = array(
     0 => 'status',
-    1 => 'promote',
-    2 => 'revision',
+    1 => 'revision',
   );
-  $export['node_options_consultation'] = $strongarm;
+  $export['node_options_document_page'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'node_preview_consultation';
+  $strongarm->name = 'node_preview_document_page';
   $strongarm->value = '0';
-  $export['node_preview_consultation'] = $strongarm;
+  $export['node_preview_document_page'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'node_submitted_consultation';
+  $strongarm->name = 'node_submitted_document_page';
   $strongarm->value = 0;
-  $export['node_submitted_consultation'] = $strongarm;
+  $export['node_submitted_document_page'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'revisioning_auto_publish_consultation';
+  $strongarm->name = 'pathauto_node_document_page_pattern';
+  $strongarm->value = '[node:menu-link:parents:join-path]/[node:field_path]';
+  $export['pathauto_node_document_page_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'revisioning_auto_publish_document_page';
   $strongarm->value = 0;
-  $export['revisioning_auto_publish_consultation'] = $strongarm;
+  $export['revisioning_auto_publish_document_page'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'webform_node_consultation';
+  $strongarm->name = 'save_continue_document_page';
+  $strongarm->value = 'Save and add fields';
+  $export['save_continue_document_page'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'webform_node_document_page';
   $strongarm->value = 0;
-  $export['webform_node_consultation'] = $strongarm;
+  $export['webform_node_document_page'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'xmlsitemap_settings_node_consultation';
+  $strongarm->name = 'xmlsitemap_settings_node_document_page';
   $strongarm->value = array(
     'status' => '1',
     'priority' => '0.5',
   );
-  $export['xmlsitemap_settings_node_consultation'] = $strongarm;
+  $export['xmlsitemap_settings_node_document_page'] = $strongarm;
 
   return $export;
 }

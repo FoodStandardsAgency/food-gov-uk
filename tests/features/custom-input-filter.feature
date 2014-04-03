@@ -1,9 +1,7 @@
-Feature: Test Homepage
+Feature: Custom input filter
   As a Content Editor
   I want to be able to use some html markup in my text
   So I can have some control over the formatting of content
- 
-#  @migration @javascript @production
 
   Scenario: Creating content with custom input filter
     Given I log in as an existing "editor"
@@ -43,7 +41,7 @@ Feature: Test Homepage
     <br>
     Also a break tag
     </p>
-    <p> Test 8: Check this text ignores the line break and there is no break tag, this should be on the same line, and so should the rest of this test. Check this is on the same line, not a separate paragraph. </p>
+    <p> Test 4: Check this text ignores the line break and there is no break tag, this should be on the same line, and so should the rest of this test. Check this is on the same line, not a separate paragraph. </p>
     """
     And I should see:
     """
