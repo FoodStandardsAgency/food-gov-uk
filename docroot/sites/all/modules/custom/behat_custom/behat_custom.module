@@ -5,22 +5,40 @@
  */
 
 /**
- * Implements hook init
- *
- * Add username meta tag to header
+ * Implements hook_block_info().
  */
-function behat_custom_init(){
-  // initialise data for meta tag
-  $userdata = array(
-    '#tag' => 'meta',
-    '#attributes' => array(
-      'name' => 'drupal_username',
-      'content' => $GLOBALS['user']->name,
-    ),
+function behat_custom_block_info() {
+  $blocks['behat'] = array(
+    'info' => t('Behat data'),
   );
-
-  if (user_is_logged_in()) {
-    drupal_add_html_head($userdata, 'behat_drupal_username');
-  }
+  return $blocks;
 }
+
+/**
+ * Implements hook_block_view().
+ */
+function behat_custom_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+    case 'behat':
+      $content[] = "<!-- Behat testing info -->";
+
+      // get current user
+      if (isset($GLOBALS['user']->name)) {
+        $content[] = "<!-- drupal username:". $GLOBALS['user']->name . "  -->";
+      }
+
+      // node id
+      if (arg(0) == 'node' && is_numeric(arg(1))) {
+        $content[] = "<!-- drupal nid:". arg(1) . "  -->";
+      }
+
+      $block['subject'] = NULL;
+      $block['content'] = array(
+        '#markup' => implode($content),
+      );
+  }
+  return $block;
+}
+
 
