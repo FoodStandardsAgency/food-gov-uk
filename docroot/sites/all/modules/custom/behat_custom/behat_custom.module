@@ -35,7 +35,9 @@ function behat_custom_block_view($delta = '') {
 
       $block['subject'] = NULL;
       $block['content'] = array(
+        '#prefix' => '<span id="behat_data">',
         '#markup' => implode($content),
+        '#suffix' => '</span>',
       );
   }
   return $block;
