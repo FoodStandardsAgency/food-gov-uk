@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * @file
+ * If on a non-English page detect language and add to the HTML header.
+ */
+
+/**
+ * Implements moduleName_preprocess_html().
+ * If on a non-English page detect language and add to the HTML header.
+ */
+function page_language_preprocess_html(&$variables) {
+
+  if (isset($variables['page']['content']['system_main']['nodes'])) {
+
+    foreach ($variables['page']['content']['system_main']['nodes'] as $nid => $node) {
+      // Only activate on pages with node content that is not in English.
+      if (substr($nid, 0, 1) != '#' && is_numeric($nid) && $node['#node']->language != 'en') {
+        $langcode = $node['#node']->language;
+        $languages = language_list();
+        $language = $languages[$langcode];
+        // Direction is stored as a number/boolean but needed as a string by template.
+        $language->dir = $language->direction ? 'rtl' : 'ltr';
+        $variables['language'] = $language;
+      }
+    }
+  }
+
+}
