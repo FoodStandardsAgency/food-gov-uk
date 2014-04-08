@@ -36,6 +36,16 @@ ENDSQL;
     WHERE OBJ.PATH LIKE '/multimedia/webpage/uber-page/'
 ENDSQL;
 
+  protected $queryFeatureImage = <<<'ENDSQL'
+    SELECT OBJ.PATH
+      FROM OBJ, LINK, MEDIAIMAGE, OBJTYPE
+      WHERE LINK.CHILDID = OBJ.OBJECTID
+      AND OBJTYPE.OBJECTTYPEID = OBJ.OBJECTTYPEID
+      AND LINK.CHILDID = MEDIAIMAGE.OBJECTID
+      AND OBJTYPE.NAME LIKE 'FeatureImage'
+      AND LINK.PARENTID = :objid
+ENDSQL;
+
   /**
    * Class constructor.
    */
@@ -85,6 +95,14 @@ ENDSQL;
     // Fields mapping.
     $this->addFieldMapping('title', 'title');
     $this->addFieldMapping('field_global_summary', 'summary');
+
+    // Feature image mapping.
+    $this->addFieldMapping('field_feature_image', 'FEATUREDIMAGEPATH')
+      ->sourceMigration('FSAMediaImages');
+    $this->addFieldMapping('field_feature_image:file_class')
+      ->defaultValue('migrateFileFid');
+    $this->addFieldMapping('field_feature_image:preserve_files')
+      ->defaultValue(TRUE);
   }
 
   /**
@@ -106,6 +124,20 @@ ENDSQL;
       foreach ($fields_res_array as $fieldVariable => $fieldValue) {
         $row->{$fieldVariable} = $fieldValue;
       }
+    }
+
+    // Manage the feature image query.
+    $queryImageFeature = str_replace(':objid', "'" . $row->OBJECTID . "'", $this->queryFeatureImage);
+    // Query the oracle DB to look for a feature image from the object id.
+    $feature_image_res = $this->oracleQuerySingle(
+      $queryImageFeature,
+      array(),
+      $this->source->getConnection()
+    );
+    $row->FEATUREDIMAGE = NULL;
+    // If there is an image, we add it to the mapping.
+    if (!is_null($feature_image_res)) {
+      $row->FEATUREDIMAGEPATH = $feature_image_res['PATH'];
     }
   }
 }
