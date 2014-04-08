@@ -26,7 +26,7 @@ class MigrateListOracleTextCollection extends MigrateList {
       AND FIELDVALUE.OBJECTID = OBJ.OBJECTID
       AND OBJ.OBJECTID IN ( :obj_ids )
       AND ( FIELDNAME.VARIABLE LIKE 'text%'
-      OR  FIELDNAME.VARIABLE LIKE 'sectionheading%')
+      OR FIELDNAME.VARIABLE LIKE 'sectionheading%')
       ORDER BY FIELDNAME.FIELDID ASC
 ENDSQL;
 
@@ -59,7 +59,7 @@ ENDSQL;
       AND FIELDVALUE.OBJECTID = OBJ.OBJECTID
       AND OBJ.OBJECTID IN ( :obj_ids )
       AND ( FIELDNAME.VARIABLE LIKE 'text%'
-      OR  FIELDNAME.VARIABLE LIKE 'sectionheading%')
+      OR FIELDNAME.VARIABLE LIKE 'sectionheading%')
 ENDSQL;
 
   protected $imageQuery = <<<'ENDSQL'
@@ -244,24 +244,31 @@ ENDSQL;
 
     foreach ($queryResults['VARIABLE'] as $field_variable) {
       $text_variable = substr($field_variable, 0, 4);
-      if ($text_variable == 'text') {
-        $int_variable = (int)substr($field_variable, 4);
-        // Insert a new row for the object and the type of data.
-        if (!isset($array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable])) {
-          $array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable]['objectid'] =
-            $queryResults['OBJECTID'][$iObjectVariable];
-        }
-        $array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable]['text'] =
-          $queryResults['FIELDID'][$iObjectVariable];
-      }
-      else {
-        // This is a sectionheading.
-        $int_variable = (int)substr($field_variable, 14);
 
-        if (!isset($array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable])) {
-          $array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable]['objectid'] = $queryResults['OBJECTID'][$iObjectVariable];
-        }
-        $array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable]['sectionheading'] = $queryResults['FIELDID'][$iObjectVariable];
+      preg_match('/^\D*(?=\d)/', $field_variable, $text_variable);
+
+      switch ($text_variable[0]) {
+        case 'text':
+          $int_variable = (int)substr($field_variable, 4);
+          // Insert a new row for the object and the type of data.
+          if (!isset($array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable])) {
+            $array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable]['objectid'] =
+              $queryResults['OBJECTID'][$iObjectVariable];
+          }
+          $array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable]['text'] =
+            $queryResults['FIELDID'][$iObjectVariable];
+          $array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable]['itemnumber'] =
+            $int_variable;
+          break;
+        case 'sectionheading':
+          $int_variable = (int)substr($field_variable, 14);
+          if (!isset($array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable])) {
+            $array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable]['objectid'] = $queryResults['OBJECTID'][$iObjectVariable];
+          }
+          $array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable]['sectionheading'] = $queryResults['FIELDID'][$iObjectVariable];
+          $array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable]['itemnumber'] =
+            $int_variable;
+          break;
       }
       $iObjectVariable++;
     }
@@ -291,6 +298,15 @@ ENDSQL;
       AND LINK.PARENTID = :obj_id
 ENDSQL;
 
+  protected $queryImagePosition = <<<'ENDSQL'
+    SELECT FIELDNAME.FIELDID
+      FROM FIELDNAME, FIELDVALUE, OBJ
+      WHERE FIELDVALUE.OBJECTID = OBJ.OBJECTID
+      AND FIELDVALUE.FIELDID = FIELDNAME.FIELDID
+      AND OBJ.OBJECTID = :obj_id
+      AND FIELDNAME.VARIABLE LIKE 'imageposition:image_position'
+ENDSQL;
+
   /**
    * Given an ID obtained from a MigrateList class, returns the data for the
    * source item keyed by that ID, as an object.
@@ -312,8 +328,11 @@ ENDSQL;
     // The object id is always first.
     $objectId = $itemsList['objectid'];
     unset($itemsList['objectid']);
+    $itemNumber = $itemsList['itemnumber'];
+    unset($itemsList['itemnumber']);
 
     $imagePath = NULL;
+    $imgposition = NULL;
 
     // Test if there is an image for the field collection.
     if (isset($itemsList['image'])) {
@@ -331,7 +350,21 @@ ENDSQL;
         $connectionOracle
       );
 
+      // In the legacy db, a position image is stored even if there is no image. 10 image position per node.
+      // We will store an image position only if there is an image. This requires an extra request.
+      // Add the ImagePosition field id to the list of ids.
+      $queryImagePositionObject = str_replace(':obj_id', "'" . $objectId . "'", $this->queryImagePosition);
+      $queryImagePositionObjectPos = str_replace(':image_position', $itemNumber, $queryImagePositionObject);
+
+      // Query the oracle db.
+      $queryImagePositionResults = FSAMigration::oracleQuerySingle(
+        $queryImagePositionObjectPos,
+        array(),
+        $connectionOracle
+      );
+
       $imagePath = $queryImageResults['PATH'];
+      $itemsList['imageposition'] = $queryImagePositionResults['FIELDID'];
     }
 
     // Query the oracle db.
@@ -349,14 +382,18 @@ ENDSQL;
 
     // Loop the different fields information.
     foreach ($query_results_array['VARIABLE'] as $iVariable => $fieldVariable) {
-      $text_variable = substr($fieldVariable, 0, 4);
-      // Could be automatic, it is just easier to read and understand the object creation.
-      if ($text_variable == 'text') {
-        $object->text = $query_results_array['VALUE'][$iVariable];
-      }
-      else {
-        // This is a sectionheading.
-        $object->sectionheading = $query_results_array['VALUE'][$iVariable];
+      preg_match('/^\D*(?=\d)/', $fieldVariable, $text_variable);
+
+      switch ($text_variable[0]) {
+        case 'text':
+          // Could be automatic, it is just easier to read and understand the object creation.
+          $object->text = $query_results_array['VALUE'][$iVariable];
+          break;
+        case 'sectionheading':
+          $object->sectionheading = $query_results_array['VALUE'][$iVariable];
+          break;
+        case 'imageposition':
+          $imgposition = $query_results_array['VALUE'][$iVariable];
       }
     }
 
@@ -379,6 +416,7 @@ ENDSQL;
 
     // Assign image.
     $object->IMAGEPATH = $imagePath;
+    $object->IMAGEPOSITION = $imgposition;
 
     return $object;
   }

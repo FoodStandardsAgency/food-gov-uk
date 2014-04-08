@@ -73,6 +73,35 @@ class FSAUberpageCollectionMigration extends FSAMigration {
       ->defaultValue('migrateFileFid');
     $this->addFieldMapping('field_fc_section_image:preserve_files')
       ->defaultValue(TRUE);
+
+    $this->addFieldMapping('field_fc_image_position', 'IMAGEPOSITION')
+      ->callbacks(array($this, 'imagePositionValue'));
+  }
+
+  /**
+   * For a legacy image position returns the new drupal position id, inspired from css class.
+   *
+   * @param $legacyImagePosition
+   * @return null|string
+   */
+  public function imagePositionValue($legacyImagePosition) {
+    switch ($legacyImagePosition) {
+      case 'Left':
+        return 'img-pos-left';
+        break;
+      case 'Right':
+        return 'img-pos-right';
+        break;
+      case 'Above':
+        return 'img-pos-top';
+        break;
+      case 'Below':
+        return 'img-pos-bottom';
+        break;
+      default;
+        return NULL;
+        break;
+    }
   }
 
   /**
