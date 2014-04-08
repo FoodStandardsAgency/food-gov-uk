@@ -16,6 +16,9 @@ setup-ssh-tunnel.sh &
 # Sleep for 30 seconds to allow for the tunnel to be built.
 sleep 30
 
+# Enable the FSA migration module.
+drush en fsa_migrate -y
+
 # Migrate all users.
 
 # Migrate content.

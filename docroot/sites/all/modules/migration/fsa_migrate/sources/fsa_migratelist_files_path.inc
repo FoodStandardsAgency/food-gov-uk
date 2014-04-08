@@ -95,7 +95,8 @@ class MigrateItemFilePath extends MigrateItem {
     // Drupal path as in sites/default/files/*.
     $object->DRUPALPATH = $id;
     // File path as in images/document/*.
-    $object->FILEPATH = str_replace('sites/default/files/', '', $id);
+    $object->FILEPATH = str_replace('sites/default/files/source', '', $id);
+
     // File name as in image9uber.jpg.
     $object->FILENAME = substr($id, strrpos($id, '/') + 1);
     // Directory source like sites/default/files/images/.

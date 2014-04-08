@@ -33,13 +33,13 @@ class FSAUberpageCollectionMigration extends FSAMigration {
         'field_source_id1' => array(
           'type' => 'int',
           'unsigned' => TRUE,
-          'not null' => FALSE,
+          'not null' => TRUE,
           'description' => 'Field ID1',
         ),
         'field_source_id2' => array(
           'type' => 'int',
           'unsigned' => TRUE,
-          'not null' => FALSE,
+          'not null' => TRUE,
           'description' => 'Field ID2',
         ),
       ),
@@ -48,8 +48,10 @@ class FSAUberpageCollectionMigration extends FSAMigration {
 
     // @TODO Just use the path as parameter "/multimedia/webpage/uber-page/".
     // Object ids ex: 674037, 11421.
-    $this->source = new MigrateSourceList(new MigrateListOracleTextCollection(array(674037), $conf['oracle_db']),
-      new MigrateItemOracleTextCollection());
+    $this->source = new MigrateSourceList(
+      new MigrateListOracleTextCollection(array(674037, 654657), $conf['oracle_db']),
+      new MigrateItemOracleTextCollection()
+    );
 
     // Destination detail.
     $this->destination = new MigrateDestinationFieldCollection(
@@ -65,8 +67,41 @@ class FSAUberpageCollectionMigration extends FSAMigration {
     $this->addFieldMapping('field_uberpage_heading_text', 'text');
 
     // Image mapping.
-    $this->addFieldMapping('field_fc_section_image', 'IMAGEPATH');
+    $this->addFieldMapping('field_fc_section_image', 'IMAGEPATH')
+      ->sourceMigration('FSAMediaImages');
+    $this->addFieldMapping('field_fc_section_image:file_class')
+      ->defaultValue('migrateFileFid');
+    $this->addFieldMapping('field_fc_section_image:preserve_files')
+      ->defaultValue(TRUE);
 
+    $this->addFieldMapping('field_fc_image_position', 'IMAGEPOSITION')
+      ->callbacks(array($this, 'imagePositionValue'));
+  }
+
+  /**
+   * For a legacy image position returns the new drupal position id, inspired from css class.
+   *
+   * @param $legacyImagePosition
+   * @return null|string
+   */
+  public function imagePositionValue($legacyImagePosition) {
+    switch ($legacyImagePosition) {
+      case 'Left':
+        return 'img-pos-left';
+        break;
+      case 'Right':
+        return 'img-pos-right';
+        break;
+      case 'Above':
+        return 'img-pos-top';
+        break;
+      case 'Below':
+        return 'img-pos-bottom';
+        break;
+      default;
+        return NULL;
+        break;
+    }
   }
 
   /**
