@@ -66,26 +66,24 @@
 	/* previous button */
 	.views-slideshow-controls-text-previous {
 		display: block;
-		width: 24px;
-		height: 24px;
+		width: 21px;
+		height: 21px;
 		float: left;
-		margin-right: 2px;
 		a {
 			display: block;
-			width: 24px;
-			height: 24px;
+			width: 20px;
+			height: 20px;
 			overflow: hidden;
 			background-color: transparent;
 			background-image: url('../images/carousel-controls/slide-previous.jpg');
 			background-repeat: no-repeat;
 			background-position: center center;
 			text-decoration: none;
+			border: 1px solid #000;
 			text-indent: -400px;
 		}
 		a:hover,
 		a:focus {
-			width: 22px;
-			height: 22px;
 			border: 1px solid #ff8000;
 			text-decoration: none;
 		}
@@ -93,26 +91,24 @@
 	/* pause button */
 	.views-slideshow-controls-text-pause.views-slideshow-controls-text-status-play {
 		display: block;
-		width: 24px;
-		height: 24px;
+		width: 21px;
+		height: 21px;
 		float: left;
-		margin-right: 2px;
 		a {
 			display: block;
-			width: 24px;
-			height: 24px;
+			width: 20px;
+			height: 20px;
 			overflow: hidden;
 			background-color: transparent;
 			background-image: url('../images/carousel-controls/slide-pause.jpg');
 			background-repeat: no-repeat;
 			background-position: center center;
 			text-decoration: none;
+			border: 1px solid #000;
 			text-indent: -400px;
 		}
 		a:hover,
 		a:focus {
-			width: 22px;
-			height: 22px;
 			border: 1px solid #ff8000;
 			text-decoration: none;
 		}
@@ -120,26 +116,24 @@
 	/* play button */
 	.views-slideshow-controls-text-pause.views-slideshow-controls-text-status-pause {
 		display: block;
-		width: 24px;
-		height: 24px;
+		width: 21px;
+		height: 21px;
 		float: left;
-		margin-right: 2px;
 		a {
 			display: block;
-			width: 24px;
-			height: 24px;
+			width: 20px;
+			height: 20px;
 			overflow: hidden;
 			background-color: transparent;
 			background-image: url('../images/carousel-controls/slide-play.jpg');
 			background-repeat: no-repeat;
 			background-position: center center;
 			text-decoration: none;
+			border: 1px solid #000;
 			text-indent: -400px;
 		}
 		a:hover,
 		a:focus {
-			width: 22px;
-			height: 22px;
 			border: 1px solid #ff8000;
 			text-decoration: none;
 		}
@@ -147,25 +141,24 @@
 	/* next button */
 	.views-slideshow-controls-text-next {
 		display: block;
-		width: 24px;
-		height: 24px;
+		width: 21px;
+		height: 21px;
 		float: left;
 		a {
 			display: block;
-			width: 24px;
-			height: 24px;
+			width: 20px;
+			height: 20px;
 			overflow: hidden;
 			background-color: transparent;
 			background-image: url('../images/carousel-controls/slide-next.jpg');
 			background-repeat: no-repeat;
 			background-position: center center;
 			text-decoration: none;
+			border: 1px solid #000;
 			text-indent: -400px;
 		}
 		a:hover,
 		a:focus {
-			width: 22px;
-			height: 22px;
 			border: 1px solid #ff8000;
 			text-decoration: none;
 		}
@@ -203,18 +196,16 @@
 		}
 		a:hover,
 		a:focus {
-			width: 20px;
-			height: 20px;
 			border: 1px solid #ff8000;
 			text-decoration: none;
 		}
-		/* active pager item */
-		.views-slideshow-pager-field-item.active {
-			a {
-				background-image: url('../images/carousel-controls/slide-pager-bullet-active.jpg');
-				background-repeat: no-repeat;
-				background-position: center center;
-			}
+	}
+	/* active pager item */
+	.views-slideshow-pager-field-item.active {
+		a {
+			background-image: url('../images/carousel-controls/slide-pager-bullet-active.jpg');
+			background-repeat: no-repeat;
+			background-position: center center;
 		}
 	}
 }  // end home-page-carousel
