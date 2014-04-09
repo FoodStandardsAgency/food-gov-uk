@@ -25,19 +25,21 @@
 		overflow: hidden;
 		position: absolute;
 		top: 24px;
-		left: 8px;
-		background-color: #02684a;
+		left: 0px;
+		background-color: #000;
 	}
 	/* slide content */
 	.slide-content {
-		padding: 8px;
+		padding: 16px;
 		font-size: 1em;	// set base sise same as body 1em = 10px
 		h2 {
 			font-size: 2em;
+			margin-bottom: 0.3em;
 			color: #fff;
 		}
 		p {
 			font-size: 1.5em;
+			margin-bottom: 0.4em;
 			color: #fff;
 		}
 		a {
@@ -55,11 +57,11 @@
 	}
 	/* slide controls wrapper */
 	.views-slideshow-controls-text {
-		z-index: 3;
+		z-index: 99;
 		width: 76px;
 		position: absolute;
-		bottom: 4px;
-		left: 8px;
+		bottom: 0px;
+		left: 16px;
 	}
 	/* previous button */
 	.views-slideshow-controls-text-previous {
@@ -170,8 +172,8 @@
 	}
 	/* slide pager wrapper */
 	.views-slideshow-pager-fields {
-		z-index: 2;
-		width: 515px;
+		z-index: 99;
+		width: 499px;
 		height: 22px;
 		position: absolute;
 		bottom: 5px;
