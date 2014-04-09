@@ -120,19 +120,19 @@ function blocks___feature_default_fe_block_settings() {
     'visibility' => 0,
   );
 
-  $export['comment-recent'] = array(
+  $export['container_blocks-search_all_facets'] = array(
     'cache' => 1,
-    'css_class' => '',
+    'css_class' => 'grey-container-block',
     'custom' => 0,
-    'delta' => 'recent',
-    'module' => 'comment',
+    'delta' => 'search_all_facets',
+    'module' => 'container_blocks',
     'node_types' => array(),
     'pages' => '',
     'roles' => array(),
     'themes' => array(
       'seven' => array(
-        'region' => 'dashboard_inactive',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'seven',
         'weight' => 0,
       ),
@@ -144,6 +144,33 @@ function blocks___feature_default_fe_block_settings() {
       ),
     ),
     'title' => '',
+    'visibility' => 0,
+  );
+
+  $export['container_blocks-search_all_news_facets'] = array(
+    'cache' => 1,
+    'css_class' => 'grey-container-block',
+    'custom' => 0,
+    'delta' => 'search_all_news_facets',
+    'module' => 'container_blocks',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+      'site_frontend' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'site_frontend',
+        'weight' => 0,
+      ),
+    ),
+    'title' => 'Search news stories',
     'visibility' => 0,
   );
 
@@ -279,6 +306,33 @@ function blocks___feature_default_fe_block_settings() {
       ),
     ),
     'title' => '',
+    'visibility' => 0,
+  );
+
+  $export['locale-language'] = array(
+    'cache' => -1,
+    'css_class' => 'language-switcher',
+    'custom' => 0,
+    'delta' => 'language',
+    'module' => 'locale',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+      'site_frontend' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'site_frontend',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '<none>',
     'visibility' => 0,
   );
 
@@ -633,6 +687,87 @@ function blocks___feature_default_fe_block_settings() {
     'visibility' => 0,
   );
 
+  $export['menu_block-19'] = array(
+    'cache' => -1,
+    'css_class' => 'sidebar-menu',
+    'custom' => 0,
+    'delta' => 19,
+    'module' => 'menu_block',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+      'site_frontend' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'site_frontend',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '<none>',
+    'visibility' => 0,
+  );
+
+  $export['menu_block-20'] = array(
+    'cache' => -1,
+    'css_class' => 'sidebar-menu',
+    'custom' => 0,
+    'delta' => 20,
+    'module' => 'menu_block',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+      'site_frontend' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'site_frontend',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '<none>',
+    'visibility' => 0,
+  );
+
+  $export['menu_block-21'] = array(
+    'cache' => -1,
+    'css_class' => 'sidebar-menu',
+    'custom' => 0,
+    'delta' => 21,
+    'module' => 'menu_block',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+      'site_frontend' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'site_frontend',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '<none>',
+    'visibility' => 0,
+  );
+
   $export['menu_block-3'] = array(
     'cache' => -1,
     'css_class' => 'nation-menu',
@@ -792,6 +927,87 @@ function blocks___feature_default_fe_block_settings() {
       ),
     ),
     'title' => '<none>',
+    'visibility' => 0,
+  );
+
+  $export['nation_banners-northern_ireland_banner'] = array(
+    'cache' => 8,
+    'css_class' => '',
+    'custom' => 0,
+    'delta' => 'northern_ireland_banner',
+    'module' => 'nation_banners',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+      'site_frontend' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'site_frontend',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
+  );
+
+  $export['nation_banners-scotland_banner'] = array(
+    'cache' => 8,
+    'css_class' => '',
+    'custom' => 0,
+    'delta' => 'scotland_banner',
+    'module' => 'nation_banners',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+      'site_frontend' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'site_frontend',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
+  );
+
+  $export['nation_banners-wales_banner'] = array(
+    'cache' => 8,
+    'css_class' => '',
+    'custom' => 0,
+    'delta' => 'wales_banner',
+    'module' => 'nation_banners',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+      'site_frontend' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'site_frontend',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
     'visibility' => 0,
   );
 
@@ -1227,11 +1443,281 @@ function blocks___feature_default_fe_block_settings() {
     'visibility' => 0,
   );
 
+  $export['views-current_topics-block'] = array(
+    'cache' => -1,
+    'css_class' => 'current-topics blue-block',
+    'custom' => 0,
+    'delta' => 'current_topics-block',
+    'module' => 'views',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+      'site_frontend' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'site_frontend',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
+  );
+
   $export['views-featured_items-block'] = array(
     'cache' => -1,
     'css_class' => 'blue-block-white-background green-sidebar-links1',
     'custom' => 0,
     'delta' => 'featured_items-block',
+    'module' => 'views',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+      'site_frontend' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'site_frontend',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
+  );
+
+  $export['views-generic_blocks-block'] = array(
+    'cache' => -1,
+    'css_class' => 'generic-blocks',
+    'custom' => 0,
+    'delta' => 'generic_blocks-block',
+    'module' => 'views',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+      'site_frontend' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'site_frontend',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '<none>',
+    'visibility' => 0,
+  );
+
+  $export['views-news-block'] = array(
+    'cache' => -1,
+    'css_class' => 'latest-news light-grey-block',
+    'custom' => 0,
+    'delta' => 'news-block',
+    'module' => 'views',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+      'site_frontend' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'site_frontend',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
+  );
+
+  $export['views-news-block_1'] = array(
+    'cache' => -1,
+    'css_class' => '',
+    'custom' => 0,
+    'delta' => 'news-block_1',
+    'module' => 'views',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+      'site_frontend' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'site_frontend',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
+  );
+
+  $export['views-news-block_2'] = array(
+    'cache' => -1,
+    'css_class' => '',
+    'custom' => 0,
+    'delta' => 'news-block_2',
+    'module' => 'views',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+      'site_frontend' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'site_frontend',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
+  );
+
+  $export['views-news-block_3'] = array(
+    'cache' => -1,
+    'css_class' => '',
+    'custom' => 0,
+    'delta' => 'news-block_3',
+    'module' => 'views',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+      'site_frontend' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'site_frontend',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
+  );
+
+  $export['views-news-block_4'] = array(
+    'cache' => -1,
+    'css_class' => '',
+    'custom' => 0,
+    'delta' => 'news-block_4',
+    'module' => 'views',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+      'site_frontend' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'site_frontend',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
+  );
+
+  $export['views-news-block_5'] = array(
+    'cache' => -1,
+    'css_class' => '',
+    'custom' => 0,
+    'delta' => 'news-block_5',
+    'module' => 'views',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+      'site_frontend' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'site_frontend',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
+  );
+
+  $export['views-popular_links-block'] = array(
+    'cache' => -1,
+    'css_class' => 'popular-links purple-block',
+    'custom' => 0,
+    'delta' => 'popular_links-block',
+    'module' => 'views',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+      'site_frontend' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'site_frontend',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
+  );
+
+  $export['views-resources-block'] = array(
+    'cache' => -1,
+    'css_class' => 'resources blue-block',
+    'custom' => 0,
+    'delta' => 'resources-block',
     'module' => 'views',
     'node_types' => array(),
     'pages' => '',

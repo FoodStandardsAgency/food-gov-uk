@@ -2,6 +2,23 @@ name = Local Deployment
 description = Update functions for scripting deployment to staging and production sites.
 core = 7.x
 package = Local
-
+dependencies[] = bigmenu
+dependencies[] = ds
+dependencies[] = preserve_filter
+dependencies[] = migrate
+dependencies[] = date_facets
+dependencies[] = i18n
+dependencies[] = i18n_variable
+dependencies[] = i18n_node
+dependencies[] = i18n_select
+dependencies[] = i18_string
+dependencies[] = neutral_paths
+dependencies[] = node_view_mode
+dependencies[] = facets_select
+dependencies[] = superfish
+dependencies[] = local
+dependencies[] = admin_views
+dependencies[] = views_bulk_operations
+dependencies[] = page_language
 
 

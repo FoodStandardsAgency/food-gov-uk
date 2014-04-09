@@ -1,0 +1,7 @@
+name = Page Language
+description = 'Sets the language of page header based on content'.
+core = 7.x
+package = Local
+
+
+
