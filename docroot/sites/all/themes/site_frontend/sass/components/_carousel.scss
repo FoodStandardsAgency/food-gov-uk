@@ -1,0 +1,219 @@
+/**
+ * home page carousel 
+ * depends on block class: home-page-carousel
+*/
+
+.home-page-carousel {
+	/* turn off border-box for the carousel */
+	@include box-sizing(content-box);
+	/* slide image */
+	.views-field-field-slide-image {
+		z-index: 1;
+		img {
+			-webkit-border-radius: 8px;
+			-moz-border-radius: 8px;
+			-o-border-radius: 8px;
+			-ms-border-radius: 8px;
+			border-radius: 8px;
+		}
+	}
+	/* slide content wrapper */
+	.slide-content-wrapper {
+		z-index: 2;
+		width: 300px;
+		max-height: 169px;
+		overflow: hidden;
+		position: absolute;
+		top: 24px;
+		left: 8px;
+		background-color: #02684a;
+	}
+	/* slide content */
+	.slide-content {
+		padding: 8px;
+		font-size: 1em;	// set base sise same as body 1em = 10px
+		h2 {
+			font-size: 2em;
+			color: #fff;
+		}
+		p {
+			font-size: 1.5em;
+			color: #fff;
+		}
+		a {
+			font-size: 1.2em;
+			text-decoration: none;
+			color: #fff;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+		a:focus {
+			padding: 2px;
+			border: 1px solid #ff8000;
+		}
+	}
+	/* slide controls wrapper */
+	.views-slideshow-controls-text {
+		z-index: 3;
+		width: 76px;
+		position: absolute;
+		bottom: 4px;
+		left: 8px;
+	}
+	/* previous button */
+	.views-slideshow-controls-text-previous {
+		display: block;
+		width: 24px;
+		height: 24px;
+		float: left;
+		margin-right: 2px;
+		a {
+			display: block;
+			width: 24px;
+			height: 24px;
+			overflow: hidden;
+			background-color: transparent;
+			background-image: url('../images/carousel-controls/slide-previous.jpg');
+			background-repeat: no-repeat;
+			background-position: center center;
+			text-decoration: none;
+			text-indent: -400px;
+		}
+		a:hover,
+		a:focus {
+			width: 22px;
+			height: 22px;
+			border: 1px solid #ff8000;
+			text-decoration: none;
+		}
+	}
+	/* pause button */
+	.views-slideshow-controls-text-pause.views-slideshow-controls-text-status-play {
+		display: block;
+		width: 24px;
+		height: 24px;
+		float: left;
+		margin-right: 2px;
+		a {
+			display: block;
+			width: 24px;
+			height: 24px;
+			overflow: hidden;
+			background-color: transparent;
+			background-image: url('../images/carousel-controls/slide-pause.jpg');
+			background-repeat: no-repeat;
+			background-position: center center;
+			text-decoration: none;
+			text-indent: -400px;
+		}
+		a:hover,
+		a:focus {
+			width: 22px;
+			height: 22px;
+			border: 1px solid #ff8000;
+			text-decoration: none;
+		}
+	}
+	/* play button */
+	.views-slideshow-controls-text-pause.views-slideshow-controls-text-status-pause {
+		display: block;
+		width: 24px;
+		height: 24px;
+		float: left;
+		margin-right: 2px;
+		a {
+			display: block;
+			width: 24px;
+			height: 24px;
+			overflow: hidden;
+			background-color: transparent;
+			background-image: url('../images/carousel-controls/slide-play.jpg');
+			background-repeat: no-repeat;
+			background-position: center center;
+			text-decoration: none;
+			text-indent: -400px;
+		}
+		a:hover,
+		a:focus {
+			width: 22px;
+			height: 22px;
+			border: 1px solid #ff8000;
+			text-decoration: none;
+		}
+	}
+	/* next button */
+	.views-slideshow-controls-text-next {
+		display: block;
+		width: 24px;
+		height: 24px;
+		float: left;
+		a {
+			display: block;
+			width: 24px;
+			height: 24px;
+			overflow: hidden;
+			background-color: transparent;
+			background-image: url('../images/carousel-controls/slide-next.jpg');
+			background-repeat: no-repeat;
+			background-position: center center;
+			text-decoration: none;
+			text-indent: -400px;
+		}
+		a:hover,
+		a:focus {
+			width: 22px;
+			height: 22px;
+			border: 1px solid #ff8000;
+			text-decoration: none;
+		}
+	}
+	/* slide pager wrapper */
+	.views-slideshow-pager-fields {
+		z-index: 2;
+		width: 515px;
+		height: 22px;
+		position: absolute;
+		bottom: 5px;
+		left: 92px;
+		text-align: center;
+	}
+	/* pager items */
+	.views-slideshow-pager-field-item  {
+		display: inline-block;
+		*display: inline; // IE7 fix 
+		zoom: 1; // IE7 fix
+		width: 21px;
+		height: 21px;
+		margin: 0;
+		a {
+			display: block;
+			width: 20px;
+			height: 20px;
+			overflow: hidden;
+			background-color: transparent;
+			background-image: url('../images/carousel-controls/slide-pager-bullet-default.jpg');
+			background-repeat: no-repeat;
+			background-position: center center;
+			text-decoration: none;
+			border: 1px solid #000;
+			text-indent: -400px;
+		}
+		a:hover,
+		a:focus {
+			width: 20px;
+			height: 20px;
+			border: 1px solid #ff8000;
+			text-decoration: none;
+		}
+		/* active pager item */
+		.views-slideshow-pager-field-item.active {
+			a {
+				background-image: url('../images/carousel-controls/slide-pager-bullet-active.jpg');
+				background-repeat: no-repeat;
+				background-position: center center;
+			}
+		}
+	}
+}  // end home-page-carousel
+
