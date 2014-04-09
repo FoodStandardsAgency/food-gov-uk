@@ -6,8 +6,8 @@ core = 7.x
 files[] = fsa_migrate.migrate.inc
 ; Classes.
 files[] = classes/fsa_migrate_base.migrate.inc
-files[] = classes/fsa_migrate_uberpage.migrate.inc
-files[] = classes/fsa_migrate_uberpage_fc.migrate.inc
+files[] = classes/fsa_migrate_documentpage.migrate.inc
+files[] = classes/fsa_migrate_documentpage_fc.migrate.inc
 files[] = classes/fsa_migrate_media_images.migrate.inc
 ; Sources.
 files[] = sources/fsa_migratelist_oracle_text_collection.inc
