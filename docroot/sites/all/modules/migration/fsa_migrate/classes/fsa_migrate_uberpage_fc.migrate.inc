@@ -65,6 +65,7 @@ class FSAUberpageCollectionMigration extends FSAMigration {
     // Fields mapping.
     $this->addFieldMapping('field_uberpage_heading_title', 'sectionheading');
     $this->addFieldMapping('field_uberpage_heading_text', 'text');
+    $this->addFieldMapping('field_fc_section_quote', 'quote');
 
     // Image mapping.
     $this->addFieldMapping('field_fc_section_image', 'IMAGEPATH')
