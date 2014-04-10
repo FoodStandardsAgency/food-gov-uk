@@ -63,14 +63,19 @@
 	/* slide controls wrapper */
 	.views-slideshow-controls-text {
 		z-index: 99;
-		width: 66px;
+		width: 69px;
 		position: absolute;
 		bottom: 0px;
 		left: 16px;
 		padding: 3px;
 		background-color: #000;
 		overflow: hidden;
-		
+		-moz-opacity: 0.80;
+		-khtml-opacity: 0.80;
+		opacity: 0.80;
+		-ms-filter:"progid:DXImageTransform.Microsoft.Alpha"(Opacity=80);
+		filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
+		filter:alpha(opacity=80);
 	}
 	/* previous button */
 	.views-slideshow-controls-text-previous {
@@ -178,11 +183,17 @@
 		width: 132px;
 		position: absolute;
 		bottom: 0px;
-		left: 96px;
+		left: 99px;
 		padding: 3px;
 		overflow: hidden;
 		background-color: #000;
 		text-align: center;
+		-moz-opacity: 0.80;
+		-khtml-opacity: 0.80;
+		opacity: 0.80;
+		-ms-filter:"progid:DXImageTransform.Microsoft.Alpha"(Opacity=80);
+		filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
+		filter:alpha(opacity=80);
 	}
 	/* pager items */
 	.views-slideshow-pager-field-item  {
