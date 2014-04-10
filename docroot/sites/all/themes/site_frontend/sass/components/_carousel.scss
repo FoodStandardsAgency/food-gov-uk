@@ -1,11 +1,15 @@
 /**
  * home page carousel 
- * depends on block class: home-page-carousel
+ * depends on block class: home-page-carousel and default skin for views slideshow
 */
 
 .home-page-carousel {
-	/* turn off border-box for the carousel */
-	@include box-sizing(content-box);
+	/* slideshow size */
+	.skin-default {
+		width: 699px;
+		height: 233px;
+		overflow: hidden;
+	}
 	/* slide image */
 	.views-field-field-slide-image {
 		z-index: 1;
@@ -57,11 +61,16 @@
 	}
 	/* slide controls wrapper */
 	.views-slideshow-controls-text {
+		@include box-sizing(content-box); // turn off off border-box
 		z-index: 99;
-		width: 76px;
+		width: 69px;
 		position: absolute;
 		bottom: 0px;
 		left: 16px;
+		padding: 3px;
+		background-color: #000;
+		overflow: hidden;
+		
 	}
 	/* previous button */
 	.views-slideshow-controls-text-previous {
@@ -166,20 +175,18 @@
 	/* slide pager wrapper */
 	.views-slideshow-pager-fields {
 		z-index: 99;
-		width: 499px;
+		width: 300px;
 		height: 22px;
 		position: absolute;
-		bottom: 5px;
-		left: 92px;
-		text-align: center;
+		bottom: 0px;
+		left: 77px;
 	}
 	/* pager items */
 	.views-slideshow-pager-field-item  {
-		display: inline-block;
-		*display: inline; // IE7 fix 
-		zoom: 1; // IE7 fix
+		display: block;
 		width: 21px;
 		height: 21px;
+		float: left;
 		margin: 0;
 		a {
 			display: block;

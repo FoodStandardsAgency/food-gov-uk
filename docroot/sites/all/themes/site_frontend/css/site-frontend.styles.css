@@ -1,13 +1,13 @@
 @charset "UTF-8";
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/anthonyalbertyn\/\.rvm\/gems\/ruby-1\.9\.3-p484\@omega\.site_frontend\/gems\/singularitygs-1\.1\.2\/stylesheets\/singularitygs\/helpers\/_box-sizing\.scss}line{font-family:\0000338}}
-.home-page-carousel {
+.home-page-carousel .views-slideshow-controls-text {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
   *behavior: none; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/anthonyalbertyn\/\.rvm\/gems\/ruby-1\.9\.3-p484\@omega\.site_frontend\/gems\/toolkit-1\.3\.8\/stylesheets\/toolkit\/_box-sizing\.scss}line{font-family:\0000340}}
-.home-page-carousel {
+.home-page-carousel .views-slideshow-controls-text {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
@@ -683,11 +683,11 @@ ul.breadcrumb {
 
 /**
  * home page carousel 
- * depends on block class: home-page-carousel
+ * depends on block class: home-page-carousel and default skin for views slideshow
 */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\000036}}
 .home-page-carousel {
-  /* turn off border-box for the carousel */
+  /* slideshow size */
   /* slide image */
   /* slide content wrapper */
   /* slide content */
@@ -699,17 +699,22 @@ ul.breadcrumb {
   /* slide pager wrapper */
   /* pager items */
   /* active pager item */ }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000310}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\000038}}
+  .home-page-carousel .skin-default {
+    width: 699px;
+    height: 233px;
+    overflow: hidden; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000314}}
   .home-page-carousel .views-field-field-slide-image {
     z-index: 1; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000312}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000316}}
     .home-page-carousel .views-field-field-slide-image img {
       -webkit-border-radius: 8px;
       -moz-border-radius: 8px;
       -o-border-radius: 8px;
       -ms-border-radius: 8px;
       border-radius: 8px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000321}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000325}}
   .home-page-carousel .slide-content-wrapper {
     z-index: 2;
     width: 300px;
@@ -719,46 +724,49 @@ ul.breadcrumb {
     top: 24px;
     left: 0px;
     background-color: #000; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000332}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000336}}
   .home-page-carousel .slide-content {
     padding: 16px;
     font-size: 1em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000335}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000339}}
     .home-page-carousel .slide-content h2 {
       font-size: 2em;
       margin-bottom: 0.3em;
       color: #fff; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000340}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000344}}
     .home-page-carousel .slide-content p {
       font-size: 1.5em;
       margin-bottom: 0.4em;
       color: #fff; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000345}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000349}}
     .home-page-carousel .slide-content a {
       font-size: 1.2em;
       text-decoration: none;
       color: #fff; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000350}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000354}}
     .home-page-carousel .slide-content a:hover {
       text-decoration: underline; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000353}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000357}}
     .home-page-carousel .slide-content a:focus {
       padding: 2px;
       border: 1px solid #ff8000; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000359}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000363}}
   .home-page-carousel .views-slideshow-controls-text {
     z-index: 99;
-    width: 76px;
+    width: 69px;
     position: absolute;
     bottom: 0px;
-    left: 16px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000367}}
+    left: 16px;
+    padding: 3px;
+    background-color: #000;
+    overflow: hidden; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000376}}
   .home-page-carousel .views-slideshow-controls-text-previous {
     display: block;
     width: 21px;
     height: 21px;
     float: left; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000372}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000381}}
     .home-page-carousel .views-slideshow-controls-text-previous a {
       display: block;
       width: 20px;
@@ -771,18 +779,18 @@ ul.breadcrumb {
       text-decoration: none;
       border: 1px solid #000;
       text-indent: -400px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000386}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000395}}
     .home-page-carousel .views-slideshow-controls-text-previous a:hover,
     .home-page-carousel .views-slideshow-controls-text-previous a:focus {
       border: 1px solid #ff8000;
       text-decoration: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000392}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\00003101}}
   .home-page-carousel .views-slideshow-controls-text-pause.views-slideshow-controls-text-status-play {
     display: block;
     width: 21px;
     height: 21px;
     float: left; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000397}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\00003106}}
     .home-page-carousel .views-slideshow-controls-text-pause.views-slideshow-controls-text-status-play a {
       display: block;
       width: 20px;
@@ -795,18 +803,18 @@ ul.breadcrumb {
       text-decoration: none;
       border: 1px solid #000;
       text-indent: -400px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\00003111}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\00003120}}
     .home-page-carousel .views-slideshow-controls-text-pause.views-slideshow-controls-text-status-play a:hover,
     .home-page-carousel .views-slideshow-controls-text-pause.views-slideshow-controls-text-status-play a:focus {
       border: 1px solid #ff8000;
       text-decoration: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\00003117}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\00003126}}
   .home-page-carousel .views-slideshow-controls-text-pause.views-slideshow-controls-text-status-pause {
     display: block;
     width: 21px;
     height: 21px;
     float: left; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\00003122}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\00003131}}
     .home-page-carousel .views-slideshow-controls-text-pause.views-slideshow-controls-text-status-pause a {
       display: block;
       width: 20px;
@@ -819,18 +827,18 @@ ul.breadcrumb {
       text-decoration: none;
       border: 1px solid #000;
       text-indent: -400px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\00003136}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\00003145}}
     .home-page-carousel .views-slideshow-controls-text-pause.views-slideshow-controls-text-status-pause a:hover,
     .home-page-carousel .views-slideshow-controls-text-pause.views-slideshow-controls-text-status-pause a:focus {
       border: 1px solid #ff8000;
       text-decoration: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\00003142}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\00003151}}
   .home-page-carousel .views-slideshow-controls-text-next {
     display: block;
     width: 21px;
     height: 21px;
     float: left; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\00003147}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\00003156}}
     .home-page-carousel .views-slideshow-controls-text-next a {
       display: block;
       width: 20px;
@@ -843,29 +851,27 @@ ul.breadcrumb {
       text-decoration: none;
       border: 1px solid #000;
       text-indent: -400px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\00003161}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\00003170}}
     .home-page-carousel .views-slideshow-controls-text-next a:hover,
     .home-page-carousel .views-slideshow-controls-text-next a:focus {
       border: 1px solid #ff8000;
       text-decoration: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\00003167}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\00003176}}
   .home-page-carousel .views-slideshow-pager-fields {
     z-index: 99;
-    width: 499px;
+    width: 300px;
     height: 22px;
     position: absolute;
-    bottom: 5px;
-    left: 92px;
-    text-align: center; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\00003177}}
+    bottom: 0px;
+    left: 77px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\00003185}}
   .home-page-carousel .views-slideshow-pager-field-item {
-    display: inline-block;
-    *display: inline;
-    zoom: 1;
+    display: block;
     width: 21px;
     height: 21px;
+    float: left;
     margin: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\00003184}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\00003191}}
     .home-page-carousel .views-slideshow-pager-field-item a {
       display: block;
       width: 20px;
@@ -878,12 +884,12 @@ ul.breadcrumb {
       text-decoration: none;
       border: 1px solid #000;
       text-indent: -400px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\00003198}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\00003205}}
     .home-page-carousel .views-slideshow-pager-field-item a:hover,
     .home-page-carousel .views-slideshow-pager-field-item a:focus {
       border: 1px solid #ff8000;
       text-decoration: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\00003205}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\00003212}}
   .home-page-carousel .views-slideshow-pager-field-item.active a {
     background-image: url("../images/carousel-controls/slide-pager-bullet-active.jpg");
     background-repeat: no-repeat;
