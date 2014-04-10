@@ -30,7 +30,8 @@
 		position: absolute;
 		top: 24px;
 		left: 0px;
-		background-color: #000;
+		background-color: #000;	// IE6,7,8
+		background-color: rgba(0,0,0,0.65); // 65% transparency
 	}
 	/* slide content */
 	.slide-content {
@@ -62,7 +63,7 @@
 	/* slide controls wrapper */
 	.views-slideshow-controls-text {
 		z-index: 99;
-		width: 63px;
+		width: 66px;
 		position: absolute;
 		bottom: 0px;
 		left: 16px;
@@ -174,21 +175,22 @@
 	/* slide pager wrapper */
 	.views-slideshow-pager-fields {
 		z-index: 99;
-		width: 105px;
-		height: 22px;
+		width: 132px;
 		position: absolute;
 		bottom: 0px;
-		left: 93px;
+		left: 96px;
 		padding: 3px;
 		overflow: hidden;
 		background-color: #000;
+		text-align: center;
 	}
 	/* pager items */
 	.views-slideshow-pager-field-item  {
-		display: block;
+		display: inline-block;
+		*display: inline; // IE7
+		zoom: 1; // IE7
 		width: 21px;
 		height: 21px;
-		float: left;
 		margin: 0;
 		a {
 			display: block;
