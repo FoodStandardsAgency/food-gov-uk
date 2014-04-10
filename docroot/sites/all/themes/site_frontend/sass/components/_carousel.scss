@@ -61,9 +61,8 @@
 	}
 	/* slide controls wrapper */
 	.views-slideshow-controls-text {
-		@include box-sizing(content-box); // turn off off border-box
 		z-index: 99;
-		width: 69px;
+		width: 63px;
 		position: absolute;
 		bottom: 0px;
 		left: 16px;
@@ -175,11 +174,14 @@
 	/* slide pager wrapper */
 	.views-slideshow-pager-fields {
 		z-index: 99;
-		width: 300px;
+		width: 105px;
 		height: 22px;
 		position: absolute;
 		bottom: 0px;
-		left: 77px;
+		left: 93px;
+		padding: 3px;
+		overflow: hidden;
+		background-color: #000;
 	}
 	/* pager items */
 	.views-slideshow-pager-field-item  {
