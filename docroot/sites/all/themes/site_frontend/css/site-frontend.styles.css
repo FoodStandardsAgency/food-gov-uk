@@ -1219,31 +1219,39 @@ span.copyright {
  * Image placement is dependant on the field collection template: field-collection-item--field_fc_page_section.tpl.php
  */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_image_section_image\.scss}line{font-family:\000036}}
-.field-collection-item-field-fc-page-section img {
-  display: block;
-  border: none;
-  margin: 0;
-  padding: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_image_section_image\.scss}line{font-family:\0000314}}
 .field-collection-item-field-fc-page-section .wrapper-img-pos-left,
 .field-collection-item-field-fc-page-section .wrapper-img-pos-right {
   width: 200px;
   overflow: hidden;
   margin-bottom: 10px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_image_section_image\.scss}line{font-family:\0000320}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_image_section_image\.scss}line{font-family:\0000310}}
+  .field-collection-item-field-fc-page-section .wrapper-img-pos-left img,
+  .field-collection-item-field-fc-page-section .wrapper-img-pos-right img {
+    display: block;
+    border: none;
+    margin: 0;
+    padding: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_image_section_image\.scss}line{font-family:\0000317}}
 .field-collection-item-field-fc-page-section .wrapper-img-pos-left {
   float: left;
   margin-right: 10px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_image_section_image\.scss}line{font-family:\0000325}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_image_section_image\.scss}line{font-family:\0000321}}
 .field-collection-item-field-fc-page-section .wrapper-img-pos-right {
   float: right;
   margin-left: 10px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_image_section_image\.scss}line{font-family:\0000331}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_image_section_image\.scss}line{font-family:\0000326}}
 .field-collection-item-field-fc-page-section .wrapper-img-pos-top,
 .field-collection-item-field-fc-page-section .wrapper-img-pos-bottom {
   width: 462px;
   overflow: hidden;
   margin-bottom: 15px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_image_section_image\.scss}line{font-family:\0000330}}
+  .field-collection-item-field-fc-page-section .wrapper-img-pos-top img,
+  .field-collection-item-field-fc-page-section .wrapper-img-pos-bottom img {
+    display: block;
+    border: none;
+    margin: 0;
+    padding: 0; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_image_section_image\.scss}line{font-family:\0000337}}
 .field-collection-item-field-fc-page-section .image-caption {
   background-color: #e6e6e6;
