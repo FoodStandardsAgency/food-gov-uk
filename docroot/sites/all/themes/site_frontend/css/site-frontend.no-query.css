@@ -677,7 +677,7 @@ ul.breadcrumb {
     width: 699px;
     height: 233px;
     overflow: hidden;
-    display: relative; }
+    position: relative; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000315}}
   .home-page-carousel .views-field-field-slide-image {
     z-index: 1; }
