@@ -1,0 +1,10 @@
+/* hide front page title in an accessible way */
+.front #main-content h1 {
+    position: absolute !important;
+    clip: rect(1px 1px 1px 1px);
+    /* IE6, IE7 */
+    clip: rect(1px, 1px, 1px, 1px);
+    overflow: hidden;
+    height: 1px;
+    color: #fff;
+}

@@ -7,9 +7,9 @@
 
 /**
  * Class FSAUberpageMigration
- * Migration class for the FSA Uber page.
+ * Migration class for the FSA Document page.
  */
-class FSAUberpageMigration extends FSAMigration {
+class FSADocumentpageMigration extends FSAMigration {
 
   /**
    * SQL Query to get the primary info and the object id.
@@ -21,7 +21,8 @@ class FSAUberpageMigration extends FSAMigration {
     FROM FIELDVALUE, OBJ, OBJTYPE
     WHERE FIELDVALUE.OBJECTID = OBJ.OBJECTID
     AND OBJ.OBJECTTYPEID = OBJTYPE.OBJECTTYPEID
-    AND OBJ.PATH LIKE '/multimedia/webpage/uber-page/'
+    AND (OBJ.PATH LIKE '/multimedia/webpage/uber-page/'
+    OR OBJ.PATH LIKE '/news-updates/campaigns/where-are-you-really-eating-out/')
     GROUP BY OBJ.OBJECTID, OBJ.SIMPLENAME, OBJ.PATH, OBJTYPE.NAME
 ENDSQL;
 
@@ -34,6 +35,7 @@ ENDSQL;
     SELECT COUNT(*)
     FROM OBJ
     WHERE OBJ.PATH LIKE '/multimedia/webpage/uber-page/'
+    OR OBJ.PATH LIKE '/news-updates/campaigns/where-are-you-really-eating-out/'
 ENDSQL;
 
   protected $queryFeatureImage = <<<'ENDSQL'
@@ -54,7 +56,7 @@ ENDSQL;
     // Calls to parent constructor from official doc.
     parent::__construct();
     // Calls the parent constructor.
-    $this->description = t('Migrates the uberpage from Oracle to Drupal.');
+    $this->description = t('Migrates the document from Oracle to Drupal.');
 
     // Map the source id.
     $this->map = new MigrateSQLMap(
@@ -90,11 +92,11 @@ ENDSQL;
     );
 
     // Destination detail.
-    $this->destination = new MigrateDestinationNode('uberpage');
+    $this->destination = new MigrateDestinationNode('document_page');
 
     // Fields mapping.
     $this->addFieldMapping('title', 'title');
-    $this->addFieldMapping('field_global_summary', 'summary');
+    $this->addFieldMapping('field_summary', 'summary');
 
     // Feature image mapping.
     $this->addFieldMapping('field_feature_image', 'FEATUREDIMAGEPATH')
@@ -103,6 +105,22 @@ ENDSQL;
       ->defaultValue('migrateFileFid');
     $this->addFieldMapping('field_feature_image:preserve_files')
       ->defaultValue(TRUE);
+
+    //$this->addFieldMapping('path', 'PATH')
+    //  ->callbacks(array($this, 'pathFormatter'));
+
+    // Disable pathauto.
+    // $this->addFieldMapping('pathauto', FALSE);
+  }
+
+  /**
+   * For a legacy image position returns the new drupal position id, inspired from css class.
+   *
+   * @param $legacyImagePosition
+   * @return null|string
+   */
+  public function pathFormatter($path) {
+    return ltrim($path, '/');
   }
 
   /**

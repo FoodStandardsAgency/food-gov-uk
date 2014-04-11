@@ -7,18 +7,18 @@
 
 /**
  * Class FSAUberpageCollectionMigration
- * Migration class for the FSA Uber page.
+ * Migration class for the FSA Document page.
  */
-class FSAUberpageCollectionMigration extends FSAMigration {
+class FSADocumentpageCollectionMigration extends FSAMigration {
 
   public function __construct($arguments) {
     global $conf;
     // Calls to parent constructor from official doc.
     parent::__construct();
     // Calls the parent constructor.
-    $this->description = t('Migrates the field collection for the uberpage from Oracle to Drupal.');
+    $this->description = t('Migrates the field collection for the document from Oracle to Drupal.');
 
-    $this->dependencies = array('FSAUberpage');
+    $this->dependencies = array('FSADocumentpage');
 
     // Map the source id.
     $this->map = new MigrateSQLMap(
@@ -55,16 +55,17 @@ class FSAUberpageCollectionMigration extends FSAMigration {
 
     // Destination detail.
     $this->destination = new MigrateDestinationFieldCollection(
-      'field_uberpage_section_heading',
+      'field_fc_page_section',
       array('host_entity_type' => 'node')
     );
 
     // Migration source dependency.
-    $this->addFieldMapping('host_entity_id', 'OBJECTID')->sourceMigration('FSAUberpage');
+    $this->addFieldMapping('host_entity_id', 'OBJECTID')->sourceMigration('FSADocumentpage');
 
     // Fields mapping.
-    $this->addFieldMapping('field_uberpage_heading_title', 'sectionheading');
-    $this->addFieldMapping('field_uberpage_heading_text', 'text');
+    $this->addFieldMapping('field_fc_section_heading', 'sectionheading');
+    $this->addFieldMapping('field_fc_section_body', 'text');
+    $this->addFieldMapping('field_fc_section_quote', 'quote');
 
     // Image mapping.
     $this->addFieldMapping('field_fc_section_image', 'IMAGEPATH')
