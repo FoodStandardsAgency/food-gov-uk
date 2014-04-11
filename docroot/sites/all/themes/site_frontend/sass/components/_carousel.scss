@@ -9,6 +9,7 @@
 		width: 699px;
 		height: 233px;
 		overflow: hidden;
+		display: relative;	// so that controls pager can be absolutely positined
 	}
 	/* slide image */
 	.views-field-field-slide-image {
