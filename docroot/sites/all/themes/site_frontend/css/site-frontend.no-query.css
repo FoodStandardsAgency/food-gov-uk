@@ -1225,6 +1225,14 @@ span.copyright {
   font-size: 1.2em;
   font-style: italic; }
 
+/**
+ * Interactive block
+ * Requires block class: interactive-block
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_interactive_block\.scss}line{font-family:\000037}}
+.interactive-block .node__title {
+  display: none; }
+
 /* depends on block class: language-switcher */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_language_switcher\.scss}line{font-family:\000033}}
 .language-switcher {
