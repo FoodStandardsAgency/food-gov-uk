@@ -49,45 +49,47 @@
 		border-radius: 0 0 9px 9px;
 		overflow: hidden;	// because of floats within the div
 	}
-	/* rendered content from the view */
-	.views-row {
-		border-bottom: 1px solid #c6c6c6;
-		padding-bottom: 6px;
-		margin-bottom: 6px;
-		clear: left;	// because of the image floats
-		overflow: hidden;	//because of floats
-		img {
-			float: left;
-			margin: 0;
-			padding: 0;
-			border: none;
+	.field--name-field-fc-block-section > field__items {
+		.field__item {
+			border-bottom: 1px solid #c6c6c6;
+			padding-bottom: 6px;
+			margin-bottom: 6px;
+			clear: left;	// because of the image floats
+			overflow: hidden;	//because of floats
 		}
-		h3 {
+		.field__item:last-child {
+			border-bottom: none;
+			padding-bottom: 0;
 			margin-bottom: 0;
 		}
-		.field--name-field-fc-section-title,
-		.field--name-field-fc-section-link {
-			margin-left: 62px;
-		}
-		.field--name-field-fc-section-link {
-			font-weight: normal;
-			display: block;
-			padding-left: 10px;
-			background-image: url('../images/green-arrow-thin-right.png');
-			background-repeat: no-repeat;
-			background-position: left 5px;
-			a {
-				text-decoration: none;
-				color: #555;
-			}
-			a:hover {
-				text-decoration: underline;
-			}
-		}
 	}
-	.views-row.views-row-last {
-		border-bottom: none;
-		padding-bottom: 0;
+	img {
+		float: left;
+		margin: 0;
+		padding: 0;
+		border: none;
+	}
+	h3 {
 		margin-bottom: 0;
+	}
+	.field--name-field-fc-section-title,
+	.field--name-field-fc-section-link {
+		margin-left: 62px;
+	}
+	.field--name-field-fc-section-link {
+		font-size: 1.2em;
+		font-weight: normal;
+		display: block;
+		padding-left: 10px;
+		background-image: url('../images/green-arrow-thin-right.png');
+		background-repeat: no-repeat;
+		background-position: left 5px;
+		a {
+			text-decoration: none;
+			color: #555;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
 	}
 }
