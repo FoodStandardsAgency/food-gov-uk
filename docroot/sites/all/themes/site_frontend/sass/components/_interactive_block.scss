@@ -49,19 +49,17 @@
 		border-radius: 0 0 9px 9px;
 		overflow: hidden;	// because of floats within the div
 	}
-	.field--name-field-fc-block-section > field__items {
-		.field__item {
-			border-bottom: 1px solid #c6c6c6;
-			padding-bottom: 6px;
-			margin-bottom: 6px;
-			clear: left;	// because of the image floats
-			overflow: hidden;	//because of floats
-		}
-		.field__item:last-child {
-			border-bottom: none;
-			padding-bottom: 0;
-			margin-bottom: 0;
-		}
+	.field-collection-view {
+		border-bottom: 1px solid #c6c6c6;
+		padding-bottom: 6px;
+		margin-bottom: 6px;
+		clear: left;	// because of the image floats
+		overflow: hidden;	//because of floats
+	}
+	.field-collection-view.field-collection-view-final {
+		border-bottom: none;
+		padding-bottom: 0;
+		margin-bottom: 0;
 	}
 	img {
 		float: left;
