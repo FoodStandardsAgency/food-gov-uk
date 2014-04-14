@@ -1337,7 +1337,7 @@ span.copyright {
   .interactive-block .field--name-field-fc-section-link {
     margin-left: 62px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_interactive_block\.scss}line{font-family:\0000377}}
-  .interactive-block .field--name-field-fc-section-link {
+  .interactive-block .field--name-field-fc-section-link .field__item {
     font-size: 1.2em;
     font-weight: normal;
     display: block;
@@ -1346,11 +1346,11 @@ span.copyright {
     background-repeat: no-repeat;
     background-position: left 5px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_interactive_block\.scss}line{font-family:\0000385}}
-    .interactive-block .field--name-field-fc-section-link a {
+    .interactive-block .field--name-field-fc-section-link .field__item a {
       text-decoration: none;
       color: #555; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_interactive_block\.scss}line{font-family:\0000389}}
-    .interactive-block .field--name-field-fc-section-link a:hover {
+    .interactive-block .field--name-field-fc-section-link .field__item a:hover {
       text-decoration: underline; }
 
 /* depends on block class: language-switcher */
