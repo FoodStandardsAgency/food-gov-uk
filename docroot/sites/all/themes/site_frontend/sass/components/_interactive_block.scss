@@ -39,5 +39,11 @@
 	.field-collection-container {
 		padding: 1em 11px .3em 11px;
 		background: #fff;
+		/* if we add a background colour we need to add rounded bottom borders here too */
+		-webkit-border-radius: 0 0 9px 9px;
+		-moz-border-radius: 0 0 9px 9px;
+		-o-border-radius: 0 0 9px 9px;
+		-ms-border-radius: 0 0 9px 9px;
+		border-radius: 0 0 9px 9px;
 	}
 }

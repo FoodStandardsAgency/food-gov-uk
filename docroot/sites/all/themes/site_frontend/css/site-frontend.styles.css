@@ -1301,7 +1301,13 @@ span.copyright {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_interactive_block\.scss}line{font-family:\0000339}}
   .interactive-block .field-collection-container {
     padding: 1em 11px .3em 11px;
-    background: #fff; }
+    background: #fff;
+    /* if we add a background colour we need to add rounded bottom borders here too */
+    -webkit-border-radius: 0 0 9px 9px;
+    -moz-border-radius: 0 0 9px 9px;
+    -o-border-radius: 0 0 9px 9px;
+    -ms-border-radius: 0 0 9px 9px;
+    border-radius: 0 0 9px 9px; }
 
 /* depends on block class: language-switcher */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_language_switcher\.scss}line{font-family:\000033}}
