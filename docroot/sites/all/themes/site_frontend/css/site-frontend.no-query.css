@@ -1309,12 +1309,13 @@ span.copyright {
     padding-left: 10px;
     background-image: url("../images/green-arrow-thin-right.png");
     background-repeat: no-repeat;
-    background-position: left 3px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_interactive_block\.scss}line{font-family:\0000385}}
+    background-position: left 3px;
+    margin-bottom: 2px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_interactive_block\.scss}line{font-family:\0000386}}
     .interactive-block .field--name-field-fc-section-link .field__item a {
       text-decoration: none;
       color: #555; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_interactive_block\.scss}line{font-family:\0000389}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_interactive_block\.scss}line{font-family:\0000390}}
     .interactive-block .field--name-field-fc-section-link .field__item a:hover {
       text-decoration: underline; }
 
