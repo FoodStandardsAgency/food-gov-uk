@@ -15,6 +15,7 @@
   .node__title {
   	display: none;
   }
+  /* custom block title - this is a field withn the block content area, not default block___title */
 	h2.block-title {
 		font-size: 1.5em;
 		color: #fff;
@@ -36,8 +37,9 @@
 		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#999999',endColorstr='#3e3e3e',GradientType=0);
 		border-bottom: none;
 	}
+	/* content wrapper - appears within the block content area */
 	.field-collection-container {
-		padding: 1em 11px .3em 11px;
+		padding: 1em 11px 1em 11px;
 		background: #fff;
 		/* if we add a background colour we need to add rounded bottom borders here too */
 		-webkit-border-radius: 0 0 9px 9px;
@@ -45,5 +47,28 @@
 		-o-border-radius: 0 0 9px 9px;
 		-ms-border-radius: 0 0 9px 9px;
 		border-radius: 0 0 9px 9px;
+		overflow: hidden;	// because of floats within the div
+		img {
+			float: left;
+			margin: 0;
+			padding: 0;
+			border: none;
+		}
+		.field--type-text,
+		.field--type-link-field {
+			margin-left: 62px;
+		}
+		/* rendered content from the view */
+		.views-row {
+			border-bottom: 1px solid #c6c6c6;
+			padding-bottom: 6px;
+			margin-bottom: 6px;
+			clear: left;	// because of the image floats
+		}
+		.views-row.views-row-last {
+			border-bottom: none;
+			padding-bottom: 0;
+			margin-bottom: 0;
+		}
 	}
 }
