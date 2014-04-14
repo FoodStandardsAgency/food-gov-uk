@@ -43,7 +43,7 @@ function local_form_search_block_form_alter(&$form, &$form_state, $form_id){
 
 function local_init() {
   // FAQ pages need some accordion JS
-  if (arg(0) == 'node' && is_numeric(arg(1) && !arg(2))) {
+  if (arg(0) == 'node' && is_numeric(arg(1)) && !arg(2)) {
     $node = node_load(arg(1));
     if ($node->type == 'faq') {
       drupal_add_library('system', 'ui.accordion');
