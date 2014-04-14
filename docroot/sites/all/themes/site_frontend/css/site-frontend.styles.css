@@ -1275,7 +1275,8 @@ span.copyright {
   border-radius: 9px;
   /* hide node title that the view mode automatically inserts */
   /* custom block title - this is a field withn the block content area, not default block___title */
-  /* content wrapper - appears within the block content area */ }
+  /* content wrapper - appears within the block content area */
+  /* rendered content from the view */ }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_interactive_block\.scss}line{font-family:\0000315}}
   .interactive-block .node__title {
     display: none; }
@@ -1310,29 +1311,46 @@ span.copyright {
     -o-border-radius: 0 0 9px 9px;
     -ms-border-radius: 0 0 9px 9px;
     border-radius: 0 0 9px 9px;
-    overflow: hidden;
-    /* rendered content from the view */ }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_interactive_block\.scss}line{font-family:\0000351}}
-    .interactive-block .field-collection-container img {
+    overflow: hidden; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_interactive_block\.scss}line{font-family:\0000353}}
+  .interactive-block .views-row {
+    border-bottom: 1px solid #c6c6c6;
+    padding-bottom: 6px;
+    margin-bottom: 6px;
+    clear: left; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_interactive_block\.scss}line{font-family:\0000358}}
+    .interactive-block .views-row img {
       float: left;
       margin: 0;
       padding: 0;
       border: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_interactive_block\.scss}line{font-family:\0000358}}
-    .interactive-block .field-collection-container .field--type-text,
-    .interactive-block .field-collection-container .field--type-link-field {
-      margin-left: 62px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_interactive_block\.scss}line{font-family:\0000362}}
-    .interactive-block .field-collection-container .views-row {
-      border-bottom: 1px solid #c6c6c6;
-      padding-bottom: 6px;
-      margin-bottom: 6px;
-      clear: left; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_interactive_block\.scss}line{font-family:\0000368}}
-    .interactive-block .field-collection-container .views-row.views-row-last {
-      border-bottom: none;
-      padding-bottom: 0;
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_interactive_block\.scss}line{font-family:\0000364}}
+    .interactive-block .views-row h3 {
       margin-bottom: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_interactive_block\.scss}line{font-family:\0000368}}
+    .interactive-block .views-row .field--type-text,
+    .interactive-block .views-row .field--type-link-field {
+      margin-left: 62px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_interactive_block\.scss}line{font-family:\0000371}}
+    .interactive-block .views-row .field--type-link-field {
+      font-weight: normal;
+      display: block;
+      padding-left: 10px;
+      background-image: url("../images/green-arrow-thin-right.png");
+      background-repeat: no-repeat;
+      background-position: left 5px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_interactive_block\.scss}line{font-family:\0000378}}
+      .interactive-block .views-row .field--type-link-field a {
+        text-decoration: none;
+        color: #555; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_interactive_block\.scss}line{font-family:\0000382}}
+      .interactive-block .views-row .field--type-link-field a:hover {
+        text-decoration: underline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_interactive_block\.scss}line{font-family:\0000387}}
+  .interactive-block .views-row.views-row-last {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0; }
 
 /* depends on block class: language-switcher */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_language_switcher\.scss}line{font-family:\000033}}
