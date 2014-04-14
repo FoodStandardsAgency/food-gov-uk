@@ -1263,10 +1263,45 @@ span.copyright {
 /**
  * Interactive block
  * Requires block class: interactive-block
+ * Dependant on h2 class-"block-title" in view mode display settings
  */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_interactive_block\.scss}line{font-family:\000037}}
-.interactive-block .node__title {
-  display: none; }
+.interactive-block {
+  border: 1px solid #e8e8e8;
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  -o-border-radius: 9px;
+  -ms-border-radius: 9px;
+  border-radius: 9px;
+  /* hide node title that the view mode automatically inserts */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_interactive_block\.scss}line{font-family:\0000315}}
+  .interactive-block .node__title {
+    display: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_interactive_block\.scss}line{font-family:\0000318}}
+  .interactive-block h2.block-title {
+    font-size: 1.5em;
+    color: #fff;
+    padding: .3em 11px;
+    margin: 0;
+    -webkit-border-radius: 9px 9px 0 0;
+    -moz-border-radius: 9px 9px 0 0;
+    -o-border-radius: 9px 9px 0 0;
+    -ms-border-radius: 9px 9px 0 0;
+    border-radius: 9px 9px 0 0;
+    background: #999;
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, #999999 6%, #3e3e3e 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(6%, #999999), color-stop(100%, #3e3e3e));
+    background: -webkit-linear-gradient(top, #999999 6%, #3e3e3e 100%);
+    background: -o-linear-gradient(top, #999999 6%, #3e3e3e 100%);
+    background: -ms-linear-gradient(top, #999999 6%, #3e3e3e 100%);
+    background: linear-gradient(top, #999999 6%, #3e3e3e 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#999999',endColorstr='#3e3e3e',GradientType=0);
+    border-bottom: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_interactive_block\.scss}line{font-family:\0000339}}
+  .interactive-block .field-collection-container {
+    padding: 1em 11px .3em 11px;
+    background: #fff; }
 
 /* depends on block class: language-switcher */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_language_switcher\.scss}line{font-family:\000033}}
