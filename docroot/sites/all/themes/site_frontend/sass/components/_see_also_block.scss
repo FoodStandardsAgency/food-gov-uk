@@ -1,0 +1,46 @@
+/**
+ * See also block
+ * Dependant on block class see-also
+ */
+
+.see-also {
+	border: 1px solid #e8e8e8;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-o-border-radius: 10px;
+	-ms-border-radius: 10px;
+	border-radius: 10px;
+	background: #fff;
+	padding: .5em 11px .5em 11px;
+	h2.block__title {
+		font-size: 1.5em;
+	  color: #5d9711;
+	  margin: 0 0 .5em 0;
+	}
+	/* links */
+	.views-field-title {
+		font-size: 1.2em;
+		padding-left: 10px;
+		background-image: url('../images/green-arrow-thin-right.png');
+		background-repeat: no-repeat;
+		background-position: left 3px;
+		margin-bottom: 2px;
+		a {
+			text-decoration: none;
+			color: #006f51;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+	}
+	.views-field-field-subtitle {
+		font-size: 1.2em;
+		padding-left: 10px;
+	}
+	.views-row {
+		margin-bottom: 2px;
+	}
+	.views-row.views-row-last {
+		margin-bottom: 0;
+	}
+}
