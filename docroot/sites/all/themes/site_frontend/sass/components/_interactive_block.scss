@@ -55,6 +55,7 @@
 		padding-bottom: 6px;
 		margin-bottom: 6px;
 		clear: left;	// because of the image floats
+		overflow: hidden;	//because of floats
 		img {
 			float: left;
 			margin: 0;
@@ -64,11 +65,11 @@
 		h3 {
 			margin-bottom: 0;
 		}
-		.field--type-text,
-		.field--type-link-field {
+		.field--name-field-fc-section-title,
+		.field--name-field-fc-section-link {
 			margin-left: 62px;
 		}
-		.field--type-link-field {
+		.field--name-field-fc-section-link {
 			font-weight: normal;
 			display: block;
 			padding-left: 10px;
