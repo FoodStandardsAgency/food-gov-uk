@@ -2514,7 +2514,7 @@ ul.pager {
   -ms-border-radius: 10px;
   border-radius: 10px;
   background: #fff;
-  padding: .5em 11px .5em 11px;
+  padding: 1em 11px 1em 11px;
   /* links */ }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_see_also_block\.scss}line{font-family:\0000315}}
   .see-also h2.block__title {
@@ -2542,7 +2542,7 @@ ul.pager {
     padding-left: 10px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_see_also_block\.scss}line{font-family:\0000340}}
   .see-also .views-row {
-    margin-bottom: 2px; }
+    margin-bottom: 4px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_see_also_block\.scss}line{font-family:\0000343}}
   .see-also .views-row.views-row-last {
     margin-bottom: 0; }
