@@ -2542,7 +2542,7 @@ ul.pager {
     padding-left: 10px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_see_also_block\.scss}line{font-family:\0000340}}
   .see-also .views-row {
-    margin-bottom: 4px; }
+    margin-bottom: 0.5em; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_see_also_block\.scss}line{font-family:\0000343}}
   .see-also .views-row.views-row-last {
     margin-bottom: 0; }
