@@ -1123,7 +1123,7 @@ ul.breadcrumb {
 @media (min-width: 0px) and (max-width: 480px) {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_buttons\.scss}line{font-family:\0000368}}
   .footer-buttons {
-    margin-top: 12px; }
+    margin-top: 6px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_buttons\.scss}line{font-family:\0000370}}
     .footer-buttons ul.menu {
       float: none; }
