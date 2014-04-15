@@ -1093,28 +1093,40 @@ ul.breadcrumb {
         background: url("../images/footer-buttons/nhschoices-default.png");
         background-repeat: no-repeat;
         background-position: center center; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_buttons\.scss}line{font-family:\0000337}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_buttons\.scss}line{font-family:\0000339}}
       .footer-buttons ul.menu li a[href="http://www.nhs.uk"]:hover,
-      .footer-buttons ul.menu li a[href="https://www.nhs.uk"]:hover {
+      .footer-buttons ul.menu li a[href="https://www.nhs.uk"]:hover,
+      .footer-buttons ul.menu li a[href="http://www.nhs.uk"]:focus,
+      .footer-buttons ul.menu li a[href="https://www.nhs.uk"]:focus {
         background: url("../images/footer-buttons/nhschoices-hover.png");
         background-repeat: no-repeat;
         background-position: center center; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_buttons\.scss}line{font-family:\0000343}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_buttons\.scss}line{font-family:\0000345}}
       .footer-buttons ul.menu li a[href="http://www.gov.uk"],
       .footer-buttons ul.menu li a[href="https://www.gov.uk"] {
         background: url("../images/footer-buttons/govuk-default.png");
         background-repeat: no-repeat;
         background-position: center center; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_buttons\.scss}line{font-family:\0000349}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_buttons\.scss}line{font-family:\0000353}}
       .footer-buttons ul.menu li a[href="http://www.gov.uk"]:hover,
-      .footer-buttons ul.menu li a[href="https://www.gov.uk"]:hover {
+      .footer-buttons ul.menu li a[href="https://www.gov.uk"]:hover,
+      .footer-buttons ul.menu li a[href="http://www.gov.uk"]:focus,
+      .footer-buttons ul.menu li a[href="https://www.gov.uk"]:focus {
         background: url("../images/footer-buttons/govuk-hover.png");
         background-repeat: no-repeat;
         background-position: center center; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_buttons\.scss}line{font-family:\0000357}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_buttons\.scss}line{font-family:\0000361}}
   .footer-buttons span.ext {
     display: none; }
 
+/* for mobile */
+@media (min-width: 0px) and (max-width: 480px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_buttons\.scss}line{font-family:\0000368}}
+  .footer-buttons {
+    margin-top: 12px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_buttons\.scss}line{font-family:\0000370}}
+    .footer-buttons ul.menu {
+      float: none; } }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_menu\.scss}line{font-family:\000031}}
 .footer-menu {
   position: relative;
