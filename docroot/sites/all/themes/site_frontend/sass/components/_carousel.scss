@@ -52,6 +52,11 @@
 			font-size: 1.2em;
 			text-decoration: none;
 			color: #fff;
+			display: block;
+			padding-left: 24px;
+			background-image: url("../images/white-arrow-thin-right.png");
+			background-repeat: no-repeat;
+			background-position: left 4px;
 		}
 		a:hover {
 			text-decoration: underline;
