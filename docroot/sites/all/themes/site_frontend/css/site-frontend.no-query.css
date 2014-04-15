@@ -971,7 +971,66 @@ ul.breadcrumb {
   font-size: 1.2em;
   margin-bottom: 12px; }
 
-/* FAQ */
+/* override default accordion theming */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\000033}}
+.field--name-field-fc-qanda .ui-accordion .ui-accordion-header {
+  margin-top: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\000036}}
+.field--name-field-fc-qanda .ui-corner-all {
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\0000313}}
+.field--name-field-fc-qanda .ui-state-default,
+.field--name-field-fc-qanda .ui-widget-content .ui-state-default,
+.field--name-field-fc-qanda .ui-widget-header .ui-state-default {
+  border: none;
+  background: none;
+  background-color: none;
+  color: #333; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\0000321}}
+.field--name-field-fc-qanda .ui-state-active,
+.field--name-field-fc-qanda .ui-widget-content .ui-state-active,
+.field--name-field-fc-qanda .ui-widget-header .ui-state-active {
+  border: none;
+  background: none;
+  background-color: none;
+  color: #333; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\0000327}}
+.field--name-field-fc-qanda .ui-widget-content {
+  border: none;
+  background: none;
+  background-color: none;
+  color: #333; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\0000334}}
+.field--name-field-fc-qanda.ui-widget {
+  font-family: Arial, Verdana, Helvetica, sans-serif;
+  font-size: 1em; }
+
+/* accordion tabs */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\0000340}}
+.field--name-field-fc-qanda > .field__items > .field__item {
+  border-top: 1px solid #5D9711; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\0000343}}
+.field--name-field-fc-qanda > .field__items > .field__item:last-child {
+  border-bottom: 1px solid #5D9711; }
+
+/* accordion questions */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\0000349}}
+.field--name-field-fc-quanda-question h3 {
+  color: #006f51;
+  padding-left: 24px;
+  background-image: url("../images/sidebar-arrow-right.png");
+  background-repeat: no-repeat;
+  background-position: 10px 4px;
+  margin-top: 4px;
+  margin-bottom: 6px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\0000358}}
+.field--name-field-fc-quanda-question h3:hover {
+  text-decoration: underline; }
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_menu\.scss}line{font-family:\000031}}
 .footer-menu {
   position: relative;
