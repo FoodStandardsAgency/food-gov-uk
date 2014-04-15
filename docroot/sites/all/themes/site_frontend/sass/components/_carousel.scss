@@ -63,10 +63,13 @@
 	}
 	/* slide controls and pager - outer wrapper */
 	.views-slideshow-controls-bottom {
+		display: block;
+		width: 699px;
+		height: 27px;
 		position: absolute;
 		left: 0px;
 		bottom: 0px;
-		height: 27px;
+		z-index: 90;
 		background-color: #000;
 		-webkit-border-radius: 0 0 8px 8px;
 		-moz-border-radius: 0 0 8px 8px;
