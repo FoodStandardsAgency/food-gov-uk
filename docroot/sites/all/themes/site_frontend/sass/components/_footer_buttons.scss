@@ -4,7 +4,6 @@
  */
 
 .footer-buttons {
-	text-align: right;
 	/* menu block block does not seem to respect <none> in title */
 	h2.block__title {
 		display: none;
@@ -13,13 +12,14 @@
 		list-style: none;
 		margin: 0;
 		padding: 0;
+		float: right; // get the buttons to be aligned right without changing their order
 		li {
 			font-size: 1em;
 			list-style: none;
-			display: inline-block;	// so we can use text-align (don't use float because that changes order of elements)
-			*display: inline;
-			zoom: 1;
-			margin: 0 0 10px 10px;
+			display: block;
+			float: left;
+			padding: 0;
+			margin: 0 0 10px 8px;
 			a {
 				display: block;
 				width: 77px;
@@ -34,7 +34,9 @@
 				background-position: center center;
 			}
 			a[href="http://www.nhs.uk"]:hover,
-			a[href="https://www.nhs.uk"]:hover {
+			a[href="https://www.nhs.uk"]:hover,
+			a[href="http://www.nhs.uk"]:focus,
+			a[href="https://www.nhs.uk"]:focus {
 				background: url('../images/footer-buttons/nhschoices-hover.png');
 				background-repeat: no-repeat;
 				background-position: center center;
@@ -46,7 +48,9 @@
 				background-position: center center;
 			}
 			a[href="http://www.gov.uk"]:hover,
-			a[href="https://www.gov.uk"]:hover {
+			a[href="https://www.gov.uk"]:hover,
+			a[href="http://www.gov.uk"]:focus,
+			a[href="https://www.gov.uk"]:focus {
 				background: url('../images/footer-buttons/govuk-hover.png');
 				background-repeat: no-repeat;
 				background-position: center center;
@@ -56,5 +60,18 @@
 	/* override external links module css */
 	span.ext {
 		display: none;
+	}
+}
+
+/* for mobile */
+@include breakpoint($mobile) {
+	.footer-buttons {
+		margin-top: 6px;
+		ul.menu {
+			float: none;
+			li {
+				margin: 0 8px 10px 0;
+			}
+		}
 	}
 }
