@@ -7,7 +7,7 @@
 	/* slideshow size */
 	.skin-default {
 		width: 699px;
-		height: 233px;
+		height: 260px;	// 233px image height + 27px controls height
 		overflow: hidden;
 		position: relative;	// for absolutely positioning to be contained
 	}
