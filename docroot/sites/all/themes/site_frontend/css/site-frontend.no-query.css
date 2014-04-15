@@ -977,12 +977,11 @@ ul.breadcrumb {
   font-size: 1em; }
 
 /* accordion tabs */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\0000313}}
-.field--name-field-fc-qanda .field__items .field__item {
-  border-top: 1px solid #5D9711;
-  padding: 0.5em 11px 0.5em 24px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\0000317}}
-.field--name-field-fc-qanda .field__items .field__item:last-child {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\0000312}}
+.field--name-field-fc-qanda > .field__items .field__item {
+  border-top: 1px solid #5D9711; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\0000315}}
+.field--name-field-fc-qanda > .field__items .field__item:last-child {
   border-bottom: 1px solid #5D9711; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_menu\.scss}line{font-family:\000031}}
