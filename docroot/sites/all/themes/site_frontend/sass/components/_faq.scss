@@ -1,5 +1,6 @@
 /* override default accordion theming */
 .field--name-field-fc-qanda {
+	margin-bottom: 20px;
 	.ui-accordion .ui-accordion-header {
 		margin-top: 0;
 	}
@@ -59,3 +60,11 @@
 		text-decoration: underline;
 	}
 }
+.field--name-field-fc-quanda-question.ui-state-active {
+	h3 {
+		background-image: url('../images/sidebar-arrow-down.png');
+	  background-repeat: no-repeat;
+	  background-position: 9px 4px;
+	}
+}
+
