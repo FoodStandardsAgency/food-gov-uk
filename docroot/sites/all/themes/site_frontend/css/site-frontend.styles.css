@@ -1079,7 +1079,7 @@ ul.breadcrumb {
       display: block;
       float: left;
       padding: 0;
-      margin: 0 0 6px 10px; }
+      margin: 0 0 10px 8px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_buttons\.scss}line{font-family:\0000323}}
       .footer-buttons ul.menu li a {
         display: block;
@@ -1126,7 +1126,10 @@ ul.breadcrumb {
     margin-top: 12px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_buttons\.scss}line{font-family:\0000370}}
     .footer-buttons ul.menu {
-      float: none; } }
+      float: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_buttons\.scss}line{font-family:\0000372}}
+      .footer-buttons ul.menu li {
+        margin: 0 8px 0 10px; } }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_footer_menu\.scss}line{font-family:\000031}}
 .footer-menu {
   position: relative;

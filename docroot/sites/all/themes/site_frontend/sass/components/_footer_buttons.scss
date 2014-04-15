@@ -19,7 +19,7 @@
 			display: block;
 			float: left;
 			padding: 0;
-			margin: 0 0 6px 10px;
+			margin: 0 0 10px 8px;
 			a {
 				display: block;
 				width: 77px;
@@ -69,6 +69,9 @@
 		margin-top: 12px;
 		ul.menu {
 			float: none;
+			li {
+				margin: 0 8px 0 10px;
+			}
 		}
 	}
 }
