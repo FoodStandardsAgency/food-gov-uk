@@ -8,11 +8,9 @@
 }
 
 /* accordion tabs */
-.field--name-field-fc-qanda > .field__items {
-	.field__item {
-		border-top: 1px solid #5D9711;
-	}
-	.field__item:last-child {
-		border-bottom: 1px solid #5D9711;
-	}
+.field--name-field-fc-qanda > .field__items > .field__item {
+	border-top: 1px solid #5D9711;
+}
+.field--name-field-fc-qanda > .field__items > .field__item:last-child {
+	border-bottom: 1px solid #5D9711;
 }
