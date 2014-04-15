@@ -191,7 +191,7 @@
 	/* slide pager wrapper */
 	.views-slideshow-pager-fields {
 		z-index: 99;
-		width: 132px;
+		width: 500px;
 		position: absolute;
 		bottom: 0px;
 		left: 99px;
@@ -202,9 +202,8 @@
 	}
 	/* pager items */
 	.views-slideshow-pager-field-item  {
-		display: inline-block;
-		*display: inline; // IE7
-		zoom: 1; // IE7
+		display: block;
+		float: left;
 		width: 21px;
 		height: 21px;
 		margin: 0;
@@ -237,3 +236,9 @@
 	}
 }  // end home-page-carousel
 
+/* for mobile */
+@include breakpoint($mobile) {
+	.home-page-carousel {
+		display: none;
+	}
+}
