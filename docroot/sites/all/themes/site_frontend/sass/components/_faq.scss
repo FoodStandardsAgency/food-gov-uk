@@ -1,0 +1,21 @@
+.field--name-field-fc-qanda {
+	
+}
+
+.field--name-field-fc-qanda.ui-widget {
+	font-family: Arial, Verdana, Helvetica, sans-serif;
+	font-size: 1em;	// base
+}
+
+/* accordion tabs */
+.field--name-field-fc-qanda {
+	.field__items {
+		.field__item {
+			border-top: 1px solid #5D9711;
+			padding: 0.5em 11px 0.5em 24px;
+		}
+		.field__item:last-child {
+			border-bottom: 1px solid #5D9711;
+		}
+	}
+}
