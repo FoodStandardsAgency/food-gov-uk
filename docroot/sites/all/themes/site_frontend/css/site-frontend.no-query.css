@@ -720,10 +720,10 @@ ul.breadcrumb {
       text-decoration: none;
       color: #fff;
       display: block;
-      padding-left: 24px;
+      padding-left: 12px;
       background-image: url("../images/white-arrow-thin-right.png");
       background-repeat: no-repeat;
-      background-position: left 4px; }
+      background-position: left 3px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000361}}
     .home-page-carousel .slide-content a:hover {
       text-decoration: underline; }
