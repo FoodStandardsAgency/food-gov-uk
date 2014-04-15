@@ -1035,7 +1035,7 @@ ul.breadcrumb {
   text-decoration: underline; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\0000364}}
-.field--name-field-fc-quanda-question .ui-state-active h3 {
+.field--name-field-fc-quanda-question.ui-state-active h3 {
   background-image: url("../images/sidebar-arrow-down.png");
   background-repeat: no-repeat;
   background-position: 9px 4px; }
