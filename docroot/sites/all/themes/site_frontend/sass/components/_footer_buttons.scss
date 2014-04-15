@@ -4,6 +4,7 @@
  */
 
 .footer-buttons {
+	text-align: right;
 	/* menu block block does not seem to respect <none> in title */
 	h2.block__title {
 		display: none;
@@ -15,13 +16,16 @@
 		li {
 			font-size: 1em;
 			list-style: none;
-			float: left;
+			display: inline-block;	// so we can use text-align (don't use float because that changes order of elements)
+			*display: inline;
+			zoom: 1;
 			margin: 0 0 10px 10px;
 			a {
 				display: block;
 				width: 77px;
 				height: 31px;
 				text-indent: -500px;
+				overflow: hidden;
 			}
 			a[href="http://www.nhs.uk"],
 			a[href="https://www.nhs.uk"] {
