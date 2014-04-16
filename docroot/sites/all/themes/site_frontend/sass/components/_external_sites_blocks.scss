@@ -79,6 +79,7 @@
 		font-size: 1.5em;
 	  color: #5d9711;
 	  margin: 0 0 .5em 0;
+	  display: none;	// design does not need a title but the semantics does need the h2. the view groups are h3 thus we must have and h2
 	}
 	/* links */
 	.views-field-field-url {
@@ -104,13 +105,18 @@
 		margin-bottom: 0.5em;
 	}
 	.views-row.views-row-last {
+		margin-bottom: 1em;
+	}
+	.views-row.views-row-last:last-child {
 		margin-bottom: 0;
 	}
-	.external-link-disclaimer {
-		font-size: 1em;
-		line-height: 1.2em;
-		color: #666;
-		display: block;
-		padding-top: 9px;
+	.view-content {
+		h2, h3 {
+			margin-bottom: 0;
+			font-size: 1em; // set base as 1em = 10px
+		}
+		img {
+			margin-bottom: 7px;
+		}
 	}
 }
