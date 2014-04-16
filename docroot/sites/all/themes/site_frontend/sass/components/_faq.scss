@@ -1,0 +1,70 @@
+/* override default accordion theming */
+.field--name-field-fc-qanda {
+	margin-bottom: 20px;
+	.ui-accordion .ui-accordion-header {
+		margin-top: 0;
+	}
+	.ui-corner-all {
+		-moz-border-radius: 0px;
+		-webkit-border-radius: 0px;
+		border-radius: 0px;
+	}
+	.ui-state-default, 
+	.ui-widget-content .ui-state-default, 
+	.ui-widget-header .ui-state-default {
+		border: none;
+		background: none;
+		background-color: none;
+		color: #333;
+	}
+	.ui-state-active, 
+	.ui-widget-content .ui-state-active, 
+	.ui-widget-header .ui-state-active {
+		border: none;
+		background: none;
+		background-color: none;
+		color: #333;
+	}
+	.ui-widget-content {
+		border: none;
+		background: none;
+		background-color: none;
+		color: #333;
+	}
+}
+.field--name-field-fc-qanda.ui-widget {
+	font-family: Arial, Verdana, Helvetica, sans-serif;
+	font-size: 1em;	// base
+}
+
+/* accordion tabs */
+.field--name-field-fc-qanda > .field__items > .field__item {
+	border-top: 1px solid #5D9711;
+}
+.field--name-field-fc-qanda > .field__items > .field__item:last-child {
+	border-bottom: 1px solid #5D9711;
+}
+
+/* accordion questions */
+.field--name-field-fc-quanda-question {
+	h3 {
+		color: #006f51;
+		padding-left: 24px;
+		background-image: url('../images/sidebar-arrow-right.png');
+	  background-repeat: no-repeat;
+	  background-position: 10px 4px;
+	  margin-top: 4px;
+	  margin-bottom: 6px;
+	}
+	h3:hover {
+		text-decoration: underline;
+	}
+}
+.field--name-field-fc-quanda-question.ui-state-active {
+	h3 {
+		background-image: url('../images/sidebar-arrow-down.png');
+	  background-repeat: no-repeat;
+	  background-position: 9px 4px;
+	}
+}
+

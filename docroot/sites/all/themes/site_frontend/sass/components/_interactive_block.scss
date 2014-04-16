@@ -1,0 +1,94 @@
+/**
+ * Interactive block
+ * Requires block class: interactive-block
+ * Dependant on h2 class-"block-title" in view mode display settings
+ */
+
+.interactive-block {
+	border: 1px solid #e8e8e8;
+	-webkit-border-radius: 9px;
+	-moz-border-radius: 9px;
+	-o-border-radius: 9px;
+	-ms-border-radius: 9px;
+	border-radius: 9px;
+	/* hide node title that the view mode automatically inserts */
+  .node__title {
+  	display: none;
+  }
+  /* custom block title - this is a field withn the block content area, not default block___title */
+	h2.block-title {
+		font-size: 1.5em;
+		color: #fff;
+		padding: .3em 11px;
+		margin: 0;
+		-webkit-border-radius: 9px 9px 0 0;
+		-moz-border-radius: 9px 9px 0 0;
+		-o-border-radius: 9px 9px 0 0;
+		-ms-border-radius: 9px 9px 0 0;
+		border-radius: 9px 9px 0 0;
+		background: #999;
+		background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+		background: -moz-linear-gradient(top,#999 6%,#3e3e3e 100%);
+		background: -webkit-gradient(linear,left top,left bottom,color-stop(6%,#999),color-stop(100%,#3e3e3e));
+		background: -webkit-linear-gradient(top,#999 6%,#3e3e3e 100%);
+		background: -o-linear-gradient(top,#999 6%,#3e3e3e 100%);
+		background: -ms-linear-gradient(top,#999 6%,#3e3e3e 100%);
+		background: linear-gradient(top,#999 6%,#3e3e3e 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#999999',endColorstr='#3e3e3e',GradientType=0);
+		border-bottom: none;
+	}
+	/* content wrapper - appears within the block content area */
+	.field-collection-container {
+		padding: 1em 11px 1em 11px;
+		background: #fff;
+		/* if we add a background colour we need to add rounded bottom borders here too */
+		-webkit-border-radius: 0 0 9px 9px;
+		-moz-border-radius: 0 0 9px 9px;
+		-o-border-radius: 0 0 9px 9px;
+		-ms-border-radius: 0 0 9px 9px;
+		border-radius: 0 0 9px 9px;
+		overflow: hidden;	// because of floats within the div
+	}
+	.field-collection-view {
+		border-bottom: 1px solid #c6c6c6;
+		padding-bottom: 6px;
+		margin-bottom: 6px;
+		clear: left;	// because of the image floats
+		overflow: hidden;	//because of floats
+	}
+	.field-collection-view.field-collection-view-final {
+		border-bottom: none;
+		padding-bottom: 0;
+		margin-bottom: 0;
+	}
+	img {
+		float: left;
+		margin: 0;
+		padding: 0;
+		border: none;
+	}
+	h3 {
+		margin-bottom: 0;
+	}
+	.field--name-field-fc-section-title,
+	.field--name-field-fc-section-link {
+		margin-left: 62px;
+	}
+	.field--name-field-fc-section-link .field__item {
+		font-size: 1.2em;
+		font-weight: normal;
+		display: block;
+		padding-left: 10px;
+		background-image: url('../images/green-arrow-thin-right.png');
+		background-repeat: no-repeat;
+		background-position: left 3px;
+		margin-bottom: 2px;
+		a {
+			text-decoration: none;
+			color: #555;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+	}
+}

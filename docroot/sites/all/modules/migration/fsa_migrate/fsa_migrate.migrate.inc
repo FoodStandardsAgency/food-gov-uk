@@ -13,8 +13,8 @@ function fsa_migrate_migrate_api() {
   $api = array(
     'api' => 2,
     'migrations' => array(
-      'FSAUberpage' => array('class_name' => 'FSAUberpageMigration'),
-      'FSAUberpageCollection' => array('class_name' => 'FSAUberpageCollectionMigration'),
+      'FSADocumentpage' => array('class_name' => 'FSADocumentpageMigration'),
+      'FSADocumentpageCollection' => array('class_name' => 'FSADocumentpageCollectionMigration'),
       'FSAMediaImages' => array('class_name' => 'FSAMediaImagesMigration'),
     )
   );

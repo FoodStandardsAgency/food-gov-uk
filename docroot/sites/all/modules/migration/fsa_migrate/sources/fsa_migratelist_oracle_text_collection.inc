@@ -18,6 +18,8 @@ class MigrateListOracleTextCollection extends MigrateList {
    * SQL Query to get the primary info and the object id.
    *
    * @var string
+   *
+   * // @TODO Is this still used?
    */
   protected $query = <<<'ENDSQL'
     SELECT OBJ.OBJECTID, FIELDNAME.FIELDID
@@ -26,7 +28,9 @@ class MigrateListOracleTextCollection extends MigrateList {
       AND FIELDVALUE.OBJECTID = OBJ.OBJECTID
       AND OBJ.OBJECTID IN ( :obj_ids )
       AND ( FIELDNAME.VARIABLE LIKE 'text%'
-      OR FIELDNAME.VARIABLE LIKE 'sectionheading%')
+      OR FIELDNAME.VARIABLE LIKE 'sectionheading%'
+      OR FIELDNAME.VARIABLE LIKE 'quote'
+      OR FIELDNAME.VARIABLE LIKE 'quoteposition')
       ORDER BY FIELDNAME.FIELDID ASC
 ENDSQL;
 
@@ -34,6 +38,8 @@ ENDSQL;
    * SQL Query to get the field value.
    *
    * @var string
+   *
+   * // @TODO Is this still used?
    */
   protected $queryFieldValue = <<<'ENDSQL'
     SELECT OBJ.OBJECTID, FIELDNAME.FIELDID, FIELDNAME.VARIABLE, FIELDVALUE.VALUE
@@ -42,7 +48,9 @@ ENDSQL;
       AND FIELDVALUE.OBJECTID = OBJ.OBJECTID
       AND OBJ.OBJECTID IN ( :obj_ids )
       AND ( FIELDNAME.VARIABLE LIKE 'text%'
-      OR  FIELDNAME.VARIABLE LIKE 'sectionheading%')
+      OR  FIELDNAME.VARIABLE LIKE 'sectionheading%'
+      OR FIELDNAME.VARIABLE LIKE 'quote'
+      OR FIELDNAME.VARIABLE LIKE 'quoteposition')
       ORDER BY FIELDNAME.FIELDID ASC
 ENDSQL;
 
@@ -59,9 +67,25 @@ ENDSQL;
       AND FIELDVALUE.OBJECTID = OBJ.OBJECTID
       AND OBJ.OBJECTID IN ( :obj_ids )
       AND ( FIELDNAME.VARIABLE LIKE 'text%'
-      OR FIELDNAME.VARIABLE LIKE 'sectionheading%')
+      OR FIELDNAME.VARIABLE LIKE 'sectionheading%'
+      OR FIELDNAME.VARIABLE LIKE 'quote')
+      ORDER BY FIELDNAME.VARIABLE ASC
 ENDSQL;
 
+  protected $queryQuotePosition = <<<'ENDSQL'
+    SELECT OBJ.OBJECTID, FIELDNAME.FIELDID, FIELDNAME.VARIABLE, FIELDVALUE.VALUE
+      FROM FIELDVALUE, FIELDNAME, OBJ
+      WHERE FIELDVALUE.FIELDID = FIELDNAME.FIELDID
+      AND FIELDVALUE.OBJECTID = OBJ.OBJECTID
+      AND OBJ.OBJECTID = :objid
+      AND FIELDNAME.VARIABLE = 'quoteposition'
+ENDSQL;
+
+  /**
+   * SQL Query to get the images.
+   *
+   * @var string
+   */
   protected $imageQuery = <<<'ENDSQL'
     SELECT LINK.PARENTID, OBJ.OBJECTID, OBJTYPE.NAME AS OBJECTTYPE
       FROM OBJ, LINK, OBJTYPE
@@ -142,7 +166,7 @@ ENDSQL;
     );
 
     // Split the SQLResults by objects and type of value.
-    $textSplit = $this->textVariableSplit($query_results_array);
+    $textSplit = $this->textVariableSplit($query_results_array, $connectionOracle);
 
     $this->imageQuery = str_replace(':obj_ids', implode(',', $this->listObjectsIds), $this->imageQuery);
 
@@ -229,10 +253,13 @@ ENDSQL;
    * @param $queryResults
    *  An array with the query results with colums.
    *  Must have three columns: 'VARIABLE', 'FIELDID' and 'OBJECTID'.
+   * @param resource $connection
+   *  Optional active connection to the Oracle Server.
+   *  Used for extra data from main object like the quote position.
    * @return array|NULL
    *  Array with the type of value.
    */
-  public function textVariableSplit($queryResults) {
+  public function textVariableSplit($queryResults, $connection = NULL) {
     $array_variable = array();
 
     if (!isset($queryResults['VARIABLE']) || !isset($queryResults['OBJECTID']) || !isset($queryResults['FIELDID'])) {
@@ -247,30 +274,60 @@ ENDSQL;
 
       preg_match('/^\D*(?=\d)/', $field_variable, $text_variable);
 
-      switch ($text_variable[0]) {
-        case 'text':
-          $int_variable = (int)substr($field_variable, 4);
-          // Insert a new row for the object and the type of data.
-          if (!isset($array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable])) {
-            $array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable]['objectid'] =
-              $queryResults['OBJECTID'][$iObjectVariable];
+      if (!empty($text_variable)) {
+        switch ($text_variable[0]) {
+          case 'text':
+            $int_variable = (int)substr($field_variable, 4);
+            // Insert a new row for the object and the type of data.
+            if (!isset($array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable])) {
+              $array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable]['objectid'] =
+                $queryResults['OBJECTID'][$iObjectVariable];
+            }
+            $array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable]['text'] =
+              $queryResults['FIELDID'][$iObjectVariable];
+            $array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable]['itemnumber'] =
+              $int_variable;
+            break;
+          case 'sectionheading':
+            $int_variable = (int)substr($field_variable, 14);
+            if (!isset($array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable])) {
+              $array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable]['objectid'] = $queryResults['OBJECTID'][$iObjectVariable];
+            }
+            $array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable]['sectionheading'] = $queryResults['FIELDID'][$iObjectVariable];
+            $array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable]['itemnumber'] =
+              $int_variable;
+            break;
+        }
+      }
+      else {
+        // No number in the variable name.
+        if ($field_variable == 'quote' && !is_null($connection)) {
+          // Query the oracle db.
+          $queryQuotePosition = FSAMigration::oracleQuerySingleLob(
+            $this->queryQuotePosition,
+            array(':objid' => $queryResults['OBJECTID'][$iObjectVariable]),
+            $connection
+          );
+
+          if (!is_null($queryQuotePosition)) {
+            if (!isset($array_variable[$queryQuotePosition['OBJECTID']][$queryQuotePosition['VALUE']])) {
+              $array_variable[$queryQuotePosition['OBJECTID']][$queryQuotePosition['VALUE']]['objectid'] =
+                $queryQuotePosition['OBJECTID'];
+            }
+            $array_variable[$queryQuotePosition['OBJECTID']][$queryQuotePosition['VALUE']]['quote'] =
+              $queryResults['FIELDID'][$iObjectVariable];
+            $array_variable[$queryQuotePosition['OBJECTID']][$queryQuotePosition['VALUE']]['itemnumber'] =
+              $queryQuotePosition['VALUE'];
           }
-          $array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable]['text'] =
-            $queryResults['FIELDID'][$iObjectVariable];
-          $array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable]['itemnumber'] =
-            $int_variable;
-          break;
-        case 'sectionheading':
-          $int_variable = (int)substr($field_variable, 14);
-          if (!isset($array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable])) {
-            $array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable]['objectid'] = $queryResults['OBJECTID'][$iObjectVariable];
-          }
-          $array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable]['sectionheading'] = $queryResults['FIELDID'][$iObjectVariable];
-          $array_variable[$queryResults['OBJECTID'][$iObjectVariable]][$int_variable]['itemnumber'] =
-            $int_variable;
-          break;
+        }
       }
       $iObjectVariable++;
+    }
+
+    // Reorder the array.
+    foreach ($array_variable as $array_variable_key => $array_variable_value) {
+      ksort($array_variable_value);
+      $array_variable[$array_variable_key] = $array_variable_value;
     }
 
     return $array_variable;
@@ -333,6 +390,7 @@ ENDSQL;
 
     $imagePath = NULL;
     $imgposition = NULL;
+    $quoteItem = NULL;
 
     // Test if there is an image for the field collection.
     if (isset($itemsList['image'])) {
@@ -384,16 +442,24 @@ ENDSQL;
     foreach ($query_results_array['VARIABLE'] as $iVariable => $fieldVariable) {
       preg_match('/^\D*(?=\d)/', $fieldVariable, $text_variable);
 
-      switch ($text_variable[0]) {
-        case 'text':
-          // Could be automatic, it is just easier to read and understand the object creation.
-          $object->text = $query_results_array['VALUE'][$iVariable];
+      if (!empty($text_variable)) {
+        switch ($text_variable[0]) {
+          case 'text':
+            // Could be automatic, it is just easier to read and understand the object creation.
+            $object->text = $query_results_array['VALUE'][$iVariable];
+            break;
+          case 'sectionheading':
+            $object->sectionheading = $query_results_array['VALUE'][$iVariable];
+            break;
+          case 'imageposition':
+            $imgposition = $query_results_array['VALUE'][$iVariable];
           break;
-        case 'sectionheading':
-          $object->sectionheading = $query_results_array['VALUE'][$iVariable];
-          break;
-        case 'imageposition':
-          $imgposition = $query_results_array['VALUE'][$iVariable];
+        }
+      }
+      else {
+        if ($fieldVariable == 'quote') {
+          $quoteItem = $query_results_array['VALUE'][$iVariable];
+        }
       }
     }
 
@@ -417,6 +483,8 @@ ENDSQL;
     // Assign image.
     $object->IMAGEPATH = $imagePath;
     $object->IMAGEPOSITION = $imgposition;
+
+    $object->quote = $quoteItem;
 
     return $object;
   }

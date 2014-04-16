@@ -101,6 +101,39 @@ ENDSQL;
   }
 
   /**
+   * Executes a single queries the oracle database which contains a LOB.
+   *
+   * @param string $query
+   *   The string containing an oracle query to run against the db.
+   * @param array $params
+   *   Parameters as an array
+   * @param resource $connection
+   *  An active connection to the Oracle Server.
+   *
+   * @return array|null
+   *   The result returned or NULL if empty
+   */
+  public function oracleQuerySingleLob($query, array $params, $connection) {
+    $statement = oci_parse($connection, $query);
+
+    foreach ($params as $key => $value) {
+      oci_bind_by_name($statement, $key, $value);
+    }
+
+    oci_execute($statement);
+
+    $row = oci_fetch_array($statement, $flags = OCI_ASSOC + OCI_RETURN_LOBS);
+
+    oci_free_statement($statement);
+
+    if (!empty($row)) {
+      return $row;
+    }
+
+    return NULL;
+  }
+
+  /**
    * Queries the oracle database for several results with columns 'VARIABLE' and 'VALUE', for CLOB results.
    *
    * @param string $query
