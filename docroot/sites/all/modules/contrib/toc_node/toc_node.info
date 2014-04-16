@@ -1,0 +1,12 @@
+name = TOC Node
+description = Provides a Table Of Contents for a node.
+package = Content
+stylesheets[all][] = css/toc_node.css
+core = 7.x
+
+; Information added by Drupal.org packaging script on 2014-04-16
+version = "7.x-1.0"
+core = "7.x"
+project = "toc_node"
+datestamp = "1397640256"
+
