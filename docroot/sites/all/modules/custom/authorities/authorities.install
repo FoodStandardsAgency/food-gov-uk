@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * Implements hook_install()
+ */
+function authorities_install() {
+
+	variable_set_value('authorities_bing_api_key', 'AszZA3POmLhgseDyW-g-b9ppA2dsSlNIKDgfp7CYIC_UAA5Q76SdAFU1VdB7tUiO');
+	variable_set_value('authorities_bing_access_id', '6a2376fdbf644b25b00b3b97513db805');
+	variable_set_value('authorities_bing_dsn', 'FSA_Local_Authorities');
+	variable_set_value('authorities_bing_etn', 'LocalAuthorities');
+	variable_set_value('authorities_result_page', 'authorities/map');
+	variable_set_value('authorities_max_results', 6);
+	variable_set_value('authorities_map_width', 460);
+	variable_set_value('authorities_map_height', 350);
+}
+
+/**
+ * Implements hook_uninstall()
+ */
+function authorities_uninstall() {
+
+	variable_del('authorities_bing_api_key');
+	variable_del('authorities_bing_access_id');
+	variable_del('authorities_bing_dsn');
+	variable_del('authorities_bing_etn');
+	variable_del('authorities_result_page');
+	variable_del('authorities_max_results');
+	variable_del('authorities_map_width');
+	variable_del('authorities_map_height');
+}
