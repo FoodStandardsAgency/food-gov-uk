@@ -1079,7 +1079,8 @@ ul.breadcrumb {
   .external-sites .external-link-disclaimer {
     font-size: 1em;
     line-height: 1.2em;
-    color: #666; }
+    color: #666;
+    padding-top: 12px; }
 
 /* override default accordion theming */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\000032}}
