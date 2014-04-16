@@ -39,3 +39,33 @@ function theme_local_superfish_build($variables) {
 function local_form_search_block_form_alter(&$form, &$form_state, $form_id){
   $form['actions']['submit']['#id'] = drupal_html_id('submit-search_block_form');
 }
+
+
+
+// Implements hook_init
+function local_init() {
+  // FAQ pages need some accordion JS
+  if (arg(0) == 'node' && is_numeric(arg(1)) && !arg(2)) {
+    $node = node_load(arg(1));
+    if ($node->type == 'faq') {
+      drupal_add_library('system', 'ui.accordion');
+      drupal_add_js('
+      (function ($) {
+         Drupal.behaviors.exampleModule = {
+           attach: function (context, settings) {
+             $( ".field--name-field-fc-qanda" ).accordion({
+               header: ".field--name-field-fc-quanda-question",
+               active: false,
+               collapsible: true,
+               icons: false,
+               heightStyle: "content"
+             });
+           }
+         };
+      })(jQuery);', 'inline');
+    }
+  }
+}
+
+
+

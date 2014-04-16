@@ -50,6 +50,7 @@ class Tag1Context extends DrupalContext {
    */
   public function __construct(array $parameters) {
     $this->tag1Parameters = $parameters;
+    
     $this->tag1Parameters += array(
       'user_account' => 'My Account',
     );
@@ -914,7 +915,6 @@ class Tag1Context extends DrupalContext {
       $this->logout();
     }
    $this->getSession()->visit($this->locatePath('/user')); 
-
     if ($this->isLoginForm()) {
       // If I see this, I'm not logged in at all so log in.
       $this->customLogin();
@@ -948,7 +948,9 @@ class Tag1Context extends DrupalContext {
    * Determine if the a user is already logged in.
    */
   public function loggedIn() {
-    return true; ### HACK!!! 
+   /* print "\n whoami:". $this->whoami();
+    print "\n account:". $this->tag1Parameters['user_account'] ;
+    print "\n user:". $this->user->name ;*/
     return empty($this->user) ? $this->whoami() != $this->tag1Parameters['user_account'] : $this->whoami() == $this->user->name;
   }
 
@@ -1042,22 +1044,17 @@ class Tag1Context extends DrupalContext {
       throw new \Exception('Page not found.');
     }
     try {
-      $username_element='';
-      // get drupal username meta tag (added by behat_custom module)
-      //print $page_element->getContent();      
-      #$username_element = $page_element->find('xpath', "//meta[@name='drupal_username']");
-      //$username_element = $page_element->findAll('xpath', "//html/head/meta");
-
-      //$username_element = $page_element->find('css', "title");
-      //print "BEEP";
-      //print "u: ".$username_element->getAttribute('value');
-      if ($username_element) {
-        print_r($username_element);
-        $username = $username_element->getHtml();
-        print_r($username);
-        //if ($username) {
-        //  return substr($username, 4, strlen($username) - 7);
-       // }
+      $data_element='';
+      // get drupal username data from behat custom span
+      $data_element = $page_element->find('css', "#behat-data");
+      if ($data_element) {
+        
+        $data = $data_element->getHtml();
+        $matches = array();
+        if (preg_match('/drupal username:(\w*)/',$data, $matches)) {
+          $username = $matches[1];          
+          return $username;
+        }
       } else {
         //print "not found";
       }
@@ -1202,4 +1199,40 @@ class Tag1Context extends DrupalContext {
   /**
    * @} End of "defgroup Helper functions".
    */
+  
+   //Code positive custom modules
+   
+   
+  /**
+   * @Given /^I edit the current node$/
+   */
+  public function iEditTheCurrentNode() {
+    $page_element = $this->getSession()->getPage();
+    if (!$page_element) {
+      throw new \Exception('Page not found.');
+    }
+    try {
+      $data_element='';
+      $data_element = $page_element->find('css', "#behat-data");
+      if ($data_element) {        
+        $data = $data_element->getHtml();
+        $matches = array();
+        if (preg_match('/drupal nid:(\w*)/',$data, $matches)) {
+          if ($nid = $matches[1]) {
+             $this->getSession()->visit($this->locatePath('/node/'. $nid .'/edit')); 
+          } else {
+             throw new \Exception('Can\'t get nid.');
+          }
+        }
+      } else {
+       throw new \Exception('Can\'t get behat data.');
+      }
+    }
+    catch (\Exception $e) {
+      echo 'Caught exception: ',  $e->getMessage(), "\n";
+    }
+  }
+
+   
+   
 };

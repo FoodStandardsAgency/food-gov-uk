@@ -1,39 +1,39 @@
 /**
  * Image placement is dependant on the field collection template: field-collection-item--field_fc_page_section.tpl.php
  */
-.field-collection-item-field-fc-page-section {
-		
-	img {
-		display: block;
-		border: none;
-		margin: 0;
-		padding: 0;
-	}
-	
+.field-collection-item-field-fc-page-section {	
 	.wrapper-img-pos-left,
 	.wrapper-img-pos-right {
 		width: 200px;
 		overflow: hidden;
 		margin-bottom: 10px;
+		img {
+			display: block;
+			border: none;
+			margin: 0;
+			padding: 0;
+		}
 	}
-	
 	.wrapper-img-pos-left {
 		float: left;
 		margin-right: 10px;
 	}
-	
 	.wrapper-img-pos-right {
 		float: right;
 		margin-left: 10px;
 	}
-	
 	.wrapper-img-pos-top,
 	.wrapper-img-pos-bottom {
 		width: 462px;
 		overflow: hidden;
 		margin-bottom: 15px;
+		img {
+			display: block;
+			border: none;
+			margin: 0;
+			padding: 0;
+		}
 	}
-	
 	.image-caption {
 		background-color: #e6e6e6;
 		margin: 0;
@@ -41,6 +41,5 @@
 		font-size: 1.2em;
 		font-style: italic;
 	}
-	
 }
 

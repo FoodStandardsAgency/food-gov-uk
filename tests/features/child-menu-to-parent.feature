@@ -3,18 +3,22 @@ Feature: Automatically set child menu to parent
   As an editor user
   So I can make sure a new child page inherits the navigation menu location from the parent node 
 
+   @javascript
    Scenario: Automatically set child menu to parent
 	Given I log in as an existing "editor"
 	And I go to "/node/add/document-page"
 	And I should see "Create General Page" in the "Page Title" region
     When I fill in "edit-title" with "test"
+    And I check the box "N/A" in "edit-field-site-section-und"
+    And I click "Menu settings"
 	And I check the box "Provide a menu link"
 	And I fill in "edit-menu-link-title" with "test"
-    And I press "Update"
     And I press "edit-submit" in the "Submit" region
     Then I should see "General page test has been created"
 	And I should see "test" in the "Menu" region
-#	Given I go to ""       (we need to edit the node)
+    Given I edit the current node    
+    And I click "Page sections"
+    And I click "field_collection_item_field_fc_page_section_form_group_child_pages"
 	And I fill in "edit-field-fc-page-section-und-0-field-child-pages-und-0-field-child-pages-heading-und-0-value" with "test"
 	And I click "edit-field-fc-page-section-und-0-field-child-pages-und-0-field-child-page-und-actions-ief-add"
 	And I fill in "edit-field-fc-page-section-und-0-field-child-pages-und-0-field-child-page-und-form-title" with "test"
@@ -23,7 +27,7 @@ Feature: Automatically set child menu to parent
 	And I click "edit-field-fc-page-section-und-0-field-child-pages-und-0-field-child-page-und-form-actions-ief-add-save"
 	When I press "edit-submit" in the "Submit" region
 	Then I should see "test" 
-	Given I go to ""
+	Given I edit the current node 
 	And I fill in "edit-title" with "test test"
     And I fill in "edit-field-subtitle-und-0-value" with "test test"
 	And I fill in "edit-field-summary-und-0-value" with "test test"

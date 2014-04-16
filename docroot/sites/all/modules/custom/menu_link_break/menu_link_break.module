@@ -173,3 +173,20 @@ function menu_link_break_edited($edit = FALSE) {
 
   return $edited;
 }
+
+/**
+ * Implementation of hook_features_api().
+ *
+ * Allow exporting of CKEditor profiles by the Features module.
+ */
+function menu_link_break_features_api() {
+  return array(
+    'menu_link_break' => array(
+      'name' => t('Menu Link Break'),
+      'feature_source' => TRUE,
+      'default_hook' => 'menu_link_break_defaults',
+      'default_file' => FEATURES_DEFAULTS_INCLUDED,
+      'file' => drupal_get_path('module', 'menu_link_break') . '/includes/menu_link_break.features.inc',
+    )
+  );
+}

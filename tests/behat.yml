@@ -7,9 +7,9 @@ default:
     parameters:
        drupal_users:
         editor:
-          test/password
+          Test/password
         admin:
-          Tharg/password
+          Tharg/V@&GJRxRQt#N7B5
         mail:
           test@codepositive.com/guWranujUnkot8/gmail.com/imap.gmail.com:993
        authentication:
@@ -32,7 +32,15 @@ default:
           Left Sidebar: ".l-sidebar-first"
           Right Sidebar: ".l-sidebar-second"
           Quote: ".field--name-field-fc-section-quote"
-          News Block: "#block-views-news-block-1"
+          News Block: "#block-views-news-block"
+          News Block 1: "#block-views-news-block-1"        
+          News Block 2: "#block-views-news-block-2"           
+          News Block 3: "#block-views-news-block-3"           
+          News Block 4: "#block-views-news-block-4"           
+          News Block 5: "#block-views-news-block-5" 
+          Block in Block: "#block-container-blocks-search-all-news-facets"     
+          Resources: "#block-views-resources-block"          
+          
 annotations:
   paths:
     features: features/annotations

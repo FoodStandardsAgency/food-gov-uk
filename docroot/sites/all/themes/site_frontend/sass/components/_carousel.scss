@@ -7,7 +7,7 @@
 	/* slideshow size */
 	.skin-default {
 		width: 699px;
-		height: 233px;
+		height: 260px;	// 233px image height + 27px controls height
 		overflow: hidden;
 		position: relative;	// for absolutely positioning to be contained
 	}
@@ -15,11 +15,11 @@
 	.views-field-field-slide-image {
 		z-index: 1;
 		img {
-			-webkit-border-radius: 8px;
-			-moz-border-radius: 8px;
-			-o-border-radius: 8px;
-			-ms-border-radius: 8px;
-			border-radius: 8px;
+			-webkit-border-radius: 8px 8px 0 0;
+			-moz-border-radius: 8px 8px 0 0;
+			-o-border-radius: 8px 8px 0 0;
+			-ms-border-radius: 8px 8px 0 0;
+			border-radius: 8px 8px 0 0;
 		}
 	}
 	/* slide content wrapper */
@@ -52,6 +52,11 @@
 			font-size: 1.2em;
 			text-decoration: none;
 			color: #fff;
+			display: block;
+			padding-left: 12px;
+			background-image: url("../images/white-arrow-thin-right.png");
+			background-repeat: no-repeat;
+			background-position: left 3px;
 		}
 		a:hover {
 			text-decoration: underline;
@@ -60,6 +65,22 @@
 			padding: 2px;
 			border: 1px solid #ff8000;
 		}
+	}
+	/* slide controls and pager - outer wrapper */
+	.views-slideshow-controls-bottom {
+		display: block;
+		width: 699px;
+		height: 27px;
+		position: absolute;
+		left: 0px;
+		bottom: 0px;
+		z-index: 90;
+		background-color: #000;
+		-webkit-border-radius: 0 0 8px 8px;
+		-moz-border-radius: 0 0 8px 8px;
+		-o-border-radius: 0 0 8px 8px;
+		-ms-border-radius: 0 0 8px 8px;
+		border-radius: 0 0 8px 8px;
 	}
 	/* slide controls wrapper */
 	.views-slideshow-controls-text {
@@ -175,7 +196,7 @@
 	/* slide pager wrapper */
 	.views-slideshow-pager-fields {
 		z-index: 99;
-		width: 132px;
+		width: 500px;
 		position: absolute;
 		bottom: 0px;
 		left: 99px;
@@ -186,9 +207,8 @@
 	}
 	/* pager items */
 	.views-slideshow-pager-field-item  {
-		display: inline-block;
-		*display: inline; // IE7
-		zoom: 1; // IE7
+		display: block;
+		float: left;
 		width: 21px;
 		height: 21px;
 		margin: 0;
@@ -221,3 +241,9 @@
 	}
 }  // end home-page-carousel
 
+/* for mobile */
+@include breakpoint($mobile) {
+	.home-page-carousel {
+		display: none;
+	}
+}
