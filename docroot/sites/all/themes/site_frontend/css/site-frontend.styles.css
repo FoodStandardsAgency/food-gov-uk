@@ -1080,6 +1080,7 @@ ul.breadcrumb {
     font-size: 1em;
     line-height: 1.2em;
     color: #666;
+    display: block;
     padding-top: 12px; }
 
 /* override default accordion theming */
