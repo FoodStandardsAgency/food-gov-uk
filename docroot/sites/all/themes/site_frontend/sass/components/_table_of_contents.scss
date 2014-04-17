@@ -61,3 +61,12 @@ ul.toc-node-bullets {
 		padding-left: 84px;
 	}
 }
+
+@include breakpoint($mobile) {
+	#table-of-contents-links {
+		a {
+			font-size: 1.4em;
+			line-height: 1.6em;
+		}
+	}
+}

@@ -3061,6 +3061,11 @@ ul.toc-node-bullets li.toc-node-level-6 {
   background-position: 70px 4px;
   padding-left: 84px; }
 
+@media (min-width: 0px) and (max-width: 480px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_table_of_contents\.scss}line{font-family:\0000367}}
+  #table-of-contents-links a {
+    font-size: 1.4em;
+    line-height: 1.6em; } }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_quote\.scss}line{font-family:\000031}}
 .field--name-field-fc-section-quote {
   width: 220px;
