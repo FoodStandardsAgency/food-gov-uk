@@ -1,6 +1,12 @@
+/* wrapper */
+#table-of-contents-links {
+	margin-bottom: 0px;
+}
 /* common styles */
 ul.toc-node-bullets,
-ul.toc-node-numbers {
+ul.toc-node-bullets ul,
+ul.toc-node-numbers,
+ul.toc-node-numbers ul {
   list-style-type: none;
   padding: 0px;
   margin: 0px;
@@ -50,22 +56,22 @@ ul.toc-node-bullets li.toc-node-level-6 {
 
 /* numbered list */
 ul.toc-node-numbers li.toc-node-level-1 {
-	padding-left: 14px;
+	padding-left: 0px;
 }
 ul.toc-node-numbers li.toc-node-level-2 {
-	padding-left: 28px;
+	padding-left: 14px;
 }
 ul.toc-node-numbers li.toc-node-level-3 {
-	padding-left: 42px;
+	padding-left: 28px;
 }
 ul.toc-node-numbers li.toc-node-level-4 {
-	padding-left: 56px;
+	padding-left: 42px;
 }
 ul.toc-node-numbers li.toc-node-level-5 {
-	padding-left: 70px;
+	padding-left: 56px;
 }
 ul.toc-node-numbers li.toc-node-level-6 {
-	padding-left: 84px;
+	padding-left: 70px;
 }
 ul.toc-node-numbers span.toc-number {
 	margin-right: 6px;
