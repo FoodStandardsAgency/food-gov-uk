@@ -73,8 +73,14 @@ function site_frontend_links__locale_block(&$vars) {
  */
 function site_frontend_preprocess_node(&$variables) {
   // Add in our own inline block regions
-  if ($blocks = block_get_blocks_by_region('node_inline')) {
-    $variables['region_node_inline'] = $blocks;
+  // Blocks that are assigned to the region using Context
+  if ($plugin = context_get_plugin('reaction', 'block')) {
+    $context_node_inline = $plugin->block_get_blocks_by_region('node_inline');
   }
+  if ($blocks = block_get_blocks_by_region('node_inline')) {
+    $blocks_node_inline = $blocks;
+
+  }
+  $variables['region_node_inline'] = array_merge($context_node_inline, $blocks_node_inline);
 }
 
