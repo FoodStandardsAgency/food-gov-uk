@@ -1,0 +1,388 @@
+<?php
+
+/**
+ * @file
+ * Renders the authorities as a map and list
+ */
+
+define ('BLOCK_AUTHORITIES_MAP', 'BAS_MAP');
+define ('BLOCK_AUTHORITIES_LIST', 'BAS_LIST');
+define ('BLOCK_AUTHORITIES_FORM', 'BAS_FORM');
+
+define ('PERM_VIEW_AUTHORITIES_MAP', 'PAS_VIEW_MAP');
+define ('PERM_VIEW_AUTHORITIES_LIST', 'PAS_VIEW_LIST');
+define ('PERM_VIEW_AUTHORITIES_SEARCH_FORM', 'PAS_VIEW_FORM');
+define ('PERM_ADMIN_AUTHORITIES', 'PAS_ADMIN');
+
+define ('THEME_AUTHORITIES_ZOOM_CONTROLS', 'TAS_ZOOMCTRL');
+define ('THEME_AUTHORITIES_MAP', 'TAS_MAP');
+define ('THEME_AUTHORITIES_LIST', 'TAS_LIST');
+define ('THEME_AUTHORITIES_LIST_ITEM', 'TAS_LIST_ITEM');
+define ('THEME_AUTHORITIES_FORM', 'TAS_FORM');
+
+/**
+ * Implements hook_block_info()
+ */
+function authorities_block_info() {
+
+	$blocks[BLOCK_AUTHORITIES_FORM] = array(
+		'info' => t('Authorities search:Form'),
+		'cache' => DRUPAL_NO_CACHE,
+	);
+
+	$blocks[BLOCK_AUTHORITIES_MAP] = array(
+		'info' => t('Authorities search result:Map'),
+		'cache' => DRUPAL_NO_CACHE,
+	);
+
+	$blocks[BLOCK_AUTHORITIES_LIST] = array(
+		'info' => t('Authorities search result:List'),
+		'cache' => DRUPAL_NO_CACHE,
+	);
+
+	return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function authorities_block_view($delta = '') {
+
+	$block = array();
+
+	switch ($delta) {
+
+		case BLOCK_AUTHORITIES_FORM :
+
+			if (user_access(PERM_VIEW_AUTHORITIES_SEARCH_FORM)) {
+
+				module_load_include('inc', 'authorities', 'includes/forms');
+
+				$block['subject'] = t('Form');
+				$block['content'] = array(
+					'#theme' => THEME_AUTHORITIES_FORM,
+					'#form' => drupal_get_form('_authorities_search_form'),
+				);
+			}
+			break;
+
+		case BLOCK_AUTHORITIES_MAP :
+
+			if (user_access(PERM_VIEW_AUTHORITIES_MAP)) {
+
+				// get all the authorities
+				$parameters = _authorities_get_query_data();
+				$authorities = _authorities_compile_authorities($parameters);
+
+				$block['subject'] = t('Map');
+				$block['content'] = array(
+					'#theme' => THEME_AUTHORITIES_MAP,
+					'#authorities' => $authorities,
+					'#parameters' => $parameters,
+				);
+			}
+			break;
+
+		case BLOCK_AUTHORITIES_LIST :
+
+			if (user_access(PERM_VIEW_AUTHORITIES_LIST)) {
+
+				// get all the authorities
+				$parameters = _authorities_get_query_data();
+				$authorities = _authorities_compile_authorities($parameters);
+
+				$block['subject'] = t('List');
+				$block['content'] = array(
+					'#theme' => THEME_AUTHORITIES_LIST,
+					'#authorities' => $authorities,
+					'#parameters' => $parameters,
+				);
+			}
+			break;
+	}
+
+	return $block;
+}
+
+/**
+ * Gets all the variables from the form-POST or query-string.
+ * Form-POST data supersedes GET parameters
+ */
+function _authorities_get_query_data() {
+
+	static $parameters = NULL;
+
+	if (is_null($parameters)) {
+
+		$data = ($_SERVER['REQUEST_METHOD'] == 'POST')
+		      ? $_POST
+		      : $_GET;
+
+		$parameters = new AuthoritiesSearchParameters();
+
+		// try to resolve all of them one after the other or set defaults
+		if (array_key_exists('city', $data)) { $parameters->setCity($data['city']); }
+		if (array_key_exists('street', $data)) { $parameters->setStreet($data['street']); }
+		if (array_key_exists('postcode', $data)) { $parameters->setPostCode($data['postcode']); }
+		if (array_key_exists('category', $data)) { $parameters->setCategory($data['category']); }
+		if (array_key_exists('latitude', $data)) { $parameters->setLatitude($data['latitude']); }
+		if (array_key_exists('longitude', $data)) { $parameters->setLongitude($data['longitude']); }
+		if (array_key_exists('zoom', $data)) { $parameters->setZoom($data['zoom']); }
+		if (array_key_exists('position', $data)) { $parameters->setPosition($data['position']); }
+		if (array_key_exists('width', $data)) { $parameters->setWidth($data['width']); }
+		if (array_key_exists('height', $data)) { $parameters->setWidth($data['height']); }
+	}
+
+	return $parameters;
+}
+
+/**
+ * Compiles a list of authorities based on the values in the query string.
+ * This is best effort, because the user may fiddle with the query string.
+ * @param AuthoritiesSearchParameters $parameters The search parameters
+ */
+function _authorities_compile_authorities(AuthoritiesSearchParameters &$parameters) {
+
+	static $authorities = NULL;
+
+	// if this is the first time we come through here,
+	// then resolve everything and store it for the next time during this page-load
+	if (is_null($authorities)) {
+
+		$authorities = new Authorities();
+
+		// get the API key from variables
+		$key = variable_get_value('authorities_bing_api_key');
+		$access_id = variable_get_value('authorities_bing_access_id');
+		$dsn = variable_get_value('authorities_bing_dsn');
+		$etn = variable_get_value('authorities_bing_etn');
+
+		$radius = 40;
+
+		// the Base
+		$url = "http://dev.virtualearth.net/REST/v1/Locations/GB";
+
+		// If the city is set: append the urlencoded city: “/london”
+		$city = $parameters->getCity();
+		if (!is_null($city)) { $url .= '/' . rawurlencode($city); }
+
+		// if street is set: append the urlencoded street “/grenade%20street”
+		$street = $parameters->getStreet();
+		if (!is_null($street)) { $url .= '/' . rawurlencode($street); }
+
+		// if post code is set: append the urlencoded post code e.g. /e14%208hx
+		$postcode = $parameters->getPostcode();
+		if (!is_null($postcode)) { $url .= '/' . rawurlencode($postcode); }
+
+		// Append the credential as parameters:
+		$url .= "?key={$key}";
+
+		// Append that we want the data as JSON:
+		$url .= "&output=json";
+
+		// hit BING
+		$response = drupal_http_request($url);
+
+		$json = $response->data;
+
+		$json = drupal_json_decode($json);
+
+		// did we have the right credentials?
+		if ($json['authenticationResultCode'] == 'ValidCredentials') {
+
+			$coordinates = $json['resourceSets'][0]['resources'][0]['point']['coordinates'];
+			list($latitude, $longitude) = $coordinates;
+
+			// add it to the search parameters
+			$parameters->setLatitude($latitude);
+			$parameters->setLongitude($longitude);
+
+			// hit the server again and retrieve the results
+			$url = "http://spatial.virtualearth.net/REST/v1/data/{$access_id}/{$dsn}/{$etn}";
+
+			$url .= "?key={$key}";
+			$url .= '&' . rawurlencode('$filter') .'='. rawurlencode("{$parameters->getCategory()} Eq '1'");
+			$url .= '&'. rawurlencode('$format') .'=json';
+			$url .= "&spatialFilter=nearby({$latitude},{$longitude},{$radius})";
+
+			// hit BING
+			$response = drupal_http_request($url);
+
+			$json = $response->data;
+
+			$json = drupal_json_decode($json);
+
+			// BING returns XML in case of an error,
+			// so check for this
+			if (is_null($json) || ($json === FALSE)) {
+
+				watchdog('food:authorities', 'BING spatial lookup failed');
+
+			} else {
+
+				$records = $json['d']['results'];
+
+				// only keep maximum of 6 records as per LBI code
+				$records = array_splice($records, 0, variable_get_value('authorities_max_results'));
+
+				foreach ($records as $record) {
+					$authority = Authority::fromBing($record);
+					$authorities->addAuthority($authority);
+				}
+			}
+
+		} else {
+
+			watchdog('food:authorities', 'BING credentials are invalid');
+		}
+	}
+
+	return $authorities;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function authorities_permission() {
+
+	$permissions = array(
+		PERM_VIEW_AUTHORITIES_SEARCH_FORM =>  array(
+			'title' => t('Access the authorities search form'),
+		),
+		PERM_VIEW_AUTHORITIES_MAP =>  array(
+			'title' => t('View the authorities search results on a map'),
+		),
+		PERM_VIEW_AUTHORITIES_LIST =>  array(
+			'title' => t('View the authorities search results as a list'),
+		),
+		PERM_ADMIN_AUTHORITIES => array(
+			'title' => t('Administer the authorities search module'),
+		)
+	);
+
+	return $permissions;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function authorities_theme() {
+
+	$module_path = drupal_get_path('module', 'authorities');
+	$theme_path = $module_path . '/theme';
+
+	$items = array();
+
+	// theme the map
+	$items[THEME_AUTHORITIES_FORM] = array(
+		'variables' => array(
+			'form' => NULL,
+		),
+		'template' => 'form',
+		'path' => $theme_path,
+	);
+
+	// theme the map
+	$items[THEME_AUTHORITIES_MAP] = array(
+		'variables' => array(
+			'authorities' => NULL,
+			'parameters' => NULL,
+		),
+		'template' => 'map',
+		'path' => $theme_path,
+	);
+
+	// theme the list
+	$items[THEME_AUTHORITIES_LIST] = array(
+		'variables' => array(
+			'authorities' => NULL,
+			'parameters' => NULL,
+		),
+		'template' => 'list',
+		'path' => $theme_path,
+	);
+
+	// theme the one list entry
+	$items[THEME_AUTHORITIES_LIST_ITEM] = array(
+		'variables' => array(
+			'authority' => NULL,
+			'parameters' => NULL,
+		),
+		'template' => 'list-item',
+		'path' => $theme_path,
+	);
+
+	return $items;
+}
+
+/**
+ * Implements hook_variable_info().
+ */
+function authorities_variable_info($options) {
+
+	$variable['authorities_bing_api_key'] = array(
+		'title' => t('Bing API key', array(), $options),
+		'description' => t('The Bing API key', array(), $options),
+		'type' => 'string',
+		'access' => PERM_ADMIN_AUTHORITIES,
+		'token' => FALSE,
+	);
+
+	$variable['authorities_bing_access_id'] = array(
+		'title' => t('Bing Access ID', array(), $options),
+		'description' => t('The Bing Access ID', array(), $options),
+		'type' => 'string',
+		'access' => PERM_ADMIN_AUTHORITIES,
+		'token' => FALSE,
+	);
+
+	$variable['authorities_bing_dsn'] = array(
+		'title' => t('Bing DSN', array(), $options),
+		'description' => t('The Bing Data Source Name', array(), $options),
+		'type' => 'string',
+		'access' => PERM_ADMIN_AUTHORITIES,
+		'token' => FALSE,
+	);
+
+	$variable['authorities_bing_etn'] = array(
+		'title' => t('Bing ETN', array(), $options),
+		'description' => t('The Bing Entity Type Name', array(), $options),
+		'type' => 'string',
+		'access' => PERM_ADMIN_AUTHORITIES,
+		'token' => FALSE,
+	);
+
+	$variable['authorities_max_results'] = array(
+		'title' => t('# results', array(), $options),
+		'description' => t('Number of results to display on the map and in the list', array(), $options),
+		'type' => 'number',
+		'access' => PERM_ADMIN_AUTHORITIES,
+		'token' => FALSE,
+	);
+
+	$variable['authorities_result_page'] = array(
+		'title' => t('Path to the results page', array(), $options),
+		'description' => t('Path to the results page e.g. authorities/map', array(), $options),
+		'type' => 'string',
+		'access' => PERM_ADMIN_AUTHORITIES,
+		'token' => FALSE,
+	);
+
+	$variable['authorities_map_width'] = array(
+		'title' => t('Map width', array(), $options),
+		'description' => t('The map width in pixels', array(), $options),
+		'type' => 'number',
+		'access' => PERM_ADMIN_AUTHORITIES,
+		'token' => FALSE,
+	);
+
+	$variable['authorities_map_height'] = array(
+		'title' => t('Map height', array(), $options),
+		'description' => t('The map height in pixels', array(), $options),
+		'type' => 'number',
+		'access' => PERM_ADMIN_AUTHORITIES,
+		'token' => FALSE,
+	);
+
+	return $variable;
+}

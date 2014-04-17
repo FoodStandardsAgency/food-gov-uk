@@ -1,0 +1,11 @@
+name = Authorities
+description = Renders the authorities as a map and list
+core = 7.x
+package = Local
+
+dependencies[] = 'variable'
+
+files[] = includes/authority.inc
+files[] = includes/authorities.inc
+files[] = includes/asp.inc
+files[] = includes/forms.inc
