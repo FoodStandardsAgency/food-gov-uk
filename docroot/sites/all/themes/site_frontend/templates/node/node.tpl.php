@@ -101,6 +101,16 @@
       // We hide the comments and links now so that we can render them later.
       hide($content['comments']);
       hide($content['links']);
+      // Add new region for certain content types for full page view mode 
+      $summary_types = array('document_page');
+	  if (in_array($type, $summary_types) &&  $view_mode == 'full' ) {
+	    // print fields here
+        print render($content['field_updated']);
+		print render($content['field_feature_image']);
+	    print render($content['field_summary']);
+	    // insert our core region
+	    print render($region_node_inline);
+	  }
       print render($content);
     ?>
   </div>

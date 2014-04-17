@@ -23,6 +23,9 @@ regions[content] = Content
 ; regions[footer_menu] = Footer Menu
 ; regions[footer_buttons] = Footer Buttons
 
+; following region is rendered in node.tpl.php for some content types
+regions[node_inline] = Node Inline
+
 ; Styles
 stylesheets[all][] = css/layouts/site-frontend-blank-one-column/site-frontend-blank-one-column.layout.css
 stylesheets[all][] = css/layouts/site-frontend-blank-one-column/site-frontend-blank-one-column.layout.no-query.css
