@@ -106,8 +106,7 @@
      this is used to display Table of contents blocks in the
      middle of the node content.
     */
-    $summary_types = array('document_page');
-    if (in_array($type, $summary_types) &&  $view_mode == 'full' ) {
+    if (isset($content['region_node_inline']))  {
        // print fields here
        print render($content['field_updated']);
        print render($content['field_summary']);
