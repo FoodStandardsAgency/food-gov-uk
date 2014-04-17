@@ -67,6 +67,14 @@ function site_frontend_links__locale_block(&$vars) {
   return $content;
 }
 
-
-
+/**
+ * Implements hook_preprocess_node
+ * @param $variables
+ */
+function site_frontend_preprocess_node(&$variables) {
+  // Add in our own inline block regions
+  if ($blocks = block_get_blocks_by_region('node_inline')) {
+    $variables['region_node_inline'] = $blocks;
+  }
+}
 

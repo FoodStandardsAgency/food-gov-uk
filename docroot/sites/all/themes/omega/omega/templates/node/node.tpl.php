@@ -101,6 +101,20 @@
       // We hide the comments and links now so that we can render them later.
       hide($content['comments']);
       hide($content['links']);
+
+    /* Implement the node_inline region for some content types
+     this is used to display Table of contents blocks in the
+     middle of the node content.
+    */
+    $summary_types = array('document_page');
+    if (in_array($type, $summary_types) &&  $view_mode == 'full' ) {
+       // print fields here
+       print render($content['field_updated']);
+       print render($content['field_summary']);
+       print render($content['field_feature_image']);
+       // insert our core region
+       print render($content['region_node_inline']);
+      }
       print render($content);
     ?>
   </div>
