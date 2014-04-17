@@ -23,6 +23,9 @@ regions[footer_copyright] = Footer Copyright
 regions[footer_menu] = Footer Menu
 regions[footer_buttons] = Footer Buttons
 
+; following region is rendered in node.tpl.php for some content types
+regions[node_inline] = Node Inline
+
 ; Styles
 stylesheets[all][] = css/layouts/site-frontend-three-column/site-frontend-three-column.layout.css
 stylesheets[all][] = css/layouts/site-frontend-three-column/site-frontend-three-column.layout.no-query.css
