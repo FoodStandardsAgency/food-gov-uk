@@ -64,9 +64,9 @@ ul.toc-node-bullets {
 
 @include breakpoint($mobile) {
 	#table-of-contents-links {
-		a {
-			font-size: 1.4em;
-			line-height: 1.6em;
+		ul.toc-node-bullets li,
+		ul.toc-node-numbers li {
+			margin-bottom: 0.6em;
 		}
 	}
 }
