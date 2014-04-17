@@ -42,6 +42,10 @@ function facets_select_facetapi_select_facet_form_alter(&$form, $form_state, $op
     $form['facets']['#title'] = t('Search by section');
   }
 
+  if ($options[0] == t('All nations')) {
+    $form['facets']['#title'] = t('Search by nation');
+  }
+
   if ($options[0] == t('All news types')) {
     $form['facets']['#title'] = t('Search by news type');
   }
