@@ -30,9 +30,10 @@ function container_blocks_block_view($delta = '') {
   switch ($delta) {
     case 'search_all_facets':
 
-      $blocks[] = block_load('views', '-exp-news_centre___search-page');
+      $blocks[] = block_load('views', '-exp-search_sitewidesearch-page');
       $blocks[] = block_load('facetapi', 'bLPXAQDJqA1Re1OTSoyUJM9gUBaIgZMG');
       $blocks[] = block_load('facetapi', 'JA1S7gqOdiVJQxg5zwM1Pb8KjhJNGZjx');
+      $blocks[] = block_load('facetapi', 'ly6396gbtdufodpd8je0qyujejn73bws');
 
       $content = container_blocks_concatenate_content($blocks);
 
