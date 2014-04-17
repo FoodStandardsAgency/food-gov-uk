@@ -3,7 +3,7 @@
 ********************************************************************
 Name: TOC Node Module
 Author: Robert Castelo <www.codepositive.com>
-Drupal: 6.x
+Drupal: 7.x
 ********************************************************************
 DESCRIPTION:
 
