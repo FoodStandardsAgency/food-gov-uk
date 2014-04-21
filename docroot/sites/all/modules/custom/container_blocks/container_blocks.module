@@ -54,10 +54,14 @@ function container_blocks_block_view($delta = '') {
 
       $content = container_blocks_concatenate_content($blocks);
 
-      $block['subject'] = NULL;
-      $block['content'] = array(
-        '#markup' => $content,
-      );
+      if (!empty($content)) {
+        
+        $block['subject'] = NULL;
+        $block['content'] = array(
+          '#markup' => $content,
+        );
+      }
+
       break;
 
     case 'search_all_news_facets':
