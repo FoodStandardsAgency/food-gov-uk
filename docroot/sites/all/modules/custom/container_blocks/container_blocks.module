@@ -13,6 +13,10 @@ function container_blocks_block_info() {
     'info' => t('Search All Facets'),
   );
 
+  $blocks['search_all_dependant_facets'] = array(
+    'info' => t('Search All Dependant Facets'),
+  );
+
   $blocks['search_all_news_facets'] = array(
     'info' => t('Search All News Facets'),
   );
@@ -34,6 +38,19 @@ function container_blocks_block_view($delta = '') {
       $blocks[] = block_load('facetapi', 'bLPXAQDJqA1Re1OTSoyUJM9gUBaIgZMG');
       $blocks[] = block_load('facetapi', 'ly6396gbtdufodpd8je0qyujejn73bws');
       $blocks[] = block_load('facetapi', 'JA1S7gqOdiVJQxg5zwM1Pb8KjhJNGZjx');
+
+      $content = container_blocks_concatenate_content($blocks);
+
+      $block['subject'] = NULL;
+      $block['content'] = array(
+        '#markup' => $content,
+      );
+      break;
+
+    case 'search_all_dependant_facets':
+
+      $blocks[] = block_load('facetapi', '2114gf0ekix3fbtdoanmoe1w9krmhxv4');
+      $blocks[] = block_load('facetapi', 'p3fubrie0j3kxs8j2aewwxks2gqtkmih');
 
       $content = container_blocks_concatenate_content($blocks);
 
