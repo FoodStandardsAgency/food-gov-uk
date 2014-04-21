@@ -11,9 +11,9 @@
  */
 function apachesolr_view_modes_apachesolr_index_document_build(ApacheSolrDocument $document, $entity, $entity_type, $env_id) {
 
-  if ($entity_type == 'node') {
+//  if ($entity_type == 'node') {
 
-    $entity_info = entity_get_info('node');
+    $entity_info = entity_get_info($entity_type);
     $enabled_view_modes = variable_get('apachesolr_view_modes_' . $entity->type, array());
 
     // Index whole node rendered using each view mode.
@@ -27,7 +27,7 @@ function apachesolr_view_modes_apachesolr_index_document_build(ApacheSolrDocumen
         $document->addField('zs_view_mode_' . $view_mode, $view_mode_search_result);
       }
     }
-  }
+//  }
 
 }
 
