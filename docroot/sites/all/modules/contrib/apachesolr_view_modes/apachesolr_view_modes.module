@@ -20,23 +20,12 @@ function apachesolr_view_modes_apachesolr_index_document_build(ApacheSolrDocumen
     foreach ($entity_info['view modes'] as $view_mode => $label) {
       // Only index view modes enabled.
       if (in_array($view_mode, $enabled_view_modes)) {
-        //$build = node_view($entity, $view_mode);
-
-        if ($entity_type != 'node') {
-          watchdog('DEBUG', 'File');
-        }
-
 
         $build = entity_view($entity_type, $entities, $view_mode);
         $build['links']['#access'] = FALSE; // Hide links.
 
         $view_mode_search_result = render($build);
         $document->addField('zs_view_mode_' . $view_mode, $view_mode_search_result);
-
-        // DEBUG CODE
-        if ($entity_type != 'node') {
-          watchdog('DEBUG', serialize($view_mode_search_result));
-        }
       }
     }
 //  }

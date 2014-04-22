@@ -39,8 +39,10 @@ default:
           News Block 4: "#block-views-news-block-4"           
           News Block 5: "#block-views-news-block-5" 
           Block in Block: "#block-container-blocks-search-all-news-facets"     
-          Resources: "#block-views-resources-block"          
-          
+          Resources: "#block-views-resources-block"    
+          Wales Banner: "#block-nation-banners-wales-banner"          
+          Scotland Banner: "#block-nation-banners-scotland-banner"
+          Northern Ireland Banner: "#block-nation-banners-northern-ireland-banner"
 annotations:
   paths:
     features: features/annotations
