@@ -17,8 +17,8 @@ function fsa_consultations_menu() {
     'description' => 'Shared consultaiton content',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('fsa_consultations_shared_form'),
-    //'access arguments' => array('administer users'),
-    'type' => MENU_NORMAL_ITEM,
+    'access arguments' => true,
+    'type' => MENU_LOCAL_TASK,
   );
   return $items;
 }
