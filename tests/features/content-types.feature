@@ -34,7 +34,7 @@ Feature: Content types
   And I check the box "N/A" in "edit-field-site-section-und"
   And I press "edit-submit" in the "Submit" region
   Then I should see "General Page test has been created."
-   
+  
   @javascript 
   Scenario: External link
   Given I log in as an existing "editor"
@@ -67,7 +67,7 @@ Feature: Content types
   Then I should see "FAQ test has been created."
    
   @javascript 
-  Scenario: Interactive block  
+  Scenario: Interactive block content type
   Given I log in as an existing "editor"
   When I go to "/node/add/block-interactive"
   And I should see "Create Interactive block" in the "Page Title" region
