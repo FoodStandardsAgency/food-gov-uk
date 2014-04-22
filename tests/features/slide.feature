@@ -19,6 +19,11 @@ Feature: Home Page Carousel
   #Then I should see "Slide test has been created." 
   
   
+  # Mark FSA-182 as test written when complete
+  
+  
+  
+  
  Scenario: Home page carousel
   Given I am on "/"
   Then I should see an "#block-views-home-page-carousel-block-1" element

@@ -3,15 +3,113 @@ Feature: See also links
   As a User  
   So I can more deeply explore the topics I'm interested in without having to search around
   
-  Scenario: See also block
+    @javascript
+  Scenario: Audit Report - See also block
+  Given I log in as an existing "editor"
+  When I go to "/node/add/audit-report"
+  And I should see "Create Audit Report" in the "Page Title" region
+  And I fill in "edit-title" with "test"
+  And I click "Audit"
+  And I select "Amber Valley" from "edit-field-audit-authority-und" 
+  And I select "County" from "edit-field-audit-authority-type-und" 
+  And I select "Approved establishments audit" from "edit-field-audit-type-und" 
+  And I select "UK" from "edit-field-nation-und"
+  And I click "Right hand column"
+  And I select "Test See alo links" from "edit-field-links-see-also-und" 
+  And I press "edit-submit" in the "Submit" region
+  Then I should see "Audit Report test has been created."
+  And I should see an "#block-views-see-also-links-block" element
+  
+    @javascript
+  Scenario: Consultation - See also block
+  Given I log in as an existing "editor"
+  When I go to "/node/add/consultation"
+  And I should see "Create Consultation" in the "Page Title" region
+  And I fill in "edit-title" with "test"
+  And I check the box "N/A" in "edit-field-site-section-und"
+  And I click "Right hand column"
+  And I select "Test See alo links" from "edit-field-links-see-also-und"
+  And I press "edit-submit" in the "Submit" region
+  Then I should see "Consultation test has been created."
+  And I should see an "#block-views-see-also-links-block" element
+  
+    @javascript
+  Scenario: General Page - See also block
+  Given I log in as an existing "editor" 
+  When I go to "/node/add/document-page"
+  And I should see "Create General Page" in the "Page Title" region
+  And I fill in "edit-title" with "test"
+  And I check the box "N/A" in "edit-field-site-section-und"
+  And I click "Right hand column"
+  And I select "Test See alo links" from "edit-field-links-see-also-und"
+  And I press "edit-submit" in the "Submit" region
+  Then I should see "General Page test has been created."
+  And I should see an "#block-views-see-also-links-block" element
+  
+    @javascript   
+  Scenario: FAQ - See also block
+  Given I log in as an existing "editor"
+  When I go to "/node/add/faq"
+  And I should see "Create FAQ" in the "Page Title" region
+  And I fill in "edit-title" with "test"
+  And I check the box "N/A" in "edit-field-site-section-und"
+  And I click "Right hand column"
+  And I select "Test See alo links" from "edit-field-links-see-also-und"
+  And I press "edit-submit" in the "Submit" region
+  Then I should see "FAQ test has been created."
+  And I should see an "#block-views-see-also-links-block" element
+  
+    @javascript
+  Scenario: Job - See also block
+  Given I log in as an existing "editor"
+  When I go to "/node/add/job"
+  And I should see "Create Job" in the "Page Title" region
+  And I fill in "edit-title" with "test"
+  And I check the box "N/A" in "edit-field-site-section-und"
+  And I click "Right hand column"
+  And I select "Test See alo links" from "edit-field-links-see-also-und"
+  And I press "edit-submit" in the "Submit" region
+  Then I should see "Job test has been created."
+  And I should see an "#block-views-see-also-links-block" element
+  
+    @javascript 
+  Scenario: News - See also block
+  Given I log in as an existing "editor"
+  When I go to "/node/add/news"
+  And I should see "Create News" in the "Page Title" region
+  And I fill in "edit-title" with "test"
+  And I check the box "N/A" in "edit-field-site-section-und"
+  And I select "General News" from "edit-field-news-type-und"
+  And I click "Right hand column"
+  And I select "Test See alo links" from "edit-field-links-see-also-und"
+  And I press "edit-submit" in the "Submit" region
+  Then I should see "News test has been created."   
+  And I should see an "#block-views-see-also-links-block" element
+  
+    @javascript 
+  Scenario: Research project - See also block
+  Given I log in as an existing "editor"
+  When I go to "/node/add/research-project"
+  Then I should see "Create Research project" in the "Page Title" region
+  And I fill in "edit-title" with "test"
+  And I check the box "N/A" in "edit-field-site-section-und"
+  And I click "Right hand column"
+  And I select "Test See alo links" from "edit-field-links-see-also-und"
+  And I press "edit-submit" in the "Submit" region 
+  Then I should see "Research project test has been created."  
+  And I should see an "#block-views-see-also-links-block" element
     
-    
-    And I click "Right hand column"
-    And I select "" from "edit-field-links-see-also-und"
-    And I fill in "edit-field-links-external-und-0-target-id" with "Nhs choices - homepage"
-    And I press the "down" key in the "edit-field-links-external-und-0-target-id" field
-    And I wait for "1" second
-    And I press the "down" key in the "edit-field-links-external-und-0-target-id" field
-    And I press the "enter" key in the "edit-field-links-external-und-0-target-id" field
-    And I wait for "1" second
-    And I press "edit-submit" in the "Submit" region
+    @javascript  
+  Scenario: Alert - See also block
+  Given I log in as an existing "editor"
+  When I go to "/node/add/alert"
+  And I should see "Create Alert" in the "Page Title" region
+  And I fill in "edit-title" with "test"
+  And I check the box "N/A" in "edit-field-site-section-und"
+  And I click "Alert"
+  And I select "None" from "edit-field-alert-alert-type-und"
+  And I click "Right hand column"
+  And I select "Test See alo links" from "edit-field-links-see-also-und"
+  And I press "edit-submit" in the "Submit" region
+  Then I should see "Alert test has been created." 
+  And I should see an "#block-views-see-also-links-block" element
