@@ -1,0 +1,66 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Peter
+ * Date: 22/04/14
+ * Time: 18:03
+ */
+
+/**
+ * Implement hook_menu().
+ */
+function fsa_consultations_menu() {
+  $items = array();
+
+  $items['admin/structure/types/manage/consultation/shared'] = array(
+    'title' => 'Shared values',
+    'description' => 'Shared consultaiton content',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_consultations_shared_form'),
+    //'access arguments' => array('administer users'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  return $items;
+}
+
+
+/**
+ * @param $form
+ * @param $form_state
+ * @return mixed
+ *
+ *
+ */
+function fsa_consultations_shared_form($form, &$form_state) {
+  // Textarea for the body of the e-mail.
+  $form['fsa_consultation_further_information'] = array(
+    '#type' => 'textarea',
+    '#rows' => 10,
+    '#columns' => 40,
+    '#title' => t('Further information text'),
+    '#required' => TRUE,
+    '#description'=> t(''),
+  );
+
+  $form['fsa_consultation_data_protection'] = array(
+    '#type' => 'textarea',
+    '#rows' => 10,
+    '#columns' => 40,
+    '#title' => t('Data protection text'),
+    '#required' => TRUE,
+    '#description'=> t(''),
+  );
+
+  $form['fsa_consultation_publication'] = array(
+    '#type' => 'textarea',
+    '#rows' => 10,
+    '#columns' => 40,
+    '#title' => t('Publication text'),
+    '#required' => TRUE,
+    '#description'=> t(''),
+  );
+
+  return system_settings_form($form);
+}
+
+

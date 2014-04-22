@@ -1,0 +1,4 @@
+name = FSA Consultations
+description = Settings for consulations
+package = Local
+core = 7.x
