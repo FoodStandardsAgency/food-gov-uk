@@ -1,4 +1,22 @@
+/* last updated - when used directly on a content type */
 .field--name-field-updated {
 	font-size: 1.2em;
 	margin-bottom: 12px;
+}
+
+/* last updated - when used via a view field */
+.views-field-field-updated {
+	font-size: 1.2em;
+	margin-bottom: 12px;
+	span.views-label {
+		font-weight: bold;
+		display: inline-block;
+		*display: inline;	// IE7
+		zoom: 1;	// IE7
+	}
+	div.field-content {
+		display: inline-block;
+		*display: inline;	// IE7
+		zoom: 1;	// IE7
+	}
 }

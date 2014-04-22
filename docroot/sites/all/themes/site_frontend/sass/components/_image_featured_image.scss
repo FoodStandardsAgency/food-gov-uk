@@ -1,4 +1,15 @@
+/* featured image - when used directly on a content type */
 .field--name-field-feature-image {
+	img {
+		float: right;
+		margin: 0 0 17px 10px;
+		padding: 0;
+		border: 0;
+	}
+}
+
+/* featured image - when used in a view as a field */
+.views-field-field-feature-image {
 	img {
 		float: right;
 		margin: 0 0 17px 10px;

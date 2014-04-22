@@ -94,30 +94,6 @@ class Tag1Context extends DrupalContext {
     );
 }
 
-   /**
-    * @Then /^the position of "([^"]*)" should be above "([^"]*)"$/
-    */
-   public function thePositionOfShouldBeAbove($selector1, $selector2) {
-    /*  $session = $this->getSession();
-      $top1 = $session->evaluateScript("
-        (function ($) {
-          var offset =  $('". $selector1. "').offset();
-          alert(offset.top);
-          return offset.top;
-        })(jQuery)");
-      print $top1;  */
-      /*$top2 = $session->evaluateScript("
-        (function ($) {
-          var offset2 =  $('". $selector2. "').offset();
-          return offset2.top;
-        })(jQuery)");  
-        print $top1;
-        echo "1: $top1  2: $top2";
-      if ($top2 <= $top1) { 
-        throw new \Exception('Elements "'. $selector1 ."' and '". $selector2 .'"are in incorrect order');
-      }*/
-    }
-
   /**
    * @} End of "defgroup initialization".
    *
@@ -1233,6 +1209,71 @@ class Tag1Context extends DrupalContext {
     }
   }
 
+   /**
+     * Click on the element with the provided xpath query
+     *
+     * @When /^I click on the element with xpath "([^"]*)"$/
+     */
+    public function iClickOnTheElementWithXPath($xpath)
+    {
+        $session = $this->getSession(); // get the mink session
+        $element = $session->getPage()->find(
+            'xpath',
+            $session->getSelectorsHandler()->selectorToXpath('xpath', $xpath)
+        ); // runs the actual query and returns the element
+ 
+        // errors must not pass silently
+        if (null === $element) {
+            throw new \InvalidArgumentException(sprintf('Could not evaluate XPath: "%s"', $xpath));
+        }
+        
+        // ok, let's click on it
+        $element->click();
+ 
+    }
+   
+   /**
+     * Click on the element with the provided CSS Selector
+     *
+     * @When /^I click on the element with css selector "([^"]*)"$/
+     */
+    public function iClickOnTheElementWithCSSSelector($cssSelector)
+    {
+        $session = $this->getSession();
+        $element = $session->getPage()->find(
+            'xpath',
+            $session->getSelectorsHandler()->selectorToXpath('css', $cssSelector) // just changed xpath to css
+        );
+        if (null === $element) {
+            throw new \InvalidArgumentException(sprintf('Could not evaluate CSS Selector: "%s"', $cssSelector));
+        }
+ 
+        $element->click();
+ 
+    }
    
    
+   /**
+    * @Then /^the position of "([^"]*)" should be above "([^"]*)"$/
+    */
+   public function thePositionOfShouldBeAbove($selector1, $selector2) {
+      $session = $this->getSession();
+      $top1 = $session->evaluateScript("
+        (function ($) {
+          var offset =  $('". $selector1. "').offset();
+          alert(offset.top);
+          return offset.top;
+        })(jQuery)");
+      print $top1;  
+      $top2 = $session->evaluateScript("
+        (function ($) {
+          var offset2 =  $('". $selector2. "').offset();
+          return offset2.top;
+        })(jQuery)");  
+        print $top1;
+        echo "1: $top1  2: $top2";
+      if ($top2 <= $top1) { 
+        throw new \Exception('Elements "'. $selector1 ."' and '". $selector2 .'" are in incorrect order');
+      }
+    }
 };
