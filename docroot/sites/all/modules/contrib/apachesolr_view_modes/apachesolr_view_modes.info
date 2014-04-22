@@ -1,6 +1,7 @@
 name = ApacheSolr View Modes
 description = Create ApacheSolr index fields for each view mode of a node.
 dependencies[] = apachesolr
+dependencies[] = entity
 package = Search Toolkit
 core = 7.x
 
