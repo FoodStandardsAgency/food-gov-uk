@@ -105,9 +105,9 @@ function container_blocks_block_view($delta = '') {
       break;
 
     case 'search_consultations':
-      $blocks[] = block_load('facetapi', 'ly6396gbtdufodpd8je0qyujejn73bws');
       $blocks[] = block_load('facetapi', 'x4nnoysr1rqw1vfaghilcfbruu0t1ml1');
       $blocks[] = block_load('facetapi', '4oshdock6vikervr03r0jhzo1vob4nh5');
+      $blocks[] = block_load('facetapi', 'ly6396gbtdufodpd8je0qyujejn73bws');
 
       $content = container_blocks_concatenate_content($blocks);
 
