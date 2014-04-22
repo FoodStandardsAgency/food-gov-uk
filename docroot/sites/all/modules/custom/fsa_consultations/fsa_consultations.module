@@ -12,9 +12,9 @@
 function fsa_consultations_menu() {
   $items = array();
 
-  $items['admin/structure/types/manage/consultation/shared'] = array(
-    'title' => 'Shared values',
-    'description' => 'Shared consultaiton content',
+  $items['admin/config/content/consultations'] = array(
+    'title' => 'Consultations text',
+    'description' => 'Shared consultation text',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('fsa_consultations_shared_form'),
     'access arguments' => true,
@@ -38,7 +38,6 @@ function fsa_consultations_shared_form($form, &$form_state) {
     '#rows' => 10,
     '#columns' => 40,
     '#title' => t('Further information text'),
-    '#required' => TRUE,
     '#description'=> t(''),
   );
 
@@ -47,7 +46,6 @@ function fsa_consultations_shared_form($form, &$form_state) {
     '#rows' => 10,
     '#columns' => 40,
     '#title' => t('Data protection text'),
-    '#required' => TRUE,
     '#description'=> t(''),
   );
 
@@ -56,7 +54,6 @@ function fsa_consultations_shared_form($form, &$form_state) {
     '#rows' => 10,
     '#columns' => 40,
     '#title' => t('Publication text'),
-    '#required' => TRUE,
     '#description'=> t(''),
   );
 
