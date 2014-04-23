@@ -34,6 +34,10 @@ class Authorities implements Iterator {
 		return $this;
 	}
 
+	public function count() {
+		return count($this->authorities);
+	}
+
 	public function current()	{
 		return $this->authorities[$this->index];
 	}
