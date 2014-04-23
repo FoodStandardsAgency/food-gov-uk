@@ -72,14 +72,23 @@ function authorities_block_view($delta = '') {
 
 				// get all the authorities
 				$parameters = _authorities_get_query_data();
-				$authorities = _authorities_compile_authorities($parameters);
 
-				$block['subject'] = t('Map');
-				$block['content'] = array(
-					'#theme' => THEME_AUTHORITIES_MAP,
-					'#authorities' => $authorities,
-					'#parameters' => $parameters,
-				);
+				// only display the map if a search has been performed
+				// and if there are any search results
+				if ($parameters->hasParameters()) {
+
+					$authorities = _authorities_compile_authorities($parameters);
+
+					if ($authorities->count() > 0) {
+
+						$block['subject'] = t('Map');
+						$block['content'] = array(
+							'#theme' => THEME_AUTHORITIES_MAP,
+							'#authorities' => $authorities,
+							'#parameters' => $parameters,
+						);
+					}
+				}
 			}
 			break;
 
@@ -91,12 +100,16 @@ function authorities_block_view($delta = '') {
 				$parameters = _authorities_get_query_data();
 				$authorities = _authorities_compile_authorities($parameters);
 
-				$block['subject'] = t('List');
-				$block['content'] = array(
-					'#theme' => THEME_AUTHORITIES_LIST,
-					'#authorities' => $authorities,
-					'#parameters' => $parameters,
-				);
+				// only display the list any search has been performed
+				if ($parameters->hasParameters()) {
+
+					$block['subject'] = t('List');
+					$block['content'] = array(
+						'#theme' => THEME_AUTHORITIES_LIST,
+						'#authorities' => $authorities,
+						'#parameters' => $parameters,
+					);
+				}
 			}
 			break;
 	}
@@ -160,25 +173,25 @@ function _authorities_compile_authorities(AuthoritiesSearchParameters &$paramete
 		$radius = 40;
 
 		// the Base
-		$url = "http://dev.virtualearth.net/REST/v1/Locations/GB";
-
-		// If the city is set: append the urlencoded city: “/london”
-		$city = $parameters->getCity();
-		if (!is_null($city)) { $url .= '/' . rawurlencode($city); }
-
-		// if street is set: append the urlencoded street “/grenade%20street”
-		$street = $parameters->getStreet();
-		if (!is_null($street)) { $url .= '/' . rawurlencode($street); }
-
-		// if post code is set: append the urlencoded post code e.g. /e14%208hx
-		$postcode = $parameters->getPostcode();
-		if (!is_null($postcode)) { $url .= '/' . rawurlencode($postcode); }
+		$url = "http://dev.virtualearth.net/REST/v1/Locations?country=UK";
 
 		// Append the credential as parameters:
-		$url .= "?key={$key}";
+		$url .= "&key={$key}";
 
 		// Append that we want the data as JSON:
 		$url .= "&output=json";
+
+		// If the city is set: append the urlencoded city
+		$city = $parameters->getCity();
+		if (!is_null($city)) { $url .= '&locality=' . rawurlencode($city); }
+
+		// if street is set: append the urlencoded street
+		$street = $parameters->getStreet();
+		if (!is_null($street)) { $url .= '&addressLine=' . rawurlencode($street); }
+
+		// if post code is set: append the urlencoded post code
+		$postcode = $parameters->getPostcode();
+		if (!is_null($postcode)) { $url .= '&postalCode=' . rawurlencode($postcode); }
 
 		// hit BING
 		$response = drupal_http_request($url);
@@ -190,44 +203,48 @@ function _authorities_compile_authorities(AuthoritiesSearchParameters &$paramete
 		// did we have the right credentials?
 		if ($json['authenticationResultCode'] == 'ValidCredentials') {
 
-			$coordinates = $json['resourceSets'][0]['resources'][0]['point']['coordinates'];
-			list($latitude, $longitude) = $coordinates;
+			// did we get any result?
+			if (count($json['resourceSets'][0]['resources']) > 0) {
 
-			// add it to the search parameters
-			$parameters->setLatitude($latitude);
-			$parameters->setLongitude($longitude);
+				$coordinates = $json['resourceSets'][0]['resources'][0]['point']['coordinates'];
+				list($latitude, $longitude) = $coordinates;
 
-			// hit the server again and retrieve the results
-			$url = "http://spatial.virtualearth.net/REST/v1/data/{$access_id}/{$dsn}/{$etn}";
+				// add it to the search parameters
+				$parameters->setLatitude($latitude);
+				$parameters->setLongitude($longitude);
 
-			$url .= "?key={$key}";
-			$url .= '&' . rawurlencode('$filter') .'='. rawurlencode("{$parameters->getCategory()} Eq '1'");
-			$url .= '&'. rawurlencode('$format') .'=json';
-			$url .= "&spatialFilter=nearby({$latitude},{$longitude},{$radius})";
+				// hit the server again and retrieve the results
+				$url = "http://spatial.virtualearth.net/REST/v1/data/{$access_id}/{$dsn}/{$etn}";
 
-			// hit BING
-			$response = drupal_http_request($url);
+				$url .= "?key={$key}";
+				$url .= '&' . rawurlencode('$filter') .'='. rawurlencode("{$parameters->getCategory()} Eq '1'");
+				$url .= '&'. rawurlencode('$format') .'=json';
+				$url .= "&spatialFilter=nearby({$latitude},{$longitude},{$radius})";
 
-			$json = $response->data;
+				// hit BING
+				$response = drupal_http_request($url);
 
-			$json = drupal_json_decode($json);
+				$json = $response->data;
 
-			// BING returns XML in case of an error,
-			// so check for this
-			if (is_null($json) || ($json === FALSE)) {
+				$json = drupal_json_decode($json);
 
-				watchdog('food:authorities', 'BING spatial lookup failed');
+				// BING returns XML in case of an error,
+				// so check for this
+				if (is_null($json) || ($json === FALSE)) {
 
-			} else {
+					watchdog('food:authorities', 'BING spatial lookup failed');
 
-				$records = $json['d']['results'];
+				} else {
 
-				// only keep maximum of 6 records as per LBI code
-				$records = array_splice($records, 0, variable_get_value('authorities_max_results'));
+					$records = $json['d']['results'];
 
-				foreach ($records as $record) {
-					$authority = Authority::fromBing($record);
-					$authorities->addAuthority($authority);
+					// only keep maximum of 6 records as per LBI code
+					$records = array_splice($records, 0, variable_get_value('authorities_max_results'));
+
+					foreach ($records as $record) {
+						$authority = Authority::fromBing($record);
+						$authorities->addAuthority($authority);
+					}
 				}
 			}
 
