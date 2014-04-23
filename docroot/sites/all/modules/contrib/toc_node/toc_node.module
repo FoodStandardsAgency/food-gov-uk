@@ -24,12 +24,6 @@ function toc_node_form_node_type_form_alter(&$form, $form_state) {
     '#default_value' => variable_get('toc_node_enabled_' . $type->type, 0),
   );
 
-//  $form['toc_node']['toc_node_back_to_top_links'] = array(
-//    '#type'          => 'checkbox',
-//    '#title'         => t('Enable back to top links'),
-//    '#default_value' => variable_get('toc_node_back_to_top_links_' . $type->type, 0),
-//  );
-
   $form['toc_node']['toc_node_back_to_top_links'] = array(
     '#type'          => 'select',
     '#title'         => t('Back to top links'),

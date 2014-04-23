@@ -4,9 +4,11 @@ package = Content
 stylesheets[all][] = css/toc_node.css
 core = 7.x
 
-; Information added by Drupal.org packaging script on 2014-04-21
-version = "7.x-1.1"
+
+
+; Information added by Drupal.org packaging script on 2014-04-23
+version = "7.x-1.2"
 core = "7.x"
 project = "toc_node"
-datestamp = "1398040728"
+datestamp = "1398258232"
 
