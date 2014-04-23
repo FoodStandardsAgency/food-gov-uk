@@ -1,3 +1,18 @@
 img, media {
   max-width: 100%;
 }
+
+/* files - depends on hook_file_link in template.php */
+.file-item {
+	span.filesize {
+		margin-left: 6px;
+	}
+	.file-icon {
+		margin-left: 6px;
+	}
+	a, 
+	.filesize {
+		position: relative;
+		top: -3px;
+	}
+}

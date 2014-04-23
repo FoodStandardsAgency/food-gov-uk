@@ -93,10 +93,18 @@
   // Heading will display even if there's no content, so hide it here.
   hide($content['field_fc_related_items_heading']);
 
+/*
   if (!empty($field_collection_item->field_fc_related_item)) {
     $related_items_heading = render($content['field_fc_related_items_heading']);
     $related_item = render($content['field_fc_related_item']);
   }
+*/
+
+  if (!empty($field_collection_item->field_fc_related_items)) {
+    $related_items_heading = render($content['field_fc_related_items_heading']);
+    $related_item = render($content['field_fc_related_items']);
+  }
+
 
   // Child pages.
   // Heading will display even if there's no content, so hide it here.
