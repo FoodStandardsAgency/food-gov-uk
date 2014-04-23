@@ -1,0 +1,8 @@
+name = Guidance Custom
+description = Custom features for the Guidance section.
+dependencies[] = block
+dependencies[] = apachesolr
+package = Local
+core = 7.x
+
+
