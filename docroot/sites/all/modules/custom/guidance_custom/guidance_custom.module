@@ -21,11 +21,7 @@ function guidance_custom_block_view($delta = '') {
 
   switch ($delta) {
     case 'guidance_custom':
-      $js_file = drupal_get_path('module', 'guidance_custom') . '/guidance_custom.js';
-      drupal_add_js($js_file);
-
       $content = drupal_get_form('guidance_custom_search_form');
-      //$content .= drupal_get_form('guidance_custom_facets_form');
 
       $block['subject'] = NULL;
       $block['content'] = $content;
@@ -37,10 +33,9 @@ function guidance_custom_block_view($delta = '') {
 
 function guidance_custom_search_form($form_state) {
 
-  $form['keyword'] = array(
+  $form['guidance_custom_keyword'] = array(
     '#type'          => 'textfield',
     '#title'         => t('Search by word or phrase'),
-    '#description'   => t('Enter guidance search term'),
     '#default_value' => FALSE,
   );
 
@@ -95,11 +90,11 @@ function guidance_custom_search_form_submit($form, &$form_state) {
   $view = views_get_view($view_name, $reset = FALSE);
   $path = $view->display['page']->display_options['path'];
 
-  if (!empty($form_state['values']['keyword'])) {
+  if (!empty($form_state['values']['guidance_custom_keyword'])) {
 
     $facets[] = array (
       'key' => 'keyword',
-      'facet' => $form_state['values']['keyword']
+      'facet' => $form_state['values']['guidance_custom_keyword']
     );
   }
 
