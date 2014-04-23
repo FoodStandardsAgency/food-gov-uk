@@ -29,11 +29,6 @@
  */
 
 
-// Load parent node so that we can check settings
-  $node = menu_get_object();
-
-// get back to top setting from parent node
-  $back_to_top = $node->field_setting_backtotop[$language][0]['value'];
 
 
   $image = '';
@@ -43,6 +38,12 @@
 
   // Determine the language.
   $language = isset($field_collection_item->lancode) ? $field_collection_item->lancode : 'und';
+
+  // Load parent node so that we can check settings
+  $node = menu_get_object();
+
+  // get back to top setting from parent node
+  $back_to_top = $node->field_setting_backtotop[$language][0]['value'];
 
 
 
