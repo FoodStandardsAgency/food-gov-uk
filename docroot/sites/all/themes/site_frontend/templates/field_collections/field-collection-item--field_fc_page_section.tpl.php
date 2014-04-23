@@ -28,6 +28,9 @@
  * @see template_process()
  */
 
+
+
+
   $image = '';
   $image_position = '';
   $image_caption = '';
@@ -35,6 +38,13 @@
 
   // Determine the language.
   $language = isset($field_collection_item->lancode) ? $field_collection_item->lancode : 'und';
+
+  // Load parent node so that we can check settings
+  $node = menu_get_object();
+
+  // get back to top setting from parent node
+  $back_to_top = isset($node->field_setting_backtotop) ? $node->field_setting_backtotop[$language][0]['value'] : 0;
+
 
 
   // Create image and wrapper markup.
@@ -101,8 +111,9 @@
 
 
   // CSV files
+  // these are placed within a group, so we have to look there.
   if (!empty($field_collection_item->field_fc_files_csv)) {
-    $csv_files = render($content['field_fc_files_csv']);
+    $csv_files = render($content['group_related_data']);
   }
 
   // Child pages.
@@ -145,7 +156,14 @@
         print $child_page;
       }
 
+
     ?>
+    <?php  if ($back_to_top) {  ?>
+      <div class="section-back-top">
+         <a href="#main-content"><?=t('Back to top');?> </a>
+      </div>
+      <? } ?>
+
   </div>
 </div>
 
