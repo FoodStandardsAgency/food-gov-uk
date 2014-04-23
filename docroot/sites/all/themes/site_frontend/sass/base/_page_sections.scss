@@ -30,6 +30,10 @@
 		margin-bottom: 0;
 	}
 }
+/* for files we need a bit more maring on subheading */
+.field--name-field-fc-related-items-heading.page-section-subheading {
+	margin-bottom: 0.8em;
+}
 
 /* example usage: related items and child page teaser listings on page section field collection */
 .page-section-teaser {
@@ -37,7 +41,8 @@
 	line-height: 1.4em;
 	margin-bottom: 18px;
 	/* node title */
-	h2.node__title {
+	h2.node__title,
+	h3.node__title {
 		font-size: 1.4em; 
 		line-height: 1.4em;
 		margin-bottom: 0;
@@ -87,6 +92,18 @@
 	.node__links {
 	  padding-left: 14px;
 	  a {
+			text-decoration: none;
+			color: #006f51;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+	}
+	/* related media - files */
+	.file-item {
+		font-weight: normal;
+		margin-bottom: 0.3em;
+		a {
 			text-decoration: none;
 			color: #006f51;
 		}

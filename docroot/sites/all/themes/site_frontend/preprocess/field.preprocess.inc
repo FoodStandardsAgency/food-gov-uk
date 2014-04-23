@@ -20,6 +20,9 @@ function site_frontend_preprocess_field(&$variables, $hook) {
 			case 'field_fc_related_item':
 				$variables['classes_array'][] = 'page-section-teaser';
 				break;	
+			case 'field_fc_related_items':
+				$variables['classes_array'][] = 'page-section-teaser';
+				break;
 			/* child pages entity reference field */
 			case 'field_child_page':
 			    $variables['classes_array'][] = 'page-section-teaser';

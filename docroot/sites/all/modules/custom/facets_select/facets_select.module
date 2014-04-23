@@ -42,9 +42,23 @@ function facets_select_facetapi_select_facet_form_alter(&$form, $form_state, $op
     $form['facets']['#title'] = t('Search by section');
   }
 
+  if ($options[0] == t('All nations')) {
+    $form['facets']['#title'] = t('Search by nation');
+  }
+
   if ($options[0] == t('All news types')) {
     $form['facets']['#title'] = t('Search by news type');
   }
+
+  if ($options[0] == t('Any status')) {
+    $form['facets']['#title'] = t('Browse by status');
+  }
+
+  if ($options[0] == t('Any year of consultation')) {
+    $form['facets']['#title'] = t('Browse by year');
+  }
+
+
 }
 
 function theme_facets_select_facetapi_widget_links($variables) {

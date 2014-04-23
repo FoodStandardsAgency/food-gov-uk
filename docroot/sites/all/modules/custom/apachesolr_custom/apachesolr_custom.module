@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Implements hook_form_alter().
+ */
 function apachesolr_custom_form_alter(&$form, &$form_state, $form_id) {
 
   // Redirect standard search block form to Views generated search page.
@@ -10,10 +13,36 @@ function apachesolr_custom_form_alter(&$form, &$form_state, $form_id) {
 
 /**
  *  Redirect standard search block form to Views generated search page.
- *
  **/
 function apachesolr_custom_search_form_submit_funtion(&$form, &$form_state) {
   $search_str = $form_state['values']['search_block_form'];
   $form_state['rebuild'] = TRUE;
   drupal_goto('search', array('query' => array('keyword' => $search_str)));
 }
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function apachesolr_custom_preprocess_page(&$vars, $hook) {
+  // Removes standard search tabs from search pages.
+  apachesolr_custom_removetab($vars, 'search/site');
+  apachesolr_custom_removetab($vars, 'search/file_entity');
+}
+
+/**
+ *  Remove undesired local task tabs.
+ **/
+function apachesolr_custom_removetab(&$vars, $path) {
+  // Remove from primary tabs
+  $i = 0;
+  if (is_array($vars['tabs']['#primary'])) {
+    foreach ($vars['tabs']['#primary'] as $primary_tab) {
+      if ($primary_tab['#link']['path'] == $path) {
+        unset($vars['tabs']['#primary'][$i]);
+      }
+      ++$i;
+    }
+  }
+}
+
+

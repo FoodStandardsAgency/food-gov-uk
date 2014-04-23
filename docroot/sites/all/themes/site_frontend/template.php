@@ -48,8 +48,7 @@ function site_frontend_facetapi_link_active($variables) {
  * Customise language switcher block.
  * Only show link to translation.
  * If there is no translation don't show block.
- *
- **/
+ */
 function site_frontend_links__locale_block(&$vars) {
 
   $content = NULL;
@@ -68,5 +67,53 @@ function site_frontend_links__locale_block(&$vars) {
 }
 
 
+/**
+ * Implements hook_file_link
+ * Add a link to the file icon
+ */
 
+function site_frontend_file_link($variables) {
+  $file = $variables['file'];
+  $icon_directory = $variables['icon_directory'];
+
+  $url = file_create_url($file->uri);
+  $icon = theme('file_icon', array('file' => $file, 'icon_directory' => $icon_directory));
+
+  // Set options as per anchor format described at
+  // http://microformats.org/wiki/file-format-examples
+  $options = array(
+    'attributes' => array(
+      'type' => $file->filemime . '; length=' . $file->filesize,
+    ),
+  );
+
+  // Use the description as the link text if available.
+  if (empty($file->description)) {
+    $link_text = $file->filename;
+  }
+  else {
+    $link_text = $file->description;
+    $options['attributes']['title'] = check_plain($file->filename);
+  }
+  // Edit - add link with l() to icon
+  return '<span class="file">' . l($icon, $url, array('html' => TRUE)) . ' ' . l($link_text, $url, $options) . '</span>';
+}
+
+
+
+/**
+ * Implements hook_preprocess_node
+ * @param $variables
+ */
+function site_frontend_preprocess_node(&$variables) {
+  // Add in our own inline block regions
+  // Blocks that are assigned to the region using Context
+  /*
+  if ($variables['page'] ) {
+    if ($plugin = context_get_plugin('reaction', 'block')) {
+      $variables['region_node_inline'] = $plugin->block_get_blocks_by_region('node_inline');
+    }
+  }
+*/
+}
 
