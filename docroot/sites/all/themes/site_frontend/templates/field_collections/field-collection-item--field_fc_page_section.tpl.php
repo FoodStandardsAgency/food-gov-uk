@@ -28,6 +28,10 @@
  * @see template_process()
  */
 
+
+// Load parent node so that we can check settings
+  $node = menu_get_object();
+
   $image = '';
   $image_position = '';
   $image_caption = '';
@@ -101,8 +105,9 @@
 
 
   // CSV files
+  // these are placed within a group, so we have to look there.
   if (!empty($field_collection_item->field_fc_files_csv)) {
-    $csv_files = render($content['field_fc_files_csv']);
+    $csv_files = render($content['group_related_data']['field_fc_files_csv']);
   }
 
   // Child pages.
