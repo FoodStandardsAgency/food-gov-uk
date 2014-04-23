@@ -107,7 +107,7 @@
   // CSV files
   // these are placed within a group, so we have to look there.
   if (!empty($field_collection_item->field_fc_files_csv)) {
-    $csv_files = render($content['group_related_data']['field_fc_files_csv']);
+    $csv_files = render($content['group_related_data']);
   }
 
   // Child pages.
