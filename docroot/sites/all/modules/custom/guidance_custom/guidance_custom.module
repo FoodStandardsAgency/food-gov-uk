@@ -48,7 +48,7 @@ function guidance_custom_search_form($form_state) {
     '#type'          => 'select',
     '#title'         => t('Topic'),
     '#default_value' => 0,
-    '#empty_option'  => t('All topics'),
+    '#empty_option'  => t('All'),
     '#options'       => $topic_options,
     '#attributes' => array(
       'class' => array('search-facet'),
