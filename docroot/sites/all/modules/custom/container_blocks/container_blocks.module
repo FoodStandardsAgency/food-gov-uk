@@ -77,7 +77,7 @@ function container_blocks_block_view($delta = '') {
 
     case 'search_all_news_facets':
 
-      $blocks[] = block_load('views', '-exp-news_centre___search-page');
+      $blocks[] = block_load('views', '-exp-alerts-page');
       $blocks[] = block_load('facetapi', 'mo10eVoL905Qwndxck1XcD0dZWgc0x7s');
       $blocks[] = block_load('facetapi', 'bLPXAQDJqA1Re1OTSoyUJM9gUBaIgZMG');
 
