@@ -43,7 +43,7 @@
   $node = menu_get_object();
 
   // get back to top setting from parent node
-  $back_to_top = $node->field_setting_backtotop[$language][0]['value'];
+  $back_to_top = isset($node->field_setting_backtotop) ? $node->field_setting_backtotop[$language][0]['value'] : 0;
 
 
 
