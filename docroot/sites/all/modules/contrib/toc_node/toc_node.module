@@ -81,7 +81,7 @@ function toc_node_form_node_form_alter(&$form, &$form_state, $form_id) {
   $options_enabled   = variable_get('toc_node_styles_' . $type, array());
   $options           = array_intersect_key($options_all, array_flip($options_enabled));
   $style             = variable_get('toc_node_style_default_' . $type, 'bullets');
-  $back_to_top_links = variable_get('toc_node_back_to_top_links_' . $type, 0);
+  $back_to_top_links_defaults = variable_get('toc_node_back_to_top_links_' . $type, 0);
   $level             = variable_get('toc_node_level_' . $type, 'h2');
 
   if (isset($form['nid']['#value'])) {
@@ -114,6 +114,14 @@ function toc_node_form_node_form_alter(&$form, &$form_state, $form_id) {
     '#options'       => $options,
   );
 
+  // Check if back to top links should be on as default.
+  if (!isset($back_to_top_links) && ($back_to_top_links_defaults == 1 || $back_to_top_links_defaults == 2)) {
+    $back_to_top_links = 1;
+  }
+  elseif (!isset($back_to_top_links) && ($back_to_top_links_defaults == 0 || $back_to_top_links_defaults == 3)) {
+    $back_to_top_links = 0;
+  }
+
   $form['toc_node']['toc_node_back_to_top_links'] = array(
     '#type'          => 'checkbox',
     '#title'         => t('Back to top links'),
@@ -121,7 +129,7 @@ function toc_node_form_node_form_alter(&$form, &$form_state, $form_id) {
   );
 
   // Check if there is per node options.
-  if ($back_to_top_links < 2) {
+  if ($back_to_top_links_defaults < 2) {
     $form['toc_node']['toc_node_back_to_top_links']['#access'] = FALSE;
   }
 
