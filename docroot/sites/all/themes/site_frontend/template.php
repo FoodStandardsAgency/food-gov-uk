@@ -69,7 +69,7 @@ function site_frontend_links__locale_block(&$vars) {
 
 /**
  * Implements hook_file_link
- * Customise file icon position
+ * Add a link to the file icon
  */
 
 function site_frontend_file_link($variables) {
@@ -95,10 +95,9 @@ function site_frontend_file_link($variables) {
     $link_text = $file->description;
     $options['attributes']['title'] = check_plain($file->filename);
   }
-  // Edit - changed file icon position
-  return '<span class="file">' . l($link_text, $url, $options) . ' ' . $icon  . '</span>';
+  // Edit - add link with l() to icon
+  return '<span class="file">' . l($icon, $url, array('html' => TRUE)) . ' ' . l($link_text, $url, $options) . '</span>';
 }
-
 
 
 
