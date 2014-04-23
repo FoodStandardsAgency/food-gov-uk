@@ -32,6 +32,10 @@
 // Load parent node so that we can check settings
   $node = menu_get_object();
 
+// get back to top setting from parent node
+  $back_to_top = $node->field_setting_backtotop[$language][0]['value'];
+
+
   $image = '';
   $image_position = '';
   $image_caption = '';
@@ -39,6 +43,7 @@
 
   // Determine the language.
   $language = isset($field_collection_item->lancode) ? $field_collection_item->lancode : 'und';
+
 
 
   // Create image and wrapper markup.
@@ -150,7 +155,14 @@
         print $child_page;
       }
 
+
     ?>
+    <?php  if ($back_to_top) {  ?>
+      <div class="section-back-top">
+         <a href="#main-content"><?=t('Back to top');?> </a>
+      </div>
+      <? } ?>
+
   </div>
 </div>
 
