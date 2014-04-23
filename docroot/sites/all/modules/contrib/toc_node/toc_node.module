@@ -366,7 +366,7 @@ function toc_node_add_anchors(&$dom_document, &$anchor_count, &$links, $heading_
 
     // Headings, add class.
     $classes = $header->getAttribute('class');
-    $header->setAttribute('class', $classes. 'toc-headings');
+    $header->setAttribute('class', $classes. ' toc-headings');
 
     // Anchors above headings.
     $anchor_div = $dom_document->createElement('div');
