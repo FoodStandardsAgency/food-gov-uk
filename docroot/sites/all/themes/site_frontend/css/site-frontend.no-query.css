@@ -1031,6 +1031,9 @@ ul.breadcrumb {
 .node-type-consultation #main-content .block {
   padding-bottom: 15px;
   overflow: hidden; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000356}}
+.node-type-consultation #main-content .group-contact-details.field-group-div {
+  padding-bottom: 0; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_content_section\.scss}line{font-family:\000031}}
 .main-wrapper {
