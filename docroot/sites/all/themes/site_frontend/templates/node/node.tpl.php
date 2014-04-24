@@ -77,6 +77,7 @@
  * @see template_preprocess_node()
  * @see template_process()
  */
+
 ?>
 <article<?php print $attributes; ?>>
   <?php if (!empty($title_prefix) || !empty($title_suffix) || !$page): ?>
