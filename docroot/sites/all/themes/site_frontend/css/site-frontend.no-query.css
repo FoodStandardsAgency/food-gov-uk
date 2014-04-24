@@ -596,9 +596,8 @@ p, li, dt, dd, blockquote, pre, address, label, th, td, code {
 p, ul, ol, dl, address, blockquote {
   margin: 0 0 1.3em 0; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_typography\.scss}line{font-family:\0000346}}
-.file-item,
-.field--type-file .field__item {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_typography\.scss}line{font-family:\0000345}}
+.file-item {
   font-size: 1.2em;
   line-height: 1.4em; }
 
