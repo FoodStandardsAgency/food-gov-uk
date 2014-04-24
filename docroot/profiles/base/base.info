@@ -76,6 +76,7 @@ dependencies[] = pathauto
 dependencies[] = path_breadcrumbs
 dependencies[] = prod_check
 dependencies[] = breadcrumb_block
+dependencies[] = rabbit_hole
 dependencies[] = rdf
 dependencies[] = redirect
 dependencies[] = revisioning
