@@ -7,6 +7,18 @@ a:hover {
 	text-decoration: underline;
 }
 
+/* external links icon - requires external links module */
+span.ext {
+	background: url('../images/icons/external-link-icon.gif') right center no-repeat;
+	width: 10px;
+	height: 10px;
+	margin-left: 3px;
+	margin-right: 3px;
+	display: inline-block;
+	*display: inline;	// IE7
+	zoom: 1;	// IE7
+}
+
 /* apply this class to the block, not to the link itself */
 .green-sidebar-links1 {
 	ul {
