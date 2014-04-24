@@ -8,4 +8,3 @@ Feature: Image
   #Given I am on "/test-image-caption"
   #And I wait for "2" second
   #Then the position of "img-pos-right" should be above "image-caption"
-  #And the position of "main-content-inner" should be above "block__content"

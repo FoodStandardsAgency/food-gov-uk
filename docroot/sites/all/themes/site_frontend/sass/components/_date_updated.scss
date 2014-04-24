@@ -5,7 +5,8 @@
 }
 
 /* last updated - when used via a view field */
-.views-field-field-updated {
+.views-field-field-updated,
+.views-field-field-display-updated-date {
 	font-size: 1.2em;
 	margin-bottom: 12px;
 	span.views-label {
@@ -20,3 +21,4 @@
 		zoom: 1;	// IE7
 	}
 }
+

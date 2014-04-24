@@ -17,8 +17,7 @@ default:
           password: "down"
   extensions:
     Behat\MinkExtension\Extension:
-    # include http auth data in base url when needed
-      base_url: http://shield:down@dev.fsa.dev-1.siriusopensource.com/ 
+    #  browser_name: 'chrome'
       goutte: ~
       selenium2: ~
     Drupal\DrupalExtension\Extension:
@@ -43,6 +42,7 @@ default:
           Wales Banner: "#block-nation-banners-wales-banner"          
           Scotland Banner: "#block-nation-banners-scotland-banner"
           Northern Ireland Banner: "#block-nation-banners-northern-ireland-banner"
+          Back to top: ".section-back-top"
 annotations:
   paths:
     features: features/annotations
@@ -50,3 +50,5 @@ annotations:
 closures:
   paths:
     features: features/closures
+
+
