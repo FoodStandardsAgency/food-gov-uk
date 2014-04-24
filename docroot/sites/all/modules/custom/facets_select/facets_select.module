@@ -58,7 +58,13 @@ function facets_select_facetapi_select_facet_form_alter(&$form, $form_state, $op
     $form['facets']['#title'] = t('Browse by year');
   }
 
+  if ($options[0] == t('All business types')) {
+    $form['facets']['#title'] = t('Search by business type');
+  }
 
+  if ($options[0] == t('All topics')) {
+    $form['facets']['#title'] = t('Search by topic');
+  }
 }
 
 function theme_facets_select_facetapi_widget_links($variables) {
