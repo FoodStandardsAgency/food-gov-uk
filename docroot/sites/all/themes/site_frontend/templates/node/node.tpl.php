@@ -102,10 +102,6 @@
       // We hide the comments and links now so that we can render them later.
       hide($content['comments']);
       hide($content['links']);
-      // hide updated if we need to
-      if (!$field_display_updated_date) {
-        hide($content['field_updated']);
-      }
       print render($content);
     ?>
   </div>
