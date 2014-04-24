@@ -326,13 +326,35 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
   background: linear-gradient(top, #ffffff 0%, #ffffff 46%, #eaeaea 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#eaeaea',GradientType=0); }
 
+/* default links for site */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\000032}}
+a {
+  color: #006f51;
+  text-decoration: none; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\000036}}
+a:hover {
+  text-decoration: underline; }
+
+/* external links icon - requires external links module */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000311}}
+span.ext {
+  background: url("../images/icons/external-link-icon.gif") right center no-repeat;
+  width: 10px;
+  height: 10px;
+  margin-left: 3px;
+  margin-right: 3px;
+  display: inline-block;
+  *display: inline;
+  zoom: 1; }
+
 /* apply this class to the block, not to the link itself */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\000033}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000324}}
 .green-sidebar-links1 ul {
   margin: 0;
   padding: 0;
   list-style-type: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\000038}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000329}}
 .green-sidebar-links1 .li {
   font-size: 1em;
   font-weight: normal;
@@ -341,7 +363,7 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
   background-image: url("../images/green-arrow-thin-right.png");
   background-repeat: no-repeat;
   background-position: left 3px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000316}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000337}}
   .green-sidebar-links1 .li a {
     text-decoration: none;
     font-size: 1.2em;
@@ -349,16 +371,16 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
     display: block;
     color: #006f51;
     margin-bottom: 0.35em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000324}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000345}}
   .green-sidebar-links1 .li a:hover {
     text-decoration: underline; }
 
 /* apply this class to the block, not to the link itself */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000331}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000352}}
 .green-sidebar-links2 ul {
   margin: 0;
   padding: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000335}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000356}}
 .green-sidebar-links2 .li {
   font-size: 1em;
   font-weight: normal;
@@ -367,7 +389,7 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
   background-image: url("../images/green-arrow-thin-right.png");
   background-repeat: no-repeat;
   background-position: left 3px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000343}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000364}}
   .green-sidebar-links2 .li a {
     text-decoration: none;
     font-size: 1.2em;
@@ -375,17 +397,17 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
     display: block;
     color: #006f51;
     margin-bottom: 0.5em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000351}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000372}}
   .green-sidebar-links2 .li a:hover {
     text-decoration: underline; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000355}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000376}}
 .green-sidebar-links2 .field--name-field-subtitle {
   font-size: 1.2em;
   line-height: 1.4em;
   margin-bottom: 0.5em; }
 
 /* apply this class to the a-tag */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000364}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000385}}
 a.fsa-more-link {
   font-weight: normal;
   display: block;
@@ -396,7 +418,7 @@ a.fsa-more-link {
   text-decoration: none;
   color: #006f51; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000374}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000395}}
 a.fsa-more-link:hover {
   text-decoration: underline; }
 
@@ -574,9 +596,8 @@ p, li, dt, dd, blockquote, pre, address, label, th, td, code {
 p, ul, ol, dl, address, blockquote {
   margin: 0 0 1.3em 0; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_typography\.scss}line{font-family:\0000346}}
-.file-item,
-.field--type-file .field__item {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_typography\.scss}line{font-family:\0000345}}
+.file-item {
   font-size: 1.2em;
   line-height: 1.4em; }
 
@@ -924,6 +945,95 @@ ul.breadcrumb {
     background-position: center center; }
 
 /* for mobile */
+/* consultation page - consultation content type */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000311}}
+.field--name-field-consultations-contact-name,
+.field--name-field-consultation-contact-add,
+.field--name-field-consultation-contact-tel,
+.field--name-field-consultation-contact-fax,
+.field--name-field-consultation-contact-email,
+.field--name-field-consultation-contact-email,
+.field--name-field-consultation-dates,
+.field--name-field-consultation-state,
+.field--name-field-data-protection {
+  font-size: 1.2em;
+  line-height: 1.4em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000314}}
+  .field--name-field-consultations-contact-name p, .field--name-field-consultations-contact-name ul, .field--name-field-consultations-contact-name li, .field--name-field-consultations-contact-name ol,
+  .field--name-field-consultation-contact-add p,
+  .field--name-field-consultation-contact-add ul,
+  .field--name-field-consultation-contact-add li,
+  .field--name-field-consultation-contact-add ol,
+  .field--name-field-consultation-contact-tel p,
+  .field--name-field-consultation-contact-tel ul,
+  .field--name-field-consultation-contact-tel li,
+  .field--name-field-consultation-contact-tel ol,
+  .field--name-field-consultation-contact-fax p,
+  .field--name-field-consultation-contact-fax ul,
+  .field--name-field-consultation-contact-fax li,
+  .field--name-field-consultation-contact-fax ol,
+  .field--name-field-consultation-contact-email p,
+  .field--name-field-consultation-contact-email ul,
+  .field--name-field-consultation-contact-email li,
+  .field--name-field-consultation-contact-email ol,
+  .field--name-field-consultation-contact-email p,
+  .field--name-field-consultation-contact-email ul,
+  .field--name-field-consultation-contact-email li,
+  .field--name-field-consultation-contact-email ol,
+  .field--name-field-consultation-dates p,
+  .field--name-field-consultation-dates ul,
+  .field--name-field-consultation-dates li,
+  .field--name-field-consultation-dates ol,
+  .field--name-field-consultation-state p,
+  .field--name-field-consultation-state ul,
+  .field--name-field-consultation-state li,
+  .field--name-field-consultation-state ol,
+  .field--name-field-data-protection p,
+  .field--name-field-data-protection ul,
+  .field--name-field-data-protection li,
+  .field--name-field-data-protection ol {
+    font-size: 1em;
+    line-height: 1.4em; }
+
+/* these are file fields get their theming from the base styles for file field within its content */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000321}}
+.field--name-field-consultation-pack,
+.field--name-field-consultation-summary {
+  font-size: 1em; }
+
+/* consultations summary */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000325}}
+.field--name-field-consultation-summary {
+  margin-bottom: 1.3em; }
+
+/* contact details */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000329}}
+.node-type-consultation .group-contact-details {
+  margin-bottom: 1.3em; }
+
+/* section headings for consultation main content area */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000336}}
+.node-type-consultation #main-content h2,
+.node-type-consultation #main-content h2.block__title {
+  display: block;
+  margin: 0 0 1em 0;
+  padding: .3em 11px;
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #fff;
+  background: #5d9711;
+  clear: both; }
+
+/* some spacng at the bottom of groups and blocks */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000352}}
+.node-type-consultation #main-content .field-group-div,
+.node-type-consultation #main-content .block {
+  padding-bottom: 15px;
+  overflow: hidden; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000356}}
+.node-type-consultation #main-content .group-contact-details.field-group-div {
+  padding-bottom: 5px; }
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_content_section\.scss}line{font-family:\000031}}
 .main-wrapper {
   border-bottom: 4px solid #68A82A; }
@@ -3004,6 +3114,25 @@ ul.toc-node-bullets li.toc-node-level-6 {
   background-repeat: no-repeat;
   background-position: 70px 4px;
   padding-left: 84px; }
+
+/* back to top links */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_table_of_contents\.scss}line{font-family:\0000375}}
+.section-back-top {
+  text-align: right;
+  margin-bottom: 15px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_table_of_contents\.scss}line{font-family:\0000378}}
+  .section-back-top a {
+    color: #006f51;
+    text-decoration: none;
+    font-size: 1.2em;
+    line-height: 1.4em;
+    background-image: url("../images/arrow-up.png");
+    background-repeat: no-repeat;
+    background-position: left 4px;
+    padding-left: 14px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_table_of_contents\.scss}line{font-family:\0000388}}
+  .section-back-top a:hover {
+    text-decoration: underline; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_quote\.scss}line{font-family:\000031}}
 .field--name-field-fc-section-quote {
