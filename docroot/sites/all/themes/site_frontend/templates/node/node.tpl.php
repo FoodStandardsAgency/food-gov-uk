@@ -77,6 +77,7 @@
  * @see template_preprocess_node()
  * @see template_process()
  */
+
 ?>
 <article<?php print $attributes; ?>>
   <?php if (!empty($title_prefix) || !empty($title_suffix) || !$page): ?>
@@ -101,6 +102,10 @@
       // We hide the comments and links now so that we can render them later.
       hide($content['comments']);
       hide($content['links']);
+      // hide updated if we need to
+      if (!$field_display_updated_date) {
+        hide($content['field_updated']);
+      }
       print render($content);
     ?>
   </div>
