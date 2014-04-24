@@ -71,6 +71,22 @@ ul.toc-node-bullets {
 	}
 }
 
+/* back to top links */
+.section-back-top {
+	text-align: right;
+	margin-bottom: 15px;
+	a {
+		color: #006f51;
+		text-decoration: none;
+		font-size: 1.2em;
+		line-height: 1.4em;
+	}
+	a:hover {
+		text-decoration: underline;	
+	}
+}
+
+
 @include breakpoint($mobile) {
 	#table-of-contents-links {
 		ul.toc-node-bullets li,

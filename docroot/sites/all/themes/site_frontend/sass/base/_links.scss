@@ -1,3 +1,12 @@
+/* default links for site */
+a {
+	color: #006f51;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+
 /* apply this class to the block, not to the link itself */
 .green-sidebar-links1 {
 	ul {
