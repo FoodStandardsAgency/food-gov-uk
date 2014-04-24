@@ -80,6 +80,10 @@ ul.toc-node-bullets {
 		text-decoration: none;
 		font-size: 1.2em;
 		line-height: 1.4em;
+		background-image: url('../images/arrow-up.png');
+		background-repeat: no-repeat;
+		background-position: left 4px;
+		padding-left: 14px;
 	}
 	a:hover {
 		text-decoration: underline;	
