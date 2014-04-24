@@ -143,8 +143,7 @@ Feature: Content types
   When I go to "/node/add/alert"
   And I should see "Create Alert" in the "Page Title" region
   And I fill in "edit-title" with "test"
-  And I check the box "N/A" in "edit-field-site-section-und"
-  And I click "Alert"
   And I select "None" from "edit-field-alert-alert-type-und"
+  And I check the box "N/A" in "edit-field-site-section-und"
   And I press "edit-submit" in the "Submit" region
   Then I should see "Alert test has been created." 
