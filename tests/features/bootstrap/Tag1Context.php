@@ -898,7 +898,6 @@ class Tag1Context extends DrupalContext {
     if ($this->isLoginForm()) {
       // If I see this, I'm not logged in at all so log in.
       $this->customLogin();
-
       // Check that the login was successful.
       if ($this->loggedIn()) {
         // Successfully logged in.        
@@ -1343,8 +1342,6 @@ class Tag1Context extends DrupalContext {
       echo 'Caught exception: ',  $e->getMessage(), "\n";
     }
  }
-    
-    
     
     
 };

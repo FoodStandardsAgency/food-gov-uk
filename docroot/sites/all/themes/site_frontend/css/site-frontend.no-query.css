@@ -1133,18 +1133,21 @@ ul.breadcrumb {
   margin-bottom: 12px; }
 
 /* last updated - when used via a view field */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_date_updated\.scss}line{font-family:\000038}}
-.views-field-field-updated {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_date_updated\.scss}line{font-family:\000039}}
+.views-field-field-updated,
+.views-field-field-display-updated-date {
   font-size: 1.2em;
   margin-bottom: 12px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_date_updated\.scss}line{font-family:\0000311}}
-  .views-field-field-updated span.views-label {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_date_updated\.scss}line{font-family:\0000312}}
+  .views-field-field-updated span.views-label,
+  .views-field-field-display-updated-date span.views-label {
     font-weight: bold;
     display: inline-block;
     *display: inline;
     zoom: 1; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_date_updated\.scss}line{font-family:\0000317}}
-  .views-field-field-updated div.field-content {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_date_updated\.scss}line{font-family:\0000318}}
+  .views-field-field-updated div.field-content,
+  .views-field-field-display-updated-date div.field-content {
     display: inline-block;
     *display: inline;
     zoom: 1; }

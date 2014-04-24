@@ -3,20 +3,22 @@ Feature: Home Page Carousel
   As a User
   So I can find links to interesting or helpful information
 
-  #@javascript  
- #Scenario: Slide content type
-  #Given I log in as an existing "editor"
-  #When I go to "/node/add/slide"
-  #And I should see "Create Slide" in the "Page Title" region
-  #And I fill in "edit-title" with "test"
-  #And I click on the element with css selector "#edit-field-slide-image-und-0-browse-button"
-  #And I wait for "1" second
-  #And I click on the element with css selector ".ui-state-default ui-corner-top"
-  #And I click "slide3.jpg"
-  #And I press "Submit"
-  #And I select "10" from "edit-field-slide-order-und"
-  #And I press "edit-submit" in the "Submit" region
-  #Then I should see "Slide test has been created." 
+  @javascript  
+ Scenario: Slide content type
+  Given I log in as an existing "editor"
+  When I go to "/node/add/slide"
+  And I should see "Create Slide" in the "Page Title" region
+  And I fill in "edit-title" with "test"
+  And I wait for "1" second
+  And I click on the element with css selector "#edit-field-slide-image-und-0-browse-button"
+  And I wait for "3" second
+  
+  When I click "Library"
+  And I click "slide3.jpg"
+  And I press "Submit"
+  And I select "10" from "edit-field-slide-order-und"
+  And I press "edit-submit" in the "Submit" region
+  Then I should see "Slide test has been created." 
   
   
   # Mark FSA-182 as test written when complete
