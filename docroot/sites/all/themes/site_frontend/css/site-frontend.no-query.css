@@ -1033,7 +1033,7 @@ ul.breadcrumb {
   overflow: hidden; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000356}}
 .node-type-consultation #main-content .group-contact-details.field-group-div {
-  padding-bottom: 0; }
+  padding-bottom: 5px; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_content_section\.scss}line{font-family:\000031}}
 .main-wrapper {
