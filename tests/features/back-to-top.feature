@@ -15,6 +15,7 @@ Feature: Back to top links
    And I press "edit-submit" in the "Submit" region
    Then I should see "General Page test has been created."
    And I should see "Back to top" in the "Back to top" region
+   And I logout
    
    @javascript
   Scenario: Back to top - Audit Report
@@ -32,6 +33,7 @@ Feature: Back to top links
    And I press "edit-submit" in the "Submit" region
    Then I should see "Audit Report test has been created."
    And I should see "Back to top" in the "Back to top" region
+   And I logout
    
    @javascript
   Scenario: Back to top - Consultation
@@ -45,6 +47,7 @@ Feature: Back to top links
    And I press "edit-submit" in the "Submit" region
    Then I should see "Consultation test has been created."
    And I should see "Back to top" in the "Back to top" region
+   And I logout
    
    @javascript   
   Scenario: Back to top - FAQ
@@ -58,6 +61,7 @@ Feature: Back to top links
    And I press "edit-submit" in the "Submit" region
    Then I should see "FAQ test has been created."
    And I should see "Back to top" in the "Back to top" region
+   And I logout
    
     @javascript
   Scenario: Back to top - Job
@@ -71,6 +75,7 @@ Feature: Back to top links
    And I press "edit-submit" in the "Submit" region
    Then I should see "Job test has been created."
    And I should see "Back to top" in the "Back to top" region
+   And I logout
    
     @javascript 
   Scenario: Back to top - News
@@ -85,6 +90,7 @@ Feature: Back to top links
    And I press "edit-submit" in the "Submit" region
    Then I should see "News test has been created."   
    And I should see "Back to top" in the "Back to top" region
+   And I logout  
   
   @javascript 
   Scenario: Back to top - Research project
@@ -98,6 +104,7 @@ Feature: Back to top links
    And I press "edit-submit" in the "Submit" region
    Then I should see "Research project test has been created."   
    And I should see "Back to top" in the "Back to top" region
+   And I logout
   
     @javascript  
   Scenario: Back to top - Alert
@@ -112,3 +119,4 @@ Feature: Back to top links
    And I press "edit-submit" in the "Submit" region
    Then I should see "Alert test has been created." 
    And I should see "Back to top" in the "Back to top" region
+   And I logout

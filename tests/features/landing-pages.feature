@@ -38,3 +38,4 @@ Feature: Landing pages
     And I press "edit-submit" in the "Submit" region
     Then I should see "Landing Page test has been created."
     And I should see an "#block-views-interactive-block-block" element
+    And I logout

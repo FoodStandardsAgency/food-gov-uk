@@ -38,3 +38,4 @@ Feature: Automatically set child menu to parent
     And I should see "test child" in the "Left Sidebar" region
 	And I click "test child"
 	And I should see "test child" in the "Page Title" region
+    And I logout

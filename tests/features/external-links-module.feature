@@ -18,3 +18,4 @@ Feature: External links module
 	And I press "edit-submit" in the "Submit" region
 	Then I should see "Example.com"
 	And the response should contain "ext"
+    And I logout

@@ -19,6 +19,7 @@ Feature: See also links
   And I press "edit-submit" in the "Submit" region
   Then I should see "Audit Report test has been created."
   And I should see an "#block-views-see-also-links-block" element
+  And I logout
   
     @javascript
   Scenario: Consultation - See also block
@@ -32,6 +33,7 @@ Feature: See also links
   And I press "edit-submit" in the "Submit" region
   Then I should see "Consultation test has been created."
   And I should see an "#block-views-see-also-links-block" element
+  And I logout
   
     @javascript
   Scenario: General Page - See also block
@@ -45,6 +47,7 @@ Feature: See also links
   And I press "edit-submit" in the "Submit" region
   Then I should see "General Page test has been created."
   And I should see an "#block-views-see-also-links-block" element
+  And I logout
   
     @javascript   
   Scenario: FAQ - See also block
@@ -58,6 +61,7 @@ Feature: See also links
   And I press "edit-submit" in the "Submit" region
   Then I should see "FAQ test has been created."
   And I should see an "#block-views-see-also-links-block" element
+  And I logout
   
     @javascript
   Scenario: Job - See also block
@@ -71,6 +75,7 @@ Feature: See also links
   And I press "edit-submit" in the "Submit" region
   Then I should see "Job test has been created."
   And I should see an "#block-views-see-also-links-block" element
+  And I logout
   
     @javascript 
   Scenario: News - See also block
@@ -85,6 +90,7 @@ Feature: See also links
   And I press "edit-submit" in the "Submit" region
   Then I should see "News test has been created."   
   And I should see an "#block-views-see-also-links-block" element
+  And I logout
   
     @javascript 
   Scenario: Research project - See also block
@@ -98,6 +104,7 @@ Feature: See also links
   And I press "edit-submit" in the "Submit" region 
   Then I should see "Research project test has been created."  
   And I should see an "#block-views-see-also-links-block" element
+  And I logout
     
     @javascript  
   Scenario: Alert - See also block
@@ -113,3 +120,4 @@ Feature: See also links
   And I press "edit-submit" in the "Submit" region
   Then I should see "Alert test has been created." 
   And I should see an "#block-views-see-also-links-block" element
+  And I logout

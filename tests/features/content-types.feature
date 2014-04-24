@@ -16,6 +16,7 @@ Feature: Content types
   And I select "UK" from "edit-field-nation-und"
   And I press "edit-submit" in the "Submit" region
   Then I should see "Audit Report test has been created."
+  And I logout
   
   @javascript
   Scenario: Consultation - Node type
@@ -26,6 +27,7 @@ Feature: Content types
   And I check the box "N/A" in "edit-field-site-section-und"
   And I press "edit-submit" in the "Submit" region
   Then I should see "Consultation test has been created."
+  And I logout
 
   @javascript
   Scenario: General Page - Node type
@@ -36,6 +38,7 @@ Feature: Content types
   And I check the box "N/A" in "edit-field-site-section-und"
   And I press "edit-submit" in the "Submit" region
   Then I should see "General Page test has been created."
+  And I logout
   
   @javascript 
   Scenario: External link - Node type
@@ -48,6 +51,7 @@ Feature: Content types
   And I select "External Site" from "edit-field-link-category-und"
   And I press "edit-submit" in the "Submit" region
   Then I should see "External link test has been created."
+  And I logout
   
   @javascript  
   Scenario: External link set - Node type
@@ -57,6 +61,7 @@ Feature: Content types
   And I fill in "edit-title" with "test"
   And I press "edit-submit" in the "Submit" region
   Then I should see "External link set test has been created."
+  And I logout
    
   @javascript   
   Scenario: FAQ - Node type
@@ -67,6 +72,7 @@ Feature: Content types
   And I check the box "N/A" in "edit-field-site-section-und"
   And I press "edit-submit" in the "Submit" region
   Then I should see "FAQ test has been created."
+  And I logout
    
   @javascript 
   Scenario: Interactive block - Node type
@@ -77,6 +83,7 @@ Feature: Content types
   And I fill in "edit-field-block-title-und-0-value" with "test"
   And I press "edit-submit" in the "Submit" region
   Then I should see "Interactive block test has been created."  
+  And I logout
   
   @javascript
   Scenario: Internal link set - Node type
@@ -87,6 +94,7 @@ Feature: Content types
   And I fill in "edit-field-links-und-0-target-id" with "test"
   And I press "edit-submit" in the "Submit" region
   Then I should see "Internal link set test has been created."
+  And I logout
   
   @javascript
   Scenario: Job - Node type
@@ -97,6 +105,7 @@ Feature: Content types
   And I check the box "N/A" in "edit-field-site-section-und"
   And I press "edit-submit" in the "Submit" region
   Then I should see "Job test has been created."
+  And I logout
    
   @javascript 
   Scenario: Landing Page - Node type
@@ -106,6 +115,7 @@ Feature: Content types
   And I fill in "edit-title" with "test"
   And I press "edit-submit" in the "Submit" region
   Then I should see "Landing Page test has been created."
+  And I logout
    
   @javascript 
   Scenario: News - Node type
@@ -117,6 +127,7 @@ Feature: Content types
   And I select "General News" from "edit-field-news-type-und"
   And I press "edit-submit" in the "Submit" region
   Then I should see "News test has been created."   
+  And I logout
    
   @javascript 
   Scenario: Research project - Node type
@@ -127,6 +138,7 @@ Feature: Content types
   And I check the box "N/A" in "edit-field-site-section-und"
   And I press "edit-submit" in the "Submit" region
   Then I should see "Research project test has been created."   
+  And I logout
   
   @javascript  
   Scenario: Webform - Node type
@@ -136,6 +148,7 @@ Feature: Content types
   And I fill in "edit-title" with "test"
   And I press "edit-submit" in the "Submit" region
   Then I should see "Webform test has been created." 
+  And I logout
   
   @javascript  
   Scenario: Alert - Node type
@@ -147,3 +160,4 @@ Feature: Content types
   And I check the box "N/A" in "edit-field-site-section-und"
   And I press "edit-submit" in the "Submit" region
   Then I should see "Alert test has been created." 
+  And I logout

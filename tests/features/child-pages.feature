@@ -40,3 +40,4 @@ Feature: Child pages
   And I press "edit-submit" in the "Submit" region
   And I should see "test child node"
   And I should not see "test summary"
+  And I logout

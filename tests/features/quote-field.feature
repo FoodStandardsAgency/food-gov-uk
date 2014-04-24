@@ -16,3 +16,4 @@ Feature: Quotes
   And I press "edit-submit" in the "Submit" region
   Then I should see "General Page test has been created."
   And I should see "test" in the "Quote" region
+  And I logout
