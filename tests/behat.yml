@@ -18,8 +18,6 @@ default:
   extensions:
     Behat\MinkExtension\Extension:
     #  browser_name: 'chrome'
-    # include http auth data in base url when needed
-      base_url: http://shield:down@dev.fsa.dev-1.siriusopensource.com/ 
       goutte: ~
       selenium2: ~
     Drupal\DrupalExtension\Extension:
@@ -52,3 +50,5 @@ annotations:
 closures:
   paths:
     features: features/closures
+
+
