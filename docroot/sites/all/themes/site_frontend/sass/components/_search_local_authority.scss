@@ -3,10 +3,14 @@
  * Requires block class: local-authority-search
  */
 
-/* main and sidebar - local authority search form */
+/* default for main and sidebar - local authority search form */
 .local-authority-search {
 	label {
 		font-weight: normal;
+	}
+	.form-type-radio label {
+		position: relative;
+		top: 2px;
 	}
 	.form-type-textfield label {
 		padding-bottom: 0.25em;
@@ -17,8 +21,6 @@
 		line-height: 1.4em;
 	}
 	input.form-text {
-		width: 100%;	/* input form text is restricted by width of its wrapper */
-		margin-bottom: .8em;
 		padding: 2px 4px;
 		background: #fff;
 		font-size: 1.2em;
@@ -97,11 +99,14 @@
 		padding: 0;
 		border: 0;
 	}
+	fieldset {
+		margin-bottom: 1.5em;
+	}
 	legend {
 		color:#333;
 		font-size: 1.2em;
 		font-weight: bold;
-		padding: 0 0 1em 0;
+		padding: 0 0 0.8em 0;
 		line-height: 1.1em;
 		margin: 0;
 		position: relative;
@@ -117,6 +122,24 @@
 	input.form-submit:focus {
 		text-decoration: underline;
 		border: 1px solid #f67f2a;
+	}
+	.form-type-radio {
+		width: auto;
+		padding-right: 33px;
+		float: left;	
+	}
+	.form-item.form-type-textfield {
+		width: 138px;
+		margin-right: 13px;
+		float: left;
+		overflow: hidden;
+		margin-bottom: 0;
+	}
+	.form-item.form-type-textfield.form-item-postcode {
+		margin-right: 0px;
+	}
+	input.form-text {
+		width: 100%;	/* input form text is restricted by width of its wrapper */
 	}
 }
 
@@ -164,13 +187,21 @@
 		height: 1px;
 		overflow: hidden;
 	}
+	.form-item {
+		margin-bottom: 0.5em;
+	}
+	.form-item.form-item-postcode {
+		margin-bottom: 1em;
+	}
 	input.form-text {
+		width: 100%;	/* input form text is restricted by width of its wrapper */
 		margin-bottom: 0;
 	}
 	input.form-submit {
 		border: 1px solid #fff;
 		float: right;
 		margin-bottom: 12px;
+		padding: 3px 6px 3px 6px;
 	}
 	input.form-submit:hover,
 	input.form-submit:focus {
@@ -181,6 +212,7 @@
 
 /* mobile layout */
 @include breakpoint($mobile) {
+	/* form default for mobile */
 	.local-authority-search,
 	#main-content .local-authority-search,
 	.l-sidebar-second .local-authority-search,
@@ -200,10 +232,32 @@
 			padding: 2px 4px;
 		}
 	}
+	/* form in main for mobile */
+	#main-content .local-authority-search {
+		.form-item.form-type-textfield {
+			width: 100%;
+			margin-right: 0;
+			float: none;
+			overflow: auto;
+			margin-bottom: 0.5em;
+		}
+		.form-type-radio {
+			width: auto;
+			padding-right: 0;
+			float: none;	
+		}
+	}
+	/* form in sidebar for mobile */
 	.l-sidebar-second .local-authority-search,
 	.l-sidebar-first .local-authority-search {
 		h2.block__title {
 			margin-top: 0.5em;
+		}
+		legend {
+			padding: 0 0 1em 0;
+		}
+		input.form-submit {
+			padding: 6px;
 		}
 	}
 	.l-region--sidebar-second .local-authority-search.block {

@@ -2619,11 +2619,15 @@ ul.pager {
  * Local authority search forms
  * Requires block class: local-authority-search
  */
-/* main and sidebar - local authority search form */
+/* default for main and sidebar - local authority search form */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\000038}}
 .local-authority-search label {
   font-weight: normal; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\0000311}}
+.local-authority-search .form-type-radio label {
+  position: relative;
+  top: 2px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\0000315}}
 .local-authority-search .form-type-textfield label {
   padding-bottom: 0.25em;
   display: block;
@@ -2631,11 +2635,8 @@ ul.pager {
   font-weight: normal;
   font-size: 1.2em;
   line-height: 1.4em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\0000319}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\0000323}}
 .local-authority-search input.form-text {
-  width: 100%;
-  /* input form text is restricted by width of its wrapper */
-  margin-bottom: .8em;
   padding: 2px 4px;
   background: #fff;
   font-size: 1.2em;
@@ -2649,7 +2650,7 @@ ul.pager {
   font-family: Arial,Verdana,Helvetica,sans-serif;
   font-size: 1.2em;
   color: #333; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\0000336}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\0000338}}
 .local-authority-search input.form-submit {
   border: 1px solid #fff;
   line-height: 1em;
@@ -2677,7 +2678,7 @@ ul.pager {
   padding: 6px; }
 
 /* main - local authority search form */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\0000365}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\0000367}}
 #main-content .local-authority-search {
   overflow: hidden;
   margin-bottom: 20px;
@@ -2697,7 +2698,7 @@ ul.pager {
   background: -ms-linear-gradient(top, white 0, #e5e5e5 100%);
   background: linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#e5e5e5',GradientType=0); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\0000384}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\0000386}}
   #main-content .local-authority-search h2.block__title {
     color: #5d9711;
     background: none;
@@ -2706,37 +2707,59 @@ ul.pager {
     padding: 0;
     font-size: 1.5em;
     font-weight: bold; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\0000395}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\0000397}}
   #main-content .local-authority-search fieldset,
   #main-content .local-authority-search form,
   #main-content .local-authority-search legend {
     margin: 0;
     padding: 0;
     border: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003100}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003102}}
+  #main-content .local-authority-search fieldset {
+    margin-bottom: 1.5em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003105}}
   #main-content .local-authority-search legend {
     color: #333;
     font-size: 1.2em;
     font-weight: bold;
-    padding: 0 0 1em 0;
+    padding: 0 0 0.8em 0;
     line-height: 1.1em;
     margin: 0;
     position: relative;
     width: auto;
     left: 0;
     display: block; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003112}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003117}}
   #main-content .local-authority-search input.form-submit {
     border: 1px solid #bbb;
     float: right; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003117}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003122}}
   #main-content .local-authority-search input.form-submit:hover,
   #main-content .local-authority-search input.form-submit:focus {
     text-decoration: underline;
     border: 1px solid #f67f2a; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003126}}
+  #main-content .local-authority-search .form-type-radio {
+    width: auto;
+    padding-right: 33px;
+    float: left; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003131}}
+  #main-content .local-authority-search .form-item.form-type-textfield {
+    width: 138px;
+    margin-right: 13px;
+    float: left;
+    overflow: hidden;
+    margin-bottom: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003138}}
+  #main-content .local-authority-search .form-item.form-type-textfield.form-item-postcode {
+    margin-right: 0px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003141}}
+  #main-content .local-authority-search input.form-text {
+    width: 100%;
+    /* input form text is restricted by width of its wrapper */ }
 
 /* sidebar - local authority search form */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003125}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003148}}
 .l-sidebar-second .local-authority-search,
 .l-sidebar-first .local-authority-search {
   overflow: hidden;
@@ -2754,19 +2777,19 @@ ul.pager {
   background: -ms-linear-gradient(top, #9e218a 1%, #5d0050 100%);
   background: linear-gradient(top, #9e218a 1%, #5d0050 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#9e218a',endColorstr='#5d0050',GradientType=0); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003141}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003164}}
   .l-sidebar-second .local-authority-search h2.block__title,
   .l-sidebar-first .local-authority-search h2.block__title {
     font-size: 1.5em;
     color: #fff;
     padding: .5em 11px .15em 11px;
     margin: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003147}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003170}}
   .l-sidebar-second .local-authority-search .block__content,
   .l-sidebar-first .local-authority-search .block__content {
     color: #fff;
     padding: .5em 11px 21px 11px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003153}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003176}}
   .l-sidebar-second .local-authority-search fieldset,
   .l-sidebar-second .local-authority-search form,
   .l-sidebar-second .local-authority-search legend,
@@ -2776,7 +2799,7 @@ ul.pager {
     margin: 0;
     padding: 0;
     border: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003158}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003181}}
   .l-sidebar-second .local-authority-search legend,
   .l-sidebar-first .local-authority-search legend {
     color: #fff;
@@ -2786,17 +2809,28 @@ ul.pager {
     width: 1px;
     height: 1px;
     overflow: hidden; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003167}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003190}}
+  .l-sidebar-second .local-authority-search .form-item,
+  .l-sidebar-first .local-authority-search .form-item {
+    margin-bottom: 0.5em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003193}}
+  .l-sidebar-second .local-authority-search .form-item.form-item-postcode,
+  .l-sidebar-first .local-authority-search .form-item.form-item-postcode {
+    margin-bottom: 1em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003196}}
   .l-sidebar-second .local-authority-search input.form-text,
   .l-sidebar-first .local-authority-search input.form-text {
+    width: 100%;
+    /* input form text is restricted by width of its wrapper */
     margin-bottom: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003170}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003200}}
   .l-sidebar-second .local-authority-search input.form-submit,
   .l-sidebar-first .local-authority-search input.form-submit {
     border: 1px solid #fff;
     float: right;
-    margin-bottom: 12px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003176}}
+    margin-bottom: 12px;
+    padding: 3px 6px 3px 6px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003207}}
   .l-sidebar-second .local-authority-search input.form-submit:hover,
   .l-sidebar-second .local-authority-search input.form-submit:focus,
   .l-sidebar-first .local-authority-search input.form-submit:hover,
