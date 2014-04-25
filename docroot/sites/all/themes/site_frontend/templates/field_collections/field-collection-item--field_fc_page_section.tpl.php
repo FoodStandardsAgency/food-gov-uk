@@ -143,13 +143,13 @@
         print $image_with_wrapper;
       }
 
+	  if (isset($csv_files)) {
+        print $csv_files;
+      }
+
       if (isset($related_item)) {
         print $related_items_heading;
         print $related_item;
-      }
-
-	  if (isset($csv_files)) {
-        print $csv_files;
       }
 
       if (isset($child_page)) {
