@@ -2736,6 +2736,152 @@ ul.pager {
     font-size: 1.5em;
     font-weight: bold; }
 
+/* main and sidebar - local authority search form */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\000033}}
+.local-authority-search label {
+  font-weight: normal; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\000036}}
+.local-authority-search .form-type-textfield label {
+  padding-bottom: 0.25em;
+  display: block;
+  padding-left: 3px;
+  font-weight: normal;
+  font-size: 1.2em;
+  line-height: 1.4em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\0000314}}
+.local-authority-search input.form-text {
+  width: 100%;
+  /* input form text is restricted by width of its wrapper */
+  margin-bottom: .8em;
+  padding: 2px 4px;
+  background: #fff;
+  font-size: 1.2em;
+  vertical-align: middle;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  font-family: Arial,Verdana,Helvetica,sans-serif;
+  font-size: 1.2em;
+  color: #333; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\0000331}}
+.local-authority-search input.form-submit {
+  vertical-align: middle;
+  font-size: 1.2em;
+  border: 1px solid #ccc;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px;
+  background-color: #fff; }
+
+/* main - local authority search form */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\0000345}}
+#main-content .local-authority-search {
+  margin-bottom: 20px;
+  padding: 11px 9px 21px 11px;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  -o-border-radius: 9px;
+  -ms-border-radius: 9px;
+  border-radius: 9px;
+  background: #fff;
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlNWU1ZTUiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+  background: -moz-linear-gradient(top, white 0, #e5e5e5 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, #e5e5e5));
+  background: -webkit-linear-gradient(top, white 0, #e5e5e5 100%);
+  background: -o-linear-gradient(top, white 0, #e5e5e5 100%);
+  background: -ms-linear-gradient(top, white 0, #e5e5e5 100%);
+  background: linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#e5e5e5',GradientType=0); }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\0000363}}
+  #main-content .local-authority-search h2.block__title {
+    color: #5d9711;
+    background: none;
+    padding-left: 0;
+    margin: 0 0 .6em 0;
+    padding: 0;
+    font-size: 1.5em;
+    font-weight: bold; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\0000374}}
+  #main-content .local-authority-search fieldset,
+  #main-content .local-authority-search form,
+  #main-content .local-authority-search legend {
+    margin: 0;
+    padding: 0;
+    border: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\0000379}}
+  #main-content .local-authority-search legend {
+    color: #333;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 0 0 1em 0;
+    line-height: 1.1em;
+    margin: 0;
+    position: relative;
+    width: auto;
+    left: 0;
+    display: block; }
+
+/* sidebar - local authority search form */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\0000397}}
+.l-sidebar-second .local-authority-search,
+.l-sidebar-first .local-authority-search {
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  -o-border-radius: 9px;
+  -ms-border-radius: 9px;
+  border-radius: 9px;
+  background: #9e218a;
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+  background: -moz-linear-gradient(top, #9e218a 1%, #5d0050 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #9e218a), color-stop(100%, #5d0050));
+  background: -webkit-linear-gradient(top, #9e218a 1%, #5d0050 100%);
+  background: -o-linear-gradient(top, #9e218a 1%, #5d0050 100%);
+  background: -ms-linear-gradient(top, #9e218a 1%, #5d0050 100%);
+  background: linear-gradient(top, #9e218a 1%, #5d0050 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#9e218a',endColorstr='#5d0050',GradientType=0); }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003112}}
+  .l-sidebar-second .local-authority-search h2.block__title,
+  .l-sidebar-first .local-authority-search h2.block__title {
+    font-size: 1.5em;
+    color: #fff;
+    padding: .5em 11px .15em 11px;
+    margin: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003118}}
+  .l-sidebar-second .local-authority-search .block__content,
+  .l-sidebar-first .local-authority-search .block__content {
+    color: #fff;
+    padding: .5em 11px 21px 11px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003124}}
+  .l-sidebar-second .local-authority-search fieldset,
+  .l-sidebar-second .local-authority-search form,
+  .l-sidebar-second .local-authority-search legend,
+  .l-sidebar-first .local-authority-search fieldset,
+  .l-sidebar-first .local-authority-search form,
+  .l-sidebar-first .local-authority-search legend {
+    margin: 0;
+    padding: 0;
+    border: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003129}}
+  .l-sidebar-second .local-authority-search legend,
+  .l-sidebar-first .local-authority-search legend {
+    color: #fff;
+    position: absolute;
+    left: -1000px;
+    margin: 0 !important;
+    width: 1px;
+    height: 1px;
+    overflow: hidden; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003138}}
+  .l-sidebar-second .local-authority-search input.form-text,
+  .l-sidebar-first .local-authority-search input.form-text {
+    margin-bottom: 0; }
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\000032}}
 .current-search-item-text .result-count {
   color: #666;
