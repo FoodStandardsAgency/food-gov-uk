@@ -332,7 +332,7 @@ $conf['fast_404_HTML_error_all_paths'] = FALSE;
 # Call the extension checking now. This will skip any logging of 404s.
 # Extension checking is safe to do from settings.php. There are many
 # examples of this on Drupal.org.
-//fast_404_ext_check();
+fast_404_ext_check();
 
 # Path checking. USE AT YOUR OWN RISK (only works with MySQL).
 # Path checking at this phase is more dangerous, but faster. Normally
@@ -354,4 +354,4 @@ $conf['fast_404_HTML_error_all_paths'] = FALSE;
 $conf['shield_user'] = 'shield';
 $conf['shield_pass'] = 'down';
 $conf['shield_allow_cli'] = 1;
-$conf['shield_print'] =  'Hello, user: [user], pass: [pass]!';
+$conf['shield_print'] =  'Hello, user: [user], pass: [pass]';
