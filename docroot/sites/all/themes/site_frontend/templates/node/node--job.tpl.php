@@ -105,16 +105,9 @@
       hide($content['links']);
     ?>
     <?php if ($page):
-      // On consultation pages, we need to include RDFa for aggregation.
-
+      // On jobs pages, we need to include RDFa for aggregation.
       ?>
       <!-- RDFa content  -->
-      <span rel="dc:type" resource="[argot:Consultation]"></span>
-      <span rel="dc:source" resource=""></span>
-      <span class="hidden" property="dc:issued" content="24 March 2014">24 March 2014</span>  <!-- updated date -->
-      <span class="hidden" property="dc:available" content="21 March 2014">21 March 2014</span> <!-- start date -->
-      <span class="hidden" property="dc:valid" content="29 May 2014">29 May 2014</span> <!-- close date -->
-      <!-- contact data in vcard format -->
 
 
     <?php endif; ?>
