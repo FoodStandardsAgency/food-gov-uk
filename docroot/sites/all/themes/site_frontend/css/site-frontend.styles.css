@@ -339,6 +339,49 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
   background: linear-gradient(top, #ffffff 0%, #ffffff 46%, #eaeaea 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#eaeaea',GradientType=0); }
 
+/* inline form labels */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_forms\.scss}line{font-family:\000032}}
+label.element-invisible.compact-form-label {
+  /* override defaults */
+  position: absolute !important;
+  clip: auto;
+  overflow: visible;
+  height: auto;
+  font-weight: normal; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_forms\.scss}line{font-family:\0000310}}
+.compact-form-label {
+  font-size: 1em;
+  line-height: 1;
+  top: 1px;
+  left: 6px;
+  letter-spacing: 0.5px;
+  font-weight: normal;
+  color: #333; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_forms\.scss}line{font-family:\0000319}}
+.global-search .compact-form-label {
+  font-size: 1.2em;
+  line-height: 1;
+  top: -1px;
+  left: 8px;
+  color: #333; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_forms\.scss}line{font-family:\0000330}}
+.search-facet label.compact-form-label,
+.search-facet .views-exposed-form label.compact-form-label,
+.search-facet .form-item label.compact-form-label,
+.search-facet .form-actions label.compact-form-label {
+  padding-bottom: 0;
+  display: block;
+  padding-left: 3px;
+  color: #333;
+  font-weight: normal;
+  font-size: 1.1em;
+  line-height: 1;
+  top: 2px;
+  left: 6px; }
+
 /* default links for site */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\000032}}
 a {
