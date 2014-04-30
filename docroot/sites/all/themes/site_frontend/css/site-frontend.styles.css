@@ -352,7 +352,7 @@ label.element-invisible.compact-form-label {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_forms\.scss}line{font-family:\0000310}}
 .compact-form-label {
   font-size: 1em;
-  line-height: 1;
+  line-height: 1.4em;
   top: 1px;
   left: 6px;
   letter-spacing: 0.5px;
@@ -362,11 +362,12 @@ label.element-invisible.compact-form-label {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_forms\.scss}line{font-family:\0000319}}
 .global-search .compact-form-label {
   font-size: 1.2em;
-  line-height: 1;
+  line-height: 1.4em;
   top: -1px;
   left: 8px;
   color: #333; }
 
+/* override search facet default labels to apply compact label */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_forms\.scss}line{font-family:\0000330}}
 .search-facet label.compact-form-label,
 .search-facet .views-exposed-form label.compact-form-label,
@@ -374,11 +375,11 @@ label.element-invisible.compact-form-label {
 .search-facet .form-actions label.compact-form-label {
   padding-bottom: 0;
   display: block;
-  padding-left: 3px;
+  padding-left: 0;
   color: #333;
   font-weight: normal;
   font-size: 1.1em;
-  line-height: 1;
+  line-height: 1.4em;
   top: 2px;
   left: 6px; }
 
