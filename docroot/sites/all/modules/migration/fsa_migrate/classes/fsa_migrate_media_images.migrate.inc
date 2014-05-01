@@ -39,7 +39,7 @@ class FSAMediaImagesMigration extends FSAMigration {
     );
 
     // The directory for images.
-    $file_directory = 'public://images/source';
+    $file_directory = 'public://images/sources';
 
     $this->source = new MigrateSourceList(new MigrateListFilesPath($file_directory),
       new MigrateItemFilePath());

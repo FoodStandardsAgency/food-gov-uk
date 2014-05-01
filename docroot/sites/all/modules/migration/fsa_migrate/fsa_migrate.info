@@ -9,6 +9,7 @@ files[] = classes/fsa_migrate_base.migrate.inc
 files[] = classes/fsa_migrate_documentpage.migrate.inc
 files[] = classes/fsa_migrate_documentpage_fc.migrate.inc
 files[] = classes/fsa_migrate_media_images.migrate.inc
+files[] = classes/fsa_migrate_childpage_fc.migrate.inc
 ; Sources.
 files[] = sources/fsa_migratelist_oracle_text_collection.inc
 files[] = sources/fsa_migratelist_files_path.inc

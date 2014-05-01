@@ -22,7 +22,9 @@ class FSADocumentpageMigration extends FSAMigration {
     WHERE FIELDVALUE.OBJECTID = OBJ.OBJECTID
     AND OBJ.OBJECTTYPEID = OBJTYPE.OBJECTTYPEID
     AND (OBJ.PATH LIKE '/multimedia/webpage/uber-page/'
-    OR OBJ.PATH LIKE '/news-updates/campaigns/where-are-you-really-eating-out/')
+    OR OBJ.PATH LIKE '/news-updates/campaigns/where-are-you-really-eating-out/'
+    OR OBJ.PATH LIKE '/multimedia/webpage/uber-page/attached-item-2/'
+    OR OBJ.PATH LIKE '/multimedia/webpage/uber-page/attached-item-1/')
     GROUP BY OBJ.OBJECTID, OBJ.SIMPLENAME, OBJ.PATH, OBJTYPE.NAME
 ENDSQL;
 
@@ -36,6 +38,8 @@ ENDSQL;
     FROM OBJ
     WHERE OBJ.PATH LIKE '/multimedia/webpage/uber-page/'
     OR OBJ.PATH LIKE '/news-updates/campaigns/where-are-you-really-eating-out/'
+    OR OBJ.PATH LIKE '/multimedia/webpage/uber-page/attached-item-2/'
+    OR OBJ.PATH LIKE '/multimedia/webpage/uber-page/attached-item-1/'
 ENDSQL;
 
   protected $queryFeatureImage = <<<'ENDSQL'
@@ -106,11 +110,14 @@ ENDSQL;
     $this->addFieldMapping('field_feature_image:preserve_files')
       ->defaultValue(TRUE);
 
-    //$this->addFieldMapping('path', 'PATH')
-    //  ->callbacks(array($this, 'pathFormatter'));
-
-    // Disable pathauto.
-    // $this->addFieldMapping('pathauto', FALSE);
+//    $this->addFieldMapping('field_path', 'title');
+//    $this->addFieldMapping('field_path:machine', 'PATH');
+//
+//    $this->addFieldMapping('path', 'PATH')
+//      ->callbacks(array($this, 'pathFormatter'));
+//
+//    // Disable pathauto.
+//     $this->addFieldMapping('pathauto', FALSE);
   }
 
   /**

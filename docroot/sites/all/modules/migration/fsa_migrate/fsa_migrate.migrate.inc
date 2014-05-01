@@ -16,6 +16,7 @@ function fsa_migrate_migrate_api() {
       'FSADocumentpage' => array('class_name' => 'FSADocumentpageMigration'),
       'FSADocumentpageCollection' => array('class_name' => 'FSADocumentpageCollectionMigration'),
       'FSAMediaImages' => array('class_name' => 'FSAMediaImagesMigration'),
+      'FSAChildpageCollection' => array('class_name' => 'FSAChildpageCollectionMigration'),
     )
   );
 

@@ -49,7 +49,6 @@ class MigrateListFilesPath extends MigrateList {
     $fileListString = NULL;
 
     if ($this->directory !== NULL) {
-
       $drupalBasePath =realpath(".") . '/';
       $di = new RecursiveDirectoryIterator($this->directory);
       foreach (new RecursiveIteratorIterator($di) as $filename => $file) {
