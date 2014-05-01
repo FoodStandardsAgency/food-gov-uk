@@ -3,6 +3,15 @@
  * We use toc_node module to add a toc, and we override the css here
  */
 
+/* toc block */
+#block-toc-node-toc-node {
+	clear: both;
+	h2.block__title {
+		color: #006f51;
+		margin-bottom: 0.45em;
+	}
+}
+
 /* wrapper */
 #table-of-contents-links {
 	ul, li {
@@ -61,6 +70,26 @@ ul.toc-node-bullets {
 		padding-left: 84px;
 	}
 }
+
+/* back to top links */
+.section-back-top {
+	text-align: right;
+	margin-bottom: 15px;
+	a {
+		color: #006f51;
+		text-decoration: none;
+		font-size: 1.2em;
+		line-height: 1.4em;
+		background-image: url('../images/arrow-up.png');
+		background-repeat: no-repeat;
+		background-position: left 4px;
+		padding-left: 14px;
+	}
+	a:hover {
+		text-decoration: underline;	
+	}
+}
+
 
 @include breakpoint($mobile) {
 	#table-of-contents-links {

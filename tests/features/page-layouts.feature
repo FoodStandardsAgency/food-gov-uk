@@ -19,6 +19,7 @@ Feature: Page layouts
   And the response should not contain "l-sidebar-second"
   And the response should contain "header-wrapper"
   And the response should contain "footer-wrapper"
+  And I logout
   
   @javascript
   Scenario: Three columns
@@ -36,6 +37,7 @@ Feature: Page layouts
   And the response should contain "l-sidebar-second"
   And the response should contain "header-wrapper"
   And the response should contain "footer-wrapper"
+  And I logout
   
   @javascript
   Scenario: Two columns
@@ -53,6 +55,7 @@ Feature: Page layouts
   And the response should contain "l-sidebar-second"
   And the response should contain "header-wrapper"
   And the response should contain "footer-wrapper"
+  And I logout
   
   @javascript
   Scenario: One column blank (no sidebars, header or footer)
@@ -70,3 +73,4 @@ Feature: Page layouts
   And the response should not contain "l-sidebar-second"
   And the response should not contain "header-wrapper"
   And the response should not contain "footer-wrapper"
+  And I logout

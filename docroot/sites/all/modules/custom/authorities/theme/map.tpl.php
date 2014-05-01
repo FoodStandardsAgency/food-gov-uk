@@ -9,7 +9,7 @@
 	 *	$parameters : The query-string parameters
 	 */
 
-	$key = variable_get_value('food_bing_api_key');
+	$key = variable_get_value('authorities_bing_api_key');
 
 	$latitude = $parameters->getLatitude();
 	$longitude = $parameters->getLongitude();

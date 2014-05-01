@@ -1,3 +1,11 @@
 img, media {
   max-width: 100%;
 }
+
+/* files - depends on hook_file_link in template.php and custom formatter "file type size and link" on file in content type display settings */
+.file-item {
+	span.filesize {
+		margin-left: 10px;
+	}
+}
+

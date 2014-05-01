@@ -28,6 +28,9 @@
  * @see template_process()
  */
 
+
+
+
   $image = '';
   $image_position = '';
   $image_caption = '';
@@ -35,6 +38,14 @@
 
   // Determine the language.
   $language = isset($field_collection_item->lancode) ? $field_collection_item->lancode : 'und';
+
+  // Load parent node so that we can check settings
+  $node = menu_get_object();
+
+  // get back to top setting from parent node
+  $back_to_top = field_get_items('node', $node, 'field_setting_backtotop');
+  $back_to_top = $back_to_top[0]['value'];
+
 
 
   // Create image and wrapper markup.
@@ -93,16 +104,24 @@
   // Heading will display even if there's no content, so hide it here.
   hide($content['field_fc_related_items_heading']);
 
-  if (!empty($field_collection_item->field_fc_related_item)) {
+
+  if (!empty($field_collection_item->field_fc_related_items)) {
     $related_items_heading = render($content['field_fc_related_items_heading']);
-    $related_item = render($content['field_fc_related_item']);
+    $related_item = render($content['field_fc_related_items']);
+  }
+
+
+  // CSV files
+  // these are placed within a group, so we have to look there.
+  if (!empty($field_collection_item->field_fc_files_csv)) {
+    $csv_files = render($content['group_related_data']);
   }
 
   // Child pages.
   // Heading will display even if there's no content, so hide it here.
   hide($content['field_child_pages_heading']);
 
-  if (!empty($field_collection_item->field_fc_related_item)) {
+  if (!empty($field_collection_item->field_child_page)) {
     $child_pages_heading = render($content['field_child_pages_heading']);
     $child_page = render($content['field_child_page']);
   }
@@ -124,6 +143,10 @@
         print $image_with_wrapper;
       }
 
+	  if (isset($csv_files)) {
+        print $csv_files;
+      }
+
       if (isset($related_item)) {
         print $related_items_heading;
         print $related_item;
@@ -134,7 +157,14 @@
         print $child_page;
       }
 
+
     ?>
+    <?php  if ($back_to_top) {  ?>
+      <div class="section-back-top">
+         <a href="#main-content"><?=t('Back to top');?> </a>
+      </div>
+      <? } ?>
+
   </div>
 </div>
 

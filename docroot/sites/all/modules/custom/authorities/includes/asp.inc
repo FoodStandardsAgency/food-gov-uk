@@ -13,6 +13,8 @@ class AuthoritiesSearchParameters {
 	private $width;
 	private $height;
 
+	private $has_parameters = FALSE;
+
 	public function __construct() {
 
 		$this->width = variable_get_value('authorities_map_width');
@@ -24,8 +26,8 @@ class AuthoritiesSearchParameters {
 		$this->postcode = NULL;
 
 		// default latitude/longitude
-		$this->latitude = 54;
-		$this->longitude = 2;
+		$this->latitude = 0;
+		$this->longitude = 0;
 		$this->zoom = 10;
 
 		$this->position = NULL;
@@ -33,14 +35,23 @@ class AuthoritiesSearchParameters {
 		$this->category = 'trading';
 	}
 
-	public function setCity($v) { $this->city = $v; return $this; }
-	public function getCity() { return $this->city; }
-	public function setStreet($v) { $this->street = $v; return $this; }
-	public function getStreet() { return $this->street; }
-	public function setPostcode($v) { $this->postcode = $v; return $this; }
-	public function getPostcode() { return $this->postcode; }
+	/**
+	 * Returns <code>TRUE|FALSE</code> depending on whether or not any parameters have been set.
+	 * @return <code>TRUE|FALSE</code> depending on whether or not any parameters have been set.
+	 */
+	public function hasParameters() {
+
+		return $this->has_parameters;
+	}
+
 	public function setCategory($v) { $this->category = $v; return $this; }
 	public function getCategory() { return $this->category; }
+	public function setCity($v) { $this->city = $v; $this->has_parameters = TRUE; return $this; }
+	public function getCity() { return $this->city; }
+	public function setStreet($v) { $this->street = $v; $this->has_parameters = TRUE; return $this; }
+	public function getStreet() { return $this->street; }
+	public function setPostcode($v) { $this->postcode = $v; $this->has_parameters = TRUE; return $this; }
+	public function getPostcode() { return $this->postcode; }
 	public function setLatitude($v) { $this->latitude = $v; return $this; }
 	public function getLatitude() { return $this->latitude; }
 	public function setLongitude($v) { $this->longitude = $v; return $this; }

@@ -3,8 +3,8 @@ Feature: Image
   As a Content Editor 
   So I can add associated graphics to content
   
-  @javascript
-  Scenario:Image caption
-  Given I am on "/"
-  Then the position of "" should be above ""
-  And the position of "" should be below ""
+  #@javascript
+  #Scenario:Image caption
+  #Given I am on "/test-image-caption"
+  #And I wait for "2" second
+  #Then the position of "img-pos-right" should be above "image-caption"

@@ -1,0 +1,160 @@
+<?php
+
+/**
+ * Implementation of hook_block_info().
+ */
+function guidance_custom_block_info() {
+
+  $blocks['guidance_custom'] = array(
+    'info' => t('Guidance Custom Search'),
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implementation of hook_block_view().
+ */
+function guidance_custom_block_view($delta = '') {
+
+  $block = array();
+
+  switch ($delta) {
+    case 'guidance_custom':
+      $content = drupal_get_form('guidance_custom_search_form');
+
+      $block['subject'] = NULL;
+      $block['content'] = $content;
+      break;
+  }
+
+  return $block;
+}
+
+function guidance_custom_search_form($form_state) {
+
+  $form['guidance_custom_keyword'] = array(
+    '#type'          => 'textfield',
+    '#title'         => t('Search by word or phrase'),
+    '#default_value' => FALSE,
+  );
+
+  $topic_options = guidance_custom_top_level_terms('topic');
+  $nation_options = guidance_custom_top_level_terms('nation');
+  $business_type_options = guidance_custom_top_level_terms('business_type');
+
+
+  $form['topic'] = array(
+    '#type'          => 'select',
+    '#title'         => t('Topic'),
+    '#default_value' => 0,
+    '#empty_option'  => t('All'),
+    '#options'       => $topic_options,
+    '#attributes' => array(
+      'class' => array('search-facet'),
+    )
+  );
+
+  $form['nation'] = array(
+    '#type'          => 'select',
+    '#required'      => FALSE,
+    '#title'         => t('Country'),
+    '#default_value' => 0,
+    '#empty_option'  => t('All'),
+    '#options'       => $nation_options,
+  );
+
+  $form['business_type'] = array(
+    '#type'          => 'select',
+    '#required'      => FALSE,
+    '#title'         => t('Business Type'),
+    '#default_value' => 0,
+    '#empty_option'  => t('All'),
+    '#options'       => $business_type_options,
+  );
+
+  $form['submit_guidance_custom_facets'] = array(
+    '#type'  => 'submit',
+    '#value' => t('Submit'),
+  );
+
+  return $form;
+}
+
+function guidance_custom_search_form_submit($form, &$form_state) {
+  $view_name = 'search_sitewide';
+  $facet_count = 0;
+  $facets = array();
+  $guidance_term = 33;
+
+  $view = views_get_view($view_name, $reset = FALSE);
+  $path = $view->display['page']->display_options['path'];
+
+  if (!empty($form_state['values']['guidance_custom_keyword'])) {
+
+    $facets[] = array (
+      'key' => 'keyword',
+      'facet' => $form_state['values']['guidance_custom_keyword']
+    );
+  }
+
+  $facets[] = array (
+    'key' => 'f[' . $facet_count . ']',
+    'facet' => 'im_field_site_section:' . $guidance_term
+  );
+
+  if (!empty($form_state['values']['topic'])) {
+    $facet_count++;
+
+    $facets[] = array (
+      'key' => 'f[' . $facet_count . ']',
+      'facet' => 'im_field_topic:' . $form_state['values']['topic']
+    );
+  }
+
+  if (!empty($form_state['values']['business_type'])) {
+    $facet_count++;
+
+    $facets[] = array (
+      'key' => 'f[' . $facet_count . ']',
+      'facet' => 'im_field_business_type:' . $form_state['values']['business_type'],
+    );
+  }
+
+  if (!empty($form_state['values']['nation'])) {
+    $facet_count++;
+
+    $facets[] = array (
+      'key' => 'f[' . $facet_count . ']',
+      'facet' => 'im_field_nation:' . $form_state['values']['nation'],
+    );
+  }
+
+  foreach ($facets as $facet) {
+    $facet_filters[$facet['key']] = $facet['facet'];
+  }
+
+  drupal_goto($path, array('query' => $facet_filters));
+}
+
+function guidance_custom_top_level_terms($vocabulary) {
+
+  $vocabularies = taxonomy_vocabulary_get_names();
+
+  if (isset($vocabularies[$vocabulary])) {
+    $vid = $vocabularies[$vocabulary]->vid;
+  }
+  else {
+    return array();
+  }
+
+  $terms = taxonomy_get_tree($vid, $parent = 0, $max_depth = 1, $load_entities = FALSE);
+
+  foreach ($terms as $term) {
+    $options[$term->tid] = $term->name;
+  }
+
+  return $options;
+}
+
+

@@ -36,7 +36,6 @@ ini_set('session.cookie_lifetime', 2000000);
 
 $conf['404_fast_paths_exclude'] = '/\/(?:styles)\//';
 $conf['404_fast_paths'] = '/\.(?:txt|png|gif|jpe?g|css|js|ico|swf|flv|cgi|bat|pl|dll|exe|asp)$/i';
-$conf['404_fast_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>404 Not Found</title></head><body><h1>Not Found</h1><p>The requested URL "@path" was not found on this server.</p></body></html>';
 
 /**
  * Allow DB configuration to be overridden by environment variables.
@@ -178,8 +177,6 @@ switch (getenv('AH_SITE_ENVIRONMENT')) {
     $conf['block_cache'] = 1;
     $conf['cache_lifetime'] = 300;
     $conf['page_cache_maximum_age'] = 600;
-
-
     break;
 
   case 'local':
@@ -299,7 +296,6 @@ $ga_js = "<script type=\"text/javascript\">
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>";
-$conf['fast_404_html'] = '<!DOCTYPE html><head><title>404 Not Found</title></head>' . $ga_js . '<body><h1>Not Found</h1><p>The requested URL "@path" was not found on this server.</p></body></html>';
 
 # Check paths during bootstrap and see if they are legitimate.
 $conf['fast_404_path_check'] = TRUE;
@@ -324,8 +320,8 @@ $conf['fast_404_string_whitelisting'] = array('cdn/farfuture', '/advagg_');
 # sr14 addition - checks for 404.html in multisite folder first.
 $path_to_path = './404.html';
 
-if (file_exists(DRUPAL_ROOT . '/' . conf_path() . '/404.html')) {
-  $path_to_path = DRUPAL_ROOT . '/' . conf_path() . '/404.html';
+if (file_exists(DRUPAL_ROOT . '/' . conf_path() . '/404/404.html')) {
+  $path_to_path = DRUPAL_ROOT . '/' . conf_path() . '/404/404.html';
 }
 
 $conf['fast_404_HTML_error_page'] = $path_to_path;
@@ -336,7 +332,7 @@ $conf['fast_404_HTML_error_all_paths'] = FALSE;
 # Call the extension checking now. This will skip any logging of 404s.
 # Extension checking is safe to do from settings.php. There are many
 # examples of this on Drupal.org.
-//fast_404_ext_check();
+fast_404_ext_check();
 
 # Path checking. USE AT YOUR OWN RISK (only works with MySQL).
 # Path checking at this phase is more dangerous, but faster. Normally
@@ -358,4 +354,4 @@ $conf['fast_404_HTML_error_all_paths'] = FALSE;
 $conf['shield_user'] = 'shield';
 $conf['shield_pass'] = 'down';
 $conf['shield_allow_cli'] = 1;
-$conf['shield_print'] =  'Hello, user: [user], pass: [pass]!';
+$conf['shield_print'] =  'Hello, user: [user], pass: [pass]';

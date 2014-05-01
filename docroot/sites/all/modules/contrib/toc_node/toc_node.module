@@ -25,9 +25,11 @@ function toc_node_form_node_type_form_alter(&$form, $form_state) {
   );
 
   $form['toc_node']['toc_node_back_to_top_links'] = array(
-    '#type'          => 'checkbox',
-    '#title'         => t('Enable back to top links'),
+    '#type'          => 'select',
+    '#title'         => t('Back to top links'),
     '#default_value' => variable_get('toc_node_back_to_top_links_' . $type->type, 0),
+    '#empty_option'  => t('- Select -'),
+    '#options'       => array(t('Disabled - always'), t('Enabled - always'), t('Enabled - per node option'), t('Disabled - per node option')),
   );
 
   $form['toc_node']['toc_node_level'] = array(
@@ -73,7 +75,7 @@ function toc_node_form_node_form_alter(&$form, &$form_state, $form_id) {
   $options_enabled   = variable_get('toc_node_styles_' . $type, array());
   $options           = array_intersect_key($options_all, array_flip($options_enabled));
   $style             = variable_get('toc_node_style_default_' . $type, 'bullets');
-  $back_to_top_links = variable_get('toc_node_back_to_top_links_' . $type, 0);
+  $back_to_top_links_defaults = variable_get('toc_node_back_to_top_links_' . $type, 0);
   $level             = variable_get('toc_node_level_' . $type, 'h2');
 
   if (isset($form['nid']['#value'])) {
@@ -106,11 +108,24 @@ function toc_node_form_node_form_alter(&$form, &$form_state, $form_id) {
     '#options'       => $options,
   );
 
+  // Check if back to top links should be on as default.
+  if (!isset($back_to_top_links) && ($back_to_top_links_defaults == 1 || $back_to_top_links_defaults == 2)) {
+    $back_to_top_links = 1;
+  }
+  elseif (!isset($back_to_top_links) && ($back_to_top_links_defaults == 0 || $back_to_top_links_defaults == 3)) {
+    $back_to_top_links = 0;
+  }
+
   $form['toc_node']['toc_node_back_to_top_links'] = array(
     '#type'          => 'checkbox',
     '#title'         => t('Back to top links'),
     '#default_value' => $back_to_top_links,
   );
+
+  // Check if there is per node options.
+  if ($back_to_top_links_defaults < 2) {
+    $form['toc_node']['toc_node_back_to_top_links']['#access'] = FALSE;
+  }
 
   $form['toc_node']['toc_node_level'] = array(
     '#type'          => 'select',
@@ -365,7 +380,8 @@ function toc_node_add_anchors(&$dom_document, &$anchor_count, &$links, $heading_
     $links['toc-' . $anchor_count]['level'] = $heading_level;
 
     // Headings, add class.
-    $header->setAttribute('class', 'toc-headings');
+    $classes = $header->getAttribute('class');
+    $header->setAttribute('class', $classes. ' toc-headings');
 
     // Anchors above headings.
     $anchor_div = $dom_document->createElement('div');

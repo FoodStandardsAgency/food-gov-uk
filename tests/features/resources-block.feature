@@ -19,3 +19,4 @@ Feature: Resources
   And I press "Save"
   Then I should see "Landing Page test has been created."
   And I should see the text "Resources" in the "Resources" region
+  And I logout

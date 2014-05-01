@@ -10,7 +10,7 @@ class Authorities implements Iterator {
 	 * @return the collection of authorities as an array
 	 */
 	public function getAll() {
-		return $this->authorities();
+		return $this->authorities;
 	}
 
 	public function getForIndex($i) {
@@ -32,6 +32,10 @@ class Authorities implements Iterator {
 		$authority->setPosition($position);
 		$this->authorities[$position] = $authority;
 		return $this;
+	}
+
+	public function count() {
+		return count($this->authorities);
 	}
 
 	public function current()	{

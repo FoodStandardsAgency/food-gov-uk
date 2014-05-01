@@ -288,7 +288,7 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
 
 /* grey type outer box applied to specific field collections */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_field_collections\.scss}line{font-family:\0000313}}
-.field--name-field-fc-related-items {
+.add-classes-here {
   border: 1px solid #c4c4c4;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
@@ -308,7 +308,7 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
 
 /* grey type outer box applied to specific field collections that have a block-type heading */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_field_collections\.scss}line{font-family:\0000333}}
-.field-collection-item-field-child-pages {
+.add-additional-classes-here {
   border: 1px solid #c4c4c4;
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
@@ -326,13 +326,79 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
   background: linear-gradient(top, #ffffff 0%, #ffffff 46%, #eaeaea 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#eaeaea',GradientType=0); }
 
+/* inline form labels */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_forms\.scss}line{font-family:\000032}}
+label.element-invisible.compact-form-label {
+  /* override defaults */
+  position: absolute !important;
+  clip: auto;
+  overflow: visible;
+  height: auto;
+  font-weight: normal; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_forms\.scss}line{font-family:\0000310}}
+.compact-form-label {
+  font-size: 1em;
+  line-height: 1.4em;
+  top: 1px;
+  left: 6px;
+  letter-spacing: 0.5px;
+  font-weight: normal;
+  color: #333; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_forms\.scss}line{font-family:\0000319}}
+.global-search .compact-form-label {
+  font-size: 1.2em;
+  line-height: 1.4em;
+  top: -1px;
+  left: 8px;
+  color: #333; }
+
+/* override search facet default labels to apply compact label */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_forms\.scss}line{font-family:\0000330}}
+.search-facet label.compact-form-label,
+.search-facet .views-exposed-form label.compact-form-label,
+.search-facet .form-item label.compact-form-label,
+.search-facet .form-actions label.compact-form-label {
+  padding-bottom: 0;
+  display: block;
+  padding-left: 0;
+  color: #333;
+  font-weight: normal;
+  font-size: 1.1em;
+  line-height: 1.4em;
+  top: 2px;
+  left: 6px; }
+
+/* default links for site */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\000032}}
+a {
+  color: #006f51;
+  text-decoration: none; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\000036}}
+a:hover {
+  text-decoration: underline; }
+
+/* external links icon - requires external links module */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000311}}
+span.ext {
+  background: url("../images/icons/external-link-icon.gif") right center no-repeat;
+  width: 10px;
+  height: 10px;
+  margin-left: 3px;
+  margin-right: 3px;
+  display: inline-block;
+  *display: inline;
+  zoom: 1; }
+
 /* apply this class to the block, not to the link itself */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\000033}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000324}}
 .green-sidebar-links1 ul {
   margin: 0;
   padding: 0;
   list-style-type: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\000038}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000329}}
 .green-sidebar-links1 .li {
   font-size: 1em;
   font-weight: normal;
@@ -341,7 +407,7 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
   background-image: url("../images/green-arrow-thin-right.png");
   background-repeat: no-repeat;
   background-position: left 3px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000316}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000337}}
   .green-sidebar-links1 .li a {
     text-decoration: none;
     font-size: 1.2em;
@@ -349,16 +415,16 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
     display: block;
     color: #006f51;
     margin-bottom: 0.35em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000324}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000345}}
   .green-sidebar-links1 .li a:hover {
     text-decoration: underline; }
 
 /* apply this class to the block, not to the link itself */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000331}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000352}}
 .green-sidebar-links2 ul {
   margin: 0;
   padding: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000335}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000356}}
 .green-sidebar-links2 .li {
   font-size: 1em;
   font-weight: normal;
@@ -367,7 +433,7 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
   background-image: url("../images/green-arrow-thin-right.png");
   background-repeat: no-repeat;
   background-position: left 3px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000343}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000364}}
   .green-sidebar-links2 .li a {
     text-decoration: none;
     font-size: 1.2em;
@@ -375,17 +441,17 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
     display: block;
     color: #006f51;
     margin-bottom: 0.5em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000351}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000372}}
   .green-sidebar-links2 .li a:hover {
     text-decoration: underline; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000355}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000376}}
 .green-sidebar-links2 .field--name-field-subtitle {
   font-size: 1.2em;
   line-height: 1.4em;
   margin-bottom: 0.5em; }
 
 /* apply this class to the a-tag */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000364}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000385}}
 a.fsa-more-link {
   font-weight: normal;
   display: block;
@@ -396,13 +462,18 @@ a.fsa-more-link {
   text-decoration: none;
   color: #006f51; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000374}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\0000395}}
 a.fsa-more-link:hover {
   text-decoration: underline; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_media\.scss}line{font-family:\000031}}
 img, media {
   max-width: 100%; }
+
+/* files - depends on hook_file_link in template.php and custom formatter "file type size and link" on file in content type display settings */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_media\.scss}line{font-family:\000037}}
+.file-item span.filesize {
+  margin-left: 10px; }
 
 /**
  * requires classes to be added to fields (example: page-section-heading)- done in field preprocess
@@ -436,8 +507,13 @@ img, media {
     font-size: 1em;
     margin-bottom: 0; }
 
+/* for files we need a bit more maring on subheading */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000334}}
+.field--name-field-fc-related-items-heading.page-section-subheading {
+  margin-bottom: 0.8em; }
+
 /* example usage: related items and child page teaser listings on page section field collection */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000335}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000339}}
 .page-section-teaser {
   font-size: 1em;
   line-height: 1.4em;
@@ -446,14 +522,16 @@ img, media {
   /* subtitle */
   /* teaser updated date */
   /* teaser summary */
-  /* node links like read more (if enabled) */ }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000340}}
-  .page-section-teaser h2.node__title {
+  /* node links like read more (if enabled) */
+  /* related media - files */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000345}}
+  .page-section-teaser h2.node__title,
+  .page-section-teaser h3.node__title {
     font-size: 1.4em;
     line-height: 1.4em;
     margin-bottom: 0;
     font-weight: normal; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000346}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000351}}
   .page-section-teaser .node__title {
     font-weight: normal;
     display: block;
@@ -461,25 +539,25 @@ img, media {
     background-image: url("../images/green-arrow-thin-right.png");
     background-repeat: no-repeat;
     background-position: left 5px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000353}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000358}}
     .page-section-teaser .node__title a {
       text-decoration: none;
       color: #006f51; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000357}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000362}}
     .page-section-teaser .node__title a:hover {
       text-decoration: underline; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000362}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000367}}
   .page-section-teaser .field--name-field-subtitle {
     font-size: 1.2em;
     line-height: 1.4em;
     display: block;
     padding-left: 14px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000369}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000374}}
   .page-section-teaser .field--name-field-updated {
     font-size: 1.1em;
     margin-bottom: 0.2em;
     padding-left: 14px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000375}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000380}}
   .page-section-teaser .field--name-field-summary {
     font-size: 1.2em;
     line-height: 1.4em;
@@ -487,19 +565,60 @@ img, media {
     color: #333;
     margin-bottom: 0.2em;
     padding-left: 14px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000383}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000388}}
   .page-section-teaser .field__item {
     margin-bottom: 0.5em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000387}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000392}}
   .page-section-teaser .node__links {
     padding-left: 14px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000389}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000394}}
     .page-section-teaser .node__links a {
       text-decoration: none;
       color: #006f51; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000393}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000398}}
     .page-section-teaser .node__links a:hover {
       text-decoration: underline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003103}}
+  .page-section-teaser .file-item {
+    font-weight: normal;
+    margin-bottom: 0.3em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003106}}
+    .page-section-teaser .file-item a {
+      text-decoration: none;
+      color: #006f51; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003110}}
+    .page-section-teaser .file-item a:hover {
+      text-decoration: underline; }
+
+/* related data heading */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003118}}
+.group-related-data h3 {
+  display: block;
+  font-size: 1.4em;
+  color: #5d9711;
+  font-weight: bold;
+  margin-bottom: 0.5em; }
+
+/* related data container - group */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003127}}
+.group-related-data {
+  margin-bottom: 18px;
+  border: 1px solid #c4c4c4;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -o-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px;
+  padding: 12px 10px;
+  background: #fff;
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQ2JSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlYWVhZWEiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+  background: -moz-linear-gradient(top, white 0, white 46%, #eaeaea 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(46%, white), color-stop(100%, #eaeaea));
+  background: -webkit-linear-gradient(top, white 0, white 46%, #eaeaea 100%);
+  background: -o-linear-gradient(top, white 0, white 46%, #eaeaea 100%);
+  background: -ms-linear-gradient(top, white 0, white 46%, #eaeaea 100%);
+  background: linear-gradient(top, #ffffff 0%, #ffffff 46%, #eaeaea 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#eaeaea',GradientType=0); }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_typography\.scss}line{font-family:\000031}}
 html {
@@ -550,6 +669,11 @@ p, li, dt, dd, blockquote, pre, address, label, th, td, code {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_typography\.scss}line{font-family:\0000342}}
 p, ul, ol, dl, address, blockquote {
   margin: 0 0 1.3em 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_typography\.scss}line{font-family:\0000345}}
+.file-item {
+  font-size: 1.2em;
+  line-height: 1.4em; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_admin_menu\.scss}line{font-family:\000031}}
 #admin-menu {
@@ -895,6 +1019,95 @@ ul.breadcrumb {
     background-position: center center; }
 
 /* for mobile */
+/* consultation page - consultation content type */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000311}}
+.field--name-field-consultations-contact-name,
+.field--name-field-consultation-contact-add,
+.field--name-field-consultation-contact-tel,
+.field--name-field-consultation-contact-fax,
+.field--name-field-consultation-contact-email,
+.field--name-field-consultation-contact-email,
+.field--name-field-consultation-dates,
+.field--name-field-consultation-state,
+.field--name-field-data-protection {
+  font-size: 1.2em;
+  line-height: 1.4em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000314}}
+  .field--name-field-consultations-contact-name p, .field--name-field-consultations-contact-name ul, .field--name-field-consultations-contact-name li, .field--name-field-consultations-contact-name ol,
+  .field--name-field-consultation-contact-add p,
+  .field--name-field-consultation-contact-add ul,
+  .field--name-field-consultation-contact-add li,
+  .field--name-field-consultation-contact-add ol,
+  .field--name-field-consultation-contact-tel p,
+  .field--name-field-consultation-contact-tel ul,
+  .field--name-field-consultation-contact-tel li,
+  .field--name-field-consultation-contact-tel ol,
+  .field--name-field-consultation-contact-fax p,
+  .field--name-field-consultation-contact-fax ul,
+  .field--name-field-consultation-contact-fax li,
+  .field--name-field-consultation-contact-fax ol,
+  .field--name-field-consultation-contact-email p,
+  .field--name-field-consultation-contact-email ul,
+  .field--name-field-consultation-contact-email li,
+  .field--name-field-consultation-contact-email ol,
+  .field--name-field-consultation-contact-email p,
+  .field--name-field-consultation-contact-email ul,
+  .field--name-field-consultation-contact-email li,
+  .field--name-field-consultation-contact-email ol,
+  .field--name-field-consultation-dates p,
+  .field--name-field-consultation-dates ul,
+  .field--name-field-consultation-dates li,
+  .field--name-field-consultation-dates ol,
+  .field--name-field-consultation-state p,
+  .field--name-field-consultation-state ul,
+  .field--name-field-consultation-state li,
+  .field--name-field-consultation-state ol,
+  .field--name-field-data-protection p,
+  .field--name-field-data-protection ul,
+  .field--name-field-data-protection li,
+  .field--name-field-data-protection ol {
+    font-size: 1em;
+    line-height: 1.4em; }
+
+/* these are file fields get their theming from the base styles for file field within its content */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000321}}
+.field--name-field-consultation-pack,
+.field--name-field-consultation-summary {
+  font-size: 1em; }
+
+/* consultations summary */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000325}}
+.field--name-field-consultation-summary {
+  margin-bottom: 1.3em; }
+
+/* contact details */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000329}}
+.node-type-consultation .group-contact-details {
+  margin-bottom: 1.3em; }
+
+/* section headings for consultation main content area */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000336}}
+.node-type-consultation #main-content h2,
+.node-type-consultation #main-content h2.block__title {
+  display: block;
+  margin: 0 0 1em 0;
+  padding: .3em 11px;
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #fff;
+  background: #5d9711;
+  clear: both; }
+
+/* some spacng at the bottom of groups and blocks */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000352}}
+.node-type-consultation #main-content .field-group-div,
+.node-type-consultation #main-content .block {
+  padding-bottom: 15px;
+  overflow: hidden; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000356}}
+.node-type-consultation #main-content .group-contact-details.field-group-div {
+  padding-bottom: 5px; }
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_content_section\.scss}line{font-family:\000031}}
 .main-wrapper {
   border-bottom: 4px solid #68A82A; }
@@ -987,10 +1200,31 @@ ul.breadcrumb {
   float: left; }
 
 /* mobile view */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_date_updated\.scss}line{font-family:\000031}}
+/* last updated - when used directly on a content type */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_date_updated\.scss}line{font-family:\000032}}
 .field--name-field-updated {
   font-size: 1.2em;
   margin-bottom: 12px; }
+
+/* last updated - when used via a view field */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_date_updated\.scss}line{font-family:\000039}}
+.views-field-field-updated,
+.views-field-field-display-updated-date {
+  font-size: 1.2em;
+  margin-bottom: 12px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_date_updated\.scss}line{font-family:\0000312}}
+  .views-field-field-updated span.views-label,
+  .views-field-field-display-updated-date span.views-label {
+    font-weight: bold;
+    display: inline-block;
+    *display: inline;
+    zoom: 1; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_date_updated\.scss}line{font-family:\0000318}}
+  .views-field-field-updated div.field-content,
+  .views-field-field-display-updated-date div.field-content {
+    display: inline-block;
+    *display: inline;
+    zoom: 1; }
 
 /**
  * External sites block (the one without the logos)
@@ -1449,8 +1683,17 @@ span.copyright {
 .field--name-field-banner-image img {
   margin-bottom: 17px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_image_featured_image\.scss}line{font-family:\000032}}
+/* featured image - when used directly on a content type */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_image_featured_image\.scss}line{font-family:\000033}}
 .field--name-field-feature-image img {
+  float: right;
+  margin: 0 0 17px 10px;
+  padding: 0;
+  border: 0; }
+
+/* featured image - when used in a view as a field */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_image_featured_image\.scss}line{font-family:\0000313}}
+.views-field-field-feature-image img {
   float: right;
   margin: 0 0 17px 10px;
   padding: 0;
@@ -2416,6 +2659,230 @@ ul.pager {
     font-size: 1.5em;
     font-weight: bold; }
 
+/**
+ * Local authority search forms
+ * Requires block class: local-authority-search
+ */
+/* default for main and sidebar - local authority search form */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\000038}}
+.local-authority-search label {
+  font-weight: normal; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\0000311}}
+.local-authority-search .form-type-radio label {
+  position: relative;
+  top: 2px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\0000315}}
+.local-authority-search .form-type-textfield label {
+  padding-bottom: 0.25em;
+  display: block;
+  padding-left: 3px;
+  font-weight: normal;
+  font-size: 1.2em;
+  line-height: 1.4em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\0000323}}
+.local-authority-search input.form-text {
+  padding: 2px 4px;
+  background: #fff;
+  font-size: 1.2em;
+  vertical-align: middle;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  font-family: Arial,Verdana,Helvetica,sans-serif;
+  font-size: 1.2em;
+  color: #333; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\0000338}}
+.local-authority-search input.form-submit {
+  border: 1px solid #fff;
+  line-height: 1em;
+  font-size: 1.2em;
+  font-weight: bold;
+  white-space: normal;
+  word-wrap: break-word;
+  display: block;
+  text-decoration: none;
+  color: #3d3d3d;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+  border-radius: 3px;
+  background: #fff;
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSI0NiUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSI5OSUiIHN0b3AtY29sb3I9IiNjZGNkY2QiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+  background: -moz-linear-gradient(top, white 46%, #cdcdcd 99%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(46%, white), color-stop(99%, #cdcdcd));
+  background: -webkit-linear-gradient(top, white 46%, #cdcdcd 99%);
+  background: -o-linear-gradient(top, white 46%, #cdcdcd 99%);
+  background: -ms-linear-gradient(top, white 46%, #cdcdcd 99%);
+  background: linear-gradient(top, #ffffff 46%, #cdcdcd 99%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#cdcdcd',GradientType=0);
+  padding: 6px; }
+
+/* main - local authority search form */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\0000367}}
+#main-content .local-authority-search {
+  overflow: hidden;
+  margin-bottom: 20px;
+  padding: 11px 9px 21px 11px;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  -o-border-radius: 9px;
+  -ms-border-radius: 9px;
+  border-radius: 9px;
+  background: #fff;
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlNWU1ZTUiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+  background: -moz-linear-gradient(top, white 0, #e5e5e5 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, #e5e5e5));
+  background: -webkit-linear-gradient(top, white 0, #e5e5e5 100%);
+  background: -o-linear-gradient(top, white 0, #e5e5e5 100%);
+  background: -ms-linear-gradient(top, white 0, #e5e5e5 100%);
+  background: linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#e5e5e5',GradientType=0); }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\0000386}}
+  #main-content .local-authority-search h2.block__title {
+    color: #5d9711;
+    background: none;
+    padding-left: 0;
+    margin: 0 0 .6em 0;
+    padding: 0;
+    font-size: 1.5em;
+    font-weight: bold; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\0000397}}
+  #main-content .local-authority-search fieldset,
+  #main-content .local-authority-search form,
+  #main-content .local-authority-search legend {
+    margin: 0;
+    padding: 0;
+    border: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003102}}
+  #main-content .local-authority-search fieldset {
+    margin-bottom: 1.5em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003105}}
+  #main-content .local-authority-search legend {
+    color: #333;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 0 0 0.8em 0;
+    line-height: 1.1em;
+    margin: 0;
+    position: relative;
+    width: auto;
+    left: 0;
+    display: block; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003117}}
+  #main-content .local-authority-search input.form-submit {
+    border: 1px solid #bbb;
+    float: right; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003122}}
+  #main-content .local-authority-search input.form-submit:hover,
+  #main-content .local-authority-search input.form-submit:focus {
+    text-decoration: underline;
+    border: 1px solid #f67f2a; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003126}}
+  #main-content .local-authority-search .form-type-radio {
+    width: auto;
+    padding-right: 33px;
+    float: left; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003131}}
+  #main-content .local-authority-search .form-item.form-type-textfield {
+    width: 138px;
+    margin-right: 13px;
+    float: left;
+    overflow: hidden;
+    margin-bottom: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003138}}
+  #main-content .local-authority-search .form-item.form-type-textfield.form-item-postcode {
+    margin-right: 0px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003141}}
+  #main-content .local-authority-search input.form-text {
+    width: 100%;
+    /* input form text is restricted by width of its wrapper */ }
+
+/* sidebar - local authority search form */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003148}}
+.l-sidebar-second .local-authority-search,
+.l-sidebar-first .local-authority-search {
+  overflow: hidden;
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  -o-border-radius: 9px;
+  -ms-border-radius: 9px;
+  border-radius: 9px;
+  background: #9e218a;
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+  background: -moz-linear-gradient(top, #9e218a 1%, #5d0050 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #9e218a), color-stop(100%, #5d0050));
+  background: -webkit-linear-gradient(top, #9e218a 1%, #5d0050 100%);
+  background: -o-linear-gradient(top, #9e218a 1%, #5d0050 100%);
+  background: -ms-linear-gradient(top, #9e218a 1%, #5d0050 100%);
+  background: linear-gradient(top, #9e218a 1%, #5d0050 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#9e218a',endColorstr='#5d0050',GradientType=0); }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003164}}
+  .l-sidebar-second .local-authority-search h2.block__title,
+  .l-sidebar-first .local-authority-search h2.block__title {
+    font-size: 1.5em;
+    color: #fff;
+    padding: .5em 11px .15em 11px;
+    margin: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003170}}
+  .l-sidebar-second .local-authority-search .block__content,
+  .l-sidebar-first .local-authority-search .block__content {
+    color: #fff;
+    padding: .5em 11px 21px 11px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003176}}
+  .l-sidebar-second .local-authority-search fieldset,
+  .l-sidebar-second .local-authority-search form,
+  .l-sidebar-second .local-authority-search legend,
+  .l-sidebar-first .local-authority-search fieldset,
+  .l-sidebar-first .local-authority-search form,
+  .l-sidebar-first .local-authority-search legend {
+    margin: 0;
+    padding: 0;
+    border: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003181}}
+  .l-sidebar-second .local-authority-search legend,
+  .l-sidebar-first .local-authority-search legend {
+    color: #fff;
+    position: absolute;
+    left: -1000px;
+    margin: 0 !important;
+    width: 1px;
+    height: 1px;
+    overflow: hidden; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003190}}
+  .l-sidebar-second .local-authority-search .form-item,
+  .l-sidebar-first .local-authority-search .form-item {
+    margin-bottom: 0.5em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003193}}
+  .l-sidebar-second .local-authority-search .form-item.form-item-postcode,
+  .l-sidebar-first .local-authority-search .form-item.form-item-postcode {
+    margin-bottom: 1em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003196}}
+  .l-sidebar-second .local-authority-search input.form-text,
+  .l-sidebar-first .local-authority-search input.form-text {
+    width: 100%;
+    /* input form text is restricted by width of its wrapper */
+    margin-bottom: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003200}}
+  .l-sidebar-second .local-authority-search input.form-submit,
+  .l-sidebar-first .local-authority-search input.form-submit {
+    border: 1px solid #fff;
+    float: right;
+    margin-bottom: 12px;
+    padding: 3px 6px 3px 6px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003207}}
+  .l-sidebar-second .local-authority-search input.form-submit:hover,
+  .l-sidebar-second .local-authority-search input.form-submit:focus,
+  .l-sidebar-first .local-authority-search input.form-submit:hover,
+  .l-sidebar-first .local-authority-search input.form-submit:focus {
+    text-decoration: underline;
+    border: 1px solid #fff; }
+
+/* mobile layout */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\000032}}
 .current-search-item-text .result-count {
   color: #666;
@@ -2884,61 +3351,89 @@ ul.pager {
  * Table of contents
  * We use toc_node module to add a toc, and we override the css here
  */
+/* toc block */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_table_of_contents\.scss}line{font-family:\000037}}
+#block-toc-node-toc-node {
+  clear: both; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_table_of_contents\.scss}line{font-family:\000039}}
+  #block-toc-node-toc-node h2.block__title {
+    color: #006f51;
+    margin-bottom: 0.45em; }
+
 /* wrapper */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_table_of_contents\.scss}line{font-family:\000038}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_table_of_contents\.scss}line{font-family:\0000317}}
 #table-of-contents-links ul, #table-of-contents-links li {
   font-size: 1em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_table_of_contents\.scss}line{font-family:\0000311}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_table_of_contents\.scss}line{font-family:\0000320}}
 #table-of-contents-links a {
   color: #006f51;
   text-decoration: none;
   font-size: 1.2em;
   line-height: 1.4em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_table_of_contents\.scss}line{font-family:\0000317}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_table_of_contents\.scss}line{font-family:\0000326}}
 #table-of-contents-links a:hover {
   text-decoration: underline; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_table_of_contents\.scss}line{font-family:\0000321}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_table_of_contents\.scss}line{font-family:\0000330}}
 #table-of-contents-links ul.toc-node-bullets li,
 #table-of-contents-links ul.toc-node-numbers li {
   margin-bottom: 0.4em; }
 
 /* bullet list */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_table_of_contents\.scss}line{font-family:\0000327}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_table_of_contents\.scss}line{font-family:\0000336}}
 ul.toc-node-bullets li.toc-node-level-1 {
   background-image: url("../images/sidebar-arrow-down.png");
   background-repeat: no-repeat;
   background-position: 0px 4px;
   padding-left: 14px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_table_of_contents\.scss}line{font-family:\0000333}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_table_of_contents\.scss}line{font-family:\0000342}}
 ul.toc-node-bullets li.toc-node-level-2 {
   background-image: url("../images/sidebar-arrow-down.png");
   background-repeat: no-repeat;
   background-position: 14px 4px;
   padding-left: 28px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_table_of_contents\.scss}line{font-family:\0000339}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_table_of_contents\.scss}line{font-family:\0000348}}
 ul.toc-node-bullets li.toc-node-level-3 {
   background-image: url("../images/sidebar-arrow-down.png");
   background-repeat: no-repeat;
   background-position: 28px 4px;
   padding-left: 42px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_table_of_contents\.scss}line{font-family:\0000345}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_table_of_contents\.scss}line{font-family:\0000354}}
 ul.toc-node-bullets li.toc-node-level-4 {
   background-image: url("../images/sidebar-arrow-down.png");
   background-repeat: no-repeat;
   background-position: 42px 4px;
   padding-left: 56px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_table_of_contents\.scss}line{font-family:\0000351}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_table_of_contents\.scss}line{font-family:\0000360}}
 ul.toc-node-bullets li.toc-node-level-5 {
   background-image: url("../images/sidebar-arrow-down.png");
   background-repeat: no-repeat;
   background-position: 56px 4px;
   padding-left: 70px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_table_of_contents\.scss}line{font-family:\0000357}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_table_of_contents\.scss}line{font-family:\0000366}}
 ul.toc-node-bullets li.toc-node-level-6 {
   background-image: url("../images/sidebar-arrow-down.png");
   background-repeat: no-repeat;
   background-position: 70px 4px;
   padding-left: 84px; }
+
+/* back to top links */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_table_of_contents\.scss}line{font-family:\0000375}}
+.section-back-top {
+  text-align: right;
+  margin-bottom: 15px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_table_of_contents\.scss}line{font-family:\0000378}}
+  .section-back-top a {
+    color: #006f51;
+    text-decoration: none;
+    font-size: 1.2em;
+    line-height: 1.4em;
+    background-image: url("../images/arrow-up.png");
+    background-repeat: no-repeat;
+    background-position: left 4px;
+    padding-left: 14px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_table_of_contents\.scss}line{font-family:\0000388}}
+  .section-back-top a:hover {
+    text-decoration: underline; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_quote\.scss}line{font-family:\000031}}
 .field--name-field-fc-section-quote {
@@ -2981,14 +3476,28 @@ ul.toc-node-bullets li.toc-node-level-6 {
       margin-bottom: 11px;
       overflow: hidden; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_summary\.scss}line{font-family:\000031}}
+/* summary field - when used directly on a content type */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_summary\.scss}line{font-family:\000032}}
 .field--name-field-summary {
   font-size: 1.6em;
   line-height: 1.4em;
   color: #006f51;
   margin-bottom: 20px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_summary\.scss}line{font-family:\000036}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_summary\.scss}line{font-family:\000037}}
   .field--name-field-summary p {
+    margin-bottom: 11px;
+    font-size: 1em;
+    line-height: 1.4em; }
+
+/* summary field - when used in a view as a views field */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_summary\.scss}line{font-family:\0000315}}
+.views-field-field-summary {
+  font-size: 1.6em;
+  line-height: 1.4em;
+  color: #006f51;
+  margin-bottom: 20px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_summary\.scss}line{font-family:\0000320}}
+  .views-field-field-summary p {
     margin-bottom: 11px;
     font-size: 1em;
     line-height: 1.4em; }

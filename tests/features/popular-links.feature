@@ -14,3 +14,4 @@ Feature: Popular Links
   Then I should see "Landing Page test has been created."  
   And I should see "Popular links" in the "Right Sidebar" region
   And the response should contain "block-views-popular-links-block"
+  And I logout
