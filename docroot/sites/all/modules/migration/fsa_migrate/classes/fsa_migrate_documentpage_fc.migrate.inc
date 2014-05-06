@@ -46,6 +46,20 @@ class FSADocumentpageCollectionMigration extends FSAMigration {
       MigrateDestinationFieldCollection::getKeySchema()
     );
 
+    // Source fields available.
+    $fields = array(
+      'OBJECTID' => t('Oracle Object ID'),
+      'FIELDID1' => t('Oracle field id 1'),
+      'FIELDID2' => t('Oracle field id 2'),
+      'object_source_id' => t('Object source id 1'),
+      'field_source_id1' => t('Field source id 1'),
+      'field_source_id2' => t('Field source id 2'),
+      'IMAGEPATH' => t('Image file path, as in /images/document/...'),
+      'IMAGEPOSITION' => t('Image position'),
+      'sourceImagePath' => t('Source image path, as in sites/default/files/sources/images/document/...'),
+      'quote' => t('Quote text'),
+    );
+
     // @TODO Just use the path as parameter "/multimedia/webpage/uber-page/".
     // Object ids ex: 674037, 11421.
     $this->source = new MigrateSourceList(
@@ -60,7 +74,8 @@ class FSADocumentpageCollectionMigration extends FSAMigration {
     );
 
     // Migration source dependency.
-    $this->addFieldMapping('host_entity_id', 'OBJECTID')->sourceMigration('FSADocumentpage');
+    $this->addFieldMapping('host_entity_id', 'OBJECTID')
+      ->sourceMigration('FSADocumentpage');
 
     // Fields mapping.
     $this->addFieldMapping('field_fc_section_heading', 'sectionheading');
@@ -68,7 +83,7 @@ class FSADocumentpageCollectionMigration extends FSAMigration {
     $this->addFieldMapping('field_fc_section_quote', 'quote');
 
     // Image mapping.
-    $this->addFieldMapping('field_fc_section_image', 'IMAGEPATH')
+    $this->addFieldMapping('field_fc_section_image', 'sourceImagePath')
       ->sourceMigration('FSAMediaImages');
     $this->addFieldMapping('field_fc_section_image:file_class')
       ->defaultValue('migrateFileFid');
@@ -113,5 +128,11 @@ class FSADocumentpageCollectionMigration extends FSAMigration {
     $row->object_source_id = $row->OBJECTID;
     $row->field_source_id1 = $row->FIELDID1;
     $row->field_source_id2 = $row->FIELDID2;
+
+    // Source path setup.
+    $row->sourceImagePath = NULL;
+    if (!is_null($row->IMAGEPATH)) {
+      $row->sourceImagePath = variable_get('file_public_path', 'sites/default/files') . '/sources' . $row->IMAGEPATH;
+    }
   }
 }

@@ -10,6 +10,10 @@
  * Base class for the FSA migration.
  */
 abstract class FSAMigration extends Migration {
+
+  // The directory for images.
+  protected static $imageSourceDirectory = 'public://sources/images';
+
   protected $query = <<<'ENDSQL'
     SELECT EXAMPLE
       FROM EXAMPLE_TABLE
