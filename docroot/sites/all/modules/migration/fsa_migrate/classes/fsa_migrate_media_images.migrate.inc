@@ -55,6 +55,9 @@ class FSAMediaImagesMigration extends FSAMigration {
 
     // Media creates a page for each file, as a node, this the path of this page.
     $this->addFieldMapping('path', 'DRUPALPATH');
+    // Disable pathauto.
+    // @TODO Double check this works.
+    $this->addFieldMapping('pathauto', FALSE);
 
     // The source images are in a local directory.
     $this->addFieldMapping('source_dir', 'SOURCEDIRECTORY');
@@ -70,7 +73,6 @@ class FSAMediaImagesMigration extends FSAMigration {
    */
   public function prepareRow($row) {
     // Setup destination file path.
-    $filepath = str_replace('sites/default/files/', '', $row->DRUPALPATH);
-    $row->FILEPATHDEST = str_replace(variable_get('file_public_path', 'sites/default/files') . '/sources', '', $filepath);
+    $row->FILEPATHDEST = str_replace(variable_get('file_public_path', 'sites/default/files') . '/sources', '', $row->DRUPALPATH);
   }
 }
