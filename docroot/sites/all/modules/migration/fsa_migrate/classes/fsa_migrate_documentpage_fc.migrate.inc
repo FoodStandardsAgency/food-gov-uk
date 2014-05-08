@@ -79,7 +79,14 @@ class FSADocumentpageCollectionMigration extends FSAMigration {
 
     // Fields mapping.
     $this->addFieldMapping('field_fc_section_heading', 'sectionheading');
-    $this->addFieldMapping('field_fc_section_body', 'text');
+
+    // Text area text.
+    $this->addFieldMapping('field_fc_section_body', 'text')
+      ->callbacks(array($this, 'textAreaPargraphLineFormatter'));
+    // Text area input text format.
+    $this->addFieldMapping('field_fc_section_body:format', 'text')
+      ->callbacks(array($this, 'textAreaFormat'));
+
     $this->addFieldMapping('field_fc_section_quote', 'quote');
 
     // Image mapping.

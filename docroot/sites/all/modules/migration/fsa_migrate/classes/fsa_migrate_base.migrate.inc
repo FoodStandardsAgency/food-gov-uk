@@ -183,4 +183,42 @@ ENDSQL;
 
     return $rows;
   }
+
+  /**
+   * Checks if the field contains a preserve tag and returns the correct formatter name.
+   *
+   * @param $textValue
+   * @return string
+   */
+  public function textAreaFormat($textValue) {
+    if (strpos($textValue, '<!-- preserve start -->') !== false) {
+      return 'preserve';
+    }
+    return 'full_html';
+  }
+
+  /**
+   * Adds html br tags instead of breakline \n outside of the preserve tag.
+   * Adds a p tag outside of the preserve tag.
+   * @TODO Use the nl2br() function.
+   * @TODO Use the p tag outside of preserve tag.
+   * @TODO There might be several preserve tag. Use a loop with substr_count() and process each.
+   *
+   * @param $textValue
+   * @return string
+   */
+  public function textAreaPargraphLineFormatter($textValue) {
+//    // Extract the position of the preserve tag.
+//    $posPreservetag = strpos($textValue, '<!-- preserve start -->');
+//    // If preserve tag is detected, no change.
+//    if ($posPreservetag !== false) {
+//      foreach (substr_count($textValue, '<!-- preserve start -->')) {
+//        $posStartPreservetag = strpos($textValue, '<!-- preserve start -->');
+//        $posEndPreservetag = strpos($textValue, '<!-- preserve end -->');
+//        $finalTextValue = substr($textValue, 0, $posStartPreservetag);
+//      }
+//    }
+//    // nl2br
+    return $textValue . '<p></p>';
+  }
 }
