@@ -699,6 +699,34 @@ p, ul, ol, dl, address, blockquote {
     #admin-menu li a {
       font-size: 1.2em; }
 
+/**
+ * Alert type field
+ * In display settings, requires prefix: <p class="alert-type"><span class="alert-label">Type: </span> and suffix: </p>
+ * We are not using inline label setting for label because the div around it interferes with floating of text around feature image
+ * Without the p-tag, wrapping of text around feature image breaks
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_alert_content_type\.scss}line{font-family:\000037}}
+p.alert-type {
+  margin-bottom: 10px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_alert_content_type\.scss}line{font-family:\0000310}}
+.alert-label {
+  font-weight: bold; }
+
+/**
+ * Alert type reference
+ * In display settings, requires prefix: <p class="alert-ref"><span class="ref-label">Ref: </span> and suffix: </p>
+ * We are not using inline label setting for label because the div around it interferes with floating of text around feature image
+ * Adding a p-tag around the content aloows the text to be correctky formatted (size) and facilitates correct text wrapping
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_alert_content_type\.scss}line{font-family:\0000320}}
+p.alert-ref {
+  margin-bottom: 10px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_alert_content_type\.scss}line{font-family:\0000323}}
+.ref-label {
+  font-weight: bold; }
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_bottom_menu_section\.scss}line{font-family:\000031}}
 .bottom-menu-wrapper {
   border-top: 1px solid #61873b;
