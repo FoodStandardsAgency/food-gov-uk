@@ -16,6 +16,9 @@ function site_frontend_preprocess_field(&$variables, $hook) {
 			case 'field_child_pages_heading':
 			    $variables['classes_array'][] = 'page-section-subheading';
 			    break;
+			 case 'field_fc_files_csv_heading':
+			    $variables['classes_array'][] = 'page-section-subheading';
+			    break;
 			/* related items entity reference field */
 			case 'field_fc_related_item':
 				$variables['classes_array'][] = 'page-section-teaser';

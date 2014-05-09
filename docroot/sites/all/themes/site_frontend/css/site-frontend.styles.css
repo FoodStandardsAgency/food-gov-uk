@@ -603,18 +603,9 @@ img, media {
     .page-section-teaser .file-item a:hover {
       text-decoration: underline; }
 
-/* related data heading */
+/* related data wrapper - csv files */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003118}}
-.group-related-data h3 {
-  display: block;
-  font-size: 1.4em;
-  color: #5d9711;
-  font-weight: bold;
-  margin-bottom: 0.5em; }
-
-/* related data container - group */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003127}}
-.group-related-data {
+.csv-files-wrapper {
   margin-bottom: 18px;
   border: 1px solid #c4c4c4;
   -webkit-border-radius: 10px;
