@@ -29,7 +29,11 @@ function site_frontend_preprocess_field(&$variables, $hook) {
 			/* child pages entity reference field */
 			case 'field_child_page':
 			    $variables['classes_array'][] = 'page-section-teaser';
-				break;		
+				break;	
+			/* related data csv files entity reference field */
+			case 'field_fc_files_csv':
+				$variables['classes_array'][] = 'page-section-teaser';
+			break;	
 	    }
 	}
 }

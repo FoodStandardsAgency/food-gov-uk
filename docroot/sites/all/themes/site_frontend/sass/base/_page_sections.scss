@@ -99,16 +99,24 @@
 			text-decoration: underline;
 		}
 	}
-	/* related media - files */
+	/* related media files and csv files */
 	.file-item {
 		font-weight: normal;
-		margin-bottom: 0.3em;
+		margin-bottom: 0.5em;
+		font-size: 1.4em;
 		a {
 			text-decoration: none;
 			color: #006f51;
 		}
 		a:hover {
 			text-decoration: underline;
+		}
+	}
+	.file-summary {
+		font-size: 0.857em; // 1.4em parent x .857 = 1.2em
+		p {
+			margin-bottom: 0; // let parent take care of margin
+			font-size: 1em;	// same size as parent
 		}
 	}
 }
@@ -133,4 +141,8 @@
 		background: -ms-linear-gradient(top,#fff 0,#fff 46%,#eaeaea 100%);
 		background: linear-gradient(top,#fff 0,#fff 46%,#eaeaea 100%);
 		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#eaeaea',GradientType=0);
+		/* extra margin for related data heading */
+		.page-section-subheading {
+			margin-bottom: 0.8em;
+		}
 }
