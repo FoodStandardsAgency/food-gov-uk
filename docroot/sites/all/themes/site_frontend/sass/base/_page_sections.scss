@@ -103,6 +103,9 @@
 		a:hover {
 			text-decoration: underline;
 		}
+		.filesize {
+			font-size: 0.846em;	// 1.3em x .846 = 1.1em
+		}
 	}
 	.file-summary {
 		font-size: 0.923em;	// 1.3em parent x 0.923 = 1.2em
@@ -156,6 +159,18 @@
 		}
 	}
 }
+/* for mobile */
+@include breakpoint($mobile) {
+	/* adjust right padding on child page micro tesser view mode */
+	.field--name-field-child-page.page-section-teaser {
+		.node--micro-teaser {
+			a {
+				padding: 5px 14px 5px 24px;
+			}
+		}
+	}
+}
+
 
 
 /* related data wrapper - csv files */
