@@ -339,6 +339,30 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
   background: linear-gradient(top, #ffffff 0%, #ffffff 46%, #eaeaea 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#eaeaea',GradientType=0); }
 
+/* files */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_files\.scss}line{font-family:\000032}}
+.file-item {
+  font-weight: normal;
+  margin-bottom: 0.5em;
+  font-size: 1.3em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_files\.scss}line{font-family:\000036}}
+  .file-item a {
+    text-decoration: none;
+    color: #006f51; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_files\.scss}line{font-family:\0000310}}
+  .file-item a:hover {
+    text-decoration: underline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_files\.scss}line{font-family:\0000313}}
+  .file-item .filesize {
+    font-size: 0.846em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_files\.scss}line{font-family:\0000316}}
+  .file-item .file-summary {
+    font-size: 0.923em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_files\.scss}line{font-family:\0000318}}
+    .file-item .file-summary p {
+      margin-bottom: 0;
+      font-size: 1em; }
+
 /* inline form labels */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_forms\.scss}line{font-family:\000032}}
 label.element-invisible.compact-form-label {
@@ -1105,19 +1129,19 @@ ul.breadcrumb {
   .home-page-carousel {
     display: none; } }
 /* consultation page - consultation content type */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000311}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000310}}
 .field--name-field-consultations-contact-name,
 .field--name-field-consultation-contact-add,
 .field--name-field-consultation-contact-tel,
 .field--name-field-consultation-contact-fax,
 .field--name-field-consultation-contact-email,
-.field--name-field-consultation-contact-email,
 .field--name-field-consultation-dates,
 .field--name-field-consultation-state,
-.field--name-field-data-protection {
+.field--name-field-data-protection,
+.field--name-field-consultation-pack .field__label {
   font-size: 1.2em;
   line-height: 1.4em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000314}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000313}}
   .field--name-field-consultations-contact-name p, .field--name-field-consultations-contact-name ul, .field--name-field-consultations-contact-name li, .field--name-field-consultations-contact-name ol,
   .field--name-field-consultation-contact-add p,
   .field--name-field-consultation-contact-add ul,
@@ -1135,10 +1159,6 @@ ul.breadcrumb {
   .field--name-field-consultation-contact-email ul,
   .field--name-field-consultation-contact-email li,
   .field--name-field-consultation-contact-email ol,
-  .field--name-field-consultation-contact-email p,
-  .field--name-field-consultation-contact-email ul,
-  .field--name-field-consultation-contact-email li,
-  .field--name-field-consultation-contact-email ol,
   .field--name-field-consultation-dates p,
   .field--name-field-consultation-dates ul,
   .field--name-field-consultation-dates li,
@@ -1150,46 +1170,78 @@ ul.breadcrumb {
   .field--name-field-data-protection p,
   .field--name-field-data-protection ul,
   .field--name-field-data-protection li,
-  .field--name-field-data-protection ol {
+  .field--name-field-data-protection ol,
+  .field--name-field-consultation-pack .field__label p,
+  .field--name-field-consultation-pack .field__label ul,
+  .field--name-field-consultation-pack .field__label li,
+  .field--name-field-consultation-pack .field__label ol {
     font-size: 1em;
     line-height: 1.4em; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000319}}
+.field--name-field-consultation-pack .field__label,
+.field--name-field-consultation-pack label {
+  margin-bottom: 0.8em;
+  display: block; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000323}}
+.field--name-field-consultation-pack .file-item {
+  font-size: 1.3em;
+  font-weight: normal;
+  margin-bottom: 0.5em;
+  font-size: 1.3em; }
+
 /* these are file fields get their theming from the base styles for file field within its content */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000321}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000331}}
 .field--name-field-consultation-pack,
 .field--name-field-consultation-summary {
   font-size: 1em; }
 
 /* consultations summary */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000325}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000335}}
 .field--name-field-consultation-summary {
   margin-bottom: 1.3em; }
 
 /* contact details */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000329}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000339}}
 .node-type-consultation .group-contact-details {
   margin-bottom: 1.3em; }
 
 /* section headings for consultation main content area */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000336}}
-.node-type-consultation #main-content h2,
-.node-type-consultation #main-content h2.block__title {
-  display: block;
-  margin: 0 0 1em 0;
-  padding: .3em 11px;
-  font-size: 1.4em;
-  font-weight: bold;
-  color: #fff;
-  background: #5d9711;
-  clear: both; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000344}}
+.node-type-consultation #main-content {
+  /* toc block */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000346}}
+  .node-type-consultation #main-content .node h2,
+  .node-type-consultation #main-content h2.block__title {
+    display: block;
+    margin: 0 0 1em 0;
+    padding: .3em 11px;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #fff;
+    background: #5d9711;
+    clear: both; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000357}}
+  .node-type-consultation #main-content #block-toc-node-toc-node {
+    clear: both; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000359}}
+    .node-type-consultation #main-content #block-toc-node-toc-node h2.block__title {
+      color: #333;
+      padding: 0;
+      background: none;
+      font-size: 1.5em;
+      line-height: 1.2em;
+      font-weight: bold;
+      margin: 0 0 .45em 0; }
 
 /* some spacng at the bottom of groups and blocks */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000352}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000375}}
 .node-type-consultation #main-content .field-group-div,
 .node-type-consultation #main-content .block {
   padding-bottom: 15px;
   overflow: hidden; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000356}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000379}}
 .node-type-consultation #main-content .group-contact-details.field-group-div {
   padding-bottom: 5px; }
 
@@ -3604,7 +3656,7 @@ ul.pager {
   clear: both; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_table_of_contents\.scss}line{font-family:\000039}}
   #block-toc-node-toc-node h2.block__title {
-    color: #006f51;
+    color: #333;
     margin-bottom: 0.45em; }
 
 /* wrapper */
