@@ -1,0 +1,16 @@
+name = OG Menu Single
+description = "Provides a single custom menu per organic group"
+files[] = og_menu.module
+dependencies[] = menu
+dependencies[] = og (2.x)
+dependencies[] = og_context
+package = "Organic groups"
+core = 7.x
+
+files[] = tests/og_menu_singleBase.test
+; Information added by Drupal.org packaging script on 2014-01-17
+version = "7.x-1.0-beta1+1-dev"
+core = "7.x"
+project = "og_menu_single"
+datestamp = "1389935305"
+
