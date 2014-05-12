@@ -767,7 +767,7 @@ p, ul, ol, dl, address, blockquote {
  * Alert type field
  * In display settings, requires prefix: <p class="alert-type"><span class="alert-label">Type: </span> and suffix: </p>
  * We are not using inline label setting for label because the div around it interferes with floating of text around feature image
- * Without the p-tag, wrapping of text around feature image breaks
+ * Without the p-tag, wrapping of text around feature image breaks. We use a p-tag so that the right font size is pulled through.
  */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_alert_content_type\.scss}line{font-family:\000037}}
 p.alert-type {
@@ -781,13 +781,14 @@ p.alert-type {
  * Alert type reference
  * In display settings, requires prefix: <p class="alert-ref"><span class="ref-label">Ref: </span> and suffix: </p>
  * We are not using inline label setting for label because the div around it interferes with floating of text around feature image
- * Adding a p-tag around the content aloows the text to be correctky formatted (size) and facilitates correct text wrapping
+ * Adding a p-tag around the content aloows the text to be correctky formatted (size) and facilitates correct text wrapping.
+ * We use a p-tag so that the right font size is pulled through.
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_alert_content_type\.scss}line{font-family:\0000320}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_alert_content_type\.scss}line{font-family:\0000321}}
 p.alert-ref {
   margin-bottom: 10px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_alert_content_type\.scss}line{font-family:\0000323}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_alert_content_type\.scss}line{font-family:\0000324}}
 .ref-label {
   font-weight: bold; }
 
@@ -2006,6 +2007,20 @@ span.copyright {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_interactive_block\.scss}line{font-family:\0000390}}
     .interactive-block .field--name-field-fc-section-link .field__item a:hover {
       text-decoration: underline; }
+
+/**
+ * Job type field
+ * In display settings, requires prefix, for example: <p class="job-line-item"><span class="job-line-item-label">Reference: </span> and suffix: </p>
+ * We are not using inline label setting for label because the div around it interferes with floating of text around feature image
+ * Without the p-tag, wrapping of text around feature image breaks. We use a p-tag so that the right font size is pulled through.
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_job_content_type\.scss}line{font-family:\000037}}
+p.job-line-item {
+  margin-bottom: 10px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_job_content_type\.scss}line{font-family:\0000310}}
+.job-line-item-label {
+  font-weight: bold; }
 
 /* depends on block class: language-switcher */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_language_switcher\.scss}line{font-family:\000033}}
