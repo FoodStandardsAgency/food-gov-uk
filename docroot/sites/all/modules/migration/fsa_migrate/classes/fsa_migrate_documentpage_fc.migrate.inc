@@ -60,10 +60,9 @@ class FSADocumentpageCollectionMigration extends FSAMigration {
       'quote' => t('Quote text'),
     );
 
-    // @TODO Just use the path as parameter "/multimedia/webpage/uber-page/".
-    // Object ids ex: 674037, 11421.
+    // Configure the source of the migration.
     $this->source = new MigrateSourceList(
-      new MigrateListOracleTextCollection(array(674037, 654657), $conf['oracle_db']),
+      new MigrateListOracleTextCollection('FSADocumentpage', $conf['oracle_db']),
       new MigrateItemOracleTextCollection()
     );
 

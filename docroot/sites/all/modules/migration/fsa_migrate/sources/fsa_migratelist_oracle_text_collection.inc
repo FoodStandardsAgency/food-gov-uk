@@ -125,15 +125,27 @@ ENDSQL;
   /**
    * Class constructor.
    *
-   * @param $listObjectsIds
-   *  List of object ids to be processed.
+   * @param $relatedMigrationClass
+   *  Name of the related migration class.
    * @param $dbOracleDetails
    *  Connexion details for the Oracle db.
    */
-  public function __construct($listObjectsIds, $dbOracleDetails) {
+  public function __construct($relatedMigrationClass, $dbOracleDetails) {
     parent::__construct();
 
     GLOBAL $connectionOracle;
+
+    // Get the list of available objects source.
+    $objListQuery = db_select('migrate_map_' . strtolower($relatedMigrationClass), 'm')
+      ->fields('m', array('sourceid1'))
+      ->distinct();
+    $objList = $objListQuery->execute();
+
+    $this->listObjectsIds = array();
+
+    foreach ($objList as $record) {
+      $this->listObjectsIds[] = $record->sourceid1;
+    }
 
     if (is_null($connectionOracle)) {
       $connectionOracle = oci_connect($dbOracleDetails['username'], $dbOracleDetails['password'], $dbOracleDetails['connection_string']);
@@ -143,8 +155,6 @@ ENDSQL;
       $e = oci_error();
       trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
     }
-
-    $this->listObjectsIds = $listObjectsIds;
   }
 
   /**

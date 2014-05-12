@@ -21,10 +21,6 @@ class FSADocumentpageMigration extends FSAMigration {
     FROM FIELDVALUE, OBJ, OBJTYPE
     WHERE FIELDVALUE.OBJECTID = OBJ.OBJECTID
     AND OBJ.OBJECTTYPEID = OBJTYPE.OBJECTTYPEID
-    AND (OBJ.PATH LIKE '/multimedia/webpage/uber-page/'
-    OR OBJ.PATH LIKE '/news-updates/campaigns/where-are-you-really-eating-out/'
-    OR OBJ.PATH LIKE '/multimedia/webpage/uber-page/attached-item-2/'
-    OR OBJ.PATH LIKE '/multimedia/webpage/uber-page/attached-item-1/')
     GROUP BY OBJ.OBJECTID, OBJ.SIMPLENAME, OBJ.PATH, OBJTYPE.NAME
 ENDSQL;
 
@@ -36,10 +32,6 @@ ENDSQL;
   protected $countQuery = <<<'ENDSQL'
     SELECT COUNT(*)
     FROM OBJ
-    WHERE OBJ.PATH LIKE '/multimedia/webpage/uber-page/'
-    OR OBJ.PATH LIKE '/news-updates/campaigns/where-are-you-really-eating-out/'
-    OR OBJ.PATH LIKE '/multimedia/webpage/uber-page/attached-item-2/'
-    OR OBJ.PATH LIKE '/multimedia/webpage/uber-page/attached-item-1/'
 ENDSQL;
 
   protected $queryFeatureImage = <<<'ENDSQL'
