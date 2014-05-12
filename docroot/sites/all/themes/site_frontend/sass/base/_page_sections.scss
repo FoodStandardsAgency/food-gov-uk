@@ -46,10 +46,10 @@
 		font-size: 1.3em; 
 		line-height: 1.4em;
 		margin-bottom: 0;
-		font-weight: normal;
+		font-weight: bold;
 	}
 	.node__title {
-		font-weight: normal;
+		font-weight: bold;
 		display: block;
 		a {
 			text-decoration: none;
@@ -113,14 +113,31 @@
 	}
 }
 
-/* child pages mirco teaser - more in this ection micro teaser variation of default teaser. Note: teaser is toggeled in page section edit mode */
+/* child pages normal teaser and child pages micro-teaser */
+.field--name-field-child-page.page-section-teaser .field__item {
+	margin-bottom: 0px;
+}
+
+/* child pages normal teaser */
+.field--name-field-child-page.page-section-teaser {
+	.node-teaser {
+		margin-bottom: 0.8em;
+		.field__item {
+			margin-bottom: 0.5em;
+		}
+	}
+}
+
+/* child pages mirco teaser - more in this section micro teaser variation of default teaser. Note: teaser is toggeled in page section edit mode */
 .field--name-field-child-page.page-section-teaser {
 	.node--micro-teaser {
 		h2.node__title,
 		h3.node__title {
 			font-size: 1em;	// set to same as body ie 10px
+			font-weight: normal;
 		}
 		.node__title {
+			font-weight: normal;
 			a {
 				font-size: 1.2em;
 				text-decoration: none;
@@ -139,9 +156,7 @@
 		}
 	}
 }
-.field--name-field-child-page.page-section-teaser .field__item {
-	margin-bottom: 0px;
-}
+
 
 /* related data wrapper - csv files */
 .csv-files-wrapper {
