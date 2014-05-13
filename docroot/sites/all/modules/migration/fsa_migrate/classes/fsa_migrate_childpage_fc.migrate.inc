@@ -101,7 +101,7 @@ ENDSQL;
     $this->addFieldMapping('host_entity_id', 'PARENTID')
       ->sourceMigration('FSADocumentpage');
 
-    $this->addFieldMapping('field_child_pages_heading')
+    $this->addFieldMapping('field_fc_section_heading')
       ->defaultValue(t('More in this section'));
 
     // Fields mapping.

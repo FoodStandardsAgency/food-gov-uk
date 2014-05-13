@@ -13,7 +13,7 @@ class FSADocumentpageMigration extends FSAMigration {
 
   /**
    * SQL Query to get the feature image from an object id.
-   * 
+   *
    * @var string
    */
   protected $queryFeatureImage = <<<'ENDSQL'
