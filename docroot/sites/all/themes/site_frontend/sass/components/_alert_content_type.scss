@@ -2,7 +2,7 @@
  * Alert type field
  * In display settings, requires prefix: <p class="alert-type"><span class="alert-label">Type: </span> and suffix: </p>
  * We are not using inline label setting for label because the div around it interferes with floating of text around feature image
- * Without the p-tag, wrapping of text around feature image breaks
+ * Without the p-tag, wrapping of text around feature image breaks. We use a p-tag so that the right font size is pulled through.
  */
 p.alert-type {
 	margin-bottom: 10px;
@@ -15,7 +15,8 @@ p.alert-type {
  * Alert type reference
  * In display settings, requires prefix: <p class="alert-ref"><span class="ref-label">Ref: </span> and suffix: </p>
  * We are not using inline label setting for label because the div around it interferes with floating of text around feature image
- * Adding a p-tag around the content aloows the text to be correctky formatted (size) and facilitates correct text wrapping
+ * Adding a p-tag around the content aloows the text to be correctky formatted (size) and facilitates correct text wrapping.
+ * We use a p-tag so that the right font size is pulled through.
  */
 p.alert-ref {
 	margin-bottom: 10px;
