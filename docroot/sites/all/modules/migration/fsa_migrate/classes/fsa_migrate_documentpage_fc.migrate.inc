@@ -62,7 +62,7 @@ class FSADocumentpageCollectionMigration extends FSAMigration {
 
     // Configure the source of the migration.
     $this->source = new MigrateSourceList(
-      new MigrateListOracleTextCollection('FSADocumentpage', $conf['oracle_db']),
+      new MigrateListOracleTextCollection('data/csv/dev-alterian-id-list.csv', $conf['oracle_db']),
       new MigrateItemOracleTextCollection()
     );
 

@@ -130,22 +130,21 @@ ENDSQL;
    * @param $dbOracleDetails
    *  Connexion details for the Oracle db.
    */
-  public function __construct($relatedMigrationClass, $dbOracleDetails) {
+  public function __construct($fileCSV, $dbOracleDetails) {
     parent::__construct();
 
     GLOBAL $connectionOracle;
 
-    // Get the list of available objects source.
-    $objListQuery = db_select('migrate_map_' . strtolower($relatedMigrationClass), 'm')
-      ->fields('m', array('sourceid1'))
-      ->distinct();
-    $objList = $objListQuery->execute();
-
-    $this->listObjectsIds = array();
-
-    foreach ($objList as $record) {
-      $this->listObjectsIds[] = $record->sourceid1;
+    $realPathCSV = FSAMigrateListBase::checkCSVFileExists($fileCSV);
+    if ($realPathCSV) {
+      $this->fileCSV = $realPathCSV;
     }
+    else {
+      print 'CSV file ' . $fileCSV . ' is unavailable.';
+      exit;
+    }
+
+    $this->listObjectsIds = FSAMigrateListBase::getIdListFromCSV($realPathCSV);
 
     if (is_null($connectionOracle)) {
       $connectionOracle = oci_connect($dbOracleDetails['username'], $dbOracleDetails['password'], $dbOracleDetails['connection_string']);
