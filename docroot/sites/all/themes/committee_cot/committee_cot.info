@@ -1,4 +1,4 @@
-name = Cot
+name = Committee Cot
 description = A custom committee subtheme
 base theme = site_frontend
 screenshot = screenshot.png
