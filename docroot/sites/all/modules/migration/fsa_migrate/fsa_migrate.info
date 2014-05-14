@@ -15,6 +15,7 @@ files[] = sources/fsa_migratelist_base.inc
 files[] = sources/fsa_migratelist_oracle_text_collection.inc
 files[] = sources/fsa_migratelist_files_path.inc
 files[] = sources/fsa_migratelist_oracle_object_from_csv.inc
+files[] = sources/fsa_migratelist_oracle_child_from_csv.inc
 
 dependencies[] = migrate
 dependencies[] = migrate_extras

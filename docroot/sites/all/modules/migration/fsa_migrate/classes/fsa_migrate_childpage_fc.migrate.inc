@@ -12,45 +12,8 @@
 class FSAChildpageCollectionMigration extends FSAMigration {
 
   /**
-   * SQL Query to get the related Objectids.
-   * For Primary Link and GenericBranch.
-   * @TODO Manage more than one node.
-   * @TODO Only Generic branch at the moment.
-   * @TODO Remove parent id.
-   *
-   * @var string
+   * Class constructor.
    */
-  protected $query = <<<'ENDSQL'
-    SELECT LINK.PARENTID, WM_CONCAT(OBJ.OBJECTID) as OBJECTIDS
-      FROM OBJ, LINK, OBJTYPE, LINKTYPE
-      WHERE LINK.CHILDID = OBJ.OBJECTID
-      AND LINK.LINKTYPEID = LINKTYPE.LINKTYPEID
-      AND OBJTYPE.OBJECTTYPEID = OBJ.OBJECTTYPEID
-      AND LINKTYPE.LINKTYPENAME LIKE 'Primary link'
-      AND OBJTYPE.NAME LIKE 'GenericBranch'
-      AND LINK.PARENTID = 674037
-      GROUP BY LINK.PARENTID
-ENDSQL;
-
-  /**
-   * SQL Query to return the different object ids to be migrated.
-   * @TODO Manage more than one node.
-   * @TODO Only Generic branch at the moment.
-   * @TODO Remove parent id.
-   *
-   * @var string
-   */
-  protected $countQuery = <<<'ENDSQL'
-    SELECT count(distinct LINK.PARENTID)
-      FROM OBJ, LINK, OBJTYPE, LINKTYPE
-      WHERE LINK.CHILDID = OBJ.OBJECTID
-      AND LINK.LINKTYPEID = LINKTYPE.LINKTYPEID
-      AND OBJTYPE.OBJECTTYPEID = OBJ.OBJECTTYPEID
-      AND LINKTYPE.LINKTYPENAME LIKE 'Primary link'
-      AND OBJTYPE.NAME LIKE 'GenericBranch'
-      AND LINK.PARENTID = 674037
-ENDSQL;
-
   public function __construct($arguments) {
     global $conf;
     // Calls to parent constructor from official doc.
@@ -82,12 +45,10 @@ ENDSQL;
       'OBJECTIDS' => t('Child pages ids'),
     );
 
-    // SQL connexion source details.
-    $this->source = new MigrateSourceOracle(
-      $conf['oracle_db'],
-      $this->query,
-      $this->countQuery,
-      $fields
+    // Configure the source of the migration.
+    $this->source = new MigrateSourceList(
+      new FSAMigrateListOracleChildObjectsFromCSV('data/csv/dev-alterian-id-list.csv'),
+      new FSAMigrateItemChildOracleObject()
     );
 
     // Destination detail.

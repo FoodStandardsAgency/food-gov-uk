@@ -39,7 +39,7 @@ class FSAMigrateListOracleObjectsFromCSV extends MigrateList {
    * @return string
    */
   public function __toString() {
-    return $this->directory;
+    return $this->fileCSV;
   }
 
   /**
@@ -65,6 +65,11 @@ class FSAMigrateListOracleObjectsFromCSV extends MigrateList {
   }
 }
 
+/**
+ * Class FSAMigrateItemOracleObject.
+ *
+ * Returns an object with all information for an object.
+ */
 class FSAMigrateItemOracleObject extends MigrateItem {
 
   /**
