@@ -2358,6 +2358,7 @@ p.job-line-item {
  */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\000037}}
 .latest-news-and-alerts {
+  margin-bottom: 20px;
   font-size: 1em;
   /* featured image */
   /* title */
@@ -2365,36 +2366,36 @@ p.job-line-item {
   /* each teaser views row */
   /* view footer */
   /* more link */ }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000310}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000311}}
   .latest-news-and-alerts .views-field-field-feature-image img {
     float: none;
     margin: 0 0 8px 0;
     padding: 0;
     border: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000317}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000318}}
   .latest-news-and-alerts .views-field-title {
     font-size: 1.3em;
     line-height: 1.2em;
     margin-bottom: 0.5em;
     font-weight: normal; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000322}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000323}}
     .latest-news-and-alerts .views-field-title a {
       text-decoration: none;
       color: #006f51; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000326}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000327}}
     .latest-news-and-alerts .views-field-title a:hover {
       text-decoration: underline; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000329}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000330}}
     .latest-news-and-alerts .views-field-title h2, .latest-news-and-alerts .views-field-title h3 {
       margin-bottom: 0px;
       font-weight: normal;
       font-size: 1em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000337}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000338}}
   .latest-news-and-alerts .views-field-field-updated,
   .latest-news-and-alerts .views-field-field-display-updated-date {
     font-size: 1.2em;
     margin-bottom: 0.2em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000342}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000343}}
   .latest-news-and-alerts .views-row {
     width: 161px;
     overflow: hidden;
@@ -2402,10 +2403,10 @@ p.job-line-item {
     float: left;
     margin-right: 11px;
     margin-bottom: 15px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000350}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000351}}
   .latest-news-and-alerts .views-row.views-row-last {
     margin-right: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000354}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000355}}
   .latest-news-and-alerts .view-footer {
     clear: left;
     margin-top: 0.5em;
@@ -2414,16 +2415,16 @@ p.job-line-item {
     font-size: 1.2em;
     line-height: 1.4em;
     margin-bottom: 5px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000362}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000363}}
     .latest-news-and-alerts .view-footer p {
       font-size: 1em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000367}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000368}}
   .latest-news-and-alerts a.fsa-more-link {
     font-weight: bold; }
 
 /* mobile view */
 @media (min-width: 0px) and (max-width: 480px) {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000375}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000376}}
   .latest-news-and-alerts .views-row.views-row-odd {
     clear: left;
     float: left; } }
