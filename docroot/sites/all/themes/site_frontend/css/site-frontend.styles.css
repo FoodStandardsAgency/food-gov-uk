@@ -292,9 +292,10 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
   -moz-border-radius-bottomright: 9px;
   -moz-border-radius-bottomleft: 9px;
   -webkit-border-radius: 0 0 9px 9px;
-  border-radius: 0 0 9px 9px; }
+  border-radius: 0 0 9px 9px;
+  overflow: hidden; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003227}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003228}}
 .light-grey-block {
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
@@ -302,22 +303,22 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
   -ms-border-radius: 8px;
   border-radius: 8px;
   background: #f5f8f1; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003234}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003235}}
   .light-grey-block h2.block__title {
     font-size: 1.5em;
     color: #4b800d;
     padding: .5em 11px .15em 11px;
     margin: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003240}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003241}}
   .light-grey-block .block__content {
     padding: .5em 11px .3em 11px; }
 
 /* blocks in main content area */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003248}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003249}}
 .l-content .green-block,
 .l-content .blue-block {
   margin-bottom: 11px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003252}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003253}}
 .l-content .light-grey-block h2.block__title {
   font-size: 1.6em;
   font-weight: normal;
@@ -2357,7 +2358,7 @@ p.job-line-item {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000330}}
   .latest-news-and-alerts .views-field-field-updated,
   .latest-news-and-alerts .views-field-field-display-updated-date {
-    font-size: 0.923em;
+    font-size: 1.2em;
     margin-bottom: 0.2em; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000335}}
   .latest-news-and-alerts .views-row {
@@ -2371,13 +2372,14 @@ p.job-line-item {
     margin-right: 0; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000346}}
   .latest-news-and-alerts .view-footer {
+    clear: left;
     margin-top: 0.5em;
     padding-top: 0.5em;
     border-top: 1px solid #5d9711;
     font-size: 1.2em;
     line-height: 1.4em;
     margin-bottom: 5px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000353}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000354}}
     .latest-news-and-alerts .view-footer p {
       font-size: 1em; }
 

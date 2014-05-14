@@ -221,6 +221,7 @@
 		-moz-border-radius-bottomleft: 9px;
 		-webkit-border-radius: 0 0 9px 9px;
 		border-radius: 0 0 9px 9px;
+		overflow: hidden;	// needed for content that is floated. Stops the div from collapsing
 	}
 }
 

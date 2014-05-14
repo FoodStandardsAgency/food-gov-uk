@@ -28,7 +28,7 @@
 	/* updated date */
 	.views-field-field-updated,
 	.views-field-field-display-updated-date {
-		font-size: 0.923em;
+		font-size: 1.2em;
 		margin-bottom: 0.2em;
 	}
 	/* each teaser views row */
@@ -44,6 +44,7 @@
 	}
 	/* view footer */
 	.view-footer {
+		clear: left;
 		margin-top: 0.5em;
 		padding-top: 0.5em;
 		border-top: 1px solid #5d9711;
