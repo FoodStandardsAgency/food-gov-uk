@@ -84,6 +84,9 @@
 		font-size: 1.2em; 
 		line-height: 1.4em;
 		margin-bottom: 5px;
+		p {
+			font-size: 1em;	// will be same as parent then ie 1.2em
+		}
 	}
 }
 
