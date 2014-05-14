@@ -15,8 +15,9 @@
 	line-height: 1.4em;
 	margin-bottom: 18px;
 	/* node title */
-	h2.node__title {
-		font-size: 1.4em; 
+	h2.node__title,
+	h3.node__title {
+		font-size: 1.2em; 
 		line-height: 1.4em;
 		margin-bottom: 0;
 		font-weight: normal;
@@ -71,6 +72,13 @@
 		a:hover {
 			text-decoration: underline;
 		}
+	}
+	/* view rows */
+	.views-row {
+		margin-bottom: 0.35em;
+	}
+	.views-row.views-row-last {
+		margin-bottom: 0.2em;
 	}
 	/* more link - omplemented in base/_links.scss */
 	.fsa-more-link {
