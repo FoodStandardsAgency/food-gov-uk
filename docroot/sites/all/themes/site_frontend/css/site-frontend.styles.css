@@ -2314,6 +2314,42 @@ p.job-line-item {
     margin-left: 0px;
     margin-bottom: 17px;
     float: none; } }
+/** 
+ * Latest news and alerts block  on site home page
+ * we are only theming the block content here as the block class: green-block-white-background is applied to the block
+ * and that is themed in base/_blocks.scss
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\000037}}
+.latest-news-and-alerts {
+  font-size: 1em;
+  /* title */
+  /* updated date */
+  /* view footer */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000310}}
+  .latest-news-and-alerts .views-field-title {
+    font-size: 1.2em;
+    line-height: 1.4em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000313}}
+    .latest-news-and-alerts .views-field-title a {
+      text-decoration: none;
+      color: #006f51; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000317}}
+    .latest-news-and-alerts .views-field-title a:hover {
+      text-decoration: underline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000322}}
+  .latest-news-and-alerts .field--name-field-updated {
+    font-size: 1.1em;
+    margin-bottom: 0.2em;
+    padding-left: 14px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000328}}
+  .latest-news-and-alerts .view-footer {
+    margin-top: 0.5em;
+    padding-top: 0.5em;
+    border-top: 1px solid #5d9711;
+    font-size: 1.2em;
+    line-height: 1.4em;
+    margin-bottom: 5px; }
+
 /** Main menu depends on Superfish module
   * Superfish settings:
   * Type: horizontal, style: simple, path class: active-trail, slide-in-effect: vertical, auto-arrows: off, drop-shadows: on

@@ -1,0 +1,36 @@
+/** 
+ * Latest news and alerts block  on site home page
+ * we are only theming the block content here as the block class: green-block-white-background is applied to the block
+ * and that is themed in base/_blocks.scss
+ */
+
+.latest-news-and-alerts {
+	font-size: 1em;	// sets base font size to 10px
+	/* title */
+	.views-field-title {
+		font-size: 1.2em; 
+		line-height: 1.4em;
+		a {
+			text-decoration: none;
+			color: #006f51;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+	}
+	/* updated date */
+	.field--name-field-updated {
+		font-size: 1.1em;
+		margin-bottom: 0.2em;
+		padding-left: 14px;
+	}
+	/* view footer */
+	.view-footer {
+		margin-top: 0.5em;
+		padding-top: 0.5em;
+		border-top: 1px solid #5d9711;
+		font-size: 1.2em; 
+		line-height: 1.4em;
+		margin-bottom: 5px;
+	}
+}
