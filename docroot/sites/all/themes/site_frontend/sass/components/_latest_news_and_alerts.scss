@@ -62,11 +62,22 @@
 		margin-bottom: 5px;
 		p {
 			font-size: 1em;	// will be same as parent then ie 1.2em
+			margin-bottom: 0.5em;
 		}
 	}
 	/* more link */
 	a.fsa-more-link {
 		font-weight: bold;
+	}
+}
+
+/* block styling overrides */
+.latest-news-and-alerts.green-block-white-background {
+	h2.block__title {
+		padding: .3em 10px;
+	}
+	.block__content {
+		padding: 1em 10px .3em 10px;
 	}
 }
 
