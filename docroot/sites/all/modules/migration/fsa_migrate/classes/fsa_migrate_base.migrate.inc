@@ -221,4 +221,23 @@ ENDSQL;
 //    // nl2br
     return $textValue . '<p></p>';
   }
+
+  /**
+   * Converts a given string as 'Yes' or 'No' and changes it to a boolean value.
+   *
+   * @param $value
+   * @return string
+   *  We can't return a boolean in a callback like this one using migrate.
+   *  Needs to be a string with value 0 or 1.
+   */
+  public function convertYesNoBoolean($value) {
+    $lowerValue = strtolower($value);
+
+    if ($lowerValue == 'yes'){
+      return '1';
+    }
+    else {
+      return '0';
+    }
+  }
 }

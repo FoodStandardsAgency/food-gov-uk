@@ -74,6 +74,11 @@ ENDSQL;
     $this->addFieldMapping('title', 'title');
     $this->addFieldMapping('field_summary', 'summary');
 
+    $this->addFieldMapping('field_setting_backtotop', 'backtotop')
+      ->callbacks(array($this, 'convertYesNoBoolean'))
+      ->defaultValue(FALSE);
+
+
     // Feature image mapping.
     $this->addFieldMapping('field_feature_image', 'FEATUREDIMAGEPATH')
       ->sourceMigration('FSAMediaImages');
@@ -117,7 +122,8 @@ ENDSQL;
           ':obj_id' => $row->OBJECTID,
         ),
         $connectionOracle,
-        array('title', 'summary')
+        // You can add extra fields to extract from the field table here.
+        array('title', 'summary', 'backtotop')
       );
 
       foreach ($fields_res_array as $fieldVariable => $fieldValue) {
