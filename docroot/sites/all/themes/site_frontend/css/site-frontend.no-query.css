@@ -1586,6 +1586,44 @@ ul.breadcrumb {
   background-repeat: no-repeat;
   background-position: 9px 4px; }
 
+/* Feature blocks are: Business and industry, Enforcement and regulation, Science and research 
+ * requires block classes: feature-block green-block
+ * block styling comes from base styles and block content styling comes from this style sheet.
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\000036}}
+.feature-block {
+  /* feature image */
+  /* view footer */
+  /* more link */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\000038}}
+  .feature-block img {
+    margin-bottom: 5px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000312}}
+  .feature-block .view-footer {
+    margin-top: 0.5em;
+    padding-top: 0.5em;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-top: 1px solid #5d9711;
+    font-size: 1.2em;
+    line-height: 1.4em;
+    margin-bottom: 5px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000321}}
+    .feature-block .view-footer p {
+      font-size: 1em;
+      margin-bottom: 0.5em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000327}}
+  .feature-block a.fsa-more-link-orange-arrow {
+    font-weight: bold; }
+
+/* block styling overrides */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000333}}
+.feature-block.green-background h2.block__title {
+  padding: .3em 10px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000336}}
+.feature-block.green-background .block__content {
+  padding: 0 0 .3em 0; }
+
 /**
  * Footer buttons
  * Dependant on menu bock and block class: footer-buttons
