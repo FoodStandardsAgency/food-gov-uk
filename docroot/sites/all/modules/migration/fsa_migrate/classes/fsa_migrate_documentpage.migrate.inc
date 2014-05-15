@@ -70,14 +70,20 @@ ENDSQL;
     // Destination detail.
     $this->destination = new MigrateDestinationNode('document_page');
 
-    // Fields mapping.
+    // General fields mapping.
     $this->addFieldMapping('title', 'title');
     $this->addFieldMapping('field_summary', 'summary');
 
-    $this->addFieldMapping('field_setting_backtotop', 'backtotop')
+    // Updated date field.
+    $this->addFieldMapping('field_updated', 'pubdate');
+    $this->addFieldMapping('field_display_updated_date', 'showLastUpdated')
       ->callbacks(array($this, 'convertYesNoBoolean'))
       ->defaultValue(FALSE);
 
+    // Back to top.
+    $this->addFieldMapping('field_setting_backtotop', 'backtotop')
+      ->callbacks(array($this, 'convertYesNoBoolean'))
+      ->defaultValue(FALSE);
 
     // Feature image mapping.
     $this->addFieldMapping('field_feature_image', 'FEATUREDIMAGEPATH')
@@ -123,7 +129,7 @@ ENDSQL;
         ),
         $connectionOracle,
         // You can add extra fields to extract from the field table here.
-        array('title', 'summary', 'backtotop')
+        array('title', 'summary', 'backtotop', 'showLastUpdated', 'pubdate')
       );
 
       foreach ($fields_res_array as $fieldVariable => $fieldValue) {
