@@ -1594,7 +1594,8 @@ ul.breadcrumb {
 .feature-block {
   /* feature image */
   /* view footer */
-  /* more link */ }
+  /* more link */
+  /* links list */ }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\000038}}
   .feature-block img {
     margin-bottom: 5px; }
@@ -1615,13 +1616,32 @@ ul.breadcrumb {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000327}}
   .feature-block a.fsa-more-link-orange-arrow {
     font-weight: bold; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000331}}
+  .feature-block ul {
+    margin: 0;
+    padding: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000334}}
+    .feature-block ul li {
+      margin: 0 0 .1em 0;
+      padding: 0 0 0 8px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000337}}
+      .feature-block ul li a {
+        padding-left: 14px;
+        display: block;
+        text-decoration: none;
+        background-image: url("../images/orange-arrow-thin-right.png");
+        background-position: left 3px;
+        background-repeat: no-repeat; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000345}}
+      .feature-block ul li a:hover {
+        text-decoration: underline; }
 
 /* block styling overrides */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000333}}
-.feature-block.green-background h2.block__title {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000353}}
+.feature-block.green-block h2.block__title {
   padding: .3em 10px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000336}}
-.feature-block.green-background .block__content {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000356}}
+.feature-block.green-block .block__content {
   padding: 0 0 .3em 0; }
 
 /**

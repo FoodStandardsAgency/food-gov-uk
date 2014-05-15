@@ -27,9 +27,29 @@
 	a.fsa-more-link-orange-arrow {
 		font-weight: bold;
 	}
+	/* links list */
+	ul {
+		margin: 0;
+		padding: 0;
+		li {
+			margin: 0 0 .1em 0;
+			padding: 0 0 0 8px;
+			a {
+				padding-left: 14px;
+				display: block;
+				text-decoration: none;
+				background-image: url("../images/orange-arrow-thin-right.png");
+				background-position: left 3px;
+				background-repeat: no-repeat;
+			}
+			a:hover {
+				text-decoration: underline;
+			}
+		}
+	}
 }
 /* block styling overrides */
-.feature-block.green-background {
+.feature-block.green-block {
 	h2.block__title {
 		padding: .3em 10px;
 	}
