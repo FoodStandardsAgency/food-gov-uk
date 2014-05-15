@@ -1,0 +1,81 @@
+/** 
+ * Latest news and alerts block  on site home page
+ * we are only theming the block content here as the block class: green-block-white-background is applied to the block
+ * and that is themed in base/_blocks.scss
+ */
+
+.latest-news-and-alerts {
+	margin-bottom: 20px;
+	font-size: 1em;	// sets base font size to 10px
+	/* featured image */
+	.views-field-field-feature-image img {
+		float: none;
+		margin: 0 0 8px 0;
+		padding: 0;
+		border: 0;
+	}
+	/* title */
+	.views-field-title {
+		font-size: 1.3em;
+		line-height: 1.2em;
+		margin-bottom: 0.5em;
+		font-weight: normal;
+		a {
+			text-decoration: none;
+			color: #006f51;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+		h2, h3 {
+			margin-bottom: 0px;
+			font-weight: normal;
+			font-size: 1em;	// gets parent font size
+		}
+	}
+	/* updated date */
+	.views-field-field-updated,
+	.views-field-field-display-updated-date {
+		font-size: 1.2em;
+		margin-bottom: 0.2em;
+	}
+	/* each teaser views row */
+	.views-row {
+		width: 161px;
+		overflow: hidden;
+		display: block;
+		float: left;
+		margin-right: 11px;
+		margin-bottom: 15px;
+	}
+	.views-row.views-row-last {
+		margin-right: 0;
+	}
+	/* view footer */
+	.view-footer {
+		clear: left;
+		margin-top: 0.5em;
+		padding-top: 0.5em;
+		border-top: 1px solid #5d9711;
+		font-size: 1.2em; 
+		line-height: 1.4em;
+		margin-bottom: 5px;
+		p {
+			font-size: 1em;	// will be same as parent then ie 1.2em
+		}
+	}
+	/* more link */
+	a.fsa-more-link {
+		font-weight: bold;
+	}
+}
+
+/* mobile view */
+@include breakpoint($mobile) {
+	.latest-news-and-alerts {
+		.views-row.views-row-odd {
+			clear: left;
+			float: left;
+		}
+	}
+}
