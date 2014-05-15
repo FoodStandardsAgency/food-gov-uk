@@ -1,9 +1,13 @@
 /* Feature blocks are: Business and industry, Enforcement and regulation, Science and research 
- * requires block classes: feature-block green-block
+ * requires block classes: feature-block green-block and for the last block we also use the class: last
  * block styling comes from base styles and block content styling comes from this style sheet.
  */
 
 .feature-block {
+	width: 225px;
+	margin-right: 12px;
+	overflow: hidden;
+	float: left;
 	/* feature image */
 	img {
 		margin-bottom: 5px;
@@ -11,7 +15,7 @@
 	/* view footer */
 	.view-footer {
 		margin-top: 0.5em;
-		padding-top: 0.5em;
+		padding-top: 0.8em;
 		margin-left: 10px;
 		margin-right: 10px;
 		border-top: 1px solid #5d9711;
@@ -28,12 +32,15 @@
 		font-weight: bold;
 	}
 	/* links list */
-	ul {
+	.block__content ul {
 		margin: 0;
 		padding: 0;
 		li {
-			margin: 0 0 .1em 0;
+			margin: 0 0 0.3em 0;
 			padding: 0 0 0 8px;
+			list-style: none;
+			list-style-type: none;
+			list-style-image: none;
 			a {
 				padding-left: 14px;
 				display: block;
@@ -47,6 +54,10 @@
 			}
 		}
 	}
+}
+/* no margin on last feature block */
+.feature-block.last {
+	margin-right: 0px;
 }
 /* block styling overrides */
 .feature-block.green-block {

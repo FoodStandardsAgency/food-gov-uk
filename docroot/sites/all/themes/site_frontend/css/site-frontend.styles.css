@@ -1620,60 +1620,72 @@ ul.breadcrumb {
   background-position: 9px 4px; }
 
 /* Feature blocks are: Business and industry, Enforcement and regulation, Science and research 
- * requires block classes: feature-block green-block
+ * requires block classes: feature-block green-block and for the last block we also use the class: last
  * block styling comes from base styles and block content styling comes from this style sheet.
  */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\000036}}
 .feature-block {
+  width: 225px;
+  margin-right: 12px;
+  overflow: hidden;
+  float: left;
   /* feature image */
   /* view footer */
   /* more link */
   /* links list */ }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\000038}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000312}}
   .feature-block img {
     margin-bottom: 5px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000312}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000316}}
   .feature-block .view-footer {
     margin-top: 0.5em;
-    padding-top: 0.5em;
+    padding-top: 0.8em;
     margin-left: 10px;
     margin-right: 10px;
     border-top: 1px solid #5d9711;
     font-size: 1.2em;
     line-height: 1.4em;
     margin-bottom: 5px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000321}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000325}}
     .feature-block .view-footer p {
       font-size: 1em;
       margin-bottom: 0.5em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000327}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000331}}
   .feature-block a.fsa-more-link-orange-arrow {
     font-weight: bold; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000331}}
-  .feature-block ul {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000335}}
+  .feature-block .block__content ul {
     margin: 0;
     padding: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000334}}
-    .feature-block ul li {
-      margin: 0 0 .1em 0;
-      padding: 0 0 0 8px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000337}}
-      .feature-block ul li a {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000338}}
+    .feature-block .block__content ul li {
+      margin: 0 0 0.3em 0;
+      padding: 0 0 0 8px;
+      list-style: none;
+      list-style-type: none;
+      list-style-image: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000344}}
+      .feature-block .block__content ul li a {
         padding-left: 14px;
         display: block;
         text-decoration: none;
         background-image: url("../images/orange-arrow-thin-right.png");
         background-position: left 3px;
         background-repeat: no-repeat; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000345}}
-      .feature-block ul li a:hover {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000352}}
+      .feature-block .block__content ul li a:hover {
         text-decoration: underline; }
 
+/* no margin on last feature block */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000359}}
+.feature-block.last {
+  margin-right: 0px; }
+
 /* block styling overrides */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000353}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000364}}
 .feature-block.green-block h2.block__title {
   padding: .3em 10px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000356}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000367}}
 .feature-block.green-block .block__content {
   padding: 0 0 .3em 0; }
 
