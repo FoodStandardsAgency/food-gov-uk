@@ -6,6 +6,7 @@
 .feature-block {
 	width: 225px;
 	margin-right: 12px;
+	margin-bottom: 40px;
 	overflow: hidden;
 	float: left;
 	/* feature image */
@@ -14,8 +15,8 @@
 	}
 	/* view footer */
 	.view-footer {
-		margin-top: 0.5em;
-		padding-top: 0.8em;
+		margin-top: 0.8em;
+		padding-top: 0.5em;
 		margin-left: 10px;
 		margin-right: 10px;
 		border-top: 1px solid #5d9711;
@@ -55,6 +56,9 @@
 		}
 	}
 }
+.l-content .feature-block.green-block {
+	margin-bottom: 40px;
+}
 /* no margin on last feature block */
 .feature-block.last {
 	margin-right: 0px;
@@ -66,5 +70,12 @@
 	}
 	.block__content {
 		padding: 0 0 .3em 0;
+	}
+}
+
+/* for mobile */
+@include breakpoint($mobile) {
+	.l-content .feature-block.green-block {
+		margin-bottom: 11px;
 	}
 }
