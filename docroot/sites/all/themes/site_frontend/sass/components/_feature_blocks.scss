@@ -10,8 +10,24 @@
 	overflow: hidden;
 	float: left;
 	/* feature image */
+	span.image-wrapper {
+		display: block;
+		position: relative;
+		width: 225px;
+		height: 95px;
+		overflow: hidden;
+	}
 	img {
 		margin-bottom: 5px;
+	}
+	span.image-mask {
+		display: block;
+		width: 225px;
+		height: 95px;
+		position: absolute;
+		top: 0;
+		left: 0;
+		background: url('../images/home-page-image-mask.png') 0 0 no-repeat;
 	}
 	/* view footer */
 	.view-footer {
