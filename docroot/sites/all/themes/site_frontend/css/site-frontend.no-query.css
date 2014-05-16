@@ -527,7 +527,7 @@ a.fsa-more-link {
 a.fsa-more-link:hover {
   text-decoration: underline; }
 
-/* front page more link */
+/* alternative more link */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\00003100}}
 a.fsa-more-link-orange-arrow {
   font-weight: normal;
@@ -543,21 +543,39 @@ a.fsa-more-link-orange-arrow {
 a.fsa-more-link-orange-arrow:hover {
   text-decoration: underline; }
 
+/* more link with orange icon */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\00003115}}
+a.more-link-orange-icon-right {
+  font-weight: normal;
+  padding-right: 15px;
+  background: url("../images/icons/more.png") no-repeat right 1px;
+  text-decoration: none;
+  color: #3d3d3d;
+  white-space: normal;
+  word-wrap: break-word;
+  cursor: pointer;
+  line-height: 1em;
+  font-weight: bold; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\00003127}}
+a.more-link-orange-icon-right:hover {
+  text-decoration: underline; }
+
 /* more button 
  * requires this html structure:  
  * <p class="more-button-wrapper"><a href="/science/" title="More about: Science and research" class="more-button"><span class="link-text">More</span></a></p>
 */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\00003118}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\00003135}}
 p.more-button-wrapper {
   clear: both;
   float: right;
   margin: 0 0 6px 0; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\00003123}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\00003140}}
 p .more-button {
   font-size: 1em; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\00003126}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\00003143}}
 .more-button {
   border: 1px solid #fff;
   line-height: 1em;
@@ -587,11 +605,11 @@ p .more-button {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#cdcdcd',GradientType=0);
   padding: 6px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\00003155}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\00003172}}
 .more-button:hover {
   text-decoration: underline; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\00003158}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\00003175}}
 .more-button .link-text {
   padding-right: 15px;
   background: url("../images/icons/more.png") no-repeat right 1px;
@@ -2422,7 +2440,7 @@ p.job-line-item {
   /* updated date */
   /* each teaser views row */
   /* view footer */
-  /* more link */ }
+  /* more links with orange icons on the right of them */ }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000311}}
   .latest-news-and-alerts .views-field-field-feature-image img {
     float: none;
@@ -2477,14 +2495,24 @@ p.job-line-item {
       font-size: 1em;
       margin-bottom: 0.5em; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000369}}
-  .latest-news-and-alerts a.fsa-more-link {
-    font-weight: bold; }
+  .latest-news-and-alerts p.more-link-orange-icon-right-wrapper {
+    clear: both;
+    margin: 0 0 6px 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000373}}
+  .latest-news-and-alerts .more-link-orange-icon-right {
+    margin-right: 30px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000376}}
+  .latest-news-and-alerts .more-link-orange-icon-right.first {
+    margin-left: 85px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000379}}
+  .latest-news-and-alerts .more-link-orange-icon-right.last {
+    margin-right: 0; }
 
 /* block styling overrides */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000376}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000386}}
 .latest-news-and-alerts.green-block-white-background h2.block__title {
   padding: .3em 10px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000379}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000389}}
 .latest-news-and-alerts.green-block-white-background .block__content {
   padding: 1em 10px .3em 10px; }
 

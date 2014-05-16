@@ -65,9 +65,19 @@
 			margin-bottom: 0.5em;
 		}
 	}
-	/* more link */
-	a.fsa-more-link {
-		font-weight: bold;
+	/* more links with orange icons on the right of them */
+	p.more-link-orange-icon-right-wrapper {
+		clear: both;
+		margin: 0 0 6px 0;
+	}
+	.more-link-orange-icon-right {
+		margin-right: 30px;
+	}
+	.more-link-orange-icon-right.first {
+		margin-left: 85px;
+	}
+	.more-link-orange-icon-right.last {
+		margin-right: 0;
 	}
 }
 
