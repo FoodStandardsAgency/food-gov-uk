@@ -2492,8 +2492,8 @@ p.job-line-item {
     line-height: 1em;
     clear: both;
     margin-top: 0.5em;
-    padding-top: 8px;
-    padding-bottom: 8px;
+    padding-top: 0.45em;
+    padding-bottom: 0.45em;
     border-top: 1px solid #ccc;
     -moz-border-radius-topleft: 0;
     -moz-border-radius-topright: 0;
@@ -2515,14 +2515,14 @@ p.job-line-item {
     margin: 0;
     font-size: 1em; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000389}}
-  .latest-news-and-alerts .more-link-orange-icon-right {
+  .latest-news-and-alerts a.more-link-orange-icon-right {
     margin-right: 30px;
     font-size: 1em; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000393}}
-  .latest-news-and-alerts .more-link-orange-icon-right.first {
+  .latest-news-and-alerts a.more-link-orange-icon-right.first {
     margin-left: 85px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000396}}
-  .latest-news-and-alerts .more-link-orange-icon-right.last {
+  .latest-news-and-alerts a.more-link-orange-icon-right.last {
     margin-right: 0; }
 
 /* Required html structure for above styling to work:
