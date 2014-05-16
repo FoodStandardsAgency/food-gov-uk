@@ -1,0 +1,6 @@
+name = OG Path Token
+description = Provides a token containing the path to the current Organic Group.
+core = 7.x
+package = Local
+dependencies[] = "og"
+dependencies[] = "token"

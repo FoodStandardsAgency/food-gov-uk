@@ -81,7 +81,7 @@ span.ext {
 }
 
 
-/* apply this class to the a-tag */
+/* more link */
 a.fsa-more-link {
 	font-weight: normal;
 	display: block;
@@ -93,5 +93,20 @@ a.fsa-more-link {
 	color: #006f51;
 }
 a.fsa-more-link:hover {
+	text-decoration: underline;
+}
+
+/* front page more link */
+a.fsa-more-link-orange-arrow {
+	font-weight: normal;
+	display: block;
+	padding-left: 14px;
+	background-image: url('../images/orange-arrow-thin-right.png');
+	background-repeat: no-repeat;
+	background-position: left 3px;
+	text-decoration: none;
+	color: #006f51;
+}
+a.fsa-more-link-orange-arrow:hover {
 	text-decoration: underline;
 }
