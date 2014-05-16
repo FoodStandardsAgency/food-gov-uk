@@ -2439,6 +2439,7 @@ p.job-line-item {
   /* title */
   /* updated date */
   /* each teaser views row */
+  /* view content wrapper */
   /* view footer */
   /* more links with orange icons on the right of them */ }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000311}}
@@ -2482,29 +2483,38 @@ p.job-line-item {
   .latest-news-and-alerts .views-row.views-row-last {
     margin-right: 0; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000355}}
+  .latest-news-and-alerts .view-content {
+    margin-left: 10px;
+    margin-right: 10px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000360}}
   .latest-news-and-alerts .view-footer {
+    font-size: 1.2em;
+    line-height: 1em;
     clear: both;
-    margin-top: 0.667em;
+    margin-top: 0.5em;
     padding-top: 0.667em;
+    padding-bottom: 0.667em;
     border-top: 1px solid #ccc;
     background: #fff;
-    background: -moz-linear-gradient(top, white 46%, #cfcfcf 99%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(46%, white), color-stop(99%, #cfcfcf));
-    background: -webkit-linear-gradient(top, white 46%, #cfcfcf 99%);
-    background: -o-linear-gradient(top, white 46%, #cfcfcf 99%);
-    background: -ms-linear-gradient(top, white 46%, #cfcfcf 99%);
-    background: linear-gradient(top, #ffffff 46%, #cfcfcf 99%);
+    background: -moz-linear-gradient(top, white 0%, #cfcfcf 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, #cfcfcf));
+    background: -webkit-linear-gradient(top, white 0%, #cfcfcf 100%);
+    background: -o-linear-gradient(top, white 0%, #cfcfcf 100%);
+    background: -ms-linear-gradient(top, white 0%, #cfcfcf 100%);
+    background: linear-gradient(top, #ffffff 0%, #cfcfcf 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#cfcfcf',GradientType=0); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000370}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000378}}
   .latest-news-and-alerts p.more-link-orange-icon-right-wrapper {
-    margin: 0 0 6px 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000373}}
+    margin: 0;
+    font-size: 1em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000382}}
   .latest-news-and-alerts .more-link-orange-icon-right {
-    margin-right: 30px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000376}}
+    margin-right: 30px;
+    font-size: 1em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000386}}
   .latest-news-and-alerts .more-link-orange-icon-right.first {
     margin-left: 85px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000379}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000389}}
   .latest-news-and-alerts .more-link-orange-icon-right.last {
     margin-right: 0; }
 
@@ -2517,12 +2527,12 @@ p.job-line-item {
 	</p>
 */
 /* block styling overrides */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000394}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\00003104}}
 .latest-news-and-alerts.green-block-white-background h2.block__title {
   padding: .3em 10px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000397}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\00003107}}
 .latest-news-and-alerts.green-block-white-background .block__content {
-  padding: 1em 10px .3em 10px; }
+  padding: 0.5em 0em 0.3em 0em; }
 
 /* mobile view */
 /** Main menu depends on Superfish module
