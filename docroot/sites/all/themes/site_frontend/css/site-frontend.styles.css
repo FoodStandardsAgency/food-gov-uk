@@ -556,6 +556,61 @@ a.fsa-more-link-orange-arrow {
 a.fsa-more-link-orange-arrow:hover {
   text-decoration: underline; }
 
+/* more button 
+ * requires this html structure:  
+ * <p class="more-button-wrapper"><a href="/science/" title="More about: Science and research" class="more-button"><span class="link-text">More</span></a></p>
+*/
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\00003118}}
+p.more-button-wrapper {
+  clear: both;
+  float: right;
+  margin: 0 0 6px 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\00003123}}
+p .more-button {
+  font-size: 1em; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\00003126}}
+.more-button {
+  border: 1px solid #fff;
+  line-height: 1em;
+  font-size: 1.2em;
+  font-weight: bold;
+  white-space: normal;
+  word-wrap: break-word;
+  display: block;
+  float: left;
+  cursor: pointer;
+  text-decoration: none;
+  color: #3d3d3d;
+  text-align: left;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+  border-radius: 3px;
+  background: #fff;
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSI0NiUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSI5OSUiIHN0b3AtY29sb3I9IiNjZGNkY2QiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+  background: -moz-linear-gradient(top, white 46%, #cdcdcd 99%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(46%, white), color-stop(99%, #cdcdcd));
+  background: -webkit-linear-gradient(top, white 46%, #cdcdcd 99%);
+  background: -o-linear-gradient(top, white 46%, #cdcdcd 99%);
+  background: -ms-linear-gradient(top, white 46%, #cdcdcd 99%);
+  background: linear-gradient(top, #ffffff 46%, #cdcdcd 99%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#cdcdcd',GradientType=0);
+  padding: 6px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\00003155}}
+.more-button:hover {
+  text-decoration: underline; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\00003158}}
+.more-button .link-text {
+  padding-right: 15px;
+  background: url("./images/icons/more.png") no-repeat right 1px;
+  display: block;
+  text-align: left; }
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_media\.scss}line{font-family:\000031}}
 img, media {
   max-width: 100%; }
