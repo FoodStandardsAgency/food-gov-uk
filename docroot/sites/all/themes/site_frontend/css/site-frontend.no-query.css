@@ -2483,20 +2483,20 @@ p.job-line-item {
     margin-right: 0; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000355}}
   .latest-news-and-alerts .view-footer {
-    clear: left;
-    margin-top: 0.5em;
-    padding-top: 0.5em;
-    border-top: 1px solid #5d9711;
-    font-size: 1.2em;
-    line-height: 1.4em;
-    margin-bottom: 5px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000363}}
-    .latest-news-and-alerts .view-footer p {
-      font-size: 1em;
-      margin-bottom: 0.5em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000369}}
-  .latest-news-and-alerts p.more-link-orange-icon-right-wrapper {
     clear: both;
+    margin-top: 0.667em;
+    padding-top: 0.667em;
+    border-top: 1px solid #ccc;
+    background: #fff;
+    background: -moz-linear-gradient(top, white 46%, #cfcfcf 99%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(46%, white), color-stop(99%, #cfcfcf));
+    background: -webkit-linear-gradient(top, white 46%, #cfcfcf 99%);
+    background: -o-linear-gradient(top, white 46%, #cfcfcf 99%);
+    background: -ms-linear-gradient(top, white 46%, #cfcfcf 99%);
+    background: linear-gradient(top, #ffffff 46%, #cfcfcf 99%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#cfcfcf',GradientType=0); }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000370}}
+  .latest-news-and-alerts p.more-link-orange-icon-right-wrapper {
     margin: 0 0 6px 0; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000373}}
   .latest-news-and-alerts .more-link-orange-icon-right {
@@ -2508,11 +2508,19 @@ p.job-line-item {
   .latest-news-and-alerts .more-link-orange-icon-right.last {
     margin-right: 0; }
 
+/* Required html structure for above styling to work:
+	<p class="more-link-orange-icon-right-wrapper">
+	<a class="more-link-orange-icon-right first" href="/news-updates/news" title="More about: News">More news</a>
+	<a class="more-link-orange-icon-right" href="/enforcement/alerts" title="More about: Food alerts">More food alerts</a>
+	<a class="more-link-orange-icon-right" href="/news-updates/news" title="More about: Allergy alerts">More allergy alerts</a>
+	<a class="more-link-orange-icon-right last" href="/news-updates/consultations" title="More about: Consultations">Consultations</a>
+	</p>
+*/
 /* block styling overrides */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000386}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000394}}
 .latest-news-and-alerts.green-block-white-background h2.block__title {
   padding: .3em 10px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000389}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000397}}
 .latest-news-and-alerts.green-block-white-background .block__content {
   padding: 1em 10px .3em 10px; }
 
