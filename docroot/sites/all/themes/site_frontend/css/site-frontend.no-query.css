@@ -594,7 +594,7 @@ p .more-button {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\00003158}}
 .more-button .link-text {
   padding-right: 15px;
-  background: url("./images/icons/more.png") no-repeat right 1px;
+  background: url("../images/icons/more.png") no-repeat right 1px;
   display: block;
   text-align: left; }
 
