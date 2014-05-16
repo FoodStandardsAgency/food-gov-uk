@@ -62,9 +62,16 @@
 		line-height: 1em;
 		clear: both;
 		margin-top: 0.5em;
-		padding-top: 0.667em;
-		padding-bottom: 0.667em;
+		padding-top: 8px;
+		padding-bottom: 8px;
 		border-top: 1px solid #ccc;
+		-moz-border-radius-topleft: 0;
+		-moz-border-radius-topright: 0;
+		-moz-border-radius-bottomright: 9px;
+		-moz-border-radius-bottomleft: 9px;
+		-webkit-border-radius: 0 0 9px 9px;
+		border-radius: 0 0 9px 9px;
+		overflow: hidden;
 		background: #fff;
 		background: -moz-linear-gradient(top,#fff 0%,#cfcfcf 100%);
 		background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#fff),color-stop(100%,#cfcfcf));
@@ -104,8 +111,9 @@
 	h2.block__title {
 		padding: .3em 10px;
 	}
+	/* block content also wraps the views footer, because the views footer is content */
 	.block__content {
-		padding: 0.5em 0em 0.3em 0em;
+		padding: 0.5em 0em 0em 0em;
 	}
 }
 
