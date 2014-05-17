@@ -10,27 +10,28 @@
 	overflow: hidden;
 	float: left;
 	/* feature image */
-	img {
-		margin-bottom: 5px;
+	span.image-wrapper {
+		display: block;
+		position: relative;
+		width: 225px;
+		height: 95px;
+		overflow: hidden;
+		margin-bottom: 11px;
+	}
+	span.image-mask {
+		display: block;
+		width: 225px;
+		height: 95px;
+		position: absolute;
+		top: 0;
+		left: 0;
+		background: url('../images/home-page-image-mask.png') 0 0 no-repeat;
 	}
 	/* view footer */
 	.view-footer {
-		margin-top: 0.8em;
 		padding-top: 0.5em;
 		margin-left: 10px;
 		margin-right: 10px;
-		border-top: 1px solid #5d9711;
-		font-size: 1.2em; 
-		line-height: 1.4em;
-		margin-bottom: 5px;
-		p {
-			font-size: 1em;	// will be same as parent then ie 1.2em
-			margin-bottom: 0.5em;
-		}
-	}
-	/* more link */
-	a.fsa-more-link-orange-arrow {
-		font-weight: bold;
 	}
 	/* links list */
 	.block__content ul {

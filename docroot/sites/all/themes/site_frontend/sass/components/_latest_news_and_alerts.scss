@@ -51,33 +51,69 @@
 	.views-row.views-row-last {
 		margin-right: 0;
 	}
+	/* view content wrapper */
+	.view-content {
+		margin-left: 10px;
+		margin-right: 10px;
+	}
 	/* view footer */
 	.view-footer {
-		clear: left;
+		font-size: 1.2em;
+		line-height: 1em;
+		clear: both;
 		margin-top: 0.5em;
-		padding-top: 0.5em;
-		border-top: 1px solid #5d9711;
-		font-size: 1.2em; 
-		line-height: 1.4em;
-		margin-bottom: 5px;
-		p {
-			font-size: 1em;	// will be same as parent then ie 1.2em
-			margin-bottom: 0.5em;
-		}
+		padding-top: 0.45em;
+		padding-bottom: 0.45em;
+		border-top: 1px solid #ccc;
+		-moz-border-radius-topleft: 0;
+		-moz-border-radius-topright: 0;
+		-moz-border-radius-bottomright: 9px;
+		-moz-border-radius-bottomleft: 9px;
+		-webkit-border-radius: 0 0 9px 9px;
+		border-radius: 0 0 9px 9px;
+		overflow: hidden;
+		background: #fff;
+		background: -moz-linear-gradient(top,#fff 0%,#cfcfcf 100%);
+		background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#fff),color-stop(100%,#cfcfcf));
+		background: -webkit-linear-gradient(top,#fff 0%,#cfcfcf 100%);
+		background: -o-linear-gradient(top,#fff 0%,#cfcfcf 100%);
+		background: -ms-linear-gradient(top,#fff 0%,#cfcfcf 100%);
+		background: linear-gradient(top,#fff 0%,#cfcfcf 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#cfcfcf',GradientType=0);
 	}
-	/* more link */
-	a.fsa-more-link {
-		font-weight: bold;
+	/* more links with orange icons on the right of them */
+	p.more-link-orange-icon-right-wrapper {
+		margin: 0;
+		font-size: 1em;
+	}
+	a.more-link-orange-icon-right {
+		margin-right: 30px;
+		font-size: 1em;
+	}
+	a.more-link-orange-icon-right.first {
+		margin-left: 85px;
+	}
+	a.more-link-orange-icon-right.last {
+		margin-right: 0;
 	}
 }
+/* Required html structure for above styling to work:
+	<p class="more-link-orange-icon-right-wrapper">
+	<a class="more-link-orange-icon-right first" href="/news-updates/news" title="More about: News">More news</a>
+	<a class="more-link-orange-icon-right" href="/enforcement/alerts" title="More about: Food alerts">More food alerts</a>
+	<a class="more-link-orange-icon-right" href="/news-updates/news" title="More about: Allergy alerts">More allergy alerts</a>
+	<a class="more-link-orange-icon-right last" href="/news-updates/consultations" title="More about: Consultations">Consultations</a>
+	</p>
+*/
 
 /* block styling overrides */
 .latest-news-and-alerts.green-block-white-background {
 	h2.block__title {
 		padding: .3em 10px;
 	}
+	/* block content also wraps the views footer, because the views footer is content */
 	.block__content {
-		padding: 1em 10px .3em 10px;
+		padding: 0.5em 0em 0em 0em;
 	}
 }
 
