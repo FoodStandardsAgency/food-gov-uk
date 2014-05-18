@@ -6,6 +6,7 @@
 
 /* block class usage example: Interactive block - to apply to block, in block admin, edit block and add "grey-block" to the block class textbox */
 .grey-block {
+	overflow: hidden;
 	border: 1px solid #e8e8e8;
 	-webkit-border-radius: 9px;
 	-moz-border-radius: 9px;
@@ -34,8 +35,14 @@
 		border-bottom: none;
 	}
 	.block__content {
+		overflow: hidden;
 		padding: 1em 11px .3em 11px;
-		background: #fff;
+		background-color: #fff;
+		-webkit-border-radius: 0 0 9px 9px;
+		-moz-border-radius: 0 0 9px 9px;
+		-o-border-radius: 0 0 9px 9px;
+		-ms-border-radius: 0 0 9px 9px;
+		border-radius: 0 0 9px 9px;
 	}
 }
 
@@ -188,6 +195,7 @@
 
 /* block class usage example: Business and industry or Enforcement and regulation or Science and research - to apply to block, in block admin, edit block and add "green-block" to the block class textbox*/
 .green-block-white-background {
+	overflow: hidden;
 	h2.block__title {
 		font-size: 1.5em;
 		color: #fff;
