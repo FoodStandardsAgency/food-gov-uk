@@ -1,0 +1,15 @@
+/* Hygiene ratings block on home page
+ * depends on custom html in the block
+ * requires bock class: food-hygiene-ratings
+ */
+.food-hygiene-ratings {
+	overflow: hidden;
+	.block-image {
+		margin: 0;
+		padding: 0;
+	}
+	.block-body {
+		margin: 0;
+		overflow: hidden;
+	}
+}
