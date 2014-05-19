@@ -2019,18 +2019,98 @@ span.copyright {
  * depends on custom html in the block
  * requires bock class: food-hygiene-ratings
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_hygiene_ratings_block\.scss}line{font-family:\000035}}
-.food-hygiene-ratings {
-  overflow: hidden; }
+/* block content styling */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_hygiene_ratings_block\.scss}line{font-family:\000037}}
+.food-hygiene-ratings {
+  overflow: hidden;
+  position: relative; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_hygiene_ratings_block\.scss}line{font-family:\0000310}}
   .food-hygiene-ratings .block-image {
-    margin: 0;
+    margin: 0 0 10px 0;
     padding: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_hygiene_ratings_block\.scss}line{font-family:\0000311}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_hygiene_ratings_block\.scss}line{font-family:\0000314}}
   .food-hygiene-ratings .block-body {
     margin: 0;
-    overflow: hidden; }
+    overflow: hidden;
+    padding-bottom: 45px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_hygiene_ratings_block\.scss}line{font-family:\0000318}}
+    .food-hygiene-ratings .block-body h2, .food-hygiene-ratings .block-body h3 {
+      font-size: 1.5em;
+      font-weight: bold;
+      margin-bottom: 0.5em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_hygiene_ratings_block\.scss}line{font-family:\0000324}}
+  .food-hygiene-ratings .block-footer {
+    width: 225px;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    font-size: 1em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_hygiene_ratings_block\.scss}line{font-family:\0000330}}
+    .food-hygiene-ratings .block-footer p.more-button-wrapper {
+      margin-right: 11px; }
 
+/* block styling */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_hygiene_ratings_block\.scss}line{font-family:\0000337}}
+.l-region--sidebar-second .food-hygiene-ratings.block {
+  margin-bottom: 20px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_hygiene_ratings_block\.scss}line{font-family:\0000340}}
+.food-hygiene-ratings {
+  background-color: #dde9c9;
+  min-height: 260px;
+  -moz-border-radius-topleft: 9px;
+  -moz-border-radius-topright: 9px;
+  -moz-border-radius-bottomright: 9px;
+  -moz-border-radius-bottomleft: 9px;
+  -webkit-border-radius: 9px 9px 9px 9px;
+  border-radius: 9px 9px 9px 9px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_hygiene_ratings_block\.scss}line{font-family:\0000349}}
+  .food-hygiene-ratings h2.block__title {
+    font-size: 1.5em;
+    color: #fff;
+    padding: .3em 11px;
+    margin: 0;
+    -moz-border-radius-topleft: 9px;
+    -moz-border-radius-topright: 9px;
+    -moz-border-radius-bottomright: 0;
+    -moz-border-radius-bottomleft: 0;
+    -webkit-border-radius: 9px 9px 0 0;
+    -o-border-radius: 9px 9px 0 0;
+    -ms-border-radius: 9px 9px 0 0;
+    border-radius: 9px 9px 0 0;
+    background: #3b9356;
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, #3b9356 0, #02684a 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3b9356), color-stop(100%, #02684a));
+    background: -webkit-linear-gradient(top, #3b9356 0, #02684a 100%);
+    background: -o-linear-gradient(top, #3b9356 0, #02684a 100%);
+    background: -ms-linear-gradient(top, #3b9356 0, #02684a 100%);
+    background: linear-gradient(top, #3b9356 0%, #02684a 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3b9356',endColorstr='#02684a',GradientType=0); }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_hygiene_ratings_block\.scss}line{font-family:\0000372}}
+  .food-hygiene-ratings .block__content {
+    padding: 1em 11px .3em 11px;
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, #f0f5e7 0, #dde9c9 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f0f5e7), color-stop(100%, #dde9c9));
+    background: -webkit-linear-gradient(top, #f0f5e7 0, #dde9c9 100%);
+    background: -o-linear-gradient(top, #f0f5e7 0, #dde9c9 100%);
+    background: -ms-linear-gradient(top, #f0f5e7 0, #dde9c9 100%);
+    background: linear-gradient(top, #f0f5e7 0%, #dde9c9 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f0f5e7',endColorstr='#dde9c9',GradientType=0); }
+
+/* Above styling is based on this html structure in the content:
+
+<div class="block-image"><img src="/sites/all/themes/site_frontend/images/content/hygiene-ratings.png" /></div>
+<div class="block-body">
+<h3><a href="/ratings">Eating out? Getting food in?</a></h3>
+<p>Check the food hygiene standards of a resturant, takeaway or food shop.</p>
+</div>
+<div class="block-footer">
+<p class="more-button-wrapper"><a class="more-button" href="/ratings" title=" Food hygiene ratings"><span class="link-text">More</span></a></p>
+</div>
+
+*/
 /* banner image on landing pages */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_image_banner_image\.scss}line{font-family:\000032}}
 .field--name-field-banner-image img {

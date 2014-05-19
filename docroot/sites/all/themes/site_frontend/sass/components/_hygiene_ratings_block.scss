@@ -2,14 +2,95 @@
  * depends on custom html in the block
  * requires bock class: food-hygiene-ratings
  */
+
+/* block content styling */
 .food-hygiene-ratings {
 	overflow: hidden;
+	position: relative;	// so we can absolutely position block footer
 	.block-image {
-		margin: 0;
+		margin: 0 0 10px 0;
 		padding: 0;
 	}
 	.block-body {
 		margin: 0;
 		overflow: hidden;
+		padding-bottom: 45px;	// need this because footer is absolutely positioned and will otherwise overlap text when text resised.
+		h2, h3 {
+			font-size: 1.5em;
+			font-weight: bold;
+			margin-bottom: 0.5em;
+		}
+	}
+	.block-footer {
+		width: 225px;
+		position: absolute;
+		bottom: 0px;
+		right: 0px;
+		font-size: 1em;
+		p.more-button-wrapper {
+			margin-right: 11px;
+		}
 	}
 }
+
+/* block styling */
+.l-region--sidebar-second .food-hygiene-ratings.block {
+	margin-bottom: 20px;
+}
+.food-hygiene-ratings {
+	background-color: #dde9c9;
+	min-height: 260px;
+	-moz-border-radius-topleft: 9px;
+	-moz-border-radius-topright: 9px;
+	-moz-border-radius-bottomright: 9px;
+	-moz-border-radius-bottomleft: 9px;
+	-webkit-border-radius: 9px 9px 9px 9px;
+	border-radius: 9px 9px 9px 9px;
+	h2.block__title {
+		font-size: 1.5em;
+		color: #fff;
+		padding: .3em 11px;
+		margin: 0;
+		-moz-border-radius-topleft: 9px;
+		-moz-border-radius-topright: 9px;
+		-moz-border-radius-bottomright: 0;
+		-moz-border-radius-bottomleft: 0;
+		-webkit-border-radius: 9px 9px 0 0;
+		-o-border-radius: 9px 9px 0 0;
+		-ms-border-radius: 9px 9px 0 0;
+		border-radius: 9px 9px 0 0;
+		background: #3b9356;
+		background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+		background: -moz-linear-gradient(top,#3b9356 0,#02684a 100%);
+		background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#3b9356),color-stop(100%,#02684a));
+		background: -webkit-linear-gradient(top,#3b9356 0,#02684a 100%);
+		background: -o-linear-gradient(top,#3b9356 0,#02684a 100%);
+		background: -ms-linear-gradient(top,#3b9356 0,#02684a 100%);
+		background: linear-gradient(top,#3b9356 0,#02684a 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3b9356',endColorstr='#02684a',GradientType=0);
+	}
+	.block__content {
+		padding: 1em 11px .3em 11px;
+		background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+		background: -moz-linear-gradient(top,#f0f5e7 0,#dde9c9 100%);
+		background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#f0f5e7),color-stop(100%,#dde9c9));
+		background: -webkit-linear-gradient(top,#f0f5e7 0,#dde9c9 100%);
+		background: -o-linear-gradient(top,#f0f5e7 0,#dde9c9 100%);
+		background: -ms-linear-gradient(top,#f0f5e7 0,#dde9c9 100%);
+		background: linear-gradient(top,#f0f5e7 0,#dde9c9 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f0f5e7',endColorstr='#dde9c9',GradientType=0);
+	}
+}
+
+/* Above styling is based on this html structure in the content:
+
+<div class="block-image"><img src="/sites/all/themes/site_frontend/images/content/hygiene-ratings.png" /></div>
+<div class="block-body">
+<h3><a href="/ratings">Eating out? Getting food in?</a></h3>
+<p>Check the food hygiene standards of a resturant, takeaway or food shop.</p>
+</div>
+<div class="block-footer">
+<p class="more-button-wrapper"><a class="more-button" href="/ratings" title=" Food hygiene ratings"><span class="link-text">More</span></a></p>
+</div>
+
+*/
