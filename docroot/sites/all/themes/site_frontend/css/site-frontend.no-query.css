@@ -63,8 +63,7 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
 .l-region--sidebar-second .block {
   margin-bottom: 11px; }
 
-/* block class usage example: Interactive block - to apply to block, in block admin, edit block and add "grey-block" to the block class textbox */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\000038}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\000036}}
 .grey-block {
   overflow: hidden;
   border: 1px solid #e8e8e8;
@@ -73,7 +72,7 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
   -o-border-radius: 9px;
   -ms-border-radius: 9px;
   border-radius: 9px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\0000316}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\0000314}}
   .grey-block h2.block__title {
     font-size: 1.5em;
     color: #fff;
@@ -94,7 +93,7 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
     background: linear-gradient(top, #999999 6%, #3e3e3e 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#999999',endColorstr='#3e3e3e',GradientType=0);
     border-bottom: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\0000337}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\0000335}}
   .grey-block .block__content {
     overflow: hidden;
     padding: 1em 11px .3em 11px;
@@ -105,8 +104,7 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
     -ms-border-radius: 0 0 9px 9px;
     border-radius: 0 0 9px 9px; }
 
-/* block class usage example: Popular links block or Search for guidance block - to apply to block, in block admin, edit block and add "purple-block" to the block class textbox */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\0000350}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\0000347}}
 .purple-block {
   -webkit-border-radius: 9px;
   -moz-border-radius: 9px;
@@ -122,19 +120,18 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
   background: -ms-linear-gradient(top, #9e218a 1%, #5d0050 100%);
   background: linear-gradient(top, #9e218a 1%, #5d0050 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#9e218a',endColorstr='#5d0050',GradientType=0); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\0000365}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\0000362}}
   .purple-block h2.block__title {
     font-size: 1.5em;
     color: #fff;
     padding: .5em 11px .15em 11px;
     margin: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\0000371}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\0000368}}
   .purple-block .block__content {
     color: #fff;
     padding: .5em 11px .3em 11px; }
 
-/* block class usage example: Current topics or Resources - to apply to block, in block admin, edit block and add "blue-block" to the block class textbox */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\0000378}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\0000374}}
 .blue-block {
   -webkit-border-radius: 0 0 9px 9px;
   -moz-border-radius: 0 0 9px 9px;
@@ -150,7 +147,7 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
   background: -ms-linear-gradient(top, #f9fcfd 1%, #d2e8f1 100%);
   background: linear-gradient(top, #f9fcfd 1%, #d2e8f1 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9fcfd',endColorstr='#d2e8f1',GradientType=0); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\0000393}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\0000389}}
   .blue-block h2.block__title {
     font-size: 1.5em;
     color: #fff;
@@ -170,15 +167,14 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
     background: linear-gradient(to bottom, #0781af 50%, #027099 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0781af',endColorstr='#027099',GradientType=0);
     border-bottom: 1px solid #64b1cf; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003113}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003109}}
   .blue-block .block__content {
     padding: 1em 11px .3em 11px; }
 
-/* block class usage example: FSA in the nations - to apply to block, in block admin, edit block and add "blue-block-white-background" to the block class textbox */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003119}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003114}}
 .blue-block-white-background {
   background: #fff; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003121}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003116}}
   .blue-block-white-background h2.block__title {
     font-size: 1.5em;
     color: #fff;
@@ -198,7 +194,7 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
     background: linear-gradient(to bottom, #0781af 50%, #027099 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0781af',endColorstr='#027099',GradientType=0);
     border-bottom: 1px solid #64b1cf; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003141}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003136}}
   .blue-block-white-background .block__content {
     padding: 1em 11px .3em 11px;
     border: 1px solid #bbddea;
@@ -208,24 +204,15 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
     -ms-border-radius: 0 0 9px 9px;
     border-radius: 0 0 9px 9px; }
 
-/* block class usage example: Business and industry or Enforcement and regulation or Science and research - to apply to block, in block admin, edit block and add "green-block" to the block class textbox*/
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003153}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003148}}
 .green-block {
   -moz-border-radius-topleft: 0;
   -moz-border-radius-topright: 0;
   -moz-border-radius-bottomright: 9px;
   -moz-border-radius-bottomleft: 9px;
   -webkit-border-radius: 0 0 9px 9px;
-  border-radius: 0 0 9px 9px;
-  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-  background: -moz-linear-gradient(top, #f0f5e7 0, #dde9c9 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f0f5e7), color-stop(100%, #dde9c9));
-  background: -webkit-linear-gradient(top, #f0f5e7 0, #dde9c9 100%);
-  background: -o-linear-gradient(top, #f0f5e7 0, #dde9c9 100%);
-  background: -ms-linear-gradient(top, #f0f5e7 0, #dde9c9 100%);
-  background: linear-gradient(top, #f0f5e7 0%, #dde9c9 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f0f5e7',endColorstr='#dde9c9',GradientType=0); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003168}}
+  border-radius: 0 0 9px 9px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003155}}
   .green-block h2.block__title {
     font-size: 1.5em;
     color: #fff;
@@ -248,15 +235,25 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
     background: -ms-linear-gradient(top, #3b9356 0, #02684a 100%);
     background: linear-gradient(top, #3b9356 0%, #02684a 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3b9356',endColorstr='#02684a',GradientType=0); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003191}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003178}}
   .green-block .block__content {
-    padding: 1em 11px .3em 11px; }
+    overflow: hidden;
+    padding: 1em 11px .3em 11px;
+    background: #dde9c9;
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, #f0f5e7 0, #dde9c9 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f0f5e7), color-stop(100%, #dde9c9));
+    background: -webkit-linear-gradient(top, #f0f5e7 0, #dde9c9 100%);
+    background: -o-linear-gradient(top, #f0f5e7 0, #dde9c9 100%);
+    background: -ms-linear-gradient(top, #f0f5e7 0, #dde9c9 100%);
+    background: linear-gradient(top, #f0f5e7 0%, #dde9c9 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f0f5e7',endColorstr='#dde9c9',GradientType=0);
+    border-radius: 0 0 9px 9px; }
 
-/* block class usage example: Business and industry or Enforcement and regulation or Science and research - to apply to block, in block admin, edit block and add "green-block" to the block class textbox*/
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003197}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003194}}
 .green-block-white-background {
   overflow: hidden; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003199}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003196}}
   .green-block-white-background h2.block__title {
     font-size: 1.5em;
     color: #fff;
@@ -279,7 +276,7 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
     background: -ms-linear-gradient(top, #3b9356 0, #02684a 100%);
     background: linear-gradient(top, #3b9356 0%, #02684a 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3b9356',endColorstr='#02684a',GradientType=0); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003222}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003219}}
   .green-block-white-background .block__content {
     padding: 1em 10px .3em 10px;
     background-color: #fff;
@@ -292,7 +289,7 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
     border-radius: 0 0 9px 9px;
     overflow: hidden; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003236}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003233}}
 .light-grey-block {
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
@@ -300,22 +297,22 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
   -ms-border-radius: 8px;
   border-radius: 8px;
   background: #f5f8f1; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003243}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003240}}
   .light-grey-block h2.block__title {
     font-size: 1.5em;
     color: #4b800d;
     padding: .5em 11px .15em 11px;
     margin: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003249}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003246}}
   .light-grey-block .block__content {
     padding: .5em 11px .3em 11px; }
 
 /* blocks in main content area */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003257}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003254}}
 .l-content .green-block,
 .l-content .blue-block {
   margin-bottom: 11px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003261}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003258}}
 .l-content .light-grey-block h2.block__title {
   font-size: 1.6em;
   font-weight: normal;
@@ -1681,6 +1678,7 @@ ul.breadcrumb {
   overflow: hidden;
   float: left;
   /* feature image */
+  /* image mask overay - for curved bottom */
   /* view footer */
   /* links list */ }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000313}}
@@ -1690,8 +1688,9 @@ ul.breadcrumb {
     width: 225px;
     height: 95px;
     overflow: hidden; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000320}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000321}}
   .feature-block span.image-mask {
+    overflow: hidden;
     display: block;
     width: 225px;
     height: 95px;
@@ -1699,23 +1698,24 @@ ul.breadcrumb {
     top: 0;
     left: 0;
     background: url("../images/home-page-image-mask.png") 0 0 no-repeat; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000330}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000332}}
   .feature-block .view-footer {
     padding-top: 0.5em;
     margin-left: 10px;
     margin-right: 10px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000336}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000338}}
   .feature-block .block__content ul {
-    margin: 0;
+    display: block;
+    margin: 8px 0 0 0;
     padding: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000339}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000342}}
     .feature-block .block__content ul li {
       margin: 0 0 0.3em 0;
       padding: 0 0 0 8px;
       list-style: none;
       list-style-type: none;
       list-style-image: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000345}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000348}}
       .feature-block .block__content ul li a {
         padding-left: 14px;
         display: block;
@@ -1723,26 +1723,65 @@ ul.breadcrumb {
         background-image: url("../images/orange-arrow-thin-right.png");
         background-position: left 3px;
         background-repeat: no-repeat; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000353}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000356}}
       .feature-block .block__content ul li a:hover {
         text-decoration: underline; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000359}}
-.l-content .feature-block.green-block {
-  margin-bottom: 40px; }
-
-/* no margin on last feature block */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000363}}
+/* no right margin on last feature block */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000364}}
 .feature-block.last {
   margin-right: 0px; }
 
-/* block styling overrides */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000368}}
-.feature-block.green-block h2.block__title {
-  padding: .3em 10px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000371}}
-.feature-block.green-block .block__content {
-  padding: 0 0 .3em 0; }
+/* block styling */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000369}}
+.feature-block {
+  -moz-border-radius-topleft: 0;
+  -moz-border-radius-topright: 0;
+  -moz-border-radius-bottomright: 9px;
+  -moz-border-radius-bottomleft: 9px;
+  -webkit-border-radius: 0 0 9px 9px;
+  border-radius: 0 0 9px 9px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000376}}
+  .feature-block h2.block__title {
+    font-size: 1.5em;
+    color: #fff;
+    padding: .3em 10px;
+    margin: 0;
+    -moz-border-radius-topleft: 9px;
+    -moz-border-radius-topright: 9px;
+    -moz-border-radius-bottomright: 0;
+    -moz-border-radius-bottomleft: 0;
+    -webkit-border-radius: 9px 9px 0 0;
+    -o-border-radius: 9px 9px 0 0;
+    -ms-border-radius: 9px 9px 0 0;
+    border-radius: 9px 9px 0 0;
+    background: #3b9356;
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, #3b9356 0, #02684a 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3b9356), color-stop(100%, #02684a));
+    background: -webkit-linear-gradient(top, #3b9356 0, #02684a 100%);
+    background: -o-linear-gradient(top, #3b9356 0, #02684a 100%);
+    background: -ms-linear-gradient(top, #3b9356 0, #02684a 100%);
+    background: linear-gradient(top, #3b9356 0%, #02684a 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3b9356',endColorstr='#02684a',GradientType=0); }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000399}}
+  .feature-block .block__content {
+    overflow: hidden;
+    padding: 0 0 .3em 0;
+    background: #dde9c9;
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, white 0, #dde9c9 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, #dde9c9));
+    background: -webkit-linear-gradient(top, white 0, #dde9c9 100%);
+    background: -o-linear-gradient(top, white 0, #dde9c9 100%);
+    background: -ms-linear-gradient(top, white 0, #dde9c9 100%);
+    background: linear-gradient(top, #ffffff 0%, #dde9c9 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#dde9c9',GradientType=0);
+    border-radius: 0 0 9px 9px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\00003115}}
+.l-content .feature-block {
+  margin-bottom: 40px; }
 
 /* for mobile */
 /**
@@ -2688,6 +2727,7 @@ p.job-line-item {
  */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\000037}}
 .latest-news-and-alerts {
+  position: relative;
   margin-bottom: 20px;
   font-size: 1em;
   /* featured image */
@@ -2697,36 +2737,36 @@ p.job-line-item {
   /* view content wrapper */
   /* view footer */
   /* more links with orange icons on the right of them */ }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000311}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000312}}
   .latest-news-and-alerts .views-field-field-feature-image img {
     float: none;
     margin: 0 0 8px 0;
     padding: 0;
     border: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000318}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000319}}
   .latest-news-and-alerts .views-field-title {
     font-size: 1.3em;
     line-height: 1.2em;
     margin-bottom: 0.5em;
     font-weight: normal; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000323}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000324}}
     .latest-news-and-alerts .views-field-title a {
       text-decoration: none;
       color: #006f51; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000327}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000328}}
     .latest-news-and-alerts .views-field-title a:hover {
       text-decoration: underline; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000330}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000331}}
     .latest-news-and-alerts .views-field-title h2, .latest-news-and-alerts .views-field-title h3 {
       margin-bottom: 0px;
       font-weight: normal;
       font-size: 1em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000338}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000339}}
   .latest-news-and-alerts .views-field-field-updated,
   .latest-news-and-alerts .views-field-field-display-updated-date {
     font-size: 1.2em;
     margin-bottom: 0.2em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000343}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000344}}
   .latest-news-and-alerts .views-row {
     width: 161px;
     overflow: hidden;
@@ -2734,15 +2774,19 @@ p.job-line-item {
     float: left;
     margin-right: 11px;
     margin-bottom: 15px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000351}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000352}}
   .latest-news-and-alerts .views-row.views-row-last {
     margin-right: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000355}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000356}}
   .latest-news-and-alerts .view-content {
     margin-left: 10px;
     margin-right: 10px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000360}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000361}}
   .latest-news-and-alerts .view-footer {
+    width: 697px;
+    position: absolute;
+    bottom: 1px;
+    left: 1px;
     font-size: 1.2em;
     line-height: 1em;
     clear: both;
@@ -2765,18 +2809,18 @@ p.job-line-item {
     background: -ms-linear-gradient(top, white 0%, #cfcfcf 100%);
     background: linear-gradient(top, #ffffff 0%, #cfcfcf 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#cfcfcf',GradientType=0); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000385}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000390}}
   .latest-news-and-alerts p.more-link-orange-icon-right-wrapper {
     margin: 0;
     font-size: 1em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000389}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000394}}
   .latest-news-and-alerts a.more-link-orange-icon-right {
     margin-right: 30px;
     font-size: 1em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000393}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000398}}
   .latest-news-and-alerts a.more-link-orange-icon-right.first {
     margin-left: 85px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\0000396}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\00003101}}
   .latest-news-and-alerts a.more-link-orange-icon-right.last {
     margin-right: 0; }
 
@@ -2788,17 +2832,46 @@ p.job-line-item {
 	<a class="more-link-orange-icon-right last" href="/news-updates/consultations" title="More about: Consultations">Consultations</a>
 	</p>
 */
-/* block styling overrides */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\00003110}}
-.latest-news-and-alerts.green-block-white-background {
-  /* block content also wraps the views footer, because the views footer is content */ }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\00003111}}
-  .latest-news-and-alerts.green-block-white-background h2.block__title {
-    padding: .3em 10px; }
+/* block styling */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\00003115}}
-  .latest-news-and-alerts.green-block-white-background .block__content {
+.latest-news-and-alerts {
+  overflow: hidden; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\00003117}}
+  .latest-news-and-alerts h2.block__title {
+    font-size: 1.5em;
+    color: #fff;
+    padding: .3em 10px;
+    margin: 0;
+    -moz-border-radius-topleft: 9px;
+    -moz-border-radius-topright: 9px;
+    -moz-border-radius-bottomright: 0;
+    -moz-border-radius-bottomleft: 0;
+    -webkit-border-radius: 9px 9px 0 0;
+    -o-border-radius: 9px 9px 0 0;
+    -ms-border-radius: 9px 9px 0 0;
+    border-radius: 9px 9px 0 0;
+    background: #3b9356;
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, #3b9356 0, #02684a 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3b9356), color-stop(100%, #02684a));
+    background: -webkit-linear-gradient(top, #3b9356 0, #02684a 100%);
+    background: -o-linear-gradient(top, #3b9356 0, #02684a 100%);
+    background: -ms-linear-gradient(top, #3b9356 0, #02684a 100%);
+    background: linear-gradient(top, #3b9356 0%, #02684a 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3b9356',endColorstr='#02684a',GradientType=0); }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\00003140}}
+  .latest-news-and-alerts .block__content {
     padding: 0.5em 0em 0em 0em;
-    min-height: 242px; }
+    min-height: 242px;
+    background-color: #fff;
+    border: 1px solid #02684a;
+    -moz-border-radius-topleft: 0;
+    -moz-border-radius-topright: 0;
+    -moz-border-radius-bottomright: 9px;
+    -moz-border-radius-bottomleft: 9px;
+    -webkit-border-radius: 0 0 9px 9px;
+    border-radius: 0 0 9px 9px;
+    overflow: hidden; }
 
 /* mobile view */
 /** Main menu depends on Superfish module
