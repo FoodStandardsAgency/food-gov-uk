@@ -114,6 +114,7 @@
 	/* block content also wraps the views footer, because the views footer is content */
 	.block__content {
 		padding: 0.5em 0em 0em 0em;
+		min-height: 242px;
 	}
 }
 

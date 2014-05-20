@@ -1876,7 +1876,135 @@ span.copyright {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_fsa_in_the_nations_block\.scss}line{font-family:\000036}}
 .fsa-in-the-nations {
   clear: both; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_fsa_in_the_nations_block\.scss}line{font-family:\000039}}
+  .fsa-in-the-nations .block__content a {
+    text-decoration: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_fsa_in_the_nations_block\.scss}line{font-family:\0000312}}
+  .fsa-in-the-nations .block__content a:hover {
+    text-decoration: underline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_fsa_in_the_nations_block\.scss}line{font-family:\0000315}}
+  .fsa-in-the-nations .block__content h3 {
+    font-size: 1em;
+    font-weight: bold;
+    padding-top: 5px;
+    margin: 0 0 0.5em 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_fsa_in_the_nations_block\.scss}line{font-family:\0000320}}
+    .fsa-in-the-nations .block__content h3 a img {
+      position: absolute;
+      top: 12px;
+      right: 0;
+      border: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_fsa_in_the_nations_block\.scss}line{font-family:\0000326}}
+    .fsa-in-the-nations .block__content h3 a {
+      font-size: 1.2em;
+      line-height: 1.4em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_fsa_in_the_nations_block\.scss}line{font-family:\0000331}}
+  .fsa-in-the-nations .block__content ul {
+    list-style: none;
+    margin: 0 0 1.2em 0;
+    padding: 0;
+    font-size: 1em;
+    display: block;
+    clear: both;
+    overflow: hidden; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_fsa_in_the_nations_block\.scss}line{font-family:\0000340}}
+  .fsa-in-the-nations .block__content li {
+    margin-left: 0;
+    padding-bottom: 6px;
+    margin-bottom: 6px;
+    border-bottom: 1px solid #c9c9c9;
+    font-size: 1em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_fsa_in_the_nations_block\.scss}line{font-family:\0000347}}
+  .fsa-in-the-nations .block__content .scotland {
+    position: relative;
+    min-height: 75px;
+    padding-right: 50px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_fsa_in_the_nations_block\.scss}line{font-family:\0000352}}
+  .fsa-in-the-nations .block__content .northern-ireland {
+    position: relative;
+    min-height: 75px;
+    padding-right: 50px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_fsa_in_the_nations_block\.scss}line{font-family:\0000357}}
+  .fsa-in-the-nations .block__content .wales {
+    position: relative;
+    min-height: 61px;
+    padding-right: 50px;
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_fsa_in_the_nations_block\.scss}line{font-family:\0000365}}
+  .fsa-in-the-nations .block__content ul.nation-links {
+    margin: 0 4px 0 0;
+    clear: both; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_fsa_in_the_nations_block\.scss}line{font-family:\0000368}}
+    .fsa-in-the-nations .block__content ul.nation-links li {
+      padding-bottom: 0;
+      margin-bottom: 0;
+      min-height: 0;
+      border: none;
+      float: left; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_fsa_in_the_nations_block\.scss}line{font-family:\0000374}}
+      .fsa-in-the-nations .block__content ul.nation-links li a {
+        display: block;
+        border-right: 1px solid #006f51;
+        font-size: 1.1em;
+        line-height: 1em;
+        margin-right: 4px;
+        padding-right: 4px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_fsa_in_the_nations_block\.scss}line{font-family:\0000383}}
+    .fsa-in-the-nations .block__content ul.nation-links li.last a {
+      border-right: none; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_fsa_in_the_nations_block\.scss}line{font-family:\0000391}}
+.fsa-in-the-nations,
+.fsa-in-the-nations.grey-block {
+  border-color: #c9c9c9; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_fsa_in_the_nations_block\.scss}line{font-family:\0000393}}
+  .fsa-in-the-nations .block__content,
+  .fsa-in-the-nations.grey-block .block__content {
+    padding-top: 0.5em;
+    padding-bottom: 0;
+    min-height: 240px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_fsa_in_the_nations_block\.scss}line{font-family:\00003100}}
+.l-region--sidebar-second .fsa-in-the-nations.block {
+  margin-bottom: 20px; }
+
+/* Structure of the block html and content
+
+<div class="section">
+<ul>
+	<li class="scotland">
+	<h3><a href="/scotland/">FSA in Scotland<img alt="FSA in Scotland icon" src="/sites/all/themes/site_frontend/images/icons/fsa-scotland.gif" /></a></h3>
+
+	<ul class="nation-links">
+		<li class="first"><a href="/scotland/news-updates/news/">News</a></li>
+		<li><a href="/scotland/scotnut/">Nutrition</a></li>
+		<li class="last"><a href="/scotland/safetyhygienescot/">Safety</a></li>
+	</ul>
+	</li>
+	<li class="northern-ireland">
+	<h3><a href="/northern-ireland/">FSA in Northern Ireland<img alt="FSA in Northern Ireland icon" src="/sites/all/themes/site_frontend/images/icons/fsa-northern-ireland.gif" /></a></h3>
+
+	<ul class="nation-links">
+		<li class="first"><a href="/northern-ireland/news-updates/news/">News</a></li>
+		<li><a href="/northern-ireland/safetyhygieneni/">Safety</a></li>
+		<li class="last"><a href="/northern-ireland/nutritionni/">Nutrition</a></li>
+	</ul>
+	</li>
+	<li class="wales">
+	<h3><a href="/wales/">FSA in Wales<img alt="FSA in Wales icon" src="/sites/all/themes/site_frontend/images/icons/fsa-wales.gif" /></a></h3>
+
+	<ul class="nation-links">
+		<li class="first"><a href="/wales/news-updates/news/">News</a></li>
+		<li><a href="/wales/about-fsa-wales/cymru/">Cymru</a></li>
+		<li class="last"><a href="/wales/safetyhygienewales/">Safety</a></li>
+	</ul>
+	</li>
+</ul>
+</div>
+
+*/
 /**
  * Requires a block class: generic-blocks
  */
@@ -2669,7 +2797,8 @@ p.job-line-item {
     padding: .3em 10px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\00003115}}
   .latest-news-and-alerts.green-block-white-background .block__content {
-    padding: 0.5em 0em 0em 0em; }
+    padding: 0.5em 0em 0em 0em;
+    min-height: 242px; }
 
 /* mobile view */
 /** Main menu depends on Superfish module
