@@ -343,74 +343,84 @@ So I can make it easy for users to get back to the top of big pages<br />
 <span class="path">features\back-to-top.feature:7</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/document-page</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/document-page</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">Create General Page</strong>" in the "<strong class="passed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create General Page</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-title</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-title</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I check the box "<strong class="passed_param">N/A</strong>" in "<strong class="passed_param">edit-field-site-section-und</strong>"</span>
+<span class="text">I check the box "<strong class="skipped_param">N/A</strong>" in "<strong class="skipped_param">edit-field-site-section-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iCheckOptionInBlock()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I click "<strong class="passed_param">Page settings</strong>"</span>
+<span class="text">I click "<strong class="skipped_param">Page settings</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I check "<strong class="passed_param">edit-field-setting-backtotop-und</strong>"</span>
+<span class="text">I check "<strong class="skipped_param">edit-field-setting-backtotop-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::checkOption()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press "<strong class="passed_param">edit-submit</strong>" in the "<strong class="passed_param">Submit</strong>" region</span>
+<span class="text">I press "<strong class="skipped_param">edit-submit</strong>" in the "<strong class="skipped_param">Submit</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="passed_param">General Page test has been created.</strong>"</span>
+<span class="text">I should see "<strong class="skipped_param">General Page test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">Back to top</strong>" in the "<strong class="passed_param">Back to top</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Back to top</strong>" in the "<strong class="skipped_param">Back to top</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
+</div>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
 </div>
 </li>
 </ol>
@@ -422,30 +432,32 @@ So I can make it easy for users to get back to the top of big pages<br />
 <h3>
 <span class="keyword">Scenario: </span>
 <span class="title">Back to top - Audit Report</span>
-<span class="path">features\back-to-top.feature:20</span>
+<span class="path">features\back-to-top.feature:21</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/audit-report</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/audit-report</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="failed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="failed_param">Create Audit Report</strong>" in the "<strong class="failed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create Audit Report</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
-<pre class="backtrace">No region &quot;Page Title&quot; found on the page http://dev.fsa.dev-1.siriusopensource.com/node/add/audit-report.</pre>
 </li>
 <li class="skipped">
 <div class="step">
@@ -524,6 +536,13 @@ So I can make it easy for users to get back to the top of big pages<br />
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
+</div>
+</li>
 </ol>
 </div>
 <div class="scenario">
@@ -533,79 +552,88 @@ So I can make it easy for users to get back to the top of big pages<br />
 <h3>
 <span class="keyword">Scenario: </span>
 <span class="title">Back to top - Consultation</span>
-<span class="path">features\back-to-top.feature:37</span>
+<span class="path">features\back-to-top.feature:39</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/consultation</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/consultation</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">Create Consultation</strong>" in the "<strong class="passed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create Consultation</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-title</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-title</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I check the box "<strong class="passed_param">N/A</strong>" in "<strong class="passed_param">edit-field-site-section-und</strong>"</span>
+<span class="text">I check the box "<strong class="skipped_param">N/A</strong>" in "<strong class="skipped_param">edit-field-site-section-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iCheckOptionInBlock()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I click "<strong class="passed_param">Page settings</strong>"</span>
+<span class="text">I click "<strong class="skipped_param">Page settings</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I check "<strong class="passed_param">edit-field-setting-backtotop-und</strong>"</span>
+<span class="text">I check "<strong class="skipped_param">edit-field-setting-backtotop-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::checkOption()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press "<strong class="passed_param">edit-submit</strong>" in the "<strong class="passed_param">Submit</strong>" region</span>
+<span class="text">I press "<strong class="skipped_param">edit-submit</strong>" in the "<strong class="skipped_param">Submit</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="passed_param">Consultation test has been created.</strong>"</span>
+<span class="text">I should see "<strong class="skipped_param">Consultation test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
 </li>
-<li class="failed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="failed_param">Back to top</strong>" in the "<strong class="failed_param">Back to top</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Back to top</strong>" in the "<strong class="skipped_param">Back to top</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
-<pre class="backtrace">No region &quot;Back to top&quot; found on the page http://dev.fsa.dev-1.siriusopensource.com/news-updates/consultations/2014/test-1.</pre>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
+</div>
 </li>
 </ol>
 </div>
@@ -616,30 +644,32 @@ So I can make it easy for users to get back to the top of big pages<br />
 <h3>
 <span class="keyword">Scenario: </span>
 <span class="title">Back to top - FAQ</span>
-<span class="path">features\back-to-top.feature:50</span>
+<span class="path">features\back-to-top.feature:53</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/faq</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/faq</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="failed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="failed_param">Create FAQ</strong>" in the "<strong class="failed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create FAQ</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
-<pre class="backtrace">No region &quot;Page Title&quot; found on the page http://dev.fsa.dev-1.siriusopensource.com/node/add/faq.</pre>
 </li>
 <li class="skipped">
 <div class="step">
@@ -690,6 +720,13 @@ So I can make it easy for users to get back to the top of big pages<br />
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
+</div>
+</li>
 </ol>
 </div>
 <div class="scenario">
@@ -699,78 +736,87 @@ So I can make it easy for users to get back to the top of big pages<br />
 <h3>
 <span class="keyword">Scenario: </span>
 <span class="title">Back to top - Job</span>
-<span class="path">features\back-to-top.feature:63</span>
+<span class="path">features\back-to-top.feature:67</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/job</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/job</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">Create Job</strong>" in the "<strong class="passed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create Job</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-title</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-title</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I check the box "<strong class="passed_param">N/A</strong>" in "<strong class="passed_param">edit-field-site-section-und</strong>"</span>
+<span class="text">I check the box "<strong class="skipped_param">N/A</strong>" in "<strong class="skipped_param">edit-field-site-section-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iCheckOptionInBlock()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I click "<strong class="passed_param">Page settings</strong>"</span>
+<span class="text">I click "<strong class="skipped_param">Page settings</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I check "<strong class="passed_param">edit-field-setting-backtotop-und</strong>"</span>
+<span class="text">I check "<strong class="skipped_param">edit-field-setting-backtotop-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::checkOption()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press "<strong class="passed_param">edit-submit</strong>" in the "<strong class="passed_param">Submit</strong>" region</span>
+<span class="text">I press "<strong class="skipped_param">edit-submit</strong>" in the "<strong class="skipped_param">Submit</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="failed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="failed_param">Job test has been created.</strong>"</span>
+<span class="text">I should see "<strong class="skipped_param">Job test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
-<pre class="backtrace">The text &quot;Job test has been created.&quot; was not found anywhere in the text of the current page.</pre>
 </li>
 <li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
 <span class="text">I should see "<strong class="skipped_param">Back to top</strong>" in the "<strong class="skipped_param">Back to top</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
+</div>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
 </div>
 </li>
 </ol>
@@ -782,30 +828,32 @@ So I can make it easy for users to get back to the top of big pages<br />
 <h3>
 <span class="keyword">Scenario: </span>
 <span class="title">Back to top - News</span>
-<span class="path">features\back-to-top.feature:76</span>
+<span class="path">features\back-to-top.feature:81</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/news</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/news</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="failed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="failed_param">Create News</strong>" in the "<strong class="failed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create News</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
-<pre class="backtrace">No region &quot;Page Title&quot; found on the page http://dev.fsa.dev-1.siriusopensource.com/node/add/news.</pre>
 </li>
 <li class="skipped">
 <div class="step">
@@ -863,6 +911,13 @@ So I can make it easy for users to get back to the top of big pages<br />
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
+</div>
+</li>
 </ol>
 </div>
 <div class="scenario">
@@ -872,78 +927,87 @@ So I can make it easy for users to get back to the top of big pages<br />
 <h3>
 <span class="keyword">Scenario: </span>
 <span class="title">Back to top - Research project</span>
-<span class="path">features\back-to-top.feature:90</span>
+<span class="path">features\back-to-top.feature:96</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/research-project</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/research-project</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="passed_param">Create Research project</strong>" in the "<strong class="passed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create Research project</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-title</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-title</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I check the box "<strong class="passed_param">N/A</strong>" in "<strong class="passed_param">edit-field-site-section-und</strong>"</span>
+<span class="text">I check the box "<strong class="skipped_param">N/A</strong>" in "<strong class="skipped_param">edit-field-site-section-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iCheckOptionInBlock()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I click "<strong class="passed_param">Page settings</strong>"</span>
+<span class="text">I click "<strong class="skipped_param">Page settings</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I check "<strong class="passed_param">edit-field-setting-backtotop-und</strong>"</span>
+<span class="text">I check "<strong class="skipped_param">edit-field-setting-backtotop-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::checkOption()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press "<strong class="passed_param">edit-submit</strong>" in the "<strong class="passed_param">Submit</strong>" region</span>
+<span class="text">I press "<strong class="skipped_param">edit-submit</strong>" in the "<strong class="skipped_param">Submit</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="failed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="failed_param">Research project test has been created.</strong>"</span>
+<span class="text">I should see "<strong class="skipped_param">Research project test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
-<pre class="backtrace">The text &quot;Research project test has been created.&quot; was not found anywhere in the text of the current page.</pre>
 </li>
 <li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
 <span class="text">I should see "<strong class="skipped_param">Back to top</strong>" in the "<strong class="skipped_param">Back to top</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
+</div>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
 </div>
 </li>
 </ol>
@@ -955,30 +1019,32 @@ So I can make it easy for users to get back to the top of big pages<br />
 <h3>
 <span class="keyword">Scenario: </span>
 <span class="title">Back to top - Alert</span>
-<span class="path">features\back-to-top.feature:103</span>
+<span class="path">features\back-to-top.feature:110</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/alert</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/alert</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="failed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="failed_param">Create Alert</strong>" in the "<strong class="failed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create Alert</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
-<pre class="backtrace">No region &quot;Page Title&quot; found on the page http://dev.fsa.dev-1.siriusopensource.com/node/add/alert.</pre>
 </li>
 <li class="skipped">
 <div class="step">
@@ -1036,6 +1102,13 @@ So I can make it easy for users to get back to the top of big pages<br />
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
+</div>
+</li>
 </ol>
 </div>
 </div>
@@ -1060,76 +1133,78 @@ So I can make sure a new child page inherits the navigation menu location from t
 <span class="path">features\child-menu-to-parent.feature:7</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/document-page</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/document-page</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">Create General Page</strong>" in the "<strong class="passed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create General Page</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I fill in "<strong class="passed_param">edit-title</strong>" with "<strong class="passed_param">test parent</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-title</strong>" with "<strong class="skipped_param">test parent</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I check the box "<strong class="passed_param">N/A</strong>" in "<strong class="passed_param">edit-field-site-section-und</strong>"</span>
+<span class="text">I check the box "<strong class="skipped_param">N/A</strong>" in "<strong class="skipped_param">edit-field-site-section-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iCheckOptionInBlock()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I click "<strong class="passed_param">Menu settings</strong>"</span>
+<span class="text">I click "<strong class="skipped_param">Menu settings</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I check the box "<strong class="passed_param">Provide a menu link</strong>"</span>
+<span class="text">I check the box "<strong class="skipped_param">Provide a menu link</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertCheckBox()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-menu-link-title</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-menu-link-title</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press "<strong class="passed_param">edit-submit</strong>" in the "<strong class="passed_param">Submit</strong>" region</span>
+<span class="text">I press "<strong class="skipped_param">edit-submit</strong>" in the "<strong class="skipped_param">Submit</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="failed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="failed_param">General page test has been created</strong>"</span>
+<span class="text">I should see "<strong class="skipped_param">General page test has been created</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
-<pre class="backtrace">The text &quot;General page test has been created&quot; was not found anywhere in the text of the current page.</pre>
 </li>
 <li class="skipped">
 <div class="step">
@@ -1257,6 +1332,13 @@ So I can make sure a new child page inherits the navigation menu location from t
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
+</div>
+</li>
 </ol>
 </div>
 </div>
@@ -1281,27 +1363,29 @@ So I can control the site hierarchy<br />
 <span class="path">features\child-pages.feature:7</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/document-page</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/document-page</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="failed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="failed_param">Create General Page</strong>" in the "<strong class="failed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create General Page</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
-<pre class="backtrace">No region &quot;Page Title&quot; found on the page http://dev.fsa.dev-1.siriusopensource.com/node/add/document-page.</pre>
 </li>
 <li class="skipped">
 <div class="step">
@@ -1527,6 +1611,13 @@ So I can control the site hierarchy<br />
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageNotContainsText()</span>
 </div>
 </li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
+</div>
+</li>
 </ol>
 </div>
 </div>
@@ -1551,81 +1642,91 @@ So I can easily create, edit and delete content<br />
 <span class="path">features\content-types.feature:7</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/audit-report</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/audit-report</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">Create Audit Report</strong>" in the "<strong class="passed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create Audit Report</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-title</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-title</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I click "<strong class="passed_param">Audit</strong>"</span>
+<span class="text">I click "<strong class="skipped_param">Audit</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I select "<strong class="passed_param">Amber Valley</strong>" from "<strong class="passed_param">edit-field-audit-authority-und</strong>"</span>
+<span class="text">I select "<strong class="skipped_param">Amber Valley</strong>" from "<strong class="skipped_param">edit-field-audit-authority-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::selectOption()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I select "<strong class="passed_param">County</strong>" from "<strong class="passed_param">edit-field-audit-authority-type-und</strong>"</span>
+<span class="text">I select "<strong class="skipped_param">County</strong>" from "<strong class="skipped_param">edit-field-audit-authority-type-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::selectOption()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I select "<strong class="passed_param">Approved establishments audit</strong>" from "<strong class="passed_param">edit-field-audit-type-und</strong>"</span>
+<span class="text">I select "<strong class="skipped_param">Approved establishments audit</strong>" from "<strong class="skipped_param">edit-field-audit-type-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::selectOption()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I select "<strong class="passed_param">UK</strong>" from "<strong class="passed_param">edit-field-nation-und</strong>"</span>
+<span class="text">I select "<strong class="skipped_param">UK</strong>" from "<strong class="skipped_param">edit-field-nation-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::selectOption()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press "<strong class="passed_param">edit-submit</strong>" in the "<strong class="passed_param">Submit</strong>" region</span>
+<span class="text">I press "<strong class="skipped_param">edit-submit</strong>" in the "<strong class="skipped_param">Submit</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="passed_param">Audit Report test has been created.</strong>"</span>
+<span class="text">I should see "<strong class="skipped_param">Audit Report test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
+</div>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
 </div>
 </li>
 </ol>
@@ -1637,30 +1738,32 @@ So I can easily create, edit and delete content<br />
 <h3>
 <span class="keyword">Scenario: </span>
 <span class="title">Consultation - Node type</span>
-<span class="path">features\content-types.feature:21</span>
+<span class="path">features\content-types.feature:22</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/consultation</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/consultation</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="failed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="failed_param">Create Consultation</strong>" in the "<strong class="failed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create Consultation</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
-<pre class="backtrace">No region &quot;Page Title&quot; found on the page http://dev.fsa.dev-1.siriusopensource.com/node/add/consultation.</pre>
 </li>
 <li class="skipped">
 <div class="step">
@@ -1690,6 +1793,13 @@ So I can easily create, edit and delete content<br />
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
 </li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
+</div>
+</li>
 </ol>
 </div>
 <div class="scenario">
@@ -1699,56 +1809,66 @@ So I can easily create, edit and delete content<br />
 <h3>
 <span class="keyword">Scenario: </span>
 <span class="title">General Page - Node type</span>
-<span class="path">features\content-types.feature:31</span>
+<span class="path">features\content-types.feature:33</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/document-page</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/document-page</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">Create General Page</strong>" in the "<strong class="passed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create General Page</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-title</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-title</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I check the box "<strong class="passed_param">N/A</strong>" in "<strong class="passed_param">edit-field-site-section-und</strong>"</span>
+<span class="text">I check the box "<strong class="skipped_param">N/A</strong>" in "<strong class="skipped_param">edit-field-site-section-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iCheckOptionInBlock()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press "<strong class="passed_param">edit-submit</strong>" in the "<strong class="passed_param">Submit</strong>" region</span>
+<span class="text">I press "<strong class="skipped_param">edit-submit</strong>" in the "<strong class="skipped_param">Submit</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="passed_param">General Page test has been created.</strong>"</span>
+<span class="text">I should see "<strong class="skipped_param">General Page test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
+</div>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
 </div>
 </li>
 </ol>
@@ -1760,30 +1880,32 @@ So I can easily create, edit and delete content<br />
 <h3>
 <span class="keyword">Scenario: </span>
 <span class="title">External link - Node type</span>
-<span class="path">features\content-types.feature:41</span>
+<span class="path">features\content-types.feature:44</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/external-link</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/external-link</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="failed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="failed_param">Create External link</strong>" in the "<strong class="failed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create External link</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
-<pre class="backtrace">No region &quot;Page Title&quot; found on the page http://dev.fsa.dev-1.siriusopensource.com/node/add/external-link.</pre>
 </li>
 <li class="skipped">
 <div class="step">
@@ -1827,6 +1949,13 @@ So I can easily create, edit and delete content<br />
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
 </li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
+</div>
+</li>
 </ol>
 </div>
 <div class="scenario">
@@ -1836,49 +1965,59 @@ So I can easily create, edit and delete content<br />
 <h3>
 <span class="keyword">Scenario: </span>
 <span class="title">External link set - Node type</span>
-<span class="path">features\content-types.feature:53</span>
+<span class="path">features\content-types.feature:57</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/external-link-set</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/external-link-set</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">Create External link set</strong>" in the "<strong class="passed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create External link set</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-title</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-title</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press "<strong class="passed_param">edit-submit</strong>" in the "<strong class="passed_param">Submit</strong>" region</span>
+<span class="text">I press "<strong class="skipped_param">edit-submit</strong>" in the "<strong class="skipped_param">Submit</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="passed_param">External link set test has been created.</strong>"</span>
+<span class="text">I should see "<strong class="skipped_param">External link set test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
+</div>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
 </div>
 </li>
 </ol>
@@ -1890,30 +2029,32 @@ So I can easily create, edit and delete content<br />
 <h3>
 <span class="keyword">Scenario: </span>
 <span class="title">FAQ - Node type</span>
-<span class="path">features\content-types.feature:62</span>
+<span class="path">features\content-types.feature:67</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/faq</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/faq</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="failed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="failed_param">Create FAQ</strong>" in the "<strong class="failed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create FAQ</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
-<pre class="backtrace">No region &quot;Page Title&quot; found on the page http://dev.fsa.dev-1.siriusopensource.com/node/add/faq.</pre>
 </li>
 <li class="skipped">
 <div class="step">
@@ -1943,6 +2084,13 @@ So I can easily create, edit and delete content<br />
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
 </li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
+</div>
+</li>
 </ol>
 </div>
 <div class="scenario">
@@ -1952,56 +2100,66 @@ So I can easily create, edit and delete content<br />
 <h3>
 <span class="keyword">Scenario: </span>
 <span class="title">Interactive block - Node type</span>
-<span class="path">features\content-types.feature:72</span>
+<span class="path">features\content-types.feature:78</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/block-interactive</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/block-interactive</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">Create Interactive block</strong>" in the "<strong class="passed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create Interactive block</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-title</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-title</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-field-block-title-und-0-value</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-field-block-title-und-0-value</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press "<strong class="passed_param">edit-submit</strong>" in the "<strong class="passed_param">Submit</strong>" region</span>
+<span class="text">I press "<strong class="skipped_param">edit-submit</strong>" in the "<strong class="skipped_param">Submit</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="passed_param">Interactive block test has been created.</strong>"</span>
+<span class="text">I should see "<strong class="skipped_param">Interactive block test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
+</div>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
 </div>
 </li>
 </ol>
@@ -2013,30 +2171,32 @@ So I can easily create, edit and delete content<br />
 <h3>
 <span class="keyword">Scenario: </span>
 <span class="title">Internal link set - Node type</span>
-<span class="path">features\content-types.feature:82</span>
+<span class="path">features\content-types.feature:89</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/internal-link-set</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/internal-link-set</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="failed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="failed_param">Create Internal link set</strong>" in the "<strong class="failed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create Internal link set</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
-<pre class="backtrace">No region &quot;Page Title&quot; found on the page http://dev.fsa.dev-1.siriusopensource.com/node/add/internal-link-set.</pre>
 </li>
 <li class="skipped">
 <div class="step">
@@ -2066,6 +2226,13 @@ So I can easily create, edit and delete content<br />
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
 </li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
+</div>
+</li>
 </ol>
 </div>
 <div class="scenario">
@@ -2075,58 +2242,67 @@ So I can easily create, edit and delete content<br />
 <h3>
 <span class="keyword">Scenario: </span>
 <span class="title">Job - Node type</span>
-<span class="path">features\content-types.feature:92</span>
+<span class="path">features\content-types.feature:100</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/job</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/job</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">Create Job</strong>" in the "<strong class="passed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create Job</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-title</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-title</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I check the box "<strong class="passed_param">N/A</strong>" in "<strong class="passed_param">edit-field-site-section-und</strong>"</span>
+<span class="text">I check the box "<strong class="skipped_param">N/A</strong>" in "<strong class="skipped_param">edit-field-site-section-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iCheckOptionInBlock()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press "<strong class="passed_param">edit-submit</strong>" in the "<strong class="passed_param">Submit</strong>" region</span>
+<span class="text">I press "<strong class="skipped_param">edit-submit</strong>" in the "<strong class="skipped_param">Submit</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="failed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="failed_param">Job test has been created.</strong>"</span>
+<span class="text">I should see "<strong class="skipped_param">Job test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
-<pre class="backtrace">The text &quot;Job test has been created.&quot; was not found anywhere in the text of the current page.</pre>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
+</div>
 </li>
 </ol>
 </div>
@@ -2137,30 +2313,32 @@ So I can easily create, edit and delete content<br />
 <h3>
 <span class="keyword">Scenario: </span>
 <span class="title">Landing Page - Node type</span>
-<span class="path">features\content-types.feature:102</span>
+<span class="path">features\content-types.feature:111</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/landing-page</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/landing-page</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="failed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="failed_param">Create Landing Page</strong>" in the "<strong class="failed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create Landing Page</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
-<pre class="backtrace">No region &quot;Page Title&quot; found on the page http://dev.fsa.dev-1.siriusopensource.com/node/add/landing-page.</pre>
 </li>
 <li class="skipped">
 <div class="step">
@@ -2183,6 +2361,13 @@ So I can easily create, edit and delete content<br />
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
 </li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
+</div>
+</li>
 </ol>
 </div>
 <div class="scenario">
@@ -2192,65 +2377,74 @@ So I can easily create, edit and delete content<br />
 <h3>
 <span class="keyword">Scenario: </span>
 <span class="title">News - Node type</span>
-<span class="path">features\content-types.feature:111</span>
+<span class="path">features\content-types.feature:121</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/news</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/news</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">Create News</strong>" in the "<strong class="passed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create News</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-title</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-title</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I check the box "<strong class="passed_param">N/A</strong>" in "<strong class="passed_param">edit-field-site-section-und</strong>"</span>
+<span class="text">I check the box "<strong class="skipped_param">N/A</strong>" in "<strong class="skipped_param">edit-field-site-section-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iCheckOptionInBlock()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I select "<strong class="passed_param">General News</strong>" from "<strong class="passed_param">edit-field-news-type-und</strong>"</span>
+<span class="text">I select "<strong class="skipped_param">General News</strong>" from "<strong class="skipped_param">edit-field-news-type-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::selectOption()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press "<strong class="passed_param">edit-submit</strong>" in the "<strong class="passed_param">Submit</strong>" region</span>
+<span class="text">I press "<strong class="skipped_param">edit-submit</strong>" in the "<strong class="skipped_param">Submit</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="failed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="failed_param">News test has been created.</strong>"</span>
+<span class="text">I should see "<strong class="skipped_param">News test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
-<pre class="backtrace">The text &quot;News test has been created.&quot; was not found anywhere in the text of the current page.</pre>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
+</div>
 </li>
 </ol>
 </div>
@@ -2261,30 +2455,32 @@ So I can easily create, edit and delete content<br />
 <h3>
 <span class="keyword">Scenario: </span>
 <span class="title">Research project - Node type</span>
-<span class="path">features\content-types.feature:122</span>
+<span class="path">features\content-types.feature:133</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/research-project</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/research-project</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="failed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="failed_param">Create Research project</strong>" in the "<strong class="failed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create Research project</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
-<pre class="backtrace">No region &quot;Page Title&quot; found on the page http://dev.fsa.dev-1.siriusopensource.com/node/add/research-project.</pre>
 </li>
 <li class="skipped">
 <div class="step">
@@ -2314,6 +2510,13 @@ So I can easily create, edit and delete content<br />
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
 </li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
+</div>
+</li>
 </ol>
 </div>
 <div class="scenario">
@@ -2323,49 +2526,59 @@ So I can easily create, edit and delete content<br />
 <h3>
 <span class="keyword">Scenario: </span>
 <span class="title">Webform - Node type</span>
-<span class="path">features\content-types.feature:132</span>
+<span class="path">features\content-types.feature:144</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/webform</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/webform</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">Create Webform</strong>" in the "<strong class="passed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create Webform</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-title</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-title</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press "<strong class="passed_param">edit-submit</strong>" in the "<strong class="passed_param">Submit</strong>" region</span>
+<span class="text">I press "<strong class="skipped_param">edit-submit</strong>" in the "<strong class="skipped_param">Submit</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="passed_param">Webform test has been created.</strong>"</span>
+<span class="text">I should see "<strong class="skipped_param">Webform test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
+</div>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
 </div>
 </li>
 </ol>
@@ -2377,30 +2590,32 @@ So I can easily create, edit and delete content<br />
 <h3>
 <span class="keyword">Scenario: </span>
 <span class="title">Alert - Node type</span>
-<span class="path">features\content-types.feature:141</span>
+<span class="path">features\content-types.feature:154</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/alert</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/alert</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="failed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="failed_param">Create Alert</strong>" in the "<strong class="failed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create Alert</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
-<pre class="backtrace">No region &quot;Page Title&quot; found on the page http://dev.fsa.dev-1.siriusopensource.com/node/add/alert.</pre>
 </li>
 <li class="skipped">
 <div class="step">
@@ -2435,6 +2650,13 @@ So I can easily create, edit and delete content<br />
 <span class="keyword">Then </span>
 <span class="text">I should see "<strong class="skipped_param">Alert test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
+</div>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
 </div>
 </li>
 </ol>
@@ -2513,27 +2735,37 @@ I want to be able to use some html markup in my text<br />
 So I can have some control over the formatting of content<br />
 </p>
 
+</div>
+<div class="feature">
+<h2>
+<span class="keyword">Feature: </span>
+<span class="title">External links module</span>
+</h2>
+<p>
+I want to be able to use external link feature<br />
+As an editor user<br />
+So I can change the href<br />
+</p>
+
 <div class="scenario">
+<ul class="tags">
+<li>@javascript</li>
+</ul>
 <h3>
 <span class="keyword">Scenario: </span>
-<span class="title">Creating content with custom input filter</span>
-<span class="path">features\custom-input-filter.feature:6</span>
+<span class="title">External links</span>
+<span class="path">features\external-links-module.feature:9</span>
 </h3>
 <ol>
 <li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">admin</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
-<pre class="backtrace">Not logged in.</pre>
-</li>
-<li class="skipped">
-<div class="step">
-<span class="keyword">And </span>
-<span class="text">the response should contain "<strong class="skipped_param">drupal_username</strong>"</span>
-<span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseContains()</span>
-</div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
 <li class="skipped">
 <div class="step">
@@ -2559,188 +2791,57 @@ So I can have some control over the formatting of content<br />
 <li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I select "<strong class="skipped_param">Preserve</strong>" from "<strong class="skipped_param">edit-body-und-0-format--2</strong>"</span>
-<span class="path">Drupal\DrupalExtension\Context\Tag1Context::selectOption()</span>
-</div>
-</li>
-<li class="skipped">
-<div class="step">
-<span class="keyword">And </span>
-<span class="text">I fill in "<strong class="skipped_param">edit-body-und-0-value</strong>" with:</span>
-<span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
-</div>
-<pre class="argument">Test 1: This text should be in it's own paragraph, check it's wrapped in paragraph tags.
-
-Test 2:This text has line break spacing so that the next line starts
-here, check there is a break tag dividing these two lines.
-
-&lt;p&gt;Test 3: Check this text has paragraph tag on it.&lt;br /&gt;Also a break tag&lt;/p&gt;
-
-&lt;!-- preserve start --&gt;
-Test 4: Check this text ignores the line break and there is no break tag,
-this should be on the same line, and so should the rest of this test.
-
-Check this is on the same line, not a separate paragraph.
-&lt;!-- preserve end --&gt;</pre>
-</li>
-<li class="skipped">
-<div class="step">
-<span class="keyword">And </span>
 <span class="text">I check the box "<strong class="skipped_param">N/A</strong>" in "<strong class="skipped_param">edit-field-site-section-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iCheckOptionInBlock()</span>
 </div>
 </li>
 <li class="skipped">
 <div class="step">
-<span class="keyword">Then </span>
+<span class="keyword">And </span>
+<span class="text">I click "<strong class="skipped_param">Main text</strong>"</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
+</div>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I select "<strong class="skipped_param">preserve</strong>" from "<strong class="skipped_param">edit-body-und-0-format--2</strong>"</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::selectOption()</span>
+</div>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I fill in "<strong class="skipped_param">edit-body-und-0-value</strong>" with "<strong class="skipped_param">&lt;a href=\"http://example.com\"&gt;</strong>Example.com<strong class="skipped_param">&lt;/a&gt;</strong>"</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
+</div>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
 <span class="text">I press "<strong class="skipped_param">edit-submit</strong>" in the "<strong class="skipped_param">Submit</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="undefined">
-<div class="step">
-<span class="keyword">And </span>
-<span class="text">the response should contain:</span>
-</div>
-<pre class="argument">&lt;p&gt;Test 1: This text should be in it's own paragraph, check it's wrapped in paragraph tags.&lt;/p&gt;
-&lt;p&gt;
-Test 2:This text has line break spacing so that the next line starts
-&lt;br&gt;
-here, check there is a break tag dividing these two lines.
-&lt;/p&gt;
-&lt;p&gt;
-Test 3: Check this text has paragraph tag on it.
-&lt;br&gt;
-Also a break tag
-&lt;/p&gt;
-&lt;p&gt; Test 4: Check this text ignores the line break and there is no break tag, this should be on the same line, and so should the rest of this test. Check this is on the same line, not a separate paragraph. &lt;/p&gt;</pre>
-<div class="snippet"><pre>  /**
-   * @Given /^the response should contain:$/
-   */
-  public function theResponseShouldContain(PyStringNode $string) {
-    throw new PendingException();
-  }</pre></div>
-</li>
-<li class="undefined">
-<div class="step">
-<span class="keyword">And </span>
-<span class="text">I should see:</span>
-</div>
-<pre class="argument">Test 1: This text should be in it's own paragraph, check it's wrapped in paragraph tags.
-
-Test 2:This text has line break spacing so that the next line starts
-here, check there is a break tag dividing these two lines.
-
-Test 3: Check this text has paragraph tag on it.
-Also a break tag
-
-Test 4: Check this text ignores the line break and there is no break tag, this should be on the same line, and so should the rest of this test. Check this is on the same line, not a separate paragraph.   </pre>
-<div class="snippet"><pre>  /**
-   * @Given /^I should see:$/
-   */
-  public function iShouldSee(PyStringNode $string) {
-    throw new PendingException();
-  }</pre></div>
-</li>
-</ol>
-</div>
-</div>
-<div class="feature">
-<h2>
-<span class="keyword">Feature: </span>
-<span class="title">External links module</span>
-</h2>
-<p>
-I want to be able to use external link feature<br />
-As an editor user<br />
-So I can change the href<br />
-</p>
-
-<div class="scenario">
-<ul class="tags">
-<li>@javascript</li>
-</ul>
-<h3>
-<span class="keyword">Scenario: </span>
-<span class="title">External links</span>
-<span class="path">features\external-links-module.feature:9</span>
-</h3>
-<ol>
-<li class="passed">
-<div class="step">
-<span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">admin</strong>"</span>
-<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
-</div>
-</li>
-<li class="passed">
-<div class="step">
-<span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/document-page</strong>"</span>
-<span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
-</div>
-</li>
-<li class="passed">
-<div class="step">
-<span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">Create General Page</strong>" in the "<strong class="passed_param">Page Title</strong>" region</span>
-<span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
-</div>
-</li>
-<li class="passed">
-<div class="step">
-<span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-title</strong>" with "<strong class="passed_param">test</strong>"</span>
-<span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
-</div>
-</li>
-<li class="passed">
-<div class="step">
-<span class="keyword">And </span>
-<span class="text">I check the box "<strong class="passed_param">N/A</strong>" in "<strong class="passed_param">edit-field-site-section-und</strong>"</span>
-<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iCheckOptionInBlock()</span>
-</div>
-</li>
-<li class="passed">
-<div class="step">
-<span class="keyword">And </span>
-<span class="text">I click "<strong class="passed_param">Main text</strong>"</span>
-<span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
-</div>
-</li>
-<li class="passed">
-<div class="step">
-<span class="keyword">And </span>
-<span class="text">I select "<strong class="passed_param">preserve</strong>" from "<strong class="passed_param">edit-body-und-0-format--2</strong>"</span>
-<span class="path">Drupal\DrupalExtension\Context\Tag1Context::selectOption()</span>
-</div>
-</li>
-<li class="passed">
-<div class="step">
-<span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-body-und-0-value</strong>" with "<strong class="passed_param">&lt;a href=\"http://example.com\"&gt;</strong>Example.com<strong class="passed_param">&lt;/a&gt;</strong>"</span>
-<span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
-</div>
-</li>
-<li class="passed">
-<div class="step">
-<span class="keyword">And </span>
-<span class="text">I press "<strong class="passed_param">edit-submit</strong>" in the "<strong class="passed_param">Submit</strong>" region</span>
-<span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
-</div>
-</li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="passed_param">Example.com</strong>"</span>
+<span class="text">I should see "<strong class="skipped_param">Example.com</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">the response should contain "<strong class="passed_param">ext</strong>"</span>
+<span class="text">the response should contain "<strong class="skipped_param">ext</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseContains()</span>
+</div>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
 </div>
 </li>
 </ol>
@@ -2913,38 +3014,41 @@ So I can find what I am looking for<br />
 <span class="path">features\general-site-search.feature:12</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I am on "<strong class="passed_param">/news-updates/news</strong>"</span>
+<span class="text">I am on "<strong class="failed_param">/news-updates/news</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="passed_param">Search news stories</strong>" in the "<strong class="passed_param">Block in Block</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Search news stories</strong>" in the "<strong class="skipped_param">Block in Block</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see an "<strong class="passed_param">#block-container-blocks-search-all-news-facets #block-views-exp-news-centre-search-page</strong>" element</span>
+<span class="text">I should see an "<strong class="skipped_param">#block-container-blocks-search-all-news-facets #block-views-exp-news-centre-search-page</strong>" element</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertElementOnPage()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see an "<strong class="passed_param">#block-container-blocks-search-all-news-facets #block-facetapi-mo10evol905qwndxck1xcd0dzwgc0x7s</strong>" element</span>
+<span class="text">I should see an "<strong class="skipped_param">#block-container-blocks-search-all-news-facets #block-facetapi-mo10evol905qwndxck1xcd0dzwgc0x7s</strong>" element</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertElementOnPage()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see an "<strong class="passed_param">#block-container-blocks-search-all-news-facets #block-facetapi-blpxaqdjqa1re1otsoyujm9gubaigzmg</strong>" element</span>
+<span class="text">I should see an "<strong class="skipped_param">#block-container-blocks-search-all-news-facets #block-facetapi-blpxaqdjqa1re1otsoyujm9gubaigzmg</strong>" element</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertElementOnPage()</span>
 </div>
 </li>
@@ -3194,24 +3298,27 @@ I need to make sure the correct content is being displayed<br />
 <span class="path">features\homepage.feature:43</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
 <span class="text">I am on the homepage</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iAmOnHomepage()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I mouse over "<strong class="passed_param">Policy &amp; advice</strong>"</span>
+<span class="text">I mouse over "<strong class="skipped_param">Policy &amp; advice</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iMouseOver()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="passed_param">Test document page 1</strong>"</span>
+<span class="text">I should see "<strong class="skipped_param">Test document page 1</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
 </li>
@@ -3412,67 +3519,77 @@ So I can view broader content<br />
 <span class="path">features\landing-pages.feature:31</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/landing-page</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/landing-page</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">Create Landing Page</strong>" in the "<strong class="passed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create Landing Page</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-title</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-title</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I click "<strong class="passed_param">Related content</strong>"</span>
+<span class="text">I click "<strong class="skipped_param">Related content</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I select "<strong class="passed_param">Test interactive block</strong>" from "<strong class="passed_param">edit-field-interactive-block-und</strong>"</span>
+<span class="text">I select "<strong class="skipped_param">Test interactive block</strong>" from "<strong class="skipped_param">edit-field-interactive-block-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::selectOption()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press "<strong class="passed_param">edit-submit</strong>" in the "<strong class="passed_param">Submit</strong>" region</span>
+<span class="text">I press "<strong class="skipped_param">edit-submit</strong>" in the "<strong class="skipped_param">Submit</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="passed_param">Landing Page test has been created.</strong>"</span>
+<span class="text">I should see "<strong class="skipped_param">Landing Page test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see an "<strong class="passed_param">#block-views-interactive-block-block</strong>" element</span>
+<span class="text">I should see an "<strong class="skipped_param">#block-views-interactive-block-block</strong>" element</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertElementOnPage()</span>
+</div>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
 </div>
 </li>
 </ol>
@@ -3814,27 +3931,29 @@ So that I can change the way a page is rendered<br />
 <span class="path">features\page-layouts.feature:7</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/document-page</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/document-page</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="failed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="failed_param">Create General Page</strong>" in the "<strong class="failed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create General Page</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
-<pre class="backtrace">No region &quot;Page Title&quot; found on the page http://dev.fsa.dev-1.siriusopensource.com/node/add/document-page.</pre>
 </li>
 <li class="skipped">
 <div class="step">
@@ -3913,6 +4032,13 @@ So that I can change the way a page is rendered<br />
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseContains()</span>
 </div>
 </li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
+</div>
+</li>
 </ol>
 </div>
 <div class="scenario">
@@ -3922,105 +4048,115 @@ So that I can change the way a page is rendered<br />
 <h3>
 <span class="keyword">Scenario: </span>
 <span class="title">Three columns</span>
-<span class="path">features\page-layouts.feature:24</span>
+<span class="path">features\page-layouts.feature:25</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/document-page</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/document-page</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">Create General Page</strong>" in the "<strong class="passed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create General Page</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-title</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-title</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I check the box "<strong class="passed_param">N/A</strong>" in "<strong class="passed_param">edit-field-site-section-und</strong>"</span>
+<span class="text">I check the box "<strong class="skipped_param">N/A</strong>" in "<strong class="skipped_param">edit-field-site-section-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iCheckOptionInBlock()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I click "<strong class="passed_param">Page settings</strong>"</span>
+<span class="text">I click "<strong class="skipped_param">Page settings</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I select "<strong class="passed_param">Three columns</strong>" from "<strong class="passed_param">edit-field-layout-und</strong>"</span>
+<span class="text">I select "<strong class="skipped_param">Three columns</strong>" from "<strong class="skipped_param">edit-field-layout-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::selectOption()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press "<strong class="passed_param">edit-submit</strong>" in the "<strong class="passed_param">Submit</strong>" region</span>
+<span class="text">I press "<strong class="skipped_param">edit-submit</strong>" in the "<strong class="skipped_param">Submit</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="passed_param">General Page test has been created.</strong>"</span>
+<span class="text">I should see "<strong class="skipped_param">General Page test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">the response should contain "<strong class="passed_param">main-content</strong>"</span>
+<span class="text">the response should contain "<strong class="skipped_param">main-content</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseContains()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">the response should contain "<strong class="passed_param">l-sidebar-first</strong>"</span>
+<span class="text">the response should contain "<strong class="skipped_param">l-sidebar-first</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseContains()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">the response should contain "<strong class="passed_param">l-sidebar-second</strong>"</span>
+<span class="text">the response should contain "<strong class="skipped_param">l-sidebar-second</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseContains()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">the response should contain "<strong class="passed_param">header-wrapper</strong>"</span>
+<span class="text">the response should contain "<strong class="skipped_param">header-wrapper</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseContains()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">the response should contain "<strong class="passed_param">footer-wrapper</strong>"</span>
+<span class="text">the response should contain "<strong class="skipped_param">footer-wrapper</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseContains()</span>
+</div>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
 </div>
 </li>
 </ol>
@@ -4032,30 +4168,32 @@ So that I can change the way a page is rendered<br />
 <h3>
 <span class="keyword">Scenario: </span>
 <span class="title">Two columns</span>
-<span class="path">features\page-layouts.feature:41</span>
+<span class="path">features\page-layouts.feature:43</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/document-page</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/document-page</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="failed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="failed_param">Create General Page</strong>" in the "<strong class="failed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create General Page</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
-<pre class="backtrace">No region &quot;Page Title&quot; found on the page http://dev.fsa.dev-1.siriusopensource.com/node/add/document-page.</pre>
 </li>
 <li class="skipped">
 <div class="step">
@@ -4134,6 +4272,13 @@ So that I can change the way a page is rendered<br />
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseContains()</span>
 </div>
 </li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
+</div>
+</li>
 </ol>
 </div>
 <div class="scenario">
@@ -4143,105 +4288,115 @@ So that I can change the way a page is rendered<br />
 <h3>
 <span class="keyword">Scenario: </span>
 <span class="title">One column blank (no sidebars, header or footer)</span>
-<span class="path">features\page-layouts.feature:58</span>
+<span class="path">features\page-layouts.feature:61</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/document-page</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/document-page</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">Create General Page</strong>" in the "<strong class="passed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create General Page</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-title</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-title</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I check the box "<strong class="passed_param">N/A</strong>" in "<strong class="passed_param">edit-field-site-section-und</strong>"</span>
+<span class="text">I check the box "<strong class="skipped_param">N/A</strong>" in "<strong class="skipped_param">edit-field-site-section-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iCheckOptionInBlock()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I click "<strong class="passed_param">Page settings</strong>"</span>
+<span class="text">I click "<strong class="skipped_param">Page settings</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I select "<strong class="passed_param">One column blank (no sidebars, header or footer)</strong>" from "<strong class="passed_param">edit-field-layout-und</strong>"</span>
+<span class="text">I select "<strong class="skipped_param">One column blank (no sidebars, header or footer)</strong>" from "<strong class="skipped_param">edit-field-layout-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::selectOption()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press "<strong class="passed_param">edit-submit</strong>" in the "<strong class="passed_param">Submit</strong>" region</span>
+<span class="text">I press "<strong class="skipped_param">edit-submit</strong>" in the "<strong class="skipped_param">Submit</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="passed_param">General Page test has been created.</strong>"</span>
+<span class="text">I should see "<strong class="skipped_param">General Page test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">the response should contain "<strong class="passed_param">main-content</strong>"</span>
+<span class="text">the response should contain "<strong class="skipped_param">main-content</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseContains()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">the response should not contain "<strong class="passed_param">l-sidebar-first</strong>"</span>
+<span class="text">the response should not contain "<strong class="skipped_param">l-sidebar-first</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseNotContains()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">the response should not contain "<strong class="passed_param">l-sidebar-second</strong>"</span>
+<span class="text">the response should not contain "<strong class="skipped_param">l-sidebar-second</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseNotContains()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">the response should not contain "<strong class="passed_param">header-wrapper</strong>"</span>
+<span class="text">the response should not contain "<strong class="skipped_param">header-wrapper</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseNotContains()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">the response should not contain "<strong class="passed_param">footer-wrapper</strong>"</span>
+<span class="text">the response should not contain "<strong class="skipped_param">footer-wrapper</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseNotContains()</span>
+</div>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
 </div>
 </li>
 </ol>
@@ -4268,27 +4423,29 @@ So I can help visitors reach the content they are looking for quicker<br />
 <span class="path">features\popular-links.feature:7</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/landing-page</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/landing-page</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="failed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="failed_param">Create Landing Page</strong>" in the "<strong class="failed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create Landing Page</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
-<pre class="backtrace">No region &quot;Page Title&quot; found on the page http://dev.fsa.dev-1.siriusopensource.com/node/add/landing-page.</pre>
 </li>
 <li class="skipped">
 <div class="step">
@@ -4332,6 +4489,13 @@ So I can help visitors reach the content they are looking for quicker<br />
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseContains()</span>
 </div>
 </li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
+</div>
+</li>
 </ol>
 </div>
 </div>
@@ -4356,81 +4520,91 @@ So I can make text more interesting to read<br />
 <span class="path">features\quote-field.feature:7</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/document-page</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/document-page</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">Create General Page</strong>" in the "<strong class="passed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create General Page</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-title</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-title</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I check the box "<strong class="passed_param">N/A</strong>" in "<strong class="passed_param">edit-field-site-section-und</strong>"</span>
+<span class="text">I check the box "<strong class="skipped_param">N/A</strong>" in "<strong class="skipped_param">edit-field-site-section-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iCheckOptionInBlock()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I click "<strong class="passed_param">Page sections</strong>"</span>
+<span class="text">I click "<strong class="skipped_param">Page sections</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I click "<strong class="passed_param">Quote</strong>"</span>
+<span class="text">I click "<strong class="skipped_param">Quote</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-field-fc-page-section-und-0-field-fc-section-quote-und-0-value</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-field-fc-page-section-und-0-field-fc-section-quote-und-0-value</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press "<strong class="passed_param">edit-submit</strong>" in the "<strong class="passed_param">Submit</strong>" region</span>
+<span class="text">I press "<strong class="skipped_param">edit-submit</strong>" in the "<strong class="skipped_param">Submit</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="passed_param">General Page test has been created.</strong>"</span>
+<span class="text">I should see "<strong class="skipped_param">General Page test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">test</strong>" in the "<strong class="passed_param">Quote</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">test</strong>" in the "<strong class="skipped_param">Quote</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
+</div>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
 </div>
 </li>
 </ol>
@@ -4457,27 +4631,29 @@ So I can find out more information<br />
 <span class="path">features\resources-block.feature:7</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/landing-page</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/landing-page</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="failed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="failed_param">Create Landing Page</strong>" in the "<strong class="failed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create Landing Page</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
-<pre class="backtrace">No region &quot;Page Title&quot; found on the page http://dev.fsa.dev-1.siriusopensource.com/node/add/landing-page.</pre>
 </li>
 <li class="skipped">
 <div class="step">
@@ -4549,6 +4725,13 @@ So I can find out more information<br />
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
+</div>
+</li>
 </ol>
 </div>
 </div>
@@ -4573,102 +4756,112 @@ So I can more deeply explore the topics I'm interested in without having to sear
 <span class="path">features\see-also-block.feature:7</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/audit-report</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/audit-report</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">Create Audit Report</strong>" in the "<strong class="passed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create Audit Report</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-title</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-title</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I click "<strong class="passed_param">Audit</strong>"</span>
+<span class="text">I click "<strong class="skipped_param">Audit</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I select "<strong class="passed_param">Amber Valley</strong>" from "<strong class="passed_param">edit-field-audit-authority-und</strong>"</span>
+<span class="text">I select "<strong class="skipped_param">Amber Valley</strong>" from "<strong class="skipped_param">edit-field-audit-authority-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::selectOption()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I select "<strong class="passed_param">County</strong>" from "<strong class="passed_param">edit-field-audit-authority-type-und</strong>"</span>
+<span class="text">I select "<strong class="skipped_param">County</strong>" from "<strong class="skipped_param">edit-field-audit-authority-type-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::selectOption()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I select "<strong class="passed_param">Approved establishments audit</strong>" from "<strong class="passed_param">edit-field-audit-type-und</strong>"</span>
+<span class="text">I select "<strong class="skipped_param">Approved establishments audit</strong>" from "<strong class="skipped_param">edit-field-audit-type-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::selectOption()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I select "<strong class="passed_param">UK</strong>" from "<strong class="passed_param">edit-field-nation-und</strong>"</span>
+<span class="text">I select "<strong class="skipped_param">UK</strong>" from "<strong class="skipped_param">edit-field-nation-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::selectOption()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I click "<strong class="passed_param">Right hand column</strong>"</span>
+<span class="text">I click "<strong class="skipped_param">Right hand column</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I select "<strong class="passed_param">Test See alo links</strong>" from "<strong class="passed_param">edit-field-links-see-also-und</strong>"</span>
+<span class="text">I select "<strong class="skipped_param">Test See alo links</strong>" from "<strong class="skipped_param">edit-field-links-see-also-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::selectOption()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press "<strong class="passed_param">edit-submit</strong>" in the "<strong class="passed_param">Submit</strong>" region</span>
+<span class="text">I press "<strong class="skipped_param">edit-submit</strong>" in the "<strong class="skipped_param">Submit</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="passed_param">Audit Report test has been created.</strong>"</span>
+<span class="text">I should see "<strong class="skipped_param">Audit Report test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see an "<strong class="passed_param">#block-views-see-also-links-block</strong>" element</span>
+<span class="text">I should see an "<strong class="skipped_param">#block-views-see-also-links-block</strong>" element</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertElementOnPage()</span>
+</div>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
 </div>
 </li>
 </ol>
@@ -4680,30 +4873,32 @@ So I can more deeply explore the topics I'm interested in without having to sear
 <h3>
 <span class="keyword">Scenario: </span>
 <span class="title">Consultation - See also block</span>
-<span class="path">features\see-also-block.feature:24</span>
+<span class="path">features\see-also-block.feature:25</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/consultation</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/consultation</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="failed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="failed_param">Create Consultation</strong>" in the "<strong class="failed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create Consultation</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
-<pre class="backtrace">No region &quot;Page Title&quot; found on the page http://dev.fsa.dev-1.siriusopensource.com/node/add/consultation.</pre>
 </li>
 <li class="skipped">
 <div class="step">
@@ -4754,6 +4949,13 @@ So I can more deeply explore the topics I'm interested in without having to sear
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertElementOnPage()</span>
 </div>
 </li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
+</div>
+</li>
 </ol>
 </div>
 <div class="scenario">
@@ -4763,77 +4965,87 @@ So I can more deeply explore the topics I'm interested in without having to sear
 <h3>
 <span class="keyword">Scenario: </span>
 <span class="title">General Page - See also block</span>
-<span class="path">features\see-also-block.feature:37</span>
+<span class="path">features\see-also-block.feature:39</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/document-page</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/document-page</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">Create General Page</strong>" in the "<strong class="passed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create General Page</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-title</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-title</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I check the box "<strong class="passed_param">N/A</strong>" in "<strong class="passed_param">edit-field-site-section-und</strong>"</span>
+<span class="text">I check the box "<strong class="skipped_param">N/A</strong>" in "<strong class="skipped_param">edit-field-site-section-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iCheckOptionInBlock()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I click "<strong class="passed_param">Right hand column</strong>"</span>
+<span class="text">I click "<strong class="skipped_param">Right hand column</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I select "<strong class="passed_param">Test See alo links</strong>" from "<strong class="passed_param">edit-field-links-see-also-und</strong>"</span>
+<span class="text">I select "<strong class="skipped_param">Test See alo links</strong>" from "<strong class="skipped_param">edit-field-links-see-also-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::selectOption()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press "<strong class="passed_param">edit-submit</strong>" in the "<strong class="passed_param">Submit</strong>" region</span>
+<span class="text">I press "<strong class="skipped_param">edit-submit</strong>" in the "<strong class="skipped_param">Submit</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="passed_param">General Page test has been created.</strong>"</span>
+<span class="text">I should see "<strong class="skipped_param">General Page test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see an "<strong class="passed_param">#block-views-see-also-links-block</strong>" element</span>
+<span class="text">I should see an "<strong class="skipped_param">#block-views-see-also-links-block</strong>" element</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertElementOnPage()</span>
+</div>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
 </div>
 </li>
 </ol>
@@ -4845,30 +5057,32 @@ So I can more deeply explore the topics I'm interested in without having to sear
 <h3>
 <span class="keyword">Scenario: </span>
 <span class="title">FAQ - See also block</span>
-<span class="path">features\see-also-block.feature:50</span>
+<span class="path">features\see-also-block.feature:53</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/faq</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/faq</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="failed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="failed_param">Create FAQ</strong>" in the "<strong class="failed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create FAQ</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
-<pre class="backtrace">No region &quot;Page Title&quot; found on the page http://dev.fsa.dev-1.siriusopensource.com/node/add/faq.</pre>
 </li>
 <li class="skipped">
 <div class="step">
@@ -4919,6 +5133,13 @@ So I can more deeply explore the topics I'm interested in without having to sear
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertElementOnPage()</span>
 </div>
 </li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
+</div>
+</li>
 </ol>
 </div>
 <div class="scenario">
@@ -4928,78 +5149,87 @@ So I can more deeply explore the topics I'm interested in without having to sear
 <h3>
 <span class="keyword">Scenario: </span>
 <span class="title">Job - See also block</span>
-<span class="path">features\see-also-block.feature:63</span>
+<span class="path">features\see-also-block.feature:67</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/job</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/job</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">Create Job</strong>" in the "<strong class="passed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create Job</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-title</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-title</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I check the box "<strong class="passed_param">N/A</strong>" in "<strong class="passed_param">edit-field-site-section-und</strong>"</span>
+<span class="text">I check the box "<strong class="skipped_param">N/A</strong>" in "<strong class="skipped_param">edit-field-site-section-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iCheckOptionInBlock()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I click "<strong class="passed_param">Right hand column</strong>"</span>
+<span class="text">I click "<strong class="skipped_param">Right hand column</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I select "<strong class="passed_param">Test See alo links</strong>" from "<strong class="passed_param">edit-field-links-see-also-und</strong>"</span>
+<span class="text">I select "<strong class="skipped_param">Test See alo links</strong>" from "<strong class="skipped_param">edit-field-links-see-also-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::selectOption()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press "<strong class="passed_param">edit-submit</strong>" in the "<strong class="passed_param">Submit</strong>" region</span>
+<span class="text">I press "<strong class="skipped_param">edit-submit</strong>" in the "<strong class="skipped_param">Submit</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="failed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="failed_param">Job test has been created.</strong>"</span>
+<span class="text">I should see "<strong class="skipped_param">Job test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
-<pre class="backtrace">The text &quot;Job test has been created.&quot; was not found anywhere in the text of the current page.</pre>
 </li>
 <li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
 <span class="text">I should see an "<strong class="skipped_param">#block-views-see-also-links-block</strong>" element</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertElementOnPage()</span>
+</div>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
 </div>
 </li>
 </ol>
@@ -5011,30 +5241,32 @@ So I can more deeply explore the topics I'm interested in without having to sear
 <h3>
 <span class="keyword">Scenario: </span>
 <span class="title">News - See also block</span>
-<span class="path">features\see-also-block.feature:76</span>
+<span class="path">features\see-also-block.feature:81</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/news</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/news</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="failed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="failed_param">Create News</strong>" in the "<strong class="failed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create News</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
-<pre class="backtrace">No region &quot;Page Title&quot; found on the page http://dev.fsa.dev-1.siriusopensource.com/node/add/news.</pre>
 </li>
 <li class="skipped">
 <div class="step">
@@ -5092,6 +5324,13 @@ So I can more deeply explore the topics I'm interested in without having to sear
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertElementOnPage()</span>
 </div>
 </li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
+</div>
+</li>
 </ol>
 </div>
 <div class="scenario">
@@ -5101,51 +5340,53 @@ So I can more deeply explore the topics I'm interested in without having to sear
 <h3>
 <span class="keyword">Scenario: </span>
 <span class="title">Research project - See also block</span>
-<span class="path">features\see-also-block.feature:90</span>
+<span class="path">features\see-also-block.feature:96</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/research-project</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/research-project</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="passed_param">Create Research project</strong>" in the "<strong class="passed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create Research project</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-title</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-title</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I check the box "<strong class="passed_param">N/A</strong>" in "<strong class="passed_param">edit-field-site-section-und</strong>"</span>
+<span class="text">I check the box "<strong class="skipped_param">N/A</strong>" in "<strong class="skipped_param">edit-field-site-section-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iCheckOptionInBlock()</span>
 </div>
 </li>
-<li class="failed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I click "<strong class="failed_param">Right hand column</strong>"</span>
+<span class="text">I click "<strong class="skipped_param">Right hand column</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
 </div>
-<pre class="backtrace">Link with id|title|alt|text &quot;Right hand column&quot; not found.</pre>
 </li>
 <li class="skipped">
 <div class="step">
@@ -5175,6 +5416,13 @@ So I can more deeply explore the topics I'm interested in without having to sear
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertElementOnPage()</span>
 </div>
 </li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
+</div>
+</li>
 </ol>
 </div>
 <div class="scenario">
@@ -5184,30 +5432,32 @@ So I can more deeply explore the topics I'm interested in without having to sear
 <h3>
 <span class="keyword">Scenario: </span>
 <span class="title">Alert - See also block</span>
-<span class="path">features\see-also-block.feature:103</span>
+<span class="path">features\see-also-block.feature:110</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/alert</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/alert</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="failed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="failed_param">Create Alert</strong>" in the "<strong class="failed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create Alert</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
-<pre class="backtrace">No region &quot;Page Title&quot; found on the page http://dev.fsa.dev-1.siriusopensource.com/node/add/alert.</pre>
 </li>
 <li class="skipped">
 <div class="step">
@@ -5272,6 +5522,13 @@ So I can more deeply explore the topics I'm interested in without having to sear
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertElementOnPage()</span>
 </div>
 </li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I logout</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogout()</span>
+</div>
+</li>
 </ol>
 </div>
 </div>
@@ -5296,62 +5553,76 @@ So I can find links to interesting or helpful information<br />
 <span class="path">features\slide.feature:7</span>
 </h3>
 <ol>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Given </span>
-<span class="text">I log in as an existing "<strong class="passed_param">editor</strong>"</span>
+<span class="text">I log in as an existing "<strong class="failed_param">editor</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iLogInAsAUser()</span>
 </div>
+<pre class="backtrace">Could not open connection: Curl error thrown for http POST to http://localhost:4444/wd/hub/session with params: {&quot;desiredCapabilities&quot;:{&quot;browserName&quot;:&quot;firefox&quot;,&quot;version&quot;:&quot;8&quot;,&quot;platform&quot;:&quot;ANY&quot;,&quot;browserVersion&quot;:&quot;8&quot;,&quot;browser&quot;:&quot;firefox&quot;,&quot;name&quot;:&quot;Behat test&quot;,&quot;deviceOrientation&quot;:&quot;portrait&quot;,&quot;deviceType&quot;:&quot;tablet&quot;,&quot;selenium-version&quot;:&quot;2.31.0&quot;,&quot;max-duration&quot;:300}}
+
+couldn't connect to host</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I go to "<strong class="passed_param">/node/add/slide</strong>"</span>
+<span class="text">I go to "<strong class="skipped_param">/node/add/slide</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">Create Slide</strong>" in the "<strong class="passed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Create Slide</strong>" in the "<strong class="skipped_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-title</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-title</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I wait for "<strong class="passed_param">1</strong>" second</span>
+<span class="text">I wait for "<strong class="skipped_param">1</strong>" second</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iWaitForSeconds()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I click on the element with css selector "<strong class="passed_param">#edit-field-slide-image-und-0-browse-button</strong>"</span>
+<span class="text">I click on the element with css selector "<strong class="skipped_param">#edit-field-slide-image-und-0-browse-button</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iClickOnTheElementWithCSSSelector()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I wait for "<strong class="passed_param">3</strong>" second</span>
+<span class="text">I wait for "<strong class="skipped_param">3</strong>" second</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iWaitForSeconds()</span>
 </div>
 </li>
-<li class="failed">
+<li class="undefined">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I switch to iframe "mediaBrowser"</span>
+</div>
+<div class="snippet"><pre>  /**
+   * @Given /^I switch to iframe &quot;([^&quot;]*)&quot;$/
+   */
+  public function iSwitchToIframe($arg1) {
+    throw new PendingException();
+  }</pre></div>
+</li>
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I click "<strong class="failed_param">Library</strong>"</span>
+<span class="text">I click "<strong class="skipped_param">Library</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
 </div>
-<pre class="backtrace">Link with id|title|alt|text &quot;Library&quot; not found.</pre>
 </li>
 <li class="skipped">
 <div class="step">
@@ -5431,13 +5702,13 @@ So I can find links to interesting or helpful information<br />
 <div class="summary failed">
 <div class="counters">
 <p class="scenarios">
-73 scenarios (<strong class="passed">43 passed</strong>, <strong class="failed">30 failed</strong>)
+72 scenarios (<strong class="passed">28 passed</strong>, <strong class="failed">44 failed</strong>)
 </p>
 <p class="steps">
-572 steps (<strong class="passed">337 passed</strong>, <strong class="skipped">203 skipped</strong>, <strong class="undefined">2 undefined</strong>, <strong class="failed">30 failed</strong>)
+603 steps (<strong class="passed">92 passed</strong>, <strong class="skipped">466 skipped</strong>, <strong class="undefined">1 undefined</strong>, <strong class="failed">44 failed</strong>)
 </p>
 <p class="time">
-8m20.626s
+1m53.834s
 </p>
 </div>
 <div class="switchers">

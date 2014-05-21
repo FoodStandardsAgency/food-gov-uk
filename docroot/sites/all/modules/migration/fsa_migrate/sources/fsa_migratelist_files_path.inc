@@ -49,8 +49,7 @@ class MigrateListFilesPath extends MigrateList {
     $fileListString = NULL;
 
     if ($this->directory !== NULL) {
-
-      $drupalBasePath =realpath(".") . '/';
+      $drupalBasePath = realpath(".") . '/';
       $di = new RecursiveDirectoryIterator($this->directory);
       foreach (new RecursiveIteratorIterator($di) as $filename => $file) {
         $fileList[] = str_replace($drupalBasePath, '', $filename);
@@ -94,8 +93,9 @@ class MigrateItemFilePath extends MigrateItem {
 
     // Drupal path as in sites/default/files/*.
     $object->DRUPALPATH = $id;
-    // File path as in images/document/*.
-    $object->FILEPATH = str_replace('sites/default/files/source', '', $id);
+
+    // File path as in /images/document/*.
+    $object->FILEPATH = str_replace(variable_get('file_public_path', 'sites/default/files') . '/sources', '', $id);
 
     // File name as in image9uber.jpg.
     $object->FILENAME = substr($id, strrpos($id, '/') + 1);

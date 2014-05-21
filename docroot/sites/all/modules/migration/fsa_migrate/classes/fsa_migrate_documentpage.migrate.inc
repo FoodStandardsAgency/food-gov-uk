@@ -12,32 +12,10 @@
 class FSADocumentpageMigration extends FSAMigration {
 
   /**
-   * SQL Query to get the primary info and the object id.
+   * SQL Query to get the feature image from an object id.
    *
    * @var string
    */
-  protected $query = <<<'ENDSQL'
-    SELECT OBJ.OBJECTID, OBJ.SIMPLENAME, OBJ.PATH, OBJTYPE.NAME as OBJECTTYPE, WM_CONCAT(FIELDVALUE.FIELDID) as FIELDIDS
-    FROM FIELDVALUE, OBJ, OBJTYPE
-    WHERE FIELDVALUE.OBJECTID = OBJ.OBJECTID
-    AND OBJ.OBJECTTYPEID = OBJTYPE.OBJECTTYPEID
-    AND (OBJ.PATH LIKE '/multimedia/webpage/uber-page/'
-    OR OBJ.PATH LIKE '/news-updates/campaigns/where-are-you-really-eating-out/')
-    GROUP BY OBJ.OBJECTID, OBJ.SIMPLENAME, OBJ.PATH, OBJTYPE.NAME
-ENDSQL;
-
-  /**
-   * SQL Query to count the total amount of items to be migrated.
-   *
-   * @var string
-   */
-  protected $countQuery = <<<'ENDSQL'
-    SELECT COUNT(*)
-    FROM OBJ
-    WHERE OBJ.PATH LIKE '/multimedia/webpage/uber-page/'
-    OR OBJ.PATH LIKE '/news-updates/campaigns/where-are-you-really-eating-out/'
-ENDSQL;
-
   protected $queryFeatureImage = <<<'ENDSQL'
     SELECT OBJ.PATH
       FROM OBJ, LINK, MEDIAIMAGE, OBJTYPE
@@ -83,20 +61,29 @@ ENDSQL;
       'VALUE' => t('Field value'),
     );
 
-    // SQL connexion source details.
-    $this->source = new MigrateSourceOracle(
-      $conf['oracle_db'],
-      $this->query,
-      $this->countQuery,
-      $fields
+    // Configure the source of the migration.
+    $this->source = new MigrateSourceList(
+      new FSAMigrateListOracleObjectsFromCSV('data/csv/dev-alterian-id-list.csv'),
+      new FSAMigrateItemOracleObject()
     );
 
     // Destination detail.
     $this->destination = new MigrateDestinationNode('document_page');
 
-    // Fields mapping.
+    // General fields mapping.
     $this->addFieldMapping('title', 'title');
     $this->addFieldMapping('field_summary', 'summary');
+
+    // Updated date field.
+    $this->addFieldMapping('field_updated', 'pubdate');
+    $this->addFieldMapping('field_display_updated_date', 'showLastUpdated')
+      ->callbacks(array($this, 'convertYesNoBoolean'))
+      ->defaultValue(FALSE);
+
+    // Back to top.
+    $this->addFieldMapping('field_setting_backtotop', 'backtotop')
+      ->callbacks(array($this, 'convertYesNoBoolean'))
+      ->defaultValue(FALSE);
 
     // Feature image mapping.
     $this->addFieldMapping('field_feature_image', 'FEATUREDIMAGEPATH')
@@ -106,17 +93,20 @@ ENDSQL;
     $this->addFieldMapping('field_feature_image:preserve_files')
       ->defaultValue(TRUE);
 
-    //$this->addFieldMapping('path', 'PATH')
-    //  ->callbacks(array($this, 'pathFormatter'));
-
-    // Disable pathauto.
-    // $this->addFieldMapping('pathauto', FALSE);
+//    $this->addFieldMapping('field_path', 'title');
+//    $this->addFieldMapping('field_path:machine', 'PATH');
+//
+//    $this->addFieldMapping('path', 'PATH')
+//      ->callbacks(array($this, 'pathFormatter'));
+//
+//    // Disable pathauto.
+//     $this->addFieldMapping('pathauto', FALSE);
   }
 
   /**
    * For a legacy image position returns the new drupal position id, inspired from css class.
    *
-   * @param $legacyImagePosition
+   * @param $path
    * @return null|string
    */
   public function pathFormatter($path) {
@@ -127,7 +117,9 @@ ENDSQL;
    * Function prepareRow.
    */
   public function prepareRow($row) {
-    // Retrieve the fields.
+    GLOBAL $connectionOracle;
+
+    // Retrieve the fields that need to be inside the node but stored outside the alterian obj table.
     if (!is_null($row->FIELDIDS)) {
       // Query the oracle DB to look for Fields from the object id.
       $fields_res_array = $this->oracleQueryMultiVariableValue(
@@ -135,8 +127,9 @@ ENDSQL;
         array(
           ':obj_id' => $row->OBJECTID,
         ),
-        $this->source->getConnection(),
-        array('title', 'summary')
+        $connectionOracle,
+        // You can add extra fields to extract from the field table here.
+        array('title', 'summary', 'backtotop', 'showLastUpdated', 'pubdate')
       );
 
       foreach ($fields_res_array as $fieldVariable => $fieldValue) {
@@ -150,12 +143,14 @@ ENDSQL;
     $feature_image_res = $this->oracleQuerySingle(
       $queryImageFeature,
       array(),
-      $this->source->getConnection()
+      $connectionOracle
     );
+
     $row->FEATUREDIMAGE = NULL;
     // If there is an image, we add it to the mapping.
     if (!is_null($feature_image_res)) {
-      $row->FEATUREDIMAGEPATH = $feature_image_res['PATH'];
+      $row->FEATUREDIMAGEPATH = variable_get('file_public_path', 'sites/default/files') .
+        '/sources' . $feature_image_res['PATH'];
     }
   }
 }

@@ -1343,5 +1343,13 @@ class Tag1Context extends DrupalContext {
     }
  }
    
+   /**
+     * @Given /^I switch to window "([^"]*)"$/
+     */
+    public function iSwitchToWindow($arg1)
+    {
+    $this->getSession()->wait(5000);
+    $this->getSession()->switchToWindow($arg1);
+    }
     
 };

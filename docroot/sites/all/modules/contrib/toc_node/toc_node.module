@@ -282,7 +282,7 @@ function toc_node_block_view($delta = '') {
       }
 
       // Check if TOC is set to not display.
-      if (isset($node->toc_node_style) && $node->toc_node_style == 'none') {
+      if (!isset($node->toc_node_style) || $node->toc_node_style == 'none') {
         return;
       }
 

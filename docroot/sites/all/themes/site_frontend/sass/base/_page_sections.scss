@@ -43,18 +43,14 @@
 	/* node title */
 	h2.node__title,
 	h3.node__title {
-		font-size: 1.4em; 
+		font-size: 1.3em; 
 		line-height: 1.4em;
 		margin-bottom: 0;
-		font-weight: normal;
+		font-weight: bold;
 	}
 	.node__title {
-		font-weight: normal;
+		font-weight: bold;
 		display: block;
-		padding-left: 14px;
-		background-image: url('../images/green-arrow-thin-right.png');
-		background-repeat: no-repeat;
-		background-position: left 5px;
 		a {
 			text-decoration: none;
 			color: #006f51;
@@ -68,13 +64,11 @@
 		font-size: 1.2em; 
 		line-height: 1.4em;
 		display: block;
-		padding-left: 14px;
 	}
 	/* teaser updated date */
 	.field--name-field-updated {
 		font-size: 1.1em;
 		margin-bottom: 0.2em;
-		padding-left: 14px;
 	}
 	/* teaser summary */
 	.field--name-field-summary {
@@ -83,14 +77,12 @@
 		display: block;
 		color: #333;
 		margin-bottom: 0.2em;
-		padding-left: 14px;
 	}
 	.field__item {
 		margin-bottom: 0.5em;
 	}
 	/* node links like read more (if enabled) */
 	.node__links {
-	  padding-left: 14px;
 	  a {
 			text-decoration: none;
 			color: #006f51;
@@ -99,10 +91,11 @@
 			text-decoration: underline;
 		}
 	}
-	/* related media - files */
+	/* related media files and csv files */
 	.file-item {
 		font-weight: normal;
-		margin-bottom: 0.3em;
+		margin-bottom: 0.5em;
+		font-size: 1.3em;
 		a {
 			text-decoration: none;
 			color: #006f51;
@@ -110,21 +103,78 @@
 		a:hover {
 			text-decoration: underline;
 		}
+		.filesize {
+			font-size: 0.846em;	// 1.3em x .846 = 1.1em
+		}
+	}
+	.file-summary {
+		font-size: 0.923em;	// 1.3em parent x 0.923 = 1.2em
+		p {
+			margin-bottom: 0; // let parent take care of margin
+			font-size: 1em;	// same size as parent
+		}
 	}
 }
 
-/* related data heading */
-.group-related-data {
-	h3 {
-		display: block;
-		font-size: 1.4em;
-		color: #5d9711;
-		font-weight: bold;
-		margin-bottom: 0.5em;
+/* child pages normal teaser and child pages micro-teaser */
+.field--name-field-child-page.page-section-teaser .field__item {
+	margin-bottom: 0px;
+}
+
+/* child pages normal teaser */
+.field--name-field-child-page.page-section-teaser {
+	.node-teaser {
+		margin-bottom: 0.8em;
+		.field__item {
+			margin-bottom: 0.5em;
+		}
 	}
 }
-/* related data container - group */
-.group-related-data {
+
+/* child pages mirco teaser - more in this section micro teaser variation of default teaser. Note: teaser is toggeled in page section edit mode */
+.field--name-field-child-page.page-section-teaser {
+	.node--micro-teaser {
+		h2.node__title,
+		h3.node__title {
+			font-size: 1em;	// set to same as body ie 10px
+			font-weight: normal;
+		}
+		.node__title {
+			font-weight: normal;
+			a {
+				font-size: 1.2em;
+				text-decoration: none;
+				color: #333;
+				display: block;
+				padding: 5px 120px 5px 24px;
+				margin-bottom: 1px;
+				background-color: #eee;
+				background-image: url('../images/green-arrow-thin-right.png');
+				background-repeat: no-repeat;
+				background-position: 10px 8px;
+			}
+			a:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+}
+/* for mobile */
+@include breakpoint($mobile) {
+	/* adjust right padding on child page micro tesser view mode */
+	.field--name-field-child-page.page-section-teaser {
+		.node--micro-teaser {
+			a {
+				padding: 5px 14px 5px 24px;
+			}
+		}
+	}
+}
+
+
+
+/* related data wrapper - csv files */
+.csv-files-wrapper {
 		margin-bottom: 18px;
 		border: 1px solid #c4c4c4;
 		-webkit-border-radius: 10px;
@@ -132,7 +182,7 @@
 		-o-border-radius: 10px;
 		-ms-border-radius: 10px;
 		border-radius: 10px;
-		padding: 12px 10px;
+		padding: 12px 10px 0px 10px;
 		background: #fff;
 		background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQ2JSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlYWVhZWEiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
 		background: -moz-linear-gradient(top,#fff 0,#fff 46%,#eaeaea 100%);
@@ -142,4 +192,8 @@
 		background: -ms-linear-gradient(top,#fff 0,#fff 46%,#eaeaea 100%);
 		background: linear-gradient(top,#fff 0,#fff 46%,#eaeaea 100%);
 		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#eaeaea',GradientType=0);
+		/* extra margin for related data heading */
+		.page-section-subheading {
+			margin-bottom: 0.8em;
+		}
 }

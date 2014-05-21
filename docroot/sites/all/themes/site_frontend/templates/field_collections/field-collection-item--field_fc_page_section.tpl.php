@@ -104,7 +104,6 @@
   // Heading will display even if there's no content, so hide it here.
   hide($content['field_fc_related_items_heading']);
 
-
   if (!empty($field_collection_item->field_fc_related_items)) {
     $related_items_heading = render($content['field_fc_related_items_heading']);
     $related_item = render($content['field_fc_related_items']);
@@ -112,9 +111,16 @@
 
 
   // CSV files
-  // these are placed within a group, so we have to look there.
+  // Heading will display even if there's no content, so hide it here.
+  hide($content['field_fc_files_csv_heading']);
+
   if (!empty($field_collection_item->field_fc_files_csv)) {
-    $csv_files = render($content['group_related_data']);
+    $csv_files_heading = render($content['field_fc_files_csv_heading']);
+    $csv_files = render($content['field_fc_files_csv']);
+	$csv_wrapper_header_files = '<div class="csv-files-wrapper">';
+	$csv_wrapper_header_files .= $csv_files_heading;
+	$csv_wrapper_header_files .= $csv_files;
+	$csv_wrapper_header_files .= '</div>';
   }
 
   // Child pages.
@@ -143,10 +149,6 @@
         print $image_with_wrapper;
       }
 
-	  if (isset($csv_files)) {
-        print $csv_files;
-      }
-
       if (isset($related_item)) {
         print $related_items_heading;
         print $related_item;
@@ -157,6 +159,9 @@
         print $child_page;
       }
 
+	  if (isset($csv_files)) {
+		print $csv_wrapper_header_files;
+      }
 
     ?>
     <?php  if ($back_to_top) {  ?>

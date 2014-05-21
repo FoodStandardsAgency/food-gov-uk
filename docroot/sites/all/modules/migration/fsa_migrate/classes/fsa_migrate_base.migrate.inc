@@ -10,6 +10,10 @@
  * Base class for the FSA migration.
  */
 abstract class FSAMigration extends Migration {
+
+  // The directory for images.
+  protected static $imageSourceDirectory = 'public://sources/images';
+
   protected $query = <<<'ENDSQL'
     SELECT EXAMPLE
       FROM EXAMPLE_TABLE
@@ -178,5 +182,62 @@ ENDSQL;
     oci_free_statement($statement);
 
     return $rows;
+  }
+
+  /**
+   * Checks if the field contains a preserve tag and returns the correct formatter name.
+   *
+   * @param $textValue
+   * @return string
+   */
+  public function textAreaFormat($textValue) {
+    if (strpos($textValue, '<!-- preserve start -->') !== false) {
+      return 'preserve';
+    }
+    return 'full_html';
+  }
+
+  /**
+   * Adds html br tags instead of breakline \n outside of the preserve tag.
+   * Adds a p tag outside of the preserve tag.
+   * @TODO Use the nl2br() function.
+   * @TODO Use the p tag outside of preserve tag.
+   * @TODO There might be several preserve tag. Use a loop with substr_count() and process each.
+   *
+   * @param $textValue
+   * @return string
+   */
+  public function textAreaPargraphLineFormatter($textValue) {
+//    // Extract the position of the preserve tag.
+//    $posPreservetag = strpos($textValue, '<!-- preserve start -->');
+//    // If preserve tag is detected, no change.
+//    if ($posPreservetag !== false) {
+//      foreach (substr_count($textValue, '<!-- preserve start -->')) {
+//        $posStartPreservetag = strpos($textValue, '<!-- preserve start -->');
+//        $posEndPreservetag = strpos($textValue, '<!-- preserve end -->');
+//        $finalTextValue = substr($textValue, 0, $posStartPreservetag);
+//      }
+//    }
+//    // nl2br
+    return $textValue . '<p></p>';
+  }
+
+  /**
+   * Converts a given string as 'Yes' or 'No' and changes it to a boolean value.
+   *
+   * @param $value
+   * @return string
+   *  We can't return a boolean in a callback like this one using migrate.
+   *  Needs to be a string with value 0 or 1.
+   */
+  public function convertYesNoBoolean($value) {
+    $lowerValue = strtolower($value);
+
+    if ($lowerValue == 'yes'){
+      return '1';
+    }
+    else {
+      return '0';
+    }
   }
 }

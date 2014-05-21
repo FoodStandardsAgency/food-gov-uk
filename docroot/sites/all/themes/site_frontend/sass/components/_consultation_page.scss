@@ -1,20 +1,30 @@
 /* consultation page - consultation content type */
-
 .field--name-field-consultations-contact-name,
 .field--name-field-consultation-contact-add,
 .field--name-field-consultation-contact-tel,
 .field--name-field-consultation-contact-fax,
 .field--name-field-consultation-contact-email,
-.field--name-field-consultation-contact-email,
 .field--name-field-consultation-dates,
 .field--name-field-consultation-state,
-.field--name-field-data-protection {
+.field--name-field-data-protection,
+.field--name-field-consultation-pack .field__label {
 	font-size: 1.2em;                                               
   line-height: 1.4em; 
   p, ul, li, ol {
 	font-size: 1em;	// same font size as parent
 	line-height: 1.4em;
 	}
+}
+.field--name-field-consultation-pack .field__label,
+.field--name-field-consultation-pack label {
+	margin-bottom: 0.8em;
+	display: block;
+}
+.field--name-field-consultation-pack .file-item {
+	font-size: 1.3em;
+	font-weight: normal;
+	margin-bottom: 0.5em;
+	font-size: 1.3em;
 }
 /* these are file fields get their theming from the base styles for file field within its content */
 .field--name-field-consultation-pack,
@@ -32,7 +42,7 @@
 /* section headings for consultation main content area */
 .node-type-consultation {
 	#main-content {
-		h2,
+		.node h2,
 		h2.block__title {
 			display: block;
 			margin: 0 0 1em 0;
@@ -42,6 +52,19 @@
 			color: #fff;
 			background: #5d9711;
 			clear: both;
+		}
+		/* toc block */
+		#block-toc-node-toc-node {
+			clear: both;
+			h2.block__title {
+				color: #333;
+				padding: 0;
+				background: none;
+				font-size: 1.5em;
+				line-height: 1.2em;
+				font-weight: bold;
+				margin: 0 0 .45em 0;
+			}
 		}
 	}
 }

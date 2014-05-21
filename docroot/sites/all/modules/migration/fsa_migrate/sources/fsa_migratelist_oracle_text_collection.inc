@@ -125,15 +125,26 @@ ENDSQL;
   /**
    * Class constructor.
    *
-   * @param $listObjectsIds
-   *  List of object ids to be processed.
+   * @param $relatedMigrationClass
+   *  Name of the related migration class.
    * @param $dbOracleDetails
    *  Connexion details for the Oracle db.
    */
-  public function __construct($listObjectsIds, $dbOracleDetails) {
+  public function __construct($fileCSV, $dbOracleDetails) {
     parent::__construct();
 
     GLOBAL $connectionOracle;
+
+    $realPathCSV = FSAMigrateListBase::checkCSVFileExists($fileCSV);
+    if ($realPathCSV) {
+      $this->fileCSV = $realPathCSV;
+    }
+    else {
+      print 'CSV file ' . $fileCSV . ' is unavailable.';
+      exit;
+    }
+
+    $this->listObjectsIds = FSAMigrateListBase::getIdListFromCSV($realPathCSV);
 
     if (is_null($connectionOracle)) {
       $connectionOracle = oci_connect($dbOracleDetails['username'], $dbOracleDetails['password'], $dbOracleDetails['connection_string']);
@@ -143,8 +154,6 @@ ENDSQL;
       $e = oci_error();
       trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
     }
-
-    $this->listObjectsIds = $listObjectsIds;
   }
 
   /**

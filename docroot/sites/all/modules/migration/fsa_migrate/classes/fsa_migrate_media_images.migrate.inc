@@ -36,13 +36,13 @@ class FSAMediaImagesMigration extends FSAMigration {
       'FILENAME' => t('Name of the file with the extension.'),
       'DRUPALPATH' => t('Full path from Drupal root as in sites/default/files/...'),
       'SOURCEDIRECTORY' => t('Source directory for the files.'),
+      'FILEPATHDEST' => t('File path destination.')
     );
 
-    // The directory for images.
-    $file_directory = 'public://images/source';
-
-    $this->source = new MigrateSourceList(new MigrateListFilesPath($file_directory),
-      new MigrateItemFilePath());
+    $this->source = new MigrateSourceList(
+      new MigrateListFilesPath($this::$imageSourceDirectory),
+      new MigrateItemFilePath()
+    );
 
     // This is simply for images.
     // @TODO Check if we use one class for images and another for pdf, or both in one class.
@@ -55,10 +55,12 @@ class FSAMediaImagesMigration extends FSAMigration {
 
     // Media creates a page for each file, as a node, this the path of this page.
     $this->addFieldMapping('path', 'DRUPALPATH');
+    // Disable pathauto.
+    // @TODO Double check this works.
+    $this->addFieldMapping('pathauto', FALSE);
 
     // The source images are in a local directory.
     $this->addFieldMapping('source_dir', 'SOURCEDIRECTORY');
-
     $this->addFieldMapping('destination_file', 'FILEPATHDEST');
 
     // Media migrated by admin.
@@ -70,10 +72,7 @@ class FSAMediaImagesMigration extends FSAMigration {
    * Function prepareRow.
    */
   public function prepareRow($row) {
-    // Setup extra variables for file info.
-    $filepath = str_replace('sites/default/files/', '', $row->DRUPALPATH);
-    $row->FILEPATHDEST = preg_replace('/source\//', '', $filepath, 1);
-    // Doing this in the source class does not seems to work, needs to be in preparerow.
-    $row->FILEPATH = '/' . $row->FILEPATHDEST;
+    // Setup destination file path.
+    $row->FILEPATHDEST = str_replace(variable_get('file_public_path', 'sites/default/files') . '/sources', '', $row->DRUPALPATH);
   }
 }

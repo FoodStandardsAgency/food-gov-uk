@@ -1,0 +1,7 @@
+name = Field Collections Hide
+description = "Set access deny when viwing a field collection directly through it'scripts path."
+core = 7.x
+package = Local
+
+
+

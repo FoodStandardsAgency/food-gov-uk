@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Variable integration for Path breadcrumbs module.
+ * Variable integration for Path Breadcrumbs module.
  */
 
 /**
@@ -70,8 +70,18 @@ function path_breadcrumbs_variable_info($options) {
   $variables['path_breadcrumbs_internal_render'] = array(
     'type' => 'boolean',
     'title' => t('Use module breadcrumbs render function', array(), $options),
-    'description' => t('If this value checked module will replace system or theme breadcrumb render function by module\'s one.'),
+    'description' => t("If this value checked module will replace system or theme breadcrumb render function by module's one.<br/>Note that if this checkbox is unchecked module will not be able to implement settings below."),
     'default' => TRUE,
+    'localize' => TRUE,
+    'group' => 'path_breadcrumbs',
+  );
+
+  $variables['path_breadcrumbs_internal_render_themes'] = array(
+    'type' => 'options',
+    'title' => t('Use internal Path Breadcrumbs rendering only for specific themes', array(), $options),
+    'description' => t('If you select no themes, there will be no specific limitation for Path Breadcrumbs render function.'),
+    'options callback' => '_path_breadcrumbs_themes_option_list',
+    'default' => array(),
     'localize' => TRUE,
     'group' => 'path_breadcrumbs',
   );
@@ -102,6 +112,38 @@ function path_breadcrumbs_variable_info($options) {
     'group' => 'path_breadcrumbs',
   );
 
+  $variables['path_breadcrumbs_cache_enabled'] = array(
+    'type' => 'boolean',
+    'title' => t('Enable cache for the breadcrumbs', array(), $options),
+    'description' => t("Enables caching of breadcrumb's navigations. Use only on production sites."),
+    'default' => FALSE,
+    'localize' => TRUE,
+    'group' => 'path_breadcrumbs',
+  );
+
+  $variables['path_breadcrumbs_cache_lifetime'] = array(
+    'type' => 'select',
+    'title' => t('Cache lifetime', array(), $options),
+    'options' => array(
+      CACHE_PERMANENT => t('Permanent', array(), $options),
+      CACHE_TEMPORARY => t('Temporary', array(), $options),
+      60 * 5 => t('@amount minutes', array('@amount' => 5), array(), $options),
+      60 * 15 => t('@amount minutes', array('@amount' => 15), array(), $options),
+      60 * 30 => t('@amount minutes', array('@amount' => 30), array(), $options),
+      60 * 60 => t('@amount minutes', array('@amount' => 60), array(), $options),
+      60 * 60 * 2 => t('@amount hours', array('@amount' => 2), array(), $options),
+      60 * 60 * 4 => t('@amount hours', array('@amount' => 4), array(), $options),
+      60 * 60 * 8 => t('@amount hours', array('@amount' => 8), array(), $options),
+      60 * 60 * 12 => t('@amount hours', array('@amount' => 12), array(), $options),
+      60 * 60 * 24 => t('@amount hours', array('@amount' => 24), array(), $options),
+      60 * 60 * 24 * 3 => t('@amount days', array('@amount' => 3), array(), $options),
+      60 * 60 * 24 * 7 => t('@amount days', array('@amount' => 7), array(), $options),
+    ),
+    'default' => CACHE_PERMANENT,
+    'localize' => TRUE,
+    'group' => 'path_breadcrumbs',
+  );
+
   return $variables;
 }
 
@@ -111,8 +153,8 @@ function path_breadcrumbs_variable_info($options) {
 function path_breadcrumbs_variable_group_info() {
 
   $groups['path_breadcrumbs'] = array(
-    'title' => t('Path breadcrumbs'),
-    'description' => t('Variables for Path breadcrumbs configuration.'),
+    'title' => t('Path Breadcrumbs'),
+    'description' => t('Variables for Path Breadcrumbs configuration.'),
     'access' => 'administer path breadcrumbs',
     'path' => array('admin/structure/path-breadcrumbs/settings'),
   );

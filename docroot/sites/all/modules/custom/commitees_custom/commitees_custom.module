@@ -1,0 +1,67 @@
+<?php
+
+/**
+ * Alter node edit form if committee content is being edited.
+ * @param $form
+ * @param $form_state
+ */
+function commitees_custom_form_node_form_alter(&$form, &$form_state) {
+  global $user;
+  $committee_content = array('news');
+
+  // Alter if user has Committee role.
+  if (in_array($form['type']['#value'], $committee_content) && in_array('Committee', $user->roles)) {
+    commitees_custom_og_audience_alter($form);
+    $form['#after_build'][] = 'commitees_custom_og_after_build';
+
+  }
+}
+
+/**
+ * User has Committee role.
+ * Alter node edit form if committee content is being edited.
+ * @param $form
+ * @param $form_state
+ */
+function commitees_custom_og_audience_alter(&$form) {
+  $user_groups = og_get_groups_by_user();
+  $language = $form['og_group_ref']['#language'];
+
+  if (!is_array($user_groups['node']) || empty($user_groups['node'])) {
+    drupal_goto('/');
+  }
+
+  $user_groups = $user_groups['node'];
+
+  // Make Audience field required.
+  $form['og_group_ref'][$language][0]['default']['#required'] = TRUE;
+
+  //  If only member of one committee set audience and hide the field.
+  if (count($user_groups) == 1) {
+    $audience = array_shift($user_groups);
+
+    if (empty($form['og_group_ref'][$language][0]['default']['#default_value'][0])) {
+      $form['og_group_ref'][$language][0]['default']['#default_value'][0] = $audience;
+
+    }
+
+    $form['og_group_ref'][$language][0]['default']['#access'] = FALSE;
+  }
+
+  // Hide field Layout.
+  $form['field_layout']['#access'] = FALSE;
+
+  // Hide Nation and Site Section and set defaults.
+  $form['field_nation']['#access'] = FALSE;
+  //$form['field_site_section']['#access'] = FALSE;
+
+
+}
+
+function commitees_custom_og_after_build($form, &$form_state) {
+
+  // Hide field Language.
+  $form['language']['#access'] = FALSE;
+  return $form;
+}
+

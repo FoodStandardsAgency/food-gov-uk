@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * Implements hook_token_info().
+ */
+function og_path_token_token_info() {
+  $types['og_path_token'] = array(
+    'name' => t("OG Path Token"),
+    'description' => t("Organic Groups Path."),
+  );
+
+  $og_path_token['og_path'] = array(
+    'name' => t("OG path"),
+    'description' => t("The {og}.path of the og the content is in."),
+  );
+  return array(
+    'types' => $types,
+    'tokens' => array(
+      'og_path_token' => $og_path_token,
+    ),
+  );
+}
+/**
+ * Implements hook_tokens().
+ */
+function og_path_token_tokens($type, $tokens, array $data = array(), array $options = array()) {
+  $replacements = array();
+  if ($type == 'og_path_token') {
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'og_path':
+          if(isset($data['node'])){
+            $group = field_get_items("node", $data['node'], "og_group_ref");
+            if($group!=null){
+              $og_path = drupal_get_path_alias("node/".$group[0]['target_id']);
+              $replacements[$original] = $og_path;
+            }
+          }
+          break;
+      }
+    }
+  }
+
+  return $replacements;
+}

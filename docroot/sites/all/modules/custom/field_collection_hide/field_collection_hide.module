@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * Implements hook_menu_alter().
+ */
+function field_collection_hide_menu_alter(&$items) {
+
+  foreach (field_info_fields() as $field) {
+    if ($field['type'] == 'field_collection') {
+      $path = field_collection_field_get_path($field);
+      $items[$path . '/%field_collection_item']['access callback'] = FALSE;
+      $items[$path . '/%field_collection_item/view']['access callback'] = FALSE;
+    }
+  }
+}
