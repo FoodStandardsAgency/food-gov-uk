@@ -1,0 +1,180 @@
+/* nation statement banner
+ * requires block class: nation-statement-banner
+ */
+
+/* Wales */
+.section-wales .nation-statement-banner {
+	position: relative;
+	margin-bottom: 20px;
+	.views-field-field-nation-banner-image {
+		width: 250px;
+		height: 190px;
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		z-index: 10;
+		.mask {
+			z-index: 15;
+			width: 19px;
+			height: 190px;
+			position: absolute;
+			top: 0px;
+			right: 231px;
+			background: url('../images/banners/banner-curve-wales.png') left top no-repeat;
+		}
+	}
+	.block__content {
+		padding: 10px;
+		margin-right: 250px;
+		background-color: #a30110;
+		min-height: 190px;
+	}
+	p {
+		margin: 0 0 .3em 0;
+		font-size: 2em;
+		line-height: 1.2em;
+	}
+	.views-field-field-nation-banner-text p a {
+		display: block;
+	}
+	p.banner-more {
+		margin: 0;
+		padding: 0;
+		font-size: 1.2em;
+		font-weight: bold;
+	}
+	a {
+		color: #fff;
+		text-decoration: none;
+	}
+	a:hover {
+		text-decoration: none;
+	}
+	p.banner-more a {
+		display: block;
+		padding-left: 13px;
+		background: url('../images/banners/banner-arrow-wales.png') 0 .2em no-repeat;
+		text-decoration: none;
+	}
+	p.banner-more a:hover {
+		text-decoration: underline;
+	}
+}
+
+/* Scotland */
+.section-scotland .nation-statement-banner {
+	position: relative;
+	margin-bottom: 20px;
+	.views-field-field-nation-banner-image {
+		width: 250px;
+		height: 190px;
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		z-index: 10;
+		.mask {
+			z-index: 15;
+			width: 19px;
+			height: 190px;
+			position: absolute;
+			top: 0px;
+			right: 231px;
+			background: url('../images/banners/banner-curve-scotland.png') left top no-repeat;
+		}
+	}
+	.block__content {
+		padding: 10px;
+		margin-right: 250px;
+		background-color: #035aaa;
+		min-height: 190px;
+	}
+	p {
+		margin: 0 0 .3em 0;
+		font-size: 2em;
+		line-height: 1.2em;
+	}
+	.views-field-field-nation-banner-text p a {
+		display: block;
+	}
+	p.banner-more {
+		margin: 0;
+		padding: 0;
+		font-size: 1.2em;
+		font-weight: bold;
+	}
+	a {
+		color: #fff;
+		text-decoration: none;
+	}
+	a:hover {
+		text-decoration: none;
+	}
+	p.banner-more a {
+		display: block;
+		padding-left: 13px;
+		background: url('../images/banners/banner-arrow-scotland.png') 0 .2em no-repeat;
+		text-decoration: none;
+	}
+	p.banner-more a:hover {
+		text-decoration: underline;
+	}
+}
+
+/* Northern Ireland */
+.section-northern-ireland .nation-statement-banner {
+	position: relative;
+	margin-bottom: 20px;
+	.views-field-field-nation-banner-image {
+		width: 250px;
+		height: 190px;
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		z-index: 10;
+		.mask {
+			z-index: 15;
+			width: 19px;
+			height: 190px;
+			position: absolute;
+			top: 0px;
+			right: 231px;
+			background: url('../images/banners/banner-curve-northern-ireland.png') left top no-repeat;
+		}
+	}
+	.block__content {
+		padding: 10px;
+		margin-right: 250px;
+		background-color: #760b67;
+		min-height: 190px;
+	}
+	p {
+		margin: 0 0 .3em 0;
+		font-size: 2em;
+		line-height: 1.2em;
+	}
+	.views-field-field-nation-banner-text p a {
+		display: block;
+	}
+	p.banner-more {
+		margin: 0;
+		padding: 0;
+		font-size: 1.2em;
+		font-weight: bold;
+	}
+	a {
+		color: #fff;
+		text-decoration: none;
+	}
+	a:hover {
+		text-decoration: none;
+	}
+	p.banner-more a {
+		display: block;
+		padding-left: 13px;
+		background: url('../images/banners/banner-arrow-northern-ireland.png') 0 .2em no-repeat;
+		text-decoration: none;
+	}
+	p.banner-more a:hover {
+		text-decoration: underline;
+	}
+}
