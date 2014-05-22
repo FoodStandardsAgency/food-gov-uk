@@ -74,6 +74,10 @@ function facets_select_facetapi_select_facet_form_alter(&$form, $form_state, $op
     $form['facets']['#title'] = t('Search by audit states');
   }
 
+  if ($options[0] == t('All authority types')) {
+    $form['facets']['#title'] = t('Search by authority type');
+  }
+
 }
 
 function theme_facets_select_facetapi_widget_links($variables) {

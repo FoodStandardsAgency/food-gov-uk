@@ -129,10 +129,12 @@ function container_blocks_block_view($delta = '') {
     case 'search_audit_reports':
       // Nation.
       $blocks[] = block_load('facetapi', 'ly6396gbtdufodpd8je0qyujejn73bws');
-      // Date published.
+      // Audit type.
       $blocks[] = block_load('facetapi', 'zuelw7fgna4hhukaj1ifyj1gjksrntdv');
-      // ??
+      // Audit state.
       $blocks[] = block_load('facetapi', 'rki2uwj1stot4co2v0tkak5avuy4ilhi');
+      // Authority type.
+      $blocks[] = block_load('facetapi', 'osdqst08lgwyuqprmimxdogailt1qynk');
 
       $content = container_blocks_concatenate_content($blocks);
 
