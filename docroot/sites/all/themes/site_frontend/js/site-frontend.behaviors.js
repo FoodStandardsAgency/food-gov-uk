@@ -56,5 +56,24 @@
       });
     }
   };
+    /**
+     * We want to move the search lable inline on the search form.
+     * This is handled by the compact forms module... but the lable is still invisible.
+     * This function removes the invisible class so that we can see "search" in the search box
+     * @type {{attach: attach}}
+     */
+  Drupal.behaviors.siteFrontendSearchLabel = {
+        attach: function (context, settings) {
+            // By using the 'context' variable we make sure that our code only runs on
+            // the relevant HTML. Furthermore, by using jQuery.once() we make sure that
+            // we don't run the same piece of code for an HTML snippet that we already
+            // processed previously. By using .once('foo') all processed elements will
+            // get tagged with a 'foo-processed' class, causing all future invocations
+            // of this behavior to ignore them.
+            $('#search-block-form label.element-invisible', context).removeClass('element-invisible');
+
+        }
+    };
+
 
 })(jQuery);

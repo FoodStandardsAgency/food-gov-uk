@@ -37,6 +37,9 @@ function hs_menu_form_node_form_alter(&$form, &$form_state) {
 
      // Set custom submit callback.
      array_unshift($form['#submit'], 'hs_menu_node_form_submit');
+     // Change the loaded default value into an array so we can populate the
+     // Hierarchical Select element.
+     $form['menu']['link']['parent']['#default_value'] = array($form['menu']['link']['parent']['#default_value']);
   }
 }
 

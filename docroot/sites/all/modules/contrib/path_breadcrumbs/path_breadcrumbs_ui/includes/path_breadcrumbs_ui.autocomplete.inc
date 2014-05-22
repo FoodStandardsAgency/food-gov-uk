@@ -95,11 +95,22 @@ class PathBreadcrumbsUIAutocomplete {
   public static function matchDataSelector($source, $prefix = '', $recursions = 2, $suggestions = TRUE) {
 
     $matches = array();
+
+    // Convert "parent" token from list to single item.
+    if (preg_match('@:parent:$@', $prefix) && $source instanceof EntityListWrapper) {
+      $source = $source->get(0);
+    }
+
     foreach ($source as $name => $wrapper) {
       $info = $wrapper->info();
       // Keep underscores unchanged in context keywords.
       if (!array_key_exists($name, self::$context_keywords)) {
         $name = str_replace('_', '-', $name);
+      }
+
+      // Convert "parent" token from list to single item.
+      if ($name == 'parent' && $wrapper instanceof EntityListWrapper) {
+        $wrapper = $wrapper->get(0);
       }
 
       $matches[$prefix . $name] = $info;

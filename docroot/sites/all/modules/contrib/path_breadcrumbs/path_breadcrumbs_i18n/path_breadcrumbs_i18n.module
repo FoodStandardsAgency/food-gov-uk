@@ -11,7 +11,7 @@
 function path_breadcrumbs_i18n_i18n_string_info() {
 
   $groups['path_breadcrumbs'] = array(
-    'title' => t('Path breadcrumbs'),
+    'title' => t('Path Breadcrumbs'),
     'description' => t('Translatable path breadcrumbs titles.'),
     'format' => FALSE,
     'list' => TRUE,
@@ -27,7 +27,7 @@ function path_breadcrumbs_i18n_i18n_object_info() {
 
   // Generic object properties, title, etc.
   $info['path_breadcrumbs'] = array(
-    'title' => t('Path breadcrumbs'),
+    'title' => t('Path Breadcrumbs'),
     // Field to be used as key to index different path breadcrumbs.
     'key' => 'machine_name',
     'class' => 'i18n_path_breadcrumbs_object',

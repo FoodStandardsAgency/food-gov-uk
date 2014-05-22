@@ -44,7 +44,8 @@ function hs_taxonomy_form_field_ui_widget_type_form_alter(&$form, &$form_state) 
     $field = field_info_field($form['#field_name']);
     $vocabulary = taxonomy_vocabulary_machine_name_load($field['settings']['allowed_values'][0]['vocabulary']);
 
-    $vid = $vocabulary->vid;
+    $vid = isset($vocabulary->vid) ? $vocabulary->vid : NULL;
+    $save_lineage = isset($vocabulary->hierarchy) ? (int) ($vocabulary->hierarchy == 2) : 0;
     $instance = field_info_instance($form['#entity_type'], $form['#field_name'], $form['#bundle']);
 
     // Add the Hierarchical Select config form.
@@ -59,7 +60,7 @@ function hs_taxonomy_form_field_ui_widget_type_form_alter(&$form, &$form_state) 
     $defaults = array(
       // Enable the save_lineage setting by default if the multiple parents
       // vocabulary option is enabled.
-      'save_lineage' => (int) ($vocabulary->hierarchy == 2),
+      'save_lineage' => $save_lineage,
       'editability' => array(
         'max_levels' => _hs_taxonomy_hierarchical_select_get_depth($vid),
       ),
@@ -434,7 +435,6 @@ function hs_taxonomy_field_formatter_view($entity_type, $entity, $field, $instan
 
   // Actual formatting.
   $element = array();
-  $element['#attached']['css'][] = drupal_get_path('module', 'hierarchical_select') . '/hierarchical_select.css';
   switch ($display['type']) {
     case 'hs_taxonomy_term_reference_hierarchical_text':
       for ($l = 0; $l < count($lineages); $l++) {
@@ -539,7 +539,10 @@ function hs_taxonomy_field_formatter_view($entity_type, $entity, $field, $instan
         }
       }
       break;
+  }
 
+  if (!empty($element)) {
+    $element['#attached']['css'][] = drupal_get_path('module', 'hierarchical_select') . '/hierarchical_select.css';
   }
 
   return $element;
@@ -1009,8 +1012,18 @@ function _hs_taxonomy_hierarchical_select_get_tree($vid, $parent = 0, $depth = -
   if (!isset($children[$vid])) {
     $children[$vid] = array();
 
-    // TODO Please convert this statement to the D7 database API syntax.
-    $result = db_query('SELECT t.tid, t.*, parent FROM {taxonomy_term_data} t INNER JOIN  {taxonomy_term_hierarchy} h ON t.tid = h.tid WHERE t.vid = :vid ORDER BY weight, name', array(':vid' => $vid));
+    $query = db_select('taxonomy_term_data', 't');
+    $query->join('taxonomy_term_hierarchy', 'h', 'h.tid = t.tid');
+    $result = $query
+      ->addTag('translatable')
+      ->addTag('term_access')
+      ->fields('t')
+      ->fields('h', array('parent'))
+      ->condition('t.vid', $vid)
+      ->orderBy('t.weight')
+      ->orderBy('t.name')
+      ->execute();
+
     foreach ($result as $term) {
       $children[$vid][$term->parent][] = $term->tid;
       $parents[$vid][$term->tid][] = $term->parent;
