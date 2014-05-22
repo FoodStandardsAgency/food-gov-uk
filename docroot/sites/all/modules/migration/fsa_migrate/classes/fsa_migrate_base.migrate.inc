@@ -14,6 +14,9 @@ abstract class FSAMigration extends Migration {
   // The directory for images.
   protected static $imageSourceDirectory = 'public://sources/images';
 
+  // The directory for files.
+  protected static $filesSourceDirectory = 'public://sources/files';
+
   protected $query = <<<'ENDSQL'
     SELECT EXAMPLE
       FROM EXAMPLE_TABLE
