@@ -1,13 +1,15 @@
 ********************************************************************
                      D R U P A L    M O D U L E
 ********************************************************************
-Name: Views Organic Groups From Path Module
+Name: Organic Groups Path Context Module
 Author: Robert Castelo
 Drupal: 7.x
 ********************************************************************
 DESCRIPTION:
 
-Views argument option to get Organic Groups context (Group ID) from the path of the current page.
+Sets Organic Groups context by checking if the path of the current page matches the path of an 
+OG group node. Parts are removed from the end of the path, then re-checked until, a match is 
+found or there are no more path parts.
 
 
 ********************************************************************

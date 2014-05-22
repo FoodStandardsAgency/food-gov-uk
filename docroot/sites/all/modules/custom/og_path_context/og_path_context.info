@@ -1,0 +1,6 @@
+name = Organic Groups Path Context
+description = "Sets Organic Groups context if path parts of the current page match path of OG group node."
+core = 7.x
+package = "Organic groups"
+
+

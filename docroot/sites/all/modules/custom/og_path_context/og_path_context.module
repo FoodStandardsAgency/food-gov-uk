@@ -1,26 +1,15 @@
 <?php
 
 /**
- * Implements hook_views_api().
- */
-function views_og_path_views_api() {
-  return array(
-    'api' => 3,
-    'path' => drupal_get_path('module', 'views_og_path') . '/includes/views',
-  );
-}
-
-
-/**
  * Implements hook_og_context_negotiation_info().
  */
-function views_og_path_og_context_negotiation_info() {
+function og_path_context_og_context_negotiation_info() {
   $providers = array();
 
-  $providers['og_path'] = array(
+  $providers['og_path_context'] = array(
     'name' => t('Path'),
     'description' => t('Select groups by checking if the path of the current page matches the path of an OG group node. Parts are removed from the end of the path, then re-checked until, a match is found or there are no more path parts.'),
-    'callback' => 'views_og_path_handler_url',
+    'callback' => 'og_path_context_handler_path',
   );
 
   return $providers;
@@ -30,13 +19,17 @@ function views_og_path_og_context_negotiation_info() {
 /**
  * Context handler; Get groups from node create URL.
  */
-function views_og_path_handler_url() {
+function og_path_context_handler_path() {
   $gids = array();
-  $path = explode('/', $_GET['q']);
 
-  if (!is_array($path) || empty($path)) {
+  $item = menu_get_item();
+
+  if (empty($item['map'])) {
+    // User has no access to the menu item.
     return;
   }
+
+  $path = $item['map'];
 
   $try = count($path);
 

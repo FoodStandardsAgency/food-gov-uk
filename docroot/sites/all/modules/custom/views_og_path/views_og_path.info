@@ -1,7 +1,0 @@
-name = Views Organic Groups From Path
-description = Views argument option to get Organic Groups context from path of current page
-core = 7.x
-package = Local
-
-; Views default arguments
-files[] = includes/views/handlers/views_og_path_plugin_argument_default_group_context.inc
