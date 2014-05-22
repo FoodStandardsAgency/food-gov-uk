@@ -29,7 +29,11 @@ function og_path_context_handler_path() {
     return;
   }
 
-  $path = $item['map'];
+  $path = explode('/', $item['path']);
+
+  if (!is_array($path) || empty($path)) {
+    return;
+  }
 
   $try = count($path);
 
