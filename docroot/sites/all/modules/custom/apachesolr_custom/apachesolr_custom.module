@@ -45,4 +45,79 @@ function apachesolr_custom_removetab(&$vars, $path) {
   }
 }
 
+/**
+ * Implementation of hook_apachesolr_index_document_build()
+ *
+ */
+function apachesolr_custom_apachesolr_index_document_build(ApacheSolrDocument $document, $entity, $entity_type, $env_id) {
+
+  // Create a custom description for each content type
+  if ($entity_type == 'node') {
+
+    if ($entity->type == 'audit_report') {
+      // Audit Report last updated year.
+      apachesolr_custom_year_field($document, $entity, 'field_updated', 'is_last_updated_year');
+    }
+  }
+
+}
+
+/**
+ * Converts field datetime value into a year and stores it in Apache Solr.
+ *
+ **/
+function apachesolr_custom_year_field(&$document, $entity, $field, $solr_field) {
+
+  if (isset($entity->{$field}['und'][0]['value']) && !empty($entity->{$field}['und'][0]['value'])) {
+    $datetime = $entity->{$field}['und'][0]['value'];
+    $date = new DateTime($datetime);
+    $year = $date->format('Y');
+    $document->addField($solr_field, $year);
+  }
+}
+
+/**
+ * Add custom facets.
+ * @param array $searcher_info
+ * @return array
+ **/
+function apachesolr_custom_facetapi_facet_info(array $searcher_info) {
+  $facets = array();
+
+  if (isset($searcher_info['types']['node'])) {
+    // Audit Report last updated year.
+    $facets['is_last_updated_year'] = array(
+      'name' => 'is_last_updated_year',
+      'label' => t('Last Updated Year'),
+      'description' => t('Last updated as a year.'),
+      'field' => 'is_last_updated_year',
+      'dependency plugins' => array('role'),
+      'default widget' => 'links',
+      'allowed operators' => array(FACETAPI_OPERATOR_AND => TRUE, FACETAPI_OPERATOR_OR => TRUE),
+      'facet missing allowed' => FALSE,
+      'facet mincount allowed' => FALSE,
+      'map callback' => 'apachesolr_custom_map_is_last_updated_year',
+      'max callback' => FALSE,
+      'default sorts' => array(
+        array('active', SORT_DESC),
+        array('count', SORT_DESC),
+        array('display', SORT_ASC),
+      ),
+    );
+  }
+  return $facets;
+}
+
+/**
+ * Map callback for Audit Report last updated year.
+ */
+function apachesolr_custom_map_is_last_updated_year(array $values) {
+  $map = array();
+
+  foreach ($values as $val) {
+    $map[$val] = $val;
+  }
+  return $map;
+}
+
 
