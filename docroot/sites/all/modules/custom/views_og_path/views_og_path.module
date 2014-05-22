@@ -9,3 +9,53 @@ function views_og_path_views_api() {
     'path' => drupal_get_path('module', 'views_og_path') . '/includes/views',
   );
 }
+
+
+/**
+ * Implements hook_og_context_negotiation_info().
+ */
+function views_og_path_og_context_negotiation_info() {
+  $providers = array();
+
+  $providers['og_path'] = array(
+    'name' => t('Path'),
+    'description' => t('Select groups by checking if the path of the current page matches the path of an OG group node. Parts are removed from the end of the path, then re-checked until, a match is found or there are no more path parts.'),
+    'callback' => 'views_og_path_handler_url',
+  );
+
+  return $providers;
+}
+
+
+/**
+ * Context handler; Get groups from node create URL.
+ */
+function views_og_path_handler_url() {
+  $gids = array();
+  $path = explode('/', $_GET['q']);
+
+  if (!is_array($path) || empty($path)) {
+    return;
+  }
+
+  $try = count($path);
+
+  for ($i = 0; $i < $try; $i++) {
+    $path_try = implode('/', $path);
+    $system_path = drupal_get_normal_path($path_try);
+
+    if (substr($system_path, 0, 5) == 'node/' && is_numeric(substr($system_path, 6))) {
+      $nid = substr($system_path, 5);
+      $node = node_load($nid);
+
+      if (isset($node->group_group)) {
+        return _group_context_handler_entity('node', $node);
+      }
+
+    }
+
+    array_pop($path);
+  }
+
+  return;
+}
