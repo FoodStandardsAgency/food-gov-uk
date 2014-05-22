@@ -32,6 +32,10 @@ function container_blocks_block_info() {
     'info' => t('Search Consultations'),
   );
 
+  $blocks['search_audit_reports'] = array(
+    'info' => t('Search Audit Reports'),
+  );
+
   return $blocks;
 }
 
@@ -121,6 +125,28 @@ function container_blocks_block_view($delta = '') {
       }
 
       break;
+
+    case 'search_audit_reports':
+      // Nation.
+      $blocks[] = block_load('facetapi', 'ly6396gbtdufodpd8je0qyujejn73bws');
+      // Date published.
+      $blocks[] = block_load('facetapi', 'zuelw7fgna4hhukaj1ifyj1gjksrntdv');
+      // ??
+      $blocks[] = block_load('facetapi', 'rki2uwj1stot4co2v0tkak5avuy4ilhi');
+
+      $content = container_blocks_concatenate_content($blocks);
+
+      if (!empty($content)) {
+
+        $block['subject'] = NULL;
+        $block['content'] = array(
+          '#markup' => $content,
+        );
+      }
+
+      break;
+
+
   }
   return $block;
 }
