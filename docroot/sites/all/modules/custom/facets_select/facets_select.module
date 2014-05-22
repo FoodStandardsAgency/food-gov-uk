@@ -65,6 +65,15 @@ function facets_select_facetapi_select_facet_form_alter(&$form, $form_state, $op
   if ($options[0] == t('All topics')) {
     $form['facets']['#title'] = t('Search by topic');
   }
+
+  if ($options[0] == t('All audit types')) {
+    $form['facets']['#title'] = t('Search by audit type');
+  }
+
+  if ($options[0] == t('All audit states')) {
+    $form['facets']['#title'] = t('Search by audit states');
+  }
+
 }
 
 function theme_facets_select_facetapi_widget_links($variables) {
