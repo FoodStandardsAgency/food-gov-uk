@@ -564,7 +564,7 @@ Drupal.HierarchicalSelect.update = function(hsid, updateType, settings) {
       
       // Attach behaviors. This is just after the HTML has been updated, so
       // it's as soon as we can.
-      Drupal.attachBehaviors(Drupal.HierarchicalSelect.context()[0]);
+      Drupal.attachBehaviors($('#hierarchical-select-' + hsid + '-wrapper').parents('div.form-type-hierarchical-select')[0]);
 
       // Transform the hierarchical select and/or dropbox to the JS variant,
       // make it resizable again and re-enable the disabled form items.
