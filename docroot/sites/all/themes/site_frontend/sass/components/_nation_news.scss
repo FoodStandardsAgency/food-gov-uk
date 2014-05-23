@@ -67,3 +67,12 @@
 	background: #f5f8f1;
 	margin-bottom: 20px;
 }
+
+/* mobile layout */
+@include breakpoint($mobile) {
+	.nation-news {
+		h3 {
+			margin: 0 0px 0.5em 118px;
+		}
+	}
+}

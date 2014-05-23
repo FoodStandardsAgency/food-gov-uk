@@ -3378,6 +3378,11 @@ h1.nation-wales {
   background: #f5f8f1;
   margin-bottom: 20px; }
 
+/* mobile layout */
+@media (min-width: 0px) and (max-width: 480px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_nation_news\.scss}line{font-family:\0000374}}
+  .nation-news h3 {
+    margin: 0 0px 0.5em 118px; } }
 /* nation statement banner
  * requires block class: nation-statement-banner
  */
@@ -3405,7 +3410,7 @@ h1.nation-wales {
       background: url("../images/banners/banner-curve-wales.png") left top no-repeat; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_nation_statement_banner\.scss}line{font-family:\0000326}}
   .section-wales .nation-statement-banner .block__content {
-    padding: 10px;
+    padding: 10px 10px 11px 11px;
     margin-right: 250px;
     background-color: #a30110;
     min-height: 190px; }
@@ -3464,7 +3469,7 @@ h1.nation-wales {
       background: url("../images/banners/banner-curve-scotland.png") left top no-repeat; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_nation_statement_banner\.scss}line{font-family:\0000385}}
   .section-scotland .nation-statement-banner .block__content {
-    padding: 10px;
+    padding: 10px 10px 11px 11px;
     margin-right: 250px;
     background-color: #035aaa;
     min-height: 190px; }
@@ -3523,7 +3528,7 @@ h1.nation-wales {
       background: url("../images/banners/banner-curve-northern-ireland.png") left top no-repeat; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_nation_statement_banner\.scss}line{font-family:\00003144}}
   .section-northern-ireland .nation-statement-banner .block__content {
-    padding: 10px;
+    padding: 10px 10px 11px 11px;
     margin-right: 250px;
     background-color: #760b67;
     min-height: 190px; }
@@ -3553,11 +3558,25 @@ h1.nation-wales {
     display: block;
     padding-left: 13px;
     background: url("../images/banners/banner-arrow-northern-ireland.png") 0 0.2em no-repeat;
-    text-decoration: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_nation_statement_banner\.scss}line{font-family:\00003177}}
+    text-decoration: none;
+    margin-left: 1px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_nation_statement_banner\.scss}line{font-family:\00003178}}
   .section-northern-ireland .nation-statement-banner p.banner-more a:hover {
     text-decoration: underline; }
 
+/* mobile layout */
+@media (min-width: 0px) and (max-width: 480px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_nation_statement_banner\.scss}line{font-family:\00003188}}
+  .section-wales .nation-statement-banner .views-field-field-nation-banner-image,
+  .section-scotland .nation-statement-banner .views-field-field-nation-banner-image,
+  .section-northern-ireland .nation-statement-banner .views-field-field-nation-banner-image {
+    display: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_nation_statement_banner\.scss}line{font-family:\00003191}}
+  .section-wales .nation-statement-banner .block__content,
+  .section-scotland .nation-statement-banner .block__content,
+  .section-northern-ireland .nation-statement-banner .block__content {
+    margin-right: 0;
+    min-height: 0; } }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_pager\.scss}line{font-family:\000031}}
 ul.pager {
   display: block;

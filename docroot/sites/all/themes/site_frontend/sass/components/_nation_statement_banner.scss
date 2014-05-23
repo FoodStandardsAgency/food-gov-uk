@@ -24,7 +24,7 @@
 		}
 	}
 	.block__content {
-		padding: 10px;
+		padding: 10px 10px 11px 11px;
 		margin-right: 250px;
 		background-color: #a30110;
 		min-height: 190px;
@@ -83,7 +83,7 @@
 		}
 	}
 	.block__content {
-		padding: 10px;
+		padding: 10px 10px 11px 11px;
 		margin-right: 250px;
 		background-color: #035aaa;
 		min-height: 190px;
@@ -142,7 +142,7 @@
 		}
 	}
 	.block__content {
-		padding: 10px;
+		padding: 10px 10px 11px 11px;
 		margin-right: 250px;
 		background-color: #760b67;
 		min-height: 190px;
@@ -173,8 +173,25 @@
 		padding-left: 13px;
 		background: url('../images/banners/banner-arrow-northern-ireland.png') 0 .2em no-repeat;
 		text-decoration: none;
+		margin-left: 1px;
 	}
 	p.banner-more a:hover {
 		text-decoration: underline;
+	}
+}
+
+/* mobile layout */
+@include breakpoint($mobile) {
+	.section-wales .nation-statement-banner,
+	.section-scotland .nation-statement-banner,
+	.section-northern-ireland .nation-statement-banner {
+		.views-field-field-nation-banner-image {
+			display: none;
+		}
+		.block__content {
+			margin-right: 0;
+			min-height: 0;
+		}
+
 	}
 }
