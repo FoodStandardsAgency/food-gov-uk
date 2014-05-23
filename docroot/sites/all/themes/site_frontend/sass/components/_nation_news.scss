@@ -1,0 +1,69 @@
+/* Nation news
+ * requires block class: nation-news
+ */
+
+/* block content styling */
+.nation-news {
+	font-size: 1em;	// 10px setting as base
+	line-height: 1.4em;
+	/* block title */
+	h2.block__title {
+		color: #4b800d;
+		margin: 0 0 0.5em 0;
+		font-size: 1.6em;
+		font-weight: normal;
+		padding: .46875em 11px .140625em 11px;
+	}
+	/* block content */
+	.block__content {
+		padding: .5em 11px .3em 11px;
+		overflow: hidden;
+	}
+	/* featured image */
+	.views-field-field-feature-image {
+		.field-content img {
+			float: left;
+			margin: 0 12px 0 0;
+		}
+	}
+	/* content */
+	h3 {
+		margin-left: 118px;
+		font-size: 1.2em;
+		line-height: 1.3em;
+		margin: 0 100px 0.5em 118px;
+		font-weight: normal;
+	}
+	p {
+		margin-left: 118px;
+		font-size: 1.2em;
+		line-height: 1.3em;
+		margin-bottom: 15px;
+	}
+	/* more link */
+	p.more-link-wrapper {
+		display: block;
+		margin-left: 118px;
+		a.fsa-more-link {
+			font-weight: bold;
+			padding-left: 11px;
+		}
+	}
+	/* rows of content */
+	.views-row {
+		margin-bottom: 11px;
+		clear: left;
+		overflow: hidden;
+	}
+}
+
+/* the block styling */
+.nation-news {
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	-o-border-radius: 8px;
+	-ms-border-radius: 8px;
+	border-radius: 8px;
+	background: #f5f8f1;
+	margin-bottom: 20px;
+}
