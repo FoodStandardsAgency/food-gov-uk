@@ -8,12 +8,14 @@ files[] = fsa_migrate.migrate.inc
 files[] = classes/fsa_migrate_base.migrate.inc
 files[] = classes/fsa_migrate_documentpage.migrate.inc
 files[] = classes/fsa_migrate_documentpage_fc.migrate.inc
+files[] = classes/fsa_migrate_related_content_fc.migrate.inc
 files[] = classes/fsa_migrate_media_images.migrate.inc
 files[] = classes/fsa_migrate_media_document.migrate.inc
 files[] = classes/fsa_migrate_childpage_fc.migrate.inc
 ; Sources.
 files[] = sources/fsa_migratelist_base.inc
 files[] = sources/fsa_migratelist_oracle_text_collection.inc
+files[] = sources/fsa_migratelist_oracle_generic_collection.inc
 files[] = sources/fsa_migratelist_files_path.inc
 files[] = sources/fsa_migratelist_files_sql.inc
 files[] = sources/fsa_migratelist_oracle_object_from_csv.inc
