@@ -1,0 +1,14 @@
+/* hide nation page titles
+ * note: the nation top banner duplicates the h1 and the title of the nation pages
+ * and we need to keep the banner, so we hiding the title with CSS
+ * Dependancy: body classes on nation front pages (added with Context), 
+ * these classes are: front-page-wales, front-page-scotland, front-page-northern-ireland
+ */
+
+.front-page-wales,
+.front-page-scotland,
+.front-page-northern-ireland {
+	.l-main .main-content-inner h1:first-child {
+		display: none;
+	}
+}

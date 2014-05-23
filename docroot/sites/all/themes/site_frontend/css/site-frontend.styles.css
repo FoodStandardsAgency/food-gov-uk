@@ -4794,3 +4794,15 @@ ul.toc-node-bullets li.toc-node-level-6 {
   overflow: hidden;
   height: 1px;
   color: #fff; }
+
+/* hide nation page titles
+ * note: the nation top banner duplicates the h1 and the title of the nation pages
+ * and we need to keep the banner, so we hiding the title with CSS
+ * Dependancy: body classes on nation front pages (added with Context), 
+ * these classes are: front-page-wales, front-page-scotland, front-page-northern-ireland
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_title_nation_page\.scss}line{font-family:\0000311}}
+.front-page-wales .l-main .main-content-inner h1:first-child,
+.front-page-scotland .l-main .main-content-inner h1:first-child,
+.front-page-northern-ireland .l-main .main-content-inner h1:first-child {
+  display: none; }
