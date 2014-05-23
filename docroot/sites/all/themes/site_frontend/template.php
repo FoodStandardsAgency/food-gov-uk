@@ -106,6 +106,8 @@ function site_frontend_file_link($variables) {
  * @param $variables
  */
 function site_frontend_preprocess_node(&$variables) {
+  // remove readmore
+  unset($variables['content']['links']['node']);
   // Add in our own inline block regions
   // Blocks that are assigned to the region using Context
   /*
