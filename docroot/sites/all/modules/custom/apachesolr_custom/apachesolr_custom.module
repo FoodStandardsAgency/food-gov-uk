@@ -58,6 +58,11 @@ function apachesolr_custom_apachesolr_index_document_build(ApacheSolrDocument $d
       // Audit Report last updated year.
       apachesolr_custom_year_field($document, $entity, 'field_updated', 'is_last_updated_year');
     }
+
+    if ($entity->type == 'audit_news') {
+      // Audit News last updated year.
+      apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year');
+    }
   }
 
 }
