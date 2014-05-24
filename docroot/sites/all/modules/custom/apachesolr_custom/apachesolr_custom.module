@@ -62,6 +62,14 @@ function apachesolr_custom_apachesolr_index_document_build(ApacheSolrDocument $d
     if ($entity->type == 'audit_news') {
       // Audit News last updated year.
       apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year');
+
+      if (!empty($entity->field_heading_audit_news['und'][0]['value'])) {
+        $document->addField('ss_heading_audit_news', $entity->field_heading_audit_news['und'][0]['value']);
+      }
+
+      if (!empty($entity->field_body_audit_news['und'][0]['value'])) {
+        $document->addField('ss_body_audit_news', $entity->field_body_audit_news['und'][0]['value']);
+      }
     }
 
     if ($entity->type == 'consultation') {
