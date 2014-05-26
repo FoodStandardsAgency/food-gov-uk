@@ -57,6 +57,13 @@ function apachesolr_custom_apachesolr_index_document_build(ApacheSolrDocument $d
     if ($entity->type == 'audit_report') {
       // Audit Report last updated year.
       apachesolr_custom_year_field($document, $entity, 'field_updated', 'is_last_updated_year');
+
+      if (empty($entity->field_audit_action_plan)) {
+        $document->addField('ss_has_audit_action_plan', t('No action plan'));
+      }
+      else {
+        $document->addField('ss_has_audit_action_plan', t('Has action plan'));
+      }
     }
 
     if ($entity->type == 'audit_news') {
@@ -114,7 +121,27 @@ function apachesolr_custom_facetapi_facet_info(array $searcher_info) {
       'allowed operators' => array(FACETAPI_OPERATOR_AND => TRUE, FACETAPI_OPERATOR_OR => TRUE),
       'facet missing allowed' => FALSE,
       'facet mincount allowed' => FALSE,
-      'map callback' => 'apachesolr_custom_map_is_last_updated_year',
+      'map callback' => 'apachesolr_custom_map_values',
+      'max callback' => FALSE,
+      'default sorts' => array(
+        array('active', SORT_DESC),
+        array('count', SORT_DESC),
+        array('display', SORT_ASC),
+      ),
+    );
+
+    // Audit Report has action plan.
+    $facets['ss_has_audit_action_plan'] = array(
+      'name' => 'ss_has_audit_action_plan',
+      'label' => t('Has Action Plan'),
+      'description' => t('Audit Report has action plan (file).'),
+      'field' => 'ss_has_audit_action_plan',
+      'dependency plugins' => array('role'),
+      'default widget' => 'links',
+      'allowed operators' => array(FACETAPI_OPERATOR_AND => TRUE, FACETAPI_OPERATOR_OR => TRUE),
+      'facet missing allowed' => FALSE,
+      'facet mincount allowed' => FALSE,
+      'map callback' => 'apachesolr_custom_map_values',
       'max callback' => FALSE,
       'default sorts' => array(
         array('active', SORT_DESC),
@@ -138,4 +165,14 @@ function apachesolr_custom_map_is_last_updated_year(array $values) {
   return $map;
 }
 
+/**
+ * Map callback for Audit Report last updated year.
+ */
+function apachesolr_custom_map_values(array $values) {
+  $map = array();
 
+  foreach ($values as $val) {
+    $map[$val] = $val;
+  }
+  return $map;
+}
