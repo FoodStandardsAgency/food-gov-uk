@@ -286,7 +286,8 @@ function toc_node_block_view($delta = '') {
         return;
       }
 
-      $content          = drupal_render(node_view($node));
+      $node_rendered    = node_view($node);
+      $content          = drupal_render(node_view($node_rendered));
       $content          = toc_node_generate($content, $node->toc_node_style, $node->toc_node_level, $node->toc_node_back_to_top_links, 'toc_list');
       $block['subject'] = t('Contents');
       $block['content'] = $content;
