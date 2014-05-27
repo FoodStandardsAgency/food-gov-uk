@@ -40,21 +40,17 @@
 .food-hygiene-ratings {
 	background-color: #dde9c9;
 	min-height: 260px;
-	-moz-border-radius-topleft: 9px;
-	-moz-border-radius-topright: 9px;
-	-moz-border-radius-bottomright: 9px;
-	-moz-border-radius-bottomleft: 9px;
-	-webkit-border-radius: 9px 9px 9px 9px;
-	border-radius: 9px 9px 9px 9px;
+	-moz-border-radius: 9px;
+	-webkit-border-radius: 9px;
+	-o-border-radius: 9px;
+	-ms-border-radius: 9px;
+	border-radius: 9px;
 	h2.block__title {
 		font-size: 1.5em;
 		color: #fff;
 		padding: .3em 11px;
 		margin: 0;
-		-moz-border-radius-topleft: 9px;
-		-moz-border-radius-topright: 9px;
-		-moz-border-radius-bottomright: 0;
-		-moz-border-radius-bottomleft: 0;
+		-moz-border-radius: 9px 9px 0 0;
 		-webkit-border-radius: 9px 9px 0 0;
 		-o-border-radius: 9px 9px 0 0;
 		-ms-border-radius: 9px 9px 0 0;
@@ -79,6 +75,11 @@
 		background: -ms-linear-gradient(top,#f0f5e7 0,#dde9c9 100%);
 		background: linear-gradient(top,#f0f5e7 0,#dde9c9 100%);
 		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f0f5e7',endColorstr='#dde9c9',GradientType=0);
+		-moz-border-radius: 0 0 9px 9px;
+		-webkit-border-radius: 0 0 9px 9px;
+		-o-border-radius: 0 0 9px 9px;
+		-ms-border-radius: 0 0 9px 9px;
+		border-radius: 0 0 9px 9px;
 	}
 }
 

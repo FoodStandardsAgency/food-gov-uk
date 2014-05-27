@@ -31,7 +31,13 @@
 	background: linear-gradient(top,#c11d2d 1%,#a30110 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#c11d2d',endColorstr='#a30110',GradientType=0);
 }
-
+.block--nation-banners {
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	-o-border-radius: 8px;
+	-ms-border-radius: 8px;
+	border-radius: 8px;
+}
 h1.nation-scotland,
 h1.nation-northern-ireland,
 h1.nation-wales {
