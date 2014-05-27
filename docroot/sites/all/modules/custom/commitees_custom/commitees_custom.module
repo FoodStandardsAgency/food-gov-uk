@@ -1,6 +1,64 @@
 <?php
 
 /**
+ * @file
+ * Custom features for the Committee sub sites and FSA pages.
+ */
+
+
+/**
+ * Implements hook_form_alter().
+ * Redirect standard search block form to Views generated search page.
+ */
+function commitees_custom_form_search_block_form_alter(&$form, &$form_state) {
+
+  // Only add functionality if start of current page path is matches committee pattern.
+  $path_alias = request_path();
+  $path_parts = explode('/', $path_alias);
+
+  if (is_array($path_parts) && count($path_parts) > 1 && $path_parts[0] == 'committee') {
+    $form['og_base_path'] = array(
+      '#type'  => 'value',
+      '#value' => $path_parts[0] . '/' . $path_parts[1],
+    );
+
+    $form['#after_build'][] = 'commitees_custom_search_after_build';
+  }
+}
+
+/**
+ * Remove the standard Apache Solr custom submit function,
+ * and add one specifically for Committees.
+ **/
+function commitees_custom_search_after_build($element, &$form_state) {
+
+  $submit_functions = array();
+
+  foreach ($element['#submit'] as $submit_function) {
+
+    if ($submit_function != 'apachesolr_custom_search_form_submit_funtion') {
+      $submit_functions[] = $submit_function;
+    }
+  }
+
+  $submit_functions[] = 'commitees_custom_search_form_submit_funtion';
+  $element['#submit'] = $submit_functions;
+
+  return $element;
+}
+
+/**
+ *  Redirect standard search block form to Views generated search page.
+ **/
+function commitees_custom_search_form_submit_funtion(&$form, &$form_state) {
+  $search_str = $form_state['values']['search_block_form'];
+  $form_state['rebuild'] = TRUE;
+  $committee_path = $form_state['values']['og_base_path'];
+  drupal_goto($committee_path . '/search', array('query' => array('keyword' => $search_str)));
+}
+
+
+/**
  * Alter node edit form if committee content is being edited.
  * @param $form
  * @param $form_state
