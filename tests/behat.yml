@@ -24,6 +24,9 @@ default:
         blackbox: ~
         region_map:
           Menu: "#block-superfish-1"  
+          Nations menu: "#block-menu-block-3"
+          Footer main menu: "#block-menu-block-15"
+          Footer buttons menu: "#block-menu-block-22"
           Log In: "#edit-actions"
           Page Title: "#branding"
           Drupal Menu: "#admin-menu-wrapper"
@@ -38,7 +41,8 @@ default:
           News Block 4: "#block-views-news-block-4"           
           News Block 5: "#block-views-news-block-5" 
           Block in Block: "#block-container-blocks-search-all-news-facets"     
-          Resources: "#block-views-resources-block"    
+          Resources: "#block-views-resources-block" 
+          Current topics: "#block-views-current-topics-block"          
           Wales Banner: "#block-nation-banners-wales-banner"          
           Scotland Banner: "#block-nation-banners-scotland-banner"
           Northern Ireland Banner: "#block-nation-banners-northern-ireland-banner"

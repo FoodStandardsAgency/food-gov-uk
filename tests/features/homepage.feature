@@ -47,4 +47,4 @@ Feature: Homepage
     
   Scenario: Nations do not show in main menu 
     Given I am on the homepage
-    Then I should not see "FSA in Northern Ireland" in the "Menu" region
+    Then I should not see "FSA in Northern Ireland" in the "Menu" region  
