@@ -44,7 +44,7 @@ class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext
 //    }
 //
  /**
-  * @Given /^I wait (\d+) seconds$/
+  * @Given /^I wait (\d+) seconds(?:|s)$/
   */
   public function iWaitSeconds($seconds) {
     $this->getSession()->wait($seconds*1000);  

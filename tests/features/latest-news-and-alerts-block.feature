@@ -11,8 +11,6 @@ Feature: Latest news and alerts
   And I should see an "#block-views-news-block-6" element
   When I click "Test enforcement news" in block "block-views-news-block-6" 
   And I should be on "/test-enforcement-news"
-  And I wait for "2" second
   Then I edit the current node 
-  And I wait for "2" second
   And I click "Publishing options"
-  And the "edit-promote" checkbox should be checked
+  And the "Promoted to front page" checkbox should be checked

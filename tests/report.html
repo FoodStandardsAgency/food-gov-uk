@@ -387,13 +387,6 @@ So I can keep up to date<br />
 </li>
 <li class="passed">
 <div class="step">
-<span class="keyword">And </span>
-<span class="text">I wait for "<strong class="passed_param">2</strong>" second</span>
-<span class="path">Drupal\DrupalExtension\Context\Tag1Context::iWaitForSeconds()</span>
-</div>
-</li>
-<li class="passed">
-<div class="step">
 <span class="keyword">Then </span>
 <span class="text">I edit the current node</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iEditTheCurrentNode()</span>
@@ -402,24 +395,24 @@ So I can keep up to date<br />
 <li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I wait for "<strong class="passed_param">2</strong>" second</span>
+<span class="text">I click "<strong class="passed_param">Publishing options</strong>"</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
+</div>
+</li>
+<li class="passed">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I wait for "<strong class="passed_param">10</strong>" seconds</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iWaitForSeconds()</span>
 </div>
 </li>
 <li class="failed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I click "<strong class="failed_param">Publishing options</strong>"</span>
-<span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
-</div>
-<pre class="backtrace">Link with id|title|alt|text &quot;Publishing options&quot; not found.</pre>
-</li>
-<li class="skipped">
-<div class="step">
-<span class="keyword">And </span>
-<span class="text">the "<strong class="skipped_param">edit-promote</strong>" checkbox should be checked</span>
+<span class="text">the "<strong class="failed_param">Promoted to front page</strong>" checkbox should be checked</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertCheckboxChecked()</span>
 </div>
+<pre class="backtrace">Checkbox &quot;Promoted to front page&quot; is not checked, but it should be.</pre>
 </li>
 </ol>
 </div>
@@ -430,10 +423,10 @@ So I can keep up to date<br />
 1 scenario (<strong class="failed">1 failed</strong>)
 </p>
 <p class="steps">
-11 steps (<strong class="passed">9 passed</strong>, <strong class="skipped">1 skipped</strong>, <strong class="failed">1 failed</strong>)
+10 steps (<strong class="passed">9 passed</strong>, <strong class="failed">1 failed</strong>)
 </p>
 <p class="time">
-0m24.791s
+0m39.14s
 </p>
 </div>
 <div class="switchers">

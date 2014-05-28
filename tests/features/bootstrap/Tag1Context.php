@@ -1196,7 +1196,7 @@ class Tag1Context extends DrupalContext {
       $data_element = $page_element->find('css', "#behat-data");
       if ($data_element) {        
         $data = $data_element->getHtml();
-        print $data;
+       # print $data;
       }
       else {
         throw new \Exception('Can\'t get behat data.');
@@ -1215,7 +1215,7 @@ class Tag1Context extends DrupalContext {
   private function getDrupalNid(){ 
     $nid = null;
     $data = $this->getDrupalData();
-    print "data: $data";
+    #print "data: $data";
     $matches = array();
     if (preg_match('/drupal nid:(\w*)/',$data, $matches)) {
       if (!$nid = $matches[1]) {
