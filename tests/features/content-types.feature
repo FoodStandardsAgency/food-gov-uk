@@ -124,6 +124,7 @@ Feature: Content types
   And I should see "Create News" in the "Page Title" region
   And I fill in "edit-title" with "test"
   And I check the box "N/A" in "edit-field-site-section-und"
+  And I click "News"
   And I select "General News" from "edit-field-news-type-und"
   And I press "edit-submit" in the "Submit" region
   Then I should see "News test has been created."   

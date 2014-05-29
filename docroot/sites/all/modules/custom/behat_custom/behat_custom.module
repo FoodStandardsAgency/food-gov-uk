@@ -10,6 +10,7 @@
 function behat_custom_block_info() {
   $blocks['behat'] = array(
     'info' => t('Behat data'),
+    'cache' => DRUPAL_NO_CACHE,
   );
   return $blocks;
 }
@@ -18,6 +19,8 @@ function behat_custom_block_info() {
  * Implements hook_block_view().
  */
 function behat_custom_block_view($delta = '') {
+
+
   $block = array();
   switch ($delta) {
     case 'behat':
