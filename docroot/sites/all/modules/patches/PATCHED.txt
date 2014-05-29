@@ -42,6 +42,10 @@ Apache Solr Views Integration
 Fixes issue where HTML was being stripped out of fields by Views.
 apachesolr_views_handler-include_html.patch
 
+Prevent error message:
+Undefined property: apachesolr_views_query::$group_operator line 83 apachesolr_views_query.inc
+https://drupal.org/node/1761432
+
 ===========================================
 
 Facet API

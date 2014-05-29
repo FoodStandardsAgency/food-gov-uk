@@ -32,6 +32,13 @@ class apachesolr_views_query extends views_plugin_query {
    */
   protected $where = array();
 
+  /**
+   * The default group operator.
+   *
+   * @var string
+   */
+  protected $group_operator = 'AND';
+
   public function build(&$view) {
     $view->init_pager();
 
