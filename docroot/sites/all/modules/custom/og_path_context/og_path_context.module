@@ -29,7 +29,8 @@ function og_path_context_handler_path() {
     return;
   }
 
-  $path = explode('/', $item['path']);
+  $path_alias = request_path();
+  $path = explode('/', $path_alias);
 
   if (!is_array($path) || empty($path)) {
     return;
