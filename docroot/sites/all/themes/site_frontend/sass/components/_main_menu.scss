@@ -5,7 +5,8 @@
   * The Superfish menu block needs a block class: main-menu-desktop
   */
 
-.main-menu-desktop {
+.main-menu-desktop,
+.main-menu-desktop.block {
 	 overflow: visible;
 }
 
