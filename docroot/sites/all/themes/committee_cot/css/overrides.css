@@ -38,10 +38,12 @@ h1 {
 }
 
 /* links */
-a {
+a,
+.page-section-teaser .node__title a {
 	color: #666699;
 }
-a:hover {
+a:hover,
+.page-section-teaser .node__title a:hover {
 	color: #666699;
 }
 
@@ -67,7 +69,7 @@ a:hover {
 }
 .sidebar-menu-2 .menu-block-wrapper a,
 .sidebar-menu-2 .block__content a {
-    background-image: url("../images/sidebar-arrow-right.png") 10px center no-repeat;
+    background: url('../images/committee-sidebar-arrow-right.png') 10px center no-repeat;
 }
 .sidebar-menu-2 .menu-block-wrapper a.active,
 .sidebar-menu-2 .block__content a.active {
@@ -80,5 +82,5 @@ a:hover {
 .sidebar-menu-2 .menu-block-wrapper li.expanded > a,
 .sidebar-menu-2 .block__content li.expanded > a {
     color: #666699;
-    background-image: url("../images/sidebar-arrow-down.png") 9px center no-repeat;
+    background: url('../images/committee-sidebar-arrow-down.png') 9px center no-repeat;
 }
