@@ -5,14 +5,14 @@
 
 /* custom classes in block.tpl.php */
 .block,
+.block__content,
 .custom-block-inner,
 .custom-block-title-wrapper,
 .custom-block-content-inner {
-	overflow: hidden;
+	overflow: hidden;	// hide overflow to prevent gradients from extending beyond rounded borders and also to allow div to stretch down when children are floated
 }
 
 .grey-block {
-	overflow: hidden;
 	border: 1px solid #e8e8e8;
 	-webkit-border-radius: 9px;
 	-moz-border-radius: 9px;
@@ -24,11 +24,6 @@
 		color: #fff;
 		padding: .3em 11px;
 		margin: 0;
-		-webkit-border-radius: 9px 9px 0 0;
-		-moz-border-radius: 9px 9px 0 0;
-		-o-border-radius: 9px 9px 0 0;
-		-ms-border-radius: 9px 9px 0 0;
-		border-radius: 9px 9px 0 0;
 		background: #999;
 		background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
 		background: -moz-linear-gradient(top,#999 6%,#3e3e3e 100%);
@@ -41,15 +36,9 @@
 		border-bottom: none;
 	}
 	.block__content {
-		overflow: hidden;
 		padding: 1em 11px .3em 11px;
 		background-color: #fff;
-		-webkit-border-radius: 0 0 9px 9px;
-		-moz-border-radius: 0 0 9px 9px;
-		-o-border-radius: 0 0 9px 9px;
-		-ms-border-radius: 0 0 9px 9px;
-		border-radius: 0 0 9px 9px;
-	}
+		}
 }
 
 .purple-block {
@@ -88,24 +77,21 @@
 	-ms-border-radius: 9px;
 	border-radius: 9px;
 	background: #f9fcfd;
-	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-	background: -moz-linear-gradient(top,#f9fcfd 1%,#d2e8f1 100%);
-	background: -webkit-gradient(linear,left top,left bottom,color-stop(1%,#f9fcfd),color-stop(100%,#d2e8f1));
-	background: -webkit-linear-gradient(top,#f9fcfd 1%,#d2e8f1 100%);
-	background: -o-linear-gradient(top,#f9fcfd 1%,#d2e8f1 100%);
-	background: -ms-linear-gradient(top,#f9fcfd 1%,#d2e8f1 100%);
-	background: linear-gradient(top,#f9fcfd 1%,#d2e8f1 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9fcfd',endColorstr='#d2e8f1',GradientType=0);
+	.custom-block-inner {
+		background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+		background: -moz-linear-gradient(top,#f9fcfd 1%,#d2e8f1 100%);
+		background: -webkit-gradient(linear,left top,left bottom,color-stop(1%,#f9fcfd),color-stop(100%,#d2e8f1));
+		background: -webkit-linear-gradient(top,#f9fcfd 1%,#d2e8f1 100%);
+		background: -o-linear-gradient(top,#f9fcfd 1%,#d2e8f1 100%);
+		background: -ms-linear-gradient(top,#f9fcfd 1%,#d2e8f1 100%);
+		background: linear-gradient(top,#f9fcfd 1%,#d2e8f1 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9fcfd',endColorstr='#d2e8f1',GradientType=0);
+	}
 	h2.block__title {
 		font-size: 1.5em;
 		color: #fff;
 		padding: .3em 11px;
 		margin: 0;
-		-webkit-border-radius: 9px 9px 0 0;
-		-moz-border-radius: 9px 9px 0 0;
-		-o-border-radius: 9px 9px 0 0;
-		-ms-border-radius: 9px 9px 0 0;
-		border-radius: 9px 9px 0 0;
 		background: #0781af;
 		background: -moz-linear-gradient(top,#0781af 50%,#027099 100%);
 		background: -webkit-gradient(linear,left top,left bottom,color-stop(50%,#0781af),color-stop(100%,#027099));
@@ -118,31 +104,23 @@
 	}
 	.block__content {
 		padding: 1em 11px .3em 11px;
-		-webkit-border-radius: 0 0 9px 9px;
-		-moz-border-radius: 0 0 9px 9px;
-		-o-border-radius: 0 0 9px 9px;
-		-ms-border-radius: 0 0 9px 9px;
-		border-radius: 0 0 9px 9px;
 	}
 }
 
 .blue-block-white-background {
-	-webkit-border-radius: 9px;
-	-moz-border-radius: 9px;
-	-o-border-radius: 9px;
-	-ms-border-radius: 9px;
-	border-radius: 9px;
   background: #fff;
-	h2.block__title {
-		font-size: 1.5em;
-		color: #fff;
-		padding: .3em 11px;
-		margin: 0;
+  .custom-block-title-wrapper {
 		-webkit-border-radius: 9px 9px 0 0;
 		-moz-border-radius: 9px 9px 0 0;
 		-o-border-radius: 9px 9px 0 0;
 		-ms-border-radius: 9px 9px 0 0;
 		border-radius: 9px 9px 0 0;
+	}
+	h2.block__title {
+		font-size: 1.5em;
+		color: #fff;
+		padding: .3em 11px;
+		margin: 0;
 		background: #0781af;
 		background: -moz-linear-gradient(top,#0781af 50%,#027099 100%);
 		background: -webkit-gradient(linear,left top,left bottom,color-stop(50%,#0781af),color-stop(100%,#027099));
@@ -176,11 +154,6 @@
 		color: #fff;
 		padding: .3em 11px;
 		margin: 0;
-		-webkit-border-radius: 9px 9px 0 0;
-		-moz-border-radius: 9px 9px 0 0;
-		-o-border-radius: 9px 9px 0 0;
-		-ms-border-radius: 9px 9px 0 0;
-		border-radius: 9px 9px 0 0;
 		background: #3b9356;
 		background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
 		background: -moz-linear-gradient(top,#3b9356 0,#02684a 100%);
@@ -192,42 +165,34 @@
 		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3b9356',endColorstr='#02684a',GradientType=0);
 	}
 	.block__content {
-		overflow: hidden;
 		padding: 1em 11px .3em 11px;
 		background: #dde9c9;
-		background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-		background: -moz-linear-gradient(top,#f0f5e7 0,#dde9c9 100%);
-		background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#f0f5e7),color-stop(100%,#dde9c9));
-		background: -webkit-linear-gradient(top,#f0f5e7 0,#dde9c9 100%);
-		background: -o-linear-gradient(top,#f0f5e7 0,#dde9c9 100%);
-		background: -ms-linear-gradient(top,#f0f5e7 0,#dde9c9 100%);
-		background: linear-gradient(top,#f0f5e7 0,#dde9c9 100%);
-		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f0f5e7',endColorstr='#dde9c9',GradientType=0);
-		-moz-border-radius: 0 0 9px 9px;
-		-webkit-border-radius: 0 0 9px 9px;
-		-o-border-radius: 0 0 9px 9px;
-		-ms-border-radius: 0 0 9px 9px;
-		border-radius: 0 0 9px 9px;
+		.custom-block-content-inner {
+				background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+				background: -moz-linear-gradient(top,#f0f5e7 0,#dde9c9 100%);
+				background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#f0f5e7),color-stop(100%,#dde9c9));
+				background: -webkit-linear-gradient(top,#f0f5e7 0,#dde9c9 100%);
+				background: -o-linear-gradient(top,#f0f5e7 0,#dde9c9 100%);
+				background: -ms-linear-gradient(top,#f0f5e7 0,#dde9c9 100%);
+				background: linear-gradient(top,#f0f5e7 0,#dde9c9 100%);
+				filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f0f5e7',endColorstr='#dde9c9',GradientType=0);
+		}
 	}
 }
 
 .green-block-white-background {
-	overflow: hidden;
-	-webkit-border-radius: 9px;
-	-moz-border-radius: 9px;
-	-o-border-radius: 9px;
-	-ms-border-radius: 9px;
-	border-radius: 9px;
-	h2.block__title {
-		font-size: 1.5em;
-		color: #fff;
-		padding: .3em 10px;
-		margin: 0;
+	.custom-block-title-wrapper {
 		-webkit-border-radius: 9px 9px 0 0;
 		-moz-border-radius: 9px 9px 0 0;
 		-o-border-radius: 9px 9px 0 0;
 		-ms-border-radius: 9px 9px 0 0;
 		border-radius: 9px 9px 0 0;
+	}
+	h2.block__title {
+		font-size: 1.5em;
+		color: #fff;
+		padding: .3em 10px;
+		margin: 0;
 		background: #3b9356;
 		background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
 		background: -moz-linear-gradient(top,#3b9356 0,#02684a 100%);
@@ -247,7 +212,6 @@
 		-o-border-radius: 0 0 9px 9px;
 		-ms-border-radius: 0 0 9px 9px;
 		border-radius: 0 0 9px 9px;
-		overflow: hidden;	// needed for content that is floated. Stops the div from collapsing
 	}
 }
 

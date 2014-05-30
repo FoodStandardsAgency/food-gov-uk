@@ -21,11 +21,6 @@
 		color: #fff;
 		padding: .3em 11px;
 		margin: 0;
-		-webkit-border-radius: 9px 9px 0 0;
-		-moz-border-radius: 9px 9px 0 0;
-		-o-border-radius: 9px 9px 0 0;
-		-ms-border-radius: 9px 9px 0 0;
-		border-radius: 9px 9px 0 0;
 		background: #999;
 		background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
 		background: -moz-linear-gradient(top,#999 6%,#3e3e3e 100%);
@@ -42,11 +37,6 @@
 		padding: 1em 11px 1em 11px;
 		background: #fff;
 		/* if we add a background colour we need to add rounded bottom borders here too */
-		-webkit-border-radius: 0 0 9px 9px;
-		-moz-border-radius: 0 0 9px 9px;
-		-o-border-radius: 0 0 9px 9px;
-		-ms-border-radius: 0 0 9px 9px;
-		border-radius: 0 0 9px 9px;
 		overflow: hidden;	// because of floats within the div
 	}
 	.field-collection-view {
