@@ -4,9 +4,9 @@ core = 7.x
 files[] = safeword.module
 files[] = safeword.migrate.inc
 
-; Information added by Drupal.org packaging script on 2014-02-27
-version = "7.x-1.8"
+; Information added by Drupal.org packaging script on 2014-05-30
+version = "7.x-1.9"
 core = "7.x"
 project = "safeword"
-datestamp = "1393543105"
+datestamp = "1401457128"
 
