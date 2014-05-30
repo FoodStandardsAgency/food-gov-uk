@@ -1256,34 +1256,32 @@ ul.breadcrumb {
  */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_committee_news\.scss}line{font-family:\000034}}
 .committee-news {
-  display: block;
-  margin: 0 0 1em 0;
-  padding: .3em 11px;
-  font-size: 1.4em;
-  font-weight: bold;
-  color: #fff;
-  background: #5d9711;
   clear: both;
   /* block heading */
   /* teaser title */
   /* teaser summary */ }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_committee_news\.scss}line{font-family:\0000315}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_committee_news\.scss}line{font-family:\000038}}
   .committee-news h2.block__title,
   .committee-news h3.block__title {
-    font-size: 1em;
-    margin-bottom: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_committee_news\.scss}line{font-family:\0000320}}
+    display: block;
+    margin: 0 0 1em 0;
+    padding: .3em 11px;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #fff;
+    background: #5d9711; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_committee_news\.scss}line{font-family:\0000318}}
   .committee-news .node__title {
     font-weight: bold;
     display: block; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_committee_news\.scss}line{font-family:\0000323}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_committee_news\.scss}line{font-family:\0000321}}
     .committee-news .node__title a {
       text-decoration: none;
       color: #006f51; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_committee_news\.scss}line{font-family:\0000327}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_committee_news\.scss}line{font-family:\0000325}}
     .committee-news .node__title a:hover {
       text-decoration: underline; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_committee_news\.scss}line{font-family:\0000332}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_committee_news\.scss}line{font-family:\0000330}}
   .committee-news .field--name-field-summary {
     font-size: 1.2em;
     line-height: 1.4em;
