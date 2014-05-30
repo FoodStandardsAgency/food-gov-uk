@@ -354,6 +354,16 @@ function og_menu_single_block_configure($delta = '') {
 }
 
 /**
+ * Implements hook_block_save()
+ */
+function og_menu_single_block_save($delta = '', $edit = array()) {
+
+  if ($delta == 'menu') {
+    variable_set('og_menu_single_block_menu_depth', $edit['og_menu_single_block_menu_depth']);
+  }
+}
+
+/**
  * Implements hook_block_view().
  */
 function og_menu_single_block_view($delta = '') {
