@@ -46,6 +46,10 @@ Prevent error message:
 Undefined property: apachesolr_views_query::$group_operator line 83 apachesolr_views_query.inc
 https://drupal.org/node/1761432
 
+Make Views Context filters work with Apache Solr
+apachesolr_views_handler_argument is ignored by build(&$view)
+https://drupal.org/node/1750952
+
 ===========================================
 
 Facet API

@@ -90,6 +90,10 @@ class apachesolr_views_query extends views_plugin_query {
     if (!empty($conditions_string)) {
       $params['fq'] = $conditions_string;
     }
+    // Add any filters, if conditions have not been used
+    elseif (isset($this->params['filters']) && !empty($this->params['filters'])) {
+      $params['fq'] = $this->params['filters'];
+    }
 
     // Set query type if it is present.
     if (isset($this->params['defType'])) {
@@ -240,6 +244,12 @@ class apachesolr_views_query extends views_plugin_query {
         $condition_strings[] = $this->build_where_string($condition);
       }
       $condition_strings = array_filter($condition_strings);
+
+      // Bind filters with contextual filter.
+      if (isset($this->params['filters']) && is_array($this->params['filters']) && !empty($this->params['filters'])) {
+        $condition_strings = array_merge($condition_strings, $this->params['filters']);
+      }
+
       return implode(' ' . $where['type'] . ' ', $condition_strings);
     }
   }

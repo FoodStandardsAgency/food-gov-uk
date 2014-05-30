@@ -1,0 +1,28 @@
+diff --git a/apachesolr_views_query.inc b/apachesolr_views_query.inc
+index ba7ceb6..9935080 100644
+--- a/apachesolr_views_query.inc
++++ b/apachesolr_views_query.inc
+@@ -83,6 +83,10 @@ class apachesolr_views_query extends views_plugin_query {
+     if (!empty($conditions_string)) {
+       $params['fq'] = $conditions_string;
+     }
++    // Add any filters, if conditions have not been used.
++    elseif (!empty($this->params['filters'])) {
++      $params['fq'] = $this->params['filters'];
++    }
+ 
+     // Set query type if it is present.
+     if (isset($this->params['defType'])) {
+@@ -233,6 +237,12 @@ class apachesolr_views_query extends views_plugin_query {
+         $condition_strings[] = $this->build_where_string($condition);
+       }
+       $condition_strings = array_filter($condition_strings);
++
++      // Bind filters with contextual filters.
++      if(!empty($this->params['filters'])) {
++        $condition_strings = array_merge($condition_strings, $this->params['filters']);
++      }
++
+       return implode(' ' . $where['type'] . ' ', $condition_strings);
+     }
+   }
