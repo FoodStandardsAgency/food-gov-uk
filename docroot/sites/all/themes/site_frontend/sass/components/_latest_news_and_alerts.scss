@@ -59,6 +59,7 @@
 	}
 	/* view footer */
 	.view-footer {
+		overflow: hidden;
 		width: 697px;
 		position: absolute;
 		bottom: 1px;
@@ -67,8 +68,6 @@
 		line-height: 1em;
 		clear: both;
 		margin-top: 0.5em;
-		padding-top: 0.45em;
-		padding-bottom: 0.45em;
 		border-top: 1px solid #ccc;
 		-moz-border-radius: 0 0 8px 8px;
 		-webkit-border-radius: 0 0 8px 8px;
@@ -77,6 +76,9 @@
 		border-radius: 0 0 8px 8px;
 		overflow: hidden;
 		.custom-views-footer-inner {
+			overflow: hidden;
+			padding-top: 0.45em;
+			padding-bottom: 0.45em;
 			background: #fff;
 			background: -moz-linear-gradient(top,#fff 0%,#cfcfcf 100%);
 			background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#fff),color-stop(100%,#cfcfcf));
