@@ -93,14 +93,9 @@ ENDSQL;
     $this->addFieldMapping('field_feature_image:preserve_files')
       ->defaultValue(TRUE);
 
-//    $this->addFieldMapping('field_path', 'title');
-//    $this->addFieldMapping('field_path:machine', 'PATH');
-//
-//    $this->addFieldMapping('path', 'PATH')
-//      ->callbacks(array($this, 'pathFormatter'));
-//
-//    // Disable pathauto.
-//     $this->addFieldMapping('pathauto', FALSE);
+    $this->addFieldMapping('field_path', 'title');
+    $this->addFieldMapping('field_path:machine', 'PATH')
+      ->callbacks(array($this, 'pathFormatter'));
   }
 
   /**
