@@ -16,8 +16,8 @@ class FSARelatedContentCollectionMigration extends FSAMigration {
    *
    * @var string
    */
-  protected $query = <<<'ENDSQL'
-    SELECT LINK.PARENTID, WM_CONCAT(OBJ.PATH) as PATHS
+  protected $query_related_items = <<<'ENDSQL'
+    SELECT LINK.PARENTID, WM_CONCAT(OBJ.PATH) as VALUE
     FROM OBJ, LINK, OBJTYPE, LINKTYPE
     WHERE LINK.CHILDID = OBJ.OBJECTID
     AND LINK.LINKTYPEID = LINKTYPE.LINKTYPEID
@@ -25,6 +25,23 @@ class FSARelatedContentCollectionMigration extends FSAMigration {
     AND LINKTYPE.LINKTYPENAME = 'Relation'
     AND LINK.PARENTID IN ( :obj_ids )
     AND OBJTYPE.NAME IN ('AdobeAcrobatDocument', 'MicrosoftExcelSpreadsheet', 'MicrosoftWordDocument', 'MicrosoftPowerpointDocument')
+    GROUP BY LINK.PARENTID
+ENDSQL;
+
+  /**
+   * SQL Query to get the feature image from an object id.
+   *
+   * @var string
+   */
+  protected $query_related_CSV = <<<'ENDSQL'
+    SELECT LINK.PARENTID, WM_CONCAT(OBJ.PATH) as VALUE
+    FROM OBJ, LINK, OBJTYPE, LINKTYPE
+    WHERE LINK.CHILDID = OBJ.OBJECTID
+    AND LINK.LINKTYPEID = LINKTYPE.LINKTYPEID
+    AND OBJTYPE.OBJECTTYPEID = OBJ.OBJECTTYPEID
+    AND LINKTYPE.LINKTYPENAME = 'Relation'
+    AND LINK.PARENTID IN ( :obj_ids )
+    AND OBJTYPE.NAME IN ('CSV')
     GROUP BY LINK.PARENTID
 ENDSQL;
 
@@ -60,7 +77,10 @@ ENDSQL;
 
     // Configure the source of the migration.
     $this->source = new MigrateSourceList(
-      new FSAMigrateListOracleGenericCollection('data/csv/dev-alterian-id-list.csv', $this->query),
+      new FSAMigrateListOracleGenericCollection(
+        'data/csv/dev-alterian-id-list.csv',
+        array( $this->query_related_items, $this->query_related_CSV )
+      ),
       new FSAMigrateItemOracleGenericCollection()
     );
 
@@ -74,15 +94,23 @@ ENDSQL;
     $this->addFieldMapping('host_entity_id', 'OBJECTID')
       ->sourceMigration('FSADocumentpage');
 
-    // Related content
-    $this->addFieldMapping('field_fc_section_heading')
+    // Related content.
+    // Related media.
+    $this->addFieldMapping('field_fc_related_items_heading')
       ->defaultValue('Related content');
-
-    // Related media
-    $this->addFieldMapping('field_fc_related_items', 'sourceImagePath')
+    $this->addFieldMapping('field_fc_related_items', 'sourceRelatedItemsPath')
       ->separator(',')
       ->sourceMigration('FSAMediaDocument');
     $this->addFieldMapping('field_fc_related_items:file_class')
+      ->defaultValue('MigrateFileFid');
+
+    // Related CSV.
+    $this->addFieldMapping('field_fc_files_csv_heading')
+      ->defaultValue('Related CSV');
+    $this->addFieldMapping('field_fc_files_csv', 'sourceRelatedCSVPath')
+      ->separator(',')
+      ->sourceMigration('FSAMediaDocument');
+    $this->addFieldMapping('field_fc_files_csv:file_class')
       ->defaultValue('MigrateFileFid');
   }
 
@@ -90,15 +118,26 @@ ENDSQL;
    * Function prepareRow.
    */
   public function prepareRow($row) {
-    $newPath = NULL;
+    // OBJECTID will be sourceid1.
+    // We need to reassign it, otherwise the value gets mixed up. Bug in migrate module.
+    $row->OBJECTID = $row->PARENTID;
 
-    if (!is_null($row->PATHS)) {
-      $PATHS = explode(',', $row->PATHS);
+    $newRelatedItemsPath = NULL;
+    if (!is_null($row->query1)) {
+      $PATHS = explode(',', $row->query1);
       foreach ($PATHS as $PATH) {
-        $newPath .= variable_get('file_public_path', 'sites/default/files') . '/sources/files' . $PATH . ',';
+        $newRelatedItemsPath .= variable_get('file_public_path', 'sites/default/files') . '/sources/files' . $PATH . ',';
       }
     }
+    $row->sourceRelatedItemsPath = $newRelatedItemsPath;
 
-    $row->sourceImagePath = $newPath;
+    $newRelatedCSVPath = NULL;
+    if (!is_null($row->query2)) {
+      $PATHS = explode(',', $row->query2);
+      foreach ($PATHS as $PATH) {
+        $newRelatedCSVPath .= variable_get('file_public_path', 'sites/default/files') . '/sources/files' . $PATH . ',';
+      }
+    }
+    $row->sourceRelatedCSVPath = $newRelatedCSVPath;
   }
 }

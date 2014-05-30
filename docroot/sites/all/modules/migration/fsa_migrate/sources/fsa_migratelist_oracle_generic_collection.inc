@@ -15,18 +15,18 @@ class FSAMigrateListOracleGenericCollection extends MigrateList {
 
   public $fileCSV;
 
-  public $query;
+  public $queries;
 
   /**
    * Class constructor.
    *
    * @param $CSVFile
    *  CSV file to use.
-   * @param $query
-   *  SQL query to retrieve more information.
+   * @param $array_of_queries
+   *  Array of SQL query to retrieve more information.
    */
-  public function __construct($CSVFile, $query) {
-    $this->query = $query;
+  public function __construct($CSVFile, $array_of_queries) {
+    $this->queries = $array_of_queries;
 
     $realPathCSV = FSAMigrateListBase::checkCSVFileExists($CSVFile);
     if ($realPathCSV) {
@@ -55,14 +55,7 @@ class FSAMigrateListOracleGenericCollection extends MigrateList {
   public function getIdList() {
     $sqlResult = $this->queryFromObjectIdsList();
 
-    foreach ($sqlResult['PARENTID'] as $itemNumber => $objectId) {
-      $objectList[] = array(
-        'OBJECTID' => $objectId,
-        'PATHS' => $sqlResult['PATHS'][$itemNumber]
-      );
-    }
-
-    return $objectList;
+    return $sqlResult;
   }
 
   /**
@@ -81,16 +74,34 @@ class FSAMigrateListOracleGenericCollection extends MigrateList {
     }
   }
 
+  /**
+   * Return an array with queries results and object id.
+   *
+   * @return array
+   *  Array composed of queries results and object id.
+   */
   protected function queryFromObjectIdsList() {
     GLOBAL $connectionOracle;
 
     // Gets the objects id list.
     $objectList = FSAMigrateListBase::getIdListFromCSV($this->fileCSV);
-    // Prepares and execute the SQL query with objects id.
-    $replacedQuery = str_replace(':obj_ids', implode(',', $objectList), $this->query);
-    $sqlResult = FSAMigration::oracleQueryAll($replacedQuery, array(), $connectionOracle);
 
-    return $sqlResult;
+    // Prepares and execute the SQL query with objects id.
+    foreach ($this->queries as $query_number => $query) {
+      $sqlResult = NULL;
+      $replacedQuery = NULL;
+      $query_array_number = NULL;
+
+      $replacedQuery = str_replace(':obj_ids', implode(',', $objectList), $query);
+      $sqlResult = FSAMigration::oracleQueryAll($replacedQuery, array(), $connectionOracle);
+
+      // The return data will be like "query1" => "values ...".
+      $query_array_number = 'query' . ( $query_number + 1 );
+      $queriesResults[$sqlResult['PARENTID'][0]][$query_array_number] = $sqlResult['VALUE'][0];
+      $queriesResults[$sqlResult['PARENTID'][0]]['PARENTID'] = $sqlResult['PARENTID'][0];
+    }
+
+    return $queriesResults;
   }
 }
 
@@ -100,33 +111,17 @@ class FSAMigrateListOracleGenericCollection extends MigrateList {
  * Returns an object with all information for an object.
  */
 class FSAMigrateItemOracleGenericCollection extends MigrateItem {
-
   /**
-   * SQL Query to get the primary info and the object id.
+   * Returns the data for the source item keyed by that ID, as an object.
    *
-   * @var string
-   */
-  protected $query = <<<'ENDSQL'
-    SELECT OBJ.OBJECTID, OBJ.SIMPLENAME, OBJ.PATH, OBJTYPE.NAME as OBJECTTYPE, WM_CONCAT(FIELDVALUE.FIELDID) as FIELDIDS
-    FROM FIELDVALUE, OBJ, OBJTYPE
-    WHERE FIELDVALUE.OBJECTID = OBJ.OBJECTID
-    AND OBJ.OBJECTTYPEID = OBJTYPE.OBJECTTYPEID
-    AND OBJ.OBJECTID = :objectid
-    GROUP BY OBJ.OBJECTID, OBJ.SIMPLENAME, OBJ.PATH, OBJTYPE.NAME
-ENDSQL;
-
-  /**
-   * Given an ID obtained from a MigrateList class, returns the data for the
-   * source item keyed by that ID, as an object.
-   *
-   * @param mixed $id
+   * @param array $id
    * @return stdClass
    */
   public function getItem($id) {
-    // Initialize the object.
     $object = new stdClass();
-    foreach ($id as $rowName => $value) {
-      $object->{$rowName} = $value;
+
+    foreach ($id as $queryNumber => $queryValue) {
+      $object->{$queryNumber} = $queryValue;
     }
 
     return $object;

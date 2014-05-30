@@ -73,6 +73,7 @@ class FSAMediaDocumentMigration extends FSAMigration {
     $this->addFieldMapping('uid')
       ->defaultValue(1);
   }
+
   /**
    * Function prepareRow.
    */
