@@ -1,0 +1,84 @@
+/* color style guide:
+ * header background - #3a3a9b
+ * seaction header background - #7f81c4
+ * left sidebar blocks background - #5d5ead
+ * links and sidebar menu top border and page titles - #666699
+ * header and footer border - #7f7fc0
+ * right and down arrows color - #646464
+*/
+
+/* page header and top border */
+.header-wrapper {
+	border-bottom: 3px solid #7f7fc0;
+	background: none;
+	background-color: #3a3a9b;
+}
+
+/* page bottom borders */
+.main-wrapper {
+	border-bottom: 4px solid #7f7fc0;
+}
+.bottom-menu-wrapper {
+	border-top: none;
+}
+
+/* site name */
+h1.site-name {
+	display: none;
+}
+
+/* page title */
+h1 {
+	color: #666699;
+}
+
+/* content main */
+.main-content-inner {
+	padding-bottom: 50px;
+}
+
+/* links */
+a {
+	color: #666699;
+}
+a:hover {
+	color: #666699;
+}
+
+/* summary field */
+.field--name-field-summary {
+	color: #333;
+}
+
+/* section headings */
+.page-section-heading {
+	background: #7f81c4;
+}
+
+/* latest news view title */
+.committee-news h2.block__title, 
+.committee-news h3.block__title {
+	background: #7f81c4;
+}
+
+/* sidebar menu */
+.sidebar-menu-2 {
+	border-top: 4px solid #666699;
+}
+.sidebar-menu-2 .menu-block-wrapper a,
+.sidebar-menu-2 .block__content a {
+    background-image: url("../images/sidebar-arrow-right.png") 10px center no-repeat;
+}
+.sidebar-menu-2 .menu-block-wrapper a.active,
+.sidebar-menu-2 .block__content a.active {
+    color: #666699;
+}
+.sidebar-menu-2 .menu-block-wrapper li a,
+.sidebar-menu-2 .block__content li a {
+    color: #333; 
+}
+.sidebar-menu-2 .menu-block-wrapper li.expanded > a,
+.sidebar-menu-2 .block__content li.expanded > a {
+    color: #666699;
+    background-image: url("../images/sidebar-arrow-down.png") 9px center no-repeat;
+}
