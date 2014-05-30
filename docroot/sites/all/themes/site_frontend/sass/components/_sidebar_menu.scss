@@ -93,11 +93,13 @@
 
 /**
  * Sidebar menu with all top level menu items looking the same
+ * used in committee sites
  * Requires a block class: sidebar-menu-option-2
  */
 .sidebar-menu-2 {
 	margin-bottom: 12px;
-	.menu-block-wrapper {
+	.menu-block-wrapper,
+	.block_content {
 		ul, li {
 			font-size: 1em;	// sets fornt base fornt as 10px, same a s body base fornt.
 		}
