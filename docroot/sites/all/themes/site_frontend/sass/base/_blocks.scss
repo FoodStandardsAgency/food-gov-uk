@@ -8,7 +8,8 @@
 .block__content,
 .custom-block-inner,
 .custom-block-title-wrapper,
-.custom-block-content-inner {
+.custom-block-content-inner,
+.custom-views-footer-inner {
 	overflow: hidden;	// hide overflow to prevent gradients from extending beyond rounded borders and also to allow div to stretch down when children are floated
 }
 

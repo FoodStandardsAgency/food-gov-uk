@@ -70,20 +70,22 @@
 		padding-top: 0.45em;
 		padding-bottom: 0.45em;
 		border-top: 1px solid #ccc;
-		-moz-border-radius: 0 0 9px 9px;
-		-webkit-border-radius: 0 0 9px 9px;
-		-o-border-radius: 0 0 9px 9px;
-		-ms-border-radius: 0 0 9px 9px;
-		border-radius: 0 0 9px 9px;
+		-moz-border-radius: 0 0 8px 8px;
+		-webkit-border-radius: 0 0 8px 8px;
+		-o-border-radius: 0 0 8px 8px;
+		-ms-border-radius: 0 0 8px 8px;
+		border-radius: 0 0 8px 8px;
 		overflow: hidden;
-		background: #fff;
-		background: -moz-linear-gradient(top,#fff 0%,#cfcfcf 100%);
-		background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#fff),color-stop(100%,#cfcfcf));
-		background: -webkit-linear-gradient(top,#fff 0%,#cfcfcf 100%);
-		background: -o-linear-gradient(top,#fff 0%,#cfcfcf 100%);
-		background: -ms-linear-gradient(top,#fff 0%,#cfcfcf 100%);
-		background: linear-gradient(top,#fff 0%,#cfcfcf 100%);
-		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#cfcfcf',GradientType=0);
+		.custom-views-footer-inner {
+			background: #fff;
+			background: -moz-linear-gradient(top,#fff 0%,#cfcfcf 100%);
+			background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#fff),color-stop(100%,#cfcfcf));
+			background: -webkit-linear-gradient(top,#fff 0%,#cfcfcf 100%);
+			background: -o-linear-gradient(top,#fff 0%,#cfcfcf 100%);
+			background: -ms-linear-gradient(top,#fff 0%,#cfcfcf 100%);
+			background: linear-gradient(top,#fff 0%,#cfcfcf 100%);
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#cfcfcf',GradientType=0);
+		}
 	}
 	/* more links with orange icons on the right of them */
 	p.more-link-orange-icon-right-wrapper {
@@ -113,21 +115,18 @@
 /* block styling */
 .latest-news-and-alerts {
 	overflow: hidden;
-	-moz-border-radius: 9px;
-	-webkit-border-radius: 9px;
-	-o-border-radius: 9px;
-	-ms-border-radius: 9px;
-	border-radius: 9px;
-	h2.block__title {
-		font-size: 1.5em;
-		color: #fff;
-		padding: .3em 10px;
-		margin: 0;
+	.custom-block-title-wrapper {
 		-moz-border-radius: 9px 9px 0 0;
 		-webkit-border-radius: 9px 9px 0 0;
 		-o-border-radius: 9px 9px 0 0;
 		-ms-border-radius: 9px 9px 0 0;
 		border-radius: 9px 9px 0 0;
+	}
+	h2.block__title {
+		font-size: 1.5em;
+		color: #fff;
+		padding: .3em 10px;
+		margin: 0;
 		background: #3b9356;
 		background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
 		background: -moz-linear-gradient(top,#3b9356 0,#02684a 100%);
