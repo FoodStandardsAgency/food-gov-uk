@@ -3,6 +3,13 @@
 	margin-bottom: 11px;
 }
 
+/* custom classes in block.tpl.php */
+.custom-block-inner,
+.custom-block-title-wrapper,
+.custom-block-content-inner {
+	overflow: hidden;
+}
+
 .grey-block {
 	overflow: hidden;
 	border: 1px solid #e8e8e8;
@@ -50,34 +57,26 @@
 	-o-border-radius: 9px;
 	-ms-border-radius: 9px;
 	border-radius: 9px;
-	background: #9e218a;
-	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-	background: -moz-linear-gradient(top,#9e218a 1%,#5d0050 100%);
-	background: -webkit-gradient(linear,left top,left bottom,color-stop(1%,#9e218a),color-stop(100%,#5d0050));
-	background: -webkit-linear-gradient(top,#9e218a 1%,#5d0050 100%);
-	background: -o-linear-gradient(top,#9e218a 1%,#5d0050 100%);
-	background: -ms-linear-gradient(top,#9e218a 1%,#5d0050 100%);
-	background: linear-gradient(top,#9e218a 1%,#5d0050 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#9e218a',endColorstr='#5d0050',GradientType=0);
+	.custom-block-inner {
+		background: #9e218a;
+		background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+		background: -moz-linear-gradient(top,#9e218a 1%,#5d0050 100%);
+		background: -webkit-gradient(linear,left top,left bottom,color-stop(1%,#9e218a),color-stop(100%,#5d0050));
+		background: -webkit-linear-gradient(top,#9e218a 1%,#5d0050 100%);
+		background: -o-linear-gradient(top,#9e218a 1%,#5d0050 100%);
+		background: -ms-linear-gradient(top,#9e218a 1%,#5d0050 100%);
+		background: linear-gradient(top,#9e218a 1%,#5d0050 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#9e218a',endColorstr='#5d0050',GradientType=0);
+	}
 	h2.block__title {
 		font-size: 1.5em;
 		color: #fff;
 		padding: .5em 11px .15em 11px;
 		margin: 0;
-		-webkit-border-radius: 9px 9px 0 0; 
-		-moz-border-radius: 9px 9px 0 0;
-		-o-border-radius: 9px 9px 0 0;
-		-ms-border-radius: 9px 9px 0 0;
-		border-radius: 9px 9px 0 0;
 	}
 	.block__content {
 		color: #fff;
 		padding: .5em 11px .3em 11px;
-		-webkit-border-radius: 0 0 9px 9px;
-		-moz-border-radius: 0 0 9px 9px;
-		-o-border-radius: 0 0 9px 9px;
-		-ms-border-radius: 0 0 9px 9px;
-		border-radius: 0 0 9px 9px;
 	}
 }
 
