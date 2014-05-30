@@ -1,0 +1,37 @@
+/* committee news
+ * requires block class: committee news
+ */
+.committee-news {
+	clear: both;
+	/* block heading */
+	h2.block__title,
+	h3.block__title {
+		display: block;
+		margin: 0 0 1em 0;
+		padding: .3em 11px;
+		font-size: 1.4em;
+		font-weight: bold;
+		color: #fff;
+		background: #5d9711;
+	}
+	/* teaser title */
+	.node__title {
+		font-weight: bold;
+		display: block;
+		a {
+			text-decoration: none;
+			color: #006f51;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+	}
+	/* teaser summary */
+	.field--name-field-summary {
+		font-size: 1.2em; 
+		line-height: 1.4em;
+		display: block;
+		color: #333;
+		margin-bottom: 0.2em;
+	}
+}
