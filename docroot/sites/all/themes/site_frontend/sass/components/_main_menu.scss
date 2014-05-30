@@ -10,8 +10,15 @@
 	 overflow: visible;
 }
 
-#main-menu .block {
-	overflow: visible;
+#main-menu {
+	.block,
+	.block__content,
+	.custom-block-inner,
+	.custom-block-title-wrapper,
+	.custom-block-content-inner,
+	.custom-views-footer-inner {
+		overflow: visible;
+	}
 }
 
 .main-menu-desktop {
