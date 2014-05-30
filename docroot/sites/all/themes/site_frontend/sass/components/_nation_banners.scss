@@ -1,4 +1,5 @@
 .nation-banner-scotland {
+	margin-bottom: 10px;
 	-webkit-border-radius: 8px;
 	-moz-border-radius: 8px;
 	-o-border-radius: 8px;
@@ -17,6 +18,7 @@
 	}
 }
 .nation-banner-northern-ireland {
+	margin-bottom: 10px;	
 	-webkit-border-radius: 8px;
 	-moz-border-radius: 8px;
 	-o-border-radius: 8px;
@@ -35,6 +37,7 @@
 	}
 }
 .nation-banner-wales {
+	margin-bottom: 10px;
 	-webkit-border-radius: 8px;
 	-moz-border-radius: 8px;
 	-o-border-radius: 8px;
@@ -55,14 +58,9 @@
 h1.nation-scotland,
 h1.nation-northern-ireland,
 h1.nation-wales {
-	margin: 0 0 10px 0;
+	margin: 0;
 	padding: 4px 12px;
 	color: #fff;
-	-webkit-border-radius: 8px;
-	-moz-border-radius: 8px;
-	-o-border-radius: 8px;
-	-ms-border-radius: 8px;
-	border-radius: 8px;
 	font-size: 2.8em;
 	line-height: 1.2em;
 	font-weight: normal;
