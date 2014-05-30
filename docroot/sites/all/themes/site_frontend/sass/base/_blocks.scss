@@ -59,8 +59,6 @@
 	background: -ms-linear-gradient(top,#9e218a 1%,#5d0050 100%);
 	background: linear-gradient(top,#9e218a 1%,#5d0050 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#9e218a',endColorstr='#5d0050',GradientType=0);
-	background: -pie-linear-gradient(top,#9e218a 1%,#5d0050 100%);
-	behavior: url(/sites/all/themes/site_frontend/libraries/pie/PIE.htc);
 	h2.block__title {
 		font-size: 1.5em;
 		color: #fff;
@@ -71,7 +69,6 @@
 		-o-border-radius: 9px 9px 0 0;
 		-ms-border-radius: 9px 9px 0 0;
 		border-radius: 9px 9px 0 0;
-		behavior: url(/sites/all/themes/site_frontend/libraries/pie/PIE.htc);
 	}
 	.block__content {
 		color: #fff;
@@ -81,7 +78,6 @@
 		-o-border-radius: 0 0 9px 9px;
 		-ms-border-radius: 0 0 9px 9px;
 		border-radius: 0 0 9px 9px;
-		behavior: url(/sites/all/themes/site_frontend/libraries/pie/PIE.htc);
 	}
 }
 

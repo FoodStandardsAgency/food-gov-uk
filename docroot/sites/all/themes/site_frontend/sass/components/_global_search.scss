@@ -9,6 +9,7 @@
 	-o-border-radius: 0 0 10px 10px;
 	-ms-border-radius: 0 0 10px 10px;
 	border-radius: 0 0 10px 10px;
+	behavior: url(/sites/all/themes/site_frontend/libraries/pie/PIE.htc);
 	input.form-text {
 		padding: 4px;
 		border: 1px solid #ccc;
@@ -28,6 +29,7 @@
 		-o-border-radius: 5px;
 		-ms-border-radius: 5px;
 		border-radius: 5px;
+		behavior: url(/sites/all/themes/site_frontend/libraries/pie/PIE.htc);
 	}
 	input.form-submit {
 		display: inline-block;
@@ -78,6 +80,7 @@
 		-o-border-radius: 10px;
 		-ms-border-radius: 10px;
 		border-radius: 10px;
+		behavior: url(/sites/all/themes/site_frontend/libraries/pie/PIE.htc);
 		input.form-text {
 			width: 90%;
 		}
