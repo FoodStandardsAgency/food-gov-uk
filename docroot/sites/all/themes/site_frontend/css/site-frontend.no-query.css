@@ -4338,12 +4338,12 @@ ul.pager {
   margin-bottom: 12px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\00003103}}
   .sidebar-menu-2 .menu-block-wrapper ul, .sidebar-menu-2 .menu-block-wrapper li,
-  .sidebar-menu-2 .block_content ul,
-  .sidebar-menu-2 .block_content li {
+  .sidebar-menu-2 .block__content ul,
+  .sidebar-menu-2 .block__content li {
     font-size: 1em; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\00003106}}
   .sidebar-menu-2 .menu-block-wrapper ul,
-  .sidebar-menu-2 .block_content ul {
+  .sidebar-menu-2 .block__content ul {
     display: block;
     list-style: none;
     margin: 0;
@@ -4353,21 +4353,21 @@ ul.pager {
   .sidebar-menu-2 .menu-block-wrapper ul.menu .expanded,
   .sidebar-menu-2 .menu-block-wrapper ul.menu .collapsed,
   .sidebar-menu-2 .menu-block-wrapper ul.menu li,
-  .sidebar-menu-2 .block_content ul.menu .leaf,
-  .sidebar-menu-2 .block_content ul.menu .expanded,
-  .sidebar-menu-2 .block_content ul.menu .collapsed,
-  .sidebar-menu-2 .block_content ul.menu li {
+  .sidebar-menu-2 .block__content ul.menu .leaf,
+  .sidebar-menu-2 .block__content ul.menu .expanded,
+  .sidebar-menu-2 .block__content ul.menu .collapsed,
+  .sidebar-menu-2 .block__content ul.menu li {
     list-style-image: none;
     list-style-type: none;
     list-style: none; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\00003120}}
   .sidebar-menu-2 .menu-block-wrapper li,
-  .sidebar-menu-2 .block_content li {
+  .sidebar-menu-2 .block__content li {
     margin: 0;
     padding: 0; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\00003124}}
   .sidebar-menu-2 .menu-block-wrapper a,
-  .sidebar-menu-2 .block_content a {
+  .sidebar-menu-2 .block__content a {
     font-size: 1.2em;
     text-decoration: none;
     border-top: 1px solid #fff;
@@ -4378,22 +4378,22 @@ ul.pager {
     background-position: 10px center; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\00003134}}
   .sidebar-menu-2 .menu-block-wrapper a.active,
-  .sidebar-menu-2 .block_content a.active {
+  .sidebar-menu-2 .block__content a.active {
     color: #02684a;
     font-weight: bold; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\00003138}}
   .sidebar-menu-2 .menu-block-wrapper a:hover,
-  .sidebar-menu-2 .block_content a:hover {
+  .sidebar-menu-2 .block__content a:hover {
     text-decoration: underline; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\00003141}}
   .sidebar-menu-2 .menu-block-wrapper li a,
-  .sidebar-menu-2 .block_content li a {
+  .sidebar-menu-2 .block__content li a {
     display: block;
     padding: 8px 12px 8px 24px;
     color: #333; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\00003146}}
   .sidebar-menu-2 .menu-block-wrapper li li a,
-  .sidebar-menu-2 .block_content li li a {
+  .sidebar-menu-2 .block__content li li a {
     background-color: #f7f7f7;
     padding-left: 33px;
     background-image: url("../images/sidebar-sub-arrow-right.png");
@@ -4401,7 +4401,7 @@ ul.pager {
     background-position: 23px center; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_sidebar_menu\.scss}line{font-family:\00003153}}
   .sidebar-menu-2 .menu-block-wrapper li.expanded > a,
-  .sidebar-menu-2 .block_content li.expanded > a {
+  .sidebar-menu-2 .block__content li.expanded > a {
     color: #02684a;
     font-weight: bold;
     background-image: url("../images/sidebar-arrow-down.png");
