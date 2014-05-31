@@ -71,3 +71,15 @@ We needed this to add field labels to improve accessability.
 https://drupal.org/comment/8180883#comment-8180883
 
 
+===========================================
+
+OG Menu Single
+
+Menu Items Are Always Expanded
+Bug on Organic Groups menu
+https://drupal.org/node/2277199#comment-8831349
+
+Depth Config Setting Is Not Saved
+https://drupal.org/node/2277191#comment-8829099
+
+
