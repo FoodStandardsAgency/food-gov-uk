@@ -39,6 +39,7 @@
 		color: #333;
 	}
 	input.form-submit {
+		overflow: hidden;
     display: block;
 		margin: 0;
 		padding: 4px;
@@ -155,6 +156,7 @@
  * dependant on container_blocks custom module and block class: grey-container-block
  */
 .grey-container-block {	
+	overflow: hidden;
 	margin-bottom: 20px;
 	padding: 11px 9px 21px 11px;
 	border: 1px solid #ccc;
