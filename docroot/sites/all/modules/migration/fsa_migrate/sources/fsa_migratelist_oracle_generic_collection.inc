@@ -66,12 +66,7 @@ class FSAMigrateListOracleGenericCollection extends MigrateList {
   public function computeCount() {
     $sqlResult = $this->queryFromObjectIdsList();
 
-    if (isset($sqlResult['PARENTID'])) {
-      return count($sqlResult['PARENTID']);
-    }
-    else {
-      return 0;
-    }
+    return count($sqlResult);
   }
 
   /**

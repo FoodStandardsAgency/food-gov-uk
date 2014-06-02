@@ -2985,15 +2985,20 @@ p.job-line-item {
     border: 0;
     background: 0;
     padding-left: 10px;
-    padding-right: 10px; }
+    padding-right: 10px;
+    padding-bottom: 5px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\00003180}}
+    .latest-news-and-alerts .view-footer .custom-views-footer-inner {
+      background: 0;
+      background-color: #fff; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\00003185}}
   .latest-news-and-alerts a.more-link-orange-icon-right.first {
     margin-left: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\00003183}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\00003188}}
   .latest-news-and-alerts a.more-link-orange-icon-right {
     display: block;
     margin: 0 0 1em 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\00003187}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\00003192}}
   .latest-news-and-alerts a.more-link-orange-icon-right {
     padding-right: 0;
     padding-left: 14px;
