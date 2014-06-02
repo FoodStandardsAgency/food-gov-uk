@@ -3,6 +3,7 @@
  * Dependant on block class: external-sites
  */
 .external-sites {
+	overflow: hidden;
 	border: 1px solid #e8e8e8;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
@@ -69,6 +70,7 @@
  * Dependant on block class: external-sites-with-logos
  */
 .external-sites-with-logos {
+	overflow: hidden;
 	border: 1px solid #e8e8e8;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;

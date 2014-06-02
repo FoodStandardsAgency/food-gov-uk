@@ -4,7 +4,6 @@
 }
 
 /* custom classes in block.tpl.php */
-.block,
 .block__content,
 .custom-block-inner,
 .custom-block-title-wrapper,
@@ -14,6 +13,7 @@
 }
 
 .grey-block {
+	overflow: hidden;
 	border: 1px solid #e8e8e8;
 	-webkit-border-radius: 9px;
 	-moz-border-radius: 9px;
@@ -43,6 +43,7 @@
 }
 
 .purple-block {
+	overflow: hidden;
 	-webkit-border-radius: 9px;
 	-moz-border-radius: 9px;
 	-o-border-radius: 9px;
@@ -72,6 +73,7 @@
 }
 
 .blue-block {
+	overflow: hidden;
 	-webkit-border-radius: 9px;
 	-moz-border-radius: 9px;
 	-o-border-radius: 9px;
@@ -109,6 +111,7 @@
 }
 
 .blue-block-white-background {
+	overflow: hidden;
   background: #fff;
   .custom-block-title-wrapper {
 		-webkit-border-radius: 9px 9px 0 0;
@@ -145,6 +148,7 @@
 
 
 .green-block {
+	overflow: hidden;
 	-webkit-border-radius: 9px;
 	-moz-border-radius: 9px;
 	-o-border-radius: 9px;
@@ -182,6 +186,7 @@
 }
 
 .green-block-white-background {
+	overflow: hidden;
 	.custom-block-title-wrapper {
 		-webkit-border-radius: 9px 9px 0 0;
 		-moz-border-radius: 9px 9px 0 0;
@@ -217,6 +222,7 @@
 }
 
 .light-grey-block {
+	overflow: hidden;
 	-webkit-border-radius: 8px;
 	-moz-border-radius: 8px;
 	-o-border-radius: 8px;
