@@ -1572,7 +1572,7 @@ ul.breadcrumb {
   /* block title */
   /* links */ }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_external_sites_blocks\.scss}line{font-family:\0000313}}
-  .external-sites .custom-block-content-inner {
+  .external-sites .custom-block-inner {
     background: #fff;
     padding: 1em 11px 1em 11px;
     /* gradient */
