@@ -54,34 +54,41 @@ function apachesolr_custom_apachesolr_index_document_build(ApacheSolrDocument $d
   // Create a custom description for each content type
   if ($entity_type == 'node') {
 
-    if ($entity->type == 'audit_report') {
-      // Audit Report last updated year.
-      apachesolr_custom_year_field($document, $entity, 'field_updated', 'is_last_updated_year');
+    switch ($entity->type) {
+      case 'audit_report':
+        // Last updated year.
+        apachesolr_custom_year_field($document, $entity, 'field_updated', 'is_last_updated_year');
 
-      if (empty($entity->field_audit_action_plan)) {
-        $document->addField('ss_has_audit_action_plan', t('No action plan'));
-      }
-      else {
-        $document->addField('ss_has_audit_action_plan', t('Has action plan'));
-      }
-    }
+        if (empty($entity->field_audit_action_plan)) {
+          $document->addField('ss_has_audit_action_plan', t('No action plan'));
+        }
+        else {
+          $document->addField('ss_has_audit_action_plan', t('Has action plan'));
+        }
+        break;
 
-    if ($entity->type == 'audit_news') {
-      // Audit News last updated year.
-      apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year');
+      case 'audit_news':
+        // Last updated year.
+        apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year');
 
-      if (!empty($entity->field_heading_audit_news[LANGUAGE_NONE][0]['value'])) {
-        $document->addField('ss_heading_audit_news', $entity->field_heading_audit_news[LANGUAGE_NONE][0]['value']);
-      }
+        if (!empty($entity->field_heading_audit_news[LANGUAGE_NONE][0]['value'])) {
+          $document->addField('ss_heading_audit_news', $entity->field_heading_audit_news[LANGUAGE_NONE][0]['value']);
+        }
 
-      if (!empty($entity->field_body_audit_news[LANGUAGE_NONE][0]['value'])) {
-        $document->addField('ss_body_audit_news', $entity->field_body_audit_news[LANGUAGE_NONE][0]['value']);
-      }
-    }
+        if (!empty($entity->field_body_audit_news[LANGUAGE_NONE][0]['value'])) {
+          $document->addField('ss_body_audit_news', $entity->field_body_audit_news[LANGUAGE_NONE][0]['value']);
+        }
+        break;
 
-    if ($entity->type == 'consultation') {
-      // Audit News last updated year.
-      apachesolr_custom_year_field($document, $entity, 'field_updated', 'is_last_updated_year');
+      case 'consultation':
+        // Last updated year.
+        apachesolr_custom_year_field($document, $entity, 'field_updated', 'is_last_updated_year');
+        break;
+
+      case 'paper':
+        // Last updated year.
+        apachesolr_custom_year_field($document, $entity, 'field_publication_year', 'is_last_updated_year');
+        break;
     }
 
     // Node is assigned to a Organic Group.
