@@ -117,10 +117,10 @@
   if (!empty($field_collection_item->field_fc_files_csv)) {
     $csv_files_heading = render($content['field_fc_files_csv_heading']);
     $csv_files = render($content['field_fc_files_csv']);
-	$csv_wrapper_header_files = '<div class="csv-files-wrapper">';
+	$csv_wrapper_header_files = '<div class="csv-files-wrapper"><div class="csv-files-inner">';
 	$csv_wrapper_header_files .= $csv_files_heading;
 	$csv_wrapper_header_files .= $csv_files;
-	$csv_wrapper_header_files .= '</div>';
+	$csv_wrapper_header_files .= '</div></div>';
   }
 
   // Child pages.
