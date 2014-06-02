@@ -6,9 +6,9 @@ core = 7.x
 
 
 
-; Information added by Drupal.org packaging script on 2014-05-27
-version = "7.x-1.4"
+; Information added by Drupal.org packaging script on 2014-06-02
+version = "7.x-1.5"
 core = "7.x"
 project = "toc_node"
-datestamp = "1401197043"
+datestamp = "1401724729"
 
