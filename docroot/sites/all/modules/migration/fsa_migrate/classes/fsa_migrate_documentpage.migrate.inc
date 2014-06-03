@@ -96,6 +96,15 @@ ENDSQL;
     $this->addFieldMapping('field_path', 'title');
     $this->addFieldMapping('field_path:machine', 'PATH')
       ->callbacks(array($this, 'pathFormatter'));
+
+    // Table of content module settings migration.
+    $this->addFieldMapping('toc_node_style', 'indexed')
+      ->defaultValue('none')
+      ->callbacks(array($this, 'indexed_toc_node'));
+    $this->addFieldMapping('toc_node_level')
+      ->defaultValue(2);
+    $this->addFieldMapping('toc_node_back_to_top_links')
+      ->defaultValue(0);
   }
 
   /**
@@ -106,6 +115,21 @@ ENDSQL;
    */
   public function pathFormatter($path) {
     return ltrim($path, '/');
+  }
+
+  /**
+   * Formats the value from Yes or No to 'bullets' or 'none' for the toc_node module.
+   *
+   * @param $value
+   * @return null|string
+   */
+  public function indexed_toc_node($value) {
+    $lowerValue = strtolower($value);
+
+    if ($lowerValue == 'yes') {
+      return 'bullets';
+    }
+    return 'none';
   }
 
   /**
@@ -124,7 +148,7 @@ ENDSQL;
         ),
         $connectionOracle,
         // You can add extra fields to extract from the field table here.
-        array('title', 'summary', 'backtotop', 'showLastUpdated', 'pubdate')
+        array('title', 'summary', 'backtotop', 'showLastUpdated', 'pubdate', 'indexed')
       );
 
       foreach ($fields_res_array as $fieldVariable => $fieldValue) {

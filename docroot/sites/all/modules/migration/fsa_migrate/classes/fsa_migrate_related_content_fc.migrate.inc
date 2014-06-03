@@ -45,6 +45,23 @@ ENDSQL;
     GROUP BY LINK.PARENTID
 ENDSQL;
 
+  /**
+   * SQL Query to get the feature image from an object id.
+   *
+   * @var string
+   */
+  protected $query_related_pages = <<<'ENDSQL'
+    SELECT LINK.PARENTID, WM_CONCAT(OBJ.OBJECTID) as VALUE
+    FROM OBJ, LINK, OBJTYPE, LINKTYPE
+    WHERE LINK.CHILDID = OBJ.OBJECTID
+    AND LINK.LINKTYPEID = LINKTYPE.LINKTYPEID
+    AND OBJTYPE.OBJECTTYPEID = OBJ.OBJECTTYPEID
+    AND LINKTYPE.LINKTYPENAME = 'Relation'
+    AND LINK.PARENTID IN ( :obj_ids )
+    AND OBJTYPE.NAME IN ('GenericBranch', 'Document', 'BlankPage', 'FAQ')
+    GROUP BY LINK.PARENTID
+ENDSQL;
+
   public function __construct($arguments) {
     // Calls to parent constructor from official doc.
     parent::__construct();
@@ -79,7 +96,7 @@ ENDSQL;
     $this->source = new MigrateSourceList(
       new FSAMigrateListOracleGenericCollection(
         'data/csv/dev-alterian-id-list.csv',
-        array( $this->query_related_items, $this->query_related_CSV )
+        array( $this->query_related_items, $this->query_related_CSV, $this->query_related_pages )
       ),
       new FSAMigrateItemOracleGenericCollection()
     );
@@ -112,6 +129,13 @@ ENDSQL;
       ->sourceMigration('FSAMediaDocument');
     $this->addFieldMapping('field_fc_files_csv:file_class')
       ->defaultValue('MigrateFileFid');
+
+    // Related pages.
+    $this->addFieldMapping('field_child_pages_heading')
+      ->defaultValue('Related pages');
+    $this->addFieldMapping('field_child_page', 'sourceRelatedPagesPath')
+      ->separator(',')
+      ->sourceMigration('FSADocumentpage');
   }
 
   /**
@@ -119,7 +143,6 @@ ENDSQL;
    */
   public function prepareRow($row) {
     // OBJECTID will be sourceid1.
-    // We need to reassign it, otherwise the value gets mixed up. Bug in migrate module.
     $row->OBJECTID = $row->PARENTID;
 
     $newRelatedItemsPath = NULL;
@@ -139,5 +162,11 @@ ENDSQL;
       }
     }
     $row->sourceRelatedCSVPath = $newRelatedCSVPath;
+
+    $newRelatedPagesPath = NULL;
+    if (!is_null($row->query3)) {
+      $newRelatedPagesPath = $row->query3;
+    }
+    $row->sourceRelatedPagesPath = $newRelatedPagesPath;
   }
 }

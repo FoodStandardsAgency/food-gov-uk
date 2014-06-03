@@ -1,0 +1,99 @@
+/* default menus for committee sites
+ * Requires block class: committee-menu
+ */
+.l-sidebar-first .committee-menu {
+	border-top: 4px solid #646464;
+	margin-bottom: 12px;
+	.menu-block-wrapper,
+	.block__content {
+		ul, li {
+			font-size: 1em;	// sets fornt base fornt as 10px, same a s body base fornt.
+		}
+		ul {
+			display: block;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+		ul.menu .leaf,
+		ul.menu .expanded,
+		ul.menu .collapsed,
+		ul.menu li {
+			list-style-image: none;
+			list-style-type: none;
+			list-style: none;
+		}
+		li {
+			margin: 0;
+			padding: 0;
+		}
+		a {
+			font-size: 1.2em;
+			text-decoration: none;
+			border-top: 1px solid #fff;
+			border-bottom: 1px solid #c4c4c4;
+			background: #f0f0f0 url('../images/committee/committee-sidebar-arrow-right.png') 10px center no-repeat;
+		}
+		a.active {
+			color: #02684a;
+			font-weight: bold;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+		li a {
+			display: block;
+			padding: 8px 12px 8px 24px;
+			color: #333;
+		}
+		li li a {
+			padding-left: 33px;
+			background: #f7f7f7 url('../images/committee/committee-sidebar-arrow-right.png') 23px center no-repeat;
+		}
+		li.expanded > a {
+			color: #02684a;
+			font-weight: bold;
+		}
+	}
+}
+
+/* variation of menu fo footer - we use the same block in sidebar and in footer */
+.l-footer-menu .committee-menu {
+	position: relative;
+	left: -4px;	// to counter the left padding of li's at the start of the menu or on lines that wrap
+	ul {
+		padding: 0;
+		margin: 0;
+	}
+	ul.menu .leaf {
+		list-style-image: none;
+		list-style-type: none;
+	}
+	ul ul {
+		display: none;	// hide second+ levels of the menu in the footer
+	}
+	li {
+		font-size: 1.1em;
+		line-height: 1em;
+		display: inline-block;
+		margin: 0 0 0.909em 0;	// 1.1em x 10px x 0.909em = 10px bottom margin
+		padding: 0 5px 0 4px;
+		border-right: 1px solid #666;
+		*display: inline;	// for IE old versions
+		zoom: 1;					// for IE old versions
+	}
+	li.last {
+		border-right: none;
+	}
+	a, a:visited {
+		color: #666;
+		text-decoration: none;
+	}
+	a:hover {
+		text-decoration: underline;
+	}
+	a.active {
+		font-weight: normal;
+	}
+}
+
