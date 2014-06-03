@@ -63,24 +63,15 @@ a:hover,
 	background: #7f81c4;
 }
 
-/* sidebar menu */
-.sidebar-menu-2 {
+/* committee menu */
+.l-sidebar-first .committee-menu {
 	border-top: 4px solid #666699;
 }
-.sidebar-menu-2 .menu-block-wrapper a,
-.sidebar-menu-2 .block__content a {
-    background: url('../images/committee-sidebar-arrow-right.png') 10px center no-repeat;
-}
-.sidebar-menu-2 .menu-block-wrapper a.active,
-.sidebar-menu-2 .block__content a.active {
+.l-sidebar-first .committee-menu .menu-block-wrapper a.active,
+.l-sidebar-first .committee-menu .block__content a.active {
     color: #666699;
 }
-.sidebar-menu-2 .menu-block-wrapper li a,
-.sidebar-menu-2 .block__content li a {
-    color: #333; 
-}
-.sidebar-menu-2 .menu-block-wrapper li.expanded > a,
-.sidebar-menu-2 .block__content li.expanded > a {
+.l-sidebar-first .committee-menu .menu-block-wrapper li.expanded > a,
+.l-sidebar-first .committee-menu .block__content li.expanded > a {
     color: #666699;
-    background: url('../images/committee-sidebar-arrow-down.png') 9px center no-repeat;
 }
