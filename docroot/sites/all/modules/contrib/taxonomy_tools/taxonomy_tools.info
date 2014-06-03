@@ -1,0 +1,12 @@
+name = Taxonomy Tools
+description = A package containing several taxonomy management tools.
+package = Taxonomy Tools
+core = 7.x
+dependencies[] = taxonomy
+
+; Information added by drupal.org packaging script on 2013-03-14
+version = "7.x-1.2"
+core = "7.x"
+project = "taxonomy_tools"
+datestamp = "1363260921"
+

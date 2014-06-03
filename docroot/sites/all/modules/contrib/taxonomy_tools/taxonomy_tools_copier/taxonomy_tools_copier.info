@@ -1,0 +1,13 @@
+name = Taxonomy Copier
+description = This module allows user to make copies of taxonomy terms.
+package = Taxonomy Tools
+core = 7.x
+dependencies[] = taxonomy
+dependencies[] = taxonomy_tools
+
+; Information added by drupal.org packaging script on 2013-03-14
+version = "7.x-1.2"
+core = "7.x"
+project = "taxonomy_tools"
+datestamp = "1363260921"
+
