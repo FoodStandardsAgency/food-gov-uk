@@ -69,6 +69,9 @@
 		list-style-image: none;
 		list-style-type: none;
 	}
+	ul ul {
+		display: none;	// hide second+ levels of the menu in the footer
+	}
 	li {
 		font-size: 1.1em;
 		line-height: 1em;
