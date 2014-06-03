@@ -63,6 +63,15 @@ a:hover,
 	background: #7f81c4;
 }
 
+/* committee news node title */
+.committee-news .node__title a {
+	color: #666699;
+}
+.committee-news h3.node__title,
+.committee-news h3.node__title {
+	margin-bottom: 0;
+}
+
 /* committee menu */
 .l-sidebar-first .committee-menu {
 	border-top: 4px solid #666699;
