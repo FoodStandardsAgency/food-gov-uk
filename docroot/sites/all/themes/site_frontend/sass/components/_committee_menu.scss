@@ -56,3 +56,41 @@
 		}
 	}
 }
+
+/* variation of menu fo footer - we use the same block in sidebar and in footer */
+.l-footer-menu .committee-menu {
+	position: relative;
+	left: -4px;	// to counter the left padding of li's at the start of the menu or on lines that wrap
+	ul {
+		padding: 0;
+		margin: 0;
+	}
+	ul.menu .leaf {
+		list-style-image: none;
+		list-style-type: none;
+	}
+	li {
+		font-size: 1.1em;
+		line-height: 1em;
+		display: inline-block;
+		margin: 0 0 0.909em 0;	// 1.1em x 10px x 0.909em = 10px bottom margin
+		padding: 0 5px 0 4px;
+		border-right: 1px solid #666;
+		*display: inline;	// for IE old versions
+		zoom: 1;					// for IE old versions
+	}
+	li.last {
+		border-right: none;
+	}
+	a, a:visited {
+		color: #666;
+		text-decoration: none;
+	}
+	a:hover {
+		text-decoration: underline;
+	}
+	a.active {
+		font-weight: normal;
+	}
+}
+

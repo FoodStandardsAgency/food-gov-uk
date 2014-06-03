@@ -1320,6 +1320,43 @@ ul.breadcrumb {
     color: #02684a;
     font-weight: bold; }
 
+/* variation of menu fo footer - we use the same block in sidebar and in footer */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_committee_menu\.scss}line{font-family:\0000361}}
+.l-footer-menu .committee-menu {
+  position: relative;
+  left: -4px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_committee_menu\.scss}line{font-family:\0000364}}
+  .l-footer-menu .committee-menu ul {
+    padding: 0;
+    margin: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_committee_menu\.scss}line{font-family:\0000368}}
+  .l-footer-menu .committee-menu ul.menu .leaf {
+    list-style-image: none;
+    list-style-type: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_committee_menu\.scss}line{font-family:\0000372}}
+  .l-footer-menu .committee-menu li {
+    font-size: 1.1em;
+    line-height: 1em;
+    display: inline-block;
+    margin: 0 0 0.909em 0;
+    padding: 0 5px 0 4px;
+    border-right: 1px solid #666;
+    *display: inline;
+    zoom: 1; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_committee_menu\.scss}line{font-family:\0000382}}
+  .l-footer-menu .committee-menu li.last {
+    border-right: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_committee_menu\.scss}line{font-family:\0000385}}
+  .l-footer-menu .committee-menu a, .l-footer-menu .committee-menu a:visited {
+    color: #666;
+    text-decoration: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_committee_menu\.scss}line{font-family:\0000389}}
+  .l-footer-menu .committee-menu a:hover {
+    text-decoration: underline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_committee_menu\.scss}line{font-family:\0000392}}
+  .l-footer-menu .committee-menu a.active {
+    font-weight: normal; }
+
 /* committee news
  * requires block class: committee news
  */
