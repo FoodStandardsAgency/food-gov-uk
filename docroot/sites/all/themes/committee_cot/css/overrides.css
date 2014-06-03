@@ -67,9 +67,15 @@ a:hover,
 .committee-news .node__title a {
 	color: #666699;
 }
+.committee-news {
+	font-size: 1em;
+}
 .committee-news h3.node__title,
 .committee-news h3.node__title {
+	font-size: 1.3em;
+	line-height: 1.4em;
 	margin-bottom: 0;
+	font-weight: bold;
 }
 
 /* committee menu */
