@@ -77,6 +77,7 @@ class FSAMigrateListOracleGenericCollection extends MigrateList {
    */
   protected function queryFromObjectIdsList() {
     GLOBAL $connectionOracle;
+    $queriesResults = NULL;
 
     // Gets the objects id list.
     $objectList = FSAMigrateListBase::getIdListFromCSV($this->fileCSV);
@@ -90,10 +91,16 @@ class FSAMigrateListOracleGenericCollection extends MigrateList {
       $replacedQuery = str_replace(':obj_ids', implode(',', $objectList), $query);
       $sqlResult = FSAMigration::oracleQueryAll($replacedQuery, array(), $connectionOracle);
 
-      // The return data will be like "query1" => "values ...".
-      $query_array_number = 'query' . ( $query_number + 1 );
-      $queriesResults[$sqlResult['PARENTID'][0]][$query_array_number] = $sqlResult['VALUE'][0];
-      $queriesResults[$sqlResult['PARENTID'][0]]['PARENTID'] = $sqlResult['PARENTID'][0];
+
+      if (!is_null($sqlResult)) {
+        // Loop on the queries
+        foreach ($sqlResult['PARENTID'] as $item_number => $parent_id) {
+          // The return data will be like "query1" => "values ...".
+          $query_array_number = 'query' . ( $query_number + 1 );
+          $queriesResults[$parent_id]['PARENTID'] = $parent_id;
+          $queriesResults[$parent_id][$query_array_number] = $sqlResult['VALUE'][$item_number];
+        }
+      }
     }
 
     return $queriesResults;
@@ -114,6 +121,9 @@ class FSAMigrateItemOracleGenericCollection extends MigrateItem {
    */
   public function getItem($id) {
     $object = new stdClass();
+
+    $object->PARENTID = $id['PARENTID'];
+    unset($id['PARENTID']);
 
     foreach ($id as $queryNumber => $queryValue) {
       $object->{$queryNumber} = $queryValue;
