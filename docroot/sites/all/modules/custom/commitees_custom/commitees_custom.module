@@ -65,13 +65,12 @@ function commitees_custom_search_form_submit_funtion(&$form, &$form_state) {
  */
 function commitees_custom_form_node_form_alter(&$form, &$form_state) {
   global $user;
-  $committee_content = array('news');
+  $group_content_type = og_is_group_content_type('node', $form['type']['#value']);
 
   // Alter if user has Committee role.
-  if (in_array($form['type']['#value'], $committee_content) && in_array('Committee', $user->roles)) {
+  if ($group_content_type && in_array('Committee', $user->roles)) {
     commitees_custom_og_audience_alter($form);
     $form['#after_build'][] = 'commitees_custom_og_after_build';
-
   }
 }
 
