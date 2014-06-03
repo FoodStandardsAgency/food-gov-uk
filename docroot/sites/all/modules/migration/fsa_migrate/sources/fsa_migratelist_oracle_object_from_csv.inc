@@ -22,7 +22,6 @@ class FSAMigrateListOracleObjectsFromCSV extends MigrateList {
    *  CSV file to use.
    */
   public function __construct($CSVFile) {
-
     $realPathCSV = FSAMigrateListBase::checkCSVFileExists($CSVFile);
     if ($realPathCSV) {
       $this->fileCSV = $realPathCSV;
