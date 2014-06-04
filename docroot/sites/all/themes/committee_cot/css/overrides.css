@@ -50,6 +50,7 @@ a:hover,
 /* back to top links */
 .section-back-top a {
 	color: #666699;
+	background: url("../images/arrow-up.png") left 4px no-repeat;
 }
 
 /* summary field */
@@ -107,3 +108,11 @@ a:hover,
 .page-section-teaser .file-item a {
 	color: #666699;
 }
+
+/* table of contents */
+#table-of-contents-links a {
+	color: #666699;
+}
+ul.toc-node-bullets li.toc-node-level-1 {}
+
+
