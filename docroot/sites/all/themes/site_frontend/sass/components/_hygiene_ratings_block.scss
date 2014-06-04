@@ -14,13 +14,13 @@
 	.block-body {
 		margin: 0;
 		overflow: hidden;
-		padding-bottom: 45px;	// need this because footer is absolutely positioned and will otherwise overlap text when text resised.
 		h2, h3 {
 			font-size: 1.5em;
 			font-weight: bold;
 			margin-bottom: 0.5em;
 		}
 	}
+	/*
 	.block-footer {
 		width: 225px;
 		position: absolute;
@@ -31,6 +31,10 @@
 			margin-right: 11px;
 		}
 	}
+	.block-body {
+		padding-bottom: 45px;
+	}
+	*/
 }
 
 /* block styling */
