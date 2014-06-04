@@ -156,13 +156,13 @@
         print $related_items_wrapper;
       }
 
+	  if (isset($csv_files)) {
+		print $csv_wrapper_header_files;
+      }
+
       if (isset($child_page)) {
         print $child_pages_heading;
         print $child_page;
-      }
-
-	  if (isset($csv_files)) {
-		print $csv_wrapper_header_files;
       }
 
     ?>
