@@ -688,11 +688,11 @@ img, media {
 
 /* page section body field */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000340}}
-.field--name-field-fc-section-body h2 {
+.field--name-field-fc-section-body h3 {
   font-size: 1.4em;
   margin: 0 0 .5em 0; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000344}}
-.field--name-field-fc-section-body h3 {
+.field--name-field-fc-section-body h4 {
   font-size: 1.2em;
   margin-bottom: .6em; }
 
