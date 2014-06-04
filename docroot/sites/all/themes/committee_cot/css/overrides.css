@@ -65,6 +65,7 @@ a:hover,
 	background: #7f81c4;
 }
 
+
 /* latest news view title */
 .committee-news h2.block__title, 
 .committee-news h3.block__title {
@@ -113,6 +114,81 @@ a:hover,
 #table-of-contents-links a {
 	color: #666699;
 }
-ul.toc-node-bullets li.toc-node-level-1 {}
+ul.toc-node-bullets li.toc-node-level-1 {
+	background: url("../images/arrow-down.png") 0px 4px no-repeat;	
+}
+ul.toc-node-bullets li.toc-node-level-2 {
+	background: url("../images/arrow-down.png") 14px 4px no-repeat;	
+}
+ul.toc-node-bullets li.toc-node-level-3 {
+	background: url("../images/arrow-down.png") 28px 4px no-repeat;	
+}
+ul.toc-node-bullets li.toc-node-level-4 {
+	background: url("../images/arrow-down.png") 42px 4px no-repeat;	
+}
+ul.toc-node-bullets li.toc-node-level-5 {
+	background: url("../images/arrow-down.png") 56px 4px no-repeat;	
+}
+ul.toc-node-bullets li.toc-node-level-6 {
+	background: url("../images/arrow-down.png") 70px 4px no-repeat;	
+}
+
+/* generic block titles */
+.generic-blocks .field--name-field-title-side-content-generic {
+	color: #666699;
+}
+
+/* see also block */
+.see-also h2.block__title {
+	color: #666699;
+}
+.see-also .views-field-title {
+	background: url("../images/thin-right-arrow.png") left 3px no-repeat;
+}
+
+/* external links block */
+.external-sites h2.block__title {
+	color: #666699;
+}
+.external-sites .views-field-field-url a {
+	color: #666699;
+}
+.external-sites .views-field-field-url {
+	background: url("../images/thin-right-arrow.png") left 3px no-repeat;
+}
+
+/* external sites with logos */
+.external-sites-with-logos .views-field-field-url a {
+	color: #666699;
+}
+.external-sites-with-logos .views-field-field-url {
+	background: url("../images/thin-right-arrow.png") left 3px no-repeat;
+}
+
+/* accessibility */
+#accessTools li#accessListen .icon {
+	background: url('../images/listen.png') 0 0 no-repeat;
+}
+
+/* external link */
+span.ext {
+	background: url("../images/external-link-icon.png") right center no-repeat;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
