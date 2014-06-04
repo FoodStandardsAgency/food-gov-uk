@@ -4811,14 +4811,16 @@ field--name-field-fc-section-body,
     font-size: 1.2em;
     line-height: 1.4em;
     font-weight: bold;
-    margin-bottom: 1em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000324}}
+    margin-bottom: 1em;
+    display: block; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000325}}
   field--name-field-fc-section-body .guidance p strong,
   .field--name-body
   .field--type-text-with-summary .guidance p strong,
   .field--type-text-long .guidance p strong {
     font-size: 1em;
-    margin-bottom: 0; }
+    margin-bottom: 0;
+    display: inline; }
 
 /* hide front page title in an accessible way */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_title_home_page\.scss}line{font-family:\000032}}
