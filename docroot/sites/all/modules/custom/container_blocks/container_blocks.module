@@ -36,6 +36,10 @@ function container_blocks_block_info() {
     'info' => t('Search Audit Reports'),
   );
 
+  $blocks['search_committee_papers'] = array(
+    'info' => t('Search Committee Papers'),
+  );
+
   return $blocks;
 }
 
@@ -154,7 +158,23 @@ function container_blocks_block_view($delta = '') {
 
       break;
 
+    case 'search_committee_papers':
+      // Published Year.
+      $blocks[] = block_load('facetapi', 'z0n0mr7e3co9o4fke31fjmkzq9qgwfqq');
+      // Freetag Topic.
+      $blocks[] = block_load('facetapi', 'hz3me3m90tyr28bumoupbsr1tvm009r8');
 
+      $content = container_blocks_concatenate_content($blocks);
+
+      if (!empty($content)) {
+
+        $block['subject'] = NULL;
+        $block['content'] = array(
+          '#markup' => $content,
+        );
+      }
+
+      break;
   }
   return $block;
 }
