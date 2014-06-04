@@ -46,6 +46,13 @@
   $back_to_top = field_get_items('node', $node, 'field_setting_backtotop');
   $back_to_top = $back_to_top[0]['value'];
 
+// check for empty quote (a migration artifact)
+   if (
+     isset($field_collection_item->field_fc_section_quote) &&
+     isset($field_collection_item->field_fc_section_quote[$language][0]['value']) &&
+     !$field_collection_item->field_fc_section_quote[$language][0]['value']) {
+     hide($content['field_fc_section_quote']);
+   }
 
 
   // Create image and wrapper markup.
