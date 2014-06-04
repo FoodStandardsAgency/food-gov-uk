@@ -5042,6 +5042,7 @@ field--name-field-fc-section-body,
 .field--name-body
 .field--type-text-with-summary,
 .field--type-text-long {
+  /* where <strong> exists outside of a p-tag */
   /* adjustment for this site */ }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\000038}}
   field--name-field-fc-section-body .guidance,
@@ -5052,20 +5053,24 @@ field--name-field-fc-section-body,
     background: #F0F4E5;
     border: 1px solid #5D9711;
     color: #333;
-    padding: 11px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000315}}
+    padding: 11px;
+    margin-bottom: 1.3em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000317}}
   field--name-field-fc-section-body .guidance strong,
   .field--name-body
   .field--type-text-with-summary .guidance strong,
   .field--type-text-long .guidance strong {
     font-size: 1.2em;
-    font-weight: bold; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000320}}
+    line-height: 1.4em;
+    font-weight: bold;
+    margin-bottom: .6em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000324}}
   field--name-field-fc-section-body .guidance p strong,
   .field--name-body
   .field--type-text-with-summary .guidance p strong,
   .field--type-text-long .guidance p strong {
-    font-size: 1em; }
+    font-size: 1em;
+    margin-bottom: 0; }
 
 /* hide front page title in an accessible way */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_title_home_page\.scss}line{font-family:\000032}}
