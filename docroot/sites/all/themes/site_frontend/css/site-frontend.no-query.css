@@ -4783,6 +4783,38 @@ ul.toc-node-bullets li.toc-node-level-6 {
     font-size: 1em;
     line-height: 1.4em; }
 
+/* these are styles used in the textareas - includes backwards compatibility for migrated content too */
+/* highlighted content */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\000037}}
+field--name-field-fc-section-body,
+.field--name-body
+.field--type-text-with-summary,
+.field--type-text-long {
+  /* adjustment for this site */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\000038}}
+  field--name-field-fc-section-body .guidance,
+  .field--name-body
+  .field--type-text-with-summary .guidance,
+  .field--type-text-long .guidance {
+    display: block;
+    background: #F0F4E5;
+    border: 1px solid #5D9711;
+    color: #333;
+    padding: 11px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000315}}
+  field--name-field-fc-section-body .guidance strong,
+  .field--name-body
+  .field--type-text-with-summary .guidance strong,
+  .field--type-text-long .guidance strong {
+    font-size: 1.2em;
+    font-weight: bold; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000320}}
+  field--name-field-fc-section-body .guidance p strong,
+  .field--name-body
+  .field--type-text-with-summary .guidance p strong,
+  .field--type-text-long .guidance p strong {
+    font-size: 1em; }
+
 /* hide front page title in an accessible way */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_title_home_page\.scss}line{font-family:\000032}}
 .front #main-content h1 {

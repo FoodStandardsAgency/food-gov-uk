@@ -1,0 +1,26 @@
+/* these are styles used in the textareas - includes backwards compatibility for migrated content too */
+
+/* highlighted content */
+field--name-field-fc-section-body,
+.field--name-body 
+.field--type-text-with-summary,
+.field--type-text-long {
+	.guidance {
+		display: block;
+		background: #F0F4E5;
+		border: 1px solid #5D9711;
+		color: #333;
+		padding: 11px;
+	}
+	.guidance strong {
+		font-size:1.2em;
+		font-weight: bold;
+	}
+	/* adjustment for this site */
+	.guidance p strong {
+		font-size: 1em;	// because our p-tags are already set to 1.2em so it takes tha parent p-tag size. 1me x 1.2em = 1.2em
+	}
+}
+
+
+
