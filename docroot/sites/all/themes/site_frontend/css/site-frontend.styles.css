@@ -2460,7 +2460,7 @@ span.copyright {
 .food-hygiene-ratings {
   overflow: hidden;
   background-color: #dde9c9;
-  min-height: 260px;
+  min-height: 230px;
   -moz-border-radius: 9px;
   -webkit-border-radius: 9px;
   -o-border-radius: 9px;
@@ -2483,7 +2483,7 @@ span.copyright {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3b9356',endColorstr='#02684a',GradientType=0); }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_hygiene_ratings_block\.scss}line{font-family:\0000364}}
   .food-hygiene-ratings .block__content {
-    padding: 1em 11px .3em 11px; }
+    padding: 1em 11px .8em 11px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_hygiene_ratings_block\.scss}line{font-family:\0000366}}
     .food-hygiene-ratings .block__content .custom-block-content-inner {
       background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
@@ -2493,10 +2493,23 @@ span.copyright {
       background: -o-linear-gradient(top, #f0f5e7 0, #dde9c9 100%);
       background: -ms-linear-gradient(top, #f0f5e7 0, #dde9c9 100%);
       background: linear-gradient(top, #f0f5e7 0%, #dde9c9 100%);
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f0f5e7',endColorstr='#dde9c9',GradientType=0); }
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f0f5e7',endColorstr='#dde9c9',GradientType=0);
+      /* link in a p-tag */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_hygiene_ratings_block\.scss}line{font-family:\0000376}}
+      .food-hygiene-ratings .block__content .custom-block-content-inner p a {
+        color: #333; }
 
 /* Above styling is based on this html structure in the content:
+<a href="/ratings" title=" Food hygiene ratings" style="display: block;">
+<div class="block-image"><img src="/sites/all/themes/site_frontend/images/content/hygiene-ratings.png" /></div>
+<div class="block-body">
+<h3>Eating out? Getting food in?</h3>
+<p>Check the food hygiene standards of a resturant, takeaway or food shop.</p>
+</div>
+</a>
 
+*/
+/* Alternative (old) styling
 <div class="block-image"><img src="/sites/all/themes/site_frontend/images/content/hygiene-ratings.png" /></div>
 <div class="block-body">
 <h3><a href="/ratings">Eating out? Getting food in?</a></h3>
