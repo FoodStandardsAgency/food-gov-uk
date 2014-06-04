@@ -1071,7 +1071,7 @@ ul.breadcrumb {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\000039}}
   .home-page-carousel .skin-default {
     width: 699px;
-    height: 260px;
+    height: 230px;
     overflow: hidden;
     position: relative; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000316}}
@@ -1087,7 +1087,7 @@ ul.breadcrumb {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\0000327}}
   .home-page-carousel .slide-content-wrapper {
     z-index: 2;
-    width: 300px;
+    width: 400px;
     max-height: 169px;
     overflow: hidden;
     position: absolute;
