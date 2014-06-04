@@ -2,7 +2,7 @@
  * header background - #3a3a9b
  * seaction header background - #7f81c4
  * left sidebar blocks background - #5d5ead
- * links and sidebar menu top border and page titles - #666699
+ * links and sidebar menu top border and page titles, section subheadings - #666699
  * header and footer border - #7f7fc0
  * right and down arrows color - #646464
 */
@@ -96,4 +96,14 @@ a:hover,
 .l-sidebar-first .committee-menu .menu-block-wrapper li.expanded > a,
 .l-sidebar-first .committee-menu .block__content li.expanded > a {
     color: #666699;
+}
+
+/* pages section subheadings eg related media */
+.page-section-subheading {
+	color: #666699;
+}
+
+/* file item links in page sections */
+.page-section-teaser .file-item a {
+	color: #666699;
 }
