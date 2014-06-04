@@ -1995,7 +1995,7 @@ ul.breadcrumb {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000391}}
   .feature-block .block__content {
     overflow: hidden;
-    padding: 0 0 .3em 0;
+    padding: 0 0 0.8em 0;
     background: #dde9c9; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\0000395}}
     .feature-block .block__content .custom-block-content-inner {
