@@ -1340,15 +1340,15 @@ ul.breadcrumb {
 .committee-list .views-row {
   padding-top: 0.7em;
   padding-bottom: 0.7em;
-  border-top: 1px solid #7dac41;
-  border-bottom: 1px solid #dfeacf; }
+  border-top: 1px solid #dfeacf;
+  border-bottom: 1px solid #7dac41; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_committee_list\.scss}line{font-family:\0000333}}
 .committee-list .views-row.views-row-first {
   border-top: 0;
   padding-top: 0; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_committee_list\.scss}line{font-family:\0000337}}
 .committee-list .views-row.views-row-last {
-  margin-bottom: 0.7em; }
+  margin-bottom: 1.3em; }
 
 /* default menus for committee sites
  * Requires block class: committee-menu
