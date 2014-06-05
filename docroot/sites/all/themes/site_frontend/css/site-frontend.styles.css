@@ -1517,7 +1517,7 @@ ul.breadcrumb {
   font-weight: bold; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_committee_papers\.scss}line{font-family:\0000320}}
 .view-committee-papers-listing .views-row-last {
-  margin-bottom: 0.5em; }
+  margin-bottom: 15px; }
 
 /* consultation page - consultation content type */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000310}}
