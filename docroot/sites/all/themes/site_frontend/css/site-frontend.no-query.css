@@ -1392,7 +1392,7 @@ ul.breadcrumb {
   .l-sidebar-first .committee-menu .menu-block-wrapper li li a,
   .l-sidebar-first .committee-menu .block__content li li a {
     padding-left: 33px;
-    background: #f7f7f7 url("../images/committee/committee-sidebar-arrow-right.png") 23px center no-repeat; }
+    background: #f7f7f7 url("../images/committee/committee-thin-right-arrow.png") 23px center no-repeat; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_committee_menu\.scss}line{font-family:\0000353}}
   .l-sidebar-first .committee-menu .menu-block-wrapper li.expanded > a,
   .l-sidebar-first .committee-menu .block__content li.expanded > a {

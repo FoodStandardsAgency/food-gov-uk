@@ -2,7 +2,8 @@
  * header background - #3a3a9b
  * seaction header background - #7f81c4
  * left sidebar blocks background - #5d5ead
- * links and sidebar menu top border and page titles, section subheadings - #666699
+ * links, sidebar menu top border, page titles, section subheadings  - #666699
+ * table headings, guidance highlight box border etc - #666699
  * header and footer border - #7f7fc0
  * right and down arrows color - #646464
 */
@@ -87,7 +88,7 @@ a:hover,
 	font-weight: bold;
 }
 
-/* committee menu */
+/* committee menu - see site front_frontent theme for the rest of the implementation */
 .l-sidebar-first .committee-menu {
 	border-top: 4px solid #666699;
 }
@@ -175,13 +176,38 @@ span.ext {
 	background: url("../images/external-link-icon.png") right center no-repeat;
 }
 
+/* tables */
+.field--name-field-fc-section-body table, 
+.field--name-body .field--type-text-with-summary table, 
+.field--type-text-long table {
+	border-top: 1px solid #666699;
+}
 
+.field--name-field-fc-section-body th, 
+.field--name-field-fc-section-body thead th, 
+.field--name-field-fc-section-body thead td, 
+.field--name-field-fc-section-body tfoot th, 
+.field--name-field-fc-section-body tfoot td, 
+.field--name-body .field--type-text-with-summary th, 
+.field--name-body .field--type-text-with-summary thead th, 
+.field--name-body .field--type-text-with-summary thead td, 
+.field--name-body .field--type-text-with-summary tfoot th, 
+.field--name-body .field--type-text-with-summary tfoot td, 
+.field--type-text-long th, 
+.field--type-text-long thead th, 
+.field--type-text-long thead td, 
+.field--type-text-long tfoot th, 
+.field--type-text-long tfoot td {
+	color: #666699; 
+}
 
-
-
-
-
-
+/* guidance highlight box */
+.field--name-field-fc-section-body .guidance, 
+.field--name-body .field--type-text-with-summary .guidance, 
+.field--type-text-long .guidance {
+	background: #f2f2f2; 
+	border: 1px solid #666699;
+}
 
 
 
