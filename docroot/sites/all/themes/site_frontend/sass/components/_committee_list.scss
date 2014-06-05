@@ -27,8 +27,8 @@
 	.views-row {
 		padding-top: 0.7em;
 		padding-bottom: 0.7em;
-		border-top: 1px solid #dfeacf;
-		border-bottom: 1px solid #7dac41;
+		border-top: 1px solid #7dac41;
+		border-bottom: 1px solid #dfeacf;
 	}
 	.views-row.views-row-first {
 		border-top: 0;
@@ -36,5 +36,6 @@
 	}
 	.views-row.views-row-last {
 		margin-bottom: 1.3em;
+		border-bottom: 1px solid #7dac41;
 	}
 }
