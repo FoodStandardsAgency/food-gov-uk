@@ -1499,6 +1499,23 @@ ul.breadcrumb {
     color: #333;
     margin-bottom: 0.2em; }
 
+/* committee papers - statement and positioning papers */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_committee_papers\.scss}line{font-family:\000034}}
+.view-committee-papers-listing .view-content h3 {
+  display: block;
+  margin: 0 0 1em 0;
+  padding: .3em 11px;
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #333;
+  background: #f0f0f0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_committee_papers\.scss}line{font-family:\0000313}}
+.view-committee-papers-listing .view-content .views-field-sm-field-subtitle {
+  font-size: 1.3em;
+  line-height: 1.4em;
+  margin-bottom: 0.5em;
+  font-weight: bold; }
+
 /* consultation page - consultation content type */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000310}}
 .field--name-field-consultations-contact-name,
