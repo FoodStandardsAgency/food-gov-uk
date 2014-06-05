@@ -209,7 +209,29 @@ span.ext {
 	border: 1px solid #666699;
 }
 
+/* search results */
+.current-search-item-text .search-results-heading, 
+.current-search-item-text h2.search-results-heading {
+	background: #666699; 
+}
 
+
+/* legacy CSS for tables from original old cot site */
+.cottable { float: left; width:100%; margin: 2px 0 20px 0;}
+.cottable th, .cottable td {font-family: Arial, sans-serif; font-size:85%; padding : 5px; border-right: 1px solid #fff; border-bottom: 1px solid #fff;}
+.cottable thead th { color:#666; border-bottom:1px solid #99cc99;}
+.cottable tbody th { text-align:left; vertical-align: top; background-color:#c4cdd8; color:#666;}
+.cottable td { color:#666; text-align:left; vertical-align: top; border-bottom:1px dotted #99cc99; background: #f5f5f5; border-right: 1px solid #fff; border-bottom: 1px solid #fff;}
+.cottable td.lastrow { border-bottom: none}
+.cottable td a { color:#006633; text-decoration:none; }
+.cottable td a:hover { color:#003300;}
+.cottable td ul { margin:0 0 0 14px; padding-left:3px; }
+.cottable td ul li{font-size: 130%;}
+.cottablenoborder { float: left; width:100%; margin: 2px 0 20px 0;}
+.cottablenoborder th, .cottablenoborder td {font-family: Arial, sans-serif; font-size:75%; padding : 5px; border-right: 1px solid #fff; border-bottom: 1px solid #fff;}
+.cottablenoborder td a { color:#d56633; text-decoration:none; }
+.cottablenoborder td a:hover { color:#d56633; text-decoration:underline; }
+.cottablenoborder td ul { margin:0 0 0 14px; padding-left:3px; }
 
 
 
