@@ -1,7 +1,7 @@
 /* these are styles used in the textareas - includes backwards compatibility for migrated content too */
 
 /* highlighted content */
-field--name-field-fc-section-body,
+.field--name-field-fc-section-body,
 .field--name-body 
 .field--type-text-with-summary,
 .field--type-text-long {
@@ -29,5 +29,77 @@ field--name-field-fc-section-body,
 	}
 }
 
-
-
+/* tables */
+.field--name-field-fc-section-body,
+.field--name-body 
+.field--type-text-with-summary,
+.field--type-text-long {	
+	table {
+		margin: 0 0 1.3em 0;
+	  width: 100%;
+	  border-collapse: collapse;
+	  border-spacing: 0;
+	  border-top: 1px solid #006f51;
+	  border-bottom: 1px solid #ebebeb;
+	}
+	caption, th, td {
+	  text-align: left;
+	  vertical-align: top;
+	  font-weight: normal;
+	}
+	caption {
+	  margin: .9em 0;
+	  padding: 0;
+	  font-size: 1.2em;
+	  font-weight: bold;
+	  color: #333;
+	}
+	th, td {
+	  padding: .6em 10px .6em 10px;
+	  border-left: 1px solid #ebebeb;
+	}
+	th, thead th, thead td, tfoot th, tfoot td {
+	  font-weight: bold;
+	  color: #006f51;
+	}
+	thead th, thead td {
+	  background: #f2f2f2;
+	}
+	tfoot th, tfoot td {
+	  border-top: 1px solid #ebebeb;
+	}
+	thead span, tfoot span {
+	  display: block;
+	  margin: .6em 0 0 0;
+	  font-weight: normal;
+	}
+	thead .subHead th, tfoot .subHead th {
+	  padding-top: 0;
+	  margin: 0;
+	  font-weight: normal;
+	}
+	th.numeric, td.numeric {
+	  text-align: right;
+	}
+	th.multiCol, td.multiCol {
+	  text-align: center;
+	}
+	th.first, td.first, th.grouped, td.grouped {
+	  border-left: 0;
+	}
+	tbody .alt th, tbody .alt td {
+	  background: #f2f2f2;
+	}
+	table.linearTable {
+	  margin-bottom: 2em;
+	  border-top: 1px solid #006f51;
+	  border-bottom: 0;
+	}
+	.linearTable th, .linearTable td {
+	  border-bottom: 1px solid #ebebeb;
+	}
+	.linearTable tbody th.grouper {
+	  padding-top: 2em;
+	  color: #333;
+	}
+}
