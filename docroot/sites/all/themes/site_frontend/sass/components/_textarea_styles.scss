@@ -102,4 +102,8 @@
 	  padding-top: 2em;
 	  color: #333;
 	}
+	/* override drupal default */
+	th {
+		background-color: transparent;
+	}
 }
