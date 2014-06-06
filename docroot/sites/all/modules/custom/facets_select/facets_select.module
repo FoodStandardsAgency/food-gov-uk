@@ -50,6 +50,11 @@ function facets_select_facetapi_select_facet_form_alter(&$form, $form_state, $op
     $form['facets']['#title'] = t('Search by news type');
   }
 
+  if ($options[0] == t('Anytime')) {
+    $form['facets']['#title'] = t('Search by date');
+  }
+
+
   if ($options[0] == t('Any status')) {
     $form['facets']['#title'] = t('Browse by status');
   }
