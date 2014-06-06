@@ -6,10 +6,10 @@
  */
 
 /**
- * Class FSAUberpageMigration
+ * Class FSAFAQpageMigration
  * Migration class for the FSA Document page.
  */
-class FSADocumentpageMigration extends FSAMigration {
+class FSAFAQpageMigration extends FSAMigration {
 
   /**
    * SQL Query to get the feature image from an object id.
@@ -30,7 +30,6 @@ ENDSQL;
    * Class constructor.
    */
   public function __construct($arguments) {
-    global $conf;
     // Calls to parent constructor from official doc.
     parent::__construct();
     // Calls the parent constructor.
@@ -63,12 +62,12 @@ ENDSQL;
 
     // Configure the source of the migration.
     $this->source = new MigrateSourceList(
-      new FSAMigrateListOracleObjectsFromCSV('data/csv/dev-alterian-id-list.csv'),
+      new FSAMigrateListOracleObjectsFromCSV('data/csv/faq-alterian-id-list.csv'),
       new FSAMigrateItemOracleObject()
     );
 
     // Destination detail.
-    $this->destination = new MigrateDestinationNode('document_page');
+    $this->destination = new MigrateDestinationNode('faq');
 
     // General fields mapping.
     $this->addFieldMapping('title', 'title');
