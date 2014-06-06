@@ -108,4 +108,9 @@
 			border-bottom: 0;
 		}
 	}
+	.field-name-field-consultation-summary {
+		.file {
+			font-size: 1em;	// inherits the font size from parent .file-item that is 1.2em 
+		}
+	}
 }
