@@ -4737,7 +4737,10 @@ ul.pager {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003107}}
 .view-consultation-search .views-row-last .views-field-zs-view-mode-search-result {
   border-bottom: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003112}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003111}}
+.view-consultation-search .views-field-zs-view-mode-search-result .node .content .field.field-type-file {
+  font-size: 1em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003115}}
 .view-consultation-search .field-name-field-consultation-summary .file {
   font-size: 1em; }
 
