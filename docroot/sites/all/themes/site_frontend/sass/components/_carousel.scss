@@ -8,7 +8,7 @@
 	/* slideshow size */
 	.skin-default {
 		width: 699px;
-		height: 260px;	// 233px image height + 27px controls height
+		height: 230px;	// 203px image height + 27px controls height
 		overflow: hidden;
 		position: relative;	// for absolutely positioning to be contained
 	}
@@ -26,7 +26,7 @@
 	/* slide content wrapper */
 	.slide-content-wrapper {
 		z-index: 2;
-		width: 300px;
+		width: 400px;
 		max-height: 169px;
 		overflow: hidden;
 		position: absolute;

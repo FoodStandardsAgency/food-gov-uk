@@ -46,6 +46,13 @@
   $back_to_top = field_get_items('node', $node, 'field_setting_backtotop');
   $back_to_top = $back_to_top[0]['value'];
 
+// check for empty quote (a migration artifact)
+   if (
+     isset($field_collection_item->field_fc_section_quote) &&
+     isset($field_collection_item->field_fc_section_quote[$language][0]['value']) &&
+     !$field_collection_item->field_fc_section_quote[$language][0]['value']) {
+     hide($content['field_fc_section_quote']);
+   }
 
 
   // Create image and wrapper markup.
@@ -107,8 +114,11 @@
   if (!empty($field_collection_item->field_fc_related_items)) {
     $related_items_heading = render($content['field_fc_related_items_heading']);
     $related_item = render($content['field_fc_related_items']);
+	$related_items_wrapper = '<div class="related-items-wrapper"><div class="related-items-inner">';
+	$related_items_wrapper .= $related_items_heading;
+	$related_items_wrapper .= $related_item;
+	$related_items_wrapper .= '</div></div>';
   }
-
 
   // CSV files
   // Heading will display even if there's no content, so hide it here.
@@ -150,17 +160,16 @@
       }
 
       if (isset($related_item)) {
-        print $related_items_heading;
-        print $related_item;
+        print $related_items_wrapper;
+      }
+
+	  if (isset($csv_files)) {
+		print $csv_wrapper_header_files;
       }
 
       if (isset($child_page)) {
         print $child_pages_heading;
         print $child_page;
-      }
-
-	  if (isset($csv_files)) {
-		print $csv_wrapper_header_files;
       }
 
     ?>
