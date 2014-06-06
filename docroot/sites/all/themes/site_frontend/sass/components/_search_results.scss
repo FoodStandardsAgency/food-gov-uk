@@ -89,3 +89,23 @@
 .page-search .l-content {
 	margin-bottom: 20px;
 }
+
+/* consultation search results */
+.view-consultation-search {
+	.view-content {
+		margin-bottom: 60px;
+		h3 {
+			display: block;
+			margin: 08em 0 0.8em 0;
+			padding: .3em 11px;
+			font-size: 1.4em;
+			font-weight: bold;
+			color: #333;
+			background: #f0f0f0;
+		}
+	}
+	.views-row.view-row-last,
+	.views-row.views-row-first.views-row-last {
+		border-bottom: 0;
+	}
+}
