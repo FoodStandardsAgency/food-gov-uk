@@ -14,6 +14,7 @@ function fsa_migrate_migrate_api() {
     'api' => 2,
     'migrations' => array(
       'FSADocumentpage' => array('class_name' => 'FSADocumentpageMigration'),
+      'FSAFAQpage' => array('class_name' => 'FSAFAQpageMigration'),
       'FSADocumentpageCollection' => array('class_name' => 'FSADocumentpageCollectionMigration'),
       'FSARelatedContentCollection' => array('class_name' => 'FSARelatedContentCollectionMigration'),
       'FSAMediaImages' => array('class_name' => 'FSAMediaImagesMigration'),

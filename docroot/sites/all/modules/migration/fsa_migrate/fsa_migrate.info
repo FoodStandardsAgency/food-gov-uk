@@ -7,6 +7,7 @@ files[] = fsa_migrate.migrate.inc
 ; Classes.
 files[] = classes/fsa_migrate_base.migrate.inc
 files[] = classes/fsa_migrate_documentpage.migrate.inc
+files[] = classes/fsa_migrate_faqpage.migrate.inc
 files[] = classes/fsa_migrate_documentpage_fc.migrate.inc
 files[] = classes/fsa_migrate_related_content_fc.migrate.inc
 files[] = classes/fsa_migrate_media_images.migrate.inc
