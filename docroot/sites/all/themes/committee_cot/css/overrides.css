@@ -10,8 +10,9 @@
 
 /* page header and top border */
 .header-wrapper {
-	filter: none;	// removes ie gradient filters
+	filter: none;	/* removes IE gradient filter */
 	background: none;
+	background-image: none;
 	border-bottom: 3px solid #7f7fc0;
 	background-color: #3a3a9b;
 }
