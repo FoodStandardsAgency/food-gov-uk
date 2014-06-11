@@ -3318,6 +3318,11 @@ p.job-line-item {
   .main-menu-desktop .sf-menu.sf-style-none.sf-horizontal.sf-shadow ul {
     padding: 0 8px 7px 0 !important; }
 
+/* hide first child of the top level menu items only in Superfish. ie first item on second level will be hidden */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_main_menu\.scss}line{font-family:\00003219}}
+.main-menu-desktop .sf-item-1.sf-depth-2 {
+  display: none; }
+
 /* mobile layout */
 /** Mobile menu is just a menu block applied to main menu with only first level items displayed
   * Requires tinynav module to apply a select list to class (include the dots in class): .main-menu-mobile ul.menu

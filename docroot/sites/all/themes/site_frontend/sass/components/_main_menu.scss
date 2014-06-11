@@ -213,6 +213,15 @@
 	}
 }
 
+
+/* hide first child of the top level menu items only in Superfish. ie first item on second level will be hidden */
+.main-menu-desktop {
+	.sf-item-1.sf-depth-2 {
+		display: none;
+	}
+}
+
+
 /* mobile layout */
 @include breakpoint($mobile) {
 	.main-menu-desktop {
