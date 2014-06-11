@@ -81,3 +81,25 @@
 		}
 	}
 }
+
+/* overrides for consultation and summary of responses file-blocks 
+ * requires block class: file-block
+ * implementation of styling for file-block, see _file_block.scss
+ */
+.node-type-consultation {
+	#main-content .file-block {
+		h2.block__title {
+			display: block;
+			margin: 0 0 0.8em 0;
+			padding: 0;
+			color: #006f51;
+			background: none;
+			font-size: 1.3em; 
+			line-height: 1.4em;
+			margin-bottom: 0;
+			font-weight: bold;
+		}
+	}
+}
+
+
