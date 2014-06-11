@@ -1644,7 +1644,7 @@ ul.breadcrumb {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000393}}
   .node-type-consultation #main-content .file-block.block h2.block__title {
     display: block;
-    margin: 0 0 1em 0;
+    margin: 0 0 0.7em 0;
     padding: 12px 10px 0px 10px;
     color: #5d9711;
     background: none;
@@ -2110,7 +2110,7 @@ ul.breadcrumb {
   .file-block h3.block__title,
   .file-block .block__title {
     display: block;
-    margin: 0 0 1em 0;
+    margin: 0 0 0.8em 0;
     padding: 12px 10px 0px 10px;
     color: #5d9711;
     background: none;
