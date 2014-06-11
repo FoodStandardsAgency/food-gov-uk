@@ -3,6 +3,7 @@
   * Type: horizontal, style: simple, path class: active-trail, slide-in-effect: vertical, auto-arrows: off, drop-shadows: on
   * supersubs: on, min-width: 21em, max-width: 21em, SF-smallscreen: disabled, multi-column sub-menus: off 
   * The Superfish menu block needs a block class: main-menu-desktop
+  * Important note: CSS below hides first item of second level Superfish menu items
   */
 
 .main-menu-desktop,
@@ -214,8 +215,12 @@
 }
 
 
-/* hide first child of the top level menu items only in Superfish. ie first item on second level will be hidden */
+/* hide first child of the top level menu items only in Superfish. ie first item on second level will be hidden 
+ * we are doing this because we repeat the first level menu item as the first child item, biut we don't want to see
+ * ther duplicate links so we hide them with CSS
+ */
 .main-menu-desktop {
+	/* hide first child menu item */
 	.sf-item-1.sf-depth-2 {
 		display: none;
 	}
