@@ -389,13 +389,10 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_files\.scss}line{font-family:\0000313}}
   .file-item .filesize {
     font-size: 0.846em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_files\.scss}line{font-family:\0000316}}
-  .file-item .file-summary {
-    font-size: 0.923em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_files\.scss}line{font-family:\0000318}}
-    .file-item .file-summary p {
-      margin-bottom: 0;
-      font-size: 1em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_files\.scss}line{font-family:\0000317}}
+  .file-item .file-summary p {
+    margin-bottom: 0;
+    font-size: 1em; }
 
 /* inline form labels */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_forms\.scss}line{font-family:\000032}}
@@ -1629,8 +1626,8 @@ ul.breadcrumb {
     padding: 12px 10px 0px 10px;
     color: #5d9711;
     background: none;
-    font-size: 1.3em;
-    line-height: 1.4em;
+    font-size: 1.4em;
+    line-height: 1.3em;
     font-weight: bold; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_content_section\.scss}line{font-family:\000031}}
@@ -2080,11 +2077,10 @@ ul.breadcrumb {
     padding: 12px 10px 0px 10px;
     color: #5d9711;
     background: none;
-    font-size: 1.3em;
-    line-height: 1.4em;
-    margin-bottom: 0;
+    font-size: 1.4em;
+    line-height: 1.3em;
     font-weight: bold; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_file_block\.scss}line{font-family:\0000327}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_file_block\.scss}line{font-family:\0000326}}
   .file-block .custom-block-inner {
     overflow: hidden;
     background: #fff;
@@ -2096,7 +2092,7 @@ ul.breadcrumb {
     background: -ms-linear-gradient(top, white 0, white 46%, #eaeaea 100%);
     background: linear-gradient(top, #ffffff 0%, #ffffff 46%, #eaeaea 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#eaeaea',GradientType=0); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_file_block\.scss}line{font-family:\0000339}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_file_block\.scss}line{font-family:\0000338}}
   .file-block .custom-block-content-inner {
     padding: 0px 10px 12px 10px; }
 
