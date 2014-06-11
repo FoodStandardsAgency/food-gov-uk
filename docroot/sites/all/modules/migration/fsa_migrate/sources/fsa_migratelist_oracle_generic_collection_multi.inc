@@ -2,7 +2,11 @@
 
 /**
  * @file
- *  From a given CSV file, retrieve the object id and use a given request to get extra info from Oracle.
+ * Similar to oracle generic collection source migration, except :
+ * this class manage multi column query result.
+ *
+ * Support for migration from Oracle with text field collection sources such as
+ * QUESTIONTEXT and ANSWERTEXT for one field collection item.
  *
  * Migrate source list classes description: https://drupal.org/node/1152152.
  * Implementation: http://drupalcode.org/project/migrate.git/blob/refs/heads/7.x-2.x:/plugins/sources/json.inc.
@@ -11,8 +15,7 @@
 /**
  * Implementation of MigrateList, for retrieving a list of IDs to be migrated.
  */
-class FSAMigrateListOracleGenericCollection extends MigrateList {
-
+class FSAMigrateListOracleGenericCollectionMulti extends MigrateList {
   public $fileCSV;
 
   public $queries;
@@ -68,7 +71,7 @@ class FSAMigrateListOracleGenericCollection extends MigrateList {
       return FSAMigrateListBase::countQueryFromObjectIdsList($this->queries['count_query']);
     }
     else {
-      $sqlResult = $this->queryFromObjectIdsList();
+      $sqlResult = $this->queryFromObjectIdsList($this->twoColumnQuery);
       return count($sqlResult);
     }
   }
@@ -99,16 +102,16 @@ class FSAMigrateListOracleGenericCollection extends MigrateList {
       $replacedQuery = str_replace(':obj_ids', implode(',', $objectList), $query);
       $sqlResult = FSAMigration::oracleQueryAll($replacedQuery, array(), $connectionOracle);
 
-      $query_array_number = NULL;
+      // Gets the list of the keys and removes PARENTID key.
+      $keysArray = array_keys($sqlResult);
 
-      if (!is_null($sqlResult)) {
-        // Loop on the queries
-        foreach ($sqlResult['PARENTID'] as $item_number => $parent_id) {
-          // The return data will be like "query1" => "values ...".
-          $query_array_number = 'query' . ( $query_number + 1 );
-          $queriesResults[$parent_id]['PARENTID'] = $parent_id;
-          $queriesResults[$parent_id][$query_array_number] = $sqlResult['VALUE'][$item_number];
+      // Loop on the object data.
+      foreach ($sqlResult['OBJECTID'] as $item_number => $objectid) {
+        // Loop on the values and keys.
+        foreach ($keysArray as $key) {
+          $queriesResults[$objectid][$key] = $sqlResult[$key][$item_number];
         }
+        $query_number++;
       }
     }
 
@@ -121,7 +124,7 @@ class FSAMigrateListOracleGenericCollection extends MigrateList {
  *
  * Returns an object with all information for an object.
  */
-class FSAMigrateItemOracleGenericCollection extends MigrateItem {
+class FSAMigrateItemOracleGenericCollectionMulti extends MigrateItem {
   /**
    * Returns the data for the source item keyed by that ID, as an object.
    *

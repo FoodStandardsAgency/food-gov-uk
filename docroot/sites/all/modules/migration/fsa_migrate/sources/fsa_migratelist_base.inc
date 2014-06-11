@@ -76,4 +76,31 @@ class FSAMigrateListBase {
 
     return $objectList;
   }
+
+  /**
+   * Return an integer from a count query.
+   *
+   * @param string
+   *  The SQL count request, must return an integer called 'COUNT'.
+   * @return integer
+   *  Array composed of queries results and object id.
+   */
+  public function countQueryFromObjectIdsList($countQuery) {
+    GLOBAL $connectionOracle;
+    $queriesResults = NULL;
+
+    // Gets the objects id list.
+    $objectList = FSAMigrateListBase::getIdListFromCSV($this->fileCSV);
+
+    $replacedQuery = str_replace(':obj_ids', implode(',', $objectList), $countQuery);
+    $sqlResult = FSAMigration::oracleQueryAll($replacedQuery, array(), $connectionOracle);
+
+    if (isset($sqlResult['COUNT'][0])) {
+      $count = (int)$sqlResult['COUNT'][0];
+      return $count;
+    }
+    else {
+      return NULL;
+    }
+  }
 }
