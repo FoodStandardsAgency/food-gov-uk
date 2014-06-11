@@ -1647,13 +1647,12 @@ ul.breadcrumb {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000393}}
   .node-type-consultation #main-content .file-block.block h2.block__title {
     display: block;
-    margin: 0 0 0.8em 0;
+    margin: 0 0 1em 0;
     padding: 12px 10px 0px 10px;
-    color: #006f51;
+    color: #5d9711;
     background: none;
     font-size: 1.3em;
     line-height: 1.4em;
-    margin-bottom: 0;
     font-weight: bold; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_content_section\.scss}line{font-family:\000031}}
@@ -2116,7 +2115,7 @@ ul.breadcrumb {
     display: block;
     margin: 0 0 1em 0;
     padding: 12px 10px 0px 10px;
-    color: #006f51;
+    color: #5d9711;
     background: none;
     font-size: 1.3em;
     line-height: 1.4em;
@@ -2136,7 +2135,7 @@ ul.breadcrumb {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#eaeaea',GradientType=0); }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_file_block\.scss}line{font-family:\0000339}}
   .file-block .custom-block-content-inner {
-    padding: 0px 10px 0px 10px; }
+    padding: 0px 10px 12px 10px; }
 
 /**
  * Footer buttons
