@@ -243,4 +243,29 @@ ENDSQL;
       return '0';
     }
   }
+
+  /**
+   * For a legacy image position returns the new drupal position id, inspired from css class.
+   *
+   * @param $path
+   * @return null|string
+   */
+  public function pathFormatter($path) {
+    return ltrim($path, '/');
+  }
+
+  /**
+   * Formats the value from Yes or No to 'bullets' or 'none' for the toc_node module.
+   *
+   * @param $value
+   * @return null|string
+   */
+  public function indexed_toc_node($value) {
+    $lowerValue = strtolower($value);
+
+    if ($lowerValue == 'yes') {
+      return 'bullets';
+    }
+    return 'none';
+  }
 }

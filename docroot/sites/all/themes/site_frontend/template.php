@@ -99,23 +99,3 @@ function site_frontend_file_link($variables) {
   return '<span class="file">' . l($icon, $url, array('html' => TRUE)) . ' ' . l($link_text, $url, $options) . '</span>';
 }
 
-
-
-/**
- * Implements hook_preprocess_node
- * @param $variables
- */
-function site_frontend_preprocess_node(&$variables) {
-  // remove readmore
-  unset($variables['content']['links']['node']);
-  // Add in our own inline block regions
-  // Blocks that are assigned to the region using Context
-  /*
-  if ($variables['page'] ) {
-    if ($plugin = context_get_plugin('reaction', 'block')) {
-      $variables['region_node_inline'] = $plugin->block_get_blocks_by_region('node_inline');
-    }
-  }
-*/
-}
-
