@@ -87,11 +87,13 @@
  * implementation of styling for file-block, see _file_block.scss
  */
 .node-type-consultation {
-	#main-content .file-block {
+	#main-content .file-block.block {
+		padding: 0;
+		margin-bottom: 18px;
 		h2.block__title {
 			display: block;
 			margin: 0 0 0.8em 0;
-			padding: 0;
+			padding: 12px 10px 0px 10px;
 			color: #006f51;
 			background: none;
 			font-size: 1.3em; 
@@ -101,5 +103,4 @@
 		}
 	}
 }
-
 

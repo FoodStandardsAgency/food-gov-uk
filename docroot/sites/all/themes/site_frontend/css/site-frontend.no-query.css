@@ -1618,17 +1618,21 @@ ul.breadcrumb {
  * requires block class: file-block
  * implementation of styling for file-block, see _file_block.scss
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000391}}
-.node-type-consultation #main-content .file-block h2.block__title {
-  display: block;
-  margin: 0 0 0.8em 0;
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000390}}
+.node-type-consultation #main-content .file-block.block {
   padding: 0;
-  color: #006f51;
-  background: none;
-  font-size: 1.3em;
-  line-height: 1.4em;
-  margin-bottom: 0;
-  font-weight: bold; }
+  margin-bottom: 18px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_consultation_page\.scss}line{font-family:\0000393}}
+  .node-type-consultation #main-content .file-block.block h2.block__title {
+    display: block;
+    margin: 0 0 0.8em 0;
+    padding: 12px 10px 0px 10px;
+    color: #006f51;
+    background: none;
+    font-size: 1.3em;
+    line-height: 1.4em;
+    margin-bottom: 0;
+    font-weight: bold; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_content_section\.scss}line{font-family:\000031}}
 .main-wrapper {
@@ -2066,8 +2070,9 @@ ul.breadcrumb {
   -moz-border-radius: 8px;
   -o-border-radius: 8px;
   -ms-border-radius: 8px;
-  border-radius: 8px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_file_block\.scss}line{font-family:\0000315}}
+  border-radius: 8px;
+  margin-bottom: 18px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_file_block\.scss}line{font-family:\0000316}}
   .file-block h2.block__title,
   .file-block h3.block__title,
   .file-block .block__title {
@@ -2080,7 +2085,7 @@ ul.breadcrumb {
     line-height: 1.4em;
     margin-bottom: 0;
     font-weight: bold; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_file_block\.scss}line{font-family:\0000326}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_file_block\.scss}line{font-family:\0000327}}
   .file-block .custom-block-inner {
     overflow: hidden;
     background: #fff;
@@ -2092,7 +2097,7 @@ ul.breadcrumb {
     background: -ms-linear-gradient(top, white 0, white 46%, #eaeaea 100%);
     background: linear-gradient(top, #ffffff 0%, #ffffff 46%, #eaeaea 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#eaeaea',GradientType=0); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_file_block\.scss}line{font-family:\0000338}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_file_block\.scss}line{font-family:\0000339}}
   .file-block .custom-block-content-inner {
     padding: 0px 10px 0px 10px; }
 
