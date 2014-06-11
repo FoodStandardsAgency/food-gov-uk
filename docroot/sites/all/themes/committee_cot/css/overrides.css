@@ -216,7 +216,30 @@ span.ext {
 .current-search-item-text h2.search-results-heading {
 	background: #666699; 
 }
-
+.views-field-zs-view-mode-search-result a,
+.views-field-zs-view-mode-search-results-2 a,
+.views-field-zs-view-mode-search-results-3 a,
+.views-field-zs-view-mode-search-results-4 a,
+.views-field-zs-view-mode-search-results-5 a,
+.views-field-zs-view-mode-search-results-6 a,
+.views-field-zs-view-mode-search-results-7 a,
+.views-field-zs-view-mode-search-results-8 a,
+.views-field-zs-view-mode-search-results-9 a,
+.views-field-zs-view-mode-search-results-10 a {
+	color: #666699;
+}
+.views-field-zs-view-mode-search-result,
+.views-field-zs-view-mode-search-results-2,
+.views-field-zs-view-mode-search-results-3,
+.views-field-zs-view-mode-search-results-4,
+.views-field-zs-view-mode-search-results-5,
+.views-field-zs-view-mode-search-results-6,
+.views-field-zs-view-mode-search-results-7,
+.views-field-zs-view-mode-search-results-8,
+.views-field-zs-view-mode-search-results-9,
+.views-field-zs-view-mode-search-results-10 {
+	border-bottom: 1px solid #666699;
+}
 
 /* legacy CSS for tables from original old cot site */
 .cottable { float: left; width:100%; margin: 2px 0 20px 0;}
