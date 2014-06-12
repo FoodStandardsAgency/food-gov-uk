@@ -18,6 +18,28 @@
  */
 class FSAMigrateListBase {
 
+  const QUERYOBJSORTORDER = <<<'ENDSQL'
+    SELECT OBJ.OBJECTID, FIELDVALUE.VALUE
+    FROM OBJ, FIELDVALUE, FIELDNAME
+    WHERE FIELDVALUE.OBJECTID = OBJ.OBJECTID
+    AND FIELDVALUE.OBJECTID = OBJ.OBJECTID
+    AND FIELDNAME.FIELDID = FIELDVALUE.FIELDID
+    AND FIELDNAME.VARIABLE LIKE 'sortmethod'
+    AND OBJ.OBJECTID IN ( :obj_ids )
+ENDSQL;
+
+  const QUERYOBJFIELDSORDER = <<<'ENDSQL'
+    SELECT OBJ2.OBJECTID AS OBJFIELDID, FV2.VALUE
+    FROM OBJ OBJ2, LINK LINK2, FIELDVALUE FV2, FIELDNAME FN2
+    WHERE OBJ2.OBJECTID = LINK2.CHILDID
+    AND FV2.OBJECTID = OBJ2.OBJECTID
+    AND FN2.FIELDID = FV2.FIELDID
+    AND FN2.VARIABLE IN ( 'sortorder')
+    AND LINK2.PARENTID = :obj_id
+    ORDER BY to_number(FV2.VALUE) ASC
+ENDSQL;
+
+
   /**
    * Check if the given CSV file exists.
    *
@@ -98,6 +120,50 @@ class FSAMigrateListBase {
     if (isset($sqlResult['COUNT'][0])) {
       $count = (int)$sqlResult['COUNT'][0];
       return $count;
+    }
+    else {
+      return NULL;
+    }
+  }
+
+  /**
+   * Checkout the order used on the provided objects and returns an array of ids with a sorting value.
+   *
+   * @param $objectList
+   * @param $connectionOracle
+   * @return array|null
+   *  Returns null or an array of ids with a sorting value.
+   */
+  public function objectsFieldidSortingOrder($objectList, $connectionOracle) {
+    // Checks the sort order method for this object.
+    $replacedQuery = str_replace(':obj_ids', implode(',', $objectList), FSAMigrateListBase::QUERYOBJSORTORDER);
+    $sqlResult = FSAMigration::oracleQueryAll($replacedQuery, array(), $connectionOracle);
+
+    if (!is_null($sqlResult)) {
+      migrate_instrument_start('main objectsFieldidSortingOrder');
+      // Returns the fieldids sortorder by manual order.
+      foreach ($sqlResult['VALUE'] as $iResult => $resultLine) {
+        $objectid = $sqlResult['OBJECTID'][$iResult];
+
+        // @TODO Manage alphabetical order ASC and DESC.
+        if ($resultLine == 'Manual') {
+          // Execute SQL request to get all the fieldids with the order number.
+          $replacedFieldOrderQuery = str_replace(':obj_id', $objectid, FSAMigrateListBase::QUERYOBJFIELDSORDER);
+          $sqlFieldOrderResult = FSAMigration::oracleQueryAll($replacedFieldOrderQuery, array(), $connectionOracle);
+
+          // Calling it field to make it easier to understand, but it can be stored as a separate object in oracle.
+          foreach ($sqlFieldOrderResult['OBJFIELDID'] as $iSQLFieldOrder => $objFieldid) {
+            $objFieldValue = $sqlFieldOrderResult['VALUE'][$iSQLFieldOrder];
+            // Stores the data in an array like
+            // [PARENT ID]
+            //   [FIELDID] => 5
+            $sortedObjects[$objectid][$objFieldid] = $objFieldValue;
+          }
+        }
+      }
+      migrate_instrument_stop('objectsFieldidSortingOrder');
+
+      return $sortedObjects;
     }
     else {
       return NULL;
