@@ -633,6 +633,12 @@ img, media {
 .file-item span.filesize {
   margin-left: 10px; }
 
+/* generic classes that can be used in views or elsewhere */
+/* example usage: to hide RDF content */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_misc_other\.scss}line{font-family:\000034}}
+.hidden {
+  display: none; }
+
 /**
  * requires classes to be added to fields (example: page-section-heading)- done in field preprocess
  */
