@@ -268,4 +268,15 @@ ENDSQL;
     }
     return 'none';
   }
+
+  /**
+   * Formats a given value to ASCII//TRANSLIT.
+   *
+   * @param $value
+   * @return string
+   */
+  public function pastedApostropheFormatter($value) {
+    $formattedValue = iconv('UTF-8', 'ASCII//TRANSLIT', $value);
+    return $formattedValue;
+  }
 }

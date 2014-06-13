@@ -72,7 +72,8 @@ ENDSQL;
 
     // General fields mapping.
     $this->addFieldMapping('title', 'title');
-    $this->addFieldMapping('field_summary', 'summary');
+    $this->addFieldMapping('field_summary', 'summary')
+      ->callbacks(array($this, 'pastedApostropheFormatter'));
 
     // Updated date field.
     $this->addFieldMapping('field_updated', 'pubdate');

@@ -146,10 +146,12 @@ ENDSQL;
 
     $this->listObjectsIds = FSAMigrateListBase::getIdListFromCSV($realPathCSV);
 
+    // DB Connection.
+    // Misconception in Migrate executes this part of the code for every migration execution : drush ms, drush mi ...
+    // Letting us use this part as the Global connexion to Oracle.
     if (is_null($connectionOracle)) {
-      $connectionOracle = oci_connect($dbOracleDetails['username'], $dbOracleDetails['password'], $dbOracleDetails['connection_string']);
+      $connectionOracle = oci_connect($dbOracleDetails['username'], $dbOracleDetails['password'], $dbOracleDetails['connection_string'], 'AL32UTF8');
     }
-
     if (!$connectionOracle) {
       $e = oci_error();
       trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
