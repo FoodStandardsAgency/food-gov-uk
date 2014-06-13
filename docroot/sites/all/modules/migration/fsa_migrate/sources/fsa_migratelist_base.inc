@@ -28,7 +28,7 @@ class FSAMigrateListBase {
     AND OBJ.OBJECTID IN ( :obj_ids )
 ENDSQL;
 
-  const QUERYOBJFIELDSORDER = <<<'ENDSQL'
+  const QUERYOBJFIELDSORDERMANUAL = <<<'ENDSQL'
     SELECT OBJ2.OBJECTID AS OBJFIELDID, FV2.VALUE
     FROM OBJ OBJ2, LINK LINK2, FIELDVALUE FV2, FIELDNAME FN2
     WHERE OBJ2.OBJECTID = LINK2.CHILDID
@@ -39,6 +39,27 @@ ENDSQL;
     ORDER BY to_number(FV2.VALUE) ASC
 ENDSQL;
 
+  const QUERYOBJFIELDSORDERALPHA = <<<'ENDSQL'
+    SELECT OBJ2.OBJECTID AS OBJFIELDID, OBJ2.NAME
+    FROM OBJ OBJ2, LINK LINK2, FIELDVALUE FV2, FIELDNAME FN2
+    WHERE OBJ2.OBJECTID = LINK2.CHILDID
+    AND FV2.OBJECTID = OBJ2.OBJECTID
+    AND FN2.FIELDID = FV2.FIELDID
+    AND FN2.VARIABLE IN ( 'sortorder')
+    AND LINK2.PARENTID = :obj_id
+    ORDER BY OBJ2.NAME ASC
+ENDSQL;
+
+  const QUERYOBJFIELDSORDERALPHAREVERSE = <<<'ENDSQL'
+    SELECT OBJ2.OBJECTID AS OBJFIELDID, OBJ2.NAME
+    FROM OBJ OBJ2, LINK LINK2, FIELDVALUE FV2, FIELDNAME FN2
+    WHERE OBJ2.OBJECTID = LINK2.CHILDID
+    AND FV2.OBJECTID = OBJ2.OBJECTID
+    AND FN2.FIELDID = FV2.FIELDID
+    AND FN2.VARIABLE IN ( 'sortorder')
+    AND LINK2.PARENTID = :obj_id
+    ORDER BY OBJ2.NAME DESC
+ENDSQL;
 
   /**
    * Check if the given CSV file exists.
@@ -145,20 +166,50 @@ ENDSQL;
       foreach ($sqlResult['VALUE'] as $iResult => $resultLine) {
         $objectid = $sqlResult['OBJECTID'][$iResult];
 
-        // @TODO Manage alphabetical order ASC and DESC.
-        if ($resultLine == 'Manual') {
-          // Execute SQL request to get all the fieldids with the order number.
-          $replacedFieldOrderQuery = str_replace(':obj_id', $objectid, FSAMigrateListBase::QUERYOBJFIELDSORDER);
-          $sqlFieldOrderResult = FSAMigration::oracleQueryAll($replacedFieldOrderQuery, array(), $connectionOracle);
+        switch ($resultLine) {
+          case 'Manual':
+            // Execute SQL request to get all the fieldids with the order number.
+            $replacedFieldOrderQuery = str_replace(':obj_id', $objectid, FSAMigrateListBase::QUERYOBJFIELDSORDERMANUAL);
+            $sqlFieldOrderResult = FSAMigration::oracleQueryAll($replacedFieldOrderQuery, array(), $connectionOracle);
 
-          // Calling it field to make it easier to understand, but it can be stored as a separate object in oracle.
-          foreach ($sqlFieldOrderResult['OBJFIELDID'] as $iSQLFieldOrder => $objFieldid) {
-            $objFieldValue = $sqlFieldOrderResult['VALUE'][$iSQLFieldOrder];
-            // Stores the data in an array like
-            // [PARENT ID]
-            //   [FIELDID] => 5
-            $sortedObjects[$objectid][$objFieldid] = $objFieldValue;
-          }
+            // Calling it field to make it easier to understand, but it can be stored as a separate object in oracle.
+            foreach ($sqlFieldOrderResult['OBJFIELDID'] as $iSQLFieldOrder => $objFieldid) {
+              $objFieldValue = $sqlFieldOrderResult['VALUE'][$iSQLFieldOrder];
+              // Stores the data in an array like
+              // [PARENT ID]
+              //   [FIELDID] => 5
+              $sortedObjects[$objectid][$objFieldid] = $objFieldValue;
+            }
+            break;
+          case 'TitleAlpha':
+            $replacedFieldOrderQuery = str_replace(':obj_id', $objectid, FSAMigrateListBase::QUERYOBJFIELDSORDERALPHA);
+            $sqlFieldOrderResult = FSAMigration::oracleQueryAll($replacedFieldOrderQuery, array(), $connectionOracle);
+
+            $iOrder = 0;
+            // Calling it field to make it easier to understand, but it can be stored as a separate object in oracle.
+            foreach ($sqlFieldOrderResult['OBJFIELDID'] as $objFieldid) {
+              // Stores the data in an array like
+              // [PARENT ID]
+              //   [FIELDID] => 5
+              $sortedObjects[$objectid][$objFieldid] = $iOrder;
+              $iOrder++;
+            }
+            break;
+          case 'TitleReverseAlpha':
+            $replacedFieldOrderQuery =
+              str_replace(':obj_id', $objectid, FSAMigrateListBase::QUERYOBJFIELDSORDERALPHAREVERSE);
+            $sqlFieldOrderResult = FSAMigration::oracleQueryAll($replacedFieldOrderQuery, array(), $connectionOracle);
+
+            $iOrder = 0;
+            // Calling it field to make it easier to understand, but it can be stored as a separate object in oracle.
+            foreach ($sqlFieldOrderResult['OBJFIELDID'] as $objFieldid) {
+              // Stores the data in an array like
+              // [PARENT ID]
+              //   [FIELDID] => 5
+              $sortedObjects[$objectid][$objFieldid] = $iOrder;
+              $iOrder++;
+            }
+            break;
         }
       }
       migrate_instrument_stop('objectsFieldidSortingOrder');
