@@ -1913,6 +1913,38 @@ ul.breadcrumb {
   .external-sites-with-logos .view-content img {
     margin-bottom: 7px; }
 
+/* Foodbase links
+ * Requires block class: foodbase-links
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_external_sites_blocks\.scss}line{font-family:\00003132}}
+.foodbase-links {
+  /* links */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_external_sites_blocks\.scss}line{font-family:\00003134}}
+  .foodbase-links .views-field-field-url {
+    font-size: 1.2em;
+    padding-left: 10px;
+    background-image: url("../images/green-arrow-thin-right.png");
+    background-repeat: no-repeat;
+    background-position: left 3px;
+    margin-bottom: 2px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_external_sites_blocks\.scss}line{font-family:\00003141}}
+    .foodbase-links .views-field-field-url a {
+      text-decoration: none;
+      color: #006f51; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_external_sites_blocks\.scss}line{font-family:\00003145}}
+    .foodbase-links .views-field-field-url a:hover {
+      text-decoration: underline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_external_sites_blocks\.scss}line{font-family:\00003149}}
+  .foodbase-links .views-field-field-subtitle {
+    font-size: 1.2em;
+    padding-left: 10px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_external_sites_blocks\.scss}line{font-family:\00003153}}
+  .foodbase-links .views-row {
+    margin-bottom: 0.834em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_external_sites_blocks\.scss}line{font-family:\00003156}}
+  .foodbase-links .views-row.views-row-last {
+    margin-bottom: 0; }
+
 /* override default accordion theming */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\000032}}
 .field--name-field-fc-qanda {

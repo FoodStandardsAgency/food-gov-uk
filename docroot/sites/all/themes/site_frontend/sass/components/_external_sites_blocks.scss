@@ -124,3 +124,36 @@
 		}
 	}
 }
+
+
+/* Foodbase links
+ * Requires block class: foodbase-links
+ */
+.foodbase-links {
+	/* links */
+	.views-field-field-url {
+		font-size: 1.2em;
+		padding-left: 10px;
+		background-image: url('../images/green-arrow-thin-right.png');
+		background-repeat: no-repeat;
+		background-position: left 3px;
+		margin-bottom: 2px;
+		a {
+			text-decoration: none;
+			color: #006f51;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+	}
+	.views-field-field-subtitle {
+		font-size: 1.2em;
+		padding-left: 10px;
+	}
+	.views-row {
+		margin-bottom: 0.834em;	// 1.2em parent x 0.834em = about 10px
+	}
+	.views-row.views-row-last {
+		margin-bottom: 0;
+	}
+}
