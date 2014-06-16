@@ -5276,7 +5276,7 @@ ul.toc-node-bullets li.toc-node-level-6 {
 
 /* hide front page title in an accessible way */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_title_home_page\.scss}line{font-family:\000032}}
-.front #main-content h1 {
+.front h1#page-title {
   position: absolute !important;
   clip: rect(1px 1px 1px 1px);
   /* IE6, IE7 */
@@ -5292,7 +5292,7 @@ ul.toc-node-bullets li.toc-node-level-6 {
  * these classes are: front-page-wales, front-page-scotland, front-page-northern-ireland
  */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_title_nation_page\.scss}line{font-family:\0000311}}
-.front-page-wales .l-main .main-content-inner h1:first-child,
-.front-page-scotland .l-main .main-content-inner h1:first-child,
-.front-page-northern-ireland .l-main .main-content-inner h1:first-child {
+.front-page-wales h1#page-title,
+.front-page-scotland h1#page-title,
+.front-page-northern-ireland h1#page-title {
   display: none; }

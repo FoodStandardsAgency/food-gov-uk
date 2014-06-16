@@ -1,5 +1,5 @@
 /* hide front page title in an accessible way */
-.front #main-content h1 {
+.front h1#page-title {
     position: absolute !important;
     clip: rect(1px 1px 1px 1px);
     /* IE6, IE7 */
