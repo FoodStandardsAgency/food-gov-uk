@@ -953,44 +953,45 @@ p, ul, ol, dl, address, blockquote {
   line-height: 1.4em; }
 
 /* views blocks that have a class section-block */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_views\.scss}line{font-family:\000034}}
-.block--views .section-block h2.node__title,
-.block--views .section-block h3.node__title {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_views\.scss}line{font-family:\000035}}
+.block--views section-block .node__title,
+.block--views section-block h2.node__title,
+.block--views section-block h3.node__title {
   font-size: 1.3em;
   line-height: 1.4em;
   margin-bottom: 0;
   font-weight: bold; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_views\.scss}line{font-family:\0000310}}
-.block--views .section-block .field--name-field-summary {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_views\.scss}line{font-family:\0000311}}
+.block--views section-block .field--name-field-summary {
   font-size: 1.2em;
   line-height: 1.4em;
   display: block;
   color: #333;
   margin-bottom: 0.2em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_views\.scss}line{font-family:\0000317}}
-.block--views .section-block .node-teaser {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_views\.scss}line{font-family:\0000318}}
+.block--views section-block .node-teaser {
   margin-bottom: 0.8em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_views\.scss}line{font-family:\0000320}}
-.block--views .section-block .file-item {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_views\.scss}line{font-family:\0000321}}
+.block--views section-block .file-item {
   font-weight: normal;
   margin-bottom: 0.5em;
   font-size: 1.2em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_views\.scss}line{font-family:\0000324}}
-  .block--views .section-block .file-item .filesize {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_views\.scss}line{font-family:\0000325}}
+  .block--views section-block .file-item .filesize {
     font-size: 0.846em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_views\.scss}line{font-family:\0000328}}
-.block--views .section-block .file-summary p {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_views\.scss}line{font-family:\0000329}}
+.block--views section-block .file-summary p {
   margin-bottom: 0;
   font-size: 1em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_views\.scss}line{font-family:\0000332}}
-.block--views .section-block .field--type-taxonomy-term-reference {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_views\.scss}line{font-family:\0000333}}
+.block--views section-block .field--type-taxonomy-term-reference {
   font-size: 1.2em;
   line-height: 1.4em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_views\.scss}line{font-family:\0000336}}
-.block--views .section-block .field__item {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_views\.scss}line{font-family:\0000337}}
+.block--views section-block .field__item {
   margin-bottom: 0.5em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_views\.scss}line{font-family:\0000339}}
-.block--views .section-block .view-empty {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_views\.scss}line{font-family:\0000340}}
+.block--views section-block .view-empty {
   font-size: 1.2em;
   line-height: 1.4em; }
 
