@@ -11,6 +11,7 @@ Feature: Automatically set child menu to parent
     And I go to "/node/add/document-page"
 	And I should see "Create General Page" in the "Page Title" region
     When I fill in "edit-title" with "test parent"
+    And I fill in "edit-field-title-short-und-0-value" with "test"
     And I check the box "N/A" in "edit-field-site-section-und"
     And I click "Menu settings"
 	And I check the box "Provide a menu link"

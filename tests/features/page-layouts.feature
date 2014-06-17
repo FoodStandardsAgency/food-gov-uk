@@ -9,6 +9,7 @@ Feature: Page layouts
   When I go to "/node/add/document-page"
   And I should see "Create General Page" in the "Page Title" region
   And I fill in "edit-title" with "test"
+  And I fill in "edit-field-title-short-und-0-value" with "test"
   And I check the box "N/A" in "edit-field-site-section-und"
   And I click "Page settings"
   And I select "One column (no sidebars)" from "edit-field-layout-und"
@@ -27,6 +28,7 @@ Feature: Page layouts
   When I go to "/node/add/document-page"
   And I should see "Create General Page" in the "Page Title" region
   And I fill in "edit-title" with "test"
+  And I fill in "edit-field-title-short-und-0-value" with "test"
   And I check the box "N/A" in "edit-field-site-section-und"
   And I click "Page settings"
   And I select "Three columns" from "edit-field-layout-und"
@@ -45,6 +47,7 @@ Feature: Page layouts
   When I go to "/node/add/document-page"
   And I should see "Create General Page" in the "Page Title" region
   And I fill in "edit-title" with "test"
+  And I fill in "edit-field-title-short-und-0-value" with "test"
   And I check the box "N/A" in "edit-field-site-section-und"
   And I click "Page settings"
   And I select "Two columns" from "edit-field-layout-und"
@@ -63,6 +66,7 @@ Feature: Page layouts
   When I go to "/node/add/document-page"
   And I should see "Create General Page" in the "Page Title" region
   And I fill in "edit-title" with "test"
+  And I fill in "edit-field-title-short-und-0-value" with "test"
   And I check the box "N/A" in "edit-field-site-section-und"
   And I click "Page settings"
   And I select "One column blank (no sidebars, header or footer)" from "edit-field-layout-und"

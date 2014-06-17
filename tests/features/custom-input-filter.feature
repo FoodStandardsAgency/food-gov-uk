@@ -9,6 +9,7 @@ Feature: Custom input filter
 	#When I go to "/node/add/document-page"
     #And I should see "Create General Page" in the "Page Title" region
     #And I fill in "edit-title" with "test"
+    #And I fill in "edit-field-title-short-und-0-value" with "test"
     #And I select "Preserve" from "edit-body-und-0-format--2"
 	#And I fill in "edit-body-und-0-value" with:
     #"""

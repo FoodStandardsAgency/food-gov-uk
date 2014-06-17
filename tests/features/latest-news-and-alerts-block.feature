@@ -9,8 +9,10 @@ Feature: Latest news and alerts
   And I log in as an existing "editor"
   And I go to "/"
   And I should see an "#block-views-news-block-6" element
-  When I click "Test enforcement news" in block "block-views-news-block-6" 
-  And I should be on "/test-enforcement-news"
-  Then I edit the current node 
+  When I click "Test enforcement news" in block "block-views-news-block-6"
+  Then I edit the current node
   And I click "Publishing options"
   And the "Promoted to front page" checkbox should be checked
+  
+  #views-row views-row-1 views-row-odd views-row-first
+  #views-field views-field-title
