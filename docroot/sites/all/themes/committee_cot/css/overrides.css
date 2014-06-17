@@ -148,6 +148,9 @@ ul.toc-node-bullets li.toc-node-level-6 {
 .see-also .views-field-title {
 	background: url("../images/thin-right-arrow.png") left 3px no-repeat;
 }
+.see-also .views-field-title a {
+	color: #666699;
+}
 
 /* external links block */
 .external-sites h2.block__title {
@@ -263,9 +266,18 @@ ul.pager li a {
 .cottablenoborder td a:hover { color:#d56633; text-decoration:underline; }
 .cottablenoborder td ul { margin:0 0 0 14px; padding-left:3px; }
 
-
-
-
+/* foodbase links */
+.foodbase-links h2.block__title, 
+.foodbase-links h3.block__title, 
+.foodbase-links .block__title {
+	color: #666699;
+}
+.foodbase-links .views-field-field-url a {
+	color: #666699;
+}
+.foodbase-links .views-field-field-url {
+	background: url("../images/thin-right-arrow.png") left 3px no-repeat;
+}
 
 
 
