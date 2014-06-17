@@ -89,6 +89,9 @@ class FSAMigrateListOracleGenericCollectionMulti extends MigrateList {
     // Gets the objects id list.
     $objectList = FSAMigrateListBase::getIdListFromCSV($this->fileCSV);
 
+    // Sort order management.
+    $sortorderArray = FSAMigrateListBase::objectsFieldidSortingOrder($objectList, $connectionOracle);
+
     $queries = $this->queries;
     if (isset($queries['count_query'])) {
       unset($queries['count_query']);
@@ -107,12 +110,26 @@ class FSAMigrateListOracleGenericCollectionMulti extends MigrateList {
 
       // Loop on the object data.
       foreach ($sqlResult['OBJECTID'] as $item_number => $objectid) {
+        $objectParentid = $sqlResult['PARENTID'][$item_number];
+        // We will add the sorting value in the array.
+        $itemSortOrderValue = $sortorderArray[$objectParentid][$objectid];
+
         // Loop on the values and keys.
         foreach ($keysArray as $key) {
-          $queriesResults[$objectid][$key] = $sqlResult[$key][$item_number];
+          $queriesResults[$itemSortOrderValue . $objectid][$key] = $sqlResult[$key][$item_number];
         }
         $query_number++;
       }
+    }
+
+    // Ksort the items to put them in the right order.
+    // Performance should be tracked in here as the array could be quite big.
+    migrate_instrument_start('ksort queryFromObjectIdsList');
+    $ksortSuccess = ksort($queriesResults);
+    migrate_instrument_stop('ksort queryFromObjectIdsList');
+
+    if (!$ksortSuccess) {
+      drush_log('Function ksort failed in migration queryFromObjectIdsList', 'error');
     }
 
     return $queriesResults;

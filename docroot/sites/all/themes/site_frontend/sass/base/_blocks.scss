@@ -260,3 +260,21 @@
 		}
 	}
 }
+
+/* used for blocks to emulate page section headings */
+.section-block {
+	padding-bottom: 15px;
+	overflow: hidden;	
+	.block__title,
+	h2.block__title,
+	h3.block__title {
+		display: block;
+		margin: 0 0 1em 0;
+		padding: .3em 11px;
+		font-size: 1.4em;
+		font-weight: bold;
+		color: #fff;
+		background: #5d9711;
+		clear: both;
+	}
+}

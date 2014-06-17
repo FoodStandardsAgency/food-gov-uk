@@ -127,7 +127,7 @@
                   <div class="book-section-title"><?php print $book_section_title; ?></div>
               <?php endif; ?>
 	          <?php if ($title): ?>
-	            <h1><?php print $title; ?></h1>
+	            <h1 id="page-title"><?php print $title; ?></h1>
 	          <?php endif; ?>
               <?php if ($book_parent_title): ?>
                 </div> <!-- end triple title -->

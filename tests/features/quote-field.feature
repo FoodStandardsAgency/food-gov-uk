@@ -9,6 +9,7 @@ Feature: Quotes
   When I go to "/node/add/document-page"
   And I should see "Create General Page" in the "Page Title" region
   And I fill in "edit-title" with "test"
+  And I fill in "edit-field-title-short-und-0-value" with "test"
   And I check the box "N/A" in "edit-field-site-section-und"
   And I click "Page sections"
   And I click "Quote"

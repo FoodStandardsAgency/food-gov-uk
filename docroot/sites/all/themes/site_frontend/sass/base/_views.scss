@@ -1,0 +1,43 @@
+/* views blocks that have a class section-block */
+.block--views .section-block {
+	h2.node__title,
+	h3.node__title {
+		font-size: 1.3em;
+		line-height: 1.4em;
+		margin-bottom: 0;
+		font-weight: bold;
+	}
+	.field--name-field-summary {
+		font-size: 1.2em;
+		line-height: 1.4em;
+		display: block;
+		color: #333;
+		margin-bottom: 0.2em;
+	}
+	.node-teaser {
+		margin-bottom: 0.8em;
+	}
+	.file-item {
+		font-weight: normal;
+		margin-bottom: 0.5em;
+		font-size: 1.2em;
+		.filesize {
+			font-size: 0.846em; 
+		}
+	}
+	.file-summary p {
+		margin-bottom: 0;
+		font-size: 1em;
+	}
+	.field--type-taxonomy-term-reference {
+		font-size: 1.2em;
+		line-height: 1.4em;
+	}
+	.field__item {
+		margin-bottom: 0.5em;
+	}
+	.view-empty {
+		font-size: 1.2em;
+		line-height: 1.4em;
+	}
+}
