@@ -328,6 +328,24 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
   font-weight: normal;
   padding: .46875em 11px .140625em 11px; }
 
+/* used for blocks to emulate page section headings */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003265}}
+.section-block {
+  padding-bottom: 15px;
+  overflow: hidden; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_blocks\.scss}line{font-family:\00003270}}
+  .section-block .block__title,
+  .section-block h2.block__title,
+  .section-block h3.block__title {
+    display: block;
+    margin: 0 0 1em 0;
+    padding: .3em 11px;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #fff;
+    background: #5d9711;
+    clear: both; }
+
 /* override default styling that comes with field collections module */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_field_collections\.scss}line{font-family:\000032}}
 .field-collection-view {
