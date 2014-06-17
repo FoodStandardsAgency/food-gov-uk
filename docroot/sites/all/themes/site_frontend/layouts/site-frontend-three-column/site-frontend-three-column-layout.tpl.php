@@ -121,15 +121,15 @@
 			    </div> <!-- end content-top-wrapper -->
 		      <?php endif; ?>
 	          <?php print render($title_prefix); ?>
-              <?php if ($book_parent_title): ?>
+              <?php if (isset($book_parent_title) && $book_parent_title): ?>
                 <div class="book-triple-title">
                   <div class="book-parent-title"><?php print $book_parent_title; ?></div>
-                  <div class="book-section-title"><?php print $book_section_title; ?></div>
+                  <div class="book-section-title"><?php if (isset($book_section_title)) print $book_section_title; ?></div>
               <?php endif; ?>
 	          <?php if ($title): ?>
 	            <h1 id="page-title"><?php print $title; ?></h1>
 	          <?php endif; ?>
-              <?php if ($book_parent_title): ?>
+              <?php if (isset($book_parent_title) && $book_parent_title): ?>
                 </div> <!-- end triple title -->
               <?php endif; ?>
 	          <?php print render($title_suffix); ?>
