@@ -976,6 +976,18 @@ p, ul, ol, dl, address, blockquote {
 .section-block .view .view-empty {
   font-size: 1.2em;
   line-height: 1.4em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_views\.scss}line{font-family:\0000344}}
+.section-block .view .views-row {
+  border-bottom: 1px solid #5d9711;
+  padding: 7px 0 7px 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_views\.scss}line{font-family:\0000348}}
+.section-block .view .views-row.views-row-last {
+  border-bottom: none;
+  padding-bottom: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_views\.scss}line{font-family:\0000352}}
+.section-block .view .views-row.views-row-first.views-row-last {
+  padding: 0;
+  border-bottom: none; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_admin_menu\.scss}line{font-family:\000031}}
 #admin-menu {

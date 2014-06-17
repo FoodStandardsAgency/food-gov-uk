@@ -41,4 +41,16 @@
 		font-size: 1.2em;
 		line-height: 1.4em;
 	}
+	.views-row {
+		border-bottom: 1px solid #5d9711;
+		padding: 7px 0 7px 0;
+	}
+	.views-row.views-row-last {
+		border-bottom: none;
+		padding-bottom: 0;
+	}
+	.views-row.views-row-first.views-row-last {
+		padding: 0;
+		border-bottom: none;
+	}
 }
