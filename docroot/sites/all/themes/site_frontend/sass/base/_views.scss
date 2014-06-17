@@ -1,5 +1,5 @@
 /* views blocks that have a class section-block */
-.block--views .section-block {
+.section-block .view {
 	.node__title,
 	h2.node__title,
 	h3.node__title {
@@ -14,6 +14,12 @@
 		display: block;
 		color: #333;
 		margin-bottom: 0.2em;
+	}
+	.field--name-field-consultation-summary {
+		margin-bottom: 0.2em;
+	}
+	.field--name-field-consultation-dates .field__item {
+		margin-bottom: 0;
 	}
 	.node-teaser {
 		margin-bottom: 0.8em;
@@ -40,5 +46,20 @@
 	.view-empty {
 		font-size: 1.2em;
 		line-height: 1.4em;
+	}
+	.views-row {
+		border-bottom: 1px solid #5d9711;
+		padding: 7px 0 7px 0;
+	}
+	.views-row.views-row-first {
+		padding: 0 0 7px 0;
+ 	}
+	.views-row.views-row-last {
+		border-bottom: none;
+		padding: 7px 0 0 0;
+	}
+	.views-row.views-row-first.views-row-last {
+		padding: 0 0 0 0;
+		border-bottom: none;
 	}
 }
