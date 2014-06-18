@@ -2,7 +2,7 @@
  * header background - #3a3a9b
  * seaction header background - #7f81c4
  * left sidebar blocks background - #5d5ead
- * links, sidebar menu top border, page titles, section subheadings, page summary, quote text  - #666699
+ * #666699 - links, sidebar menu top border, page titles, section subheadings, page summary, quote text, views row borders
  * table headings, guidance highlight box border etc - #666699
  * header and footer border - #7f7fc0
  * right and down arrows color - #646464
@@ -81,6 +81,7 @@ a:hover,
 }
 .committee-news {
 	font-size: 1em;
+	margin-bottom: 1.3em;
 }
 .committee-news h3.node__title,
 .committee-news h3.node__title {
@@ -88,6 +89,21 @@ a:hover,
 	line-height: 1.4em;
 	margin-bottom: 0;
 	font-weight: bold;
+}
+.committee-news .views-row {
+	border-bottom: 1px solid #666699;
+	padding: 7px 0 7px 0;
+}
+.committee-news .views-row.views-row-first {
+	padding: 0 0 7px 0;
+}
+.committee-news .views-row.views-row-last {
+	border-bottom: none;
+	padding: 7px 0 0 0;
+}
+.committee-news .views-row.views-row-first.views-row-last {
+	padding: 0 0 0 0;
+	border-bottom: none;
 }
 
 /* committee menu - see site front_frontent theme for the rest of the implementation */
