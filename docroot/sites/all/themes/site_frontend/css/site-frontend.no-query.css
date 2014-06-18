@@ -4739,7 +4739,7 @@ ul.pager {
 .view-consultation-search .field-name-field-consultation-summary .file {
   font-size: 1em; }
 
-/* audit report search results */
+/* audit report search results - themed differently because of html structure of some of the search rewsults */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003124}}
 .view-audit-reports .view-content h3 {
   display: block;
@@ -4758,6 +4758,27 @@ ul.pager {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003143}}
 .view-audit-reports .field-name-field-consultation-summary .file {
   font-size: 1em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003156}}
+.view-audit-reports .views-field-zs-view-mode-search-result,
+.view-audit-reports .views-field-zs-view-mode-search-results-2,
+.view-audit-reports .views-field-zs-view-mode-search-results-3,
+.view-audit-reports .views-field-zs-view-mode-search-results-4,
+.view-audit-reports .views-field-zs-view-mode-search-results-5,
+.view-audit-reports .views-field-zs-view-mode-search-results-6,
+.view-audit-reports .views-field-zs-view-mode-search-results-7,
+.view-audit-reports .views-field-zs-view-mode-search-results-8,
+.view-audit-reports .views-field-zs-view-mode-search-results-9,
+.view-audit-reports .views-field-zs-view-mode-search-results-10 {
+  border-bottom: none;
+  padding: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003160}}
+.view-audit-reports .views-row {
+  border-bottom: 1px solid #5d9711;
+  padding: 7px 0 7px 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003165}}
+.view-audit-reports .views-row.views-row-last,
+.view-audit-reports .views-row.views-row-first.views-row-last {
+  border-bottom: 0; }
 
 /**
  * See also block
