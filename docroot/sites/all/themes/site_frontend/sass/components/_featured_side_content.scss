@@ -1,0 +1,44 @@
+/**
+ * Requires block class: featured-side-content
+ */
+.featured-side-content {
+	overflow: hidden;
+	 /* content title per featured block instance */
+	 .field--name-field-title-side-content-generic {
+		  font-size: 1.5em;
+		  color: #4b800d;
+		  padding: 0;
+		  margin: .15em 0 .3em 0;
+		  h1, h2, h3, h4, h5, h6 {
+			  padding: 0;
+			  margin: 0;
+			  font-size: 1em; // ie use size applied to the parent field - works out to 1.5em
+			}
+	 }
+	/* content main text body per featured block instance */
+	.field--name-field-body-side-content-generic {}
+	/* wrapper per featured block field collection instance */
+	.field-collection-view {
+		overflow: hidden;
+		border: 1px solid #e8e8e8;
+		background: #fff;
+		padding: .5em 11px .3em 11px;
+		margin-bottom: 11px;
+		overflow: hidden;
+		clear: both;
+		img {
+			max-width: 100%;
+			height: auto;
+		}
+	}
+	/* first featured item */
+	.views-row-first {
+		.field-collection-view {
+			background: #5d9711;
+		}
+	}
+}
+/* remove bottom margin of block - inner content already has bottom margin */
+.l-region--sidebar-second .block.featured-side-content {
+	margin-bottom: 0;
+}
