@@ -40,9 +40,12 @@
 		}
 	}
 	/* first featured item */
-	.field-collection-view:first-child {
+	li:first-child .field-collection-view {
 		background: #5d9711;
 		color: #fff;
+		a {
+			color: #dde9c9;
+		}
 		.field--name-field-title-side-content-generic {
 			color: #fff;
 			font-weight: bold;

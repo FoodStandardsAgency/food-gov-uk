@@ -2258,16 +2258,19 @@ ul.breadcrumb {
       max-width: 100%;
       height: auto; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000343}}
-  .featured-side-content .field-collection-view:first-child {
+  .featured-side-content li:first-child .field-collection-view {
     background: #5d9711;
     color: #fff; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000346}}
-    .featured-side-content .field-collection-view:first-child .field--name-field-title-side-content-generic {
+    .featured-side-content li:first-child .field-collection-view a {
+      color: #dde9c9; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000349}}
+    .featured-side-content li:first-child .field-collection-view .field--name-field-title-side-content-generic {
       color: #fff;
       font-weight: bold; }
 
 /* remove bottom margin of block - inner content already has bottom margin */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000353}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000356}}
 .l-region--sidebar-second .block.featured-side-content {
   margin-bottom: 0; }
 
