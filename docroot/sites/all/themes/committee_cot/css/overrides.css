@@ -2,7 +2,7 @@
  * header background - #3a3a9b
  * seaction header background - #7f81c4
  * left sidebar blocks background - #5d5ead
- * links, sidebar menu top border, page titles, section subheadings  - #666699
+ * links, sidebar menu top border, page titles, section subheadings, page summary, quote text  - #666699
  * table headings, guidance highlight box border etc - #666699
  * header and footer border - #7f7fc0
  * right and down arrows color - #646464
@@ -59,7 +59,7 @@ a:hover,
 /* summary field */
 .field--name-field-summary,
 .views-field-field-summary {
-	color: #333;
+	color: #666699;
 }
 
 
@@ -279,5 +279,20 @@ ul.pager li a {
 	background: url("../images/thin-right-arrow.png") left 3px no-repeat;
 }
 
+/* quote box in page sections */
+.field--name-field-fc-section-quote {
+	background-color: #eaeaea;
+	color: #666699;
+}
+.field--name-field-fc-section-quote .field__items {
+	background-image: url("../images/quote-top-left.png");
+	background-repeat: no-repeat;
+	background-position: top left;
+}
+.field--name-field-fc-section-quote .field__items .field__item {
+	background-image: url("../images/quote-bottom-right.png");
+	background-repeat: no-repeat;
+	background-position: bottom right;
+}
 
 
