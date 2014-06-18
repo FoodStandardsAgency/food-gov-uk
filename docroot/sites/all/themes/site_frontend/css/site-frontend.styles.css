@@ -2258,22 +2258,30 @@ ul.breadcrumb {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\000034}}
 .featured-side-content {
   overflow: hidden;
+  /* displayed as unordered list - make adjustments */
   /* content title per featured block instance */
   /* content main text body per featured block instance */
   /* wrapper per featured block field collection instance */
   /* first featured item */ }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\000037}}
+  .featured-side-content ul, .featured-side-content li {
+    font-size: 1em;
+    list-style-type: none;
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000315}}
   .featured-side-content .field--name-field-title-side-content-generic {
     font-size: 1.5em;
     color: #4b800d;
     padding: 0;
     margin: .15em 0 .3em 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000312}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000320}}
     .featured-side-content .field--name-field-title-side-content-generic h1, .featured-side-content .field--name-field-title-side-content-generic h2, .featured-side-content .field--name-field-title-side-content-generic h3, .featured-side-content .field--name-field-title-side-content-generic h4, .featured-side-content .field--name-field-title-side-content-generic h5, .featured-side-content .field--name-field-title-side-content-generic h6 {
       padding: 0;
       margin: 0;
       font-size: 1em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000321}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000329}}
   .featured-side-content .field-collection-view {
     overflow: hidden;
     border: 1px solid #e8e8e8;
@@ -2282,16 +2290,21 @@ ul.breadcrumb {
     margin-bottom: 11px;
     overflow: hidden;
     clear: both; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000329}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000337}}
     .featured-side-content .field-collection-view img {
       max-width: 100%;
       height: auto; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000336}}
-  .featured-side-content .views-row-first .field-collection-view {
-    background: #5d9711; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000343}}
+  .featured-side-content .field-collection-view:first-child {
+    background: #5d9711;
+    color: #fff; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000346}}
+    .featured-side-content .field-collection-view:first-child .field--name-field-title-side-content-generic {
+      color: #fff;
+      font-weight: bold; }
 
 /* remove bottom margin of block - inner content already has bottom margin */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000342}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000353}}
 .l-region--sidebar-second .block.featured-side-content {
   margin-bottom: 0; }
 

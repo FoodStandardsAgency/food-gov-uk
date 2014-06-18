@@ -3,6 +3,14 @@
  */
 .featured-side-content {
 	overflow: hidden;
+	/* displayed as unordered list - make adjustments */
+	ul, li {
+		font-size: 1em;
+		list-style-type: none;
+		list-style: none;
+		margin-left: 0;
+		padding-left: 0;
+	}
 	 /* content title per featured block instance */
 	 .field--name-field-title-side-content-generic {
 		  font-size: 1.5em;
@@ -32,9 +40,12 @@
 		}
 	}
 	/* first featured item */
-	.views-row-first {
-		.field-collection-view {
-			background: #5d9711;
+	.field-collection-view:first-child {
+		background: #5d9711;
+		color: #fff;
+		.field--name-field-title-side-content-generic {
+			color: #fff;
+			font-weight: bold;
 		}
 	}
 }
