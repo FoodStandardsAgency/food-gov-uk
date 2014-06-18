@@ -5679,6 +5679,27 @@ ul.toc-node-bullets li.toc-node-level-6 {
 .field--type-text-long .fsatable td ul li {
   font-size: 130%; }
 
+/* Book page titles 
+ * How they work: When book page has no parent, its title must be default appearance as per rest of the site
+ * and when book page has a parent, the parent title must look like the page title and the section title and book page
+ * title looks different. When parent page is present, all three titles get wrapped in div class="book-triple-title"
+*/
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_title_book_page\.scss}line{font-family:\000038}}
+.book-triple-title .book-parent-title {
+  font-size: 2.8em;
+  line-height: 1.2em;
+  font-weight: normal;
+  color: #4b800d;
+  margin-bottom: 0.5em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_title_book_page\.scss}line{font-family:\0000316}}
+.book-triple-title .book-section-title,
+.book-triple-title h1#page-title {
+  font-size: 2em;
+  line-height: 1.2em;
+  font-weight: normal;
+  color: #333;
+  margin-bottom: 0.5em; }
+
 /* hide front page title in an accessible way */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_title_home_page\.scss}line{font-family:\000032}}
 .front h1#page-title {

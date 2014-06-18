@@ -1,0 +1,23 @@
+/* Book page titles 
+ * How they work: When book page has no parent, its title must be default appearance as per rest of the site
+ * and when book page has a parent, the parent title must look like the page title and the section title and book page
+ * title looks different. When parent page is present, all three titles get wrapped in div class="book-triple-title"
+*/
+
+.book-triple-title {
+	.book-parent-title {
+		font-size: 2.8em;
+		line-height: 1.2em;
+		font-weight: normal;
+		color: #4b800d;
+		margin-bottom: 0.5em;
+	}
+	.book-section-title,
+	 h1#page-title {
+		font-size: 2em;
+		line-height: 1.2em;
+		font-weight: normal;
+		color: #333;
+		margin-bottom: 0.5em;
+	}
+}
