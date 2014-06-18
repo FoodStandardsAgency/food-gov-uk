@@ -74,6 +74,11 @@ function field_collection_entity_info() {
     );
   }
 
+  if (module_exists('entitycache')) {
+    $return['field_collection_item']['field cache'] = FALSE;
+    $return['field_collection_item']['entity cache'] = TRUE;
+  }
+
   return $return;
 }
 
