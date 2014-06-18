@@ -4986,6 +4986,26 @@ ul.pager {
 .view-consultation-search .field-name-field-consultation-summary .file {
   font-size: 1em; }
 
+/* audit report search results */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003124}}
+.view-audit-reports .view-content h3 {
+  display: block;
+  margin: 0 0 0.8em 0;
+  padding: .3em 11px;
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #333;
+  background: #f0f0f0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003135}}
+.view-audit-reports .views-row-last .views-field-zs-view-mode-search-result {
+  border-bottom: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003139}}
+.view-audit-reports .views-field-zs-view-mode-search-result .node .content .field.field-type-file {
+  font-size: 1em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003143}}
+.view-audit-reports .field-name-field-consultation-summary .file {
+  font-size: 1em; }
+
 /**
  * See also block
  * Dependant on block class see-also

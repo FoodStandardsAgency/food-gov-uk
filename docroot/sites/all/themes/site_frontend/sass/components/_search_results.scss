@@ -117,3 +117,31 @@
 		}
 	}
 }
+
+/* audit report search results */
+.view-audit-reports {
+	.view-content {
+		h3 {
+			display: block;
+			margin: 0 0 0.8em 0;
+			padding: .3em 11px;
+			font-size: 1.4em;
+			font-weight: bold;
+			color: #333;
+			background: #f0f0f0;
+		}
+	}
+	.views-row-last {
+		.views-field-zs-view-mode-search-result {
+			border-bottom: 0;
+		}
+	}
+	.views-field-zs-view-mode-search-result .node .content .field.field-type-file {
+		font-size: 1em; // we set size on the child .file-item
+	}
+	.field-name-field-consultation-summary {
+		.file {
+			font-size: 1em;	// inherits the font size from parent .file-item that is 1.2em 
+		}
+	}
+}
