@@ -3,6 +3,9 @@
  */
 .featured-side-content {
 	overflow: hidden;
+	p {
+		font-size: 1em;	// this is because we are giving body field a font size to catch all cases.
+	}
 	/* displayed as unordered list - make adjustments */
 	ul, li {
 		font-size: 1em;
@@ -24,7 +27,10 @@
 			}
 	 }
 	/* content main text body per featured block instance */
-	.field--name-field-body-side-content-generic {}
+	.field--name-field-body-side-content-generic {
+		font-size: 1.2em;
+		line-height: 1.3em;
+	}
 	/* wrapper per featured block field collection instance */
 	.field-collection-view {
 		overflow: hidden;
