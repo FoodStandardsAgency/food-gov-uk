@@ -5331,18 +5331,52 @@ ul.pager {
     background-repeat: no-repeat;
     background-position: 9px center; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_social_media_icons\.scss}line{font-family:\000033}}
-.social-media-icons {
+/* social media icons
+ * requires block class: social-media-icons
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_social_media_icons\.scss}line{font-family:\000036}}
+.social-media-icons .block__content ul {
+  overflow: hidden;
   list-style-type: none;
   padding: 0;
   margin: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_social_media_icons\.scss}line{font-family:\000037}}
-  .social-media-icons li {
-    list-style-type: none;
-    float: right;
-    padding: 0;
-    margin: 0 0 0 7px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_social_media_icons\.scss}line{font-family:\0000312}}
+.social-media-icons .block__content li {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 4px 0 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_social_media_icons\.scss}line{font-family:\0000317}}
+.social-media-icons .block__content li.extra-margin {
+  margin-right: 18px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_social_media_icons\.scss}line{font-family:\0000320}}
+.social-media-icons .block__content .label-wrapper {
+  color: #fff;
+  position: relative;
+  top: -12px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_social_media_icons\.scss}line{font-family:\0000325}}
+.social-media-icons .block__content .left-label {
+  float: left; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_social_media_icons\.scss}line{font-family:\0000328}}
+.social-media-icons .block__content .right-label {
+  margin-left: 90px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_social_media_icons\.scss}line{font-family:\0000331}}
+.social-media-icons .block__content .icons-wrapper {
+  clear: left; }
 
+/*
+<div class="label-wrapper"><span class="left-label">Stay updated:</span> <span class="right-label">Keep connected:</span></div>
+<div class="icons-wrapper">
+<ul>
+	<li><a href="" target="_blank" title="email"><img alt="email" src="/sites/all/themes/site_frontend/images/icons/email.png" /></a></li>
+	<li><a href="" target="_blank" title="phone"><img alt="phone" src="/sites/all/themes/site_frontend/images/icons/phone.png" /></a></li>
+	<li class="extra-margin"><a href="" target="_blank" title="RSS"><img alt="RSS" src="/sites/all/themes/site_frontend/images/icons/rss.png" /></a></li>
+	<li><a href="http://www.facebook.com/FoodStandardsAgency" target="_blank" title="The Food Standards Agency Facebook page (opens in a new window)"><img alt="Find us on Facebook" src="/sites/all/themes/site_frontend/images/icons/facebook.png" /></a></li>
+	<li><a href="http://www.twitter.com/foodgov" target="_blank" title="twitter (opens in a new window)"><img alt="Follow us on twitter" src="/sites/all/themes/site_frontend/images/icons/twitter.png" /></a></li>
+	<li><a href="http://www.youtube.com/user/FoodStandardsAgency" target="_blank" title="you tube (opens in a new window)"><img alt="you tube" src="/sites/all/themes/site_frontend/images/icons/youtube.png" /></a></li>
+	<li><a href="http://www.pinterest.com/foodgov/" target="_blank" title="pinterest (opens in a new window)"><img alt="pinterest" src="/sites/all/themes/site_frontend/images/icons/pinterest.png" /></a></li>
+</ul>
+</div>
+*/
 /**
  * Table of contents
  * We use toc_node module to add a toc, and we override the css here
