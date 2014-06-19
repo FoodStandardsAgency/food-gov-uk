@@ -3,7 +3,16 @@
  */
 .generic-blocks {
 	overflow: hidden;
-	
+	p {
+		font-size: 1em;	// this is because we are giving body field a font size to catch all cases.
+	}
+	ul, li {
+		font-size: 1em;
+		list-style-type: none;
+		list-style: none;
+		margin-left: 0;
+		padding-left: 0;
+	}
 	 /* content title per generic block instance */
 	 .field--name-field-title-side-content-generic {
 		  font-size: 1.5em;
@@ -17,7 +26,10 @@
 			}
 	 }
 	/* content main text body per generic block instance */
-	.field--name-field-body-side-content-generic {}
+	.field--name-field-body-side-content-generic {
+		font-size: 1.2em;
+		line-height: 1.3em;
+	}
 	/* wrapper per generic block field collection instance */
 	.field-collection-view {
 		overflow: hidden;
