@@ -3,8 +3,8 @@
  */
 .social-media-icons {
 	.block__content {
+		overflow: hidden;
 		ul {
-			overflow: hidden;
 			list-style-type: none;
 			padding: 0;
 			margin: 0;
@@ -13,6 +13,7 @@
 			list-style-type: none;
 			padding: 0;
 			margin: 0 4px 0 0;
+			float: left;
 	 	}
 		li.extra-margin {
 			margin-right: 18px;
@@ -24,9 +25,11 @@
 		}
 		.left-label {
 			float: left;
+			display: block;
 		}
 		.right-label {
 			margin-left: 90px;
+			display: block;
 		}
 		.icons-wrapper {
 			clear: left;
