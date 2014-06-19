@@ -114,7 +114,7 @@
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-one-column\/site-frontend-one-column\.layout\.scss}line{font-family:\0000376}}
 .l-header-main-menu {
-  width: 83.33333%;
+  width: 75%;
   float: left;
   margin-right: -100%;
   margin-left: 0%;
@@ -124,7 +124,7 @@
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-one-column\/site-frontend-one-column\.layout\.scss}line{font-family:\0000379}}
 .l-header-social-media {
-  width: 16.66667%;
+  width: 25%;
   float: right;
   margin-left: 0;
   margin-right: 0;
