@@ -3,6 +3,16 @@
 /**
  * @file
  * Provide blocks that contain other blocks.
+ *
+ * In order to group a set of different facetapi blocks toghether in one
+ * container, we have needed to generate the blocks in a pre-process.
+ *
+ * To find the facetAPI id:
+ * - add the facet block to the page as usual
+ * - inspect the block
+ * - find the facet id
+ * - add to the container block
+ * - remove the facet block (as it will now be in the container block)
  */
 
 /**
@@ -136,7 +146,7 @@ function container_blocks_block_view($delta = '') {
       // Nation.
       $blocks[] = block_load('facetapi', 'ly6396gbtdufodpd8je0qyujejn73bws');
       // Audit type.
-      $blocks[] = block_load('facetapi', 'zuelw7fgna4hhukaj1ifyj1gjksrntdv');
+      $blocks[] = block_load('facetapi', 'nad0zwsdksumabkwgcngpas5iikhjfmw');
       // Audit state.
       $blocks[] = block_load('facetapi', 'rki2uwj1stot4co2v0tkak5avuy4ilhi');
       // Authority type.
