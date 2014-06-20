@@ -1,7 +1,7 @@
 /* color style guide:
  * header background - #3a3a9b
  * seaction header background - #7f81c4
- * left sidebar blocks background - #5d5ead
+ * first featured side content block background - #5d5ead
  * #666699 - links, sidebar menu top border, page titles, section subheadings, page summary, quote text, views row borders
  * table headings, guidance highlight box border etc - #666699
  * header and footer border - #7f7fc0
@@ -311,4 +311,12 @@ ul.pager li a {
 	background-position: bottom right;
 }
 
-
+/* featured side content blocks - first block */
+.featured-side-content li:first-child .field-collection-view {
+	border: 1px solid #5d5ead;
+	background: #5d5ead;
+}
+/* featured side content blocks - second block internal content title */
+.featured-side-content .field--name-field-title-side-content-generic {
+	color: #5d5ead;
+}

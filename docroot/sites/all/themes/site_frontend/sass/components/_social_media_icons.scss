@@ -1,13 +1,56 @@
-// requires ul class="social-media-icons" in a block that contains the social media icons, and each icon should be a list li item.
-
+/* social media icons
+ * requires block class: social-media-icons
+ */
 .social-media-icons {
-	list-style-type: none;
-	padding: 0;
-	margin: 0;
-	li {
-		list-style-type: none;
-		float: right;
-		padding: 0;
-		margin: 0 0 0 7px;
+	position: relative;
+	top: -20px;
+	margin-bottom: -20px;
+	.block__content {
+		ul {
+			list-style-type: none;
+			padding: 0;
+			margin: 0;
+		}
+		li {
+			list-style-type: none;
+			padding: 0;
+			margin: 0 4px 0 0;
+			float: left;
+	 	}
+		li.extra-margin {
+			margin-right: 18px;
+		}
+	  .label-wrapper {
+			color: #fff;
+			font-size: 1.1em;
+			margin-bottom: 5px;
+		}
+		.left-label {
+			margin-left: 2px;
+			float: left;
+			display: block;
+		}
+		.right-label {
+			margin-left: 106px;
+			display: block;
+		}
+		.icons-wrapper {
+			clear: left;
+		}
 	}
 }
+
+/*
+<div class="label-wrapper"><span class="left-label">Stay updated:</span> <span class="right-label">Keep connected:</span></div>
+<div class="icons-wrapper">
+<ul>
+	<li><a href="" target="_blank" title="email"><img alt="email" src="/sites/all/themes/site_frontend/images/icons/email.png" /></a></li>
+	<li><a href="" target="_blank" title="phone"><img alt="phone" src="/sites/all/themes/site_frontend/images/icons/phone.png" /></a></li>
+	<li class="extra-margin"><a href="" target="_blank" title="RSS"><img alt="RSS" src="/sites/all/themes/site_frontend/images/icons/rss.png" /></a></li>
+	<li><a href="http://www.facebook.com/FoodStandardsAgency" target="_blank" title="The Food Standards Agency Facebook page (opens in a new window)"><img alt="Find us on Facebook" src="/sites/all/themes/site_frontend/images/icons/facebook.png" /></a></li>
+	<li><a href="http://www.twitter.com/foodgov" target="_blank" title="twitter (opens in a new window)"><img alt="Follow us on twitter" src="/sites/all/themes/site_frontend/images/icons/twitter.png" /></a></li>
+	<li><a href="http://www.youtube.com/user/FoodStandardsAgency" target="_blank" title="you tube (opens in a new window)"><img alt="you tube" src="/sites/all/themes/site_frontend/images/icons/youtube.png" /></a></li>
+	<li><a href="http://www.pinterest.com/foodgov/" target="_blank" title="pinterest (opens in a new window)"><img alt="pinterest" src="/sites/all/themes/site_frontend/images/icons/pinterest.png" /></a></li>
+</ul>
+</div>
+*/

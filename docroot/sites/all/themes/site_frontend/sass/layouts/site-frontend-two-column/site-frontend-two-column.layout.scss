@@ -74,10 +74,10 @@
 	@include clearfix;
 }
 .l-header-main-menu {
-	@include grid-span(10,1);
+	@include grid-span(9,1);
 }
 .l-header-social-media {
-	@include grid-span(2,11);
+	@include grid-span(3,10);
 }
 .breadcrumb-accessibility-wrapper {
 	 @include clearfix;

@@ -45,6 +45,13 @@
 		font-size: 1.2em;
 		margin-bottom: .6em;
 	}
+	li {
+		font-size: 1.2em;
+		line-height: 1.3em;
+	}
+	li li {
+		font-size: 1em;
+	}
 }
 
 /* example usage: related items and child page teaser listings on page section field collection */

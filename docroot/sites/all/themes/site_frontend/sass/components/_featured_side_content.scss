@@ -1,11 +1,12 @@
 /**
- * Requires a block class: generic-blocks
+ * Requires block class: featured-side-content
  */
-.generic-blocks {
+.featured-side-content {
 	overflow: hidden;
 	p {
 		font-size: 1em;	// this is because we are giving body field a font size to catch all cases.
 	}
+	/* displayed as unordered list - make adjustments */
 	ul, li {
 		font-size: 1em;
 		list-style-type: none;
@@ -13,7 +14,7 @@
 		margin-left: 0;
 		padding-left: 0;
 	}
-	 /* content title per generic block instance */
+	 /* content title per featured block instance */
 	 .field--name-field-title-side-content-generic {
 		  font-size: 1.5em;
 		  color: #4b800d;
@@ -25,20 +26,15 @@
 			  font-size: 1em; // ie use size applied to the parent field - works out to 1.5em
 			}
 	 }
-	/* content main text body per generic block instance */
+	/* content main text body per featured block instance */
 	.field--name-field-body-side-content-generic {
 		font-size: 1.2em;
 		line-height: 1.3em;
 	}
-	/* wrapper per generic block field collection instance */
+	/* wrapper per featured block field collection instance */
 	.field-collection-view {
 		overflow: hidden;
-		border: 1px solid #e8e8e8;
-		-webkit-border-radius: 10px;
-		-moz-border-radius: 10px;
-		-o-border-radius: 10px;
-		-ms-border-radius: 10px;
-		border-radius: 10px;
+		border: 1px solid #c4c4c4;
 		background: #fff;
 		padding: .5em 11px .3em 11px;
 		margin-bottom: 11px;
@@ -49,8 +45,24 @@
 			height: auto;
 		}
 	}
+	/* first featured item */
+	li:first-child .field-collection-view {
+		border: 1px solid #5d9711;
+		background: #5d9711;
+		color: #fff;
+		a {
+			color: #fff;
+		}
+		.field--name-field-title-side-content-generic {
+			color: #fff;
+			font-weight: bold;
+		}
+		span.ext {
+			background: url("../images/icons/external-link-icon-white.png") right center no-repeat;
+		}
+	}
 }
 /* remove bottom margin of block - inner content already has bottom margin */
-.l-region--sidebar-second .block.generic-blocks {
+.l-region--sidebar-second .block.featured-side-content {
 	margin-bottom: 0;
 }
