@@ -21,7 +21,8 @@ if (typeof(CKEDITOR) !== 'undefined') {
 
       /* Inline Styles */
 			// { name: 'Text align: Left', element: 'p', attributes: { 'class': 'text-align-left' } },
-
+      { name: 'Guidance: highlight', element: 'div', attributes: { 'class': 'guidance' } },
+      { name: 'Section: heading', element: 'h2', attributes: { 'class': 'section-heading' } },
  
 
       /* Object Styles */
@@ -34,7 +35,18 @@ if (typeof(CKEDITOR) !== 'undefined') {
       //  }
       // },
 
-
+       name:       'Row: apply grey background',
+        element:    'tr',
+        attributes: {
+          'class': 'alt'
+        }
+      },
+      name:       'Row: no left border',
+        element:    'td',
+        attributes: {
+          'class': 'first'
+        }
+      },
 
     ]);
 }
