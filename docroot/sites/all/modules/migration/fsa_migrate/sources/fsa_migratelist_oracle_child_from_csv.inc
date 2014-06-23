@@ -101,6 +101,8 @@ ENDSQL;
     // Gets the list of object ids from the CSV file.
     $objectList = FSAMigrateListBase::getIdListFromCSV($this->fileCSV);
 
+    // $objectsSortOrder = FSAMigrateListBase::objectListSortMethodUsed($objectList, $connectionOracle);
+
     $replacedQuery = str_replace(':obj_ids', implode(',', $objectList), $this->query);
 
     // Query the oracle DB to get the child objects.
@@ -111,11 +113,28 @@ ENDSQL;
       $connectionOracle
     );
 
+    // Sort order management.
+    // $sortorderArray = FSAMigrateListBase::objectsFieldidSortingOrder($objectList, $connectionOracle);
+
     // Extract the results to pass an array to the MigrateItem class.
     $idList = array();
     foreach($queryResult['PARENTID'] as $itemNumber => $parentObjectid) {
-      $idList[$itemNumber]['PARENTID'] = $parentObjectid;
+      // Commented for sort order management.
+      // @TODO Check on sort order migration for child pages.
+      /*
+      $objectids = $queryResult['OBJECTIDS'][$itemNumber];
+      $finalObjectsIdsArray = explode(',', $objectids);
+      // Check if we have the same number of items in the sort and the main query.
+      if (count($finalObjectsIdsArray) > 1) {
+        if (count($finalObjectsIdsArray) == count($sortorderArray[$parentObjectid])) {
+          $objectids = implode(',', array_keys($sortorderArray[$parentObjectid]));
+        }
+      }
+      $idList[$itemNumber]['OBJECTIDS'] = $objectids;
+      */
+
       $idList[$itemNumber]['OBJECTIDS'] = $queryResult['OBJECTIDS'][$itemNumber];
+      $idList[$itemNumber]['PARENTID'] = $parentObjectid;
     }
 
     return $idList;

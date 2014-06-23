@@ -74,6 +74,45 @@ ENDSQL;
   }
 
   /**
+   * Queries the oracle database and return one dimensional array.
+   *
+   * @param string $query
+   *   The string containing an oracle query to run against the db.
+   * @param array $params
+   *   Parameters as an array.
+   * @param resource $connection
+   *  An active connection to the Oracle Server.
+   *
+   * @return array|null
+   *   The results returned or NULL if empty.
+   */
+  public function oracleQueryAllOneDimension($query, array $params, $connection) {
+    $statement = oci_parse($connection, $query);
+
+    // Associate key and value.
+    foreach ($params as $key => $value) {
+      oci_bind_by_name($statement, $key, $value);
+    }
+
+    oci_execute($statement);
+
+    // $rows = oci_fetch_array($statement, OCI_ASSOC);
+
+    while (($row = oci_fetch_array($statement, OCI_ASSOC)) != false) {
+      if (isset($row['PARENTID'])) {
+        $finalRows[$row['PARENTID']] = $row;
+      }
+      else {
+        $finalRows[] = $row;
+      }
+    }
+
+    oci_free_statement($statement);
+
+    return $finalRows;
+  }
+
+  /**
    * Executes a single queries the oracle database.
    *
    * @param string $query
