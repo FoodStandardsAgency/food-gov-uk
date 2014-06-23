@@ -41,6 +41,8 @@
 	  border-spacing: 0;
 	  border-top: 1px solid #006f51;
 	  border-bottom: 1px solid #ebebeb;
+		border-left: none;	// CKeditor
+		border-right: none;	// CKeditor
 	}
 	caption, th, td {
 	  text-align: left;
@@ -57,6 +59,10 @@
 	th, td {
 	  padding: .6em 10px .6em 10px;
 	  border-left: 1px solid #ebebeb;
+		border-right: none;	// CKeditor
+	}
+	td:first-child {
+		border-left: none;	// CKeditor
 	}
 	th, thead th, thead td, tfoot th, tfoot td {
 	  font-weight: bold;
@@ -89,6 +95,11 @@
 	}
 	tbody .alt th, tbody .alt td {
 	  background: #f2f2f2;
+	}
+	tbody tr:nth-child(even) {
+		th, td {
+			background: #f2f2f2;	// CKeditor and IE9+
+		}
 	}
 	table.linearTable {
 	  margin-bottom: 2em;
