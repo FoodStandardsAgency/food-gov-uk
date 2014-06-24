@@ -26,6 +26,15 @@ class FSAAuditReportMigration extends FSAMigration {
       AND LINK.PARENTID = :objid
 ENDSQL;
 
+  protected $indexQuery = <<<'ENDSQL'
+    SELECT VALIDINDEXVALUE.VALIDVALUE, INDEXNAME.INDEXNAME
+    FROM VALIDINDEXVALUE, INDEXVALUE, OBJ, INDEXNAME
+    WHERE INDEXVALUE.OBJECTID = OBJ.OBJECTID
+    AND INDEXVALUE.VALIDINDEXVALUEID = VALIDINDEXVALUE.VALIDINDEXVALUEID
+    AND INDEXNAME.INDEXID = VALIDINDEXVALUE.INDEXID
+    AND OBJ.OBJECTID = :obj_ids
+ENDSQL;
+
   /**
    * Class constructor.
    */
@@ -58,6 +67,9 @@ ENDSQL;
       'FIELDIDS' => t('Fields ids'),
       'VARIABLE' => t('Variable field name'),
       'VALUE' => t('Field value'),
+      'Reports' => t('Report TID taxonomy term reference'),
+      'Regions' => t('Region TID taxonomy term reference'),
+      'Authority types' => t('Authority types value'),
     );
 
     // Configure the source of the migration.
@@ -105,6 +117,18 @@ ENDSQL;
       ->defaultValue(2);
     $this->addFieldMapping('toc_node_back_to_top_links')
       ->defaultValue(0);
+
+    // Taxonomy migration.
+    $this->addFieldMapping('field_audit_type', 'Reports');
+    $this->addFieldMapping('field_audit_type:source_type')
+      ->defaultValue('tid');
+    $this->addFieldMapping('field_nation', 'Regions')
+      ->separator(',');
+    $this->addFieldMapping('field_nation:source_type')
+      ->defaultValue('tid');
+
+    $this->addFieldMapping('field_audit_authority_type', 'Authority types');
+
   }
 
   /**
@@ -145,6 +169,23 @@ ENDSQL;
     if (!is_null($feature_image_res)) {
       $row->FEATUREDIMAGEPATH = variable_get('file_public_path', 'sites/default/files') .
         '/sources' . $feature_image_res['PATH'];
+    }
+
+    $replacedQuery = str_replace(':obj_ids', $row->OBJECTID, $this->indexQuery);
+
+    $sqlResultIndex = FSAMigration::oracleQueryAllOneDimension($replacedQuery, array(), $connectionOracle);
+
+    // Mapping function vocabulary value -> Field name.
+    foreach ($sqlResultIndex as $indexResultArray) {
+      $indexValue = $indexResultArray['VALIDVALUE'];
+      $indexName = $indexResultArray['INDEXNAME'];
+
+      if (isset($this->indexRefArray[$indexName][$indexValue])) {
+        $row->{$indexName} = $this->indexRefArray[$indexName][$indexValue];
+      }
+      else {
+        drush_log('Source index for object ' . $indexName . '|' . $indexValue . ' is missing.');
+      }
     }
   }
 }

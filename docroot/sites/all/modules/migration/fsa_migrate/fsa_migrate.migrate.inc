@@ -52,6 +52,10 @@ function fsa_migrate_migrate_api() {
         'class_name' => 'FSARelatedContentCollectionMigration',
         'group_name' => 'fsa_fc',
       ),
+      'FSADocumentpageCollection' => array(
+        'class_name' => 'FSADocumentpageCollectionMigration',
+        'group_name' => 'fsa_fc',
+      ),
       'FSAChildpageCollection' => array(
         'class_name' => 'FSAChildpageCollectionMigration',
         'group_name' => 'fsa_fc',

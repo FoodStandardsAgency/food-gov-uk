@@ -2,14 +2,14 @@
 
 /**
  * @file
- * Field collection for Uberpage migration class. This for testing purpose.
+ * Field collection for Audit migration class.
  */
 
 /**
  * Class FSAUberpageCollectionMigration
  * Migration class for the FSA Document page.
  */
-class FSADocumentpageCollectionMigration extends FSAMigration {
+class FSAAuditReportCollectionMigration extends FSAMigration {
 
   public function __construct($arguments) {
     global $conf;
@@ -18,7 +18,7 @@ class FSADocumentpageCollectionMigration extends FSAMigration {
     // Calls the parent constructor.
     $this->description = t('Migrates the field collection for the document from Oracle to Drupal.');
 
-    $this->dependencies = array('FSADocumentpage');
+    $this->dependencies = array('FSAAuditReport');
 
     // Map the source id.
     $this->map = new MigrateSQLMap(
@@ -62,7 +62,7 @@ class FSADocumentpageCollectionMigration extends FSAMigration {
 
     // Configure the source of the migration.
     $this->source = new MigrateSourceList(
-      new MigrateListOracleTextCollection('data/csv/dev-alterian-id-list.csv', $conf['oracle_db']),
+      new MigrateListOracleTextCollection('data/csv/auditreport-alterian-id-list.csv', $conf['oracle_db']),
       new MigrateItemOracleTextCollection()
     );
 
@@ -74,7 +74,7 @@ class FSADocumentpageCollectionMigration extends FSAMigration {
 
     // Migration source dependency.
     $this->addFieldMapping('host_entity_id', 'OBJECTID')
-      ->sourceMigration('FSADocumentpage');
+      ->sourceMigration('FSAAuditReport');
 
     // Fields mapping.
     $this->addFieldMapping('field_fc_section_heading', 'sectionheading');
