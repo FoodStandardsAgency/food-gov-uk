@@ -72,6 +72,7 @@ ENDSQL;
 
     // General fields mapping.
     $this->addFieldMapping('title', 'title');
+    $this->addFieldMapping('field_title_short', 'title');
     $this->addFieldMapping('field_summary', 'summary')
       ->callbacks(array($this, 'pastedApostropheFormatter'));
 
