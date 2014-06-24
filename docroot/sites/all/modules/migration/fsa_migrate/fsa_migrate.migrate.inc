@@ -36,6 +36,10 @@ function fsa_migrate_migrate_api() {
         'class_name' => 'FSAFAQpageMigration',
         'group_name' => 'fsa_types',
       ),
+      'FSAAuditReport' => array(
+        'class_name' => 'FSAAuditReportMigration',
+        'group_name' => 'fsa_types',
+      ),
       'FSADocumentpageCollection' => array(
         'class_name' => 'FSADocumentpageCollectionMigration',
         'group_name' => 'fsa_fc',
