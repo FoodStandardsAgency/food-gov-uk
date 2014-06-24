@@ -389,13 +389,4 @@ ENDSQL;
         break;
     }
   }
-
-  public function convertSourceIndexToField($indexNameValue) {
-    foreach ($indexNameValue as $indexArray) {
-      $indexValue = $indexArray['VALIDVALUE'];
-      $indexName = $indexArray['INDEXNAME'];
-
-
-    }
-  }
 }
