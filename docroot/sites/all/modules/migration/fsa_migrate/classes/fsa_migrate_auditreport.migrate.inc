@@ -26,6 +26,11 @@ class FSAAuditReportMigration extends FSAMigration {
       AND LINK.PARENTID = :objid
 ENDSQL;
 
+  /**
+   * SQL Query for index name and value, which is like vocabulary name and term name.
+   *
+   * @var string
+   */
   protected $indexQuery = <<<'ENDSQL'
     SELECT VALIDINDEXVALUE.VALIDVALUE, INDEXNAME.INDEXNAME
     FROM VALIDINDEXVALUE, INDEXVALUE, OBJ, INDEXNAME
@@ -33,6 +38,20 @@ ENDSQL;
     AND INDEXVALUE.VALIDINDEXVALUEID = VALIDINDEXVALUE.VALIDINDEXVALUEID
     AND INDEXNAME.INDEXID = VALIDINDEXVALUE.INDEXID
     AND OBJ.OBJECTID = :obj_ids
+ENDSQL;
+
+  /**
+   * SQL Query for audit authority name.
+   *
+   * @var string
+   */
+  protected $auditAuthority = <<<'ENDSQL'
+    SELECT OBJ.NAME
+    FROM OBJ, LINK, LINKTYPE
+    WHERE OBJ.OBJECTID = LINK.PARENTID
+    AND LINKTYPE.LINKTYPEID = LINK.LINKTYPEID
+    AND LINKTYPE.LINKTYPENAME = 'Primary link'
+    AND LINK.CHILDID IN ( :obj_ids )
 ENDSQL;
 
   /**
@@ -129,6 +148,7 @@ ENDSQL;
 
     $this->addFieldMapping('field_audit_authority_type', 'Authority types');
 
+    $this->addFieldMapping('field_audit_authority', 'AUTHORITY');
   }
 
   /**
@@ -171,21 +191,28 @@ ENDSQL;
         '/sources' . $feature_image_res['PATH'];
     }
 
+    // Index management.
     $replacedQuery = str_replace(':obj_ids', $row->OBJECTID, $this->indexQuery);
-
     $sqlResultIndex = FSAMigration::oracleQueryAllOneDimension($replacedQuery, array(), $connectionOracle);
 
-    // Mapping function vocabulary value -> Field name.
     foreach ($sqlResultIndex as $indexResultArray) {
       $indexValue = $indexResultArray['VALIDVALUE'];
       $indexName = $indexResultArray['INDEXNAME'];
-
       if (isset($this->indexRefArray[$indexName][$indexValue])) {
+        // Mapping the name of the index as a row with a value.
         $row->{$indexName} = $this->indexRefArray[$indexName][$indexValue];
       }
       else {
         drush_log('Source index for object ' . $indexName . '|' . $indexValue . ' is missing.');
       }
+    }
+
+    // Audit Authority.
+    $replacedQueryAuthority = str_replace(':obj_ids', $row->OBJECTID, $this->auditAuthority);
+    $sqlResultAuthority = FSAMigration::oracleQueryAllOneDimension($replacedQueryAuthority, array(), $connectionOracle);
+    $row->AUTHORITY = NULL;
+    if (isset($sqlResultAuthority[0]['NAME'])) {
+      $row->AUTHORITY = $sqlResultAuthority[0]['NAME'];
     }
   }
 }
