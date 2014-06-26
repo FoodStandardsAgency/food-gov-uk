@@ -5416,7 +5416,7 @@ ul.toc-node-bullets li.toc-node-level-6 {
     .field--type-text-long .science h3,
     .field--type-text-long .moreInfo h2,
     .field--type-text-long .moreInfo h3 {
-      margin: 0 0 .8em 0;
+      margin: 0 0 0.5em 0;
       padding: 0;
       font-size: 1.4em;
       color: #5d9711;
