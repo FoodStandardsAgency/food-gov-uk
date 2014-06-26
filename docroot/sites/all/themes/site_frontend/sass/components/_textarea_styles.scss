@@ -1,6 +1,6 @@
 /* these are styles used in the textareas - includes backwards compatibility for migrated content too */
 
-/* highlighted content - guidance */
+/* highlighted content - guidance - ckeditor style */
 .field--name-field-fc-section-body,
 .field--name-body 
 .field--type-text-with-summary,
@@ -29,7 +29,7 @@
 	}
 }
 
-/* highlighted content - training */
+/* highlighted content - training - ckeditor style */
 .field--name-field-fc-section-body,
 .field--name-body 
 .field--type-text-with-summary,
@@ -58,7 +58,7 @@
 	}
 }
 
-/* highlighted content - science */
+/* highlighted content - science - ckeditor style */
 .field--name-field-fc-section-body,
 .field--name-body 
 .field--type-text-with-summary,
@@ -100,6 +100,23 @@
 		font-size: 1em;	// because our p-tags are already set to 1.2em so it takes tha parent p-tag size. 1me x 1.2em = 1.2em
 		margin-bottom: 0;	// we use the p-tag for margin
 		display: inline;
+	}
+}
+
+/* section heading - ckeditor style */
+.field--name-field-fc-section-body,
+.field--name-body 
+.field--type-text-with-summary,
+.field--type-text-long {
+	h2.inline-section-heading {
+		display: block;
+		margin: 0 0 1em 0;
+		padding: .3em 11px;
+		font-size: 1.4em;
+		font-weight: bold;
+		color: #fff;
+		background: #5d9711;
+		clear: both;
 	}
 }
 

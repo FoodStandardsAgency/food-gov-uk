@@ -20,8 +20,9 @@ if (typeof(CKEDITOR) !== 'undefined') {
       /* Inline Styles */
 			// { name: 'Text align: Left', element: 'p', attributes: { 'class': 'text-align-left' } },
       { name: 'Highlight: guidance', element: 'div', attributes: { 'class': 'guidance' } },
+      { name: 'Highlight: training', element: 'div', attributes: { 'class': 'training' } },
       { name: 'Highlight: science', element: 'div', attributes: { 'class': 'science moreInfo' } },
-      { name: 'Section: heading', element: 'h2', attributes: { 'class': 'section-heading' } },
+      { name: 'Section: heading', element: 'h2', attributes: { 'class': 'inline-section-heading' } },
  
 
       /* Object Styles */
@@ -44,7 +45,7 @@ if (typeof(CKEDITOR) !== 'undefined') {
         name:       'Image: Left',
         element:    'img',
         attributes: {
-          'style':  'padding: 0px; margin-right: 12px; margin-bottom: 12px; float: left;',
+          'style':  'padding: 0px; margin-right: 17px; margin-bottom: 10px; float: left;',
           'border': '0'
         }
       },
@@ -53,7 +54,7 @@ if (typeof(CKEDITOR) !== 'undefined') {
         name:       'Image: Right',
         element:    'img',
         attributes: {
-          'style':  'padding: 0px; margin-left: 12px; margin-bottom: 12px; float: right;',
+          'style':  'padding: 0px; margin-left: 17px; margin-bottom: 10px; float: right;',
           'border': '0'
         }
       }
