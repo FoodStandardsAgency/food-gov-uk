@@ -1,6 +1,6 @@
 /* these are styles used in the textareas - includes backwards compatibility for migrated content too */
 
-/* highlighted content */
+/* highlighted content - guidance */
 .field--name-field-fc-section-body,
 .field--name-body 
 .field--type-text-with-summary,
@@ -23,6 +23,80 @@
 	}
 	/* adjustment for this site */
 	.guidance p strong {
+		font-size: 1em;	// because our p-tags are already set to 1.2em so it takes tha parent p-tag size. 1me x 1.2em = 1.2em
+		margin-bottom: 0;	// we use the p-tag for margin
+		display: inline;
+	}
+}
+
+/* highlighted content - training */
+.field--name-field-fc-section-body,
+.field--name-body 
+.field--type-text-with-summary,
+.field--type-text-long {
+	.training {
+		display: block;
+		background: #f6fcff;
+		border: 1px solid #007FB2;
+		color: #333;
+		padding: 11px;
+		margin-bottom: 1.3em
+	}
+	/* where <strong> exists outside of a p-tag */
+	.training strong {
+		font-size: 1.2em;
+		line-height: 1.4em;
+		font-weight: bold;
+		margin-bottom: 1em; 
+		display: block;	
+	}
+	/* adjustment for this site */
+	.training p strong {
+		font-size: 1em;	// because our p-tags are already set to 1.2em so it takes tha parent p-tag size. 1me x 1.2em = 1.2em
+		margin-bottom: 0;	// we use the p-tag for margin
+		display: inline;
+	}
+}
+
+/* highlighted content - science */
+.field--name-field-fc-section-body,
+.field--name-body 
+.field--type-text-with-summary,
+.field--type-text-long {
+	.science,
+	.moreInfo {
+		display: block;
+		background: #fff;
+		border: 1px solid #5d9711;
+		color: #333;
+		padding: 9px 10px 6px 10px;
+		margin-bottom: 1.3em;
+		-webkit-border-radius: 10px;
+		-moz-border-radius: 10px;
+		-o-border-radius: 10px;
+		-ms-border-radius: 10px;
+		border-radius: 10px;
+		h2, h3 {
+			margin: 0 0 .8em 0;
+			padding: 0;
+			font-size: 1.4em;
+			color: #5d9711;
+			background: none;
+			font-weight: bold
+		}
+	}
+	/* where <strong> exists outside of a p-tag */
+	.science strong,
+	.moreInfo strong {
+		font-size: 1.2em;
+		line-height: 1.4em;
+		font-weight: bold;
+		margin-bottom: 1em; 
+		display: block;	
+	}
+	/* adjustment for this site */
+	.science p strong,
+	.moreInfo p strong {
 		font-size: 1em;	// because our p-tags are already set to 1.2em so it takes tha parent p-tag size. 1me x 1.2em = 1.2em
 		margin-bottom: 0;	// we use the p-tag for margin
 		display: inline;
