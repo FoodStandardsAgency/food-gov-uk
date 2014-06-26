@@ -15,14 +15,14 @@ if (typeof(CKEDITOR) !== 'undefined') {
       // These styles are already available in the "Format" drop-down list, so they are
       // not needed here by default. You may enable them to avoid placing the
       // "Format" drop-down list in the toolbar, maintaining the same features.
-
-      //{ name : 'Paragraph'		, element : 'p' },
       
 
       /* Inline Styles */
 			// { name: 'Text align: Left', element: 'p', attributes: { 'class': 'text-align-left' } },
-      { name: 'Guidance: highlight', element: 'div', attributes: { 'class': 'guidance' } },
-      { name: 'Section: heading', element: 'h2', attributes: { 'class': 'section-heading' } },
+      { name: 'Highlight: guidance', element: 'div', attributes: { 'class': 'guidance' } },
+      { name: 'Highlight: training', element: 'div', attributes: { 'class': 'training' } },
+      { name: 'Highlight: science', element: 'div', attributes: { 'class': 'science moreInfo' } },
+      { name: 'Section: heading', element: 'h2', attributes: { 'class': 'inline-section-heading' } },
  
 
       /* Object Styles */
@@ -30,23 +30,34 @@ if (typeof(CKEDITOR) !== 'undefined') {
       //  name:       'Image: Left',
       //  element:    'img',
       //  attributes: {
-      //    'style':  'padding: 0px; margin-right: 20px; margin-bottom: 15px; float: left;',
-      //    'border': '0'
+      //    'class':  'image-left'
       //  }
       // },
+      // {
+      //  name:       'Table: Pricing',
+      //  element:    'table',
+      //  attributes: {
+      //    'class': 'table-pricing'
+      //  }
+      // }
 
-       name:       'Row: apply grey background',
-        element:    'tr',
+      {
+        name:       'Image: Left',
+        element:    'img',
         attributes: {
-          'class': 'alt'
+          'style':  'padding: 0px; margin-right: 17px; margin-bottom: 10px; float: left;',
+          'border': '0'
         }
       },
-      name:       'Row: no left border',
-        element:    'td',
+
+      {
+        name:       'Image: Right',
+        element:    'img',
         attributes: {
-          'class': 'first'
+          'style':  'padding: 0px; margin-left: 17px; margin-bottom: 10px; float: right;',
+          'border': '0'
         }
-      },
+      }
 
     ]);
 }
