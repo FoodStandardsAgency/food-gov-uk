@@ -5323,7 +5323,7 @@ ul.toc-node-bullets li.toc-node-level-6 {
     font-size: 1.2em;
     line-height: 1.4em;
     font-weight: bold;
-    margin-bottom: 1em;
+    margin-bottom: 0.5833;
     display: block; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000325}}
   .field--name-field-fc-section-body .guidance p strong,
@@ -5361,7 +5361,7 @@ ul.toc-node-bullets li.toc-node-level-6 {
     font-size: 1.2em;
     line-height: 1.4em;
     font-weight: bold;
-    margin-bottom: 1em;
+    margin-bottom: 0.5833;
     display: block; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000354}}
   .field--name-field-fc-section-body .training p strong,
@@ -5395,11 +5395,11 @@ ul.toc-node-bullets li.toc-node-level-6 {
     color: #333;
     padding: 9px 10px 6px 10px;
     margin-bottom: 1.3em;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -o-border-radius: 10px;
-    -ms-border-radius: 10px;
-    border-radius: 10px; }
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -o-border-radius: 8px;
+    -ms-border-radius: 8px;
+    border-radius: 8px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000379}}
     .field--name-field-fc-section-body .science h2, .field--name-field-fc-section-body .science h3,
     .field--name-field-fc-section-body .moreInfo h2,
