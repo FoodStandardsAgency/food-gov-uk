@@ -6,7 +6,7 @@
  */
 
 /**
- * Implements moduleName_preprocess_html().
+ * Implements hook_preprocess_html().
  * If on a non-English page detect language and add to the HTML header.
  */
 function page_language_preprocess_html(&$variables) {
