@@ -38,6 +38,51 @@ ENDSQL;
 ENDSQL;
 
   /**
+   * Reference array between [vocabulary][term name] and between a term id in drupal.
+   *
+   * @var array
+   */
+  protected $indexRefArray = array(
+    'Reports' =>  array(
+        'Approved establishments' =>  55,
+        'Database management' => 57,
+        'Delivery and compliance audit' => 58,
+        'Feed controls audit' => 59,
+        'Fishery premises audit' => 60,
+        'Food hygiene inspections' => 61,
+        'Food standards enforcement' => 62,
+        'Full Audit' =>64,
+        'HACCP compliance audit' =>65,
+        'Imported feed and food controls' => 67,
+        'Imported feed controls audit' => 68,
+        'Imported food audit' => 69,
+        'Sampling focused audit' =>  72,
+        'Use of contractors audit' => 75,
+      ),
+      'Authority types' => array(
+        'County' => 'County',
+        'District' => 'District',
+        'PHA (Joint Board)' => 'PHA (Joint Board)',
+        'Unitary' => 'Unitary'
+      ),
+      'Country' => array(
+        'All' => '17,6,7,5',
+        'England' => '17',
+        'Northern Ireland' => '6',
+        'Scotland' => '7',
+        'Wales' => '5',
+      ),
+      'Regions' => array(
+        'All' => '17,6,7,5',
+        'England' => '17',
+        'Northern Ireland' => '6',
+        'Scotland' => '7',
+        'Wales' => '5',
+      ),
+    );
+
+
+  /**
    * Queries the oracle database.
    *
    * @param string $query
@@ -71,6 +116,45 @@ ENDSQL;
     }
 
     return NULL;
+  }
+
+  /**
+   * Queries the oracle database and return one dimensional array.
+   *
+   * @param string $query
+   *   The string containing an oracle query to run against the db.
+   * @param array $params
+   *   Parameters as an array.
+   * @param resource $connection
+   *  An active connection to the Oracle Server.
+   *
+   * @return array|null
+   *   The results returned or NULL if empty.
+   */
+  public function oracleQueryAllOneDimension($query, array $params, $connection) {
+    $statement = oci_parse($connection, $query);
+
+    // Associate key and value.
+    foreach ($params as $key => $value) {
+      oci_bind_by_name($statement, $key, $value);
+    }
+
+    oci_execute($statement);
+
+    // $rows = oci_fetch_array($statement, OCI_ASSOC);
+
+    while (($row = oci_fetch_array($statement, OCI_ASSOC)) != false) {
+      if (isset($row['PARENTID'])) {
+        $finalRows[$row['PARENTID']] = $row;
+      }
+      else {
+        $finalRows[] = $row;
+      }
+    }
+
+    oci_free_statement($statement);
+
+    return $finalRows;
   }
 
   /**
@@ -278,5 +362,31 @@ ENDSQL;
   public function pastedApostropheFormatter($value) {
     $formattedValue = iconv('UTF-8', 'ASCII//TRANSLIT', $value);
     return $formattedValue;
+  }
+
+  /**
+   * For a legacy image position returns the new drupal position id, inspired from css class.
+   *
+   * @param $legacyImagePosition
+   * @return null|string
+   */
+  public function imagePositionValue($legacyImagePosition) {
+    switch ($legacyImagePosition) {
+      case 'Left':
+        return 'img-pos-left';
+        break;
+      case 'Right':
+        return 'img-pos-right';
+        break;
+      case 'Above':
+        return 'img-pos-top';
+        break;
+      case 'Below':
+        return 'img-pos-bottom';
+        break;
+      default;
+        return NULL;
+        break;
+    }
   }
 }

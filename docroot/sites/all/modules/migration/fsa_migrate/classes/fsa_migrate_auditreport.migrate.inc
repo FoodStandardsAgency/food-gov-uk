@@ -2,14 +2,14 @@
 
 /**
  * @file
- * Uberpage migration class. This for testing purpose.
+ * Audit report migration class.
  */
 
 /**
- * Class FSAUberpageMigration
- * Migration class for the FSA Document page.
+ * Class FSAAuditReportMigration
+ * Migration class for the FSA Audit report content type.
  */
-class FSADocumentpageMigration extends FSAMigration {
+class FSAAuditReportMigration extends FSAMigration {
 
   /**
    * SQL Query to get the feature image from an object id.
@@ -27,10 +27,37 @@ class FSADocumentpageMigration extends FSAMigration {
 ENDSQL;
 
   /**
+   * SQL Query for index name and value, which is like vocabulary name and term name.
+   *
+   * @var string
+   */
+  protected $indexQuery = <<<'ENDSQL'
+    SELECT VALIDINDEXVALUE.VALIDVALUE, INDEXNAME.INDEXNAME
+    FROM VALIDINDEXVALUE, INDEXVALUE, OBJ, INDEXNAME
+    WHERE INDEXVALUE.OBJECTID = OBJ.OBJECTID
+    AND INDEXVALUE.VALIDINDEXVALUEID = VALIDINDEXVALUE.VALIDINDEXVALUEID
+    AND INDEXNAME.INDEXID = VALIDINDEXVALUE.INDEXID
+    AND OBJ.OBJECTID = :obj_ids
+ENDSQL;
+
+  /**
+   * SQL Query for audit authority name.
+   *
+   * @var string
+   */
+  protected $auditAuthority = <<<'ENDSQL'
+    SELECT OBJ.NAME
+    FROM OBJ, LINK, LINKTYPE
+    WHERE OBJ.OBJECTID = LINK.PARENTID
+    AND LINKTYPE.LINKTYPEID = LINK.LINKTYPEID
+    AND LINKTYPE.LINKTYPENAME = 'Primary link'
+    AND LINK.CHILDID IN ( :obj_ids )
+ENDSQL;
+
+  /**
    * Class constructor.
    */
   public function __construct($arguments) {
-    global $conf;
     // Calls to parent constructor from official doc.
     parent::__construct();
     // Calls the parent constructor.
@@ -59,20 +86,22 @@ ENDSQL;
       'FIELDIDS' => t('Fields ids'),
       'VARIABLE' => t('Variable field name'),
       'VALUE' => t('Field value'),
+      'Reports' => t('Report TID taxonomy term reference'),
+      'Regions' => t('Region TID taxonomy term reference'),
+      'Authority types' => t('Authority types value'),
     );
 
     // Configure the source of the migration.
     $this->source = new MigrateSourceList(
-      new FSAMigrateListOracleObjectsFromCSV('data/csv/dev-alterian-id-list.csv'),
+      new FSAMigrateListOracleObjectsFromCSV('data/csv/auditreport-alterian-id-list.csv'),
       new FSAMigrateItemOracleObject()
     );
 
     // Destination detail.
-    $this->destination = new MigrateDestinationNode('document_page');
+    $this->destination = new MigrateDestinationNode('audit_report');
 
     // General fields mapping.
     $this->addFieldMapping('title', 'title');
-    $this->addFieldMapping('field_title_short', 'title');
     $this->addFieldMapping('field_summary', 'summary')
       ->callbacks(array($this, 'pastedApostropheFormatter'));
 
@@ -107,6 +136,19 @@ ENDSQL;
       ->defaultValue(2);
     $this->addFieldMapping('toc_node_back_to_top_links')
       ->defaultValue(0);
+
+    // Taxonomy migration.
+    $this->addFieldMapping('field_audit_type', 'Reports');
+    $this->addFieldMapping('field_audit_type:source_type')
+      ->defaultValue('tid');
+    $this->addFieldMapping('field_nation', 'Regions')
+      ->separator(',');
+    $this->addFieldMapping('field_nation:source_type')
+      ->defaultValue('tid');
+
+    $this->addFieldMapping('field_audit_authority_type', 'Authority types');
+
+    $this->addFieldMapping('field_audit_authority', 'AUTHORITY');
   }
 
   /**
@@ -147,6 +189,30 @@ ENDSQL;
     if (!is_null($feature_image_res)) {
       $row->FEATUREDIMAGEPATH = variable_get('file_public_path', 'sites/default/files') .
         '/sources' . $feature_image_res['PATH'];
+    }
+
+    // Index management.
+    $replacedQuery = str_replace(':obj_ids', $row->OBJECTID, $this->indexQuery);
+    $sqlResultIndex = FSAMigration::oracleQueryAllOneDimension($replacedQuery, array(), $connectionOracle);
+
+    foreach ($sqlResultIndex as $indexResultArray) {
+      $indexValue = $indexResultArray['VALIDVALUE'];
+      $indexName = $indexResultArray['INDEXNAME'];
+      if (isset($this->indexRefArray[$indexName][$indexValue])) {
+        // Mapping the name of the index as a row with a value.
+        $row->{$indexName} = $this->indexRefArray[$indexName][$indexValue];
+      }
+      else {
+        drush_log('Source index for object ' . $indexName . '|' . $indexValue . ' is missing.');
+      }
+    }
+
+    // Audit Authority.
+    $replacedQueryAuthority = str_replace(':obj_ids', $row->OBJECTID, $this->auditAuthority);
+    $sqlResultAuthority = FSAMigration::oracleQueryAllOneDimension($replacedQueryAuthority, array(), $connectionOracle);
+    $row->AUTHORITY = NULL;
+    if (isset($sqlResultAuthority[0]['NAME'])) {
+      $row->AUTHORITY = $sqlResultAuthority[0]['NAME'];
     }
   }
 }

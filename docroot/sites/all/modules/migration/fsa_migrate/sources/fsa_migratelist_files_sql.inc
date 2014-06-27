@@ -131,7 +131,7 @@ ENDSQL;
     $object->TITLE = $nodeTitle;
 
     $nodeDescription = NULL;
-    if (isset($queryResults['NAME'])) {
+    if (isset($queryResults['OBJECTCOMMENT'])) {
       $nodeDescription = $queryResults['OBJECTCOMMENT'];
     }
     $object->DESCRIPTION = $nodeDescription;

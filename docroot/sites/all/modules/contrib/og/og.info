@@ -1,4 +1,4 @@
-name = Organic groups
+name = Organic groups - PATCHED
 description = "API to allow associating content with groups."
 package = "Organic groups"
 dependencies[] = options

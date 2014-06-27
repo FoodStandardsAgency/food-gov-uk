@@ -95,7 +95,7 @@ ENDSQL;
     // Configure the source of the migration.
     $this->source = new MigrateSourceList(
       new FSAMigrateListOracleGenericCollection(
-        'data/csv/dev-alterian-id-list.csv',
+        array('data/csv/dev-alterian-id-list.csv', 'data/csv/auditreport-alterian-id-list.csv'),
         array( $this->query_related_items, $this->query_related_CSV, $this->query_related_pages )
       ),
       new FSAMigrateItemOracleGenericCollection()
@@ -109,7 +109,7 @@ ENDSQL;
 
     // Migration source dependency.
     $this->addFieldMapping('host_entity_id', 'OBJECTID')
-      ->sourceMigration('FSADocumentpage');
+      ->sourceMigration(array('FSADocumentpage', 'FSAAuditReport'));
 
     // Related content.
     // Related media.

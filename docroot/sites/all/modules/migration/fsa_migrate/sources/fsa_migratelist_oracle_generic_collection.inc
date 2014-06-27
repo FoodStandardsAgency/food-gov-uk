@@ -13,28 +13,30 @@
  */
 class FSAMigrateListOracleGenericCollection extends MigrateList {
 
-  public $fileCSV;
+  public $arrayCSVFiles;
 
   public $queries;
 
   /**
    * Class constructor.
    *
-   * @param $CSVFile
-   *  CSV file to use.
-   * @param $array_of_queries
+   * @param $arrayCSVFiles
+   *  Array of CSV file to use.
+   * @param $arrayQueries
    *  Array of SQL query to retrieve more information.
    */
-  public function __construct($CSVFile, $array_of_queries) {
-    $this->queries = $array_of_queries;
+  public function __construct($arrayCSVFiles, $arrayQueries) {
+    $this->queries = $arrayQueries;
 
-    $realPathCSV = FSAMigrateListBase::checkCSVFileExists($CSVFile);
-    if ($realPathCSV) {
-      $this->fileCSV = $realPathCSV;
-    }
-    else {
-      print 'CSV file ' . $CSVFile . ' is unavailable.';
-      exit;
+    foreach ($arrayCSVFiles as $CSVFile) {
+      $realPathCSV = FSAMigrateListBase::checkCSVFileExists($CSVFile);
+      if ($realPathCSV) {
+        $this->arrayCSVFiles[] = $realPathCSV;
+      }
+      else {
+        print 'CSV file ' . $CSVFile . ' is unavailable.';
+        exit;
+      }
     }
   }
 
@@ -44,7 +46,7 @@ class FSAMigrateListOracleGenericCollection extends MigrateList {
    * @return string
    */
   public function __toString() {
-    return $this->fileCSV;
+    return implode(',', $this->arrayCSVFiles);
   }
 
   /**
@@ -84,7 +86,10 @@ class FSAMigrateListOracleGenericCollection extends MigrateList {
     $queriesResults = NULL;
 
     // Gets the objects id list.
-    $objectList = FSAMigrateListBase::getIdListFromCSV($this->fileCSV);
+    $objectList = array();
+    foreach($this->arrayCSVFiles as $fileCSV) {
+      $objectList = array_merge($objectList, FSAMigrateListBase::getIdListFromCSV($fileCSV));
+    }
 
     $queries = $this->queries;
     if (isset($queries['count_query'])) {

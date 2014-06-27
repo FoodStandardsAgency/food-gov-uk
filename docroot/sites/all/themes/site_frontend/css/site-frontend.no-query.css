@@ -703,9 +703,16 @@ img, media {
 .field--name-field-fc-section-body h4 {
   font-size: 1.2em;
   margin-bottom: .6em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000348}}
+.field--name-field-fc-section-body li {
+  font-size: 1.2em;
+  line-height: 1.3em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000352}}
+.field--name-field-fc-section-body li li {
+  font-size: 1em; }
 
 /* example usage: related items and child page teaser listings on page section field collection */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000351}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000358}}
 .page-section-teaser {
   font-size: 1em;
   line-height: 1.4em;
@@ -716,93 +723,93 @@ img, media {
   /* teaser summary */
   /* node links like read more (if enabled) */
   /* related media files and csv files */ }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000357}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000364}}
   .page-section-teaser h2.node__title,
   .page-section-teaser h3.node__title {
     font-size: 1.3em;
     line-height: 1.4em;
     margin-bottom: 0;
     font-weight: bold; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000363}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000370}}
   .page-section-teaser .node__title {
     font-weight: bold;
     display: block; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000366}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000373}}
     .page-section-teaser .node__title a {
       text-decoration: none;
       color: #006f51; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000370}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000377}}
     .page-section-teaser .node__title a:hover {
       text-decoration: underline; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000375}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000382}}
   .page-section-teaser .field--name-field-subtitle {
     font-size: 1.2em;
     line-height: 1.4em;
     display: block; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000381}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000388}}
   .page-section-teaser .field--name-field-updated {
     font-size: 1.1em;
     margin-bottom: 0.2em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000386}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000393}}
   .page-section-teaser .field--name-field-summary {
     font-size: 1.2em;
     line-height: 1.4em;
     display: block;
     color: #333;
     margin-bottom: 0.2em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000393}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003100}}
   .page-section-teaser .field__item {
     margin-bottom: 0.5em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\0000398}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003105}}
   .page-section-teaser .node__links a {
     text-decoration: none;
     color: #006f51; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003102}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003109}}
   .page-section-teaser .node__links a:hover {
     text-decoration: underline; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003107}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003114}}
   .page-section-teaser .file-item {
     font-weight: normal;
     margin-bottom: 0.5em;
     font-size: 1.2em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003111}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003118}}
     .page-section-teaser .file-item a {
       text-decoration: none;
       color: #006f51; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003115}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003122}}
     .page-section-teaser .file-item a:hover {
       text-decoration: underline; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003118}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003125}}
     .page-section-teaser .file-item .filesize {
       font-size: 0.846em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003123}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003130}}
   .page-section-teaser .file-summary p {
     margin-bottom: 0;
     font-size: 1em; }
 
 /* child pages normal teaser and child pages micro-teaser */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003131}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003138}}
 .field--name-field-child-page.page-section-teaser .field__item {
   margin-bottom: 0px; }
 
 /* child pages normal teaser */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003137}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003144}}
 .field--name-field-child-page.page-section-teaser .node-teaser {
   margin-bottom: 0.8em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003139}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003146}}
   .field--name-field-child-page.page-section-teaser .node-teaser .field__item {
     margin-bottom: 0.5em; }
 
 /* child pages mirco teaser - more in this section micro teaser variation of default teaser. Note: teaser is toggeled in page section edit mode */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003149}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003156}}
 .field--name-field-child-page.page-section-teaser .node--micro-teaser h2.node__title,
 .field--name-field-child-page.page-section-teaser .node--micro-teaser h3.node__title {
   font-size: 1em;
   font-weight: normal; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003153}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003160}}
 .field--name-field-child-page.page-section-teaser .node--micro-teaser .node__title {
   font-weight: normal; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003155}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003162}}
   .field--name-field-child-page.page-section-teaser .node--micro-teaser .node__title a {
     font-size: 1.2em;
     text-decoration: none;
@@ -814,13 +821,13 @@ img, media {
     background-image: url("../images/green-arrow-thin-right.png");
     background-repeat: no-repeat;
     background-position: 10px 8px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003167}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003174}}
   .field--name-field-child-page.page-section-teaser .node--micro-teaser .node__title a:hover {
     text-decoration: underline; }
 
 /* for mobile */
 /* related data wrapper - csv files */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003188}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003195}}
 .csv-files-wrapper {
   overflow: hidden;
   margin-bottom: 18px;
@@ -831,7 +838,7 @@ img, media {
   -ms-border-radius: 10px;
   border-radius: 10px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003198}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003205}}
 .csv-files-inner {
   overflow: hidden;
   padding: 12px 10px 0px 10px;
@@ -845,12 +852,12 @@ img, media {
   background: linear-gradient(top, #ffffff 0%, #ffffff 46%, #eaeaea 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#eaeaea',GradientType=0);
   /* extra margin for related data heading */ }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003211}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003218}}
   .csv-files-inner .page-section-subheading {
     margin-bottom: 0.8em; }
 
 /* related items wrapper - files */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003218}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003225}}
 .related-items-wrapper {
   overflow: hidden;
   margin-bottom: 18px;
@@ -861,7 +868,7 @@ img, media {
   -ms-border-radius: 10px;
   border-radius: 10px; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003228}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003235}}
 .related-items-inner {
   overflow: hidden;
   padding: 12px 10px 0px 10px;
@@ -875,7 +882,7 @@ img, media {
   background: linear-gradient(top, #ffffff 0%, #ffffff 46%, #eaeaea 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#eaeaea',GradientType=0);
   /* extra margin for related items heading */ }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003241}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003248}}
   .related-items-inner .page-section-subheading {
     margin-bottom: 0.8em; }
 
@@ -2226,25 +2233,32 @@ ul.breadcrumb {
   /* content main text body per featured block instance */
   /* wrapper per featured block field collection instance */
   /* first featured item */ }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\000037}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\000036}}
+  .featured-side-content p {
+    font-size: 1em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000310}}
   .featured-side-content ul, .featured-side-content li {
     font-size: 1em;
     list-style-type: none;
     list-style: none;
     margin-left: 0;
     padding-left: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000315}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000318}}
   .featured-side-content .field--name-field-title-side-content-generic {
     font-size: 1.5em;
     color: #4b800d;
     padding: 0;
     margin: .15em 0 .3em 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000320}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000323}}
     .featured-side-content .field--name-field-title-side-content-generic h1, .featured-side-content .field--name-field-title-side-content-generic h2, .featured-side-content .field--name-field-title-side-content-generic h3, .featured-side-content .field--name-field-title-side-content-generic h4, .featured-side-content .field--name-field-title-side-content-generic h5, .featured-side-content .field--name-field-title-side-content-generic h6 {
       padding: 0;
       margin: 0;
       font-size: 1em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000329}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000330}}
+  .featured-side-content .field--name-field-body-side-content-generic {
+    font-size: 1.2em;
+    line-height: 1.3em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000335}}
   .featured-side-content .field-collection-view {
     overflow: hidden;
     border: 1px solid #c4c4c4;
@@ -2253,28 +2267,28 @@ ul.breadcrumb {
     margin-bottom: 11px;
     overflow: hidden;
     clear: both; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000337}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000343}}
     .featured-side-content .field-collection-view img {
       max-width: 100%;
       height: auto; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000343}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000349}}
   .featured-side-content li:first-child .field-collection-view {
     border: 1px solid #5d9711;
     background: #5d9711;
     color: #fff; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000347}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000353}}
     .featured-side-content li:first-child .field-collection-view a {
       color: #fff; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000350}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000356}}
     .featured-side-content li:first-child .field-collection-view .field--name-field-title-side-content-generic {
       color: #fff;
       font-weight: bold; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000354}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000360}}
     .featured-side-content li:first-child .field-collection-view span.ext {
       background: url("../images/icons/external-link-icon-white.png") right center no-repeat; }
 
 /* remove bottom margin of block - inner content already has bottom margin */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000360}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_featured_side_content\.scss}line{font-family:\0000366}}
 .l-region--sidebar-second .block.featured-side-content {
   margin-bottom: 0; }
 
@@ -2588,18 +2602,32 @@ span.copyright {
   /* content title per generic block instance */
   /* content main text body per generic block instance */
   /* wrapper per generic block field collection instance */ }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_generic_blocks\.scss}line{font-family:\000038}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_generic_blocks\.scss}line{font-family:\000036}}
+  .generic-blocks p {
+    font-size: 1em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_generic_blocks\.scss}line{font-family:\000039}}
+  .generic-blocks ul, .generic-blocks li {
+    font-size: 1em;
+    list-style-type: none;
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_generic_blocks\.scss}line{font-family:\0000317}}
   .generic-blocks .field--name-field-title-side-content-generic {
     font-size: 1.5em;
     color: #4b800d;
     padding: 0;
     margin: .15em 0 .3em 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_generic_blocks\.scss}line{font-family:\0000313}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_generic_blocks\.scss}line{font-family:\0000322}}
     .generic-blocks .field--name-field-title-side-content-generic h1, .generic-blocks .field--name-field-title-side-content-generic h2, .generic-blocks .field--name-field-title-side-content-generic h3, .generic-blocks .field--name-field-title-side-content-generic h4, .generic-blocks .field--name-field-title-side-content-generic h5, .generic-blocks .field--name-field-title-side-content-generic h6 {
       padding: 0;
       margin: 0;
       font-size: 1em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_generic_blocks\.scss}line{font-family:\0000322}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_generic_blocks\.scss}line{font-family:\0000329}}
+  .generic-blocks .field--name-field-body-side-content-generic {
+    font-size: 1.2em;
+    line-height: 1.3em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_generic_blocks\.scss}line{font-family:\0000334}}
   .generic-blocks .field-collection-view {
     overflow: hidden;
     border: 1px solid #e8e8e8;
@@ -2613,13 +2641,13 @@ span.copyright {
     margin-bottom: 11px;
     overflow: hidden;
     clear: both; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_generic_blocks\.scss}line{font-family:\0000335}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_generic_blocks\.scss}line{font-family:\0000347}}
     .generic-blocks .field-collection-view img {
       max-width: 100%;
       height: auto; }
 
 /* remove bottom margin of block - inner content already has bottom margin */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_generic_blocks\.scss}line{font-family:\0000342}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_generic_blocks\.scss}line{font-family:\0000354}}
 .l-region--sidebar-second .block.generic-blocks {
   margin-bottom: 0; }
 
@@ -5056,18 +5084,60 @@ ul.pager {
     background-repeat: no-repeat;
     background-position: 9px center; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_social_media_icons\.scss}line{font-family:\000033}}
+/* social media icons
+ * requires block class: social-media-icons
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_social_media_icons\.scss}line{font-family:\000034}}
 .social-media-icons {
-  list-style-type: none;
-  padding: 0;
-  margin: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_social_media_icons\.scss}line{font-family:\000037}}
-  .social-media-icons li {
+  position: relative;
+  top: -20px;
+  margin-bottom: -20px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_social_media_icons\.scss}line{font-family:\000039}}
+  .social-media-icons .block__content ul {
     list-style-type: none;
-    float: right;
     padding: 0;
-    margin: 0 0 0 7px; }
+    margin: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_social_media_icons\.scss}line{font-family:\0000314}}
+  .social-media-icons .block__content li {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 4px 0 0;
+    float: left; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_social_media_icons\.scss}line{font-family:\0000320}}
+  .social-media-icons .block__content li.extra-margin {
+    margin-right: 18px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_social_media_icons\.scss}line{font-family:\0000323}}
+  .social-media-icons .block__content .label-wrapper {
+    color: #fff;
+    font-size: 1.1em;
+    margin-bottom: 5px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_social_media_icons\.scss}line{font-family:\0000328}}
+  .social-media-icons .block__content .left-label {
+    margin-left: 2px;
+    float: left;
+    display: block; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_social_media_icons\.scss}line{font-family:\0000333}}
+  .social-media-icons .block__content .right-label {
+    margin-left: 106px;
+    display: block; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_social_media_icons\.scss}line{font-family:\0000337}}
+  .social-media-icons .block__content .icons-wrapper {
+    clear: left; }
 
+/*
+<div class="label-wrapper"><span class="left-label">Stay updated:</span> <span class="right-label">Keep connected:</span></div>
+<div class="icons-wrapper">
+<ul>
+	<li><a href="" target="_blank" title="email"><img alt="email" src="/sites/all/themes/site_frontend/images/icons/email.png" /></a></li>
+	<li><a href="" target="_blank" title="phone"><img alt="phone" src="/sites/all/themes/site_frontend/images/icons/phone.png" /></a></li>
+	<li class="extra-margin"><a href="" target="_blank" title="RSS"><img alt="RSS" src="/sites/all/themes/site_frontend/images/icons/rss.png" /></a></li>
+	<li><a href="http://www.facebook.com/FoodStandardsAgency" target="_blank" title="The Food Standards Agency Facebook page (opens in a new window)"><img alt="Find us on Facebook" src="/sites/all/themes/site_frontend/images/icons/facebook.png" /></a></li>
+	<li><a href="http://www.twitter.com/foodgov" target="_blank" title="twitter (opens in a new window)"><img alt="Follow us on twitter" src="/sites/all/themes/site_frontend/images/icons/twitter.png" /></a></li>
+	<li><a href="http://www.youtube.com/user/FoodStandardsAgency" target="_blank" title="you tube (opens in a new window)"><img alt="you tube" src="/sites/all/themes/site_frontend/images/icons/youtube.png" /></a></li>
+	<li><a href="http://www.pinterest.com/foodgov/" target="_blank" title="pinterest (opens in a new window)"><img alt="pinterest" src="/sites/all/themes/site_frontend/images/icons/pinterest.png" /></a></li>
+</ul>
+</div>
+*/
 /**
  * Table of contents
  * We use toc_node module to add a toc, and we override the css here
@@ -5226,7 +5296,7 @@ ul.toc-node-bullets li.toc-node-level-6 {
     line-height: 1.4em; }
 
 /* these are styles used in the textareas - includes backwards compatibility for migrated content too */
-/* highlighted content */
+/* highlighted content - guidance - ckeditor style */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\000037}}
 .field--name-field-fc-section-body,
 .field--name-body
@@ -5253,7 +5323,7 @@ ul.toc-node-bullets li.toc-node-level-6 {
     font-size: 1.2em;
     line-height: 1.4em;
     font-weight: bold;
-    margin-bottom: 1em;
+    margin-bottom: 0.5833;
     display: block; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000325}}
   .field--name-field-fc-section-body .guidance p strong,
@@ -5264,14 +5334,144 @@ ul.toc-node-bullets li.toc-node-level-6 {
     margin-bottom: 0;
     display: inline; }
 
-/* tables */
+/* highlighted content - training - ckeditor style */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000336}}
 .field--name-field-fc-section-body,
 .field--name-body
 .field--type-text-with-summary,
 .field--type-text-long {
-  /* override drupal default */ }
+  /* where <strong> exists outside of a p-tag */
+  /* adjustment for this site */ }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000337}}
+  .field--name-field-fc-section-body .training,
+  .field--name-body
+  .field--type-text-with-summary .training,
+  .field--type-text-long .training {
+    display: block;
+    background: #f6fcff;
+    border: 1px solid #007FB2;
+    color: #333;
+    padding: 11px;
+    margin-bottom: 1.3em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000346}}
+  .field--name-field-fc-section-body .training strong,
+  .field--name-body
+  .field--type-text-with-summary .training strong,
+  .field--type-text-long .training strong {
+    font-size: 1.2em;
+    line-height: 1.4em;
+    font-weight: bold;
+    margin-bottom: 0.5833;
+    display: block; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000354}}
+  .field--name-field-fc-section-body .training p strong,
+  .field--name-body
+  .field--type-text-with-summary .training p strong,
+  .field--type-text-long .training p strong {
+    font-size: 1em;
+    margin-bottom: 0;
+    display: inline; }
+
+/* highlighted content - science - ckeditor style */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000365}}
+.field--name-field-fc-section-body,
+.field--name-body
+.field--type-text-with-summary,
+.field--type-text-long {
+  /* where <strong> exists outside of a p-tag */
+  /* adjustment for this site */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000367}}
+  .field--name-field-fc-section-body .science,
+  .field--name-field-fc-section-body .moreInfo,
+  .field--name-body
+  .field--type-text-with-summary .science,
+  .field--name-body
+  .field--type-text-with-summary .moreInfo,
+  .field--type-text-long .science,
+  .field--type-text-long .moreInfo {
+    display: block;
+    background: #fff;
+    border: 1px solid #5d9711;
+    color: #333;
+    padding: 9px 10px 6px 10px;
+    margin-bottom: 1.3em;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -o-border-radius: 8px;
+    -ms-border-radius: 8px;
+    border-radius: 8px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000379}}
+    .field--name-field-fc-section-body .science h2, .field--name-field-fc-section-body .science h3,
+    .field--name-field-fc-section-body .moreInfo h2,
+    .field--name-field-fc-section-body .moreInfo h3,
+    .field--name-body
+    .field--type-text-with-summary .science h2,
+    .field--name-body
+    .field--type-text-with-summary .science h3,
+    .field--name-body
+    .field--type-text-with-summary .moreInfo h2,
+    .field--name-body
+    .field--type-text-with-summary .moreInfo h3,
+    .field--type-text-long .science h2,
+    .field--type-text-long .science h3,
+    .field--type-text-long .moreInfo h2,
+    .field--type-text-long .moreInfo h3 {
+      margin: 0 0 0.5em 0;
+      padding: 0;
+      font-size: 1.4em;
+      color: #5d9711;
+      background: none;
+      font-weight: bold; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000390}}
+  .field--name-field-fc-section-body .science strong,
+  .field--name-field-fc-section-body .moreInfo strong,
+  .field--name-body
+  .field--type-text-with-summary .science strong,
+  .field--name-body
+  .field--type-text-with-summary .moreInfo strong,
+  .field--type-text-long .science strong,
+  .field--type-text-long .moreInfo strong {
+    font-size: 1.2em;
+    line-height: 1.4em;
+    font-weight: bold;
+    margin-bottom: 1em;
+    display: block; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000399}}
+  .field--name-field-fc-section-body .science p strong,
+  .field--name-field-fc-section-body .moreInfo p strong,
+  .field--name-body
+  .field--type-text-with-summary .science p strong,
+  .field--name-body
+  .field--type-text-with-summary .moreInfo p strong,
+  .field--type-text-long .science p strong,
+  .field--type-text-long .moreInfo p strong {
+    font-size: 1em;
+    margin-bottom: 0;
+    display: inline; }
+
+/* section heading - ckeditor style */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003111}}
+.field--name-field-fc-section-body h2.inline-section-heading,
+.field--name-body
+.field--type-text-with-summary h2.inline-section-heading,
+.field--type-text-long h2.inline-section-heading {
+  display: block;
+  margin: 0 0 1em 0;
+  padding: .3em 11px;
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #fff;
+  background: #5d9711;
+  clear: both; }
+
+/* tables */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003127}}
+.field--name-field-fc-section-body,
+.field--name-body
+.field--type-text-with-summary,
+.field--type-text-long {
+  /* override drupal default */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003128}}
   .field--name-field-fc-section-body table,
   .field--name-body
   .field--type-text-with-summary table,
@@ -5281,8 +5481,10 @@ ul.toc-node-bullets li.toc-node-level-6 {
     border-collapse: collapse;
     border-spacing: 0;
     border-top: 1px solid #006f51;
-    border-bottom: 1px solid #ebebeb; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000345}}
+    border-bottom: 1px solid #ebebeb;
+    border-left: none;
+    border-right: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003138}}
   .field--name-field-fc-section-body caption, .field--name-field-fc-section-body th, .field--name-field-fc-section-body td,
   .field--name-body
   .field--type-text-with-summary caption,
@@ -5296,7 +5498,7 @@ ul.toc-node-bullets li.toc-node-level-6 {
     text-align: left;
     vertical-align: top;
     font-weight: normal; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000350}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003143}}
   .field--name-field-fc-section-body caption,
   .field--name-body
   .field--type-text-with-summary caption,
@@ -5306,7 +5508,7 @@ ul.toc-node-bullets li.toc-node-level-6 {
     font-size: 1.2em;
     font-weight: bold;
     color: #333; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000357}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003150}}
   .field--name-field-fc-section-body th, .field--name-field-fc-section-body td,
   .field--name-body
   .field--type-text-with-summary th,
@@ -5315,8 +5517,15 @@ ul.toc-node-bullets li.toc-node-level-6 {
   .field--type-text-long th,
   .field--type-text-long td {
     padding: .6em 10px .6em 10px;
-    border-left: 1px solid #ebebeb; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000361}}
+    border-left: 1px solid #ebebeb;
+    border-right: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003155}}
+  .field--name-field-fc-section-body td:first-child,
+  .field--name-body
+  .field--type-text-with-summary td:first-child,
+  .field--type-text-long td:first-child {
+    border-left: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003158}}
   .field--name-field-fc-section-body th, .field--name-field-fc-section-body thead th, .field--name-field-fc-section-body thead td, .field--name-field-fc-section-body tfoot th, .field--name-field-fc-section-body tfoot td,
   .field--name-body
   .field--type-text-with-summary th,
@@ -5335,7 +5544,7 @@ ul.toc-node-bullets li.toc-node-level-6 {
   .field--type-text-long tfoot td {
     font-weight: bold;
     color: #006f51; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000365}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003162}}
   .field--name-field-fc-section-body thead th, .field--name-field-fc-section-body thead td,
   .field--name-body
   .field--type-text-with-summary thead th,
@@ -5344,7 +5553,7 @@ ul.toc-node-bullets li.toc-node-level-6 {
   .field--type-text-long thead th,
   .field--type-text-long thead td {
     background: #f2f2f2; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000368}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003165}}
   .field--name-field-fc-section-body tfoot th, .field--name-field-fc-section-body tfoot td,
   .field--name-body
   .field--type-text-with-summary tfoot th,
@@ -5353,7 +5562,7 @@ ul.toc-node-bullets li.toc-node-level-6 {
   .field--type-text-long tfoot th,
   .field--type-text-long tfoot td {
     border-top: 1px solid #ebebeb; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000371}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003168}}
   .field--name-field-fc-section-body thead span, .field--name-field-fc-section-body tfoot span,
   .field--name-body
   .field--type-text-with-summary thead span,
@@ -5364,7 +5573,7 @@ ul.toc-node-bullets li.toc-node-level-6 {
     display: block;
     margin: .6em 0 0 0;
     font-weight: normal; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000376}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003173}}
   .field--name-field-fc-section-body thead .subHead th, .field--name-field-fc-section-body tfoot .subHead th,
   .field--name-body
   .field--type-text-with-summary thead .subHead th,
@@ -5375,7 +5584,7 @@ ul.toc-node-bullets li.toc-node-level-6 {
     padding-top: 0;
     margin: 0;
     font-weight: normal; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000381}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003178}}
   .field--name-field-fc-section-body th.numeric, .field--name-field-fc-section-body td.numeric,
   .field--name-body
   .field--type-text-with-summary th.numeric,
@@ -5384,7 +5593,7 @@ ul.toc-node-bullets li.toc-node-level-6 {
   .field--type-text-long th.numeric,
   .field--type-text-long td.numeric {
     text-align: right; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000384}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003181}}
   .field--name-field-fc-section-body th.multiCol, .field--name-field-fc-section-body td.multiCol,
   .field--name-body
   .field--type-text-with-summary th.multiCol,
@@ -5393,7 +5602,7 @@ ul.toc-node-bullets li.toc-node-level-6 {
   .field--type-text-long th.multiCol,
   .field--type-text-long td.multiCol {
     text-align: center; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000387}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003184}}
   .field--name-field-fc-section-body th.first, .field--name-field-fc-section-body td.first, .field--name-field-fc-section-body th.grouped, .field--name-field-fc-section-body td.grouped,
   .field--name-body
   .field--type-text-with-summary th.first,
@@ -5408,7 +5617,7 @@ ul.toc-node-bullets li.toc-node-level-6 {
   .field--type-text-long th.grouped,
   .field--type-text-long td.grouped {
     border-left: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000390}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003187}}
   .field--name-field-fc-section-body tbody .alt th, .field--name-field-fc-section-body tbody .alt td,
   .field--name-body
   .field--type-text-with-summary tbody .alt th,
@@ -5417,7 +5626,16 @@ ul.toc-node-bullets li.toc-node-level-6 {
   .field--type-text-long tbody .alt th,
   .field--type-text-long tbody .alt td {
     background: #f2f2f2; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000393}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003191}}
+  .field--name-field-fc-section-body tbody tr:nth-child(even) th, .field--name-field-fc-section-body tbody tr:nth-child(even) td,
+  .field--name-body
+  .field--type-text-with-summary tbody tr:nth-child(even) th,
+  .field--name-body
+  .field--type-text-with-summary tbody tr:nth-child(even) td,
+  .field--type-text-long tbody tr:nth-child(even) th,
+  .field--type-text-long tbody tr:nth-child(even) td {
+    background: #f2f2f2; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003195}}
   .field--name-field-fc-section-body table.linearTable,
   .field--name-body
   .field--type-text-with-summary table.linearTable,
@@ -5425,7 +5643,7 @@ ul.toc-node-bullets li.toc-node-level-6 {
     margin-bottom: 2em;
     border-top: 1px solid #006f51;
     border-bottom: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\0000398}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003200}}
   .field--name-field-fc-section-body .linearTable th, .field--name-field-fc-section-body .linearTable td,
   .field--name-body
   .field--type-text-with-summary .linearTable th,
@@ -5434,14 +5652,14 @@ ul.toc-node-bullets li.toc-node-level-6 {
   .field--type-text-long .linearTable th,
   .field--type-text-long .linearTable td {
     border-bottom: 1px solid #ebebeb; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003101}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003203}}
   .field--name-field-fc-section-body .linearTable tbody th.grouper,
   .field--name-body
   .field--type-text-with-summary .linearTable tbody th.grouper,
   .field--type-text-long .linearTable tbody th.grouper {
     padding-top: 2em;
     color: #333; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003106}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003208}}
   .field--name-field-fc-section-body th,
   .field--name-body
   .field--type-text-with-summary th,
@@ -5449,7 +5667,7 @@ ul.toc-node-bullets li.toc-node-level-6 {
     background-color: transparent; }
 
 /* legacy css for tables from old site */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003116}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003218}}
 .field--name-field-fc-section-body .fsatable,
 .field--name-body
 .field--type-text-with-summary .fsatable,
@@ -5457,7 +5675,7 @@ ul.toc-node-bullets li.toc-node-level-6 {
   float: left;
   width: 100%;
   margin: 2px 0 20px 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003117}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003219}}
 .field--name-field-fc-section-body .fsatable th, .field--name-field-fc-section-body .cottable td,
 .field--name-body
 .field--type-text-with-summary .fsatable th,
@@ -5470,14 +5688,14 @@ ul.toc-node-bullets li.toc-node-level-6 {
   padding: 5px;
   border-right: 1px solid #fff;
   border-bottom: 1px solid #fff; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003118}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003220}}
 .field--name-field-fc-section-body .fsatable thead th,
 .field--name-body
 .field--type-text-with-summary .fsatable thead th,
 .field--type-text-long .fsatable thead th {
   color: #666;
   border-bottom: 1px solid #99cc99; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003119}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003221}}
 .field--name-field-fc-section-body .fsatable tbody th,
 .field--name-body
 .field--type-text-with-summary .fsatable tbody th,
@@ -5486,7 +5704,7 @@ ul.toc-node-bullets li.toc-node-level-6 {
   vertical-align: top;
   background-color: #c4cdd8;
   color: #666; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003120}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003222}}
 .field--name-field-fc-section-body .fsatable td,
 .field--name-body
 .field--type-text-with-summary .fsatable td,
@@ -5498,33 +5716,33 @@ ul.toc-node-bullets li.toc-node-level-6 {
   background: #f5f5f5;
   border-right: 1px solid #fff;
   border-bottom: 1px solid #fff; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003121}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003223}}
 .field--name-field-fc-section-body .fsatable td.lastrow,
 .field--name-body
 .field--type-text-with-summary .fsatable td.lastrow,
 .field--type-text-long .fsatable td.lastrow {
   border-bottom: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003122}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003224}}
 .field--name-field-fc-section-body .fsatable td a,
 .field--name-body
 .field--type-text-with-summary .fsatable td a,
 .field--type-text-long .fsatable td a {
   color: #006633;
   text-decoration: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003123}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003225}}
 .field--name-field-fc-section-body .fsatable td a:hover,
 .field--name-body
 .field--type-text-with-summary .fsatable td a:hover,
 .field--type-text-long .fsatable td a:hover {
   color: #003300; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003124}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003226}}
 .field--name-field-fc-section-body .fsatable td ul,
 .field--name-body
 .field--type-text-with-summary .fsatable td ul,
 .field--type-text-long .fsatable td ul {
   margin: 0 0 0 14px;
   padding-left: 3px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003125}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_textarea_styles\.scss}line{font-family:\00003227}}
 .field--name-field-fc-section-body .fsatable td ul li,
 .field--name-body
 .field--type-text-with-summary .fsatable td ul li,

@@ -1,4 +1,4 @@
-name = Organic groups UI
+name = Organic groups UI - PATCHED
 description = "Organic groups UI."
 package = "Organic groups"
 dependencies[] = og

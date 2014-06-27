@@ -173,12 +173,14 @@ ENDSQL;
             $sqlFieldOrderResult = FSAMigration::oracleQueryAll($replacedFieldOrderQuery, array(), $connectionOracle);
 
             // Calling it field to make it easier to understand, but it can be stored as a separate object in oracle.
-            foreach ($sqlFieldOrderResult['OBJFIELDID'] as $iSQLFieldOrder => $objFieldid) {
-              $objFieldValue = $sqlFieldOrderResult['VALUE'][$iSQLFieldOrder];
-              // Stores the data in an array like
-              // [PARENT ID]
-              //   [FIELDID] => 5
-              $sortedObjects[$objectid][$objFieldid] = $objFieldValue;
+            if (isset($sqlFieldOrderResult['OBJFIELDID'])) {
+              foreach ($sqlFieldOrderResult['OBJFIELDID'] as $iSQLFieldOrder => $objFieldid) {
+                $objFieldValue = $sqlFieldOrderResult['VALUE'][$iSQLFieldOrder];
+                // Stores the data in an array like
+                // [PARENT ID]
+                //   [FIELDID] => 5
+                $sortedObjects[$objectid][$objFieldid] = $objFieldValue;
+              }
             }
             break;
           case 'TitleAlpha':
@@ -187,12 +189,14 @@ ENDSQL;
 
             $iOrder = 0;
             // Calling it field to make it easier to understand, but it can be stored as a separate object in oracle.
-            foreach ($sqlFieldOrderResult['OBJFIELDID'] as $objFieldid) {
-              // Stores the data in an array like
-              // [PARENT ID]
-              //   [FIELDID] => 5
-              $sortedObjects[$objectid][$objFieldid] = $iOrder;
-              $iOrder++;
+            if (isset($sqlFieldOrderResult['OBJFIELDID'])) {
+              foreach ($sqlFieldOrderResult['OBJFIELDID'] as $objFieldid) {
+                // Stores the data in an array like
+                // [PARENT ID]
+                //   [FIELDID] => 5
+                $sortedObjects[$objectid][$objFieldid] = $iOrder;
+                $iOrder++;
+              }
             }
             break;
           case 'TitleReverseAlpha':
@@ -202,12 +206,14 @@ ENDSQL;
 
             $iOrder = 0;
             // Calling it field to make it easier to understand, but it can be stored as a separate object in oracle.
-            foreach ($sqlFieldOrderResult['OBJFIELDID'] as $objFieldid) {
-              // Stores the data in an array like
-              // [PARENT ID]
-              //   [FIELDID] => 5
-              $sortedObjects[$objectid][$objFieldid] = $iOrder;
-              $iOrder++;
+            if (isset($sqlFieldOrderResult['OBJFIELDID'])) {
+              foreach ($sqlFieldOrderResult['OBJFIELDID'] as $objFieldid) {
+                // Stores the data in an array like
+                // [PARENT ID]
+                //   [FIELDID] => 5
+                $sortedObjects[$objectid][$objFieldid] = $iOrder;
+                $iOrder++;
+              }
             }
             break;
         }
@@ -219,5 +225,20 @@ ENDSQL;
     else {
       return NULL;
     }
+  }
+
+  /**
+   * Returns the sort method used for each object provided in the list.
+   *
+   * @param $objectList
+   * @param $connectionOracle
+   * @return array|null
+   */
+  public function objectListSortMethodUsed($objectList, $connectionOracle) {
+    // Checks the sort order method for this object.
+    $replacedQuery = str_replace(':obj_ids', implode(',', $objectList), FSAMigrateListBase::QUERYOBJSORTORDER);
+    $sqlResult = FSAMigration::oracleQueryAll($replacedQuery, array(), $connectionOracle);
+
+    return $sqlResult;
   }
 }
