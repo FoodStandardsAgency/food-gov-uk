@@ -173,18 +173,17 @@
 		border-bottom: none;
 		padding: 0;
 		/* for old content before we updated display view mode */
-		.node__content {
-			.field {
-				.field-name-field-audit-authority,
-				.field-name-field-audit-type {
-					display: inline;
-					margin-right: 0.5em;
-					margin-bottom: 0;
-					div {
-						display: inline;
-					}
-				}
+		.field-name-field-audit-authority.field,
+		.field-name-field-audit-type.field {
+			display: inline;
+			margin-right: 0.5em;
+			margin-bottom: 0;
+			div {
+				display: inline;
 			}
+		}
+		.field-name-field-audit-type {
+			font-style: italic;
 		}
 	}
 	.views-row {
