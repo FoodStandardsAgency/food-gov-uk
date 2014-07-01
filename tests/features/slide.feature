@@ -26,8 +26,19 @@ Feature: Home Page Carousel
   
   
   
- Scenario: Home page carousel
+ Scenario: Homepage carousel
   Given I am on "/"
   Then I should see an "#block-views-home-page-carousel-block-1" element
   And I should see an "#views_slideshow_cycle_main_home_page___carousel-block_1" element
   And I should see an "#views_slideshow_controls_text_home_page___carousel-block_1" element
+  
+  @javascript
+ Scenario: Homepage slide links
+  Given I am on "/"
+  And I should see an "#block-views-home-page-carousel-block-1" element
+  When I click on the element with css selector "#views_slideshow_cycle_teaser_section_home_page___carousel-block_1"
+  Then I should be on "http://www.bbc.co.uk/"
+  
+  
+  
+  

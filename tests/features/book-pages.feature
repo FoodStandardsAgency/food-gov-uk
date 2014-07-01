@@ -23,7 +23,7 @@ Feature: Book pages
   #Given I log in as an existing "editor" 
   #When I go to "/node/add/document-page"
   #And I should see "Create General Page" in the "Page Title" region
-  #And I fill in "edit-title" with "parent book page"
+  #And I fill in "edit-title" with "child book page"
   #And I fill in "edit-field-title-short-und-0-value" with "test"
   #And I check the box "N/A" in "edit-field-site-section-und"
   #And I click "Page settings"
@@ -37,11 +37,8 @@ Feature: Book pages
   
   #Scenario: Verify book pages are linked correctly
   #Given I am on "/parent-book-page"
-  #And I should see "" in the "" region
-  #book page title 
-   
+  #And I should see "parent book page" in the "Book page title" region
   #When I go to "/child-book-page"
-  #Then I should see "" in the "" region
-  
-  #book page title, section name then page title
-  
+  #Then I should see "parent book page" in the "Book parent title" region
+  #And I should see "section 1" in the "Book section title" region
+  #And I should see "child book page" in the "Book page title" region
