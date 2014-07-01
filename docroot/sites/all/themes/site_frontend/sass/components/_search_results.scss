@@ -102,6 +102,14 @@
 			color: #333;
 			background: #f0f0f0;
 		}
+		.views-row h3 {
+			font-size: 1.4em;
+			line-height: 1.3em;
+			margin: 0 0 .0.4em 0;
+			padding: 0;
+			background: none;
+			background-color: transparent;
+		}
 	}
 	.views-row-last {
 		.views-field-zs-view-mode-search-result {
@@ -130,6 +138,14 @@
 			color: #333;
 			background: #f0f0f0;
 		}
+		.views-row h3 {
+			font-size: 1.4em;
+			line-height: 1.3em;
+			margin: 0 0 .0.4em 0;
+			padding: 0;
+			background: none;
+			background-color: transparent;
+		}
 	}
 	.views-row-last {
 		.views-field-zs-view-mode-search-result {
@@ -156,6 +172,19 @@
 	.views-field-zs-view-mode-search-results-10 {
 		border-bottom: none;
 		padding: 0;
+		/* for old content before we updated display view mode */
+		.field-name-field-audit-authority.field,
+		.field-name-field-audit-type.field {
+			display: inline;
+			margin-right: 0.5em;
+			margin-bottom: 0;
+			div {
+				display: inline;
+			}
+		}
+		.field-name-field-audit-type {
+			font-style: italic;
+		}
 	}
 	.views-row {
 		border-bottom: 1px solid #5d9711;
@@ -164,5 +193,17 @@
 	.views-row.views-row-last,
 	.views-row.views-row-first.views-row-last {
 		border-bottom: 0;
+		padding-bottom: 15px;
+	}
+	.field-name-field-audit-authority,
+	.field-name-field-audit-type {
+		display: inline;
+		margin-right: 0.5em;
+		div {
+			display: inline;
+		}
+	}
+	.field-name-field-audit-type {
+		font-style: italic;
 	}
 }

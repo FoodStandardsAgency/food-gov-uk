@@ -29,7 +29,7 @@ Feature: Back to top links
    And I select "Amber Valley" from "edit-field-audit-authority-und" 
    And I select "County" from "edit-field-audit-authority-type-und" 
    And I select "Approved establishments audit" from "edit-field-audit-type-und" 
-   And I select "UK" from "edit-field-nation-und"
+   And I check the box "England" in "edit-field-nation-und"
    And I click "Page settings"
    And I check "edit-field-setting-backtotop-und"
    And I press "edit-submit" in the "Submit" region
@@ -45,6 +45,7 @@ Feature: Back to top links
    And I fill in "edit-title" with "test"
    And I fill in "edit-field-title-short-und-0-value" with "test"
    And I check the box "N/A" in "edit-field-site-section-und"
+   And I check the box "England" in "edit-field-nation-und"
    And I click "Page settings"
    And I check "edit-field-setting-backtotop-und"
    And I press "edit-submit" in the "Submit" region
@@ -104,7 +105,6 @@ Feature: Back to top links
    When I go to "/node/add/research-project"
    Then I should see "Create Research project" in the "Page Title" region
    And I fill in "edit-title" with "test"
-   And I fill in "edit-field-title-short-und-0-value" with "test"
    And I check the box "N/A" in "edit-field-site-section-und"
    And I click "Page settings"
    And I check "edit-field-setting-backtotop-und"

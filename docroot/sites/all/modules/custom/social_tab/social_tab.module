@@ -1,0 +1,100 @@
+<?php
+
+/**
+ * Implements hook init
+ */
+function social_tab_init(){
+  if ((arg(0) == 'admin') || (arg(0) == 'node' && arg(1) == 'add') || (arg(0) == 'node' && arg(2) == 'edit')) {
+    return;
+  }
+
+  drupal_add_js('var addthis_config = {"data_track_addressbar":false, "data_use_cookies":false};','inline'); // enable address bar tracking feature
+  $pubid = social_tab_get_pubid();
+  drupal_add_js('//s7.addthis.com/js/300/addthis_widget.js#pubid='.$pubid,'external');
+}
+
+/**
+ * returns the addthis pubid
+ */
+function social_tab_get_pubid(){
+
+  return variable_get('social_tab_pubid', 'ra-536b5bf720716b22');
+}
+/**
+ * Implements hook_theme().
+ */
+function social_tab_theme() {
+  $theme = array(
+    'social_tab_block' => array(
+      'render element' => 'social_tab_block'
+    ),
+    'social_inline_block' => array(
+      'render element' => 'social_inline_block'
+    ),
+  );
+  return $theme;
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function social_tab_block_info() {
+
+  $blocks['social_tab'] = array(
+    'info' => t('Social Tab'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+  $blocks['social_inline'] = array(
+    'info' => t('Social Inline Block'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function social_tab_block_view($delta = '') {
+
+  $block = array();
+
+  switch ($delta) {
+    case 'social_tab':
+      $block['subject'] = NULL;
+      $block['content'] = array('#theme' => 'social_tab_block');
+      break;
+    case 'social_inline':
+      $block['subject'] = '';
+      $block['content'] = array('#theme' => 'social_inline_block');
+      break;
+  }
+  return $block;
+}
+
+function theme_social_tab_block() {
+
+  $output = '<!-- AddThis Tab BEGIN -->
+               <div class="addthis_toolbox addthis_floating_style addthis_counter_style" style="position: fixed; right:0px; top:70px;">
+                 <a class="addthis_button_facebook_like" fb:like:layout="box_count"></a>
+                 <a class="addthis_button_tweet" tw:count="vertical"></a>
+                 <a class="addthis_button_google_plusone" g:plusone:size="tall"></a>
+
+               </div>
+             <!-- AddThis Button END -->';
+
+  return $output;
+}
+
+/**
+ * The defualt social sharing toolbox is managed via the addthis site.
+ * Toolbox elements are managed via the pubid
+ *
+ * @return string
+ */
+function theme_social_inline_block() {
+  $output = '<!-- AddThis Inline BEGIN -->
+  <div class="addthis_sharing_toolbox"></div>   <!-- AddThis Button END -->';
+
+  return $output;
+}

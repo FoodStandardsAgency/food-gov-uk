@@ -16,10 +16,13 @@ Feature: See also links
   And I select "Approved establishments audit" from "edit-field-audit-type-und" 
   And I select "UK" from "edit-field-nation-und"
   And I click "Right hand column"
-  And I select "Test See alo links" from "edit-field-links-see-also-und" 
+  And I select "See also links test" from "edit-field-links-see-also-und"
   And I press "edit-submit" in the "Submit" region
   Then I should see "Audit Report test has been created."
-  And I should see an "#block-views-see-also-links-block" element
+  And I should see "See also" in the "See also block" region
+  And I should see "About us" in the "See also block" region
+  And I should see "Science and policy" in the "See also block" region
+  And I should see "Enforcement and regulation" in the "See also block" region
   And I logout
   
     @javascript
@@ -31,11 +34,15 @@ Feature: See also links
   And I fill in "edit-field-title-short-und-0-value" with "test"
   And I check the box "N/A" in "edit-field-site-section-und"
   And I click "Right hand column"
-  And I select "Test See alo links" from "edit-field-links-see-also-und"
+  And I select "See also links test" from "edit-field-links-see-also-und"
   And I press "edit-submit" in the "Submit" region
   Then I should see "Consultation test has been created."
-  And I should see an "#block-views-see-also-links-block" element
+  And I should see "See also" in the "See also block" region
+  And I should see "About us" in the "See also block" region
+  And I should see "Science and policy" in the "See also block" region
+  And I should see "Enforcement and regulation" in the "See also block" region
   And I logout
+    
   
     @javascript
   Scenario: General Page - See also block
@@ -46,11 +53,15 @@ Feature: See also links
   And I fill in "edit-field-title-short-und-0-value" with "test"
   And I check the box "N/A" in "edit-field-site-section-und"
   And I click "Right hand column"
-  And I select "Test See alo links" from "edit-field-links-see-also-und"
+  And I select "See also links test" from "edit-field-links-see-also-und"
   And I press "edit-submit" in the "Submit" region
   Then I should see "General Page test has been created."
-  And I should see an "#block-views-see-also-links-block" element
+  And I should see "See also" in the "See also block" region
+  And I should see "About us" in the "See also block" region
+  And I should see "Science and policy" in the "See also block" region
+  And I should see "Enforcement and regulation" in the "See also block" region
   And I logout
+    
   
     @javascript   
   Scenario: FAQ - See also block
@@ -61,11 +72,15 @@ Feature: See also links
   And I fill in "edit-field-title-short-und-0-value" with "test"
   And I check the box "N/A" in "edit-field-site-section-und"
   And I click "Right hand column"
-  And I select "Test See alo links" from "edit-field-links-see-also-und"
+  And I select "See also links test" from "edit-field-links-see-also-und"
   And I press "edit-submit" in the "Submit" region
   Then I should see "FAQ test has been created."
-  And I should see an "#block-views-see-also-links-block" element
+  And I should see "See also" in the "See also block" region
+  And I should see "About us" in the "See also block" region
+  And I should see "Science and policy" in the "See also block" region
+  And I should see "Enforcement and regulation" in the "See also block" region
   And I logout
+    
   
     @javascript
   Scenario: Job - See also block
@@ -76,11 +91,15 @@ Feature: See also links
   And I fill in "edit-field-title-short-und-0-value" with "test"
   And I check the box "N/A" in "edit-field-site-section-und"
   And I click "Right hand column"
-  And I select "Test See alo links" from "edit-field-links-see-also-und"
+  And I select "See also links test" from "edit-field-links-see-also-und"
   And I press "edit-submit" in the "Submit" region
   Then I should see "Job test has been created."
-  And I should see an "#block-views-see-also-links-block" element
+  And I should see "See also" in the "See also block" region
+  And I should see "About us" in the "See also block" region
+  And I should see "Science and policy" in the "See also block" region
+  And I should see "Enforcement and regulation" in the "See also block" region
   And I logout
+    
   
     @javascript 
   Scenario: News - See also block
@@ -92,11 +111,15 @@ Feature: See also links
   And I check the box "N/A" in "edit-field-site-section-und"
   And I select "General News" from "edit-field-news-type-und"
   And I click "Right hand column"
-  And I select "Test See alo links" from "edit-field-links-see-also-und"
+  And I select "See also links test" from "edit-field-links-see-also-und"
   And I press "edit-submit" in the "Submit" region
-  Then I should see "News test has been created."   
-  And I should see an "#block-views-see-also-links-block" element
+  Then I should see "News test has been created."
+  And I should see "See also" in the "See also block" region
+  And I should see "About us" in the "See also block" region
+  And I should see "Science and policy" in the "See also block" region
+  And I should see "Enforcement and regulation" in the "See also block" region
   And I logout
+    
   
     @javascript 
   Scenario: Research project - See also block
@@ -107,11 +130,15 @@ Feature: See also links
   And I fill in "edit-field-title-short-und-0-value" with "test"
   And I check the box "N/A" in "edit-field-site-section-und"
   And I click "Right hand column"
-  And I select "Test See alo links" from "edit-field-links-see-also-und"
-  And I press "edit-submit" in the "Submit" region 
-  Then I should see "Research project test has been created."  
-  And I should see an "#block-views-see-also-links-block" element
+  And I select "See also links test" from "edit-field-links-see-also-und"
+  And I press "edit-submit" in the "Submit" region
+  Then I should see "Research project test has been created."
+  And I should see "See also" in the "See also block" region
+  And I should see "About us" in the "See also block" region
+  And I should see "Science and policy" in the "See also block" region
+  And I should see "Enforcement and regulation" in the "See also block" region
   And I logout
+    
     
     @javascript  
   Scenario: Alert - See also block
@@ -124,8 +151,11 @@ Feature: See also links
   And I click "Alert"
   And I select "None" from "edit-field-alert-alert-type-und"
   And I click "Right hand column"
-  And I select "Test See alo links" from "edit-field-links-see-also-und"
+  And I select "See also links test" from "edit-field-links-see-also-und"
   And I press "edit-submit" in the "Submit" region
-  Then I should see "Alert test has been created." 
-  And I should see an "#block-views-see-also-links-block" element
+  Then I should see "Alert test has been created."
+  And I should see "See also" in the "See also block" region
+  And I should see "About us" in the "See also block" region
+  And I should see "Science and policy" in the "See also block" region
+  And I should see "Enforcement and regulation" in the "See also block" region
   And I logout

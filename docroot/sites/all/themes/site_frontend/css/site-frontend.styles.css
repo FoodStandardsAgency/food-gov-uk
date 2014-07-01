@@ -5067,18 +5067,26 @@ ul.pager {
   font-weight: bold;
   color: #333;
   background: #f0f0f0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003107}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003105}}
+.view-consultation-search .view-content .views-row h3 {
+  font-size: 1.4em;
+  line-height: 1.3em;
+  margin: 0 0 0 0.4em 0;
+  padding: 0;
+  background: none;
+  background-color: transparent; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003115}}
 .view-consultation-search .views-row-last .views-field-zs-view-mode-search-result {
   border-bottom: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003111}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003119}}
 .view-consultation-search .views-field-zs-view-mode-search-result .node .content .field.field-type-file {
   font-size: 1em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003115}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003123}}
 .view-consultation-search .field-name-field-consultation-summary .file {
   font-size: 1em; }
 
 /* audit report search results - themed differently because of html structure of some of the search rewsults */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003124}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003132}}
 .view-audit-reports .view-content h3 {
   display: block;
   margin: 0 0 0.8em 0;
@@ -5087,16 +5095,24 @@ ul.pager {
   font-weight: bold;
   color: #333;
   background: #f0f0f0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003135}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003141}}
+.view-audit-reports .view-content .views-row h3 {
+  font-size: 1.4em;
+  line-height: 1.3em;
+  margin: 0 0 0 0.4em 0;
+  padding: 0;
+  background: none;
+  background-color: transparent; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003151}}
 .view-audit-reports .views-row-last .views-field-zs-view-mode-search-result {
   border-bottom: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003139}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003155}}
 .view-audit-reports .views-field-zs-view-mode-search-result .node .content .field.field-type-file {
   font-size: 1em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003143}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003159}}
 .view-audit-reports .field-name-field-consultation-summary .file {
   font-size: 1em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003156}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003172}}
 .view-audit-reports .views-field-zs-view-mode-search-result,
 .view-audit-reports .views-field-zs-view-mode-search-results-2,
 .view-audit-reports .views-field-zs-view-mode-search-results-3,
@@ -5108,15 +5124,87 @@ ul.pager {
 .view-audit-reports .views-field-zs-view-mode-search-results-9,
 .view-audit-reports .views-field-zs-view-mode-search-results-10 {
   border-bottom: none;
-  padding: 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003160}}
+  padding: 0;
+  /* for old content before we updated display view mode */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003177}}
+  .view-audit-reports .views-field-zs-view-mode-search-result .field-name-field-audit-authority.field,
+  .view-audit-reports .views-field-zs-view-mode-search-result .field-name-field-audit-type.field,
+  .view-audit-reports .views-field-zs-view-mode-search-results-2 .field-name-field-audit-authority.field,
+  .view-audit-reports .views-field-zs-view-mode-search-results-2 .field-name-field-audit-type.field,
+  .view-audit-reports .views-field-zs-view-mode-search-results-3 .field-name-field-audit-authority.field,
+  .view-audit-reports .views-field-zs-view-mode-search-results-3 .field-name-field-audit-type.field,
+  .view-audit-reports .views-field-zs-view-mode-search-results-4 .field-name-field-audit-authority.field,
+  .view-audit-reports .views-field-zs-view-mode-search-results-4 .field-name-field-audit-type.field,
+  .view-audit-reports .views-field-zs-view-mode-search-results-5 .field-name-field-audit-authority.field,
+  .view-audit-reports .views-field-zs-view-mode-search-results-5 .field-name-field-audit-type.field,
+  .view-audit-reports .views-field-zs-view-mode-search-results-6 .field-name-field-audit-authority.field,
+  .view-audit-reports .views-field-zs-view-mode-search-results-6 .field-name-field-audit-type.field,
+  .view-audit-reports .views-field-zs-view-mode-search-results-7 .field-name-field-audit-authority.field,
+  .view-audit-reports .views-field-zs-view-mode-search-results-7 .field-name-field-audit-type.field,
+  .view-audit-reports .views-field-zs-view-mode-search-results-8 .field-name-field-audit-authority.field,
+  .view-audit-reports .views-field-zs-view-mode-search-results-8 .field-name-field-audit-type.field,
+  .view-audit-reports .views-field-zs-view-mode-search-results-9 .field-name-field-audit-authority.field,
+  .view-audit-reports .views-field-zs-view-mode-search-results-9 .field-name-field-audit-type.field,
+  .view-audit-reports .views-field-zs-view-mode-search-results-10 .field-name-field-audit-authority.field,
+  .view-audit-reports .views-field-zs-view-mode-search-results-10 .field-name-field-audit-type.field {
+    display: inline;
+    margin-right: 0.5em;
+    margin-bottom: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003181}}
+    .view-audit-reports .views-field-zs-view-mode-search-result .field-name-field-audit-authority.field div,
+    .view-audit-reports .views-field-zs-view-mode-search-result .field-name-field-audit-type.field div,
+    .view-audit-reports .views-field-zs-view-mode-search-results-2 .field-name-field-audit-authority.field div,
+    .view-audit-reports .views-field-zs-view-mode-search-results-2 .field-name-field-audit-type.field div,
+    .view-audit-reports .views-field-zs-view-mode-search-results-3 .field-name-field-audit-authority.field div,
+    .view-audit-reports .views-field-zs-view-mode-search-results-3 .field-name-field-audit-type.field div,
+    .view-audit-reports .views-field-zs-view-mode-search-results-4 .field-name-field-audit-authority.field div,
+    .view-audit-reports .views-field-zs-view-mode-search-results-4 .field-name-field-audit-type.field div,
+    .view-audit-reports .views-field-zs-view-mode-search-results-5 .field-name-field-audit-authority.field div,
+    .view-audit-reports .views-field-zs-view-mode-search-results-5 .field-name-field-audit-type.field div,
+    .view-audit-reports .views-field-zs-view-mode-search-results-6 .field-name-field-audit-authority.field div,
+    .view-audit-reports .views-field-zs-view-mode-search-results-6 .field-name-field-audit-type.field div,
+    .view-audit-reports .views-field-zs-view-mode-search-results-7 .field-name-field-audit-authority.field div,
+    .view-audit-reports .views-field-zs-view-mode-search-results-7 .field-name-field-audit-type.field div,
+    .view-audit-reports .views-field-zs-view-mode-search-results-8 .field-name-field-audit-authority.field div,
+    .view-audit-reports .views-field-zs-view-mode-search-results-8 .field-name-field-audit-type.field div,
+    .view-audit-reports .views-field-zs-view-mode-search-results-9 .field-name-field-audit-authority.field div,
+    .view-audit-reports .views-field-zs-view-mode-search-results-9 .field-name-field-audit-type.field div,
+    .view-audit-reports .views-field-zs-view-mode-search-results-10 .field-name-field-audit-authority.field div,
+    .view-audit-reports .views-field-zs-view-mode-search-results-10 .field-name-field-audit-type.field div {
+      display: inline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003185}}
+  .view-audit-reports .views-field-zs-view-mode-search-result .field-name-field-audit-type,
+  .view-audit-reports .views-field-zs-view-mode-search-results-2 .field-name-field-audit-type,
+  .view-audit-reports .views-field-zs-view-mode-search-results-3 .field-name-field-audit-type,
+  .view-audit-reports .views-field-zs-view-mode-search-results-4 .field-name-field-audit-type,
+  .view-audit-reports .views-field-zs-view-mode-search-results-5 .field-name-field-audit-type,
+  .view-audit-reports .views-field-zs-view-mode-search-results-6 .field-name-field-audit-type,
+  .view-audit-reports .views-field-zs-view-mode-search-results-7 .field-name-field-audit-type,
+  .view-audit-reports .views-field-zs-view-mode-search-results-8 .field-name-field-audit-type,
+  .view-audit-reports .views-field-zs-view-mode-search-results-9 .field-name-field-audit-type,
+  .view-audit-reports .views-field-zs-view-mode-search-results-10 .field-name-field-audit-type {
+    font-style: italic; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003189}}
 .view-audit-reports .views-row {
   border-bottom: 1px solid #5d9711;
   padding: 7px 0 7px 0; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003165}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003194}}
 .view-audit-reports .views-row.views-row-last,
 .view-audit-reports .views-row.views-row-first.views-row-last {
-  border-bottom: 0; }
+  border-bottom: 0;
+  padding-bottom: 15px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003199}}
+.view-audit-reports .field-name-field-audit-authority,
+.view-audit-reports .field-name-field-audit-type {
+  display: inline;
+  margin-right: 0.5em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003202}}
+  .view-audit-reports .field-name-field-audit-authority div,
+  .view-audit-reports .field-name-field-audit-type div {
+    display: inline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003206}}
+.view-audit-reports .field-name-field-audit-type {
+  font-style: italic; }
 
 /**
  * See also block

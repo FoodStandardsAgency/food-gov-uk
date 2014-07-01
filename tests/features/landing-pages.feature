@@ -3,29 +3,47 @@ Feature: Landing pages
   As a user
   So I can view broader content
    
-  Scenario: News blocks - News & Updates  
+  Scenario: News blocks - News & Updates
     Given I am on "/news-updates"
-    Then I should see "Latest News" in the "News Block" region
+    Then I should see "Latest News" in the "News Block News & Updates" region
+    And I should see "All news" in the "News Block News & Updates" region
     
-  Scenario: News blocks - Policy & advice  
+  Scenario: News blocks - Policy & advice
     Given I am on "/policy-advice"
-    Then I should see "Policy and advice news" in the "News Block 1" region
+    Then I should see "Policy and advice news" in the "News Block Policy & advice" region
+    And I should see "All news" in the "News Block Policy & advice" region
     
-  Scenario: News blocks - Business & industry  
+  Scenario: News blocks - Business & industry
     Given I am on "/business-industry"
-    Then I should see "Business and industry news" in the "News Block 2" region
+    Then I should see "Business and industry news" in the "News Block Business & industry" region
+    And I should see "All news" in the "News Block Business & industry" region
 	
-  Scenario: News blocks - Enforcement & regulation  
+  Scenario: News blocks - Enforcement & regulation
     Given I am on "/enforcement"
-    Then I should see "Enforcement news" in the "News Block 3" region
+    Then I should see "Enforcement news" in the "News Block Enforcement & regulation" region
+    And I should see "All news" in the "News Block Enforcement & regulation" region
 	
-  Scenario: News blocks - Science & research  
+  Scenario: News blocks - Science & research
     Given I am on "/science"
-    Then I should see "Science and research news" in the "News Block 4" region
+    Then I should see "Science and research news" in the "News Block Science & research" region
+    And I should see "All news" in the "News Block Science & research" region
 	
-  Scenario: News blocks - About us  
+  Scenario: News blocks - About us
     Given I am on "/about-us"
-    Then I should see "About us news" in the "News Block 5" region
+    Then I should see "About us news" in the "News Block About us" region
+    And I should see "All news" in the "News Block About us" region
+    
+  Scenario: News blocks - Wales 
+    Given I am on "/about-us"
+    Then I should see "Wales news" in the "News Block Wales" region
+    
+  Scenario: News blocks - Northern Ireland  
+    Given I am on "/about-us"
+    Then I should see "Northern Ireland news" in the "News Block Northern Ireland" region
+    
+  Scenario: News blocks - Scotland
+    Given I am on "/about-us"
+    Then I should see "Scotland news" in the "News Block Scotland" region
     
     @javascript
   Scenario: Interactive block block

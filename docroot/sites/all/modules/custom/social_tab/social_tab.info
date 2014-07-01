@@ -1,0 +1,7 @@
+name = Social Tab
+description = Provides a block to display the social links tab.
+dependencies[] = block
+package = Local
+core = 7.x
+
+

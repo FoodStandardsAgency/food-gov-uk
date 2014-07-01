@@ -14,7 +14,7 @@ Feature: Content types
   And I select "Amber Valley" from "edit-field-audit-authority-und" 
   And I select "County" from "edit-field-audit-authority-type-und" 
   And I select "Approved establishments audit" from "edit-field-audit-type-und" 
-  And I select "UK" from "edit-field-nation-und"
+  And I check the box "England" in "edit-field-nation-und"
   And I press "edit-submit" in the "Submit" region
   Then I should see "Audit Report test has been created."
   And I logout
@@ -27,6 +27,7 @@ Feature: Content types
   And I fill in "edit-title" with "test"
   And I fill in "edit-field-title-short-und-0-value" with "test"
   And I check the box "N/A" in "edit-field-site-section-und"
+  And I check the box "England" in "edit-field-nation-und"
   And I press "edit-submit" in the "Submit" region
   Then I should see "Consultation test has been created."
   And I logout
@@ -49,7 +50,6 @@ Feature: Content types
   When I go to "/node/add/external-link"
   And I should see "Create External link" in the "Page Title" region
   And I fill in "edit-title" with "test"
-  And I fill in "edit-field-title-short-und-0-value" with "test"
   And I fill in "edit-field-url-und-0-title" with "test"
   And I fill in "edit-field-url-und-0-url" with "test"
   And I select "External Site" from "edit-field-link-category-und"
@@ -63,7 +63,6 @@ Feature: Content types
   When I go to "/node/add/external-link-set"
   And I should see "Create External link set" in the "Page Title" region
   And I fill in "edit-title" with "test"
-  And I fill in "edit-field-title-short-und-0-value" with "test"
   And I press "edit-submit" in the "Submit" region
   Then I should see "External link set test has been created."
   And I logout
@@ -80,17 +79,17 @@ Feature: Content types
   Then I should see "FAQ test has been created."
   And I logout
    
-  @javascript 
-  Scenario: Interactive block - Node type
-  Given I log in as an existing "editor"
-  When I go to "/node/add/block-interactive"
-  And I should see "Create Interactive block" in the "Page Title" region
-  And I fill in "edit-title" with "test"
-  And I fill in "edit-field-title-short-und-0-value" with "test"
-  And I fill in "edit-field-block-title-und-0-value" with "test"
-  And I press "edit-submit" in the "Submit" region
-  Then I should see "Interactive block test has been created."  
-  And I logout
+  #@javascript 
+  #Scenario: Interactive block - Node type
+  #Given I log in as an existing "editor"
+  #When I go to "/node/add/block-interactive"
+  #And I should see "Create Interactive block" in the "Page Title" region
+  #And I fill in "edit-title" with "test"
+  #And I fill in "edit-field-title-short-und-0-value" with "test"
+  #And I fill in "edit-field-block-title-und-0-value" with "test"
+  #And I press "edit-submit" in the "Submit" region
+  #Then I should see "Interactive block test has been created."  
+  #And I logout
   
   @javascript
   Scenario: Internal link set - Node type
@@ -98,7 +97,6 @@ Feature: Content types
   When I go to "/node/add/internal-link-set"
   And I should see "Create Internal link set" in the "Page Title" region
   And I fill in "edit-title" with "test"
-  And I fill in "edit-field-title-short-und-0-value" with "test"
   And I fill in "edit-field-links-und-0-target-id" with "test"
   And I press "edit-submit" in the "Submit" region
   Then I should see "Internal link set test has been created."
@@ -147,7 +145,6 @@ Feature: Content types
   When I go to "/node/add/research-project"
   Then I should see "Create Research project" in the "Page Title" region
   And I fill in "edit-title" with "test"
-  And I fill in "edit-field-title-short-und-0-value" with "test"
   And I check the box "N/A" in "edit-field-site-section-und"
   And I press "edit-submit" in the "Submit" region
   Then I should see "Research project test has been created."   

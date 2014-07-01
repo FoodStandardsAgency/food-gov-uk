@@ -34,7 +34,7 @@ function facets_select_theme_registry_alter(&$theme_registry) {
  * $count parameter from facetapi_select_facet_form().
  */
 function facets_select_facetapi_select_facet_form_alter(&$form, $form_state, $options, $count) {
-  // Add a custom name attribute to facet field.
+    // Add a custom name attribute to facet field.
   $attribute_name = 'facetapi_select_facet_form_' . $count . '_name';
   $form['facets']['#name'] = $attribute_name;
 
