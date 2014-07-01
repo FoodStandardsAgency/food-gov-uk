@@ -150,7 +150,6 @@
 	.views-row-last {
 		.views-field-zs-view-mode-search-result {
 			border-bottom: 0;
-			padding-bottom: 15px;
 		}
 	}
 	.views-field-zs-view-mode-search-result .node .content .field.field-type-file {
@@ -173,6 +172,20 @@
 	.views-field-zs-view-mode-search-results-10 {
 		border-bottom: none;
 		padding: 0;
+		/* for old content before we updated display view mode */
+		.node__content {
+			.field {
+				.field-name-field-audit-authority,
+				.field-name-field-audit-type {
+					display: inline;
+					margin-right: 0.5em;
+					margin-bottom: 0;
+					div {
+						display: inline;
+					}
+				}
+			}
+		}
 	}
 	.views-row {
 		border-bottom: 1px solid #5d9711;
@@ -181,6 +194,7 @@
 	.views-row.views-row-last,
 	.views-row.views-row-first.views-row-last {
 		border-bottom: 0;
+		padding-bottom: 15px;
 	}
 	.field-name-field-audit-authority,
 	.field-name-field-audit-type {
