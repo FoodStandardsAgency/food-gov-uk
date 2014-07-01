@@ -9,7 +9,16 @@ function social_tab_init(){
   }
 
   drupal_add_js('var addthis_config = {"data_track_addressbar":false, "data_use_cookies":false};','inline'); // enable address bar tracking feature
-  drupal_add_js('//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5200e0ef1b2ac26f','external');
+  $pubid = social_tab_get_pubid();
+  drupal_add_js('//s7.addthis.com/js/300/addthis_widget.js#pubid='.$pubid,'external');
+}
+
+/**
+ * returns the addthis pubid
+ */
+function social_tab_get_pubid(){
+
+  return variable_get('social_tab_pubid', 'ra-536b5bf720716b22');
 }
 /**
  * Implements hook_theme().
@@ -56,7 +65,7 @@ function social_tab_block_view($delta = '') {
       $block['content'] = array('#theme' => 'social_tab_block');
       break;
     case 'social_inline':
-      $block['subject'] = t('Share this');
+      $block['subject'] = '';
       $block['content'] = array('#theme' => 'social_inline_block');
       break;
   }
@@ -65,37 +74,27 @@ function social_tab_block_view($delta = '') {
 
 function theme_social_tab_block() {
 
-  /*
   $output = '<!-- AddThis Tab BEGIN -->
                <div class="addthis_toolbox addthis_floating_style addthis_counter_style" style="position: fixed; right:0px; top:70px;">
                  <a class="addthis_button_facebook_like" fb:like:layout="box_count"></a>
                  <a class="addthis_button_tweet" tw:count="vertical"></a>
                  <a class="addthis_button_google_plusone" g:plusone:size="tall"></a>
-                 <a class="addthis_counter"></a>
-                 <a href="https://live.sagepay.com/MySagePay" target="_blank" class="mysagepay-login"></a>
+
                </div>
              <!-- AddThis Button END -->';
-  */
-  $output = '
-  <div class="addthis_toolbox addthis_floating_style addthis_counter_style" style="position: fixed; right:0px; top:70px;" >
-    <a href="https://live.sagepay.com/MySagePay" target="_blank" class="mysagepay-login"></a>
-  </div>
-  ';
 
   return $output;
 }
 
+/**
+ * The defualt social sharing toolbox is managed via the addthis site.
+ * Toolbox elements are managed via the pubid
+ *
+ * @return string
+ */
 function theme_social_inline_block() {
   $output = '<!-- AddThis Inline BEGIN -->
-  <ul>
-	<li><a class="addthis_button_facebook">Facebook</a></li>
-	<li><a class="addthis_button_twitter">Twitter</a></li>
-	<li><a class="addthis_button_google_plusone_share">Google Plus</a></li>
-	<li><a class="addthis_button_email">Email</a></li>
-</ul>
-
-
-             <!-- AddThis Button END -->';
+  <div class="addthis_sharing_toolbox"></div>   <!-- AddThis Button END -->';
 
   return $output;
 }
