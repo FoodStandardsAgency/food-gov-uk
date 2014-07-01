@@ -130,6 +130,13 @@
 			color: #333;
 			background: #f0f0f0;
 		}
+		.views-row h3 {
+			font-size: 1.4em;
+			line-height: 1.3em;
+			margin: 0 0 .867em 0;
+			background: none;
+			background-color: transparent;
+		}
 	}
 	.views-row-last {
 		.views-field-zs-view-mode-search-result {
@@ -164,5 +171,13 @@
 	.views-row.views-row-last,
 	.views-row.views-row-first.views-row-last {
 		border-bottom: 0;
+	}
+	.field-name-field-audit-authority,
+	.field-name-field-audit-type {
+		display: inline;
+		margin-right: 0.5em;
+		div {
+			display: inline;
+		}
 	}
 }
