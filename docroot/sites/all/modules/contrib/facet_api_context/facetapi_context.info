@@ -1,0 +1,7 @@
+name = Facet API Context
+description = Facet API module integration with Context.
+package = Search Toolkit
+core = 7.x
+
+dependencies[] = facetapi
+dependencies[] = context
