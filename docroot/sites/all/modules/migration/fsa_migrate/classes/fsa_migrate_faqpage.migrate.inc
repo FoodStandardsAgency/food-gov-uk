@@ -12,21 +12,6 @@
 class FSAFAQpageMigration extends FSAMigration {
 
   /**
-   * SQL Query to get the feature image from an object id.
-   *
-   * @var string
-   */
-  protected $queryFeatureImage = <<<'ENDSQL'
-    SELECT OBJ.PATH
-      FROM OBJ, LINK, MEDIAIMAGE, OBJTYPE
-      WHERE LINK.CHILDID = OBJ.OBJECTID
-      AND OBJTYPE.OBJECTTYPEID = OBJ.OBJECTTYPEID
-      AND LINK.CHILDID = MEDIAIMAGE.OBJECTID
-      AND OBJTYPE.NAME LIKE 'FeatureImage'
-      AND LINK.PARENTID = :objid
-ENDSQL;
-
-  /**
    * Class constructor.
    */
   public function __construct($arguments) {
