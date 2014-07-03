@@ -6,19 +6,17 @@ Feature: Menu
  Scenario: Main menu
   Given I am on the homepage
   Then I should see the text "News & updates" in the "Menu" region
-  And I should see the text "Policy & advice" in the "Menu" region
   And I should see the text "Business & industry" in the "Menu" region
   And I should see the text "Enforcement & regulation" in the "Menu" region
-  And I should see the text "Science & research" in the "Menu" region
+  And I should see the text "Science & policy" in the "Menu" region
   And I should see the text "About us" in the "Menu" region
   
  Scenario: Footer main menu
   Given I am on the homepage
   Then I should see the text "News and updates" in the "Footer main menu" region
-  And I should see the text "Policy and advice" in the "Footer main menu" region
   And I should see the text "Business and industry" in the "Footer main menu" region
   And I should see the text "Enforcement and regulation" in the "Footer main menu" region
-  And I should see the text "Science and research" in the "Footer main menu" region
+  And I should see the text "Science and policy" in the "Footer main menu" region
   And I should see the text "About us" in the "Footer main menu" region
   
  Scenario: Footer buttons menu

@@ -127,7 +127,7 @@ Feature: See also links
   When I go to "/node/add/research-project"
   Then I should see "Create Research project" in the "Page Title" region
   And I fill in "edit-title" with "test"
-  And I fill in "edit-field-title-short-und-0-value" with "test"
+  #And I fill in "edit-field-title-short-und-0-value" with "test"
   And I check the box "N/A" in "edit-field-site-section-und"
   And I click "Right hand column"
   And I select "See also links test" from "edit-field-links-see-also-und"
