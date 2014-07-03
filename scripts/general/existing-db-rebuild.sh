@@ -16,7 +16,11 @@ cd ../../docroot/sites/default
 # Roll back the existing migration.
 drush mr FSAChildpageCollection
 drush mr FSARelatedContentCollection
+drush mr FSAAuditReportCollection
+drush mr FSAFAQpageCollection
 drush mr FSADocumentpageCollection
+drush mr FSAFAQpage
+drush mr FSAAuditReport
 drush mr FSADocumentpage
 drush mr FSAMediaDocument
 drush mr FSAMediaImages
@@ -28,9 +32,15 @@ drush mr FSAMediaImages
 drush mi FSAMediaImages
 drush mi FSAMediaDocument
 
-# Migrate content.
+# Migrate nodes.
 drush mi FSADocumentpage
+drush mi FSAFAQpage
+drush mi FSAAuditReport
+
+# Migrate fc.
 drush mi FSADocumentpageCollection
+drush mi FSAFAQpageCollection
+drush mi FSAAuditReportCollection
 
 # Migrate related media
 # - related media appears in it's own field collection
