@@ -19,10 +19,10 @@ if (typeof(CKEDITOR) !== 'undefined') {
 
       /* Inline Styles */
 			// { name: 'Text align: Left', element: 'p', attributes: { 'class': 'text-align-left' } },
-      { name: 'Highlight: guidance', element: 'div', attributes: { 'class': 'guidance' } },
-      { name: 'Highlight: training', element: 'div', attributes: { 'class': 'training' } },
-      { name: 'Highlight: science', element: 'div', attributes: { 'class': 'science moreInfo' } },
-      { name: 'Section: heading', element: 'h2', attributes: { 'class': 'inline-section-heading' } },
+      { name: 'Guidance', element: 'div', attributes: { 'class': 'guidance' } },
+      { name: 'Training', element: 'div', attributes: { 'class': 'training' } },
+      { name: 'Science', element: 'div', attributes: { 'class': 'science moreInfo' } },
+      { name: 'Section', element: 'h2', attributes: { 'class': 'inline-section-heading' } },
  
 
       /* Object Styles */
