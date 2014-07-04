@@ -1,0 +1,23 @@
+/* science field - note wysiwyg also has a science style - for that implementation see base/_wysiwyg.scss */
+.field--name-field-science-data {
+	display: block;
+	background: #fff;
+	border: 1px solid #5d9711;
+	color: #333;
+	padding: 9px 10px 6px 10px;
+	margin-bottom: 1.3em;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	-o-border-radius: 8px;
+	-ms-border-radius: 8px;
+	border-radius: 8px;
+	h2, h3, 
+	.field__label {
+		margin: 0 0 0.5em 0;
+		padding: 0;
+		font-size: 1.4em;
+		color: #5d9711;
+		background: none;
+		font-weight: bold;
+	}
+}

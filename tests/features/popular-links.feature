@@ -9,6 +9,7 @@ Feature: Popular Links
   When I go to "/node/add/landing-page"
   And I should see "Create Landing Page" in the "Page Title" region
   And I fill in "edit-title" with "test"
+  And I fill in "edit-field-title-short-und-0-value" with "test"
   And I select "Popular links : Standard" from "edit-field-popular-links-und"
   And I press "edit-submit" in the "Submit" region
   Then I should see "Landing Page test has been created."  

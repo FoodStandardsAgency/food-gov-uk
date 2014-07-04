@@ -1,4 +1,203 @@
-/* Styles defined here only effect the way the content within the ckeditor window looks. The styles that will be 
- * applied to the actual out output are defined in global.scss and compiled into global.css
+/* Styles defined here only effect the way the content within the ckeditor window looks. 
+ * CKeditor styles originate from site-frontend.styles.css which is css compiled from base/_wysiwyg.scss
  */
 
+/* highlighted content - guidance - ckeditor style - css output from base/_wysiwyg.scss */
+.guidance {
+  display: block;
+  background: #F0F4E5;
+  border: 1px solid #5D9711;
+  color: #333;
+  padding: 11px;
+  margin-bottom: 1.3em;
+}
+.guidance strong {
+  font-size: 1.2em;
+  line-height: 1.4em;
+  font-weight: bold;
+  margin-bottom: 0.5833;
+  display: block; 
+}
+.guidance p strong {
+  font-size: 1em;
+  margin-bottom: 0;
+  display: inline; 
+}
+
+/* highlighted content - training - ckeditor style */
+.training {
+  display: block;
+  background: #f6fcff;
+  border: 1px solid #007FB2;
+  color: #333;
+  padding: 11px;
+  margin-bottom: 1.3em;
+}
+.training strong {
+  font-size: 1.2em;
+  line-height: 1.4em;
+  font-weight: bold;
+  margin-bottom: 0.5833;
+  display: block;  
+}
+.training p strong {
+  font-size: 1em;
+  margin-bottom: 0;
+  display: inline; 
+}
+
+/* highlighted content - science - ckeditor style */
+.science,
+.moreInfo {
+  display: block;
+  background: #fff;
+  border: 1px solid #5d9711;
+  color: #333;
+  padding: 9px 10px 6px 10px;
+  margin-bottom: 1.3em;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -o-border-radius: 8px;
+  -ms-border-radius: 8px;
+  border-radius: 8px;
+}
+.science h2, .science h3,
+.moreInfo h2,
+.moreInfo h3 {
+  margin: 0 0 0.5em 0;
+  padding: 0;
+  font-size: 1.4em;
+  color: #5d9711;
+  background: none;
+  font-weight: bold; 
+}
+.science strong,
+.moreInfo strong {
+  font-size: 1.2em;
+  line-height: 1.4em;
+  font-weight: bold;
+  margin-bottom: 1em;
+  display: block; 
+}
+.science p strong,
+.moreInfo p strong {
+  font-size: 1em;
+  margin-bottom: 0;
+  display: inline; 
+}
+
+/* section heading - ckeditor style */
+.inline-section-heading,
+h2.inline-section-heading,
+h3.inline-section-heading {
+  display: block;
+  margin: 0 0 1em 0;
+  padding: .3em 11px;
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #fff;
+  background: #5d9711;
+  clear: both; 
+}
+
+/* tables */
+table {
+  margin: 0 0 1.3em 0;
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border-top: 1px solid #006f51;
+  border-bottom: 1px solid #ebebeb;
+  border-left: none;
+  border-right: none; 
+}
+caption,
+th,
+td {
+  text-align: left;
+  vertical-align: top;
+  font-weight: normal; 
+}
+caption {
+  margin: .9em 0;
+  padding: 0;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #333; 
+}
+th, td {
+  padding: .6em 10px .6em 10px;
+  border-left: 1px solid #ebebeb;
+  border-right: none; 
+}
+td:first-child {
+  border-left: none; 
+}
+th,
+thead th,
+thead td,
+tfoot th,
+tfoot td {
+  font-weight: bold;
+  color: #006f51; 
+}
+thead th,
+thead td {
+  background: #f2f2f2; 
+}
+tfoot th,
+tfoot td {
+  border-top: 1px solid #ebebeb; 
+}
+thead span,
+tfoot span {
+  display: block;
+  margin: .6em 0 0 0;
+  font-weight: normal; 
+}
+thead .subHead th,
+tfoot .subHead th {
+  padding-top: 0;
+  margin: 0;
+  font-weight: normal; 
+}
+th.numeric,
+td.numeric {
+  text-align: right; 
+}
+th.multiCol,
+td.multiCol {
+  text-align: center; 
+}
+th.first,
+td.first,
+th.grouped,
+td.grouped {
+  border-left: 0; 
+}
+tbody .alt th,
+tbody .alt td {
+  background: #f2f2f2; 
+}
+tbody tr:nth-child(even) th,
+tbody tr:nth-child(even) td {
+  background: #f2f2f2; 
+}
+table.linearTable,
+table.linearTable {
+  margin-bottom: 2em;
+  border-top: 1px solid #006f51;
+  border-bottom: 0; 
+}
+.linearTable th,
+.linearTable td {
+  border-bottom: 1px solid #ebebeb; 
+}
+.linearTable tbody th.grouper,
+.linearTable tbody th.grouper {
+  padding-top: 2em;
+  color: #333; 
+}
+th {
+  background-color: transparent; 
+}

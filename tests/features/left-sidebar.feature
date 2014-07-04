@@ -6,12 +6,7 @@ Feature: Left Sidebar
   Scenario: Sidebar menu - News and updates
    Given I am on "/news-updates"
    Then the response should contain "menu-block-wrapper menu-block-9 menu-name-main-menu parent-mlid-331 menu-level-1"
-   And I should see "News and updates" in the "Left Sidebar" region
-   
-  Scenario: Sidebar menu - Policy and advice
-   Given I am on "/policy-advice"
-   Then the response should contain "menu-block-wrapper menu-block-10 menu-name-main-menu parent-mlid-332 menu-level-1"
-   And I should see "Policy and advice" in the "Left Sidebar" region   
+   And I should see "News and updates" in the "Left Sidebar" region 
    
   Scenario: Sidebar menu - Business and industry
    Given I am on "/business-industry"
@@ -23,10 +18,10 @@ Feature: Left Sidebar
    Then the response should contain "menu-block-wrapper menu-block-8 menu-name-main-menu parent-mlid-393 menu-level-1"
    And I should see "Enforcement and regulation" in the "Left Sidebar" region   
    
-  Scenario: Sidebar menu - Science and research
+  Scenario: Sidebar menu - Science and policy
    Given I am on "/science"
    Then the response should contain "menu-block-wrapper menu-block-11 menu-name-main-menu parent-mlid-334 menu-level-1"
-   And I should see "Science and research" in the "Left Sidebar" region   
+   And I should see "Science and policy" in the "Left Sidebar" region   
    
   Scenario: Sidebar menu - About us
    Given I am on "/about-us"

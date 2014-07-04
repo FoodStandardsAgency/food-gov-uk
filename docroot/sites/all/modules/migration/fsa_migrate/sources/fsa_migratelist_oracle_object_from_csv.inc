@@ -107,8 +107,10 @@ ENDSQL;
     // Initialize the object.
     $object = new stdClass();
 
-    foreach ($queryResults as $rowName => $value) {
-      $object->{$rowName} = $value;
+    if (!is_null($queryResults)) {
+      foreach ($queryResults as $rowName => $value) {
+        $object->{$rowName} = $value;
+      }
     }
 
     return $object;

@@ -2,14 +2,14 @@
 
 /**
  * @file
- * Uberpage migration class. This for testing purpose.
+ * Multi-branch migration class.
  */
 
 /**
- * Class FSAFAQpageMigration
+ * Class FSAMultibranchMigration
  * Migration class for the FSA Document page.
  */
-class FSAFAQpageMigration extends FSAMigration {
+class FSAMultibranchDocumentMigration extends FSAMigration {
 
   /**
    * Class constructor.
@@ -18,7 +18,7 @@ class FSAFAQpageMigration extends FSAMigration {
     // Calls to parent constructor from official doc.
     parent::__construct();
     // Calls the parent constructor.
-    $this->description = t('Migrates the document from Oracle to Drupal.');
+    $this->description = t('Migrates the multi-branches main document from Oracle to Drupal.');
 
     // Map the source id.
     $this->map = new MigrateSQLMap(
@@ -47,16 +47,18 @@ class FSAFAQpageMigration extends FSAMigration {
 
     // Configure the source of the migration.
     $this->source = new MigrateSourceList(
-      new FSAMigrateListOracleObjectsFromCSV('data/csv/faq-alterian-id-list.csv'),
+      new FSAMigrateListOracleObjectsFromCSV('data/csv/multibranch-alterian-id-list.csv'),
       new FSAMigrateItemOracleObject()
     );
 
     // Destination detail.
-    $this->destination = new MigrateDestinationNode('faq');
+    $this->destination = new MigrateDestinationNode('document_page');
 
     // General fields mapping.
     $this->addFieldMapping('title', 'title');
-    $this->addFieldMapping('field_summary', 'summary');
+    $this->addFieldMapping('field_title_short', 'title');
+    $this->addFieldMapping('field_summary', 'summary')
+      ->callbacks(array($this, 'pastedApostropheFormatter'));
 
     // Updated date field.
     $this->addFieldMapping('field_updated', 'pubdate');
