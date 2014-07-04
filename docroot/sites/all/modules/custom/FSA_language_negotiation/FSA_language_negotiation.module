@@ -1,0 +1,23 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Peter
+ * Date: 04/07/14
+ * Time: 20:20
+ */
+
+function FSA_language_negotiation_language_negotiation_info() {
+  return array(
+    'site_version' => array(
+      'callbacks' => array(
+        'language' => 'FSA_language_negotiation_wales',
+      ),
+      'weight' => -10,
+      'name' => t('Welsh site section'),
+      // NOTE: The callback cannot be in this file, unless you specifically include it.
+      // Language detection runs before Drupal Bootstrap completes.
+      'file' => drupal_get_path('module', 'FSA_language_negotiation') . '/FSA_language_negotiation.inc',
+      'description' => t('Determine the language from the welsh section of the site.'),
+    ),
+  );
+}

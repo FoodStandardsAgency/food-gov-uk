@@ -1,0 +1,5 @@
+name = FSA Language negotiation
+description = Custom language detection method, for FSA
+core = 7.x
+version = 7.x-1.0
+package = "Local"
