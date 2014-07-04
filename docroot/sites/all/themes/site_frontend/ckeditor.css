@@ -100,16 +100,8 @@ h3.inline-section-heading {
   clear: both; 
 }
 
-/* tables - we restricting this css to only textarea fields so that it does not affect other parts of the site */
-.field--name-field-fc-section-body,
-.field--name-body,
-.field--type-text-with-summary,
-.field--type-text-long {
-}
-.field--name-field-fc-section-body table,
-.field--name-body table,
-.field--type-text-with-summary table,
-.field--type-text-long table {
+/* tables */
+table {
   margin: 0 0 1.3em 0;
   width: 100%;
   border-collapse: collapse;
@@ -119,184 +111,93 @@ h3.inline-section-heading {
   border-left: none;
   border-right: none; 
 }
-.field--name-field-fc-section-body caption, .field--name-field-fc-section-body th, .field--name-field-fc-section-body td,
-.field--name-body caption,
-.field--name-body th,
-.field--name-body td,
-.field--type-text-with-summary caption,
-.field--type-text-with-summary th,
-.field--type-text-with-summary td,
-.field--type-text-long caption,
-.field--type-text-long th,
-.field--type-text-long td {
+caption,
+th,
+td {
   text-align: left;
   vertical-align: top;
   font-weight: normal; 
 }
-.field--name-field-fc-section-body caption,
-.field--name-body caption,
-.field--type-text-with-summary caption,
-.field--type-text-long caption {
+caption {
   margin: .9em 0;
   padding: 0;
   font-size: 1.2em;
   font-weight: bold;
   color: #333; 
 }
-.field--name-field-fc-section-body th, .field--name-field-fc-section-body td,
-.field--name-body th,
-.field--name-body td,
-.field--type-text-with-summary th,
-.field--type-text-with-summary td,
-.field--type-text-long th,
-.field--type-text-long td {
+th, td {
   padding: .6em 10px .6em 10px;
   border-left: 1px solid #ebebeb;
   border-right: none; 
 }
-.field--name-field-fc-section-body td:first-child,
-.field--name-body td:first-child,
-.field--type-text-with-summary td:first-child,
-.field--type-text-long td:first-child {
+td:first-child {
   border-left: none; 
 }
-.field--name-field-fc-section-body th, .field--name-field-fc-section-body thead th, .field--name-field-fc-section-body thead td, .field--name-field-fc-section-body tfoot th, .field--name-field-fc-section-body tfoot td,
-.field--name-body th,
-.field--name-body thead th,
-.field--name-body thead td,
-.field--name-body tfoot th,
-.field--name-body tfoot td,
-.field--type-text-with-summary th,
-.field--type-text-with-summary thead th,
-.field--type-text-with-summary thead td,
-.field--type-text-with-summary tfoot th,
-.field--type-text-with-summary tfoot td,
-.field--type-text-long th,
-.field--type-text-long thead th,
-.field--type-text-long thead td,
-.field--type-text-long tfoot th,
-.field--type-text-long tfoot td {
+th,
+thead th,
+thead td,
+tfoot th,
+tfoot td {
   font-weight: bold;
   color: #006f51; 
 }
-.field--name-field-fc-section-body thead th, .field--name-field-fc-section-body thead td,
-.field--name-body thead th,
-.field--name-body thead td,
-.field--type-text-with-summary thead th,
-.field--type-text-with-summary thead td,
-.field--type-text-long thead th,
-.field--type-text-long thead td {
+thead th,
+thead td {
   background: #f2f2f2; 
 }
-.field--name-field-fc-section-body tfoot th, .field--name-field-fc-section-body tfoot td,
-.field--name-body tfoot th,
-.field--name-body tfoot td,
-.field--type-text-with-summary tfoot th,
-.field--type-text-with-summary tfoot td,
-.field--type-text-long tfoot th,
-.field--type-text-long tfoot td {
+tfoot th,
+tfoot td {
   border-top: 1px solid #ebebeb; 
 }
-.field--name-field-fc-section-body thead span, .field--name-field-fc-section-body tfoot span,
-.field--name-body thead span,
-.field--name-body tfoot span,
-.field--type-text-with-summary thead span,
-.field--type-text-with-summary tfoot span,
-.field--type-text-long thead span,
-.field--type-text-long tfoot span {
+thead span,
+tfoot span {
   display: block;
   margin: .6em 0 0 0;
   font-weight: normal; 
 }
-.field--name-field-fc-section-body thead .subHead th, .field--name-field-fc-section-body tfoot .subHead th,
-.field--name-body thead .subHead th,
-.field--name-body tfoot .subHead th,
-.field--type-text-with-summary thead .subHead th,
-.field--type-text-with-summary tfoot .subHead th,
-.field--type-text-long thead .subHead th,
-.field--type-text-long tfoot .subHead th {
+thead .subHead th,
+tfoot .subHead th {
   padding-top: 0;
   margin: 0;
   font-weight: normal; 
 }
-.field--name-field-fc-section-body th.numeric, .field--name-field-fc-section-body td.numeric,
-.field--name-body th.numeric,
-.field--name-body td.numeric,
-.field--type-text-with-summary th.numeric,
-.field--type-text-with-summary td.numeric,
-.field--type-text-long th.numeric,
-.field--type-text-long td.numeric {
+th.numeric,
+td.numeric {
   text-align: right; 
 }
-.field--name-field-fc-section-body th.multiCol, .field--name-field-fc-section-body td.multiCol,
-.field--name-body th.multiCol,
-.field--name-body td.multiCol,
-.field--type-text-with-summary th.multiCol,
-.field--type-text-with-summary td.multiCol,
-.field--type-text-long th.multiCol,
-.field--type-text-long td.multiCol {
+th.multiCol,
+td.multiCol {
   text-align: center; 
 }
-.field--name-field-fc-section-body th.first, .field--name-field-fc-section-body td.first, .field--name-field-fc-section-body th.grouped, .field--name-field-fc-section-body td.grouped,
-.field--name-body th.first,
-.field--name-body td.first,
-.field--name-body th.grouped,
-.field--name-body td.grouped,
-.field--type-text-with-summary th.first,
-.field--type-text-with-summary td.first,
-.field--type-text-with-summary th.grouped,
-.field--type-text-with-summary td.grouped,
-.field--type-text-long th.first,
-.field--type-text-long td.first,
-.field--type-text-long th.grouped,
-.field--type-text-long td.grouped {
+th.first,
+td.first,
+th.grouped,
+td.grouped {
   border-left: 0; 
 }
-.field--name-field-fc-section-body tbody .alt th, .field--name-field-fc-section-body tbody .alt td,
-.field--name-body tbody .alt th,
-.field--name-body tbody .alt td,
-.field--type-text-with-summary tbody .alt th,
-.field--type-text-with-summary tbody .alt td,
-.field--type-text-long tbody .alt th,
-.field--type-text-long tbody .alt td {
+tbody .alt th,
+tbody .alt td {
   background: #f2f2f2; 
 }
-.field--name-field-fc-section-body tbody tr:nth-child(even) th, .field--name-field-fc-section-body tbody tr:nth-child(even) td,
-.field--name-body tbody tr:nth-child(even) th,
-.field--name-body tbody tr:nth-child(even) td,
-.field--type-text-with-summary tbody tr:nth-child(even) th,
-.field--type-text-with-summary tbody tr:nth-child(even) td,
-.field--type-text-long tbody tr:nth-child(even) th,
-.field--type-text-long tbody tr:nth-child(even) td {
+tbody tr:nth-child(even) th,
+tbody tr:nth-child(even) td {
   background: #f2f2f2; 
 }
-.field--name-field-fc-section-body table.linearTable,
-.field--name-body table.linearTable,
-.field--type-text-with-summary table.linearTable,
-.field--type-text-long table.linearTable {
+table.linearTable,
+table.linearTable {
   margin-bottom: 2em;
   border-top: 1px solid #006f51;
   border-bottom: 0; 
 }
-.field--name-field-fc-section-body .linearTable th, .field--name-field-fc-section-body .linearTable td,
-.field--name-body .linearTable th,
-.field--name-body .linearTable td,
-.field--type-text-with-summary .linearTable th,
-.field--type-text-with-summary .linearTable td,
-.field--type-text-long .linearTable th,
-.field--type-text-long .linearTable td {
+.linearTable th,
+.linearTable td {
   border-bottom: 1px solid #ebebeb; 
 }
-.field--name-field-fc-section-body .linearTable tbody th.grouper,
-.field--name-body .linearTable tbody th.grouper,
-.field--type-text-with-summary .linearTable tbody th.grouper,
-.field--type-text-long .linearTable tbody th.grouper {
+.linearTable tbody th.grouper,
+.linearTable tbody th.grouper {
   padding-top: 2em;
   color: #333; 
 }
-.field--name-field-fc-section-body th,
-.field--name-body th,
-.field--type-text-with-summary th,
-.field--type-text-long th {
+th {
   background-color: transparent; 
 }
