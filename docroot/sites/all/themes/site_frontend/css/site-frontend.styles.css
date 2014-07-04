@@ -4716,6 +4716,43 @@ ul.pager {
     width: 100%;
     margin-left: 0px;
     float: none; } }
+/* science field - note wysiwyg also has a science style - for that implementation see base/_wysiwyg.scss */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_science_field\.scss}line{font-family:\000032}}
+.field--name-field-science-data {
+  display: block;
+  background: #fff;
+  border: 1px solid #5d9711;
+  color: #333;
+  padding: 9px 10px 6px 10px;
+  margin-bottom: 1.3em;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -o-border-radius: 8px;
+  -ms-border-radius: 8px;
+  border-radius: 8px;
+  /* where <strong> exists outside of a p-tag */
+  /* adjustment for this site */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_science_field\.scss}line{font-family:\0000314}}
+  .field--name-field-science-data h2, .field--name-field-science-data h3 {
+    margin: 0 0 0.5em 0;
+    padding: 0;
+    font-size: 1.4em;
+    color: #5d9711;
+    background: none;
+    font-weight: bold; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_science_field\.scss}line{font-family:\0000323}}
+  .field--name-field-science-data strong {
+    font-size: 1.2em;
+    line-height: 1.4em;
+    font-weight: bold;
+    margin-bottom: 1em;
+    display: block; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_science_field\.scss}line{font-family:\0000331}}
+  .field--name-field-science-data p strong {
+    font-size: 1em;
+    margin-bottom: 0;
+    display: inline; }
+
 /** 
  * search form 
  * dependant on having block class: search-keyword-page
