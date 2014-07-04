@@ -9,8 +9,7 @@
 	padding: 11px;
 	margin-bottom: 1.3em;
 	/* where <strong> exists outside of a p-tag */
-	strong,
-	.field__label {
+	strong {
 		font-size:1.2em;
 		line-height: 1.4em;
 		font-weight: bold;
@@ -34,8 +33,7 @@
 	padding: 11px;
 	margin-bottom: 1.3em;
 	/* where <strong> exists outside of a p-tag */
-	strong,
-	.field__label {
+	strong {
 		font-size: 1.2em;
 		line-height: 1.4em;
 		font-weight: bold;
@@ -50,7 +48,7 @@
 	}
 }
 
-/* highlighted content - science - ckeditor style */
+/* highlighted content - science - ckeditor style - for science field style, see components/_science_field.scss */
 .science,
 .moreInfo {
 	display: block;
@@ -73,8 +71,7 @@
 		font-weight: bold;
 	}
 	/* where <strong> exists outside of a p-tag */
- 	strong,
-	.field__label {
+ 	strong {
 		font-size: 1.2em;
 		line-height: 1.4em;
 		font-weight: bold;
