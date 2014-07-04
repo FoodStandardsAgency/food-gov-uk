@@ -1,20 +1,15 @@
-/* these are styles used in the textareas - includes backwards compatibility for migrated content too */
+/* these are styles used with ckeditor - includes backwards compatibility for migrated content too */
 
 /* highlighted content - guidance - ckeditor style */
-.field--name-field-fc-section-body,
-.field--name-body 
-.field--type-text-with-summary,
-.field--type-text-long {
-	.guidance {
-		display: block;
-		background: #F0F4E5;
-		border: 1px solid #5D9711;
-		color: #333;
-		padding: 11px;
-		margin-bottom: 1.3em
-	}
+.guidance {
+	display: block;
+	background: #F0F4E5;
+	border: 1px solid #5D9711;
+	color: #333;
+	padding: 11px;
+	margin-bottom: 1.3em;
 	/* where <strong> exists outside of a p-tag */
-	.guidance strong {
+	strong {
 		font-size:1.2em;
 		line-height: 1.4em;
 		font-weight: bold;
@@ -22,7 +17,7 @@
 		display: block;	
 	}
 	/* adjustment for this site */
-	.guidance p strong {
+	p strong {
 		font-size: 1em;	// because our p-tags are already set to 1.2em so it takes tha parent p-tag size. 1me x 1.2em = 1.2em
 		margin-bottom: 0;	// we use the p-tag for margin
 		display: inline;
@@ -30,20 +25,15 @@
 }
 
 /* highlighted content - training - ckeditor style */
-.field--name-field-fc-section-body,
-.field--name-body 
-.field--type-text-with-summary,
-.field--type-text-long {
-	.training {
-		display: block;
-		background: #f6fcff;
-		border: 1px solid #007FB2;
-		color: #333;
-		padding: 11px;
-		margin-bottom: 1.3em
-	}
+.training {
+	display: block;
+	background: #f6fcff;
+	border: 1px solid #007FB2;
+	color: #333;
+	padding: 11px;
+	margin-bottom: 1.3em;
 	/* where <strong> exists outside of a p-tag */
-	.training strong {
+	strong {
 		font-size: 1.2em;
 		line-height: 1.4em;
 		font-weight: bold;
@@ -51,7 +41,7 @@
 		display: block;	
 	}
 	/* adjustment for this site */
-	.training p strong {
+	p strong {
 		font-size: 1em;	// because our p-tags are already set to 1.2em so it takes tha parent p-tag size. 1me x 1.2em = 1.2em
 		margin-bottom: 0;	// we use the p-tag for margin
 		display: inline;
@@ -59,35 +49,29 @@
 }
 
 /* highlighted content - science - ckeditor style */
-.field--name-field-fc-section-body,
-.field--name-body 
-.field--type-text-with-summary,
-.field--type-text-long {
-	.science,
-	.moreInfo {
-		display: block;
-		background: #fff;
-		border: 1px solid #5d9711;
-		color: #333;
-		padding: 9px 10px 6px 10px;
-		margin-bottom: 1.3em;
-		-webkit-border-radius: 8px;
-		-moz-border-radius: 8px;
-		-o-border-radius: 8px;
-		-ms-border-radius: 8px;
-		border-radius: 8px;
-		h2, h3 {
-			margin: 0 0 0.5em 0;
-			padding: 0;
-			font-size: 1.4em;
-			color: #5d9711;
-			background: none;
-			font-weight: bold
-		}
+.science,
+.moreInfo {
+	display: block;
+	background: #fff;
+	border: 1px solid #5d9711;
+	color: #333;
+	padding: 9px 10px 6px 10px;
+	margin-bottom: 1.3em;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	-o-border-radius: 8px;
+	-ms-border-radius: 8px;
+	border-radius: 8px;
+	h2, h3 {
+		margin: 0 0 0.5em 0;
+		padding: 0;
+		font-size: 1.4em;
+		color: #5d9711;
+		background: none;
+		font-weight: bold;
 	}
 	/* where <strong> exists outside of a p-tag */
-	.science strong,
-	.moreInfo strong {
+ 	strong {
 		font-size: 1.2em;
 		line-height: 1.4em;
 		font-weight: bold;
@@ -95,34 +79,30 @@
 		display: block;	
 	}
 	/* adjustment for this site */
-	.science p strong,
-	.moreInfo p strong {
+	p strong {
 		font-size: 1em;	// because our p-tags are already set to 1.2em so it takes tha parent p-tag size. 1me x 1.2em = 1.2em
 		margin-bottom: 0;	// we use the p-tag for margin
 		display: inline;
 	}
 }
-
+	
 /* section heading - ckeditor style */
-.field--name-field-fc-section-body,
-.field--name-body 
-.field--type-text-with-summary,
-.field--type-text-long {
-	h2.inline-section-heading {
-		display: block;
-		margin: 0 0 1em 0;
-		padding: .3em 11px;
-		font-size: 1.4em;
-		font-weight: bold;
-		color: #fff;
-		background: #5d9711;
-		clear: both;
-	}
+.inline-section-heading,
+h2.inline-section-heading,
+h3.inline-section-heading {
+	display: block;
+	margin: 0 0 1em 0;
+	padding: .3em 11px;
+	font-size: 1.4em;
+	font-weight: bold;
+	color: #fff;
+	background: #5d9711;
+	clear: both;
 }
 
-/* tables */
+/* tables - we restricting this css to only textarea fields so that it does not affect other parts of the site */
 .field--name-field-fc-section-body,
-.field--name-body 
+.field--name-body,
 .field--type-text-with-summary,
 .field--type-text-long {	
 	table {
@@ -212,7 +192,7 @@
 
 /* legacy css for tables from old site */
 .field--name-field-fc-section-body,
-.field--name-body 
+.field--name-body,
 .field--type-text-with-summary,
 .field--type-text-long {	
 	.fsatable { float: left; width:100%; margin: 2px 0 20px 0;}
