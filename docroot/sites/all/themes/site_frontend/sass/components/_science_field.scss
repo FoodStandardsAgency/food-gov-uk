@@ -11,27 +11,13 @@
 	-o-border-radius: 8px;
 	-ms-border-radius: 8px;
 	border-radius: 8px;
-	h2, h3 {
+	h2, h3, 
+	.field__label {
 		margin: 0 0 0.5em 0;
 		padding: 0;
 		font-size: 1.4em;
 		color: #5d9711;
 		background: none;
 		font-weight: bold;
-	}
-	/* where <strong> exists outside of a p-tag */
- 	strong,
-	.field__label {
-		font-size: 1.2em;
-		line-height: 1.4em;
-		font-weight: bold;
-		margin-bottom: 1em; 
-		display: block;	
-	} 
-	/* adjustment for this site */
-	p strong {
-		font-size: 1em;	// because our p-tags are already set to 1.2em so it takes tha parent p-tag size. 1me x 1.2em = 1.2em
-		margin-bottom: 0;	// we use the p-tag for margin
-		display: inline;
 	}
 }
