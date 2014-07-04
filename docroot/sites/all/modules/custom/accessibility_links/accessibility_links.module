@@ -52,13 +52,16 @@ function accessibility_links_block_view($delta = '') {
 }
 
 function theme_accessibility_links_block() {
+  // get the current site
+  //$site = 'www.food.gov.uk';
+  $site = $_SERVER['HTTP_HOST'];
   $output = '<div id="accessTools">
-                <form name="dixeritRefererForm" id="dixeritRefererForm" method="post" action="http://spoxy3.insipio.com/generator/en/www.food.gov.uk/">
+                <form name="dixeritRefererForm" id="dixeritRefererForm" method="post" action="http://spoxy3.insipio.com/generator/en/'. $site .'/">
                     <div><input type="hidden" name="referer" value=""></div>
                 </form>
                 <p>Access tools</p>
                 <ul>
-                    <li id="accessListen"><a href="http://spoxy3.insipio.com/generator/en/www.food.gov.uk/" title="Listen to this site">Listen <span class="icon"></span></a></li>
+                    <li id="accessListen"><a href="http://spoxy3.insipio.com/generator/en/'. $site .'/" title="Listen to this site">Listen <span class="icon"></span></a></li>
 	                <li><a href="/about-us/data-and-policies/aboutsite/accessibility/">Accessibility</a></li>
 	                <li><a href="">Text only</a></li>
 	                <li id="fontScale"><a id="fontScale0" class="fontScalePlus0" href="#" title="Set font size to default">A</a> <a id="fontScale1" class="fontScalePlus1" href="#" title="Set font size to +1">A</a> <a id="fontScale2" class="fontScalePlus2" href="#" title="Set font size to +2">A</a></li>
