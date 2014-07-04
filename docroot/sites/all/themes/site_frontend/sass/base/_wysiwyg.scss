@@ -9,7 +9,8 @@
 	padding: 11px;
 	margin-bottom: 1.3em;
 	/* where <strong> exists outside of a p-tag */
-	strong {
+	strong,
+	.field__label {
 		font-size:1.2em;
 		line-height: 1.4em;
 		font-weight: bold;
@@ -33,7 +34,8 @@
 	padding: 11px;
 	margin-bottom: 1.3em;
 	/* where <strong> exists outside of a p-tag */
-	strong {
+	strong,
+	.field__label {
 		font-size: 1.2em;
 		line-height: 1.4em;
 		font-weight: bold;
@@ -71,7 +73,8 @@
 		font-weight: bold;
 	}
 	/* where <strong> exists outside of a p-tag */
- 	strong {
+ 	strong,
+	.field__label {
 		font-size: 1.2em;
 		line-height: 1.4em;
 		font-weight: bold;
