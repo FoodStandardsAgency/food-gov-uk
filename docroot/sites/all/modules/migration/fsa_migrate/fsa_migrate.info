@@ -13,6 +13,7 @@ files[] = classes/fsa_migrate_multibranch_documentpage.migrate.inc
 files[] = classes/fsa_migrate_auditreport_fc.migrate.inc
 files[] = classes/fsa_migrate_documentpage_fc.migrate.inc
 files[] = classes/fsa_migrate_faqpage_fc.migrate.inc
+files[] = classes/fsa_migrate_multibranch_fc.migrate.inc
 files[] = classes/fsa_migrate_related_content_fc.migrate.inc
 files[] = classes/fsa_migrate_media_images.migrate.inc
 files[] = classes/fsa_migrate_media_document.migrate.inc

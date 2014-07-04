@@ -112,14 +112,9 @@ class FSAMultibranchDocumentMigration extends FSAMigration {
         array('title', 'summary', 'backtotop', 'showLastUpdated', 'pubdate', 'indexed')
       );
 
-      var_dump('$fields_res_array');
-      var_dump($fields_res_array);
-
       foreach ($fields_res_array as $fieldVariable => $fieldValue) {
         $row->{$fieldVariable} = $fieldValue;
       }
-
-      var_dump($row->text1);
     }
 
     // Manage the feature image query.
