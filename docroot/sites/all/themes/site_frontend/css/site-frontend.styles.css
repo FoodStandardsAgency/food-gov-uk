@@ -5667,6 +5667,15 @@ ul.pager {
   .see-also .views-row.views-row-last {
     margin-bottom: 0; }
 
+/* social media share icons
+ * requires block class: share-icons
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_share_icons\.scss}line{font-family:\000035}}
+.share-icons,
+.block--social-tab share-icons {
+  overflow: hidden;
+  padding: 20px 0 20px 0; }
+
 /**
  * Sidebar menu with first top level menu item looking different to the rest of the top level items.
  * Requires a block class: sidebar-menu
