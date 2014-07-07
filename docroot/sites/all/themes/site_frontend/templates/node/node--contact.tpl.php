@@ -80,16 +80,7 @@
 
 ?>
 <article<?php print $attributes; ?>>
-  <?php if (!empty($title_prefix) || !empty($title_suffix) || !$page): ?>
-    <header>
-      <?php print render($title_prefix); ?>
-      <?php if (!$page): ?>
-        <h4<?php print $title_attributes; ?><?php print $title; ?></h4>
-      <?php endif; ?>
-      <?php print render($title_suffix); ?>
-    </header>
-  <?php endif; ?>
-
+  <h4<?php print $title_attributes; ?><?php print $title; ?></h4>
   <div<?php print $content_attributes; ?>>
     <?php
       // We hide the comments and links now so that we can render them later.
