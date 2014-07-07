@@ -1,0 +1,82 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Peter
+ * Date: 07/07/14
+ * Time: 16:34
+ */
+
+
+/**
+ * Retrieve the list of urls to process
+ */
+function FSA_menu_build_get_url_list(){
+  $url_list = array(
+    'test1/test1-1/test1-1-1',
+    'test1/test1-2/test1-2-1',
+    'test2/test2-1',
+    'test2/test2-2',
+  );
+
+  return $url_list;
+}
+
+
+function FSA_menu_build_process_list($url_list){
+  // initialise the tree
+  $url_tree = array();
+    // sort so that we have all urls in order
+  $url_list = sort($url_list, SORT_STRING);
+  $menu_tree = menu_tree_all_data('main-menu');
+  // process all urls to build a tree
+  foreach ($url_list as $url) {
+    FSA_menu_build_graft($url_tree, $url);
+  }
+  // now, recurse through the tree, and assign menu parents
+  FSA_menu_build_assign($url_tree);
+
+}
+
+/**
+ * Add a specific url to the tree
+ * @param $tree
+ * @param $url
+ */
+function FSA_menu_build_graft(&$url_tree, $url) {
+  $element['#orig_url'] = $url;
+  $source_url = drupal_lookup_path('source', $url);
+  $element['#source_url'] = $source_url;
+  $source_url_array = explode('/', $source_url);
+  if ($source_url_array[0] == 'node') {
+    // find the nid for the current node
+    $element['#nid'] = $source_url_array[1];
+  }
+  // move down the tree, until we get to the place we need to be
+  // start at the root
+  $branch = &$url_tree;
+  foreach (explode('/', $url) as $fragment){
+    // if we need to create a new piece, initialise it
+    if (!isset($branch[$fragment])) {
+      $branch[$fragment] = array();
+    }
+    $branch = &$branch[$fragment];
+  }
+  // merge our new info into the tree
+  $branch = array_merge($branch, $element);
+}
+
+/**
+ * Walk through the url tree and assign menu parents to nodes.
+ * @param $url_tree
+ */
+function FSA_menu_build_assign(&$url_tree) {
+  foreach ($url_tree as $branch) {
+    FSA_menu_build_assign()
+  }
+
+
+}
+
+function FSA_menu_build_lookup_mlid($path) {
+
+}

@@ -1,0 +1,5 @@
+name = FSA Menu build
+description = Post migration menu rebuild
+core = 7.x
+version = 7.x-1.0
+package = "Local"
