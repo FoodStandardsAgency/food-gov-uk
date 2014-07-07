@@ -320,3 +320,53 @@ ul.pager li a {
 .featured-side-content .field--name-field-title-side-content-generic {
 	color: #5d5ead;
 }
+
+/* science field  */
+.field--name-field-science-data h2,
+.field--name-field-science-data h3,
+.field--name-field-science-data .field__label {
+	color: #666699;
+}
+.field--name-field-science-data {
+	border: 1px solid #666699;
+}
+
+/* science inline class applied using ckeditor */
+.science, 
+.moreInfo {
+	border: 1px solid #666699;
+}
+.science h2, 
+.science h3,
+.moreInfo h2,
+.moreInfo h3 {
+	color: #666699;
+}
+
+/* inline section heading applied using ckeditor */
+.inline-section-heading, 
+h2.inline-section-heading, 
+h3.inline-section-heading {
+	background: #666699;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
