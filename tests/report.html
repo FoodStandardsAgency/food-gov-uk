@@ -646,7 +646,7 @@ So I can make it easy for users to get back to the top of big pages<br />
 <span class="text">I should see "<strong class="failed_param">Back to top</strong>" in the "<strong class="failed_param">Back to top</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
-<pre class="backtrace">No region &quot;Back to top&quot; found on the page http://stage.fsa.dev-1.siriusopensource.com/news-updates/consultations/2014/test-2.</pre>
+<pre class="backtrace">No region &quot;Back to top&quot; found on the page http://stage.fsa.dev-1.siriusopensource.com/news-updates/consultations/2014/test.</pre>
 </li>
 <li class="skipped">
 <div class="step">
@@ -1032,7 +1032,7 @@ So I can make it easy for users to get back to the top of big pages<br />
 <span class="text">I should see "<strong class="failed_param">Back to top</strong>" in the "<strong class="failed_param">Back to top</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
-<pre class="backtrace">No region &quot;Back to top&quot; found on the page http://stage.fsa.dev-1.siriusopensource.com/science/research/2014/test-2.</pre>
+<pre class="backtrace">No region &quot;Back to top&quot; found on the page http://stage.fsa.dev-1.siriusopensource.com/science/research/2014/test.</pre>
 </li>
 <li class="skipped">
 <div class="step">
@@ -1614,11 +1614,11 @@ So I can control the site hierarchy<br />
 </div>
 <pre class="backtrace">The given selector ((((((((((((//html/.//*[self::input | self::textarea | self::select][not(./@type = 'submit' or ./@type = 'image' or ./@type = 'hidden')][(((./@id = 'edit-field-title-short-und-0-value' or ./@name = 'edit-field-title-short-und-0-value') or ./@id = //label[contains(normalize-space(string(.)), 'edit-field-title-short-und-0-value')]/@for) or ./@placeholder = 'edit-field-title-short-und-0-value')] | .//label[contains(normalize-space(string(.)), 'edit-field-title-short-und-0-value')]//.//*[self::input | self::textarea | self::select][not(./@type = 'submit' or ./@type = 'image' or ./@type = 'hidden')])[1]/..)[1]/..)[1]/..)[1]/..)[1]/..)[1]/..)[1]/..)[1]/..)[1]/..)[1]/..)[1]/..)[1]/.. is either invalid or does not result in a WebElement. The following error occurred:
 InvalidSelectorError: The result of the xpath expression &quot;((((((((((((//html/.//*[self::input | self::textarea | self::select][not(./@type = 'submit' or ./@type = 'image' or ./@type = 'hidden')][(((./@id = 'edit-field-title-short-und-0-value' or ./@name = 'edit-field-title-short-und-0-value') or ./@id = //label[contains(normalize-space(string(.)), 'edit-field-title-short-und-0-value')]/@for) or ./@placeholder = 'edit-field-title-short-und-0-value')] | .//label[contains(normalize-space(string(.)), 'edit-field-title-short-und-0-value')]//.//*[self::input | self::textarea | self::select][not(./@type = 'submit' or ./@type = 'image' or ./@type = 'hidden')])[1]/..)[1]/..)[1]/..)[1]/..)[1]/..)[1]/..)[1]/..)[1]/..)[1]/..)[1]/..)[1]/..)[1]/..&quot; is: [object XrayWrapper [object HTMLDocument]]. It should be an element.
-Command duration or timeout: 48 milliseconds
+Command duration or timeout: 134 milliseconds
 For documentation on this error, please visit: http://seleniumhq.org/exceptions/invalid_selector_exception.html
 Build info: version: '2.39.0', revision: 'ff23eac', time: '2013-12-16 16:11:15'
 System info: host: 'Laptop', ip: '192.168.56.1', os.name: 'Windows 8', os.arch: 'x86', os.version: '6.2', java.version: '1.7.0_51'
-Session ID: 88994f45-366b-4917-a6e9-8f183b7a636f
+Session ID: fe155dcf-40e0-4e8b-a042-bba0cf134915
 Driver info: org.openqa.selenium.firefox.FirefoxDriver
 Capabilities [{platform=XP, acceptSslCerts=true, javascriptEnabled=true, cssSelectorsEnabled=true, databaseEnabled=true, browserName=firefox, handlesAlerts=true, browserConnectionEnabled=true, webStorageEnabled=true, nativeEvents=false, rotatable=false, locationContextEnabled=true, applicationCacheEnabled=true, takesScreenshot=true, version=30.0}]</pre>
 </li>
@@ -2347,7 +2347,10 @@ So I can easily create, edit and delete content<br />
 <span class="text">I should see "<strong class="failed_param">Internal link set test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
-<pre class="backtrace">The text &quot;Internal link set test has been created.&quot; was not found anywhere in the text of the current page.</pre>
+<pre class="backtrace">[JavaScript Error: &quot;e is null&quot; {file: &quot;file:///C:/Users/Tyler/AppData/Local/Temp/anonymous8061043030663462398webdriver-profile/extensions/fxdriver@googlecode.com/components/command_processor.js&quot; line: 7130}]'[JavaScript Error: &quot;e is null&quot; {file: &quot;file:///C:/Users/Tyler/AppData/Local/Temp/anonymous8061043030663462398webdriver-profile/extensions/fxdriver@googlecode.com/components/command_processor.js&quot; line: 7130}]' when calling method: [nsICommandProcessor::execute]
+Build info: version: '2.39.0', revision: 'ff23eac', time: '2013-12-16 16:11:15'
+System info: host: 'Laptop', ip: '192.168.56.1', os.name: 'Windows 8', os.arch: 'x86', os.version: '6.2', java.version: '1.7.0_51'
+Driver info: driver.version: unknown</pre>
 </li>
 <li class="skipped">
 <div class="step">
@@ -2642,14 +2645,15 @@ So I can easily create, edit and delete content<br />
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="passed_param">Research project test has been created.</strong>"</span>
+<span class="text">I should see "<strong class="failed_param">Research project test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
+<pre class="backtrace">The text &quot;Research project test has been created.&quot; was not found anywhere in the text of the current page.</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
 <span class="text">I logout</span>
@@ -2710,14 +2714,15 @@ So I can easily create, edit and delete content<br />
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="passed_param">Webform test has been created.</strong>"</span>
+<span class="text">I should see "<strong class="failed_param">Webform test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
+<pre class="backtrace">The text &quot;Webform test has been created.&quot; was not found anywhere in the text of the current page.</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
 <span class="text">I logout</span>
@@ -2840,31 +2845,32 @@ So I can read it in my prefered language<br />
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseContains()</span>
 </div>
 </li>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">Cymraeg</strong>"</span>
+<span class="text">I should see "<strong class="failed_param">Cymraeg</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
+<pre class="backtrace">The text &quot;Cymraeg&quot; was not found anywhere in the text of the current page.</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">When </span>
-<span class="text">I click "<strong class="passed_param">Cymraeg</strong>"</span>
+<span class="text">I click "<strong class="skipped_param">Cymraeg</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should be on "<strong class="passed_param">/wales/welsh-test</strong>"</span>
+<span class="text">I should be on "<strong class="skipped_param">/wales/welsh-test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageAddress()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">the response should contain "<strong class="passed_param">lang=\"cy\"</strong>"</span>
+<span class="text">the response should contain "<strong class="skipped_param">lang=\"cy\"</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseContains()</span>
 </div>
 </li>
@@ -3227,21 +3233,22 @@ So I can change the href<br />
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">Example.com</strong>"</span>
+<span class="text">I should see "<strong class="failed_param">Example.com</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
+<pre class="backtrace">The text &quot;Example.com&quot; was not found anywhere in the text of the current page.</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">the response should contain "<strong class="passed_param">ext</strong>"</span>
+<span class="text">the response should contain "<strong class="skipped_param">ext</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseContains()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
 <span class="text">I logout</span>
@@ -3274,119 +3281,120 @@ So I can change the href<br />
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">Create General Page</strong>" in the "<strong class="passed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="failed_param">Create General Page</strong>" in the "<strong class="failed_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
+<pre class="backtrace">No region &quot;Page Title&quot; found on the page http://stage.fsa.dev-1.siriusopensource.com/node/add/document-page.</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-title</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-title</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-field-title-short-und-0-value</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-field-title-short-und-0-value</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I check the box "<strong class="passed_param">N/A</strong>" in "<strong class="passed_param">edit-field-site-section-und</strong>"</span>
+<span class="text">I check the box "<strong class="skipped_param">N/A</strong>" in "<strong class="skipped_param">edit-field-site-section-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iCheckOptionInBlock()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I click "<strong class="passed_param">Right hand column</strong>"</span>
+<span class="text">I click "<strong class="skipped_param">Right hand column</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-field-links-external-und-0-target-id</strong>" with "<strong class="passed_param">GovUK - Public bodes information</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-field-links-external-und-0-target-id</strong>" with "<strong class="skipped_param">GovUK - Public bodes information</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press the "<strong class="passed_param">down</strong>" key in the "<strong class="passed_param">edit-field-links-external-und-0-target-id</strong>" field</span>
+<span class="text">I press the "<strong class="skipped_param">down</strong>" key in the "<strong class="skipped_param">edit-field-links-external-und-0-target-id</strong>" field</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::pressKey()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I wait for "<strong class="passed_param">1</strong>" second</span>
+<span class="text">I wait for "<strong class="skipped_param">1</strong>" second</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iWaitForSeconds()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press the "<strong class="passed_param">down</strong>" key in the "<strong class="passed_param">edit-field-links-external-und-0-target-id</strong>" field</span>
+<span class="text">I press the "<strong class="skipped_param">down</strong>" key in the "<strong class="skipped_param">edit-field-links-external-und-0-target-id</strong>" field</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::pressKey()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press the "<strong class="passed_param">enter</strong>" key in the "<strong class="passed_param">edit-field-links-external-und-0-target-id</strong>" field</span>
+<span class="text">I press the "<strong class="skipped_param">enter</strong>" key in the "<strong class="skipped_param">edit-field-links-external-und-0-target-id</strong>" field</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::pressKey()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I wait for "<strong class="passed_param">1</strong>" second</span>
+<span class="text">I wait for "<strong class="skipped_param">1</strong>" second</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iWaitForSeconds()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press "<strong class="passed_param">edit-submit</strong>" in the "<strong class="passed_param">Submit</strong>" region</span>
+<span class="text">I press "<strong class="skipped_param">edit-submit</strong>" in the "<strong class="skipped_param">Submit</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I wait for "<strong class="passed_param">1</strong>" second</span>
+<span class="text">I wait for "<strong class="skipped_param">1</strong>" second</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iWaitForSeconds()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="passed_param">General Page test has been created.</strong>"</span>
+<span class="text">I should see "<strong class="skipped_param">General Page test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">GovUK public bodies information</strong>" in the "<strong class="passed_param">External links block</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">GovUK public bodies information</strong>" in the "<strong class="skipped_param">External links block</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">Public bodies</strong>" in the "<strong class="passed_param">External links block</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">Public bodies</strong>" in the "<strong class="skipped_param">External links block</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
 <span class="text">I logout</span>
@@ -4882,24 +4890,25 @@ I need to have access to a nations page<br />
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">the response should contain "<strong class="passed_param">first last leaf active-trail active menu-mlid-1113</strong>"</span>
+<span class="text">the response should contain "<strong class="failed_param">first last leaf active-trail active menu-mlid-1113</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseContains()</span>
 </div>
+<pre class="backtrace">The string &quot;first last leaf active-trail active menu-mlid-1113&quot; was not found anywhere in the HTML response of the current page.</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">FSA in Northern Ireland</strong>" in the "<strong class="passed_param">Northern Ireland Banner</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">FSA in Northern Ireland</strong>" in the "<strong class="skipped_param">Northern Ireland Banner</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">FSA in Northern Ireland</strong>" in the "<strong class="passed_param">Left Sidebar</strong>" region</span>
+<span class="text">I should see "<strong class="skipped_param">FSA in Northern Ireland</strong>" in the "<strong class="skipped_param">Left Sidebar</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
@@ -5004,35 +5013,36 @@ So that I can change the way a page is rendered<br />
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseContains()</span>
 </div>
 </li>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">the response should not contain "<strong class="passed_param">l-sidebar-first</strong>"</span>
+<span class="text">the response should not contain "<strong class="failed_param">l-sidebar-first</strong>"</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseNotContains()</span>
+</div>
+<pre class="backtrace">The string &quot;l-sidebar-first&quot; appears in the HTML response of this page, but it should not.</pre>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">the response should not contain "<strong class="skipped_param">l-sidebar-second</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseNotContains()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">the response should not contain "<strong class="passed_param">l-sidebar-second</strong>"</span>
-<span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseNotContains()</span>
-</div>
-</li>
-<li class="passed">
-<div class="step">
-<span class="keyword">And </span>
-<span class="text">the response should contain "<strong class="passed_param">header-wrapper</strong>"</span>
+<span class="text">the response should contain "<strong class="skipped_param">header-wrapper</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseContains()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">the response should contain "<strong class="passed_param">footer-wrapper</strong>"</span>
+<span class="text">the response should contain "<strong class="skipped_param">footer-wrapper</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseContains()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
 <span class="text">I logout</span>
@@ -5065,98 +5075,99 @@ So that I can change the way a page is rendered<br />
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">Create General Page</strong>" in the "<strong class="passed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="failed_param">Create General Page</strong>" in the "<strong class="failed_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
+<pre class="backtrace">No region &quot;Page Title&quot; found on the page http://stage.fsa.dev-1.siriusopensource.com/node/add/document-page.</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-title</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-title</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-field-title-short-und-0-value</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-field-title-short-und-0-value</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I check the box "<strong class="passed_param">N/A</strong>" in "<strong class="passed_param">edit-field-site-section-und</strong>"</span>
+<span class="text">I check the box "<strong class="skipped_param">N/A</strong>" in "<strong class="skipped_param">edit-field-site-section-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iCheckOptionInBlock()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I click "<strong class="passed_param">Page settings</strong>"</span>
+<span class="text">I click "<strong class="skipped_param">Page settings</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I select "<strong class="passed_param">Three columns</strong>" from "<strong class="passed_param">edit-field-layout-und</strong>"</span>
+<span class="text">I select "<strong class="skipped_param">Three columns</strong>" from "<strong class="skipped_param">edit-field-layout-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::selectOption()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press "<strong class="passed_param">edit-submit</strong>" in the "<strong class="passed_param">Submit</strong>" region</span>
+<span class="text">I press "<strong class="skipped_param">edit-submit</strong>" in the "<strong class="skipped_param">Submit</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="passed_param">General Page test has been created.</strong>"</span>
+<span class="text">I should see "<strong class="skipped_param">General Page test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">the response should contain "<strong class="passed_param">main-content</strong>"</span>
+<span class="text">the response should contain "<strong class="skipped_param">main-content</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseContains()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">the response should contain "<strong class="passed_param">l-sidebar-first</strong>"</span>
+<span class="text">the response should contain "<strong class="skipped_param">l-sidebar-first</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseContains()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">the response should contain "<strong class="passed_param">l-sidebar-second</strong>"</span>
+<span class="text">the response should contain "<strong class="skipped_param">l-sidebar-second</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseContains()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">the response should contain "<strong class="passed_param">header-wrapper</strong>"</span>
+<span class="text">the response should contain "<strong class="skipped_param">header-wrapper</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseContains()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">the response should contain "<strong class="passed_param">footer-wrapper</strong>"</span>
+<span class="text">the response should contain "<strong class="skipped_param">footer-wrapper</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseContains()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
 <span class="text">I logout</span>
@@ -5252,35 +5263,36 @@ So that I can change the way a page is rendered<br />
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseContains()</span>
 </div>
 </li>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">the response should not contain "<strong class="passed_param">l-sidebar-first</strong>"</span>
+<span class="text">the response should not contain "<strong class="failed_param">l-sidebar-first</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseNotContains()</span>
 </div>
+<pre class="backtrace">The string &quot;l-sidebar-first&quot; appears in the HTML response of this page, but it should not.</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">the response should contain "<strong class="passed_param">l-sidebar-second</strong>"</span>
+<span class="text">the response should contain "<strong class="skipped_param">l-sidebar-second</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseContains()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">the response should contain "<strong class="passed_param">header-wrapper</strong>"</span>
+<span class="text">the response should contain "<strong class="skipped_param">header-wrapper</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseContains()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">the response should contain "<strong class="passed_param">footer-wrapper</strong>"</span>
+<span class="text">the response should contain "<strong class="skipped_param">footer-wrapper</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseContains()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
 <span class="text">I logout</span>
@@ -5313,98 +5325,99 @@ So that I can change the way a page is rendered<br />
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">Create General Page</strong>" in the "<strong class="passed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="failed_param">Create General Page</strong>" in the "<strong class="failed_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
+<pre class="backtrace">No region &quot;Page Title&quot; found on the page http://stage.fsa.dev-1.siriusopensource.com/node/add/document-page.</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-title</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-title</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-field-title-short-und-0-value</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-field-title-short-und-0-value</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I check the box "<strong class="passed_param">N/A</strong>" in "<strong class="passed_param">edit-field-site-section-und</strong>"</span>
+<span class="text">I check the box "<strong class="skipped_param">N/A</strong>" in "<strong class="skipped_param">edit-field-site-section-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iCheckOptionInBlock()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I click "<strong class="passed_param">Page settings</strong>"</span>
+<span class="text">I click "<strong class="skipped_param">Page settings</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I select "<strong class="passed_param">One column blank (no sidebars, header or footer)</strong>" from "<strong class="passed_param">edit-field-layout-und</strong>"</span>
+<span class="text">I select "<strong class="skipped_param">One column blank (no sidebars, header or footer)</strong>" from "<strong class="skipped_param">edit-field-layout-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::selectOption()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press "<strong class="passed_param">edit-submit</strong>" in the "<strong class="passed_param">Submit</strong>" region</span>
+<span class="text">I press "<strong class="skipped_param">edit-submit</strong>" in the "<strong class="skipped_param">Submit</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="passed_param">General Page test has been created.</strong>"</span>
+<span class="text">I should see "<strong class="skipped_param">General Page test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">the response should contain "<strong class="passed_param">main-content</strong>"</span>
+<span class="text">the response should contain "<strong class="skipped_param">main-content</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseContains()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">the response should not contain "<strong class="passed_param">l-sidebar-first</strong>"</span>
+<span class="text">the response should not contain "<strong class="skipped_param">l-sidebar-first</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseNotContains()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">the response should not contain "<strong class="passed_param">l-sidebar-second</strong>"</span>
+<span class="text">the response should not contain "<strong class="skipped_param">l-sidebar-second</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseNotContains()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">the response should not contain "<strong class="passed_param">header-wrapper</strong>"</span>
+<span class="text">the response should not contain "<strong class="skipped_param">header-wrapper</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseNotContains()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">the response should not contain "<strong class="passed_param">footer-wrapper</strong>"</span>
+<span class="text">the response should not contain "<strong class="skipped_param">footer-wrapper</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertResponseNotContains()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
 <span class="text">I logout</span>
@@ -5613,14 +5626,15 @@ So I can make text more interesting to read<br />
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">test</strong>" in the "<strong class="passed_param">Quote</strong>" region</span>
+<span class="text">I should see "<strong class="failed_param">test</strong>" in the "<strong class="failed_param">Quote</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
+<pre class="backtrace">No region &quot;Quote&quot; found on the page http://stage.fsa.dev-1.siriusopensource.com/test-13.</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
 <span class="text">I logout</span>
@@ -5665,91 +5679,92 @@ So I can find out more information<br />
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">Create Landing Page</strong>" in the "<strong class="passed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="failed_param">Create Landing Page</strong>" in the "<strong class="failed_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
+<pre class="backtrace">No region &quot;Page Title&quot; found on the page http://stage.fsa.dev-1.siriusopensource.com/node/add/landing-page.</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-title</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-title</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-field-title-short-und-0-value</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-field-title-short-und-0-value</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I click "<strong class="passed_param">Related content</strong>"</span>
+<span class="text">I click "<strong class="skipped_param">Related content</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-field-resources-und-0-target-id</strong>" with "<strong class="passed_param">About us</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-field-resources-und-0-target-id</strong>" with "<strong class="skipped_param">About us</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press the "<strong class="passed_param">down</strong>" key in the "<strong class="passed_param">edit-field-resources-und-0-target-id</strong>" field</span>
+<span class="text">I press the "<strong class="skipped_param">down</strong>" key in the "<strong class="skipped_param">edit-field-resources-und-0-target-id</strong>" field</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::pressKey()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I wait for "<strong class="passed_param">1</strong>" second</span>
+<span class="text">I wait for "<strong class="skipped_param">1</strong>" second</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iWaitForSeconds()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press the "<strong class="passed_param">down</strong>" key in the "<strong class="passed_param">edit-field-resources-und-0-target-id</strong>" field</span>
+<span class="text">I press the "<strong class="skipped_param">down</strong>" key in the "<strong class="skipped_param">edit-field-resources-und-0-target-id</strong>" field</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::pressKey()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press the "<strong class="passed_param">enter</strong>" key in the "<strong class="passed_param">edit-field-resources-und-0-target-id</strong>" field</span>
+<span class="text">I press the "<strong class="skipped_param">enter</strong>" key in the "<strong class="skipped_param">edit-field-resources-und-0-target-id</strong>" field</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::pressKey()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press "<strong class="passed_param">Save</strong>"</span>
+<span class="text">I press "<strong class="skipped_param">Save</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::pressButton()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="passed_param">Landing Page test has been created.</strong>"</span>
+<span class="text">I should see "<strong class="skipped_param">Landing Page test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see the text "<strong class="passed_param">Resources</strong>" in the "<strong class="passed_param">Resources Block</strong>" region</span>
+<span class="text">I should see the text "<strong class="skipped_param">Resources</strong>" in the "<strong class="skipped_param">Resources Block</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
 <span class="text">I logout</span>
@@ -6092,27 +6107,27 @@ So I can more deeply explore the topics I'm interested in without having to sear
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
 </div>
 </li>
-<li class="failed">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I select "<strong class="failed_param">See also links test</strong>" from "<strong class="failed_param">edit-field-links-see-also-und</strong>"</span>
+<span class="text">I select "<strong class="passed_param">See also links test</strong>" from "<strong class="passed_param">edit-field-links-see-also-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::selectOption()</span>
 </div>
-<pre class="backtrace">Select option with value|text &quot;See also links test&quot; not found.</pre>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press "<strong class="skipped_param">edit-submit</strong>" in the "<strong class="skipped_param">Submit</strong>" region</span>
+<span class="text">I press "<strong class="passed_param">edit-submit</strong>" in the "<strong class="passed_param">Submit</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="skipped">
+<li class="failed">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="skipped_param">Consultation test has been created.</strong>"</span>
+<span class="text">I should see "<strong class="failed_param">Consultation test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
+<pre class="backtrace">The text &quot;Consultation test has been created.&quot; was not found anywhere in the text of the current page.</pre>
 </li>
 <li class="skipped">
 <div class="step">
@@ -6210,57 +6225,56 @@ So I can more deeply explore the topics I'm interested in without having to sear
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
 </div>
 </li>
-<li class="failed">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I select "<strong class="failed_param">See also links test</strong>" from "<strong class="failed_param">edit-field-links-see-also-und</strong>"</span>
+<span class="text">I select "<strong class="passed_param">See also links test</strong>" from "<strong class="passed_param">edit-field-links-see-also-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::selectOption()</span>
 </div>
-<pre class="backtrace">Select option with value|text &quot;See also links test&quot; not found.</pre>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press "<strong class="skipped_param">edit-submit</strong>" in the "<strong class="skipped_param">Submit</strong>" region</span>
+<span class="text">I press "<strong class="passed_param">edit-submit</strong>" in the "<strong class="passed_param">Submit</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="skipped_param">General Page test has been created.</strong>"</span>
+<span class="text">I should see "<strong class="passed_param">General Page test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="skipped_param">See also</strong>" in the "<strong class="skipped_param">See also block</strong>" region</span>
+<span class="text">I should see "<strong class="passed_param">See also</strong>" in the "<strong class="passed_param">See also block</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="skipped_param">About us</strong>" in the "<strong class="skipped_param">See also block</strong>" region</span>
+<span class="text">I should see "<strong class="passed_param">About us</strong>" in the "<strong class="passed_param">See also block</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="skipped_param">Science and policy</strong>" in the "<strong class="skipped_param">See also block</strong>" region</span>
+<span class="text">I should see "<strong class="passed_param">Science and policy</strong>" in the "<strong class="passed_param">See also block</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="skipped_param">Enforcement and regulation</strong>" in the "<strong class="skipped_param">See also block</strong>" region</span>
+<span class="text">I should see "<strong class="passed_param">Enforcement and regulation</strong>" in the "<strong class="passed_param">See also block</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
 <span class="text">I logout</span>
@@ -6328,57 +6342,56 @@ So I can more deeply explore the topics I'm interested in without having to sear
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
 </div>
 </li>
-<li class="failed">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I select "<strong class="failed_param">See also links test</strong>" from "<strong class="failed_param">edit-field-links-see-also-und</strong>"</span>
+<span class="text">I select "<strong class="passed_param">See also links test</strong>" from "<strong class="passed_param">edit-field-links-see-also-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::selectOption()</span>
 </div>
-<pre class="backtrace">Select option with value|text &quot;See also links test&quot; not found.</pre>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press "<strong class="skipped_param">edit-submit</strong>" in the "<strong class="skipped_param">Submit</strong>" region</span>
+<span class="text">I press "<strong class="passed_param">edit-submit</strong>" in the "<strong class="passed_param">Submit</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="skipped_param">FAQ test has been created.</strong>"</span>
+<span class="text">I should see "<strong class="passed_param">FAQ test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="skipped_param">See also</strong>" in the "<strong class="skipped_param">See also block</strong>" region</span>
+<span class="text">I should see "<strong class="passed_param">See also</strong>" in the "<strong class="passed_param">See also block</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="skipped_param">About us</strong>" in the "<strong class="skipped_param">See also block</strong>" region</span>
+<span class="text">I should see "<strong class="passed_param">About us</strong>" in the "<strong class="passed_param">See also block</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="skipped_param">Science and policy</strong>" in the "<strong class="skipped_param">See also block</strong>" region</span>
+<span class="text">I should see "<strong class="passed_param">Science and policy</strong>" in the "<strong class="passed_param">See also block</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="skipped_param">Enforcement and regulation</strong>" in the "<strong class="skipped_param">See also block</strong>" region</span>
+<span class="text">I should see "<strong class="passed_param">Enforcement and regulation</strong>" in the "<strong class="passed_param">See also block</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
 <span class="text">I logout</span>
@@ -6446,57 +6459,56 @@ So I can more deeply explore the topics I'm interested in without having to sear
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
 </div>
 </li>
-<li class="failed">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I select "<strong class="failed_param">See also links test</strong>" from "<strong class="failed_param">edit-field-links-see-also-und</strong>"</span>
+<span class="text">I select "<strong class="passed_param">See also links test</strong>" from "<strong class="passed_param">edit-field-links-see-also-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::selectOption()</span>
 </div>
-<pre class="backtrace">Select option with value|text &quot;See also links test&quot; not found.</pre>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press "<strong class="skipped_param">edit-submit</strong>" in the "<strong class="skipped_param">Submit</strong>" region</span>
+<span class="text">I press "<strong class="passed_param">edit-submit</strong>" in the "<strong class="passed_param">Submit</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="skipped_param">Job test has been created.</strong>"</span>
+<span class="text">I should see "<strong class="passed_param">Job test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="skipped_param">See also</strong>" in the "<strong class="skipped_param">See also block</strong>" region</span>
+<span class="text">I should see "<strong class="passed_param">See also</strong>" in the "<strong class="passed_param">See also block</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="skipped_param">About us</strong>" in the "<strong class="skipped_param">See also block</strong>" region</span>
+<span class="text">I should see "<strong class="passed_param">About us</strong>" in the "<strong class="passed_param">See also block</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="skipped_param">Science and policy</strong>" in the "<strong class="skipped_param">See also block</strong>" region</span>
+<span class="text">I should see "<strong class="passed_param">Science and policy</strong>" in the "<strong class="passed_param">See also block</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="skipped_param">Enforcement and regulation</strong>" in the "<strong class="skipped_param">See also block</strong>" region</span>
+<span class="text">I should see "<strong class="passed_param">Enforcement and regulation</strong>" in the "<strong class="passed_param">See also block</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
 <span class="text">I logout</span>
@@ -6571,57 +6583,56 @@ So I can more deeply explore the topics I'm interested in without having to sear
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
 </div>
 </li>
-<li class="failed">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I select "<strong class="failed_param">See also links test</strong>" from "<strong class="failed_param">edit-field-links-see-also-und</strong>"</span>
+<span class="text">I select "<strong class="passed_param">See also links test</strong>" from "<strong class="passed_param">edit-field-links-see-also-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::selectOption()</span>
 </div>
-<pre class="backtrace">Select option with value|text &quot;See also links test&quot; not found.</pre>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press "<strong class="skipped_param">edit-submit</strong>" in the "<strong class="skipped_param">Submit</strong>" region</span>
+<span class="text">I press "<strong class="passed_param">edit-submit</strong>" in the "<strong class="passed_param">Submit</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="skipped_param">News test has been created.</strong>"</span>
+<span class="text">I should see "<strong class="passed_param">News test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="skipped_param">See also</strong>" in the "<strong class="skipped_param">See also block</strong>" region</span>
+<span class="text">I should see "<strong class="passed_param">See also</strong>" in the "<strong class="passed_param">See also block</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="skipped_param">About us</strong>" in the "<strong class="skipped_param">See also block</strong>" region</span>
+<span class="text">I should see "<strong class="passed_param">About us</strong>" in the "<strong class="passed_param">See also block</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="skipped_param">Science and policy</strong>" in the "<strong class="skipped_param">See also block</strong>" region</span>
+<span class="text">I should see "<strong class="passed_param">Science and policy</strong>" in the "<strong class="passed_param">See also block</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="skipped_param">Enforcement and regulation</strong>" in the "<strong class="skipped_param">See also block</strong>" region</span>
+<span class="text">I should see "<strong class="passed_param">Enforcement and regulation</strong>" in the "<strong class="passed_param">See also block</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
 <span class="text">I logout</span>
@@ -6814,57 +6825,56 @@ So I can more deeply explore the topics I'm interested in without having to sear
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
 </div>
 </li>
-<li class="failed">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I select "<strong class="failed_param">See also links test</strong>" from "<strong class="failed_param">edit-field-links-see-also-und</strong>"</span>
+<span class="text">I select "<strong class="passed_param">See also links test</strong>" from "<strong class="passed_param">edit-field-links-see-also-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::selectOption()</span>
 </div>
-<pre class="backtrace">Select option with value|text &quot;See also links test&quot; not found.</pre>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press "<strong class="skipped_param">edit-submit</strong>" in the "<strong class="skipped_param">Submit</strong>" region</span>
+<span class="text">I press "<strong class="passed_param">edit-submit</strong>" in the "<strong class="passed_param">Submit</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="skipped_param">Alert test has been created.</strong>"</span>
+<span class="text">I should see "<strong class="passed_param">Alert test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="skipped_param">See also</strong>" in the "<strong class="skipped_param">See also block</strong>" region</span>
+<span class="text">I should see "<strong class="passed_param">See also</strong>" in the "<strong class="passed_param">See also block</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="skipped_param">About us</strong>" in the "<strong class="skipped_param">See also block</strong>" region</span>
+<span class="text">I should see "<strong class="passed_param">About us</strong>" in the "<strong class="passed_param">See also block</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="skipped_param">Science and policy</strong>" in the "<strong class="skipped_param">See also block</strong>" region</span>
+<span class="text">I should see "<strong class="passed_param">Science and policy</strong>" in the "<strong class="passed_param">See also block</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="skipped_param">Enforcement and regulation</strong>" in the "<strong class="skipped_param">See also block</strong>" region</span>
+<span class="text">I should see "<strong class="passed_param">Enforcement and regulation</strong>" in the "<strong class="passed_param">See also block</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
 </li>
-<li class="skipped">
+<li class="passed">
 <div class="step">
 <span class="keyword">And </span>
 <span class="text">I logout</span>
@@ -7183,21 +7193,22 @@ So I can find links to interesting or helpful information<br />
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see an "<strong class="passed_param">#table-of-contents-links</strong>" element</span>
+<span class="text">I should see an "<strong class="failed_param">#table-of-contents-links</strong>" element</span>
+<span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertElementOnPage()</span>
+</div>
+<pre class="backtrace">Element matching css &quot;#table-of-contents-links&quot; not found.</pre>
+</li>
+<li class="skipped">
+<div class="step">
+<span class="keyword">And </span>
+<span class="text">I should see an "<strong class="skipped_param">.toc-node-numbers</strong>" element</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertElementOnPage()</span>
 </div>
 </li>
-<li class="passed">
-<div class="step">
-<span class="keyword">And </span>
-<span class="text">I should see an "<strong class="passed_param">.toc-node-numbers</strong>" element</span>
-<span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertElementOnPage()</span>
-</div>
-</li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
 <span class="text">I logout</span>
@@ -7230,91 +7241,92 @@ So I can find links to interesting or helpful information<br />
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::visit()</span>
 </div>
 </li>
-<li class="passed">
+<li class="failed">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see "<strong class="passed_param">Create General Page</strong>" in the "<strong class="passed_param">Page Title</strong>" region</span>
+<span class="text">I should see "<strong class="failed_param">Create General Page</strong>" in the "<strong class="failed_param">Page Title</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionText()</span>
 </div>
+<pre class="backtrace">No region &quot;Page Title&quot; found on the page http://stage.fsa.dev-1.siriusopensource.com/node/add/document-page.</pre>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-title</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-title</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-field-title-short-und-0-value</strong>" with "<strong class="passed_param">test</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-field-title-short-und-0-value</strong>" with "<strong class="skipped_param">test</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I check the box "<strong class="passed_param">N/A</strong>" in "<strong class="passed_param">edit-field-site-section-und</strong>"</span>
+<span class="text">I check the box "<strong class="skipped_param">N/A</strong>" in "<strong class="skipped_param">edit-field-site-section-und</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::iCheckOptionInBlock()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I click "<strong class="passed_param">Page sections</strong>"</span>
+<span class="text">I click "<strong class="skipped_param">Page sections</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I fill in "<strong class="passed_param">edit-field-fc-page-section-und-0-field-fc-section-heading-und-0-value</strong>" with "<strong class="passed_param">test section 1</strong>"</span>
+<span class="text">I fill in "<strong class="skipped_param">edit-field-fc-page-section-und-0-field-fc-section-heading-und-0-value</strong>" with "<strong class="skipped_param">test section 1</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::fillField()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I click "<strong class="passed_param">Table of contents</strong>"</span>
+<span class="text">I click "<strong class="skipped_param">Table of contents</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertClick()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I select "<strong class="passed_param">Bullets</strong>" from "<strong class="passed_param">edit-toc-node-style</strong>"</span>
+<span class="text">I select "<strong class="skipped_param">Bullets</strong>" from "<strong class="skipped_param">edit-toc-node-style</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::selectOption()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I press "<strong class="passed_param">edit-submit</strong>" in the "<strong class="passed_param">Submit</strong>" region</span>
+<span class="text">I press "<strong class="skipped_param">edit-submit</strong>" in the "<strong class="skipped_param">Submit</strong>" region</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertRegionPressButton()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">Then </span>
-<span class="text">I should see "<strong class="passed_param">General Page test has been created.</strong>"</span>
+<span class="text">I should see "<strong class="skipped_param">General Page test has been created.</strong>"</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertPageContainsText()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see an "<strong class="passed_param">#table-of-contents-links</strong>" element</span>
+<span class="text">I should see an "<strong class="skipped_param">#table-of-contents-links</strong>" element</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertElementOnPage()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
-<span class="text">I should see an "<strong class="passed_param">.toc-node-bullets</strong>" element</span>
+<span class="text">I should see an "<strong class="skipped_param">.toc-node-bullets</strong>" element</span>
 <span class="path">Drupal\DrupalExtension\Context\Tag1Context::assertElementOnPage()</span>
 </div>
 </li>
-<li class="passed">
+<li class="skipped">
 <div class="step">
 <span class="keyword">And </span>
 <span class="text">I logout</span>
@@ -7327,13 +7339,13 @@ So I can find links to interesting or helpful information<br />
 <div class="summary failed">
 <div class="counters">
 <p class="scenarios">
-95 scenarios (<strong class="passed">72 passed</strong>, <strong class="undefined">1 undefined</strong>, <strong class="failed">22 failed</strong>)
+95 scenarios (<strong class="passed">63 passed</strong>, <strong class="undefined">1 undefined</strong>, <strong class="failed">31 failed</strong>)
 </p>
 <p class="steps">
-803 steps (<strong class="passed">657 passed</strong>, <strong class="skipped">123 skipped</strong>, <strong class="undefined">1 undefined</strong>, <strong class="failed">22 failed</strong>)
+803 steps (<strong class="passed">599 passed</strong>, <strong class="skipped">172 skipped</strong>, <strong class="undefined">1 undefined</strong>, <strong class="failed">31 failed</strong>)
 </p>
 <p class="time">
-21m9.427s
+16m8.913s
 </p>
 </div>
 <div class="switchers">
