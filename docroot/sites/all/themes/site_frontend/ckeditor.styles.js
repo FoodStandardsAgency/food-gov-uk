@@ -15,15 +15,15 @@ if (typeof(CKEDITOR) !== 'undefined') {
       // These styles are already available in the "Format" drop-down list, so they are
       // not needed here by default. You may enable them to avoid placing the
       // "Format" drop-down list in the toolbar, maintaining the same features.
-      
+
 
       /* Inline Styles */
 			// { name: 'Text align: Left', element: 'p', attributes: { 'class': 'text-align-left' } },
+      { name: 'Section', element: 'h2', attributes: { 'class': 'inline-section-heading' } },
       { name: 'Guidance', element: 'div', attributes: { 'class': 'guidance' } },
       { name: 'Training', element: 'div', attributes: { 'class': 'training' } },
       { name: 'Science', element: 'div', attributes: { 'class': 'science moreInfo' } },
-      { name: 'Section', element: 'h2', attributes: { 'class': 'inline-section-heading' } },
- 
+
 
       /* Object Styles */
       // {
