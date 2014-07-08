@@ -37,6 +37,10 @@
 	}
 	.view-content {
 		clear: left;
+		/* hide empty h3 spacers */
+		h3 {
+			display: none;	// hide h3 outside rows
+		}
 		/* alphabet section headings */
 		h2 {
 			display: block;
@@ -47,38 +51,41 @@
 			color: #fff;
 			background: #5d9711;
 		}
-		/* category title */
-		h3,
-		h3.node__title {
-			font-size: 1.3em;
-			line-height: 1.5em;
-			margin-bottom: 0.5em;
-			padding: .3em 11px;
-			font-size: 1.4em;
-			font-weight: bold;
-			color: #333;
-			background: #f0f0f0;
-		}
-		/* contact content */
-		h4,
-		h4.node__title {
-			font-size:1.2em;
-			line-height: 1.5em;
-			margin-bottom: 0.5em;
-		}
-		p {
-			margin-bottom: 0.5em;
-		}
-		.field--name-field-phone-number,
-		.field--name-field-fax {
-			font-size: 1.2em;
-			line-height: 1.5em;
-			margin-bottom: 0.5em;
-		}
-		.node__content {
-			margin-bottom: 15px;
-			padding-left: 11px;
-			padding-right: 11px;
+		.views-row {
+			/* category title */
+			h3,
+			h3.node__title {
+				display: block;	// show h3 within rows
+				font-size: 1.2em;
+				line-height: 1.5em;
+				margin-bottom: 0.5em;
+				padding: .3em 11px;
+				font-size: 1.4em;
+				font-weight: bold;
+				color: #333;
+				background: #f0f0f0;
+			}
+			/* contact content */
+			h4,
+			h4.node__title {
+				font-size:1.2em;
+				line-height: 1.5em;
+				margin-bottom: 0.5em;
+			}
+			p {
+				margin-bottom: 0.5em;
+			}
+			.field--name-field-phone-number,
+			.field--name-field-fax {
+				font-size: 1.2em;
+				line-height: 1.5em;
+				margin-bottom: 0.5em;
+			}
+			.node__content {
+				margin-bottom: 15px;
+				padding-left: 11px;
+				padding-right: 11px;
+			}
 		}
 	}
 }
