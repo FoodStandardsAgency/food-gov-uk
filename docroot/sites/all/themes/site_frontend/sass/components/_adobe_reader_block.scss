@@ -19,13 +19,25 @@
 	  color: #5d9711;
 	  margin: 0 0 .5em 0;
 	}
+	img {
+		margin: 0;
+		border: none;
+	}
+	p {
+		margin-top: 0;
+		margin-bottom: 0.5em;
+	}
+	p.adobe-link {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
 }
 
 /*
 <p>You may need the free Acrobat Reader to view a pdf</p>
 <p class="adobe-link">
 <a href="http://get.adobe.com/reader/" target="_blank" title="Opens in a new window">
-<img src="/sites/all/themes/images/adobe-reader.gif" alt="Get Adobe Reader">
+<img src="/sites/all/themes/site_frontend/images/adobe-reader.gif" alt="Get Adobe Reader">
 </a>
 </p>
 */

@@ -1445,12 +1445,24 @@ h3.inline-section-heading {
     font-size: 1.5em;
     color: #5d9711;
     margin: 0 0 .5em 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_adobe_reader_block\.scss}line{font-family:\0000322}}
+  .adobe-reader-block img {
+    margin: 0;
+    border: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_adobe_reader_block\.scss}line{font-family:\0000326}}
+  .adobe-reader-block p {
+    margin-top: 0;
+    margin-bottom: 0.5em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_adobe_reader_block\.scss}line{font-family:\0000330}}
+  .adobe-reader-block p.adobe-link {
+    margin-top: 0;
+    margin-bottom: 0; }
 
 /*
 <p>You may need the free Acrobat Reader to view a pdf</p>
 <p class="adobe-link">
 <a href="http://get.adobe.com/reader/" target="_blank" title="Opens in a new window">
-<img src="/sites/all/themes/images/adobe-reader.gif" alt="Get Adobe Reader">
+<img src="/sites/all/themes/site_frontend/images/adobe-reader.gif" alt="Get Adobe Reader">
 </a>
 </p>
 */
