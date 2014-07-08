@@ -1,0 +1,34 @@
+/* contacts listing
+ * requires block class: contact-glossary
+ */
+
+.contact-glossary {
+	/* glossary alphabet a-z */
+	ul.contacts_alphabet {
+		padding-left: 0;
+		margin-left: 0;
+		margin-bottom: 1.2em;
+		li {
+			float: left;
+			list-style-type: none;
+			padding: 0 5px 5px 0;
+			font-size: 1.4em;
+				a {
+					display: block;
+					text-decoration: none;
+					color: #fff;
+					background: #5d9711;
+					font-weight: bold;
+					text-align: center;
+					min-width: 14px;
+					padding: 8px 8px;
+					-webkit-border-radius: 10px;
+					-moz-border-radius: 10px;
+					-ms-border-radius: 10px;
+					-o-border-radius: 10px;
+					border-radius: 10px;
+					line-height: 1.2em;
+				}
+		}
+	}
+}

@@ -2176,6 +2176,40 @@ ul.breadcrumb {
     line-height: 1.3em;
     font-weight: bold; }
 
+/* contacts listing
+ * requires block class: contact-glossary
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_contact_glossary\.scss}line{font-family:\000035}}
+.contact-glossary {
+  /* glossary alphabet a-z */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_contact_glossary\.scss}line{font-family:\000037}}
+  .contact-glossary ul.contacts_alphabet {
+    padding-left: 0;
+    margin-left: 0;
+    margin-bottom: 1.2em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_contact_glossary\.scss}line{font-family:\0000311}}
+    .contact-glossary ul.contacts_alphabet li {
+      float: left;
+      list-style-type: none;
+      padding: 0 5px 5px 0;
+      font-size: 1.4em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_contact_glossary\.scss}line{font-family:\0000316}}
+      .contact-glossary ul.contacts_alphabet li a {
+        display: block;
+        text-decoration: none;
+        color: #fff;
+        background: #5d9711;
+        font-weight: bold;
+        text-align: center;
+        min-width: 14px;
+        padding: 8px 8px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+        border-radius: 10px;
+        line-height: 1.2em; }
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_content_section\.scss}line{font-family:\000031}}
 .main-wrapper {
   border-bottom: 4px solid #68A82A; }
