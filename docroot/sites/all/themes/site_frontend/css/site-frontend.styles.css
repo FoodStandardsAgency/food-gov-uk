@@ -1424,6 +1424,36 @@ h3.inline-section-heading {
     #admin-menu li a {
       font-size: 1.2em; }
 
+/* adobe reader block
+ * requires block class: adobe-reader-block
+ * and requires specific markup - see blow commented out code
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_adobe_reader_block\.scss}line{font-family:\000036}}
+.adobe-reader-block {
+  overflow: hidden;
+  border: 1px solid #e8e8e8;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -o-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px;
+  background: #fff;
+  padding: 1em 11px 1em 11px;
+  /* we don't need a bock title, but we theme it just in case */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_adobe_reader_block\.scss}line{font-family:\0000317}}
+  .adobe-reader-block h2.block__title {
+    font-size: 1.5em;
+    color: #5d9711;
+    margin: 0 0 .5em 0; }
+
+/*
+<p>You may need the free Acrobat Reader to view a pdf</p>
+<p class="adobe-link">
+<a href="http://get.adobe.com/reader/" target="_blank" title="Opens in a new window">
+<img src="/sites/all/themes/images/adobe-reader.gif" alt="Get Adobe Reader">
+</a>
+</p>
+*/
 /**
  * Alert type field
  * In display settings, requires prefix: <p class="alert-type"><span class="alert-label">Type: </span> and suffix: </p>
