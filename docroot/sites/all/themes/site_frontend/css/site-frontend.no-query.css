@@ -4049,6 +4049,39 @@ p.job-line-item {
   display: none; }
 
 /* mobile layout show main menu mobile */
+/* meetings table
+ * requires block class: meetings-table
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_meetings_table\.scss}line{font-family:\000035}}
+.meetings-table table {
+  width: 100%;
+  margin-bottom: 20px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_meetings_table\.scss}line{font-family:\000038}}
+  .meetings-table table caption {
+    margin: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_meetings_table\.scss}line{font-family:\0000310}}
+    .meetings-table table caption h2, .meetings-table table caption h3 {
+      display: block;
+      margin: 0;
+      padding: 0.64em 11px;
+      font-size: 1.4em;
+      font-weight: bold;
+      color: #fff;
+      background: #5d9711;
+      overflow: hidden;
+      text-align: left; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_meetings_table\.scss}line{font-family:\0000322}}
+  .meetings-table table td {
+    padding-top: 0.75em;
+    padding-bottom: 0.75em;
+    width: 25%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_meetings_table\.scss}line{font-family:\0000327}}
+  .meetings-table table tr {
+    border-bottom: 1px solid #5d9711; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_meetings_table\.scss}line{font-family:\0000331}}
+.meetings-table .views-field-field-publication-date {
+  font-weight: bold; }
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_nation_banners\.scss}line{font-family:\000031}}
 .nation-banner-scotland {
   overflow: hidden;
