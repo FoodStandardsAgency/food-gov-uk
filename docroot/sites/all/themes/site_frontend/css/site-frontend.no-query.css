@@ -2240,14 +2240,14 @@ ul.breadcrumb {
         margin-bottom: 0.5em; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_contact_glossary\.scss}line{font-family:\0000383}}
       .contact-glossary .view-content .views-row .node__content {
-        margin-bottom: 15px;
+        margin-bottom: 8px;
         padding-left: 11px;
         padding-right: 11px;
         overflow: hidden; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_contact_glossary\.scss}line{font-family:\0000389}}
       .contact-glossary .view-content .views-row .node__content .node__content {
         padding: 0;
-        margin: 0; }
+        margin-bottom: 8px; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_content_section\.scss}line{font-family:\000031}}
 .main-wrapper {
