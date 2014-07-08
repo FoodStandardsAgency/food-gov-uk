@@ -76,6 +76,7 @@ a:hover,
 .committee-news h2.block__title, 
 .committee-news h3.block__title {
 	background: #c3c255;
+	color: #111;	/* changed from the default of #fff from contrats reasons */
 }
 
 /* committee news node title */
