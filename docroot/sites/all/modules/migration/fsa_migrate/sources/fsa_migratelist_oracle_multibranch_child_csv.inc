@@ -26,8 +26,6 @@ class FSAMigrateListOracleMultibranchChildFromCSV extends MigrateList {
   /**
    * SQL Query to get the related Objectids.
    * For Primary Link and GenericBranch.
-   * @TODO Only Generic branch at the moment.
-   * @TODO Remove parent id.
    *
    * @var string
    */
@@ -50,8 +48,6 @@ ENDSQL;
 
   /**
    * SQL Query to return the different object ids to be migrated.
-   * @TODO Only Generic branch at the moment.
-   * @TODO Remove parent id.
    *
    * @var string
    */
@@ -105,19 +101,11 @@ ENDSQL;
     // Gets the list of object ids from the CSV file.
     $objectList = FSAMigrateListBase::getIdListFromCSV($this->fileCSV);
 
-    // $objectsSortOrder = FSAMigrateListBase::objectListSortMethodUsed($objectList, $connectionOracle);
-
-    //         Sort order management.
+    // Sort order management.
     $sortorderArray = FSAMigrateListBase::objectsFieldidSortingOrder($objectList, $connectionOracle);
-
-    var_dump('sort order');
-    var_dump($sortorderArray);
 
     foreach ($objectList as $objectid) {
       $replacedQuery = str_replace(':obj_id', $objectid, $this->query);
-
-      var_dump('$replacedQuery');
-      var_dump($replacedQuery);
 
       // Query the oracle DB to get the child objects.
       // @TODO Pass a list of ids to oracleQueryAll instead of str_replace() directly in the request.

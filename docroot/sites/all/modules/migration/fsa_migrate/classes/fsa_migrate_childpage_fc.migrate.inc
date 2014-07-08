@@ -57,7 +57,6 @@ class FSAChildpageCollectionMigration extends FSAMigration {
     );
 
     // Migration source dependency.
-    // @TODO Solution when the source is not from FSADocumentpage. Try using an array inside sourceMigration.
     $this->addFieldMapping('host_entity_id', 'PARENTID')
       ->sourceMigration('FSADocumentpage');
 
@@ -65,7 +64,6 @@ class FSAChildpageCollectionMigration extends FSAMigration {
       ->defaultValue(t('More in this section'));
 
     // Fields mapping.
-    // @TODO Solution when the source is not from FSADocumentpage. Try using an array inside sourceMigration.
     $this->addFieldMapping('field_child_page', 'OBJECTIDS')
       ->separator(',')
       ->sourceMigration('FSADocumentpage');
