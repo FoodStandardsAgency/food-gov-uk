@@ -68,6 +68,10 @@ function fsa_migrate_migrate_api() {
         'class_name' => 'FSAChildpageCollectionMigration',
         'group_name' => 'fsa_fc',
       ),
+      'FSAMultibranchCollectionChild' => array(
+        'class_name' => 'FSAMultibranchCollectionChildMigration',
+        'group_name' => 'fsa_fc',
+      ),
     )
   );
 

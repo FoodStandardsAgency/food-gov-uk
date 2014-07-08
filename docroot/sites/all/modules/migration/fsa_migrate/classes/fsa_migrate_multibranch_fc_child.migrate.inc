@@ -2,14 +2,14 @@
 
 /**
  * @file
- * Field collection for child page migration class.
+ * Field collection for Multi branch child page migration class.
  */
 
 /**
- * Class FSAChildpageCollectionMigration
- * Migration class for the FSA child page field collection.
+ * Class FSAMultibranchCollectionChildMigration
+ * Migration class for the FSA Multi branch child page field collection.
  */
-class FSAChildpageCollectionMigration extends FSAMigration {
+class FSAMultibranchCollectionChildMigration extends FSAMigration {
 
   /**
    * Class constructor.
@@ -22,13 +22,13 @@ class FSAChildpageCollectionMigration extends FSAMigration {
 
     // We need all the content types available for that field to be available.
     // @TODO Add the other possible content types related.
-    $this->dependencies = array('FSADocumentpage');
+    $this->dependencies = array('FSAMultibranchDocument', 'FSAMultibranchCollection', 'FSADocumentpage');
 
     // Map the source id.
     $this->map = new MigrateSQLMap(
       $this->machineName,
       array(
-        'PARENTID' => array(
+        'OBJECTID' => array(
           'type' => 'int',
           'unsigned' => TRUE,
           'not null' => TRUE,
@@ -40,14 +40,16 @@ class FSAChildpageCollectionMigration extends FSAMigration {
 
     // Oracle fields from sql request or generated.
     $fields = array(
-      'PARENTID' => t('Object id'),
+      'OBJECTID' => t('Object id'),
+      'PARENTID' => t('Original data id to link the field collection to.'),
+      'NAME' => t('Title of the field collection item'),
       'OBJECTIDS' => t('Child pages ids'),
     );
 
     // Configure the source of the migration.
     $this->source = new MigrateSourceList(
-      new FSAMigrateListOracleChildObjectsFromCSV('data/csv/dev-alterian-id-list.csv'),
-      new FSAMigrateItemChildOracleObject()
+      new FSAMigrateListOracleMultibranchChildFromCSV('data/csv/multibranch-alterian-id-list.csv'),
+      new FSAMigrateItemMultibranchChildOracleObject()
     );
 
     // Destination detail.
@@ -59,13 +61,11 @@ class FSAChildpageCollectionMigration extends FSAMigration {
     // Migration source dependency.
     // @TODO Solution when the source is not from FSADocumentpage. Try using an array inside sourceMigration.
     $this->addFieldMapping('host_entity_id', 'PARENTID')
-      ->sourceMigration('FSADocumentpage');
+      ->sourceMigration('FSAMultibranchDocument');
 
-    $this->addFieldMapping('field_fc_section_heading')
-      ->defaultValue(t('More in this section'));
+    $this->addFieldMapping('field_fc_section_heading', 'NAME');
 
     // Fields mapping.
-    // @TODO Solution when the source is not from FSADocumentpage. Try using an array inside sourceMigration.
     $this->addFieldMapping('field_child_page', 'OBJECTIDS')
       ->separator(',')
       ->sourceMigration('FSADocumentpage');
