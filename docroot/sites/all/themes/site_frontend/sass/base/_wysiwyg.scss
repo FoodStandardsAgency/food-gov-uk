@@ -2,7 +2,6 @@
 
 /* highlighted content - guidance - ckeditor style */
 .guidance {
-	clear: both;	// prevent issues with floated images
 	display: block;
 	background: #F0F4E5;
 	border: 1px solid #5D9711;
@@ -27,7 +26,6 @@
 
 /* highlighted content - training - ckeditor style */
 .training {
-	clear: both;	// prevent issues with floated images
 	display: block;
 	background: #f6fcff;
 	border: 1px solid #007FB2;
@@ -53,7 +51,6 @@
 /* highlighted content - science - ckeditor style - for science field style, see components/_science_field.scss */
 .science,
 .moreInfo {
-	clear: both;	// prevent issues with floated images
 	display: block;
 	background: #fff;
 	border: 1px solid #5d9711;
@@ -93,7 +90,6 @@
 .inline-section-heading,
 h2.inline-section-heading,
 h3.inline-section-heading {
-	clear: both;	// prevent issues with floated images
 	display: block;
 	margin: 0 0 1em 0;
 	padding: .3em 11px;
@@ -110,7 +106,6 @@ h3.inline-section-heading {
 .field--type-text-with-summary,
 .field--type-text-long {	
 	table {
-		clear: both;	// prevent issues with floated images
 		margin: 0 0 1.3em 0;
 	  width: 100%;
 	  border-collapse: collapse;
