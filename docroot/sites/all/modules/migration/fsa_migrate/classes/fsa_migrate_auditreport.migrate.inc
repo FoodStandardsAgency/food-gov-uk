@@ -76,6 +76,7 @@ ENDSQL;
       'Reports' => t('Report TID taxonomy term reference'),
       'Regions' => t('Region TID taxonomy term reference'),
       'Authority types' => t('Authority types value'),
+      'simplename' => t('short url fragment'),
     );
 
     // Configure the source of the migration.
@@ -112,7 +113,7 @@ ENDSQL;
       ->defaultValue(TRUE);
 
     $this->addFieldMapping('field_path', 'title');
-    $this->addFieldMapping('field_path:machine', 'PATH')
+    $this->addFieldMapping('field_path:machine', 'simplename') #todo change this to use  simple-name (was PATH)
       ->callbacks(array($this, 'pathFormatter'));
 
     // Table of content module settings migration.
@@ -136,6 +137,10 @@ ENDSQL;
     $this->addFieldMapping('field_audit_authority_type', 'Authority types');
 
     $this->addFieldMapping('field_audit_authority', 'AUTHORITY');
+    // migrate redirects
+    $this->addFieldMapping('migrate_redirects', 'PATH')
+      ->defaultValue('MigrateRedirectEntity');
+
   }
 
   /**
@@ -154,7 +159,7 @@ ENDSQL;
         ),
         $connectionOracle,
         // You can add extra fields to extract from the field table here.
-        array('title', 'summary', 'backtotop', 'showLastUpdated', 'pubdate', 'indexed')
+        array('title', 'summary', 'backtotop', 'showLastUpdated', 'pubdate', 'indexed', 'simplename')
       );
 
       foreach ($fields_res_array as $fieldVariable => $fieldValue) {
