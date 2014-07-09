@@ -6,8 +6,8 @@
  */
 
 /**
- * Class FSAUberpageCollectionMigration
- * Migration class for the FSA Document page.
+ * Class FSAAuditReportCollectionMigration
+ * Migration class for the FSA Audit report collection.
  */
 class FSAAuditReportCollectionMigration extends FSAMigration {
 
