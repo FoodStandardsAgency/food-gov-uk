@@ -99,6 +99,9 @@ class FSANewsDocumentCollectionMigration extends FSAMigration {
 
     $this->addFieldMapping('field_fc_image_position', 'IMAGEPOSITION')
       ->callbacks(array($this, 'imagePositionValue'));
+
+    // Science text field.
+    $this->addFieldMapping('field_science_data', 'scienceTextItem');
   }
 
   /**
