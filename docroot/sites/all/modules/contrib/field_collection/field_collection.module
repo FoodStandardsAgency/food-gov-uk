@@ -572,6 +572,10 @@ class FieldCollectionItemEntity extends Entity {
    * Deletes the field collection item and the reference in the host entity.
    */
   public function delete() {
+    if(isset($this->field_fc_related_items)) {
+      unset($this->field_fc_related_items);
+    }
+
     parent::delete();
     $this->deleteHostEntityReference();
   }
