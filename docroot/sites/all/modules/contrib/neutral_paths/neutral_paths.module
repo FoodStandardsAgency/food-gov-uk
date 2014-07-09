@@ -154,6 +154,30 @@ function neutral_paths_admin_submit($form, &$form_state) {
 }
 
 /*********************************************
+ *  Implements hook_form_node_form_alter
+ *  Path.inc cannot cope with language neutral paths if node language is set
+ *  In order for this to work, path module must have already processed the node.
+ */
+
+function neutral_paths_form_node_form_alter(&$form, $form_state) {
+  $langcode = entity_language('node', $form['#node']);
+  // if the language code is not UND, and we don't have a path, we should check for a neutral path
+  if ($langcode != LANGUAGE_NONE && isset($form['path']) && $form['path']['alias']['#default_value'] == '') {
+    $path = array();
+    if (!empty($form['#node']->nid)) {
+      $conditions = array('source' => 'node/' . $form['#node']->nid, 'language' => LANGUAGE_NONE);
+      $path = path_load($conditions);
+      if ($path) {
+        $form['path']['alias']['#default_value'] = $path['alias'];
+        $form['path']['#collapsed'] = empty($path['alias']);
+        $form['path']['pid'] = array('#type' => 'value', '#value' => $path['pid']);
+        $form['path']['source'] = array('#type' => 'value', '#value' => $path['source']);
+        $form['path']['language'] = array('#type' => 'value', '#value' => $path['language']);
+      }
+    }
+  }
+}
+/*********************************************
  * Resetting newly created and updated aliases
  */
 
