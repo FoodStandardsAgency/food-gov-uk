@@ -113,6 +113,7 @@ ENDSQL;
       ->defaultValue(TRUE);
 
     $this->addFieldMapping('field_path', 'title');
+    $this->addFieldMapping('field_title_short', 'title');
     $this->addFieldMapping('field_path:machine', 'simplename') #todo change this to use  simple-name (was PATH)
       ->callbacks(array($this, 'pathFormatter'));
 
