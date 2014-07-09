@@ -6174,6 +6174,7 @@ ul.toc-node-bullets li.toc-node-level-6 {
     margin-bottom: 0.6em; } }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_quote\.scss}line{font-family:\000031}}
 .field--name-field-fc-section-quote {
+  clear: both;
   overflow: hidden;
   width: 220px;
   float: right;
@@ -6189,11 +6190,11 @@ ul.toc-node-bullets li.toc-node-level-6 {
   background-color: #eef4e7;
   color: #5d9711;
   overflow: hidden; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_quote\.scss}line{font-family:\0000317}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_quote\.scss}line{font-family:\0000318}}
   .field--name-field-fc-section-quote p {
     margin-bottom: 0px;
     font-size: 1em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_quote\.scss}line{font-family:\0000321}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_quote\.scss}line{font-family:\0000322}}
   .field--name-field-fc-section-quote .field__items {
     background-image: url("../images/quote-top-left.gif");
     background-repeat: no-repeat;
@@ -6202,7 +6203,7 @@ ul.toc-node-bullets li.toc-node-level-6 {
     margin-top: 11px;
     padding-left: 36px;
     overflow: hidden; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_quote\.scss}line{font-family:\0000329}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_quote\.scss}line{font-family:\0000330}}
     .field--name-field-fc-section-quote .field__items .field__item {
       padding-top: 6px;
       padding-right: 12px;
