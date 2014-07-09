@@ -1,5 +1,6 @@
 /* science field - note wysiwyg also has a science style - for that implementation see base/_wysiwyg.scss */
 .field--name-field-science-data {
+	clear: both;	// prevent issues with floated images
 	display: block;
 	background: #fff;
 	border: 1px solid #5d9711;
