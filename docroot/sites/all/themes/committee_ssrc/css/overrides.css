@@ -1,8 +1,8 @@
 /* color style guide:
- * colour 1: #3a3a9b	- header background
- * colour 2: #5d5ead	- featured side content block background
- * colour 3: #7f81c4	- section heading background, headere and footer border
- * colour 4: #666699	- links, sidebar menu top border, page titles, section subheadings, page summary, quote text, views row borders, table headings, guidance highlight box border
+ * colour 1: #a9a70c	- header background
+ * colour 2: #183867	- featured side content block background
+ * colour 3: #c3c255	- section heading background, headere and footer border
+ * colour 4: #1c4279	- links, sidebar menu top border, page titles, section subheadings, page summary, quote text, views row borders, table headings, guidance highlight box border
  */
 
 /* page header and top border */
@@ -10,8 +10,8 @@
 	filter: none;	/* removes IE gradient filter */
 	background: none;
 	background-image: none;
-	border-bottom: 3px solid #7f81c4;
-	background-color: #3a3a9b;
+	border-bottom: 3px solid #c3c255;
+	background-color: #a9a70c;
 }
 
 /* breadcrumb region border */
@@ -21,7 +21,7 @@
 
 /* page bottom borders */
 .main-wrapper {
-	border-bottom: 4px solid #7f81c4;
+	border-bottom: 4px solid #c3c255;
 }
 .bottom-menu-wrapper {
 	border-top: none;
@@ -34,7 +34,7 @@ h1.site-name {
 
 /* page title */
 h1 {
-	color: #666699;
+	color: #1c4279;
 }
 
 /* content main */
@@ -45,41 +45,43 @@ h1 {
 /* links */
 a,
 .page-section-teaser .node__title a {
-	color: #666699;
+	color: #1c4279;
 }
 a:hover,
 .page-section-teaser .node__title a:hover {
-	color: #666699;
+	color: #1c4279;
 }
 
 /* back to top links */
 .section-back-top a {
-	color: #666699;
+	color: #1c4279;
 	background: url("../images/arrow-up.png") left 4px no-repeat;
 }
 
 /* summary field */
 .field--name-field-summary,
 .views-field-field-summary {
-	color: #666699;
+	color: #1c4279;
 }
 
 
 /* section headings */
 .page-section-heading {
-	background: #7f81c4;
+	background: #c3c255;
+	color: #111;	/* changed from the default of #fff from contrats reasons */
 }
 
 
 /* latest news view title */
 .committee-news h2.block__title, 
 .committee-news h3.block__title {
-	background: #7f81c4;
+	background: #c3c255;
+	color: #111;	/* changed from the default of #fff from contrats reasons */
 }
 
 /* committee news node title */
 .committee-news .node__title a {
-	color: #666699;
+	color: #1c4279;
 }
 .committee-news {
 	font-size: 1em;
@@ -93,7 +95,7 @@ a:hover,
 	font-weight: bold;
 }
 .committee-news .views-row {
-	border-bottom: 1px solid #666699;
+	border-bottom: 1px solid #1c4279;
 	padding: 7px 0 7px 0;
 }
 .committee-news .views-row.views-row-first {
@@ -110,30 +112,30 @@ a:hover,
 
 /* committee menu - see site front_frontent theme for the rest of the implementation */
 .l-sidebar-first .committee-menu {
-	border-top: 4px solid #666699;
+	border-top: 4px solid #1c4279;
 }
 .l-sidebar-first .committee-menu .menu-block-wrapper a.active,
 .l-sidebar-first .committee-menu .block__content a.active {
-    color: #666699;
+    color: #1c4279;
 }
 .l-sidebar-first .committee-menu .menu-block-wrapper li.expanded > a,
 .l-sidebar-first .committee-menu .block__content li.expanded > a {
-    color: #666699;
+    color: #1c4279;
 }
 
 /* pages section subheadings eg related media */
 .page-section-subheading {
-	color: #666699;
+	color: #1c4279;
 }
 
 /* file item links in page sections */
 .page-section-teaser .file-item a {
-	color: #666699;
+	color: #1c4279;
 }
 
 /* table of contents */
 #table-of-contents-links a {
-	color: #666699;
+	color: #1c4279;
 }
 ul.toc-node-bullets li.toc-node-level-1 {
 	background: url("../images/arrow-down.png") 0px 4px no-repeat;	
@@ -156,26 +158,26 @@ ul.toc-node-bullets li.toc-node-level-6 {
 
 /* generic block titles */
 .generic-blocks .field--name-field-title-side-content-generic {
-	color: #666699;
+	color: #1c4279;
 }
 
 /* see also block */
 .see-also h2.block__title {
-	color: #666699;
+	color: #1c4279;
 }
 .see-also .views-field-title {
 	background: url("../images/thin-right-arrow.png") left 3px no-repeat;
 }
 .see-also .views-field-title a {
-	color: #666699;
+	color: #1c4279;
 }
 
 /* external links block */
 .external-sites h2.block__title {
-	color: #666699;
+	color: #1c4279;
 }
 .external-sites .views-field-field-url a {
-	color: #666699;
+	color: #1c4279;
 }
 .external-sites .views-field-field-url {
 	background: url("../images/thin-right-arrow.png") left 3px no-repeat;
@@ -183,7 +185,7 @@ ul.toc-node-bullets li.toc-node-level-6 {
 
 /* external sites with logos */
 .external-sites-with-logos .views-field-field-url a {
-	color: #666699;
+	color: #1c4279;
 }
 .external-sites-with-logos .views-field-field-url {
 	background: url("../images/thin-right-arrow.png") left 3px no-repeat;
@@ -203,7 +205,7 @@ span.ext {
 .field--name-field-fc-section-body table, 
 .field--name-body .field--type-text-with-summary table, 
 .field--type-text-long table {
-	border-top: 1px solid #666699;
+	border-top: 1px solid #1c4279;
 }
 
 .field--name-field-fc-section-body th, 
@@ -221,7 +223,7 @@ span.ext {
 .field--type-text-long thead td, 
 .field--type-text-long tfoot th, 
 .field--type-text-long tfoot td {
-	color: #666699; 
+	color: #1c4279; 
 }
 
 /* guidance highlight box */
@@ -229,13 +231,13 @@ span.ext {
 .field--name-body .field--type-text-with-summary .guidance, 
 .field--type-text-long .guidance {
 	background: #f2f2f2; 
-	border: 1px solid #666699;
+	border: 1px solid #1c4279;
 }
 
 /* search results */
 .current-search-item-text .search-results-heading, 
 .current-search-item-text h2.search-results-heading {
-	background: #666699; 
+	background: #1c4279; 
 }
 .views-field-zs-view-mode-search-result a,
 .views-field-zs-view-mode-search-results-2 a,
@@ -247,7 +249,7 @@ span.ext {
 .views-field-zs-view-mode-search-results-8 a,
 .views-field-zs-view-mode-search-results-9 a,
 .views-field-zs-view-mode-search-results-10 a {
-	color: #666699;
+	color: #1c4279;
 }
 .views-field-zs-view-mode-search-result,
 .views-field-zs-view-mode-search-results-2,
@@ -259,12 +261,12 @@ span.ext {
 .views-field-zs-view-mode-search-results-8,
 .views-field-zs-view-mode-search-results-9,
 .views-field-zs-view-mode-search-results-10 {
-	border-bottom: 1px solid #666699;
+	border-bottom: 1px solid #1c4279;
 }
 
 /* pager - pagenator */
 ul.pager li a {
-	color: #666699;
+	color: #1c4279;
 }
 
 /* legacy CSS for tables from original old cot site */
@@ -288,10 +290,10 @@ ul.pager li a {
 .foodbase-links h2.block__title, 
 .foodbase-links h3.block__title, 
 .foodbase-links .block__title {
-	color: #666699;
+	color: #1c4279;
 }
 .foodbase-links .views-field-field-url a {
-	color: #666699;
+	color: #1c4279;
 }
 .foodbase-links .views-field-field-url {
 	background: url("../images/thin-right-arrow.png") left 3px no-repeat;
@@ -300,7 +302,7 @@ ul.pager li a {
 /* quote box in page sections */
 .field--name-field-fc-section-quote {
 	background-color: #eaeaea;
-	color: #666699;
+	color: #1c4279;
 }
 .field--name-field-fc-section-quote .field__items {
 	background-image: url("../images/quote-top-left.png");
@@ -315,41 +317,42 @@ ul.pager li a {
 
 /* featured side content blocks - first block */
 .featured-side-content li:first-child .field-collection-view {
-	border: 1px solid #5d5ead;
-	background: #5d5ead;
+	border: 1px solid #183867;
+	background: #183867;
 }
 /* featured side content blocks - second block internal content title */
 .featured-side-content .field--name-field-title-side-content-generic {
-	color: #5d5ead;
+	color: #183867;
 }
 
 /* science field  */
 .field--name-field-science-data h2,
 .field--name-field-science-data h3,
 .field--name-field-science-data .field__label {
-	color: #666699;
+	color: #1c4279;
 }
 .field--name-field-science-data {
-	border: 1px solid #666699;
+	border: 1px solid #1c4279;
 }
 
 /* science inline class applied using ckeditor */
 .science, 
 .moreInfo {
-	border: 1px solid #666699;
+	border: 1px solid #1c4279;
 }
 .science h2, 
 .science h3,
 .moreInfo h2,
 .moreInfo h3 {
-	color: #666699;
+	color: #1c4279;
 }
 
 /* inline section heading applied using ckeditor */
 .inline-section-heading, 
 h2.inline-section-heading, 
 h3.inline-section-heading {
-	background: #7f81c4;
+	background: #c3c255;
+	color: #111;	/* changed from the default of #fff from contrats reasons */
 }
 
 

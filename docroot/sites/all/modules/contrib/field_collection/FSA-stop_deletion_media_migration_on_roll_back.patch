@@ -1,0 +1,25 @@
+diff --git a/docroot/sites/all/modules/contrib/field_collection/field_collection.info b/docroot/sites/all/modules/contrib/field_collection/field_collection.info
+index b5430fa..4ed5ee8 100644
+--- a/docroot/sites/all/modules/contrib/field_collection/field_collection.info
++++ b/docroot/sites/all/modules/contrib/field_collection/field_collection.info
+@@ -1,4 +1,4 @@
+-name = Field collection
++name = Field collection - PATCHED
+ description = Provides a field collection field, to which any number of fields can be attached.
+ core = 7.x
+ dependencies[] = entity
+diff --git a/docroot/sites/all/modules/contrib/field_collection/field_collection.module b/docroot/sites/all/modules/contrib/field_collection/field_collection.module
+index e200d16..3e46e76 100644
+--- a/docroot/sites/all/modules/contrib/field_collection/field_collection.module
++++ b/docroot/sites/all/modules/contrib/field_collection/field_collection.module
+@@ -572,6 +572,10 @@ class FieldCollectionItemEntity extends Entity {
+    * Deletes the field collection item and the reference in the host entity.
+    */
+   public function delete() {
++    if(isset($this->field_fc_related_items)) {
++      unset($this->field_fc_related_items);
++    }
++
+     parent::delete();
+     $this->deleteHostEntityReference();
+   }

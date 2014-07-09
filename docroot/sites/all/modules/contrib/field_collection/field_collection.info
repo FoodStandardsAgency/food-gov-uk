@@ -1,4 +1,4 @@
-name = Field collection
+name = Field collection - PATCHED
 description = Provides a field collection field, to which any number of fields can be attached.
 core = 7.x
 dependencies[] = entity

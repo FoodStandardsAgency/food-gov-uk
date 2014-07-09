@@ -1406,6 +1406,48 @@ h3.inline-section-heading {
     #admin-menu li a {
       font-size: 1.2em; }
 
+/* adobe reader block
+ * requires block class: adobe-reader-block
+ * and requires specific markup - see blow commented out code
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_adobe_reader_block\.scss}line{font-family:\000036}}
+.adobe-reader-block {
+  overflow: hidden;
+  border: 1px solid #e8e8e8;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -o-border-radius: 10px;
+  -ms-border-radius: 10px;
+  border-radius: 10px;
+  background: #fff;
+  padding: 1em 11px 1em 11px;
+  /* we don't need a bock title, but we theme it just in case */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_adobe_reader_block\.scss}line{font-family:\0000317}}
+  .adobe-reader-block h2.block__title {
+    font-size: 1.5em;
+    color: #5d9711;
+    margin: 0 0 .5em 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_adobe_reader_block\.scss}line{font-family:\0000322}}
+  .adobe-reader-block img {
+    margin: 0;
+    border: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_adobe_reader_block\.scss}line{font-family:\0000326}}
+  .adobe-reader-block p {
+    margin-top: 0;
+    margin-bottom: 0.5em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_adobe_reader_block\.scss}line{font-family:\0000330}}
+  .adobe-reader-block p.adobe-link {
+    margin-top: 0;
+    margin-bottom: 0; }
+
+/*
+<p>You may need the free Acrobat Reader to view a pdf</p>
+<p class="adobe-link">
+<a href="http://get.adobe.com/reader/" target="_blank" title="Opens in a new window">
+<img src="/sites/all/themes/site_frontend/images/adobe-reader.gif" alt="Get Adobe Reader">
+</a>
+</p>
+*/
 /**
  * Alert type field
  * In display settings, requires prefix: <p class="alert-type"><span class="alert-label">Type: </span> and suffix: </p>
@@ -2111,6 +2153,101 @@ ul.breadcrumb {
     font-size: 1.4em;
     line-height: 1.3em;
     font-weight: bold; }
+
+/* contacts listing
+ * requires block class: contact-glossary
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_contact_glossary\.scss}line{font-family:\000035}}
+.contact-glossary {
+  /* glossary alphabet a-z */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_contact_glossary\.scss}line{font-family:\000037}}
+  .contact-glossary ul.contacts_alphabet {
+    padding-left: 0;
+    margin-left: 0;
+    margin-bottom: 1.2em;
+    overflow: hidden; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_contact_glossary\.scss}line{font-family:\0000312}}
+    .contact-glossary ul.contacts_alphabet li {
+      float: left;
+      list-style-type: none;
+      padding: 0 5px 5px 0;
+      font-size: 1.4em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_contact_glossary\.scss}line{font-family:\0000317}}
+      .contact-glossary ul.contacts_alphabet li a {
+        display: block;
+        text-decoration: none;
+        color: #fff;
+        background: #5d9711;
+        font-weight: bold;
+        text-align: center;
+        min-width: 2.1em;
+        padding: 8px 8px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+        border-radius: 10px;
+        line-height: 1.2em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_contact_glossary\.scss}line{font-family:\0000333}}
+      .contact-glossary ul.contacts_alphabet li a:hover {
+        text-decoration: underline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_contact_glossary\.scss}line{font-family:\0000338}}
+  .contact-glossary .view-content {
+    clear: left;
+    /* hide empty h3 spacers */
+    /* alphabet section headings */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_contact_glossary\.scss}line{font-family:\0000341}}
+    .contact-glossary .view-content h3 {
+      display: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_contact_glossary\.scss}line{font-family:\0000345}}
+    .contact-glossary .view-content h2 {
+      display: block;
+      margin: 0 0 1em 0;
+      padding: .3em 11px;
+      font-size: 1.4em;
+      font-weight: bold;
+      color: #fff;
+      background: #5d9711; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_contact_glossary\.scss}line{font-family:\0000354}}
+    .contact-glossary .view-content .views-row {
+      /* category title */
+      /* contact content */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_contact_glossary\.scss}line{font-family:\0000357}}
+      .contact-glossary .view-content .views-row h3,
+      .contact-glossary .view-content .views-row h3.node__title {
+        display: block;
+        font-size: 1.2em;
+        line-height: 1.5em;
+        margin-bottom: 0.5em;
+        padding: .3em 11px;
+        font-weight: bold;
+        color: #333;
+        background: #f0f0f0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_contact_glossary\.scss}line{font-family:\0000369}}
+      .contact-glossary .view-content .views-row h4,
+      .contact-glossary .view-content .views-row h4.node__title {
+        font-size: 1.2em;
+        line-height: 1.5em;
+        margin-bottom: 0.5em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_contact_glossary\.scss}line{font-family:\0000374}}
+      .contact-glossary .view-content .views-row p {
+        margin-bottom: 0.5em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_contact_glossary\.scss}line{font-family:\0000378}}
+      .contact-glossary .view-content .views-row .field--name-field-phone-number,
+      .contact-glossary .view-content .views-row .field--name-field-fax {
+        font-size: 1.2em;
+        line-height: 1.5em;
+        margin-bottom: 0.5em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_contact_glossary\.scss}line{font-family:\0000383}}
+      .contact-glossary .view-content .views-row .node__content {
+        margin-bottom: 8px;
+        padding-left: 11px;
+        padding-right: 11px;
+        overflow: hidden; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_contact_glossary\.scss}line{font-family:\0000389}}
+      .contact-glossary .view-content .views-row .node__content .node__content {
+        padding: 0;
+        margin-bottom: 8px; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_content_section\.scss}line{font-family:\000031}}
 .main-wrapper {
@@ -4049,6 +4186,39 @@ p.job-line-item {
   display: none; }
 
 /* mobile layout show main menu mobile */
+/* meetings table
+ * requires block class: meetings-table
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_meetings_table\.scss}line{font-family:\000035}}
+.meetings-table table {
+  width: 100%;
+  margin-bottom: 20px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_meetings_table\.scss}line{font-family:\000038}}
+  .meetings-table table caption {
+    margin: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_meetings_table\.scss}line{font-family:\0000310}}
+    .meetings-table table caption h2, .meetings-table table caption h3 {
+      display: block;
+      margin: 0;
+      padding: 0.64em 11px;
+      font-size: 1.4em;
+      font-weight: bold;
+      color: #fff;
+      background: #5d9711;
+      overflow: hidden;
+      text-align: left; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_meetings_table\.scss}line{font-family:\0000322}}
+  .meetings-table table td {
+    padding-top: 0.75em;
+    padding-bottom: 0.75em;
+    width: 25%; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_meetings_table\.scss}line{font-family:\0000327}}
+  .meetings-table table tr {
+    border-bottom: 1px solid #5d9711; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_meetings_table\.scss}line{font-family:\0000331}}
+.meetings-table .views-field-field-publication-date {
+  font-weight: bold; }
+
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_nation_banners\.scss}line{font-family:\000031}}
 .nation-banner-scotland {
   overflow: hidden;

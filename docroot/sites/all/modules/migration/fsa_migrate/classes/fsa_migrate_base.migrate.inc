@@ -96,7 +96,6 @@ ENDSQL;
       ),
     );
 
-
   /**
    * Queries the oracle database.
    *

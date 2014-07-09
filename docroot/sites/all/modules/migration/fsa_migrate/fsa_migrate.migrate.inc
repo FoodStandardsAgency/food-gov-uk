@@ -40,6 +40,10 @@ function fsa_migrate_migrate_api() {
         'class_name' => 'FSAAuditReportMigration',
         'group_name' => 'fsa_types',
       ),
+      'FSANewsDocument' => array(
+        'class_name' => 'FSANewsDocumentMigration',
+        'group_name' => 'fsa_types',
+      ),
       'FSAMultibranchDocument' => array(
         'class_name' => 'FSAMultibranchDocumentMigration',
         'group_name' => 'fsa_types',
@@ -60,12 +64,20 @@ function fsa_migrate_migrate_api() {
         'class_name' => 'FSADocumentpageCollectionMigration',
         'group_name' => 'fsa_fc',
       ),
+      'FSANewsDocumentCollection' => array(
+        'class_name' => 'FSANewsDocumentCollectionMigration',
+        'group_name' => 'fsa_fc',
+      ),
       'FSAMultibranchCollection' => array(
         'class_name' => 'FSAMultibranchCollectionMigration',
         'group_name' => 'fsa_fc',
       ),
       'FSAChildpageCollection' => array(
         'class_name' => 'FSAChildpageCollectionMigration',
+        'group_name' => 'fsa_fc',
+      ),
+      'FSAMultibranchCollectionChild' => array(
+        'class_name' => 'FSAMultibranchCollectionChildMigration',
         'group_name' => 'fsa_fc',
       ),
     )
