@@ -356,9 +356,15 @@ h3.inline-section-heading {
 }
 
 
-
-
-
+/* meetings table - meetings listing */
+.meetings-table table caption h2, 
+.meetings-table table caption h3 {
+  background: #c3c255;
+	color: #111;	/* changed from the default of #fff from contrats reasons */
+}
+.meetings-table table tr {
+  border-bottom: 1px solid #1c4279; 
+}
 
 
 
