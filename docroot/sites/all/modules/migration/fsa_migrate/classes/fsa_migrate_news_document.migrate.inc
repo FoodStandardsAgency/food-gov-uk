@@ -126,7 +126,7 @@ class FSANewsDocumentMigration extends FSAMigration {
       ->defaultValue(TRUE);
 
     $this->addFieldMapping('field_path', 'title');
-    $this->addFieldMapping('field_path:machine', 'PATH')
+    $this->addFieldMapping('field_path:machine', 'simplename')
       ->callbacks(array($this, 'pathFormatter'));
 
     // Table of content module settings migration.
@@ -141,6 +141,10 @@ class FSANewsDocumentMigration extends FSAMigration {
     // Section affiliation management.
     $this->addFieldMapping('field_site_section', 'site_section')
       ->defaultValue('N/A');
+
+    $this->addFieldMapping('migrate_redirects', 'PATH')
+      ->defaultValue('MigrateRedirectEntity');
+
   }
 
   /**
