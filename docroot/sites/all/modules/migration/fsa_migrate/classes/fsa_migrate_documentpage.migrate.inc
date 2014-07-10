@@ -87,7 +87,8 @@ class FSADocumentpageMigration extends FSAMigration {
     // for now, we want the path set so that we can build redirects
     $this->addFieldMapping('pathauto')
       ->defaultValue(0);
-    $this->addFieldMapping('path', 'PATH');
+    $this->addFieldMapping('path', 'PATH')
+      ->callbacks(array($this, 'pathFormatter'));
 
 
     // Table of content module settings migration.
