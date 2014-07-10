@@ -85,7 +85,8 @@ class FSADocumentpageMigration extends FSAMigration {
 
     // we will rebuild the path later when we build the menu
     // for now, we want the path set so that we can build redirects
-    $this->addFieldMapping('pathauto', 0);
+    $this->addFieldMapping('pathauto')
+      ->defaultValue(0);
     $this->addFieldMapping('path', 'PATH');
 
 
