@@ -30,6 +30,9 @@ function theme_local_superfish_build($variables) {
   $output = theme_superfish_build($variables);
   return $output;
 }
+function local_form_alter(&$form, &$form_state, $form_id){
+  $id = $form_id;
+}
 
 /**
  * Quick form alter to give the search forms their own unique submit button ids that do not clash with the overlay

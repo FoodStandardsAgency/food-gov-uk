@@ -18,7 +18,7 @@ class FSANewsDocumentMigration extends FSAMigration {
    * @var array
    */
   protected $newsTypeRefArray = array(
-    'Product withdrawal' => 'General News',
+    'Product withdrawal' => 'Product widthdrawal',
     'Product recall' => 'Product recall',
     'Allergy alert' => 'Allergy Alert',
     'Food alert for action' => 'Food Alert',
@@ -37,8 +37,9 @@ class FSANewsDocumentMigration extends FSAMigration {
     'Enforcement' => 'Enforcement and Regulation',
     'Business and industry' => 'Business and Industry',
     'News' => 'News and Updates',
-    'Research' => 'Science and Research',
-    'Policy and advice' => 'Policy and Advice',
+    'Research' => 'Science and Policy',
+    'Policy and advice' => 'Science and Policy',
+    'Science and policy' => 'Science and Policy',
     'Science' => 'Science and Research',
   );
 
@@ -140,7 +141,7 @@ class FSANewsDocumentMigration extends FSAMigration {
 
     // Section affiliation management.
     $this->addFieldMapping('field_site_section', 'site_section')
-      ->defaultValue('N/A');
+      ->defaultValue('News and updates');
 
     $this->addFieldMapping('migrate_redirects', 'PATH')
       ->defaultValue('MigrateRedirectEntity');

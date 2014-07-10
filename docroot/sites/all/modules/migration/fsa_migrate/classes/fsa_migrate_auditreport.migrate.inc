@@ -76,7 +76,6 @@ ENDSQL;
       'Reports' => t('Report TID taxonomy term reference'),
       'Regions' => t('Region TID taxonomy term reference'),
       'Authority types' => t('Authority types value'),
-      'simplename' => t('short url fragment'),
     );
 
     // Configure the source of the migration.
@@ -113,9 +112,10 @@ ENDSQL;
       ->defaultValue(TRUE);
 
     $this->addFieldMapping('field_path', 'title');
-    $this->addFieldMapping('field_title_short', 'title');
-    $this->addFieldMapping('field_path:machine', 'simplename') #todo change this to use  simple-name (was PATH)
+    $this->addFieldMapping('field_path:machine', 'SIMPLENAME')
       ->callbacks(array($this, 'pathFormatter'));
+    $this->addFieldMapping('field_title_short', 'title');
+
 
     // Table of content module settings migration.
     $this->addFieldMapping('toc_node_style', 'indexed')
