@@ -195,6 +195,8 @@ function FSA_menu_build_assign(&$url_tree, $plid = 0) {
       'plid' => $plid,
       'menu_name' => 'main-menu'
     );
+    // enable pathauto
+    $node->path['pathauto'] = true;
     // save the node with the new menu parent
     node_save($node);
     // get the menu link id from the new node
