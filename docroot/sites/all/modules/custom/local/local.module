@@ -1,6 +1,23 @@
 <?php
 
 /**
+ * Implements hook_form_alter().
+ */
+function local_form_news_node_form_alter(&$form, &$form_state, $form_id) {
+
+  // Remove the 'England' option.
+  $options = array();
+
+  foreach ($form['field_primary_nation'][LANGUAGE_NONE]['#options'] as $key => $value) {
+    if ($value != 'England') {
+      $options[$key] = $value;
+    }
+  }
+
+  $form['field_primary_nation'][LANGUAGE_NONE]['#options'] = $options;
+}
+
+/**
  * Implements hook_theme_registry_alter().
  */
 function local_theme_registry_alter(&$theme_registry) {
