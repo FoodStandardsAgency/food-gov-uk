@@ -44,6 +44,10 @@ function fsa_migrate_migrate_api() {
         'class_name' => 'FSANewsDocumentMigration',
         'group_name' => 'fsa_types',
       ),
+      'FSAConsultationpage' => array(
+        'class_name' => 'FSAConsultationpageMigration',
+        'group_name' => 'fsa_types',
+      ),
       'FSAMultibranchDocument' => array(
         'class_name' => 'FSAMultibranchDocumentMigration',
         'group_name' => 'fsa_types',
