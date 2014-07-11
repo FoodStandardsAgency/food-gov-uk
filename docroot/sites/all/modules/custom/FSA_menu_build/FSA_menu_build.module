@@ -6,35 +6,119 @@
  * Time: 16:34
  */
 
+/**
+ * Implements hook_menu().
+ *
+ * Set up admin settings callbacks, etc.
+ */
+function FSA_menu_build_menu() {
+  $items = array();
+  $items['admin/menubuild'] = array(
+    'title' => 'Menubuild',
+    'description' => 'Build menus after migration.',
+    'page callback' => 'FSA_menu_build_page',
+    'access arguments' => array('administer site'),
+  );
+  return $items;
+}
+
+/**
+* Page controller.
+ */
+function FSA_menu_build_page(){
+  $output = "test";
+  // build a tree of all migrated nodes
+  $url_tree = FSA_menu_build_process_list(FSA_menu_build_get_url_list());
+
+  // now, recurse through the tree, and assign menu parents
+  FSA_menu_build_assign($url_tree);
+  variable_set('menu_rebuild_needed', TRUE);
+  return $output;
+}
+
+function FSA_menu_build_get_list_from_CSV($file){
+
+}
 
 /**
  * Retrieve the list of urls to process
  */
-function FSA_menu_build_get_url_list(){
-  $url_list = array(
-    'test1/test1-1/test1-1-1',
-    'test1/test1-2/test1-2-1',
-    'test2/test2-1',
-    'test2/test2-2',
-  );
+function FSA_menu_build_get_url_list($file = null){
+  if (!$file) {
+    $url_list = array(
+   // 'test-1',
+    //'test1/test2',
+    //'test1/test2/test/test3',
+    //'test-1/test-1-1/test1-1-1',
+    //'test-1/test1-2',
+      'business-industry/imports',
+      'business-industry/imports/banned_restricted/aflatoxinreg11522009',
+      'business-industry/imports/banned_restricted/calabashchalk',
+      'business-industry/imports/banned_restricted/china',
+      'business-industry/imports/banned_restricted/chinarice',
+      'business-industry/imports/banned_restricted/guargumindia',
+      'business-industry/imports/banned_restricted/highrisknonpoao',
+      'business-industry/imports/banned_restricted/highrisknonpoao-91-2013',
+      'business-industry/imports/banned_restricted/import-betel-leaves',
+      'business-industry/imports/banned_restricted/japan',
+      'business-industry/imports/banned_restricted/kavakava',
+      'business-industry/imports/banned_restricted/kitchenware',
+      'business-industry/imports/banned_restricted/konjac',
+      'business-industry/imports/banned_restricted/milkandsoya-china',
+      'business-industry/imports/banned_restricted/pine-nuts-china/',
+      'business-industry/imports/banned_restricted/pine-nuts-china/pine-nut-exporters',
+      'business-industry/imports/banned_restricted/red2g',
+      'business-industry/imports/banned_restricted/restricted_foodstuffs',
+      'business-industry/imports/banned_restricted/spices',
+      'business-industry/imports/banned_restricted/sunflower',
+      'business-industry/imports/contacts/',
+      'business-industry/imports/contacts/imp_links/',
+      'business-industry/imports/importers/',
+      'business-industry/imports/importers/additivesimports',
+      'business-industry/imports/importers/contaminant/',
+      'business-industry/imports/importers/contaminant/Aflatoxin',
+      'business-industry/imports/importers/contaminant/soysauce',
+      'business-industry/imports/importers/ecguidance',
+      'business-industry/imports/importers/importsuppliers',
+      'business-industry/imports/importers/importtesting',
+      'business-industry/imports/importers/irradiated',
+      'business-industry/imports/importers/labelling',
+      'business-industry/imports/importers/legislation',
+      'business-industry/imports/importers/pointofentry',
+      'business-industry/imports/importers/redress/',
+      'business-industry/imports/importers/redress/redress1',
+      'business-industry/imports/importers/redress/redress2',
+      'business-industry/imports/importers/redress/redress3',
+      'business-industry/imports/importers/redress/redress4',
+      'business-industry/imports/importers/redress/redress5',
+      'business-industry/imports/importers/thirdcountryfaq/',
+    );
+
+
+
+  }
 
   return $url_list;
 }
 
-
+/**
+ * Turn a list of urls into a tree
+ * @param $url_list
+ * @return array
+ */
 function FSA_menu_build_process_list($url_list){
   // initialise the tree
   $url_tree = array();
-    // sort so that we have all urls in order
-  $url_list = sort($url_list, SORT_STRING);
-  $menu_tree = menu_tree_all_data('main-menu');
+  // sort so that we have all urls in order
+  sort($url_list, SORT_STRING);
   // process all urls to build a tree
+
   foreach ($url_list as $url) {
+    // get rid of extra slashes
+    $url = implode('/',explode('/', $url));
     FSA_menu_build_graft($url_tree, $url);
   }
-  // now, recurse through the tree, and assign menu parents
-  FSA_menu_build_assign($url_tree);
-
+ return $url_tree;
 }
 
 /**
@@ -43,40 +127,122 @@ function FSA_menu_build_process_list($url_list){
  * @param $url
  */
 function FSA_menu_build_graft(&$url_tree, $url) {
-  $element['#orig_url'] = $url;
-  $source_url = drupal_lookup_path('source', $url);
-  $element['#source_url'] = $source_url;
-  $source_url_array = explode('/', $source_url);
-  if ($source_url_array[0] == 'node') {
-    // find the nid for the current node
-    $element['#nid'] = $source_url_array[1];
-  }
   // move down the tree, until we get to the place we need to be
   // start at the root
   $branch = &$url_tree;
+  $branch_url = array();
   foreach (explode('/', $url) as $fragment){
+    $branch_url[] = $fragment;
     // if we need to create a new piece, initialise it
+    // in case there is no node here, lets set the url
     if (!isset($branch[$fragment])) {
-      $branch[$fragment] = array();
+      $source_url = drupal_lookup_path('source', implode('/',$branch_url));
+      $branch[$fragment]['#data']['url'] = implode('/',$branch_url);
+      $branch[$fragment]['#data']['source_url'] = $source_url;
+      $source_url_array = explode('/', $source_url);
+      if ($source_url_array[0] == 'node') {
+        // find the nid for the current node
+        $branch[$fragment]['#data']['nid'] = $source_url_array[1];
+      }
+      // extract menu data
+      if (isset($branch[$fragment]['#data']['nid'])) { // if we have a node we can use menu_node
+        $branch[$fragment]['#data']['mlid'] = FSA_menu_build_get_main_menu_mlid($branch[$fragment]['#data']['nid']);
+      }
+      // set this to false until its actually the url requested, not just a fragment
+      $branch['#data']['process'] = false;
     }
     $branch = &$branch[$fragment];
   }
-  // merge our new info into the tree
-  $branch = array_merge($branch, $element);
+  // mark this as a node that we should be processing
+  $branch['#data']['process'] = true;
 }
+
+/**
+ * Returns the menu link id for the main menu
+ * @param $nid
+ * @return int|string
+ */
+function FSA_menu_build_get_main_menu_mlid($nid) {
+  $result = null;
+  $links = menu_node_get_links($nid);
+  if (is_array($links)) {
+    // we found some menu links, now we need to make sure we have the correct menu
+    foreach ($links as $mlid => $link_data) {
+      if ($link_data->menu_name =='main-menu') {
+        $result = $mlid;
+      }
+    }
+  }
+  return $result;
+}
+
 
 /**
  * Walk through the url tree and assign menu parents to nodes.
  * @param $url_tree
  */
-function FSA_menu_build_assign(&$url_tree) {
-  foreach ($url_tree as $branch) {
-    FSA_menu_build_assign()
+function FSA_menu_build_assign(&$url_tree, $plid = 0) {
+
+  // if we have a parent link
+  // check to see if we should process the current node
+  // and make sure that the current node does not already have a main menu entry
+  if (isset($url_tree['#data']) && $url_tree['#data']['process'] && !isset($url_tree['#data']['mlid'])) {
+    //? what if we have no plid?
+    $node = node_load($url_tree['#data']['nid']);
+    $node->menu = array(
+      'link_title' =>  $node->title, #todo short title
+      'enabled' => 1,
+      'plid' => $plid,
+      'menu_name' => 'main-menu'
+    );
+    // enable pathauto
+    $node->path['pathauto'] = true;
+    // save the node with the new menu parent
+    node_save($node);
+    // get the menu link id from the new node
+    if ($mlid = FSA_menu_build_get_main_menu_mlid($node->nid)) {
+      $url_tree['#data']['mlid'] = $mlid;
+    }
+  }
+  else if (isset($url_tree['#data']) && isset($url_tree['#data']['mlid'])) {
+    // we have already got a menu link
+    $mlid = $url_tree['#data']['mlid'];
+  }
+  // if by this point we have not got a menu id, pass the parent one on
+  if (!isset($mlid)) {
+    $mlid = $plid;
+  }
+
+  // go through all the keys at this level - except the data for this level
+  foreach ($url_tree as  $key => &$branch) {
+    if ($key != '#data') { // skip the data branch
+      // if we have a menu item, we will keep it
+      FSA_menu_build_assign($branch, $mlid);
+    }
   }
 
 
 }
 
-function FSA_menu_build_lookup_mlid($path) {
 
-}
+/*
+ *
+ *
+node->menu
+-> enabled = 1
+-> mlid
+-> parent (main-menu:plid)
+
+       menu_name = "main-menu"
+      'mlid' => 0,
+      'plid' => 0,
+      'menu_name' => $menu_name,
+      'weight' => 0,
+      'options' => array(),
+      'module' => 'menu',
+      'expanded' => 0,
+      'hidden' => 0,
+      'has_children' => 0,
+      'customized' => 0,
+ *
+ */

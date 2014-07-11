@@ -18,8 +18,6 @@ class MigrateListOracleTextCollection extends MigrateList {
    * SQL Query to get the primary info and the object id.
    *
    * @var string
-   *
-   * // @TODO Is this still used?
    */
   protected $query = <<<'ENDSQL'
     SELECT OBJ.OBJECTID, FIELDNAME.FIELDID
@@ -30,7 +28,8 @@ class MigrateListOracleTextCollection extends MigrateList {
       AND ( FIELDNAME.VARIABLE LIKE 'text%'
       OR FIELDNAME.VARIABLE LIKE 'sectionheading%'
       OR FIELDNAME.VARIABLE LIKE 'quote'
-      OR FIELDNAME.VARIABLE LIKE 'quoteposition')
+      OR FIELDNAME.VARIABLE LIKE 'quoteposition'
+      OR FIELDNAME.VARIABLE LIKE 'sciencetext')
       ORDER BY FIELDNAME.FIELDID ASC
 ENDSQL;
 
@@ -50,7 +49,8 @@ ENDSQL;
       AND ( FIELDNAME.VARIABLE LIKE 'text%'
       OR  FIELDNAME.VARIABLE LIKE 'sectionheading%'
       OR FIELDNAME.VARIABLE LIKE 'quote'
-      OR FIELDNAME.VARIABLE LIKE 'quoteposition')
+      OR FIELDNAME.VARIABLE LIKE 'quoteposition'
+      OR FIELDNAME.VARIABLE LIKE 'sciencetext')
       ORDER BY FIELDNAME.FIELDID ASC
 ENDSQL;
 
@@ -68,10 +68,16 @@ ENDSQL;
       AND OBJ.OBJECTID IN ( :obj_ids )
       AND ( FIELDNAME.VARIABLE LIKE 'text%'
       OR FIELDNAME.VARIABLE LIKE 'sectionheading%'
-      OR FIELDNAME.VARIABLE LIKE 'quote')
+      OR FIELDNAME.VARIABLE LIKE 'quote'
+      OR FIELDNAME.VARIABLE LIKE 'sciencetext')
       ORDER BY FIELDNAME.VARIABLE ASC
 ENDSQL;
 
+  /**
+   * SQL Query to find out the position of the quote.
+   *
+   * @var string
+   */
   protected $queryQuotePosition = <<<'ENDSQL'
     SELECT OBJ.OBJECTID, FIELDNAME.FIELDID, FIELDNAME.VARIABLE, FIELDVALUE.VALUE
       FROM FIELDVALUE, FIELDNAME, OBJ
@@ -79,6 +85,20 @@ ENDSQL;
       AND FIELDVALUE.OBJECTID = OBJ.OBJECTID
       AND OBJ.OBJECTID = :objid
       AND FIELDNAME.VARIABLE = 'quoteposition'
+ENDSQL;
+
+  /**
+   * SQL Query to find out the position of the science text field.
+   *
+   * @var string
+   */
+  protected $queryScienceTextPosition = <<<'ENDSQL'
+    SELECT OBJ.OBJECTID, FIELDNAME.FIELDID, FIELDNAME.VARIABLE, FIELDVALUE.VALUE
+      FROM FIELDVALUE, FIELDNAME, OBJ
+      WHERE FIELDVALUE.FIELDID = FIELDNAME.FIELDID
+      AND FIELDVALUE.OBJECTID = OBJ.OBJECTID
+      AND OBJ.OBJECTID = :objid
+      AND FIELDNAME.VARIABLE = 'sciencepos'
 ENDSQL;
 
   /**
@@ -246,7 +266,7 @@ ENDSQL;
     );
 
     // Split the SQLResults by objects and type of value.
-    $textSplit = $this->textVariableSplit($query_results_array);
+    $textSplit = $this->textVariableSplit($query_results_array, $connectionOracle);
 
     // Loop on every object to get the amount of data to migrate.
     $totalCount = NULL;
@@ -254,7 +274,6 @@ ENDSQL;
       $totalCount += count($textSplitObject);
     }
 
-    // return count($textSplit);
     return $totalCount;
   }
 
@@ -331,6 +350,26 @@ ENDSQL;
               $queryQuotePosition['VALUE'];
           }
         }
+
+        if ($field_variable == 'sciencetext' && !is_null($connection)) {
+          // Query the oracle db.
+          $queryScienceTextPosition = FSAMigration::oracleQuerySingleLob(
+            $this->queryScienceTextPosition,
+            array(':objid' => $queryResults['OBJECTID'][$iObjectVariable]),
+            $connection
+          );
+
+          if (!is_null($queryScienceTextPosition)) {
+            if (!isset($array_variable[$queryScienceTextPosition['OBJECTID']][$queryScienceTextPosition['VALUE']])) {
+              $array_variable[$queryScienceTextPosition['OBJECTID']][$queryScienceTextPosition['VALUE']]['objectid'] =
+                $queryScienceTextPosition['OBJECTID'];
+            }
+            $array_variable[$queryScienceTextPosition['OBJECTID']][$queryScienceTextPosition['VALUE']]['sciencetext'] =
+              $queryResults['FIELDID'][$iObjectVariable];
+            $array_variable[$queryScienceTextPosition['OBJECTID']][$queryScienceTextPosition['VALUE']]['itemnumber'] =
+              $queryScienceTextPosition['VALUE'];
+          }
+        }
       }
       $iObjectVariable++;
     }
@@ -402,6 +441,7 @@ ENDSQL;
     $imagePath = NULL;
     $imgposition = NULL;
     $quoteItem = NULL;
+    $scienceTextItem = NULL;
 
     // Test if there is an image for the field collection.
     if (isset($itemsList['image'])) {
@@ -471,6 +511,9 @@ ENDSQL;
         if ($fieldVariable == 'quote') {
           $quoteItem = $query_results_array['VALUE'][$iVariable];
         }
+        if ($fieldVariable == 'sciencetext') {
+          $scienceTextItem = $query_results_array['VALUE'][$iVariable];
+        }
       }
     }
 
@@ -496,6 +539,8 @@ ENDSQL;
     $object->IMAGEPOSITION = $imgposition;
 
     $object->quote = $quoteItem;
+
+    $object->scienceTextItem = $scienceTextItem;
 
     return $object;
   }

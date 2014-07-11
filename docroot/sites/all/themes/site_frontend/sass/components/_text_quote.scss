@@ -1,4 +1,5 @@
 .field--name-field-fc-section-quote {
+	clear: both;	// prevent issues with floated images
 	overflow: hidden;
 	width: 220px;
 	float: right;

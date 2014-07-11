@@ -96,7 +96,6 @@ ENDSQL;
       ),
     );
 
-
   /**
    * Queries the oracle database.
    *
@@ -193,14 +192,15 @@ ENDSQL;
 //      oci_bind_by_name($statement, $key, $value);
 //    }
 
-    oci_execute($statement);
-
-    $row = oci_fetch_array($statement, $flags = OCI_ASSOC);
-
-    oci_free_statement($statement);
-
-    if (!empty($row)) {
-      return $row;
+    if (oci_execute($statement)) {
+      $row = oci_fetch_array($statement, $flags = OCI_ASSOC);
+      oci_free_statement($statement);
+      if (!empty($row)) {
+        return $row;
+      }
+    }
+    else {
+      print "query: $query \n";
     }
 
     return NULL;

@@ -80,8 +80,16 @@ class FSADocumentpageMigration extends FSAMigration {
       ->defaultValue(TRUE);
 
     $this->addFieldMapping('field_path', 'title');
-    $this->addFieldMapping('field_path:machine', 'PATH')
+    $this->addFieldMapping('field_path:machine', 'SIMPLENAME')
       ->callbacks(array($this, 'pathFormatter'));
+
+    // we will rebuild the path later when we build the menu
+    // for now, we want the path set so that we can build redirects
+    $this->addFieldMapping('pathauto')
+      ->defaultValue(0);
+    $this->addFieldMapping('path', 'PATH')
+      ->callbacks(array($this, 'pathFormatter'));
+
 
     // Table of content module settings migration.
     $this->addFieldMapping('toc_node_style', 'indexed')

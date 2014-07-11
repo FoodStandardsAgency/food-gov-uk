@@ -112,8 +112,10 @@ ENDSQL;
       ->defaultValue(TRUE);
 
     $this->addFieldMapping('field_path', 'title');
-    $this->addFieldMapping('field_path:machine', 'PATH')
+    $this->addFieldMapping('field_path:machine', 'SIMPLENAME')
       ->callbacks(array($this, 'pathFormatter'));
+    $this->addFieldMapping('field_title_short', 'title');
+
 
     // Table of content module settings migration.
     $this->addFieldMapping('toc_node_style', 'indexed')
@@ -136,6 +138,10 @@ ENDSQL;
     $this->addFieldMapping('field_audit_authority_type', 'Authority types');
 
     $this->addFieldMapping('field_audit_authority', 'AUTHORITY');
+    // migrate redirects
+    $this->addFieldMapping('migrate_redirects', 'PATH')
+      ->defaultValue('MigrateRedirectEntity');
+
   }
 
   /**
@@ -154,7 +160,7 @@ ENDSQL;
         ),
         $connectionOracle,
         // You can add extra fields to extract from the field table here.
-        array('title', 'summary', 'backtotop', 'showLastUpdated', 'pubdate', 'indexed')
+        array('title', 'summary', 'backtotop', 'showLastUpdated', 'pubdate', 'indexed', 'simplename')
       );
 
       foreach ($fields_res_array as $fieldVariable => $fieldValue) {

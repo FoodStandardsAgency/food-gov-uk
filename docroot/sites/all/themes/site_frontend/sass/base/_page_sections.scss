@@ -32,6 +32,7 @@
 }
 /* for files we need a bit more maring on subheading */
 .field--name-field-fc-related-items-heading.page-section-subheading {
+	clear: both;	// prevent issues with floated images
 	margin-bottom: 0.8em;
 }
 
@@ -189,18 +190,17 @@
 	}
 }
 
-
-
 /* related data wrapper - csv files */
 .csv-files-wrapper {
-	  overflow: hidden;
-		margin-bottom: 18px;
-		border: 1px solid #c4c4c4;
-		-webkit-border-radius: 10px;
-		-moz-border-radius: 10px;
-		-o-border-radius: 10px;
-		-ms-border-radius: 10px;
-		border-radius: 10px;
+	clear: both;	// prevent issues with floated images
+	overflow: hidden;
+	margin-bottom: 18px;
+	border: 1px solid #c4c4c4;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-o-border-radius: 10px;
+	-ms-border-radius: 10px;
+	border-radius: 10px;
 }
 .csv-files-inner {
 	overflow: hidden;
@@ -220,17 +220,17 @@
 	}
 }
 
-
 /* related items wrapper - files */
 .related-items-wrapper {
-	  overflow: hidden;
-		margin-bottom: 18px;
-		border: 1px solid #c4c4c4;
-		-webkit-border-radius: 10px;
-		-moz-border-radius: 10px;
-		-o-border-radius: 10px;
-		-ms-border-radius: 10px;
-		border-radius: 10px;
+	clear: both;	// prevent issues with floated images
+	overflow: hidden;
+	margin-bottom: 18px;
+	border: 1px solid #c4c4c4;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-o-border-radius: 10px;
+	-ms-border-radius: 10px;
+	border-radius: 10px;
 }
 .related-items-inner {
 	overflow: hidden;
