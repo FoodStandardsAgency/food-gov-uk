@@ -500,7 +500,10 @@ ENDSQL;
             $object->text = $query_results_array['VALUE'][$iVariable];
             break;
           case 'sectionheading':
-            $object->sectionheading = $query_results_array['VALUE'][$iVariable];
+            // check that we have a value before we assign it
+            if (trim($query_results_array['VALUE'][$iVariable])) {
+              $object->sectionheading = $query_results_array['VALUE'][$iVariable];
+            }
             break;
           case 'imageposition':
             $imgposition = $query_results_array['VALUE'][$iVariable];
@@ -520,7 +523,7 @@ ENDSQL;
     $object->OBJECTID = $objectId;
 
     // Add more keys if you add fields to the field collection.
-    if(isset($itemsList['sectionheading'])) {
+    if(isset($itemsList['sectionheading']) && trim($itemsList['sectionheading'])) {
       $object->FIELDID1 = $itemsList['sectionheading'];
     }
     else {

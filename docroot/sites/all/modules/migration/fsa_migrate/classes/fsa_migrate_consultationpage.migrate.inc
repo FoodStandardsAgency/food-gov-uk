@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Uberpage migration class. This for testing purpose.
@@ -10,11 +9,11 @@
  * Migration class for the FSA Document page.
  */
 class FSAConsultationpageMigration extends FSAMigration {
-
   /**
    * Class constructor.
    */
   public function __construct($arguments) {
+
     // Calls to parent constructor from official doc.
     parent::__construct();
     // Calls the parent constructor.
@@ -59,7 +58,11 @@ class FSAConsultationpageMigration extends FSAMigration {
     $this->addFieldMapping('field_title_short', 'title');
     $this->addFieldMapping('field_summary', 'summary')
       ->callbacks(array($this, 'pastedApostropheFormatter'));
+    $this->addFieldMapping('language', 'language')
+      ->callbacks(array($this, 'convertLanguage'));
 
+    //main create date
+    $this->addFieldMapping('created', 'pubdate'); #@todo this should probably be the original date
     // Updated date field.
     $this->addFieldMapping('field_updated', 'pubdate');
     $this->addFieldMapping('field_display_updated_date', 'showLastUpdated')
@@ -83,12 +86,12 @@ class FSAConsultationpageMigration extends FSAMigration {
     $this->addFieldMapping('field_path:machine', 'SIMPLENAME')
       ->callbacks(array($this, 'pathFormatter'));
 
-    // we will rebuild the path later when we build the menu
-    // for now, we want the path set so that we can build redirects
+    // enable pathauto so that we get a redirect  and a new url
+
     $this->addFieldMapping('pathauto')
-      ->defaultValue(0);
-    $this->addFieldMapping('path', 'PATH')
-      ->callbacks(array($this, 'pathFormatter'));
+      ->defaultValue(1);
+    $this->addFieldMapping('migrate_redirects', 'PATH')
+      ->defaultValue('MigrateRedirectEntity');
 
     // Contact details.
     $this->addFieldMapping('field_consultations_contact_name', 'contactname');
@@ -126,6 +129,16 @@ class FSAConsultationpageMigration extends FSAMigration {
       ->defaultValue(2);
     $this->addFieldMapping('toc_node_back_to_top_links')
       ->defaultValue(0);
+
+
+    // Consultation specific nation rules
+    $this->addFieldMapping('field_nation', 'PATH')
+      ->arguments(array('source_type' => 'tid'))
+      ->callbacks(array($this, 'consultationNationConvert'));
+
+    // Section affiliation management.
+    $this->addFieldMapping('field_site_section')
+      ->defaultValue('News and Updates');
   }
 
   /**
@@ -162,6 +175,8 @@ class FSAConsultationpageMigration extends FSAMigration {
           'dataprotection',
           'audience',
           'consultdetails',
+          'language',
+          'nation',
         )
       );
 
@@ -200,5 +215,28 @@ class FSAConsultationpageMigration extends FSAMigration {
     else {
       return 'Closed';
     }
+  }
+
+  /**
+   * Extract the nation based on the consultation path.
+   * We cant see the UK-wide consultations in the nation field
+   * @param $value
+   */
+  protected function consultationNationConvert($value) {
+    $nation_tids = array();
+    $mapping = array(
+      'consultations-uk' => array('17','6','7','5'),
+      'consultations-england' => array('17'),
+      'consultations-northern-ireland' => array('6'),
+      'consultations-scotland' => array('7'),
+      'consultations-wales' => array('5'),
+      'cymru' => array('5'),
+    );
+    foreach ((array) $value as $path) {
+      $path = explode('/', $path);
+      $nation_tids = array_merge($nation_tids, $mapping[$path[3]]);
+    }
+
+    return $nation_tids;
   }
 }

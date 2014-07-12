@@ -92,6 +92,13 @@ class FSANewsDocumentMigration extends FSAMigration {
     $this->addFieldMapping('field_summary', 'summary')
       ->callbacks(array($this, 'pastedApostropheFormatter'));
 
+    // set language
+    $this->addFieldMapping('language', 'language')
+      ->callbacks(array($this, 'convertLanguage'));
+    //main create date
+    $this->addFieldMapping('created', 'pubdate');
+
+
     // Updated date field.
     $this->addFieldMapping('field_updated', 'pubdate');
     $this->addFieldMapping('field_display_updated_date', 'showLastUpdated')
@@ -127,8 +134,14 @@ class FSANewsDocumentMigration extends FSAMigration {
       ->defaultValue(TRUE);
 
     $this->addFieldMapping('field_path', 'title');
-    $this->addFieldMapping('field_path:machine', 'simplename')
+    $this->addFieldMapping('field_path:machine', 'SIMPLENAME')
       ->callbacks(array($this, 'pathFormatter'));
+
+    // enable pathauto so that we get a redirect  and a new url
+
+    $this->addFieldMapping('pathauto')
+      ->defaultValue(1);
+
 
     // Table of content module settings migration.
     $this->addFieldMapping('toc_node_style', 'indexed')
@@ -141,10 +154,19 @@ class FSANewsDocumentMigration extends FSAMigration {
 
     // Section affiliation management.
     $this->addFieldMapping('field_site_section', 'site_section')
-      ->defaultValue('News and updates');
+      ->defaultValue('News and Updates');
 
     $this->addFieldMapping('migrate_redirects', 'PATH')
       ->defaultValue('MigrateRedirectEntity');
+
+    // Consultation specific nation rules
+    $this->addFieldMapping('field_nation', 'PATH')
+      ->arguments(array('source_type' => 'tid'))
+      ->callbacks(array($this, 'convertPathToNationGeneric'));
+    $this->addFieldMapping('field_primary_nation', 'PATH')
+      ->arguments(array('source_type' => 'tid'))
+      ->callbacks(array($this, 'convertPathToPrimaryNationGeneric'));
+
 
   }
 
@@ -176,6 +198,7 @@ class FSANewsDocumentMigration extends FSAMigration {
           'category',
           'sectionaffiliation',
           'secondaffiliation',
+          'language',
         )
       );
 
@@ -230,4 +253,5 @@ class FSANewsDocumentMigration extends FSAMigration {
       return 'General News';
     }
   }
+
 }

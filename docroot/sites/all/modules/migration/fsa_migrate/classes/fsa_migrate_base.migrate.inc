@@ -53,6 +53,20 @@ ENDSQL;
 ENDSQL;
 
   /**
+   * @var stringSQL Query to get all attach points
+   */
+  protected $queryAttachPoints = <<<'ENDSQL'
+SELECT OBJ.PATH
+FROM OBJ, LINK, LINKTYPE
+WHERE OBJ.OBJECTID = LINK.PARENTID
+AND LINKTYPE.LINKTYPEID = LINK.LINKTYPEID
+AND LINKTYPE.LINKTYPENAME IN ( 'Primary link', 'Secondary link' );
+AND LINK.CHILDID = :objid
+ENDSQL;
+
+
+
+  /**
    * Reference array between [vocabulary][term name] and between a term id in drupal.
    *
    * @var array
@@ -325,6 +339,14 @@ ENDSQL;
   }
 
   /**
+   * Trim whitespace
+   * @param $textValue
+   */
+  public function textAreaTrim($textValue) {
+    return trim($textValue);
+  }
+
+  /**
    * Converts a given string as 'Yes' or 'No' and changes it to a boolean value.
    *
    * @param $value
@@ -403,5 +425,57 @@ ENDSQL;
         return NULL;
         break;
     }
+  }
+
+  /**
+   * Convert node language
+   * @param $language
+   * @return string Drupal language code
+   */
+  public function convertLanguage($language) {
+    if ($language == 'Welsh') {
+      return 'cy';
+    }
+    return en;
+  }
+
+/**
+* Extract the nation based on the path.
+* We work with arrays because some types allow multiple selections
+* Param is an array to allow for multiple attach points
+*
+ * @param $value  path
+ * @param $primary true if setting primary nation
+*/
+  public function convertPathToNationGeneric($value, $primary=false) {
+    $nation_tids = array();
+    $tids=array();
+    $mapping = array(
+      'northern-ireland' => array('6'),
+      'scotland' => array('7'),
+      'wales' => array('5'),
+    );
+
+    foreach ((array) $value as $path) {
+      $path = explode('/', $path);
+      if (isset($mapping[$path[1]])) {
+        $tids = $mapping[$path[1]];
+      }
+      else if (!$primary) {
+        // we do not set England as a primary nation
+        $tids = array(17);
+      }
+      $nation_tids = array_merge($nation_tids, $tids );
+    }
+    return $nation_tids;
+  }
+
+  /**
+   * Wrapper for primary nation
+   * @param $value
+   * @return array
+   */
+  public function convertPathToPrimaryNationGeneric($value) {
+    return $this->convertPathToNationGeneric($value, true);
   }
 }

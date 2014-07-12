@@ -146,8 +146,14 @@
 <div class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
   <div class="content"<?php print $content_attributes; ?>>
     <?php
+      if (trim($content['field_fc_section_heading']['#items'][0]['value'])){
+        print render($content['field_fc_section_heading']);
+      }
+      else {
+        // there is no value here, so don't display an empty heading
+        hide($content['field_fc_section_heading']);
+      }
 
-      print render($content['field_fc_section_heading']);
 
       if ($image_position != 'img-pos-bottom') {
         print $image_with_wrapper;

@@ -118,5 +118,6 @@ class FSANewsDocumentCollectionMigration extends FSAMigration {
     if (!is_null($row->IMAGEPATH)) {
       $row->sourceImagePath = variable_get('file_public_path', 'sites/default/files') . '/sources' . $row->IMAGEPATH;
     }
+
   }
 }
