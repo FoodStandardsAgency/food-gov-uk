@@ -1,6 +1,23 @@
 <?php
 
 /**
+ * Implements hook_form_alter().
+ */
+function local_form_news_node_form_alter(&$form, &$form_state, $form_id) {
+
+  // Remove the 'England' option from Primary Nation selector on News content type, because there is no England section.
+  $options = array();
+
+  foreach ($form['field_primary_nation'][LANGUAGE_NONE]['#options'] as $key => $value) {
+    if ($value != 'England') {
+      $options[$key] = $value;
+    }
+  }
+
+  $form['field_primary_nation'][LANGUAGE_NONE]['#options'] = $options;
+}
+
+/**
  * Implements hook_theme_registry_alter().
  */
 function local_theme_registry_alter(&$theme_registry) {
@@ -43,30 +60,14 @@ function local_form_search_block_form_alter(&$form, &$form_state, $form_id){
   $form['actions']['submit']['#id'] = drupal_html_id('submit-search_block_form');
 }
 
-
-
-// Implements hook_init
-function local_init() {
-  // FAQ pages need some accordion JS
-  if (arg(0) == 'node' && is_numeric(arg(1)) && !arg(2)) {
-    $node = node_load(arg(1));
-    if ($node->type == 'faq') {
-      drupal_add_library('system', 'ui.accordion');
-      drupal_add_js('
-      (function ($) {
-         Drupal.behaviors.exampleModule = {
-           attach: function (context, settings) {
-             $( ".field--name-field-fc-qanda" ).accordion({
-               header: ".field--name-field-fc-quanda-question",
-               active: false,
-               collapsible: true,
-               icons: false,
-               heightStyle: "content"
-             });
-           }
-         };
-      })(jQuery);', 'inline');
-    }
+/**
+ * Implements hook_node_view().
+ */
+function local_node_view($node, $view_mode, $langcode) {
+  // FAQ accordion effect.
+  if ($node->type == 'faq' && $view_mode == 'full') {
+    drupal_add_library('system','ui.accordion');
+    drupal_add_js(drupal_get_path('module', 'local') . '/js/local.js');
   }
 }
 
