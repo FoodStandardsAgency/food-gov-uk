@@ -55,10 +55,17 @@ class FSADocumentpageMigration extends FSAMigration {
     $this->destination = new MigrateDestinationNode('document_page');
 
     // General fields mapping.
-    $this->addFieldMapping('title', 'title');
+    $this->addFieldMapping('title', 'NAME');
     $this->addFieldMapping('field_title_short', 'title');
+    $this->addFieldMapping('field_subtitle', 'OBJECTCOMMENT');
     $this->addFieldMapping('field_summary', 'summary')
       ->callbacks(array($this, 'pastedApostropheFormatter'));
+    // set language
+    $this->addFieldMapping('language', 'language')
+      ->callbacks(array($this, 'convertLanguage'));
+    //main create date
+    $this->addFieldMapping('created', 'pubdate');
+
 
     // Updated date field.
     $this->addFieldMapping('field_updated', 'pubdate');
@@ -99,6 +106,20 @@ class FSADocumentpageMigration extends FSAMigration {
       ->defaultValue(2);
     $this->addFieldMapping('toc_node_back_to_top_links')
       ->defaultValue(0);
+
+
+    // Nation and site section
+    // specific nation rules
+    //@todo use attach points rather than path
+    $this->addFieldMapping('field_nation', 'PATH')
+      ->arguments(array('source_type' => 'tid'))
+      ->callbacks(array($this, 'convertPathToNationGeneric'));
+
+    $this->addFieldMapping('field_site_section', 'PATH')
+      ->callbacks(array($this, 'convertPathToSectionGeneric'));
+
+
+
   }
 
   /**

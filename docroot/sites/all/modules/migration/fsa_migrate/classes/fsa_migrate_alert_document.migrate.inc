@@ -2,46 +2,15 @@
 
 /**
  * @file
- * News document migration class.
+ * Alert document migration class.
  */
 
 /**
- * Class FSANewsDocumentMigration
- * Migration class for the FSA News document.
+ * Class FSAAlertDocumentMigration
+ * Migration class for the FSA Alert document.
  */
-class FSANewsDocumentMigration extends FSAMigration {
+class FSAAlertDocumentMigration extends FSAMigration {
 
-  /**
-   * News type reference mapping array.
-   * Reference array between [vocabulary][term name] and between a term id in drupal.
-   *
-   * @var array
-   */
-  protected $newsTypeRefArray = array(
-    'Product withdrawal' => 'Product widthdrawal',
-    'Product recall' => 'Product recall',
-    'Allergy alert' => 'Allergy Alert',
-    'Food alert for action' => 'Food Alert',
-  );
-
-  /**
-   * Section Affiliation reference mapping array.
-   * Reference array between [vocabulary][term name] and between a term id in drupal.
-   *
-   * @var array
-   */
-  protected $sectionAffiliationRefArray = array(
-    // @TODO finish the mapping ref array.
-    // Pending terms 'Scotland', 'Northern Ireland', 'Wales', 'Welsh News', 'GM and Novel'.
-    'About Us' => 'About us',
-    'Enforcement' => 'Enforcement and Regulation',
-    'Business and industry' => 'Business and Industry',
-    'News' => 'News and Updates',
-    'Research' => 'Science and Policy',
-    'Policy and advice' => 'Science and Policy',
-    'Science and policy' => 'Science and Policy',
-    'Science' => 'Science and Research',
-  );
 
   /**
    * Class constructor.
@@ -50,7 +19,7 @@ class FSANewsDocumentMigration extends FSAMigration {
     // Calls to parent constructor from official doc.
     parent::__construct();
     // Calls the parent constructor.
-    $this->description = t('Migrates the news document from Oracle to Drupal.');
+    $this->description = t('Migrates the alert document from Oracle to Drupal.');
 
     // Map the source id.
     $this->map = new MigrateSQLMap(
@@ -69,30 +38,35 @@ class FSANewsDocumentMigration extends FSAMigration {
     // Oracle fields from sql request or generated.
     $fields = array(
       'OBJECTID' => t('Object id'),
+      'NAME' => t('Full title'),
       'SIMPLENAME' => t('Simplename'),
+      'OBJECTCOMMENT' => t('Subtitle'),
       'PATH' => t('Page url'),
       'OBJECTTYPE' => t('Object type'),
       'FIELDIDS' => t('Fields ids'),
       'VARIABLE' => t('Variable field name'),
       'VALUE' => t('Field value'),
+      'ref' => t('Alert reference'),
     );
 
     // Configure the source of the migration.
     $this->source = new MigrateSourceList(
-      new FSAMigrateListOracleObjectsFromCSV('data/csv/news-alterian-id-list.csv'),
+      new FSAMigrateListOracleObjectsFromCSV('data/csv/foodhazard-alterian-id-list.csv'),
       new FSAMigrateItemOracleObject()
     );
 
     // Destination detail.
-    $this->destination = new MigrateDestinationNode('news');
+    $this->destination = new MigrateDestinationNode('alert');
 
     // General fields mapping.
     $this->addFieldMapping('title', 'NAME');
     $this->addFieldMapping('field_title_short', 'title');
-    $this->addFieldMapping('field_subtitle', 'COMMENT');
-    $this->addFieldMapping('field_summary', 'summary')
-      ->callbacks(array($this, 'pastedApostropheFormatter'));
+    $this->addFieldMapping('field_subtitle', 'OBJECTCOMMENT');
 
+
+    // Food hazard warnings do not use a standard summary
+    //$this->addFieldMapping('field_summary', 'summary')
+    //  ->callbacks(array($this, 'pastedApostropheFormatter'));
 
     // set language
     $this->addFieldMapping('language', 'language')
@@ -122,11 +96,6 @@ class FSANewsDocumentMigration extends FSAMigration {
       ->callbacks(array($this, 'convertYesNoBoolean'))
       ->defaultValue(FALSE);
 
-    // Category term mapping.
-    $this->addFieldMapping('field_news_type', 'category')
-      ->callbacks(array($this, 'newsCategoryRefMapping'))
-      ->defaultValue('General News');
-
     // Feature image mapping.
     $this->addFieldMapping('field_feature_image', 'FEATUREDIMAGEPATH')
       ->sourceMigration('FSAMediaImages');
@@ -155,20 +124,25 @@ class FSANewsDocumentMigration extends FSAMigration {
       ->defaultValue(0);
 
     // Section affiliation management.
-    $this->addFieldMapping('field_site_section', 'site_section')
-      ->defaultValue('News and Updates');
+    $this->addFieldMapping('field_site_section')
+      ->defaultValue('Enforcement and Regulation');
 
     $this->addFieldMapping('migrate_redirects', 'PATH')
       ->defaultValue('MigrateRedirectEntity');
 
-    // Consultation specific nation rules
+    // specific nation rules
     $this->addFieldMapping('field_nation', 'PATH')
       ->arguments(array('source_type' => 'tid'))
       ->callbacks(array($this, 'convertPathToNationGeneric'));
-    $this->addFieldMapping('field_primary_nation', 'PATH')
-      ->arguments(array('source_type' => 'tid'))
-      ->callbacks(array($this, 'convertPathToPrimaryNationGeneric'));
 
+
+    // Category mapping.
+    $this->addFieldMapping('field_alert_alert_type', 'summary')
+      //->callbacks(array($this, 'alertCategoryRefMapping'))
+      ->defaultValue('None');
+
+    // Category mapping.
+    $this->addFieldMapping('field_alert_ref', 'ref');
 
   }
 
@@ -196,11 +170,8 @@ class FSANewsDocumentMigration extends FSAMigration {
           'pubdate',
           'indexed',
           'includeinmailshot',
-          'visibleonhomepage',
-          'category',
-          'sectionaffiliation',
-          'secondaffiliation',
           'language',
+          'ref'
         )
       );
 
@@ -224,36 +195,7 @@ class FSANewsDocumentMigration extends FSAMigration {
       $row->FEATUREDIMAGEPATH = variable_get('file_public_path', 'sites/default/files') .
         '/sources' . $feature_image_res['PATH'];
     }
-
-    // Affiliation management.
-    $row->site_section = array();
-    // Section affiliation.
-    if (isset($row->sectionaffiliation) && !is_null($row->sectionaffiliation)) {
-      if (isset($this->sectionAffiliationRefArray[$row->sectionaffiliation])) {
-        $row->site_section[] = $this->sectionAffiliationRefArray[$row->sectionaffiliation];
-      }
-    }
-    // Secondary affiliation.
-    if (isset($row->secondaffiliation) && !is_null($row->secondaffiliation)) {
-      if (isset($this->sectionAffiliationRefArray[$row->secondaffiliation])) {
-        $row->site_section[] = $this->sectionAffiliationRefArray[$row->secondaffiliation];
-      }
-    }
   }
 
-  /**
-   * For an original news category name returns a newly formatted string regarding drupal terms.
-   *
-   * @param $value
-   * @return string
-   */
-  protected function newsCategoryRefMapping($value) {
-    if (isset($this->newsTypeRefArray[$value])) {
-      return $this->newsTypeRefArray[$value];
-    }
-    else {
-      return 'General News';
-    }
-  }
 
 }
