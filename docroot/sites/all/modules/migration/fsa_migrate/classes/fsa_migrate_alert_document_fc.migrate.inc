@@ -63,7 +63,7 @@ class FSAAlertDocumentCollectionMigration extends FSAMigration {
 
     // Configure the source of the migration.
     $this->source = new MigrateSourceList(
-      new MigrateListOracleTextCollection('data/csv/news-alterian-id-list.csv', $conf['oracle_db']),
+      new MigrateListOracleTextCollection('data/csv/foodhazard-alterian-id-list.csv', $conf['oracle_db']),
       new MigrateItemOracleTextCollection()
     );
 
