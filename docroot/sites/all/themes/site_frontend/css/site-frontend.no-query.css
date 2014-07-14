@@ -2657,7 +2657,6 @@ ul.breadcrumb {
 /* accordion answers */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\0000377}}
 .field--name-field-fc-quanda-answer.ui-accordion .ui-accordion-content {
-  padding: 1em 2.2em;
   padding: 0 0 0 24px; }
 
 /* Feature blocks are: Business and industry, Enforcement and regulation, Science and research 
