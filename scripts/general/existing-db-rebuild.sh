@@ -13,6 +13,9 @@ cd ../../docroot/sites/default
 # Optional. Enable the FSA migration module.
 # drush en fsa_migrate -y
 
+# disable pathauto for Document page updates
+drush vset fsa_migrate_pathauto_restrict 1
+
 # Roll back the existing migration.
 drush mr FSAChildpageCollection
 drush mr FSARelatedContentCollection
@@ -68,4 +71,7 @@ drush mi FSAChildpageCollection
 drush cc all
 
 drush -y vset "fsa_migration_date" "${DATE}"
+# reenable document page pathauto
+drush vset fsa_migrate_pathauto_restrict 0
+
 
