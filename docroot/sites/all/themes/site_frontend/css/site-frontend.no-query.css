@@ -1008,6 +1008,11 @@ p, ul, ol, dl, address, blockquote {
   padding: 0 0 0 0;
   border-bottom: none; }
 
+/* views grouped by headings - that are implemented by view template override on specific views */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_views\.scss}line{font-family:\0000369}}
+.custom-views-grouped-heading {
+  margin: 0 0 1em 0; }
+
 /* these are styles used with ckeditor - includes backwards compatibility for migrated content too */
 /* highlighted content - guidance - ckeditor style */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_wysiwyg\.scss}line{font-family:\000034}}
