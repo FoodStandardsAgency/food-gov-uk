@@ -61,6 +61,10 @@
 	h3:hover {
 		text-decoration: underline;
 	}
+	/* remove default accordion icons */
+	.ui-accordion .ui-accordion-header .ui-icon {
+		display: none;
+	}
 }
 .field--name-field-fc-quanda-question.ui-state-active {
 	h3 {
@@ -69,4 +73,11 @@
 	  background-position: 9px 4px;
 	}
 }
+/* accordion answers */
+.field--name-field-fc-quanda-answer.ui-accordion .ui-accordion-content {
+	padding: 1em 2.2em;
+	padding: 0 0 0 24px;
+}
+
+
 
