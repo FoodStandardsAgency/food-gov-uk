@@ -4810,6 +4810,12 @@ ul.pager {
   font-family: Arial, Verdana, Helvetica, sans-serif;
   font-size: 1.2em;
   color: #333; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_popular_links\.scss}line{font-family:\0000321}}
+.popular-links label {
+  display: block;
+  font-size: 1.5em;
+  color: #fff;
+  margin: 0 0 0.4em 0; }
 
 /* requires block class: resources and blokc class: blue-block */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\000032}}
