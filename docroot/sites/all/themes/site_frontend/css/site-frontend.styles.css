@@ -2538,17 +2538,14 @@ ul.breadcrumb {
   .external-sites-with-logos .view-content h2, .external-sites-with-logos .view-content h3 {
     margin-bottom: 0;
     font-size: 1em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_external_sites_blocks\.scss}line{font-family:\00003122}}
-  .external-sites-with-logos .view-content img {
-    margin-bottom: 7px; }
 
 /* Foodbase links
  * Requires block class: foodbase-links
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_external_sites_blocks\.scss}line{font-family:\00003132}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_external_sites_blocks\.scss}line{font-family:\00003129}}
 .foodbase-links {
   /* links */ }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_external_sites_blocks\.scss}line{font-family:\00003134}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_external_sites_blocks\.scss}line{font-family:\00003131}}
   .foodbase-links .views-field-field-url {
     font-size: 1.2em;
     padding-left: 10px;
@@ -2556,26 +2553,26 @@ ul.breadcrumb {
     background-repeat: no-repeat;
     background-position: left 3px;
     margin-bottom: 2px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_external_sites_blocks\.scss}line{font-family:\00003141}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_external_sites_blocks\.scss}line{font-family:\00003138}}
     .foodbase-links .views-field-field-url a {
       text-decoration: none;
       color: #006f51; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_external_sites_blocks\.scss}line{font-family:\00003145}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_external_sites_blocks\.scss}line{font-family:\00003142}}
     .foodbase-links .views-field-field-url a:hover {
       text-decoration: underline; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_external_sites_blocks\.scss}line{font-family:\00003149}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_external_sites_blocks\.scss}line{font-family:\00003146}}
   .foodbase-links .views-field-field-subtitle {
     font-size: 1.2em;
     padding-left: 10px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_external_sites_blocks\.scss}line{font-family:\00003153}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_external_sites_blocks\.scss}line{font-family:\00003150}}
   .foodbase-links .views-row {
     margin-bottom: 0.834em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_external_sites_blocks\.scss}line{font-family:\00003156}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_external_sites_blocks\.scss}line{font-family:\00003153}}
   .foodbase-links .views-row.views-row-last {
     margin-bottom: 0; }
 
 /* foodbase links block styling */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_external_sites_blocks\.scss}line{font-family:\00003161}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_external_sites_blocks\.scss}line{font-family:\00003158}}
 .foodbase-links {
   overflow: hidden;
   border: 1px solid #c4c4c4;
@@ -2585,7 +2582,7 @@ ul.breadcrumb {
   -ms-border-radius: 8px;
   border-radius: 8px;
   margin-bottom: 18px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_external_sites_blocks\.scss}line{font-family:\00003172}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_external_sites_blocks\.scss}line{font-family:\00003169}}
   .foodbase-links h2.block__title,
   .foodbase-links h3.block__title,
   .foodbase-links .block__title {
@@ -2597,7 +2594,7 @@ ul.breadcrumb {
     font-size: 1.4em;
     line-height: 1.3em;
     font-weight: bold; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_external_sites_blocks\.scss}line{font-family:\00003182}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_external_sites_blocks\.scss}line{font-family:\00003179}}
   .foodbase-links .custom-block-inner {
     overflow: hidden;
     background: #fff;
@@ -2609,7 +2606,7 @@ ul.breadcrumb {
     background: -ms-linear-gradient(top, white 0, white 46%, #eaeaea 100%);
     background: linear-gradient(top, #ffffff 0%, #ffffff 46%, #eaeaea 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#eaeaea',GradientType=0); }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_external_sites_blocks\.scss}line{font-family:\00003194}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_external_sites_blocks\.scss}line{font-family:\00003191}}
   .foodbase-links .custom-block-content-inner {
     padding: 0px 10px 12px 10px; }
 
