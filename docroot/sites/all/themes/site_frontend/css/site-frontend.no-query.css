@@ -2633,7 +2633,7 @@ ul.breadcrumb {
 .field--name-field-fc-quanda-question {
   /* remove default ui icons */ }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\0000352}}
-  .field--name-field-fc-quanda-question h3 {
+  .field--name-field-fc-quanda-question h2 {
     color: #006f51;
     padding-left: 24px;
     background-image: url("../images/sidebar-arrow-right.png");
@@ -2642,14 +2642,14 @@ ul.breadcrumb {
     margin-top: 4px;
     margin-bottom: 6px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\0000361}}
-  .field--name-field-fc-quanda-question h3:hover {
+  .field--name-field-fc-quanda-question h2:hover {
     text-decoration: underline; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\0000365}}
   .field--name-field-fc-quanda-question span.ui-icon {
     display: none; }
 
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\0000373}}
-.field--name-field-fc-quanda-question.ui-state-active h3 {
+.field--name-field-fc-quanda-question.ui-state-active h2 {
   background-image: url("../images/sidebar-arrow-down.png");
   background-repeat: no-repeat;
   background-position: 9px 4px; }
