@@ -2659,6 +2659,10 @@ ul.breadcrumb {
 .field--name-field-fc-quanda-answer.ui-accordion .ui-accordion-content {
   padding: 0 0 0 24px; }
 
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\0000383}}
+div.field.field--name-field-fc-quanda-answer.field--type-text-long.field--label-hidden.ui-accordion-content.ui-helper-reset.ui-widget-content.ui-corner-bottom.ui-accordion-content-active {
+  padding: 0 0 0 24px; }
+
 /* Feature blocks are: Business and industry, Enforcement and regulation, Science and research 
  * requires block classes: feature-block green-block and for the last block we also use the class: last
  * block styling comes from base styles and block content styling comes from this style sheet.
