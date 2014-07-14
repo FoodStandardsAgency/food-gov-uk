@@ -88,9 +88,19 @@ ENDSQL;
     $this->destination = new MigrateDestinationNode('audit_report');
 
     // General fields mapping.
-    $this->addFieldMapping('title', 'title');
+    // General fields mapping.
+    $this->addFieldMapping('title', 'NAME');
+    $this->addFieldMapping('field_title_short', 'title');
+    $this->addFieldMapping('field_subtitle', 'COMMENT');
+
     $this->addFieldMapping('field_summary', 'summary')
       ->callbacks(array($this, 'pastedApostropheFormatter'));
+
+    // set language
+    $this->addFieldMapping('language', 'language')
+      ->callbacks(array($this, 'convertLanguage'));
+    //main create date
+    $this->addFieldMapping('created', 'pubdate');
 
     // Updated date field.
     $this->addFieldMapping('field_updated', 'pubdate');
@@ -114,7 +124,6 @@ ENDSQL;
     $this->addFieldMapping('field_path', 'title');
     $this->addFieldMapping('field_path:machine', 'SIMPLENAME')
       ->callbacks(array($this, 'pathFormatter'));
-    $this->addFieldMapping('field_title_short', 'title');
 
 
     // Table of content module settings migration.
@@ -130,14 +139,23 @@ ENDSQL;
     $this->addFieldMapping('field_audit_type', 'Reports');
     $this->addFieldMapping('field_audit_type:source_type')
       ->defaultValue('tid');
-    $this->addFieldMapping('field_nation', 'Regions')
-      ->separator(',');
-    $this->addFieldMapping('field_nation:source_type')
-      ->defaultValue('tid');
+
+
+    //$this->addFieldMapping('field_nation', 'Regions')
+    //  ->separator(',');
+
+   // $this->addFieldMapping('field_nation:source_type')
+   //   ->defaultValue('tid');
 
     $this->addFieldMapping('field_audit_authority_type', 'Authority types');
 
     $this->addFieldMapping('field_audit_authority', 'AUTHORITY');
+
+    // Migrate nation according to primary attach point
+    $this->addFieldMapping('field_nation', 'PATH')
+      ->arguments(array('source_type' => 'tid'))
+      ->callbacks(array($this, 'auditNationConvert'));
+
     // migrate redirects
     $this->addFieldMapping('migrate_redirects', 'PATH')
       ->defaultValue('MigrateRedirectEntity');
@@ -160,7 +178,7 @@ ENDSQL;
         ),
         $connectionOracle,
         // You can add extra fields to extract from the field table here.
-        array('title', 'summary', 'backtotop', 'showLastUpdated', 'pubdate', 'indexed', 'simplename')
+        array('title', 'summary', 'backtotop', 'showLastUpdated', 'pubdate', 'indexed')
       );
 
       foreach ($fields_res_array as $fieldVariable => $fieldValue) {
@@ -187,18 +205,23 @@ ENDSQL;
     // Index management.
     $replacedQuery = str_replace(':obj_ids', $row->OBJECTID, $this->indexQuery);
     $sqlResultIndex = FSAMigration::oracleQueryAllOneDimension($replacedQuery, array(), $connectionOracle);
-
-    foreach ($sqlResultIndex as $indexResultArray) {
-      $indexValue = $indexResultArray['VALIDVALUE'];
-      $indexName = $indexResultArray['INDEXNAME'];
-      if (isset($this->indexRefArray[$indexName][$indexValue])) {
-        // Mapping the name of the index as a row with a value.
-        $row->{$indexName} = $this->indexRefArray[$indexName][$indexValue];
-      }
-      else {
-        drush_log('Source index for object ' . $indexName . '|' . $indexValue . ' is missing.');
+    if (is_array($sqlResultIndex)) {
+      foreach ($sqlResultIndex as $indexResultArray) {
+        $indexValue = $indexResultArray['VALIDVALUE'];
+        $indexName = $indexResultArray['INDEXNAME'];
+        if (isset($this->indexRefArray[$indexName][$indexValue])) {
+          // Mapping the name of the index as a row with a value.
+          $row->{$indexName} = $this->indexRefArray[$indexName][$indexValue];
+        }
+        else {
+          drush_log('Source index for object ' . $indexName . '|' . $indexValue . ' is missing.');
+        }
       }
     }
+    else {
+      drush_log('No indexes for '. $row->OBJECTID);
+    }
+
 
     // Audit Authority.
     $replacedQueryAuthority = str_replace(':obj_ids', $row->OBJECTID, $this->auditAuthority);
@@ -208,4 +231,27 @@ ENDSQL;
       $row->AUTHORITY = $sqlResultAuthority[0]['NAME'];
     }
   }
+
+  /**
+   * Extract the nation based on the path.
+   * Some audits are mis-labelled and others dont have labels
+   * @param $value
+   */
+  protected function auditNationConvert($value) {
+    $nation_tids = array();
+    $mapping = array(
+      'audengreport' => array('17'),
+      'auditnireland' => array('6'),
+      'auditscot' => array('7'),
+      'auditwales' => array('5'),
+      'gorfodi' => array('5'),
+    );
+    foreach ((array) $value as $path) {
+      $path = explode('/', $path);
+      $nation_tids = array_merge($nation_tids, $mapping[$path[4]]);
+    }
+
+    return $nation_tids;
+  }
+
 }

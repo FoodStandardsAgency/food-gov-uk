@@ -9,17 +9,17 @@
  * Class FSANewsDocumentCollectionMigration
  * Migration class for the FSA Document page.
  */
-class FSANewsDocumentCollectionMigration extends FSAMigration {
+class FSAAlertDocumentCollectionMigration extends FSAMigration {
 
   public function __construct($arguments) {
     global $conf;
     // Calls to parent constructor from official doc.
     parent::__construct();
     // Calls the parent constructor.
-    $this->description = t('Migrates the field collection for the news document field collection
+    $this->description = t('Migrates the field collection for the alert document field collection
      from Oracle to Drupal.');
 
-    $this->dependencies = array('FSANewsDocument');
+    $this->dependencies = array('FSAAlertDocument');
 
     // Map the source id.
     $this->map = new MigrateSQLMap(
@@ -63,7 +63,7 @@ class FSANewsDocumentCollectionMigration extends FSAMigration {
 
     // Configure the source of the migration.
     $this->source = new MigrateSourceList(
-      new MigrateListOracleTextCollection('data/csv/news-alterian-id-list.csv', $conf['oracle_db']),
+      new MigrateListOracleTextCollection('data/csv/foodhazard-alterian-id-list.csv', $conf['oracle_db']),
       new MigrateItemOracleTextCollection()
     );
 
@@ -75,7 +75,7 @@ class FSANewsDocumentCollectionMigration extends FSAMigration {
 
     // Migration source dependency.
     $this->addFieldMapping('host_entity_id', 'OBJECTID')
-      ->sourceMigration('FSANewsDocument');
+      ->sourceMigration('FSAAlertDocument');
 
     // Fields mapping.
     $this->addFieldMapping('field_fc_section_heading', 'sectionheading');

@@ -54,15 +54,19 @@
      hide($content['field_fc_section_quote']);
    }
 
+  if (
+    isset($field_collection_item->field_science_data) &&
+    isset($field_collection_item->field_science_data[$language][0]) &&
+    !$field_collection_item->field_science_data[$language][0]['value']) {
+    hide($content['field_science_data']);
+  }
 
   // Create image and wrapper markup.
 
   if (!empty($field_collection_item->field_fc_image_caption)) {
-		
       // Remove image caption field from content so we can render it separately,
       // if there is no image, it won't render at all
       hide($content['field_fc_image_caption']);
-
       // Determine the image caption.
       $image_caption = $field_collection_item->field_fc_image_caption[$language][0]['value'];
   }
@@ -146,8 +150,14 @@
 <div class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
   <div class="content"<?php print $content_attributes; ?>>
     <?php
+      if (trim($content['field_fc_section_heading']['#items'][0]['value'])){
+        print render($content['field_fc_section_heading']);
+      }
+      else {
+        // there is no value here, so don't display an empty heading
+        hide($content['field_fc_section_heading']);
+      }
 
-      print render($content['field_fc_section_heading']);
 
       if ($image_position != 'img-pos-bottom') {
         print $image_with_wrapper;

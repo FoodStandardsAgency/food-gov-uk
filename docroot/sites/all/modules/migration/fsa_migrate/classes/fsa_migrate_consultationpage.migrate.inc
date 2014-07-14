@@ -1,56 +1,23 @@
 <?php
-
 /**
  * @file
- * News document migration class.
+ * Uberpage migration class. This for testing purpose.
  */
 
 /**
- * Class FSANewsDocumentMigration
- * Migration class for the FSA News document.
+ * Class FSAUberpageMigration
+ * Migration class for the FSA Document page.
  */
-class FSANewsDocumentMigration extends FSAMigration {
-
-  /**
-   * News type reference mapping array.
-   * Reference array between [vocabulary][term name] and between a term id in drupal.
-   *
-   * @var array
-   */
-  protected $newsTypeRefArray = array(
-    'Product withdrawal' => 'Product widthdrawal',
-    'Product recall' => 'Product recall',
-    'Allergy alert' => 'Allergy Alert',
-    'Food alert for action' => 'Food Alert',
-  );
-
-  /**
-   * Section Affiliation reference mapping array.
-   * Reference array between [vocabulary][term name] and between a term id in drupal.
-   *
-   * @var array
-   */
-  protected $sectionAffiliationRefArray = array(
-    // @TODO finish the mapping ref array.
-    // Pending terms 'Scotland', 'Northern Ireland', 'Wales', 'Welsh News', 'GM and Novel'.
-    'About Us' => 'About us',
-    'Enforcement' => 'Enforcement and Regulation',
-    'Business and industry' => 'Business and Industry',
-    'News' => 'News and Updates',
-    'Research' => 'Science and Policy',
-    'Policy and advice' => 'Science and Policy',
-    'Science and policy' => 'Science and Policy',
-    'Science' => 'Science and Research',
-  );
-
+class FSAConsultationpageMigration extends FSAMigration {
   /**
    * Class constructor.
    */
   public function __construct($arguments) {
+
     // Calls to parent constructor from official doc.
     parent::__construct();
     // Calls the parent constructor.
-    $this->description = t('Migrates the news document from Oracle to Drupal.');
+    $this->description = t('Migrates the document from Oracle to Drupal.');
 
     // Map the source id.
     $this->map = new MigrateSQLMap(
@@ -79,28 +46,23 @@ class FSANewsDocumentMigration extends FSAMigration {
 
     // Configure the source of the migration.
     $this->source = new MigrateSourceList(
-      new FSAMigrateListOracleObjectsFromCSV('data/csv/news-alterian-id-list.csv'),
+      new FSAMigrateListOracleObjectsFromCSV('data/csv/consultation-alterian-id-list.csv'),
       new FSAMigrateItemOracleObject()
     );
 
     // Destination detail.
-    $this->destination = new MigrateDestinationNode('news');
+    $this->destination = new MigrateDestinationNode('consultation');
 
     // General fields mapping.
-    $this->addFieldMapping('title', 'NAME');
+    $this->addFieldMapping('title', 'title');
     $this->addFieldMapping('field_title_short', 'title');
-    $this->addFieldMapping('field_subtitle', 'COMMENT');
     $this->addFieldMapping('field_summary', 'summary')
       ->callbacks(array($this, 'pastedApostropheFormatter'));
-
-
-    // set language
     $this->addFieldMapping('language', 'language')
       ->callbacks(array($this, 'convertLanguage'));
+
     //main create date
-    $this->addFieldMapping('created', 'pubdate');
-
-
+    $this->addFieldMapping('created', 'pubdate'); #@todo this should probably be the original date
     // Updated date field.
     $this->addFieldMapping('field_updated', 'pubdate');
     $this->addFieldMapping('field_display_updated_date', 'showLastUpdated')
@@ -111,21 +73,6 @@ class FSANewsDocumentMigration extends FSAMigration {
     $this->addFieldMapping('field_setting_backtotop', 'backtotop')
       ->callbacks(array($this, 'convertYesNoBoolean'))
       ->defaultValue(FALSE);
-
-    // Promote to front page.
-    $this->addFieldMapping('promote', 'includeinmailshot')
-      ->callbacks(array($this, 'convertYesNoBoolean'))
-      ->defaultValue(FALSE);
-
-    // Include in mailshot.
-    $this->addFieldMapping('field_mailshot', 'visibleonhomepage')
-      ->callbacks(array($this, 'convertYesNoBoolean'))
-      ->defaultValue(FALSE);
-
-    // Category term mapping.
-    $this->addFieldMapping('field_news_type', 'category')
-      ->callbacks(array($this, 'newsCategoryRefMapping'))
-      ->defaultValue('General News');
 
     // Feature image mapping.
     $this->addFieldMapping('field_feature_image', 'FEATUREDIMAGEPATH')
@@ -143,7 +90,36 @@ class FSANewsDocumentMigration extends FSAMigration {
 
     $this->addFieldMapping('pathauto')
       ->defaultValue(1);
+    $this->addFieldMapping('migrate_redirects', 'PATH')
+      ->defaultValue('MigrateRedirectEntity');
 
+    // Contact details.
+    $this->addFieldMapping('field_consultations_contact_name', 'contactname');
+    $this->addFieldMapping('field_consultation_contact_add', 'contactaddress');
+    // @TODO Manage the new lines to work on text area with the Wysiwyg.
+    $this->addFieldMapping('field_consultation_contact_add:format', 'contactaddress')
+      ->callbacks(array($this, 'textAreaFormat'));
+    $this->addFieldMapping('field_consultation_contact_tel', 'contacttel');
+    $this->addFieldMapping('field_consultation_contact_fax', 'contactfax');
+    $this->addFieldMapping('field_consultation_contact_email', 'contactemail');
+
+    // Start and end date of consultation.
+    $this->addFieldMapping('field_consultation_dates', 'startdate');
+    $this->addFieldMapping('field_consultation_dates:to', 'enddate');
+    // Consultation state.
+    $this->addFieldMapping('field_consultation_state', 'completed')
+      ->callbacks(array($this, 'consultationStateFormatter'));
+    // Data protection.
+    $this->addFieldMapping('field_data_protection', 'dataprotection');
+    // Consultation details.
+    $this->addFieldMapping('field_consultation_details', 'consultdetails');
+    $this->addFieldMapping('field_consultation_details:format', 'consultdetails')
+      ->callbacks(array($this, 'textAreaFormat'));
+
+    // Audience to body.
+    $this->addFieldMapping('body', 'audience');
+    $this->addFieldMapping('body:format', 'audience')
+      ->callbacks(array($this, 'textAreaFormat'));
 
     // Table of content module settings migration.
     $this->addFieldMapping('toc_node_style', 'indexed')
@@ -154,22 +130,15 @@ class FSANewsDocumentMigration extends FSAMigration {
     $this->addFieldMapping('toc_node_back_to_top_links')
       ->defaultValue(0);
 
-    // Section affiliation management.
-    $this->addFieldMapping('field_site_section', 'site_section')
-      ->defaultValue('News and Updates');
-
-    $this->addFieldMapping('migrate_redirects', 'PATH')
-      ->defaultValue('MigrateRedirectEntity');
 
     // Consultation specific nation rules
     $this->addFieldMapping('field_nation', 'PATH')
       ->arguments(array('source_type' => 'tid'))
-      ->callbacks(array($this, 'convertPathToNationGeneric'));
-    $this->addFieldMapping('field_primary_nation', 'PATH')
-      ->arguments(array('source_type' => 'tid'))
-      ->callbacks(array($this, 'convertPathToPrimaryNationGeneric'));
+      ->callbacks(array($this, 'consultationNationConvert'));
 
-
+    // Section affiliation management.
+    $this->addFieldMapping('field_site_section')
+      ->defaultValue('News and Updates');
   }
 
   /**
@@ -195,12 +164,19 @@ class FSANewsDocumentMigration extends FSAMigration {
           'showLastUpdated',
           'pubdate',
           'indexed',
-          'includeinmailshot',
-          'visibleonhomepage',
-          'category',
-          'sectionaffiliation',
-          'secondaffiliation',
+          'contactname',
+          'contactaddress',
+          'contacttel',
+          'contactfax',
+          'contactemail',
+          'startdate',
+          'enddate',
+          'completed',
+          'dataprotection',
+          'audience',
+          'consultdetails',
           'language',
+          'nation',
         )
       );
 
@@ -224,36 +200,43 @@ class FSANewsDocumentMigration extends FSAMigration {
       $row->FEATUREDIMAGEPATH = variable_get('file_public_path', 'sites/default/files') .
         '/sources' . $feature_image_res['PATH'];
     }
-
-    // Affiliation management.
-    $row->site_section = array();
-    // Section affiliation.
-    if (isset($row->sectionaffiliation) && !is_null($row->sectionaffiliation)) {
-      if (isset($this->sectionAffiliationRefArray[$row->sectionaffiliation])) {
-        $row->site_section[] = $this->sectionAffiliationRefArray[$row->sectionaffiliation];
-      }
-    }
-    // Secondary affiliation.
-    if (isset($row->secondaffiliation) && !is_null($row->secondaffiliation)) {
-      if (isset($this->sectionAffiliationRefArray[$row->secondaffiliation])) {
-        $row->site_section[] = $this->sectionAffiliationRefArray[$row->secondaffiliation];
-      }
-    }
   }
 
   /**
-   * For an original news category name returns a newly formatted string regarding drupal terms.
+   * Formats the value for consultation state list for consultation.
    *
    * @param $value
    * @return string
    */
-  protected function newsCategoryRefMapping($value) {
-    if (isset($this->newsTypeRefArray[$value])) {
-      return $this->newsTypeRefArray[$value];
+  protected function consultationStateFormatter($value) {
+    if ($value == 'Yes') {
+      return 'Open';
     }
     else {
-      return 'General News';
+      return 'Closed';
     }
   }
 
+  /**
+   * Extract the nation based on the consultation path.
+   * We cant see the UK-wide consultations in the nation field
+   * @param $value
+   */
+  protected function consultationNationConvert($value) {
+    $nation_tids = array();
+    $mapping = array(
+      'consultations-uk' => array('17','6','7','5'),
+      'consultations-england' => array('17'),
+      'consultations-northern-ireland' => array('6'),
+      'consultations-scotland' => array('7'),
+      'consultations-wales' => array('5'),
+      'cymru' => array('5'),
+    );
+    foreach ((array) $value as $path) {
+      $path = explode('/', $path);
+      $nation_tids = array_merge($nation_tids, $mapping[$path[3]]);
+    }
+
+    return $nation_tids;
+  }
 }

@@ -44,6 +44,14 @@ function fsa_migrate_migrate_api() {
         'class_name' => 'FSANewsDocumentMigration',
         'group_name' => 'fsa_types',
       ),
+      'FSAAlertDocument' => array(
+        'class_name' => 'FSAAlertDocumentMigration',
+        'group_name' => 'fsa_types',
+      ),
+      'FSAConsultationpage' => array(
+        'class_name' => 'FSAConsultationpageMigration',
+        'group_name' => 'fsa_types',
+      ),
       'FSAMultibranchDocument' => array(
         'class_name' => 'FSAMultibranchDocumentMigration',
         'group_name' => 'fsa_types',
@@ -70,6 +78,10 @@ function fsa_migrate_migrate_api() {
       ),
       'FSANewsDocumentCollection' => array(
         'class_name' => 'FSANewsDocumentCollectionMigration',
+        'group_name' => 'fsa_fc',
+      ),
+      'FSAAlertDocumentCollection' => array(
+        'class_name' => 'FSAAlertDocumentCollectionMigration',
         'group_name' => 'fsa_fc',
       ),
       'FSAMultibranchCollection' => array(
