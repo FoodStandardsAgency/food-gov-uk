@@ -46,10 +46,18 @@ class FSADocumentpageMigration extends FSAMigration {
     );
 
     // Configure the source of the migration.
-    $this->source = new MigrateSourceList(
-      new FSAMigrateListOracleObjectsFromCSV('data/csv/dev-alterian-id-list.csv'),
-      new FSAMigrateItemOracleObject()
-    );
+    if (variable_get('fsa_migrate_production')) {
+      $this->source = new MigrateSourceList(
+        new FSAMigrateListOracleObjectsFromCSV('data/csv/business-document.csv'),
+        new FSAMigrateItemOracleObject()
+      );
+    }
+    else {
+      $this->source = new MigrateSourceList(
+        new FSAMigrateListOracleObjectsFromCSV('data/csv/dev-alterian-id-list.csv'),
+        new FSAMigrateItemOracleObject()
+      );
+    }
 
     // Destination detail.
     $this->destination = new MigrateDestinationNode('document_page');

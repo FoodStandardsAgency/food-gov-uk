@@ -376,7 +376,7 @@ ENDSQL;
    * @return null|string
    */
   public function pathFormatter($path) {
-    return ltrim($path, '/');
+    return trim($path, '/');
   }
 
   /**

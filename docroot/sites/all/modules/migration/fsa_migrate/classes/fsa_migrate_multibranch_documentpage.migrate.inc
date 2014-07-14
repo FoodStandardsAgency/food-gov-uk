@@ -55,10 +55,16 @@ class FSAMultibranchDocumentMigration extends FSAMigration {
     $this->destination = new MigrateDestinationNode('document_page');
 
     // General fields mapping.
-    $this->addFieldMapping('title', 'title');
+    $this->addFieldMapping('title', 'NAME');
     $this->addFieldMapping('field_title_short', 'title');
+    $this->addFieldMapping('field_subtitle', 'OBJECTCOMMENT');
     $this->addFieldMapping('field_summary', 'summary')
       ->callbacks(array($this, 'pastedApostropheFormatter'));
+    // set language
+    $this->addFieldMapping('language', 'language')
+      ->callbacks(array($this, 'convertLanguage'));
+    //main create date
+    $this->addFieldMapping('created', 'pubdate');
 
     // Updated date field.
     $this->addFieldMapping('field_updated', 'pubdate');
@@ -91,6 +97,12 @@ class FSAMultibranchDocumentMigration extends FSAMigration {
       ->defaultValue(2);
     $this->addFieldMapping('toc_node_back_to_top_links')
       ->defaultValue(0);
+
+    // set teaser style
+    // @todo This may require a custom plugin
+    $this->addFieldMapping('field_child_page_style')
+      ->defaultValue('micro_teaser');
+
   }
 
   /**

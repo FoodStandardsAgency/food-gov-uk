@@ -69,7 +69,7 @@ ENDSQL;
     $this->description = t('Migrates the related content into a field collection from Oracle to Drupal.');
 
     // @TODO add dependencies to other content types.
-    $this->dependencies = array('FSADocumentpage', 'FSAMediaDocument');
+    $this->dependencies = array('FSADocumentpage', 'FSAMediaDocument', 'FSANewsDocument','FSAAuditReport');
 
     // Map the source id.
     $this->map = new MigrateSQLMap(

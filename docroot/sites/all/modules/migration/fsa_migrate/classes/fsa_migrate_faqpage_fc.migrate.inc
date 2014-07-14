@@ -81,13 +81,25 @@ ENDSQL;
     );
 
     // Configure the source of the migration.
-    $this->source = new MigrateSourceList(
-      new FSAMigrateListOracleGenericCollectionMulti(
-        'data/csv/faq-alterian-id-list.csv',
-        array( 'count_query' => $this->countQuery, $this->query )
-      ),
-      new FSAMigrateItemOracleGenericCollectionMulti()
-    );
+    // Configure the source of the migration.
+    if (variable_get('fsa_migrate_production', false)) {
+      $this->source = new MigrateSourceList(
+        new FSAMigrateListOracleGenericCollectionMulti(
+          'data/csv/business-faq.csv',
+          array( 'count_query' => $this->countQuery, $this->query )
+        ),
+        new FSAMigrateItemOracleGenericCollectionMulti()
+      );
+    }
+    else {
+      $this->source = new MigrateSourceList(
+        new FSAMigrateListOracleGenericCollectionMulti(
+          'data/csv/faq-alterian-id-list.csv',
+          array( 'count_query' => $this->countQuery, $this->query )
+        ),
+        new FSAMigrateItemOracleGenericCollectionMulti()
+      );
+    }
 
     // Destination detail.
     $this->destination = new MigrateDestinationFieldCollection(

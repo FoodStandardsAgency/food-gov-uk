@@ -15,7 +15,7 @@
  */
 function fsa_migrate_node_update($node) {
   $pathauto_restrict = variable_get('fsa_migrate_pathauto_restrict', FALSE);
-  if ($pathauto_restrict && $node->type == 'document_page') {
+  if ($pathauto_restrict && in_array($node->type, array('document_page', 'faq'))) {
     $conditions = array('source' => 'node/' . $node->nid, 'language' => LANGUAGE_NONE);
     $path = path_load($conditions);
     if ($path) {
