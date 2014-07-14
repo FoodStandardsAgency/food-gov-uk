@@ -61,6 +61,10 @@
 	h3:hover {
 		text-decoration: underline;
 	}
+	/* remove default ui icons */
+	span.ui-icon {
+		display: none;
+	}
 }
 .field--name-field-fc-qanda {
 	
@@ -76,10 +80,3 @@
 .field--name-field-fc-quanda-answer.ui-accordion .ui-accordion-content {
 	padding: 0 0 0 24px;
 }
-/* remove default accordion icons */
-.field--name-field-fc-quanda-answer.ui-accordion .ui-accordion-header .ui-icon {
-	display: none;
-}
-
-
-
