@@ -234,19 +234,6 @@ function cdn_pick_server($servers_for_file) {
   return $servers_for_file[$unique_file_id % count($servers_for_file)];
 }
 
-/**
- * Load local development override configuration, if available.
- *
- * Use settings.local.php to override variables on secondary (staging,
- * development, etc) installations of this site. Typically used to disable
- * caching, JavaScript/CSS compression, re-routing of outgoing e-mails, and
- * other things that should not happen on development and testing sites.
- *
- * Keep this code block at the end of this file to take full effect.
- */
-if (file_exists(DRUPAL_ROOT . '/' . conf_path() . '/settings.local.php')) {
-  include DRUPAL_ROOT . '/' . conf_path() . '/settings.local.php';
-}
 
 /**
  * Fast 404 settings:
@@ -355,3 +342,23 @@ $conf['shield_user'] = 'shield';
 $conf['shield_pass'] = 'down';
 $conf['shield_allow_cli'] = 1;
 $conf['shield_print'] =  'Hello, user: [user], pass: [pass]';
+
+
+/**
+ * Load local development override configuration, if available.
+ *
+ * Use settings.local.php to override variables on secondary (staging,
+ * development, etc) installations of this site. Typically used to disable
+ * caching, JavaScript/CSS compression, re-routing of outgoing e-mails, and
+ * other things that should not happen on development and testing sites.
+ *
+ * Keep this code block at the end of this file to take full effect.
+ */
+
+if (file_exists('/var/www/site-php')) {
+  // server specific config
+  require('/var/www/site-php/food-settings.inc');
+}
+else if (file_exists(DRUPAL_ROOT . '/' . conf_path() . '/settings.local.php')) {
+  include DRUPAL_ROOT . '/' . conf_path() . '/settings.local.php';
+}
