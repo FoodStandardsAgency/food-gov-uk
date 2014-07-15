@@ -64,13 +64,13 @@ class FSAAlertDocumentCollectionMigration extends FSAMigration {
     // Configure the source of the migration.
     if (variable_get('fsa_migrate_production', false)) {
       $this->source = new MigrateSourceList(
-        new MigrateListOracleTextCollection('data/csv/foodhazard-alterian-id-list.csv', $conf['oracle_db']),
+        new MigrateListOracleTextCollection('data/csv/foodhazard.csv', $conf['oracle_db']),
         new MigrateItemOracleTextCollection()
       );
     }
     else {
       $this->source = new MigrateSourceList(
-        new MigrateListOracleTextCollection('data/csv/foodhazard.csv', $conf['oracle_db']),
+        new MigrateListOracleTextCollection('data/csv/foodhazard-alterian-id-list.csv', $conf['oracle_db']),
         new MigrateItemOracleTextCollection()
       );
     }

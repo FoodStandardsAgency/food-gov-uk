@@ -81,14 +81,14 @@ ENDSQL;
     if (variable_get('fsa_migrate_production', false)) {
       // Configure the source of the migration.
       $this->source = new MigrateSourceList(
-        new FSAMigrateListOracleObjectsFromCSV('data/csv/auditreport-alterian-id-list.csv'),
+        new FSAMigrateListOracleObjectsFromCSV('data/csv/audits.csv'),
         new FSAMigrateItemOracleObject()
       );
     }
     else {
       // Configure the source of the migration.
       $this->source = new MigrateSourceList(
-        new FSAMigrateListOracleObjectsFromCSV('data/csv/audits.csv'),
+        new FSAMigrateListOracleObjectsFromCSV('data/csv/auditreport-alterian-id-list.csv'),
         new FSAMigrateItemOracleObject()
       );
     }

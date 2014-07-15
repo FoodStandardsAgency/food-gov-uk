@@ -93,10 +93,10 @@ ENDSQL;
     );
 
     // Configure the source of the migration.
-    if (variable_get('fsa_migrate_production')) {
+    if (variable_get('fsa_migrate_production',false)) {
       $this->source = new MigrateSourceList(
         new FSAMigrateListOracleGenericCollection(
-          array('data/csv/business-document.csv','news.csv'),
+          array('data/csv/business-document.csv','data/csv/news.csv'),
           array( $this->query_related_items, $this->query_related_CSV, $this->query_related_pages )
         ),
         new FSAMigrateItemOracleGenericCollection()

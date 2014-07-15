@@ -62,14 +62,14 @@ class FSAAuditReportCollectionMigration extends FSAMigration {
     if (variable_get('fsa_migrate_production', false)) {
       // Configure the source of the migration.
       $this->source = new MigrateSourceList(
-        new MigrateListOracleTextCollection('data/csv/auditreport-alterian-id-list.csv', $conf['oracle_db']),
+        new MigrateListOracleTextCollection('data/csv/audits.csv', $conf['oracle_db']),
         new MigrateItemOracleTextCollection()
       );
     }
     else {
       // Configure the source of the migration.
       $this->source = new MigrateSourceList(
-        new MigrateListOracleTextCollection('data/csv/audits.csv', $conf['oracle_db']),
+        new MigrateListOracleTextCollection('data/csv/auditreport-alterian-id-list.csv', $conf['oracle_db']),
         new MigrateItemOracleTextCollection()
       );
     }

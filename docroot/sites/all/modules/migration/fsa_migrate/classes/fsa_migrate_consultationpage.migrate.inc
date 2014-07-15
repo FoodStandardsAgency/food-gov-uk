@@ -47,13 +47,13 @@ class FSAConsultationpageMigration extends FSAMigration {
     if (variable_get('fsa_migrate_production', false)) {
 
       $this->source = new MigrateSourceList(
-        new FSAMigrateListOracleObjectsFromCSV('data/csv/consultation-alterian-id-list.csv'),
+        new FSAMigrateListOracleObjectsFromCSV('data/csv/consultations.csv'),
         new FSAMigrateItemOracleObject()
       );
     }
     else {
       $this->source = new MigrateSourceList(
-        new FSAMigrateListOracleObjectsFromCSV('data/csv/consultations.csv'),
+        new FSAMigrateListOracleObjectsFromCSV('data/csv/consultation-alterian-id-list.csv'),
         new FSAMigrateItemOracleObject()
       );
     }

@@ -52,13 +52,13 @@ class FSAAlertDocumentMigration extends FSAMigration {
     if (variable_get('fsa_migrate_production', false)) {
 
       $this->source = new MigrateSourceList(
-        new FSAMigrateListOracleObjectsFromCSV('data/csv/foodhazard-alterian-id-list.csv'),
+        new FSAMigrateListOracleObjectsFromCSV('data/csv/foodhazard.csv'),
         new FSAMigrateItemOracleObject()
       );
     }
     else {
       $this->source = new MigrateSourceList(
-        new FSAMigrateListOracleObjectsFromCSV('data/csv/foodhazard.csv'),
+        new FSAMigrateListOracleObjectsFromCSV('data/csv/foodhazard-alterian-id-list.csv'),
         new FSAMigrateItemOracleObject()
       );
     }
