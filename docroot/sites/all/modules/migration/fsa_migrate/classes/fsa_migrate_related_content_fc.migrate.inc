@@ -93,13 +93,24 @@ ENDSQL;
     );
 
     // Configure the source of the migration.
-    $this->source = new MigrateSourceList(
-      new FSAMigrateListOracleGenericCollection(
-        array('data/csv/dev-alterian-id-list.csv', 'data/csv/auditreport-alterian-id-list.csv'),
-        array( $this->query_related_items, $this->query_related_CSV, $this->query_related_pages )
-      ),
-      new FSAMigrateItemOracleGenericCollection()
-    );
+    if (variable_get('fsa_migrate_production')) {
+      $this->source = new MigrateSourceList(
+        new FSAMigrateListOracleGenericCollection(
+          array('data/csv/business-document.csv'),
+          array( $this->query_related_items, $this->query_related_CSV, $this->query_related_pages )
+        ),
+        new FSAMigrateItemOracleGenericCollection()
+      );
+    }
+    else {
+      $this->source = new MigrateSourceList(
+        new FSAMigrateListOracleGenericCollection(
+          array('data/csv/dev-alterian-id-list.csv', 'data/csv/auditreport-alterian-id-list.csv'),
+          array( $this->query_related_items, $this->query_related_CSV, $this->query_related_pages )
+        ),
+        new FSAMigrateItemOracleGenericCollection()
+      );
+    }
 
     // Destination detail.
     $this->destination = new MigrateDestinationFieldCollection(

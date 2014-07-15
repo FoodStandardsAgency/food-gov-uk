@@ -64,13 +64,13 @@ class FSADocumentpageCollectionMigration extends FSAMigration {
     if (variable_get('fsa_migrate_production')) {
       $this->source = new MigrateSourceList(
         new MigrateListOracleTextCollection('data/csv/business-document.csv', $conf['oracle_db']),
-        new FSAMigrateItemOracleObject()
+        new MigrateItemOracleTextCollection()
       );
     }
     else {
       $this->source = new MigrateSourceList(
         new MigrateListOracleTextCollection('data/csv/dev-alterian-id-list.csv', $conf['oracle_db']),
-        new FSAMigrateItemOracleObject()
+        new MigrateItemOracleTextCollection()
       );
     }
 
