@@ -15,16 +15,19 @@
  */
 function fsa_migrate_node_update($node) {
   $pathauto_restrict = variable_get('fsa_migrate_pathauto_restrict', FALSE);
-  if ($pathauto_restrict && in_array($node->type, array('document_page', 'faq'))) {
+  if (in_array($node->type, array('document_page', 'faq'))) {
     $conditions = array('source' => 'node/' . $node->nid, 'language' => LANGUAGE_NONE);
     $path = path_load($conditions);
     if ($path) {
       $node->path['alias'] = $path['alias'];
-      module_load_include('inc', 'pathauto');
-      $uri = entity_uri('node', $node);
+      //module_load_include('inc', 'pathauto');
+      //$uri = entity_uri('node', $node);
       //$pathauto_alias = pathauto_create_alias('node', 'return', $path, array('node' => $node), 'document_page', LANGUAGE_NONE);
       //$node->path['pathauto'] = ($path != $uri['path'] && $path == $pathauto_alias);
-      $node->path['pathauto']=false;
+
+      if ($pathauto_restrict) {
+        $node->path['pathauto']=false;
+      }
     }
   }
 }

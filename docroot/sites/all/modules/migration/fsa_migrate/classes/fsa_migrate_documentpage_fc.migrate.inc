@@ -61,10 +61,19 @@ class FSADocumentpageCollectionMigration extends FSAMigration {
     );
 
     // Configure the source of the migration.
-    $this->source = new MigrateSourceList(
-      new MigrateListOracleTextCollection('data/csv/dev-alterian-id-list.csv', $conf['oracle_db']),
-      new MigrateItemOracleTextCollection()
-    );
+    if (variable_get('fsa_migrate_production')) {
+      $this->source = new MigrateSourceList(
+        new MigrateListOracleTextCollection('data/csv/business-document.csv', $conf['oracle_db']),
+        new FSAMigrateItemOracleObject()
+      );
+    }
+    else {
+      $this->source = new MigrateSourceList(
+        new MigrateListOracleTextCollection('data/csv/dev-alterian-id-list.csv', $conf['oracle_db']),
+        new FSAMigrateItemOracleObject()
+      );
+    }
+
 
     // Destination detail.
     $this->destination = new MigrateDestinationFieldCollection(
