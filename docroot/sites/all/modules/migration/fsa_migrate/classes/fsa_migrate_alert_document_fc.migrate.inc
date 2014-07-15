@@ -2,23 +2,24 @@
 
 /**
  * @file
- * Field collection for Uberpage migration class. This for testing purpose.
+ * Field collection for news field collection migration class. This for testing purpose.
  */
 
 /**
- * Class FSAUberpageCollectionMigration
+ * Class FSANewsDocumentCollectionMigration
  * Migration class for the FSA Document page.
  */
-class FSADocumentpageCollectionMigration extends FSAMigration {
+class FSAAlertDocumentCollectionMigration extends FSAMigration {
 
   public function __construct($arguments) {
     global $conf;
     // Calls to parent constructor from official doc.
     parent::__construct();
     // Calls the parent constructor.
-    $this->description = t('Migrates the field collection for the document from Oracle to Drupal.');
+    $this->description = t('Migrates the field collection for the alert document field collection
+     from Oracle to Drupal.');
 
-    $this->dependencies = array('FSADocumentpage');
+    $this->dependencies = array('FSAAlertDocument');
 
     // Map the source id.
     $this->map = new MigrateSQLMap(
@@ -61,19 +62,10 @@ class FSADocumentpageCollectionMigration extends FSAMigration {
     );
 
     // Configure the source of the migration.
-    if (variable_get('fsa_migrate_production')) {
-      $this->source = new MigrateSourceList(
-        new MigrateListOracleTextCollection('data/csv/business-document.csv', $conf['oracle_db']),
-        new FSAMigrateItemOracleObject()
-      );
-    }
-    else {
-      $this->source = new MigrateSourceList(
-        new MigrateListOracleTextCollection('data/csv/dev-alterian-id-list.csv', $conf['oracle_db']),
-        new FSAMigrateItemOracleObject()
-      );
-    }
-
+    $this->source = new MigrateSourceList(
+      new MigrateListOracleTextCollection('data/csv/foodhazard-alterian-id-list.csv', $conf['oracle_db']),
+      new MigrateItemOracleTextCollection()
+    );
 
     // Destination detail.
     $this->destination = new MigrateDestinationFieldCollection(
@@ -83,7 +75,7 @@ class FSADocumentpageCollectionMigration extends FSAMigration {
 
     // Migration source dependency.
     $this->addFieldMapping('host_entity_id', 'OBJECTID')
-      ->sourceMigration('FSADocumentpage');
+      ->sourceMigration('FSAAlertDocument');
 
     // Fields mapping.
     $this->addFieldMapping('field_fc_section_heading', 'sectionheading');
@@ -107,6 +99,9 @@ class FSADocumentpageCollectionMigration extends FSAMigration {
 
     $this->addFieldMapping('field_fc_image_position', 'IMAGEPOSITION')
       ->callbacks(array($this, 'imagePositionValue'));
+
+    // Science text field.
+    $this->addFieldMapping('field_science_data', 'scienceTextItem');
   }
 
   /**
@@ -123,5 +118,6 @@ class FSADocumentpageCollectionMigration extends FSAMigration {
     if (!is_null($row->IMAGEPATH)) {
       $row->sourceImagePath = variable_get('file_public_path', 'sites/default/files') . '/sources' . $row->IMAGEPATH;
     }
+
   }
 }

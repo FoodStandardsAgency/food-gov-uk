@@ -53,6 +53,20 @@ ENDSQL;
 ENDSQL;
 
   /**
+   * @var stringSQL Query to get all attach points
+   */
+  protected $queryAttachPoints = <<<'ENDSQL'
+SELECT OBJ.PATH
+FROM OBJ, LINK, LINKTYPE
+WHERE OBJ.OBJECTID = LINK.PARENTID
+AND LINKTYPE.LINKTYPEID = LINK.LINKTYPEID
+AND LINKTYPE.LINKTYPENAME IN ( 'Primary link', 'Secondary link' )
+AND LINK.CHILDID = :objid
+ENDSQL;
+
+
+
+  /**
    * Reference array between [vocabulary][term name] and between a term id in drupal.
    *
    * @var array
@@ -118,15 +132,19 @@ ENDSQL;
     }
 
     // Execute and fetch the results.
-    oci_execute($statement);
+    if (oci_execute($statement)) {
 
-    // No significal improvment of the performance. Back to normal for more flexibility.
-    $number_of_results = oci_fetch_all($statement, $rows);
+      // No significal improvment of the performance. Back to normal for more flexibility.
+      $number_of_results = oci_fetch_all($statement, $rows);
 
-    oci_free_statement($statement);
+      oci_free_statement($statement);
 
-    if ($number_of_results) {
-      return $rows;
+      if ($number_of_results) {
+        return $rows;
+      }
+    }
+    else {
+      print "error: $query";
     }
 
     return NULL;
@@ -325,6 +343,14 @@ ENDSQL;
   }
 
   /**
+   * Trim whitespace
+   * @param $textValue
+   */
+  public function textAreaTrim($textValue) {
+    return trim($textValue);
+  }
+
+  /**
    * Converts a given string as 'Yes' or 'No' and changes it to a boolean value.
    *
    * @param $value
@@ -350,7 +376,7 @@ ENDSQL;
    * @return null|string
    */
   public function pathFormatter($path) {
-    return ltrim($path, '/');
+    return trim($path, '/');
   }
 
   /**
@@ -403,5 +429,98 @@ ENDSQL;
         return NULL;
         break;
     }
+  }
+
+  /**
+   * Convert node language
+   * @param $language
+   * @return string Drupal language code
+   */
+  public function convertLanguage($language) {
+    if ($language == 'Welsh') {
+      return 'cy';
+    }
+    return en;
+  }
+
+/**
+* Extract the nation based on the path.
+* We work with arrays because some types allow multiple selections
+* Param is an array to allow for multiple attach points
+*
+ * @param $value  path
+ * @param $primary true if setting primary nation
+*/
+  public function convertPathToNationGeneric($value, $primary=false) {
+    $nation_tids = array();
+    $tids=array();
+    $mapping = array(
+      'northern-ireland' => array('6'),
+      'scotland' => array('7'),
+      'wales' => array('5'),
+    );
+
+    foreach ((array) $value as $path) {
+      $path = explode('/', $path);
+      if (isset($mapping[$path[1]])) {
+        $tids = $mapping[$path[1]];
+      }
+      else if (!$primary) {
+        // we do not set England as a primary nation
+        $tids = array(17);
+      }
+      $nation_tids = array_merge($nation_tids, $tids );
+    }
+    return $nation_tids;
+  }
+
+  /**
+   * Wrapper for primary nation
+   * @param $value
+   * @return array
+   */
+  public function convertPathToPrimaryNationGeneric($value) {
+    return $this->convertPathToNationGeneric($value, true);
+  }
+
+  /**
+   * Returns an appropriate site section value based on a path
+   * @param $value
+   * @return array
+   */
+  public function convertPathToSectionGeneric($value) {
+    $sections = array();
+    $mapping=array();
+    // map url elements based on their position
+    // diffferent positions are relevant in different nations
+    $mapping[1] = array(
+      'news-updates' => 'News and Updates',
+      'business-industry' => 'Business and Industry',
+      'science' => 'Science and Policy',
+      'enforcement' => 'Enforcement and Regulation',
+      'about-us' =>'About us',
+    );
+    //@todo review these mappings, and wales
+    $mapping[2] = array(
+      'news-updates' => 'News and Updates',
+      'nutritionni' => 'Business and Industry',
+      'scotnut' => 'Business and Industry',
+      'ull' => 'Business and Industry',
+      'labelling-scotland' => 'Business and Industry',
+      'niregulation' => 'Enforcement and Regulation',
+      'regsscotland' => 'Enforcement and Regulation',
+      'researchni' =>'Science and Policy',
+      'researcscot' =>'Science and Policy',
+    );
+    // work through all the different mapping postions
+    foreach ($mapping as $pos => $map) {
+      foreach ((array) $value as $path) {
+        $path = explode('/', $path);
+        if (isset($map[$path[$pos]])) {
+          $sections[] = $map[$path[$pos]];
+        }
+      }
+    }
+    return $sections;
   }
 }

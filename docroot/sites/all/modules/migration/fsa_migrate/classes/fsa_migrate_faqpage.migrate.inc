@@ -46,17 +46,34 @@ class FSAFAQpageMigration extends FSAMigration {
     );
 
     // Configure the source of the migration.
-    $this->source = new MigrateSourceList(
-      new FSAMigrateListOracleObjectsFromCSV('data/csv/faq-alterian-id-list.csv'),
-      new FSAMigrateItemOracleObject()
-    );
+    if (variable_get('fsa_migrate_production', false)) {
+      $this->source = new MigrateSourceList(
+        new FSAMigrateListOracleObjectsFromCSV('data/csv/business-faq.csv'),
+        new FSAMigrateItemOracleObject()
+      );
+    }
+    else {
+      $this->source = new MigrateSourceList(
+        new FSAMigrateListOracleObjectsFromCSV('data/csv/faq-alterian-id-list.csv'),
+        new FSAMigrateItemOracleObject()
+      );
+    }
+
 
     // Destination detail.
     $this->destination = new MigrateDestinationNode('faq');
 
     // General fields mapping.
-    $this->addFieldMapping('title', 'title');
-    $this->addFieldMapping('field_summary', 'summary');
+    $this->addFieldMapping('title', 'NAME');
+    $this->addFieldMapping('field_title_short', 'title');
+    $this->addFieldMapping('field_subtitle', 'OBJECTCOMMENT');
+    $this->addFieldMapping('field_summary', 'summary')
+      ->callbacks(array($this, 'pastedApostropheFormatter'));
+    // set language
+    $this->addFieldMapping('language', 'language')
+      ->callbacks(array($this, 'convertLanguage'));
+    //main create date
+    $this->addFieldMapping('created', 'pubdate');
 
     // Updated date field.
     $this->addFieldMapping('field_updated', 'pubdate');
@@ -78,8 +95,26 @@ class FSAFAQpageMigration extends FSAMigration {
       ->defaultValue(TRUE);
 
     $this->addFieldMapping('field_path', 'title');
-    $this->addFieldMapping('field_path:machine', 'PATH')
+    $this->addFieldMapping('field_path:machine', 'SIMPLENAME')
       ->callbacks(array($this, 'pathFormatter'));
+
+    // we will rebuild the path later when we build the menu
+    // for now, we want the path set so that we can build redirects
+    $this->addFieldMapping('pathauto')
+      ->defaultValue(0);
+    $this->addFieldMapping('path', 'PATH')
+      ->callbacks(array($this, 'pathFormatter'));
+
+    // Nation and site section
+    // specific nation rules
+    //@todo use attach points rather than path
+    $this->addFieldMapping('field_nation', 'PATH')
+      ->arguments(array('source_type' => 'tid'))
+      ->callbacks(array($this, 'convertPathToNationGeneric'));
+
+    $this->addFieldMapping('field_site_section', 'PATH')
+      ->callbacks(array($this, 'convertPathToSectionGeneric'));
+
 
     // Table of content module settings migration.
     $this->addFieldMapping('toc_node_style', 'indexed')
@@ -107,7 +142,7 @@ class FSAFAQpageMigration extends FSAMigration {
         ),
         $connectionOracle,
         // You can add extra fields to extract from the field table here.
-        array('title', 'summary', 'backtotop', 'showLastUpdated', 'pubdate', 'indexed')
+        array('title', 'summary', 'backtotop', 'showLastUpdated', 'pubdate')
       );
 
       foreach ($fields_res_array as $fieldVariable => $fieldValue) {

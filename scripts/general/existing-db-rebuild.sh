@@ -13,19 +13,25 @@ cd ../../docroot/sites/default
 # Optional. Enable the FSA migration module.
 # drush en fsa_migrate -y
 
+# disable pathauto for Document page updates
+drush vset fsa_migrate_pathauto_restrict 1
+
 # Roll back the existing migration.
 drush mr FSAChildpageCollection
 drush mr FSARelatedContentCollection
 drush mr FSAMultibranchCollectionChild
 drush mr FSANewsDocumentCollection
 drush mr FSAAuditReportCollection
+drush mr FSAAlertDocumentCollection
 drush mr FSAFAQpageCollection
 drush mr FSADocumentpageCollection
 drush mr FSAMultibranchCollection
 drush mr FSAMultibranchDocument
 drush mr FSANewsDocument
+drush mr FSAAlertDocument
 drush mr FSAFAQpage
 drush mr FSAAuditReport
+drush mr FSAConsultationpage
 drush mr FSADocumentpage
 drush mr FSAMediaDocument
 drush mr FSAMediaImages
@@ -41,7 +47,9 @@ drush mi FSAMediaDocument
 drush mi FSADocumentpage
 drush mi FSAFAQpage
 drush mi FSAAuditReport
+drush mi FSAConsultationpage
 drush mi FSANewsDocument
+drush mi FSAAlertDocument
 drush mi FSAMultibranchDocument
 
 # Migrate fc.
@@ -49,6 +57,7 @@ drush mi FSADocumentpageCollection
 drush mi FSAFAQpageCollection
 drush mi FSAAuditReportCollection
 drush mi FSANewsDocumentCollection
+drush mi FSAAlertDocumentCollection
 
 # Multibranch
 drush mi FSAMultibranchDocument
@@ -66,6 +75,10 @@ drush mi FSARelatedContentCollection
 drush mi FSAChildpageCollection
 
 drush cc all
+drush solr-mark-all
 
 drush -y vset "fsa_migration_date" "${DATE}"
+# reenable document page pathauto
+drush vset fsa_migrate_pathauto_restrict 0
+
 

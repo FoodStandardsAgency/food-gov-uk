@@ -4,3 +4,30 @@
  * @file
  * This file contains the specific hooks used for the migration of FSA.
  */
+
+/**
+ * When nodes are programmatically updated, we seem to loose pathauto settings.
+ * To prevent field collections from updating node aliases for general pages,
+ * we disable pathauto for general document pages during the main migration.
+ * @param $node
+ *
+ *
+ */
+function fsa_migrate_node_update($node) {
+  $pathauto_restrict = variable_get('fsa_migrate_pathauto_restrict', FALSE);
+  if (in_array($node->type, array('document_page', 'faq'))) {
+    $conditions = array('source' => 'node/' . $node->nid, 'language' => LANGUAGE_NONE);
+    $path = path_load($conditions);
+    if ($path) {
+      $node->path['alias'] = $path['alias'];
+      //module_load_include('inc', 'pathauto');
+      //$uri = entity_uri('node', $node);
+      //$pathauto_alias = pathauto_create_alias('node', 'return', $path, array('node' => $node), 'document_page', LANGUAGE_NONE);
+      //$node->path['pathauto'] = ($path != $uri['path'] && $path == $pathauto_alias);
+
+      if ($pathauto_restrict) {
+        $node->path['pathauto']=false;
+      }
+    }
+  }
+}
