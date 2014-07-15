@@ -2629,24 +2629,39 @@ ul.breadcrumb {
   border-bottom: 1px solid #5D9711; }
 
 /* accordion questions */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\0000351}}
+.field--name-field-fc-quanda-question {
+  /* remove default ui icons */ }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\0000352}}
-.field--name-field-fc-quanda-question h3 {
-  color: #006f51;
-  padding-left: 24px;
-  background-image: url("../images/sidebar-arrow-right.png");
-  background-repeat: no-repeat;
-  background-position: 10px 4px;
-  margin-top: 4px;
-  margin-bottom: 6px; }
+  .field--name-field-fc-quanda-question h2 {
+    color: #006f51;
+    padding-left: 24px;
+    background-image: url("../images/sidebar-arrow-right.png");
+    background-repeat: no-repeat;
+    background-position: 10px 4px;
+    margin-top: 4px;
+    margin-bottom: 6px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\0000361}}
-.field--name-field-fc-quanda-question h3:hover {
-  text-decoration: underline; }
+  .field--name-field-fc-quanda-question h2:hover {
+    text-decoration: underline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\0000365}}
+  .field--name-field-fc-quanda-question span.ui-icon {
+    display: none; }
 
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\0000366}}
-.field--name-field-fc-quanda-question.ui-state-active h3 {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\0000373}}
+.field--name-field-fc-quanda-question.ui-state-active h2 {
   background-image: url("../images/sidebar-arrow-down.png");
   background-repeat: no-repeat;
   background-position: 9px 4px; }
+
+/* accordion answers */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\0000380}}
+.field--name-field-fc-quanda-answer.ui-accordion .ui-accordion-content {
+  padding: 0 0 0 24px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\0000383}}
+div.field.field--name-field-fc-quanda-answer.field--type-text-long.field--label-hidden.ui-accordion-content.ui-helper-reset.ui-widget-content.ui-corner-bottom.ui-accordion-content-active {
+  padding: 0 0 0 24px; }
 
 /* Feature blocks are: Business and industry, Enforcement and regulation, Science and research 
  * requires block classes: feature-block green-block and for the last block we also use the class: last
@@ -4644,6 +4659,12 @@ ul.pager {
   font-family: Arial, Verdana, Helvetica, sans-serif;
   font-size: 1.2em;
   color: #333; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_popular_links\.scss}line{font-family:\0000321}}
+.popular-links label {
+  display: block;
+  font-size: 1.5em;
+  color: #fff;
+  margin: 0 0 0.4em 0; }
 
 /* requires block class: resources and blokc class: blue-block */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\000032}}
