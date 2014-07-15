@@ -78,11 +78,20 @@ ENDSQL;
       'Authority types' => t('Authority types value'),
     );
 
-    // Configure the source of the migration.
-    $this->source = new MigrateSourceList(
-      new FSAMigrateListOracleObjectsFromCSV('data/csv/auditreport-alterian-id-list.csv'),
-      new FSAMigrateItemOracleObject()
-    );
+    if (variable_get('fsa_migrate_production', false)) {
+      // Configure the source of the migration.
+      $this->source = new MigrateSourceList(
+        new FSAMigrateListOracleObjectsFromCSV('data/csv/auditreport-alterian-id-list.csv'),
+        new FSAMigrateItemOracleObject()
+      );
+    }
+    else {
+      // Configure the source of the migration.
+      $this->source = new MigrateSourceList(
+        new FSAMigrateListOracleObjectsFromCSV('data/csv/audits.csv'),
+        new FSAMigrateItemOracleObject()
+      );
+    }
 
     // Destination detail.
     $this->destination = new MigrateDestinationNode('audit_report');

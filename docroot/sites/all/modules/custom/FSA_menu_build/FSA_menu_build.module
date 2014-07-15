@@ -34,6 +34,10 @@ function FSA_menu_build_page(){
   variable_set('fsa_migrate_pathauto_restrict', FALSE);
   // now, recurse through the tree, and assign menu parents
 
+  if (isset($_REQUEST['reset'])) {
+    FSA_menu_build_flag('reset');
+  }
+
   FSA_menu_build_assign($url_tree);
   variable_set('menu_rebuild_needed', TRUE);
   return $output;
@@ -43,12 +47,13 @@ function FSA_menu_build_get_list_from_CSV($file){
 
 }
 
+
 function FSA_menu_build_clear_redirects($path = null){
   //query to delete all bad redirects
   //  delete r from url_alias a join redirect r on a.alias = r.source;
   if ($path) {
-    if ($redirects = redirect_load_by_source($path)) {
-      $redirects = array_pop($redirects);
+    if ($redirect = redirect_load_by_source($path)) {
+      redirect_delete($redirect->rid);
     }
   }
 
@@ -59,26 +64,6 @@ function FSA_menu_build_clear_redirects($path = null){
 function FSA_menu_build_get_url_list($file = null){
   if (!$file) {
     $url_list = array(
-   // 'test-1',
-    //'test1/test2',
-    //'test1/test2/test/test3',
-    //'test-1/test-1-1/test1-1-1',
-    //'test-1/test1-2',
-      '/business-industry/allergy-guide/gluten/gluten-faq-caterers/',
-      '/business-industry/caterers/food-hygiene/charity-community-groups/',
-      '/business-industry/farmingfood/animalfeed/animalfeedlegislation/animalfeedaddfaq/',
-      '/business-industry/farmingfood/animalfeed/animalfeedlegislation/canthaxanthin_qanda/',
-      '/business-industry/farmingfood/bse/what/',
-      '/business-industry/farmingfood/crops/mycotoxinsguidance/operators/',
-      '/business-industry/farmingfood/fish-shellfish/freezing-requirements/',
-      '/business-industry/farmingfood/mycotoxins/questions/',
-      '/business-industry/farmingfood/pesticides/pestfaq/',
-      '/business-industry/farmingfood/primprodqanda/',
-      '/business-industry/farmingfood/vetmeds/vetmedfaq/',
-      '/business-industry/farmingfood/wildgameguidance/wild-game-faq/',
-      '/business-industry/imports/importers/thirdcountryfaq/',
-      '/business-industry/imports/want_to_import/personalimports/',
-      '/business-industry/winestandards/winefaq/',
       '/business-industry/allergy-guide/',
       '/business-industry/allergy-guide/gluten/',
       '/business-industry/caterers/',
@@ -298,8 +283,15 @@ function FSA_menu_build_get_url_list($file = null){
       '/business-industry/winestandards/wine-imports/',
       '/business-industry/winestandards/wine-labelling/',
       '/business-industry/winestandards/wineguidance/',
-      '',
-
+      '/business-industry/farmingfood/bse/bsecontrol/2009/breaches2009/',
+      '/business-industry/farmingfood/bse/bsecontrol/2009/breaches2009/breachesaug2009',
+      '/business-industry/farmingfood/bse/bsecontrol/2009/breaches2009/breachesjan09',
+      '/business-industry/farmingfood/bse/bsecontrol/2009/breaches2009/breachesmarch2009',
+      '/business-industry/farmingfood/bse/bsecontrol/2009/breaches2009/monrepsrmbrenov2009',
+      '/business-industry/farmingfood/bse/bsecontrol/2009/breaches2009/monrepsrmsept2009',
+      '/business-industry/farmingfood/bse/bsecontrol/2009/imported2009',
+      '/business-industry/farmingfood/bse/bsecontrol/2009/individualbsebreaches09/',
+      '/business-industry/farmingfood/bse/bsecontrol/2009/srmbreaches09',
     );
 
 
@@ -412,10 +404,38 @@ function FSA_menu_build_get_main_menu_mlid($data) {
  * @param $data
  * @return bool
  */
-function FSA_menu_build_node_is_locked($data) {
- $locked = false;
-  return $locked;
+function FSA_menu_build_flag($action = 'check', $url = null) {
+  $flagged = &drupal_static(__FUNCTION__);
+
+  if (!isset($flagged)) {
+    $flagged = variable_get('FSA_menu_build_processed', array());
+  }
+  switch ($action){
+    case 'check':
+      $result = false;
+      if (in_array($url, $flagged)) {
+        $result = true;
+      }
+    break;
+    case 'set':
+      if (!in_array($url, $flagged)) {
+        $flagged[] = $url;
+      }
+      variable_set('FSA_menu_build_processed', $flagged);
+      $result = true;
+    break;
+    case 'reset':
+      $flagged = array();
+      variable_set('FSA_menu_build_processed',$flagged);
+      $result = true;
+    break;
+  }
+  return $result;
 }
+
+
+
+
 
 /**
  * Walk through the url tree and assign menu parents to nodes.
@@ -426,7 +446,11 @@ function FSA_menu_build_assign(&$url_tree, $plid = 0) {
   // if we have a parent link
   // check to see if we should process the current node
   // and make sure that the current node does not already have a main menu entry
-  if (isset($url_tree['#data']) && $url_tree['#data']['process']  && !FSA_menu_build_node_is_locked($url_tree['#data'])) {
+  if (
+      isset($url_tree['#data']) &&
+      $url_tree['#data']['process']
+      && !FSA_menu_build_flag('check', $url_tree['#data']['url'])
+    ) {
     //? what if we have no plid?
     if (isset($url_tree['#data']['nid'])) {
       $node = node_load($url_tree['#data']['nid']);
@@ -449,7 +473,10 @@ function FSA_menu_build_assign(&$url_tree, $plid = 0) {
       $mlid = $node->menu['mlid'];
       $url_tree['#data']['mlid'] = $mlid;
 
+      // get rid of bad redirects
       FSA_menu_build_clear_redirects($node->path['alias']);
+      // mark node as processed
+      FSA_menu_build_flag('set', $url_tree['#data']['url']);
     }
   }
   else if (isset($url_tree['#data']) && isset($url_tree['#data']['mlid'])) {

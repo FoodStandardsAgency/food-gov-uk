@@ -311,9 +311,12 @@ ENDSQL;
    * @return string
    */
   public function textAreaFormat($textValue) {
+    // @todo - remove this and correctly set up formats
+    return 'preserve';
     if (strpos($textValue, '<!-- preserve start -->') !== false) {
       return 'preserve';
     }
+
     return 'full_html';
   }
 

@@ -76,12 +76,19 @@ class FSANewsDocumentMigration extends FSAMigration {
       'VARIABLE' => t('Variable field name'),
       'VALUE' => t('Field value'),
     );
-
     // Configure the source of the migration.
-    $this->source = new MigrateSourceList(
-      new FSAMigrateListOracleObjectsFromCSV('data/csv/news-alterian-id-list.csv'),
-      new FSAMigrateItemOracleObject()
-    );
+    if (variable_get('fsa_migrate_production', false)) {
+      $this->source = new MigrateSourceList(
+        new FSAMigrateListOracleObjectsFromCSV('data/csv/news-alterian-id-list.csv'),
+        new FSAMigrateItemOracleObject()
+      );
+    }
+    else {
+      $this->source = new MigrateSourceList(
+        new FSAMigrateListOracleObjectsFromCSV('data/csv/news.csv'),
+        new FSAMigrateItemOracleObject()
+      );
+    }
 
     // Destination detail.
     $this->destination = new MigrateDestinationNode('news');
