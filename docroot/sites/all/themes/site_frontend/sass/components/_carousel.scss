@@ -248,3 +248,10 @@
 		display: none;
 	}
 }
+
+/* print styling overrides */
+@media print {
+	.home-page-carousel {
+		display: none;
+	}
+}

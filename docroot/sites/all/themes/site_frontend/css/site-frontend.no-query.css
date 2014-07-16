@@ -642,6 +642,15 @@ p .more-button {
   display: block;
   text-align: left; }
 
+/* print styling overrides */
+@media print {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_links\.scss}line{font-family:\00003189}}
+  a,
+  a.fsa-more-link,
+  a.fsa-more-link-orange-arrow,
+  a.more-link-orange-icon-right,
+  .more-button {
+    color: #000; } }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_media\.scss}line{font-family:\000031}}
 img, media {
   max-width: 100%; }
@@ -889,6 +898,47 @@ img, media {
   .related-items-inner .page-section-subheading {
     margin-bottom: 0.8em; }
 
+/* print styling overrides */
+@media print {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003255}}
+  .page-section-heading {
+    color: #000;
+    background: none;
+    background-color: transparent;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003262}}
+  .page-section-subheading {
+    color: #000; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003269}}
+  .page-section-teaser .node__title a,
+  .page-section-teaser .field--name-field-summary,
+  .page-section-teaser .node__links a,
+  .page-section-teaser .file-item a {
+    color: #000; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003275}}
+  .field--name-field-child-page.page-section-teaser .node--micro-teaser .node__title a {
+    color: #000;
+    background-color: transparent; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_page_sections\.scss}line{font-family:\00003282}}
+  .csv-files-wrapper,
+  .related-items-wrapper {
+    display: none; } }
+/* Drupal system output */
+/* print styling overrides */
+@media print {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_system\.scss}line{font-family:\000035}}
+  .messages {
+    display: none; }
+
+  /* hide edit tabs */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_system\.scss}line{font-family:\000039}}
+  ul.tabs {
+    display: none; } }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_typography\.scss}line{font-family:\000031}}
 html {
   -webkit-font-smoothing: antialiased; }
@@ -1824,6 +1874,11 @@ ul.breadcrumb {
     background-position: center center; }
 
 /* for mobile */
+/* print styling overrides */
+@media print {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_carousel\.scss}line{font-family:\00003254}}
+  .home-page-carousel {
+    display: none; } }
 /* list of committees
  * requires block class: committee-list
  */
@@ -2663,7 +2718,7 @@ ul.breadcrumb {
 div.field.field--name-field-fc-quanda-answer.field--type-text-long.field--label-hidden.ui-accordion-content.ui-helper-reset.ui-widget-content.ui-corner-bottom.ui-accordion-content-active {
   padding: 0 0 0 24px; }
 
-/* Feature blocks are: Business and industry, Enforcement and regulation, Science and research 
+/* Feature blocks are: Business and industry, Enforcement and regulation, Science and policy 
  * requires block classes: feature-block green-block and for the last block we also use the class: last
  * block styling comes from base styles and block content styling comes from this style sheet.
  */
@@ -2774,6 +2829,11 @@ div.field.field--name-field-fc-quanda-answer.field--type-text-long.field--label-
   margin-bottom: 40px; }
 
 /* for mobile */
+/* print styling overrides */
+@media print {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\00003122}}
+  .feature-block {
+    display: none; } }
 /**
  * Requires block class: featured-side-content
  */
@@ -4167,6 +4227,35 @@ p.job-line-item {
     overflow: hidden; }
 
 /* mobile view */
+/* print styling overrides */
+@media print {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\00003208}}
+  .latest-news-and-alerts h2.block__title {
+    color: #000;
+    background: none;
+    background-color: transparent;
+    padding: .3em 0px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\00003214}}
+  .latest-news-and-alerts .block__content {
+    border: none;
+    padding: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\00003218}}
+  .latest-news-and-alerts .view-content {
+    margin: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\00003221}}
+  .latest-news-and-alerts .views-row {
+    width: auto;
+    float: none;
+    padding-bottom: 0;
+    border-bottom: none;
+    margin-bottom: 12px;
+    margin-right: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\00003228}}
+    .latest-news-and-alerts .views-row .views-field-field-feature-image img {
+      display: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_latest_news_and_alerts\.scss}line{font-family:\00003232}}
+  .latest-news-and-alerts .view-footer {
+    display: none; } }
 /** Main menu depends on Superfish module
   * Superfish settings:
   * Type: horizontal, style: simple, path class: active-trail, slide-in-effect: vertical, auto-arrows: off, drop-shadows: on

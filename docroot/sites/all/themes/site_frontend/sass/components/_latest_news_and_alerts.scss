@@ -201,3 +201,36 @@
 	}
 }
 
+
+/* print styling overrides */
+@media print {
+	.latest-news-and-alerts {
+		h2.block__title {
+			color: #000;
+			background: none;
+			background-color: transparent;
+			padding: .3em 0px;
+		}
+		.block__content {
+			border: none;
+			padding: none;
+		}
+		.view-content {
+			margin: 0;
+		}
+		.views-row {
+			width: auto;
+			float: none;
+			padding-bottom: 0;
+			border-bottom: none;
+			margin-bottom: 12px;
+			margin-right: 0;
+			.views-field-field-feature-image img {
+				display: none;
+			}
+		}
+		.view-footer {
+			display: none;
+		}
+	}
+}

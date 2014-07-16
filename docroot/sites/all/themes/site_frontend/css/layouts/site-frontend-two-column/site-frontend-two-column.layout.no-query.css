@@ -277,3 +277,284 @@
   padding-right: 6px; }
 
 /* mobile layout */
+/* print styling overrides */
+@media print {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-two-column\/site-frontend-two-column\.layout\.scss}line{font-family:\00003233}}
+  .header-wrapper-inner,
+  .l-breadcrumb-accessibility,
+  .l-preface,
+  .l-main,
+  .bottom-menu-wrapper-inner,
+  .l-footer {
+    width: auto;
+    padding-left: 6px;
+    padding-right: 6px;
+    margin: 0.5%; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-two-column\/site-frontend-two-column\.layout\.scss}line{font-family:\00003239}}
+  .l-header-branding {
+    width: 100%;
+    float: right;
+    margin-left: 0;
+    margin-right: 0;
+    clear: none;
+    padding-left: 6px;
+    padding-right: 6px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-two-column\/site-frontend-two-column\.layout\.scss}line{font-family:\00003242}}
+  .l-header-top-menu {
+    width: 0%;
+    float: left;
+    margin-right: -100%;
+    margin-left: 0%;
+    clear: none;
+    padding-left: 6px;
+    padding-right: 6px;
+    display: none; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-two-column\/site-frontend-two-column\.layout\.scss}line{font-family:\00003246}}
+  .l-header-search {
+    width: 0%;
+    float: left;
+    margin-right: -100%;
+    margin-left: 0%;
+    clear: none;
+    padding-left: 6px;
+    padding-right: 6px;
+    display: none; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-two-column\/site-frontend-two-column\.layout\.scss}line{font-family:\00003250}}
+  .header-bottom {
+    /* for IE 6/7 */
+    *zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).style.cssText="clear:both;font:0/0 serif");
+    /* non-JS fallback */
+    *zoom: 1;
+    display: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/anthonyalbertyn\/\.rvm\/gems\/ruby-1\.9\.3-p484\@omega\.site_frontend\/gems\/singularitygs-1\.1\.2\/stylesheets\/singularitygs\/helpers\/_clearfix\.scss}line{font-family:\0000348}}
+    .header-bottom:before, .header-bottom:after {
+      content: ".";
+      display: block;
+      height: 0;
+      overflow: hidden; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/anthonyalbertyn\/\.rvm\/gems\/ruby-1\.9\.3-p484\@omega\.site_frontend\/gems\/singularitygs-1\.1\.2\/stylesheets\/singularitygs\/helpers\/_clearfix\.scss}line{font-family:\0000355}}
+    .header-bottom:after {
+      clear: both; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-two-column\/site-frontend-two-column\.layout\.scss}line{font-family:\00003254}}
+  .l-header-main-menu {
+    width: 0%;
+    float: left;
+    margin-right: -100%;
+    margin-left: 0%;
+    clear: none;
+    padding-left: 6px;
+    padding-right: 6px;
+    display: none; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-two-column\/site-frontend-two-column\.layout\.scss}line{font-family:\00003258}}
+  .l-header-social-media {
+    width: 0%;
+    float: left;
+    margin-right: -100%;
+    margin-left: 0%;
+    clear: none;
+    padding-left: 6px;
+    padding-right: 6px;
+    display: none; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-two-column\/site-frontend-two-column\.layout\.scss}line{font-family:\00003262}}
+  .breadcrumb-accessibility-wrapper {
+    /* for IE 6/7 */
+    *zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).style.cssText="clear:both;font:0/0 serif");
+    /* non-JS fallback */
+    *zoom: 1; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/anthonyalbertyn\/\.rvm\/gems\/ruby-1\.9\.3-p484\@omega\.site_frontend\/gems\/singularitygs-1\.1\.2\/stylesheets\/singularitygs\/helpers\/_clearfix\.scss}line{font-family:\0000348}}
+    .breadcrumb-accessibility-wrapper:before, .breadcrumb-accessibility-wrapper:after {
+      content: ".";
+      display: block;
+      height: 0;
+      overflow: hidden; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/anthonyalbertyn\/\.rvm\/gems\/ruby-1\.9\.3-p484\@omega\.site_frontend\/gems\/singularitygs-1\.1\.2\/stylesheets\/singularitygs\/helpers\/_clearfix\.scss}line{font-family:\0000355}}
+    .breadcrumb-accessibility-wrapper:after {
+      clear: both; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-two-column\/site-frontend-two-column\.layout\.scss}line{font-family:\00003265}}
+  .l-breadcrumb {
+    width: 100%;
+    float: right;
+    margin-left: 0;
+    margin-right: 0;
+    clear: none;
+    padding-left: 6px;
+    padding-right: 6px;
+    clear: both;
+    float: none; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-two-column\/site-frontend-two-column\.layout\.scss}line{font-family:\00003270}}
+  .l-accessibility {
+    width: 0%;
+    float: left;
+    margin-right: -100%;
+    margin-left: 0%;
+    clear: none;
+    padding-left: 6px;
+    padding-right: 6px;
+    display: none; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-two-column\/site-frontend-two-column\.layout\.scss}line{font-family:\00003274}}
+  .l-preface {
+    width: 100%;
+    float: right;
+    margin-left: 0;
+    margin-right: 0;
+    clear: none;
+    padding-left: 6px;
+    padding-right: 6px;
+    clear: both;
+    float: none; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-two-column\/site-frontend-two-column\.layout\.scss}line{font-family:\00003279}}
+  .main-wrapper {
+    /* for IE 6/7 */
+    *zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).style.cssText="clear:both;font:0/0 serif");
+    /* non-JS fallback */
+    *zoom: 1; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/anthonyalbertyn\/\.rvm\/gems\/ruby-1\.9\.3-p484\@omega\.site_frontend\/gems\/singularitygs-1\.1\.2\/stylesheets\/singularitygs\/helpers\/_clearfix\.scss}line{font-family:\0000348}}
+    .main-wrapper:before, .main-wrapper:after {
+      content: ".";
+      display: block;
+      height: 0;
+      overflow: hidden; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/anthonyalbertyn\/\.rvm\/gems\/ruby-1\.9\.3-p484\@omega\.site_frontend\/gems\/singularitygs-1\.1\.2\/stylesheets\/singularitygs\/helpers\/_clearfix\.scss}line{font-family:\0000355}}
+    .main-wrapper:after {
+      clear: both; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-two-column\/site-frontend-two-column\.layout\.scss}line{font-family:\00003282}}
+  .l-sidebar-first {
+    width: 100%;
+    float: right;
+    margin-left: 0;
+    margin-right: 0;
+    clear: none;
+    padding-left: 6px;
+    padding-right: 6px;
+    clear: both;
+    float: none;
+    display: none; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-two-column\/site-frontend-two-column\.layout\.scss}line{font-family:\00003288}}
+  .l-content {
+    width: 100%;
+    float: right;
+    margin-left: 0;
+    margin-right: 0;
+    clear: none;
+    padding-left: 6px;
+    padding-right: 6px;
+    clear: both;
+    float: none; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-two-column\/site-frontend-two-column\.layout\.scss}line{font-family:\00003293}}
+  .l-sidebar-second {
+    width: 100%;
+    float: right;
+    margin-left: 0;
+    margin-right: 0;
+    clear: none;
+    padding-left: 6px;
+    padding-right: 6px;
+    clear: both;
+    float: none;
+    display: none; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-two-column\/site-frontend-two-column\.layout\.scss}line{font-family:\00003299}}
+  .bottom-menu-wrapper {
+    /* for IE 6/7 */
+    *zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).style.cssText="clear:both;font:0/0 serif");
+    /* non-JS fallback */
+    *zoom: 1;
+    display: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/anthonyalbertyn\/\.rvm\/gems\/ruby-1\.9\.3-p484\@omega\.site_frontend\/gems\/singularitygs-1\.1\.2\/stylesheets\/singularitygs\/helpers\/_clearfix\.scss}line{font-family:\0000348}}
+    .bottom-menu-wrapper:before, .bottom-menu-wrapper:after {
+      content: ".";
+      display: block;
+      height: 0;
+      overflow: hidden; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/anthonyalbertyn\/\.rvm\/gems\/ruby-1\.9\.3-p484\@omega\.site_frontend\/gems\/singularitygs-1\.1\.2\/stylesheets\/singularitygs\/helpers\/_clearfix\.scss}line{font-family:\0000355}}
+    .bottom-menu-wrapper:after {
+      clear: both; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-two-column\/site-frontend-two-column\.layout\.scss}line{font-family:\00003303}}
+  .l-bottom-menu {
+    width: 100%;
+    float: right;
+    margin-left: 0;
+    margin-right: 0;
+    clear: none;
+    padding-left: 6px;
+    padding-right: 6px;
+    clear: both;
+    float: none;
+    display: none; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-two-column\/site-frontend-two-column\.layout\.scss}line{font-family:\00003309}}
+  .footer-bottom {
+    /* for IE 6/7 */
+    *zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).style.cssText="clear:both;font:0/0 serif");
+    /* non-JS fallback */
+    *zoom: 1; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/anthonyalbertyn\/\.rvm\/gems\/ruby-1\.9\.3-p484\@omega\.site_frontend\/gems\/singularitygs-1\.1\.2\/stylesheets\/singularitygs\/helpers\/_clearfix\.scss}line{font-family:\0000348}}
+    .footer-bottom:before, .footer-bottom:after {
+      content: ".";
+      display: block;
+      height: 0;
+      overflow: hidden; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Users\/anthonyalbertyn\/\.rvm\/gems\/ruby-1\.9\.3-p484\@omega\.site_frontend\/gems\/singularitygs-1\.1\.2\/stylesheets\/singularitygs\/helpers\/_clearfix\.scss}line{font-family:\0000355}}
+    .footer-bottom:after {
+      clear: both; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-two-column\/site-frontend-two-column\.layout\.scss}line{font-family:\00003312}}
+  .l-footer-copyright {
+    width: 100%;
+    float: right;
+    margin-left: 0;
+    margin-right: 0;
+    clear: none;
+    padding-left: 6px;
+    padding-right: 6px;
+    clear: both;
+    float: none; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-two-column\/site-frontend-two-column\.layout\.scss}line{font-family:\00003317}}
+  .l-footer-menu {
+    width: 100%;
+    float: right;
+    margin-left: 0;
+    margin-right: 0;
+    clear: none;
+    padding-left: 6px;
+    padding-right: 6px;
+    clear: both;
+    float: none;
+    display: none; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-two-column\/site-frontend-two-column\.layout\.scss}line{font-family:\00003323}}
+  .l-footer-buttons {
+    width: 100%;
+    float: right;
+    margin-left: 0;
+    margin-right: 0;
+    clear: none;
+    padding-left: 6px;
+    padding-right: 6px;
+    clear: both;
+    float: none;
+    display: none; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/layouts\/site-frontend-two-column\/site-frontend-two-column\.layout\.scss}line{font-family:\00003333}}
+  .header-wrapper,
+  .breadcrumb-accessibility-wrapper,
+  .main-wrapper,
+  .bottom-menu-wrapper,
+  .footer-wrapper {
+    min-width: 0; } }
