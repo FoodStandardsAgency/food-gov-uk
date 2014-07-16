@@ -62,10 +62,18 @@ class FSANewsDocumentCollectionMigration extends FSAMigration {
     );
 
     // Configure the source of the migration.
-    $this->source = new MigrateSourceList(
-      new MigrateListOracleTextCollection('data/csv/news-alterian-id-list.csv', $conf['oracle_db']),
-      new MigrateItemOracleTextCollection()
-    );
+    if (variable_get('fsa_migrate_production', false)) {
+      $this->source = new MigrateSourceList(
+        new MigrateListOracleTextCollection('data/csv/news.csv', $conf['oracle_db']),
+        new MigrateItemOracleTextCollection()
+      );
+    }
+    else {
+      $this->source = new MigrateSourceList(
+        new MigrateListOracleTextCollection('data/csv/news-alterian-id-list.csv', $conf['oracle_db']),
+        new MigrateItemOracleTextCollection()
+      );
+    }
 
     // Destination detail.
     $this->destination = new MigrateDestinationFieldCollection(

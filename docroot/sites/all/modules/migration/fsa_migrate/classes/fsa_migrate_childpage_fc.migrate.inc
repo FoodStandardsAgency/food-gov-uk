@@ -45,10 +45,18 @@ class FSAChildpageCollectionMigration extends FSAMigration {
     );
 
     // Configure the source of the migration.
-    $this->source = new MigrateSourceList(
-      new FSAMigrateListOracleChildObjectsFromCSV('data/csv/dev-alterian-id-list.csv'),
-      new FSAMigrateItemChildOracleObject()
-    );
+    if (variable_get('fsa_migrate_production')) {
+      $this->source = new MigrateSourceList(
+        new FSAMigrateListOracleChildObjectsFromCSV('data/csv/business-document.csv'),
+        new FSAMigrateItemChildOracleObject()
+      );
+    }
+    else {
+      $this->source = new MigrateSourceList(
+        new FSAMigrateListOracleChildObjectsFromCSV('data/csv/dev-alterian-id-list.csv'),
+        new FSAMigrateItemChildOracleObject()
+      );
+    }
 
     // Destination detail.
     $this->destination = new MigrateDestinationFieldCollection(
