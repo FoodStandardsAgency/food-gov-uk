@@ -69,3 +69,16 @@
 .custom-views-grouped-heading {
 	margin: 0 0 1em 0;
 }
+
+
+/* print styling overrides */
+@media print {
+	.section-block .view {
+		.field--name-field-summary {
+			color: #000;
+		}
+		.views-row {
+			border-bottom: none;
+		}
+	}
+}

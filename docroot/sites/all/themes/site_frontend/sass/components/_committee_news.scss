@@ -35,3 +35,20 @@
 		margin-bottom: 0.2em;
 	}
 }
+
+/* print styling overrides */
+@media print {
+	.committee-news {
+		h2.block__title,
+		h3.block__title {
+			color: #000;
+			background: none;
+			background-color: #000;
+			border-top: 1px solid #000;
+			border-bottom: 1px solid #000;
+		}
+		.node__title a {
+			color: #000;
+		}
+	}
+}

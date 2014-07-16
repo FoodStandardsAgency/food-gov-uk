@@ -41,3 +41,10 @@
 </a>
 </p>
 */
+
+/* print styling overrides */
+@media print {
+	.adobe-reader-block {
+		display: none;
+	}
+}

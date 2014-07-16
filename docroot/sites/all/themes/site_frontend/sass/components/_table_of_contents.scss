@@ -100,3 +100,13 @@ ul.toc-node-bullets {
 		}
 	}
 }
+
+
+/* print styling overrides */
+@media print {
+	#block-toc-node-toc-node,
+	#table-of-contents-links,
+	.section-back-top {
+		display: none;
+	}
+}

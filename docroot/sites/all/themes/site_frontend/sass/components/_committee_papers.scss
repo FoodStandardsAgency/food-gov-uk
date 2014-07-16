@@ -21,3 +21,14 @@
 		margin-bottom: 15px;
 	}
 }
+
+/* print styling overrides */
+@media print {
+	.view-committee-papers-listing {
+		.view-content {
+			h3 {
+				color: #000;
+			}
+		}
+	}
+}

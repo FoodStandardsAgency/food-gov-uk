@@ -17,3 +17,11 @@
 		border: 0;
 	}
 }
+
+/* print styling overrides */
+@media print {
+	.field--name-field-feature-image,
+	.views-field-field-feature-image {
+		display: none;
+	}
+}
