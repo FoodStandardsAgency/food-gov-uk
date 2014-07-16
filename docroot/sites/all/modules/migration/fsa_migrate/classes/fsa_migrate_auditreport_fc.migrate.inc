@@ -59,12 +59,20 @@ class FSAAuditReportCollectionMigration extends FSAMigration {
       'sourceImagePath' => t('Source image path, as in sites/default/files/sources/images/document/...'),
       'quote' => t('Quote text'),
     );
-
-    // Configure the source of the migration.
-    $this->source = new MigrateSourceList(
-      new MigrateListOracleTextCollection('data/csv/auditreport-alterian-id-list.csv', $conf['oracle_db']),
-      new MigrateItemOracleTextCollection()
-    );
+    if (variable_get('fsa_migrate_production', false)) {
+      // Configure the source of the migration.
+      $this->source = new MigrateSourceList(
+        new MigrateListOracleTextCollection('data/csv/audits.csv', $conf['oracle_db']),
+        new MigrateItemOracleTextCollection()
+      );
+    }
+    else {
+      // Configure the source of the migration.
+      $this->source = new MigrateSourceList(
+        new MigrateListOracleTextCollection('data/csv/auditreport-alterian-id-list.csv', $conf['oracle_db']),
+        new MigrateItemOracleTextCollection()
+      );
+    }
 
     // Destination detail.
     $this->destination = new MigrateDestinationFieldCollection(

@@ -183,8 +183,9 @@ ENDSQL;
               }
             }
             break;
-          case 'TitleAlpha':
-            $replacedFieldOrderQuery = str_replace(':obj_id', $objectid, FSAMigrateListBase::QUERYOBJFIELDSORDERALPHA);
+          case 'TitleReverseAlpha':
+            $replacedFieldOrderQuery =
+              str_replace(':obj_id', $objectid, FSAMigrateListBase::QUERYOBJFIELDSORDERALPHAREVERSE);
             $sqlFieldOrderResult = FSAMigration::oracleQueryAll($replacedFieldOrderQuery, array(), $connectionOracle);
 
             $iOrder = 0;
@@ -199,9 +200,13 @@ ENDSQL;
               }
             }
             break;
-          case 'TitleReverseAlpha':
-            $replacedFieldOrderQuery =
-              str_replace(':obj_id', $objectid, FSAMigrateListBase::QUERYOBJFIELDSORDERALPHAREVERSE);
+          case 'PublishedReverseDate':
+            //@todo - add sort order code
+            //@todo - Published date should actually be default;
+          //break;
+          case 'TitleAlpha':
+          default:
+            $replacedFieldOrderQuery = str_replace(':obj_id', $objectid, FSAMigrateListBase::QUERYOBJFIELDSORDERALPHA);
             $sqlFieldOrderResult = FSAMigration::oracleQueryAll($replacedFieldOrderQuery, array(), $connectionOracle);
 
             $iOrder = 0;

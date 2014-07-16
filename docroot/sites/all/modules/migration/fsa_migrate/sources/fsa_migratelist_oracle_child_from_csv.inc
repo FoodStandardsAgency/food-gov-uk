@@ -133,8 +133,9 @@ ENDSQL;
       $idList[$itemNumber]['OBJECTIDS'] = $objectids;
       */
 
-      $idList[$itemNumber]['OBJECTIDS'] = $queryResult['OBJECTIDS'][$itemNumber];
       $idList[$itemNumber]['PARENTID'] = $parentObjectid;
+      $idList[$itemNumber]['OBJECTIDS'] = $queryResult['OBJECTIDS'][$itemNumber];
+
     }
 
     return $idList;
