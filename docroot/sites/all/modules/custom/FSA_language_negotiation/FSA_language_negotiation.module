@@ -9,15 +9,62 @@
 function FSA_language_negotiation_language_negotiation_info() {
   return array(
     'site_version' => array(
-      'callbacks' => array(
+      'callbacks'   => array(
         'language' => 'FSA_language_negotiation_wales',
+        'switcher' => 'FSA_language_switcher_wales',
       ),
-      'weight' => -10,
-      'name' => t('Welsh site section'),
+      'weight'      => -10,
+      'name'        => t('Welsh site section'),
       // NOTE: The callback cannot be in this file, unless you specifically include it.
       // Language detection runs before Drupal Bootstrap completes.
-      'file' => drupal_get_path('module', 'FSA_language_negotiation') . '/FSA_language_negotiation.inc',
+      'file'        => drupal_get_path('module', 'FSA_language_negotiation') . '/FSA_language_negotiation.inc',
       'description' => t('Determine the language from the welsh section of the site.'),
     ),
   );
+}
+
+
+/**
+ * Return the session language switcher block.
+ */
+function FSA_language_switcher_wales($type, $path) {
+
+  global $language;
+  $links     = array();
+  $path_parts = explode('/', $path);
+
+  // Only show link for node pages.
+  if ($path_parts[0] != 'node' || !isset($path_parts[1]) || !is_numeric($path_parts[1]) || isset($path_parts[2])) {
+    return $links;
+  }
+
+  $node = node_load($path_parts[1]);
+
+  // Node has no translation, don't show language link.
+  if (empty($node->tnid)) {
+    return $links;
+  }
+
+  drupal_add_css(drupal_get_path('module', 'locale') . '/locale.css');
+
+  $translations = translation_node_get_translations($node->tnid);
+
+  $languages = language_list('enabled');
+  $languages = $languages[1];
+
+  foreach ($translations as $language_info) {
+
+    $langcode = $language_info->language;
+
+    if ($langcode != $language->language) {
+
+      $links[$langcode] = array(
+        'href'       => drupal_get_path_alias('node/' . $language_info->nid, $langcode),
+        'title'      => $languages[$langcode]->native,
+        'attributes' => array('class' => array('language-link')),
+      );
+    }
+  }
+
+  return $links;
 }

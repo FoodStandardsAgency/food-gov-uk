@@ -20,12 +20,12 @@ function FSA_language_negotiation_wales($languages) {
       'wales/about-fsa-wales/cymru',
       'wales/cymru',
   );
-  //print $_GET['q'];
-  //print substr($_GET['q'], 0, strlen($path));
+
   foreach ($paths as $path) {
     if (substr($_GET['q'], 0, strlen($path)) == $path)  {
       $language = 'cy';
     }
   }
+
   return $language;
 }
