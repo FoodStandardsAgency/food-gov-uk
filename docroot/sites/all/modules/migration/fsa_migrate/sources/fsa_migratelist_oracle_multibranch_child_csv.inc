@@ -116,7 +116,12 @@ ENDSQL;
       );
 
       foreach ($queryResult as $queryResultItem) {
-        $itemSortOrderValue = $sortorderArray[$objectid][$queryResultItem['OBJECTID']];
+        if (isset($sortorderArray[$objectid][$queryResultItem['OBJECTID']])) {
+          $itemSortOrderValue = $sortorderArray[$objectid][$queryResultItem['OBJECTID']];
+        }
+        else {
+          $itemSortOrderValue = 999;
+        }
 
         $queryResultItem['PARENTID'] = $objectid;
         $results[$itemSortOrderValue . '-' . $queryResultItem['OBJECTID']] = $queryResultItem;

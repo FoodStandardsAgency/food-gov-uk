@@ -66,8 +66,37 @@ class FSAMultibranchCollectionChildMigration extends FSAMigration {
     $this->addFieldMapping('field_fc_section_heading', 'NAME');
 
     // Fields mapping.
-    $this->addFieldMapping('field_child_page', 'OBJECTIDS')
+    $this->addFieldMapping('field_child_page', 'SortedObjectIds')
       ->separator(',')
       ->sourceMigration('FSADocumentpage');
+  }
+
+  /**
+   * Function prepareRow.
+   */
+  public function prepareRow($row) {
+    GLOBAL $connectionOracle;
+
+    // Sort order management for child pages.
+    $sortorderArray = FSAMigrateListBase::objectsFieldidSortingOrder(array($row->OBJECTID), $connectionOracle);
+    $objectList = explode(',', $row->OBJECTIDS);
+    foreach ($objectList as $objectListItem) {
+      // Test if there is a sort order value for the item.
+      if (isset($sortorderArray[$row->OBJECTID][$objectListItem])) {
+        $itemOrder = $sortorderArray[$row->OBJECTID][$objectListItem];
+      }
+      else {
+        $itemOrder = 999;
+      }
+      // Assign the sort order value.
+      $results[$itemOrder . '-' . $objectListItem] = $objectListItem;
+    }
+    // Ksort the items to put them in the right order.
+    // Performance should be tracked in here as the array could be quite big.
+    migrate_instrument_start('ksort prepareRow FSAMultibranchCollectionChildMigration');
+    $ksortSuccess = ksort($results, SORT_NUMERIC);
+    migrate_instrument_stop('ksort prepareRow FSAMultibranchCollectionChildMigration');
+    // Assigning to row the sorted value.
+    $row->SortedObjectIds = implode(',', $results);
   }
 }

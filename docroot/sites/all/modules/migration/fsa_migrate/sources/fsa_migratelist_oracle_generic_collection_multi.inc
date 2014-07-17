@@ -112,7 +112,12 @@ class FSAMigrateListOracleGenericCollectionMulti extends MigrateList {
       foreach ($sqlResult['OBJECTID'] as $item_number => $objectid) {
         $objectParentid = $sqlResult['PARENTID'][$item_number];
         // We will add the sorting value in the array.
-        $itemSortOrderValue = $sortorderArray[$objectParentid][$objectid];
+        if (isset($sortorderArray[$objectParentid][$objectid])) {
+          $itemSortOrderValue = $sortorderArray[$objectParentid][$objectid];
+        }
+        else {
+          $itemSortOrderValue = 999;
+        }
 
         // Loop on the values and keys.
         foreach ($keysArray as $key) {
