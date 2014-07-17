@@ -54,3 +54,10 @@
 </ul>
 </div>
 */
+
+/* print styling overrides */
+@media print {
+	.social-media-icons {
+		display: none;
+	}
+}

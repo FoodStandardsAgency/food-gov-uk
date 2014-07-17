@@ -44,8 +44,6 @@
 /* print styling overrides */
 @media print {
 	.field--name-field-fc-section-quote {
-		color: #000;
-		background-color: transparent;
-		border: 1px solid #000;
+		display: none;
 	}
 }

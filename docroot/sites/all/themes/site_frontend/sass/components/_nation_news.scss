@@ -97,14 +97,21 @@
 			padding: 0.3em 11px;
 			font-weight: bold;
 		}
+		h3 {
+			margin: 0;
+		}
 		p.more-link-wrapper {
 			display: none;
 		}
 		p {
-			margin-left: 0px;
+			margin-left: 0;
+			margin-bottom: 0;
 		}
 		.views-field-field-feature-image {
 			display: none;
+		}
+		.views-row.views-row-last {
+			margin-bottom: 0;
 		}
 	}
 }

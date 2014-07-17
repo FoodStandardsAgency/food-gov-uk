@@ -45,3 +45,10 @@
 		margin-bottom: 0;
 	}
 }
+
+/* print styling overrides */
+@media print {
+	.see-also {
+		display: none;
+	}
+}

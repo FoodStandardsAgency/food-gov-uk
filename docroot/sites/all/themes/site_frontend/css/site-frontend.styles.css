@@ -5437,14 +5437,21 @@ h1.nation-wales {
       padding: 0.3em 11px;
       font-weight: bold; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_nation_news\.scss}line{font-family:\00003100}}
+    .nation-news h3 {
+      margin: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_nation_news\.scss}line{font-family:\00003103}}
     .nation-news p.more-link-wrapper {
       display: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_nation_news\.scss}line{font-family:\00003103}}
-    .nation-news p {
-      margin-left: 0px; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_nation_news\.scss}line{font-family:\00003106}}
+    .nation-news p {
+      margin-left: 0;
+      margin-bottom: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_nation_news\.scss}line{font-family:\00003110}}
     .nation-news .views-field-field-feature-image {
-      display: none; } }
+      display: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_nation_news\.scss}line{font-family:\00003113}}
+    .nation-news .views-row.views-row-last {
+      margin-bottom: 0; } }
 /* nation statement banner
  * requires block class: nation-statement-banner
  */
@@ -5639,6 +5646,33 @@ h1.nation-wales {
   .section-northern-ireland .nation-statement-banner .block__content {
     margin-right: 0;
     min-height: 0; } }
+/* print styling overrides */
+@media print {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_nation_statement_banner\.scss}line{font-family:\00003204}}
+  .section-wales .nation-statement-banner .views-field-field-nation-banner-image,
+  .section-scotland .nation-statement-banner .views-field-field-nation-banner-image,
+  .section-northern-ireland .nation-statement-banner .views-field-field-nation-banner-image {
+    display: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_nation_statement_banner\.scss}line{font-family:\00003207}}
+  .section-wales .nation-statement-banner .block__content,
+  .section-scotland .nation-statement-banner .block__content,
+  .section-northern-ireland .nation-statement-banner .block__content {
+    margin-right: 0;
+    min-height: 0;
+    padding: 0;
+    background-color: transparent;
+    min-height: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_nation_statement_banner\.scss}line{font-family:\00003214}}
+  .section-wales .nation-statement-banner .views-field-field-nation-banner-link,
+  .section-scotland .nation-statement-banner .views-field-field-nation-banner-link,
+  .section-northern-ireland .nation-statement-banner .views-field-field-nation-banner-link {
+    display: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_nation_statement_banner\.scss}line{font-family:\00003217}}
+  .section-wales .nation-statement-banner a,
+  .section-scotland .nation-statement-banner a,
+  .section-northern-ireland .nation-statement-banner a {
+    color: #000;
+    font-weight: bold; } }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_pager\.scss}line{font-family:\000031}}
 ul.pager {
   display: block;
@@ -5674,6 +5708,11 @@ ul.pager {
   ul.pager li.pager__item--last a:hover {
     text-decoration: underline; }
 
+/* print styling overrides */
+@media print {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_pager\.scss}line{font-family:\0000337}}
+  ul.pager {
+    display: none; } }
 /** requires block class: popular-links and purple-block. 
  *  purple-block implemented in base/blocks.scss 
  */
@@ -5835,6 +5874,22 @@ ul.pager {
     background: none;
     font-weight: bold; }
 
+/* print styling overrides */
+@media print {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_science_field\.scss}line{font-family:\0000329}}
+  .field--name-field-science-data {
+    background: transparent;
+    border: 1px solid #000;
+    color: #000;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -o-border-radius: 0px;
+    -ms-border-radius: 0px;
+    border-radius: 0px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_science_field\.scss}line{font-family:\0000339}}
+    .field--name-field-science-data h2, .field--name-field-science-data h3,
+    .field--name-field-science-data .field__label {
+      color: #000; } }
 /** 
  * search form 
  * dependant on having block class: search-keyword-page
@@ -6024,6 +6079,30 @@ ul.pager {
     font-size: 1.5em;
     font-weight: bold; }
 
+/* print styling overrides */
+@media print {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\00003193}}
+  .grey-container-block {
+    border: 1px solid #000;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -o-border-radius: 0;
+    -ms-border-radius: 0;
+    border-radius: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\00003200}}
+    .grey-container-block > .custom-block-inner {
+      background: none;
+      background-color: transparent; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\00003204}}
+    .grey-container-block h2.block__title {
+      color: #000; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\00003207}}
+    .grey-container-block .block__content {
+      display: none; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_filters\.scss}line{font-family:\00003211}}
+  .search-facet {
+    display: none; } }
 /**
  * Local authority search forms
  * Requires block class: local-authority-search
@@ -6312,6 +6391,12 @@ ul.pager {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003268}}
   .l-region--sidebar-second .local-authority-search.block {
     margin-bottom: 20px; } }
+/* print styling overrides */
+@media print {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_local_authority\.scss}line{font-family:\00003277}}
+  .local-authority-search,
+  #main-content .local-authority-search {
+    display: none; } }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\000032}}
 .current-search-item-text .result-count {
   color: #666;
@@ -6715,6 +6800,184 @@ ul.pager {
 .view-audit-reports .field-name-field-audit-type {
   font-style: italic; }
 
+/* print styling overrides */
+@media print {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003215}}
+  .current-search-item-text .result-count {
+    color: #000; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003219}}
+  .current-search-item-text .search-results-heading,
+  .current-search-item-text h2.search-results-heading {
+    color: #000;
+    background: transparent;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003235}}
+  .views-field-zs-view-mode-search-result,
+  .views-field-zs-view-mode-search-results-2,
+  .views-field-zs-view-mode-search-results-3,
+  .views-field-zs-view-mode-search-results-4,
+  .views-field-zs-view-mode-search-results-5,
+  .views-field-zs-view-mode-search-results-6,
+  .views-field-zs-view-mode-search-results-7,
+  .views-field-zs-view-mode-search-results-8,
+  .views-field-zs-view-mode-search-results-9,
+  .views-field-zs-view-mode-search-results-10 {
+    border-bottom: 1px solid #000; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003237}}
+    .views-field-zs-view-mode-search-result a,
+    .views-field-zs-view-mode-search-results-2 a,
+    .views-field-zs-view-mode-search-results-3 a,
+    .views-field-zs-view-mode-search-results-4 a,
+    .views-field-zs-view-mode-search-results-5 a,
+    .views-field-zs-view-mode-search-results-6 a,
+    .views-field-zs-view-mode-search-results-7 a,
+    .views-field-zs-view-mode-search-results-8 a,
+    .views-field-zs-view-mode-search-results-9 a,
+    .views-field-zs-view-mode-search-results-10 a {
+      color: #000; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003241}}
+    .views-field-zs-view-mode-search-result .node__content .field,
+    .views-field-zs-view-mode-search-result .node .content .field,
+    .views-field-zs-view-mode-search-results-2 .node__content .field,
+    .views-field-zs-view-mode-search-results-2 .node .content .field,
+    .views-field-zs-view-mode-search-results-3 .node__content .field,
+    .views-field-zs-view-mode-search-results-3 .node .content .field,
+    .views-field-zs-view-mode-search-results-4 .node__content .field,
+    .views-field-zs-view-mode-search-results-4 .node .content .field,
+    .views-field-zs-view-mode-search-results-5 .node__content .field,
+    .views-field-zs-view-mode-search-results-5 .node .content .field,
+    .views-field-zs-view-mode-search-results-6 .node__content .field,
+    .views-field-zs-view-mode-search-results-6 .node .content .field,
+    .views-field-zs-view-mode-search-results-7 .node__content .field,
+    .views-field-zs-view-mode-search-results-7 .node .content .field,
+    .views-field-zs-view-mode-search-results-8 .node__content .field,
+    .views-field-zs-view-mode-search-results-8 .node .content .field,
+    .views-field-zs-view-mode-search-results-9 .node__content .field,
+    .views-field-zs-view-mode-search-results-9 .node .content .field,
+    .views-field-zs-view-mode-search-results-10 .node__content .field,
+    .views-field-zs-view-mode-search-results-10 .node .content .field {
+      color: #000; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003244}}
+    .views-field-zs-view-mode-search-result .field--name-field-summary,
+    .views-field-zs-view-mode-search-results-2 .field--name-field-summary,
+    .views-field-zs-view-mode-search-results-3 .field--name-field-summary,
+    .views-field-zs-view-mode-search-results-4 .field--name-field-summary,
+    .views-field-zs-view-mode-search-results-5 .field--name-field-summary,
+    .views-field-zs-view-mode-search-results-6 .field--name-field-summary,
+    .views-field-zs-view-mode-search-results-7 .field--name-field-summary,
+    .views-field-zs-view-mode-search-results-8 .field--name-field-summary,
+    .views-field-zs-view-mode-search-results-9 .field--name-field-summary,
+    .views-field-zs-view-mode-search-results-10 .field--name-field-summary {
+      color: #000; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003247}}
+    .views-field-zs-view-mode-search-result .field--name-field-subtitle,
+    .views-field-zs-view-mode-search-results-2 .field--name-field-subtitle,
+    .views-field-zs-view-mode-search-results-3 .field--name-field-subtitle,
+    .views-field-zs-view-mode-search-results-4 .field--name-field-subtitle,
+    .views-field-zs-view-mode-search-results-5 .field--name-field-subtitle,
+    .views-field-zs-view-mode-search-results-6 .field--name-field-subtitle,
+    .views-field-zs-view-mode-search-results-7 .field--name-field-subtitle,
+    .views-field-zs-view-mode-search-results-8 .field--name-field-subtitle,
+    .views-field-zs-view-mode-search-results-9 .field--name-field-subtitle,
+    .views-field-zs-view-mode-search-results-10 .field--name-field-subtitle {
+      color: #000; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003250}}
+    .views-field-zs-view-mode-search-result .field--name-field-updated,
+    .views-field-zs-view-mode-search-results-2 .field--name-field-updated,
+    .views-field-zs-view-mode-search-results-3 .field--name-field-updated,
+    .views-field-zs-view-mode-search-results-4 .field--name-field-updated,
+    .views-field-zs-view-mode-search-results-5 .field--name-field-updated,
+    .views-field-zs-view-mode-search-results-6 .field--name-field-updated,
+    .views-field-zs-view-mode-search-results-7 .field--name-field-updated,
+    .views-field-zs-view-mode-search-results-8 .field--name-field-updated,
+    .views-field-zs-view-mode-search-results-9 .field--name-field-updated,
+    .views-field-zs-view-mode-search-results-10 .field--name-field-updated {
+      color: #000; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003263}}
+  .views-field-zs-view-mode-search-result,
+  .views-field-zs-view-mode-search-results-2,
+  .views-field-zs-view-mode-search-results-3,
+  .views-field-zs-view-mode-search-results-4,
+  .views-field-zs-view-mode-search-results-5,
+  .views-field-zs-view-mode-search-results-6,
+  .views-field-zs-view-mode-search-results-7,
+  .views-field-zs-view-mode-search-results-8,
+  .views-field-zs-view-mode-search-results-9,
+  .views-field-zs-view-mode-search-results-10 {
+    border-bottom: 1px solid #000; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003265}}
+    .views-field-zs-view-mode-search-result a,
+    .views-field-zs-view-mode-search-results-2 a,
+    .views-field-zs-view-mode-search-results-3 a,
+    .views-field-zs-view-mode-search-results-4 a,
+    .views-field-zs-view-mode-search-results-5 a,
+    .views-field-zs-view-mode-search-results-6 a,
+    .views-field-zs-view-mode-search-results-7 a,
+    .views-field-zs-view-mode-search-results-8 a,
+    .views-field-zs-view-mode-search-results-9 a,
+    .views-field-zs-view-mode-search-results-10 a {
+      color: #000; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003269}}
+    .views-field-zs-view-mode-search-result .node__content .field,
+    .views-field-zs-view-mode-search-result .node .content .field,
+    .views-field-zs-view-mode-search-results-2 .node__content .field,
+    .views-field-zs-view-mode-search-results-2 .node .content .field,
+    .views-field-zs-view-mode-search-results-3 .node__content .field,
+    .views-field-zs-view-mode-search-results-3 .node .content .field,
+    .views-field-zs-view-mode-search-results-4 .node__content .field,
+    .views-field-zs-view-mode-search-results-4 .node .content .field,
+    .views-field-zs-view-mode-search-results-5 .node__content .field,
+    .views-field-zs-view-mode-search-results-5 .node .content .field,
+    .views-field-zs-view-mode-search-results-6 .node__content .field,
+    .views-field-zs-view-mode-search-results-6 .node .content .field,
+    .views-field-zs-view-mode-search-results-7 .node__content .field,
+    .views-field-zs-view-mode-search-results-7 .node .content .field,
+    .views-field-zs-view-mode-search-results-8 .node__content .field,
+    .views-field-zs-view-mode-search-results-8 .node .content .field,
+    .views-field-zs-view-mode-search-results-9 .node__content .field,
+    .views-field-zs-view-mode-search-results-9 .node .content .field,
+    .views-field-zs-view-mode-search-results-10 .node__content .field,
+    .views-field-zs-view-mode-search-results-10 .node .content .field {
+      color: #000; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003272}}
+    .views-field-zs-view-mode-search-result .field--name-field-summary,
+    .views-field-zs-view-mode-search-results-2 .field--name-field-summary,
+    .views-field-zs-view-mode-search-results-3 .field--name-field-summary,
+    .views-field-zs-view-mode-search-results-4 .field--name-field-summary,
+    .views-field-zs-view-mode-search-results-5 .field--name-field-summary,
+    .views-field-zs-view-mode-search-results-6 .field--name-field-summary,
+    .views-field-zs-view-mode-search-results-7 .field--name-field-summary,
+    .views-field-zs-view-mode-search-results-8 .field--name-field-summary,
+    .views-field-zs-view-mode-search-results-9 .field--name-field-summary,
+    .views-field-zs-view-mode-search-results-10 .field--name-field-summary {
+      color: #000; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003275}}
+    .views-field-zs-view-mode-search-result .field--name-field-subtitle,
+    .views-field-zs-view-mode-search-results-2 .field--name-field-subtitle,
+    .views-field-zs-view-mode-search-results-3 .field--name-field-subtitle,
+    .views-field-zs-view-mode-search-results-4 .field--name-field-subtitle,
+    .views-field-zs-view-mode-search-results-5 .field--name-field-subtitle,
+    .views-field-zs-view-mode-search-results-6 .field--name-field-subtitle,
+    .views-field-zs-view-mode-search-results-7 .field--name-field-subtitle,
+    .views-field-zs-view-mode-search-results-8 .field--name-field-subtitle,
+    .views-field-zs-view-mode-search-results-9 .field--name-field-subtitle,
+    .views-field-zs-view-mode-search-results-10 .field--name-field-subtitle {
+      color: #000; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_search_results\.scss}line{font-family:\00003278}}
+    .views-field-zs-view-mode-search-result .field--name-field-updated,
+    .views-field-zs-view-mode-search-results-2 .field--name-field-updated,
+    .views-field-zs-view-mode-search-results-3 .field--name-field-updated,
+    .views-field-zs-view-mode-search-results-4 .field--name-field-updated,
+    .views-field-zs-view-mode-search-results-5 .field--name-field-updated,
+    .views-field-zs-view-mode-search-results-6 .field--name-field-updated,
+    .views-field-zs-view-mode-search-results-7 .field--name-field-updated,
+    .views-field-zs-view-mode-search-results-8 .field--name-field-updated,
+    .views-field-zs-view-mode-search-results-9 .field--name-field-updated,
+    .views-field-zs-view-mode-search-results-10 .field--name-field-updated {
+      color: #000; } }
 /**
  * See also block
  * Dependant on block class see-also
@@ -6762,6 +7025,11 @@ ul.pager {
   .see-also .views-row.views-row-last {
     margin-bottom: 0; }
 
+/* print styling overrides */
+@media print {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_see_also_block\.scss}line{font-family:\0000351}}
+  .see-also {
+    display: none; } }
 /* social media share icons
  * requires block class: share-icons
  */
@@ -6997,6 +7265,11 @@ ul.pager {
 </ul>
 </div>
 */
+/* print styling overrides */
+@media print {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_social_media_icons\.scss}line{font-family:\0000360}}
+  .social-media-icons {
+    display: none; } }
 /**
  * Table of contents
  * We use toc_node module to add a toc, and we override the css here
@@ -7145,9 +7418,7 @@ ul.toc-node-bullets li.toc-node-level-6 {
 @media print {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_quote\.scss}line{font-family:\0000346}}
   .field--name-field-fc-section-quote {
-    color: #000;
-    background-color: transparent;
-    border: 1px solid #000; } }
+    display: none; } }
 /* summary field - when used directly on a content type */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_text_summary\.scss}line{font-family:\000032}}
 .field--name-field-summary {
@@ -7201,6 +7472,15 @@ ul.toc-node-bullets li.toc-node-level-6 {
   color: #333;
   margin-bottom: 0.5em; }
 
+/* print styling overrides */
+@media print {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_title_book_page\.scss}line{font-family:\0000328}}
+  .book-triple-title .book-parent-title {
+    color: #000; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_title_book_page\.scss}line{font-family:\0000332}}
+  .book-triple-title .book-section-title,
+  .book-triple-title h1#page-title {
+    color: #000; } }
 /* hide front page title in an accessible way */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_title_home_page\.scss}line{font-family:\000032}}
 .front h1#page-title {
