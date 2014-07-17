@@ -53,3 +53,10 @@
 		background-position: 5px 4px;
 	}
 }
+
+/* print styling overrides */
+@media print {
+	.language-switcher {
+		display: none;
+	}
+}

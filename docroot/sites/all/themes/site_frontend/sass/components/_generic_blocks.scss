@@ -54,3 +54,15 @@
 .l-region--sidebar-second .block.generic-blocks {
 	margin-bottom: 0;
 }
+
+/* print styling overrides */
+@media print {
+	.generic-blocks {
+		.field--name-field-title-side-content-generic {
+			color: #000;
+		}
+		.field-collection-view {
+					border: 1px solid #000;
+		}
+	}
+}
