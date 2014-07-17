@@ -20,3 +20,13 @@
 		}
 	}
 }
+
+/* print styling overrides */
+@media print {
+	.file-item a {
+		color: #000;
+	}
+	.file-item {
+		display: none;
+	}
+}

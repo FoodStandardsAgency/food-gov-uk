@@ -43,3 +43,21 @@
 	}
 }
 
+/* print styling overrides */
+@media print {
+	.field-collection-item-field-fc-page-section {
+		img,
+		.image-caption,
+		.wrapper-img-pos-left,
+		.wrapper-img-pos-right,
+		.wrapper-img-pos-top,
+		.wrapper-img-pos-bottom {
+			display: none;
+		}
+	}
+}
+
+
+
+
+

@@ -40,3 +40,19 @@
 		}
 	}
 }
+
+
+/* print styling overrides */
+@media print {
+	.node-type-landing-page {
+		.field--type-blockreference {
+			display: none;
+			.block {
+				border: 1px solid #000;
+				h2.block__title {
+					color: #000;
+				}
+			}
+		}
+	}
+}

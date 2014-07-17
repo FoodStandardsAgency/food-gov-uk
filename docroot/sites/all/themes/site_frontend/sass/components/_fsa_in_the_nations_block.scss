@@ -136,3 +136,11 @@
 </div>
 
 */
+
+
+/* print styling overrides */
+@media print {
+	.fsa-in-the-nations {
+		display: none;
+	}
+}

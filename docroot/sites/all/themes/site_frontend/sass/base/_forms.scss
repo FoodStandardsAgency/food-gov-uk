@@ -38,3 +38,16 @@ label.element-invisible.compact-form-label {
 	top: 2px;
 	left: 6px;
 }
+
+
+/* print styling overrides */
+@media print {
+	.compact-form-label,
+	.global-search .compact-form-label,
+	.search-facet label.compact-form-label, 
+	.search-facet .views-exposed-form label.compact-form-label, 
+	.search-facet .form-item label.compact-form-label, 
+	.search-facet .form-actions label.compact-form-label {
+		color: #000;
+	}
+}

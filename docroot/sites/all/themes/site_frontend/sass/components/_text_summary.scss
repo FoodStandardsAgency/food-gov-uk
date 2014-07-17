@@ -23,3 +23,11 @@
 		line-height: 1.4em;
 	}
 }
+
+/* print styling overrides */
+@media print {
+	.field--name-field-summary,
+	.views-field-field-summary {
+		color: #000;
+	}
+}

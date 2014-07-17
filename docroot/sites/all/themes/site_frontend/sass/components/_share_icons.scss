@@ -6,3 +6,11 @@
 	overflow: hidden;
 	padding: 20px 0 20px 0;
 }
+
+/* print styling overrides */
+@media print {
+	.share-icons,
+	.block--social-tab share-icons {
+		display: none;
+	}
+}

@@ -95,5 +95,29 @@
 }
 
 
-
-
+/* print styling overrides */
+@media print {
+	.contact-glossary {
+		ul.contacts_alphabet li a {
+			color: #000;
+		}
+		ul.contacts_alphabet {
+			display: none;
+		}
+		.view-content {
+			h2 {
+				color: #000;
+				background: none;
+				background-color: transparent;
+				border-top: 1px solid #000;
+				border-bottom: 1px solid #000;
+			}
+		}
+		.views-row {
+			h3,
+			h3.node__title {
+				color: #000;
+			}
+		}
+	}
+}
