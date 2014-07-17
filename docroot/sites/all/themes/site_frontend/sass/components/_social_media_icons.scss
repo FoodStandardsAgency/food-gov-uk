@@ -16,7 +16,19 @@
 			padding: 0;
 			margin: 0 4px 0 0;
 			float: left;
+			img {
+				width: 26px;
+				height: 26px;
+			}
 	 	}
+		li a {
+			display: block;
+			min-width: 26px;
+			min-height: 26px;
+		}
+	  li a:focus img {
+			border: 1px solid #fff;
+	  }
 		li.extra-margin {
 			margin-right: 18px;
 		}

@@ -4,3 +4,8 @@
 .hidden {
 	display: none;
 }
+
+/* site logo */
+a.site-logo:focus img {
+	border: 1px solid #fff;
+}

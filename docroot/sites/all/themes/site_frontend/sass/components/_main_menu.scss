@@ -90,7 +90,8 @@
 			background: linear-gradient(to bottom,#e0e0e0 0,#fff 97%);
 			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e0e0e0',endColorstr='#ffffff',GradientType=0);
 		}
-		li.sf-depth-1 > a:hover {
+		li.sf-depth-1 > a:hover,
+		li.sf-depth-1 > a:focus {
 			border-top: 2px solid #fff;
 			border-left: 2px solid #fff;
 			border-right: 2px solid #fff;
@@ -108,6 +109,9 @@
 			background: -ms-linear-gradient(top,#46750b 0,#4f850c 100%);
 			background: linear-gradient(top,#46750b 0,#4f850c 100%);
 			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#46750b',endColorstr='#4f850c',GradientType=0);
+		}
+		li.sf-depth-1 > a:focus {
+			text-decoration: underline;
 		}
 		li.sf-depth-1.active-trail > a {
 			border-top: 2px solid #fff;
@@ -132,7 +136,8 @@
 		li.sf-depth-2 > a {
 			background: #ffffff;
 		}
-		li.sf-depth-2 > a:hover {
+		li.sf-depth-2 > a:hover,
+		li.sf-depth-2 > a:focus {
 			background: #f9f9f9;
 			background: -moz-linear-gradient(top,#f9f9f9 0,#dfdfdf 100%);
 			background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#f9f9f9),color-stop(100%,#dfdfdf));
@@ -141,6 +146,9 @@
 			background: -ms-linear-gradient(top,#f9f9f9 0,#dfdfdf 100%);
 			background: linear-gradient(top,#f9f9f9 0,#dfdfdf 100%);
 			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9',endColorstr='#dfdfdf',GradientType=0);
+		}
+		li.sf-depth-2 > a:focus {
+			text-decoration: underline;
 		}
 	}
 }
@@ -211,6 +219,10 @@
 	  ul {
 		  padding: 0 8px 7px 0 !important;
 		}
+	}
+	/* menu block should prevent more depths, but we are doing this as a safety net */
+	li.sf-depth-3, li.sf-depth-4, li.sf-depth-5, li.sf-depth-6, li.sf-depth-7, li.sf-depth-8, li.sf-depth-9, li.sf-depth-10 {
+		display: none;
 	}
 }
 

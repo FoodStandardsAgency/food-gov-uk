@@ -6,6 +6,9 @@ a {
 a:hover {
 	text-decoration: underline;
 }
+a:focus {
+	text-decoration: underline!important;
+}
 
 /* external links icon - requires external links module */
 span.ext {

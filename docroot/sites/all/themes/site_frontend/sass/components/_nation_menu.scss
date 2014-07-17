@@ -24,7 +24,8 @@
 		color: #ffffff;
 		text-decoration: none;
 	}
-	a:hover {
+	a:hover,
+	a:focus {
 		text-decoration: underline;
 	}
 	a.active {
