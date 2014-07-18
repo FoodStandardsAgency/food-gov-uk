@@ -64,7 +64,19 @@ AND LINKTYPE.LINKTYPENAME IN ( 'Primary link', 'Secondary link' )
 AND LINK.CHILDID = :objid
 ENDSQL;
 
-
+  /**
+   * SQL Query for index name and value, which is like vocabulary name and term name.
+   *
+   * @var string
+   */
+  protected $indexQuery = <<<'ENDSQL'
+    SELECT VALIDINDEXVALUE.VALIDVALUE, INDEXNAME.INDEXNAME
+    FROM VALIDINDEXVALUE, INDEXVALUE, OBJ, INDEXNAME
+    WHERE INDEXVALUE.OBJECTID = OBJ.OBJECTID
+    AND INDEXVALUE.VALIDINDEXVALUEID = VALIDINDEXVALUE.VALIDINDEXVALUEID
+    AND INDEXNAME.INDEXID = VALIDINDEXVALUE.INDEXID
+    AND OBJ.OBJECTID = :obj_ids
+ENDSQL;
 
   /**
    * Reference array between [vocabulary][term name] and between a term id in drupal.
@@ -516,8 +528,20 @@ ENDSQL;
       'researcscot' =>'Science and Policy',
     );
     // work through all the different mapping postions
+
+    if (is_array($value) && isset($value['PATH'])) {
+      $valuePath = $value['PATH'];
+    }
+    else {
+      $valuePath = $value;
+    }
+
+    if (is_array($value) && isset($value['SECTION'])) {
+      $sections[] = 'Guidance';
+    }
+
     foreach ($mapping as $pos => $map) {
-      foreach ((array) $value as $path) {
+      foreach ((array) $valuePath as $path) {
         $path = explode('/', $path);
         if (isset($map[$path[$pos]])) {
           $sections[] = $map[$path[$pos]];
