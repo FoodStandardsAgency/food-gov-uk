@@ -366,6 +366,10 @@ h3.inline-section-heading {
   border-bottom: 1px solid #ca370c; 
 }
 
+/* webform */
+.webfrom-node-template .field--name-body h2 {
+	color: #ca370c;
+}
 
 /************************* Print styling *******************************/
 

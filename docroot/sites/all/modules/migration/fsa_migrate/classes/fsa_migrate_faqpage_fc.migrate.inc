@@ -85,7 +85,7 @@ ENDSQL;
     if (variable_get('fsa_migrate_production', false)) {
       $this->source = new MigrateSourceList(
         new FSAMigrateListOracleGenericCollectionMulti(
-          'data/csv/business-faq.csv',
+          'data/csv/faq.csv',
           array( 'count_query' => $this->countQuery, $this->query )
         ),
         new FSAMigrateItemOracleGenericCollectionMulti()

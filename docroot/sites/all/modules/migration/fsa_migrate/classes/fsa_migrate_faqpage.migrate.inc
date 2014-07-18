@@ -48,7 +48,7 @@ class FSAFAQpageMigration extends FSAMigration {
     // Configure the source of the migration.
     if (variable_get('fsa_migrate_production', false)) {
       $this->source = new MigrateSourceList(
-        new FSAMigrateListOracleObjectsFromCSV('data/csv/business-faq.csv'),
+        new FSAMigrateListOracleObjectsFromCSV('data/csv/faq.csv'),
         new FSAMigrateItemOracleObject()
       );
     }

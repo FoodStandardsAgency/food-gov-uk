@@ -217,7 +217,7 @@ class FSAConsultationpageMigration extends FSAMigration {
    * @return string
    */
   protected function consultationStateFormatter($value) {
-    if ($value == 'Yes') {
+    if ($value == 'No') {
       return 'Open';
     }
     else {

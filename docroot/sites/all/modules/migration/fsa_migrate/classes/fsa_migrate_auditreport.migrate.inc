@@ -11,22 +11,6 @@
  */
 class FSAAuditReportMigration extends FSAMigration {
 
-
-
-  /**
-   * SQL Query for index name and value, which is like vocabulary name and term name.
-   *
-   * @var string
-   */
-  protected $indexQuery = <<<'ENDSQL'
-    SELECT VALIDINDEXVALUE.VALIDVALUE, INDEXNAME.INDEXNAME
-    FROM VALIDINDEXVALUE, INDEXVALUE, OBJ, INDEXNAME
-    WHERE INDEXVALUE.OBJECTID = OBJ.OBJECTID
-    AND INDEXVALUE.VALIDINDEXVALUEID = VALIDINDEXVALUE.VALIDINDEXVALUEID
-    AND INDEXNAME.INDEXID = VALIDINDEXVALUE.INDEXID
-    AND OBJ.OBJECTID = :obj_ids
-ENDSQL;
-
   /**
    * SQL Query for audit authority name.
    *
@@ -257,7 +241,9 @@ ENDSQL;
     );
     foreach ((array) $value as $path) {
       $path = explode('/', $path);
-      $nation_tids = array_merge($nation_tids, $mapping[$path[4]]);
+      if (isset($path[4]) && array_key_exists($path[4],$mapping) ) {
+        $nation_tids = array_merge($nation_tids, $mapping[$path[4]]);
+      }
     }
 
     return $nation_tids;

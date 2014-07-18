@@ -44,35 +44,35 @@ drush mi FSAMediaImages
 drush mi FSAMediaDocument
 
 # Migrate nodes.
-drush mi FSADocumentpage
-drush mi FSAFAQpage
-drush mi FSAAuditReport
-drush mi FSAConsultationpage
-drush mi FSANewsDocument
-drush mi FSAAlertDocument
-drush mi FSAMultibranchDocument
+drush mi --feedback="50 items" FSADocumentpage
+drush mi --feedback="50 items" FSAFAQpage
+drush mi --feedback="50 items" FSAAuditReport
+drush mi --feedback="50 items" FSAConsultationpage
+drush mi --feedback="50 items" FSANewsDocument
+drush mi --feedback="50 items" FSAAlertDocument
+drush mi --feedback="50 items" FSAMultibranchDocument
 
 # Migrate fc.
-drush mi FSADocumentpageCollection
-drush mi FSAFAQpageCollection
-drush mi FSAAuditReportCollection
-drush mi FSANewsDocumentCollection
-drush mi FSAAlertDocumentCollection
+drush mi --force --feedback="50 items" FSADocumentpageCollection
+drush mi --force --feedback="50 items" FSAFAQpageCollection
+drush mi --force --feedback="50 items" FSAAuditReportCollection
+drush mi --force --feedback="50 items" FSANewsDocumentCollection
+drush mi --force --feedback="50 items" FSAAlertDocumentCollection
 
 # Multibranch
-drush mi FSAMultibranchDocument
-drush mi FSAMultibranchCollection
-drush mi FSAMultibranchCollectionChild
+drush mi --force --feedback="50 items" FSAMultibranchDocument
+drush mi --force --feedback="50 items" FSAMultibranchCollection
+drush mi --force --feedback="50 items" FSAMultibranchCollectionChild
 
 # Migrate related media
 # - related media appears in it's own field collection
 # - the related media field collection has no title
-drush mi FSARelatedContentCollection
+drush mi --force --feedback="50 items" FSARelatedContentCollection
 
 # Migrate more in this section
 # - Child pages are added as their own field collection
 # - section title is "More in this section"
-drush mi FSAChildpageCollection
+drush mi --force --feedback="50 items" FSAChildpageCollection
 
 drush cc all
 drush solr-mark-all

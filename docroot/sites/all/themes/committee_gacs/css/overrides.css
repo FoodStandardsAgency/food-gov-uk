@@ -363,6 +363,11 @@ h3.inline-section-heading {
 }
 
 
+/* webform */
+.webfrom-node-template .field--name-body h2 {
+	color: #7a539b;
+}
+
 
 /************************* Print styling *******************************/
 
