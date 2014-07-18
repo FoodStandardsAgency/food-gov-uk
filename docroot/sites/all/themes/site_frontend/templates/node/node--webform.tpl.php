@@ -79,7 +79,7 @@
  */
 
 ?>
-<div class="custom-outer-wrapper">
+<div class="custom-outer-wrapper webfrom-node-template">
   	<div class="custom-inner-wrapper">
 		<div class="custom-node-content">
 			<article<?php print $attributes; ?>>
