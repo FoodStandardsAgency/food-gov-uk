@@ -47,7 +47,7 @@ class FSAChildpageCollectionMigration extends FSAMigration {
     // Configure the source of the migration.
     if (variable_get('fsa_migrate_production')) {
       $this->source = new MigrateSourceList(
-        new FSAMigrateListOracleChildObjectsFromCSV('data/csv/business-document.csv'),
+        new FSAMigrateListOracleChildObjectsFromCSV('data/csv/document.csv'),
         new FSAMigrateItemChildOracleObject()
       );
     }
