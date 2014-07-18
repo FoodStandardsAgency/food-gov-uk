@@ -241,7 +241,9 @@ ENDSQL;
     );
     foreach ((array) $value as $path) {
       $path = explode('/', $path);
-      $nation_tids = array_merge($nation_tids, $mapping[$path[4]]);
+      if (isset($path[4]) && array_key_exists($path[4],$mapping) ) {
+        $nation_tids = array_merge($nation_tids, $mapping[$path[4]]);
+      }
     }
 
     return $nation_tids;

@@ -191,8 +191,12 @@ class FSADocumentpageMigration extends FSAMigration {
         }
       }
       // Adding indexes to row.
-      $row->IndexBusinessType = implode('__', $indexBusinessType);
-      $row->IndexTopic = implode('__', $indexTopic);
+      if (is_array($indexBusinessType)) {
+        $row->IndexBusinessType = implode('__', $indexBusinessType);
+      }
+      if (is_array($indexTopic)) {
+        $row->IndexTopic = implode('__', $indexTopic);
+      }
       // There is 'Business type' or 'Topic' so we add 'Guidance' to sections.
       $row->SiteSectionPATH['SECTION'] = 'Guidance';
     }

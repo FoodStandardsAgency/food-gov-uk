@@ -306,7 +306,10 @@ ENDSQL;
       if (!is_null($row['VALUE'])) {
         // Check if the field needs to be migrated.
         if ($numberFields == 0 || in_array($row['VARIABLE'], $fieldsVariables)) {
-          $rows[$row['VARIABLE']] = $row['VALUE']->read($row['VALUE']->size());
+          //  @todo: check if this fixes OCI-Lob::read(): Length parameter must be greater than 0
+          if ($row['VALUE']->size() > 0) {
+            $rows[$row['VARIABLE']] = $row['VALUE']->read($row['VALUE']->size());
+          }
         }
       }
     }
