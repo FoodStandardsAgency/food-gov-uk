@@ -74,7 +74,6 @@ class FSADocumentpageMigration extends FSAMigration {
     //main create date
     $this->addFieldMapping('created', 'pubdate');
 
-
     // Updated date field.
     $this->addFieldMapping('field_updated', 'pubdate');
     $this->addFieldMapping('field_display_updated_date', 'showLastUpdated')
@@ -105,7 +104,6 @@ class FSADocumentpageMigration extends FSAMigration {
     $this->addFieldMapping('path', 'PATH')
       ->callbacks(array($this, 'pathFormatter'));
 
-
     // Table of content module settings migration.
     $this->addFieldMapping('toc_node_style', 'indexed')
       ->defaultValue('none')
@@ -115,7 +113,6 @@ class FSADocumentpageMigration extends FSAMigration {
     $this->addFieldMapping('toc_node_back_to_top_links')
       ->defaultValue(0);
 
-
     // Nation and site section
     // specific nation rules
     //@todo use attach points rather than path
@@ -123,11 +120,15 @@ class FSADocumentpageMigration extends FSAMigration {
       ->arguments(array('source_type' => 'tid'))
       ->callbacks(array($this, 'convertPathToNationGeneric'));
 
-    $this->addFieldMapping('field_site_section', 'PATH')
+    $this->addFieldMapping('field_site_section', 'SiteSectionPATH')
       ->callbacks(array($this, 'convertPathToSectionGeneric'));
 
-
-
+    // Topics and Business Type indexes.
+    // Uses '__' as separator as there is comma in the values.
+    $this->addFieldMapping('field_topic', 'IndexTopic')
+      ->separator('__');
+    $this->addFieldMapping('field_business_type', 'IndexBusinessType')
+      ->separator('__');
   }
 
   /**
@@ -168,6 +169,32 @@ class FSADocumentpageMigration extends FSAMigration {
     if (!is_null($feature_image_res)) {
       $row->FEATUREDIMAGEPATH = variable_get('file_public_path', 'sites/default/files') .
         '/sources' . $feature_image_res['PATH'];
+    }
+
+    // Index management.
+    $replacedQuery = str_replace(':obj_ids', $row->OBJECTID, $this->indexQuery);
+    $sqlResultIndex = FSAMigration::oracleQueryAllOneDimension($replacedQuery, array(), $connectionOracle);
+    // Initialize array values for indexes.
+    $row->IndexBusinessType = NULL;
+    $row->IndexTopic = NULL;
+    $row->SiteSectionPATH['PATH'] = $row->PATH;
+    // Checks if there is indexes for that item.
+    if (!is_null($sqlResultIndex)) {
+      foreach ($sqlResultIndex as $indexItem) {
+        switch ($indexItem['INDEXNAME']) {
+          case 'Business type':
+            $indexBusinessType[] = $indexItem['VALIDVALUE'];
+            break;
+          case 'Topic':
+            $indexTopic[] = $indexItem['VALIDVALUE'];
+            break;
+        }
+      }
+      // Adding indexes to row.
+      $row->IndexBusinessType = implode('__', $indexBusinessType);
+      $row->IndexTopic = implode('__', $indexTopic);
+      // There is 'Business type' or 'Topic' so we add 'Guidance' to sections.
+      $row->SiteSectionPATH['SECTION'] = 'Guidance';
     }
   }
 }

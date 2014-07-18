@@ -11,22 +11,6 @@
  */
 class FSAAuditReportMigration extends FSAMigration {
 
-
-
-  /**
-   * SQL Query for index name and value, which is like vocabulary name and term name.
-   *
-   * @var string
-   */
-  protected $indexQuery = <<<'ENDSQL'
-    SELECT VALIDINDEXVALUE.VALIDVALUE, INDEXNAME.INDEXNAME
-    FROM VALIDINDEXVALUE, INDEXVALUE, OBJ, INDEXNAME
-    WHERE INDEXVALUE.OBJECTID = OBJ.OBJECTID
-    AND INDEXVALUE.VALIDINDEXVALUEID = VALIDINDEXVALUE.VALIDINDEXVALUEID
-    AND INDEXNAME.INDEXID = VALIDINDEXVALUE.INDEXID
-    AND OBJ.OBJECTID = :obj_ids
-ENDSQL;
-
   /**
    * SQL Query for audit authority name.
    *
