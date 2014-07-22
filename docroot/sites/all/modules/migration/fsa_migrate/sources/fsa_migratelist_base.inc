@@ -61,6 +61,7 @@ ENDSQL;
     ORDER BY OBJ2.NAME DESC
 ENDSQL;
 
+   const QUERYITEMMAXNUMBER = 1000;
   /**
    * Check if the given CSV file exists.
    *

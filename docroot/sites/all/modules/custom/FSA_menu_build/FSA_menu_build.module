@@ -26,7 +26,7 @@ function FSA_menu_build_menu() {
 * Page controller.
  */
 function FSA_menu_build_page(){
-  $output = "test";
+  set_time_limit(0);
   // build a tree of all migrated nodes
   $url_tree = FSA_menu_build_process_list(FSA_menu_build_get_url_list());
   $output = kprint_r($url_tree,1);

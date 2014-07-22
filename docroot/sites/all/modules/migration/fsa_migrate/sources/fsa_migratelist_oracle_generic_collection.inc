@@ -103,7 +103,7 @@ class FSAMigrateListOracleGenericCollection extends MigrateList {
 
       // Fix for reaching the 1000 items limit.
       // Re-assign the value of the object list.
-      $chunkedObjectList = $objectList;
+      $chunkedObjectList[] = $objectList;
       if (count($objectList) > FSAMigrateListBase::QUERYITEMMAXNUMBER) {
         $chunkedObjectList = array_chunk($objectList, FSAMigrateListBase::QUERYITEMMAXNUMBER);
       }
