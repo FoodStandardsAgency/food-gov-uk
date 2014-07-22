@@ -101,18 +101,27 @@ class FSAMigrateListOracleGenericCollection extends MigrateList {
       $sqlResult = NULL;
       $replacedQuery = NULL;
 
-      $replacedQuery = str_replace(':obj_ids', implode(',', $objectList), $query);
-      $sqlResult = FSAMigration::oracleQueryAll($replacedQuery, array(), $connectionOracle);
+      // Fix for reaching the 1000 items limit.
+      // Re-assign the value of the object list.
+      $chunkedObjectList = $objectList;
+      if (count($objectList) > FSAMigrateListBase::QUERYITEMMAXNUMBER) {
+        $chunkedObjectList = array_chunk($objectList, FSAMigrateListBase::QUERYITEMMAXNUMBER);
+      }
+      // Loop on chuncked array.
+      foreach ($chunkedObjectList as $smallObjectList) {
+        $replacedQuery = str_replace(':obj_ids', implode(',', $smallObjectList), $query);
+        $sqlResult = FSAMigration::oracleQueryAll($replacedQuery, array(), $connectionOracle);
 
-      $query_array_number = NULL;
+        $query_array_number = NULL;
 
-      if (!is_null($sqlResult)) {
-        // Loop on the queries
-        foreach ($sqlResult['PARENTID'] as $item_number => $parent_id) {
-          // The return data will be like "query1" => "values ...".
-          $query_array_number = 'query' . ( $query_number + 1 );
-          $queriesResults[$parent_id]['PARENTID'] = $parent_id;
-          $queriesResults[$parent_id][$query_array_number] = $sqlResult['VALUE'][$item_number];
+        if (!is_null($sqlResult)) {
+          // Loop on the queries
+          foreach ($sqlResult['PARENTID'] as $item_number => $parent_id) {
+            // The return data will be like "query1" => "values ...".
+            $query_array_number = 'query' . ( $query_number + 1 );
+            $queriesResults[$parent_id]['PARENTID'] = $parent_id;
+            $queriesResults[$parent_id][$query_array_number] = $sqlResult['VALUE'][$item_number];
+          }
         }
       }
     }
