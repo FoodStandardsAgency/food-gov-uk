@@ -112,9 +112,15 @@ class FSAFAQpageMigration extends FSAMigration {
       ->arguments(array('source_type' => 'tid'))
       ->callbacks(array($this, 'convertPathToNationGeneric'));
 
-    $this->addFieldMapping('field_site_section', 'PATH')
+    $this->addFieldMapping('field_site_section', 'SiteSectionPATH')
       ->callbacks(array($this, 'convertPathToSectionGeneric'));
 
+    // Topics and Business Type indexes.
+    // Uses '__' as separator as there is comma in the values.
+    $this->addFieldMapping('field_topic', 'IndexTopic')
+      ->separator('__');
+    $this->addFieldMapping('field_business_type', 'IndexBusinessType')
+      ->separator('__');
 
     // Table of content module settings migration.
     $this->addFieldMapping('toc_node_style', 'indexed')
@@ -164,6 +170,36 @@ class FSAFAQpageMigration extends FSAMigration {
     if (!is_null($feature_image_res)) {
       $row->FEATUREDIMAGEPATH = variable_get('file_public_path', 'sites/default/files') .
         '/sources' . $feature_image_res['PATH'];
+    }
+
+    // Index management.
+    $replacedQuery = str_replace(':obj_ids', $row->OBJECTID, $this->indexQuery);
+    $sqlResultIndex = FSAMigration::oracleQueryAllOneDimension($replacedQuery, array(), $connectionOracle);
+    // Initialize array values for indexes.
+    $row->IndexBusinessType = NULL;
+    $row->IndexTopic = NULL;
+    $row->SiteSectionPATH['PATH'] = $row->PATH;
+    // Checks if there is indexes for that item.
+    if (!is_null($sqlResultIndex)) {
+      foreach ($sqlResultIndex as $indexItem) {
+        switch ($indexItem['INDEXNAME']) {
+          case 'Business type':
+            $indexBusinessType[] = $indexItem['VALIDVALUE'];
+            break;
+          case 'Topic':
+            $indexTopic[] = $indexItem['VALIDVALUE'];
+            break;
+        }
+      }
+      // Adding indexes to row.
+      if (is_array($indexBusinessType)) {
+        $row->IndexBusinessType = implode('__', $indexBusinessType);
+      }
+      if (is_array($indexTopic)) {
+        $row->IndexTopic = implode('__', $indexTopic);
+      }
+      // There is 'Business type' or 'Topic' so we add 'Guidance' to sections.
+      $row->SiteSectionPATH['SECTION'] = 'Guidance';
     }
   }
 }
