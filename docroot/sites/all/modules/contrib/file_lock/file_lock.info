@@ -1,0 +1,11 @@
+name = File Lock - PATCHED
+description = Prevent deletion of untracked files from file system.
+package = Media
+core = 7.x
+dependencies[] = file
+
+files[] = file_lock.module
+files[] = file_lock.inc
+files[] = file_lock.admin.inc
+
+configure = admin/config/media/lock

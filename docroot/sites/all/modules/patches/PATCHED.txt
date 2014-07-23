@@ -83,3 +83,14 @@ Depth Config Setting Is Not Saved
 https://drupal.org/node/2277191#comment-8829099
 
 
+===========================================
+
+File Lock
+
+File Lock locks temporary files
+https://www.drupal.org/node/1514378
+
+Module do not remove file lock after uninstall
+https://www.drupal.org/node/2107925
+
+
