@@ -356,7 +356,7 @@ $conf['shield_print'] =  'Hello, user: [user], pass: [pass]';
  * Keep this code block at the end of this file to take full effect.
  */
 
-if (file_exists('/var/www/site-php')) {
+if (file_exists('/var/www/site-php/food-settings.inc')) {
   // server specific config
   require('/var/www/site-php/food-settings.inc');
 }
