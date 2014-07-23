@@ -133,6 +133,15 @@ class FSADocumentpageMigration extends FSAMigration {
     // Node status, published or unpublished.
     $this->addFieldMapping('status', 'STATUSID')
       ->callbacks(array($this, 'convertStatusId'));
+
+    // Body field for blank page
+    $this->addFieldMapping('body', 'content')
+      ->callbacks(array($this, 'textAreaPargraphLineFormatter'));
+    // Text area input text format.
+    $this->addFieldMapping('body:format', 'text')
+      ->callbacks(array($this, 'textAreaFormat'));
+    $this->addFieldMapping('field_layout', 'layout')
+      ->separator('__');
   }
 
   /**
@@ -151,7 +160,7 @@ class FSADocumentpageMigration extends FSAMigration {
         ),
         $connectionOracle,
         // You can add extra fields to extract from the field table here.
-        array('title', 'summary', 'backtotop', 'showLastUpdated', 'pubdate', 'indexed')
+        array('title', 'summary', 'backtotop', 'showLastUpdated', 'pubdate', 'indexed', 'content')
       );
 
       foreach ($fields_res_array as $fieldVariable => $fieldValue) {
@@ -203,6 +212,10 @@ class FSADocumentpageMigration extends FSAMigration {
       }
       // There is 'Business type' or 'Topic' so we add 'Guidance' to sections.
       $row->SiteSectionPATH['SECTION'] = 'Guidance';
+    }
+    // set layout to blank if object type is BlankPage
+    if ($row->OBJECTTYPE == 'BlankPage') {
+      $row->layout = 'One column blank (no sidebars, header or footer)';
     }
   }
 }
