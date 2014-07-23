@@ -56,6 +56,10 @@ function fsa_migrate_migrate_api() {
         'class_name' => 'FSAMultibranchDocumentMigration',
         'group_name' => 'fsa_types',
       ),
+      'FSATreebranchDocument' => array(
+        'class_name' => 'FSATreebranchDocumentMigration',
+        'group_name' => 'fsa_types',
+      ),
       'FSADocumentpageCollection' => array(
         'class_name' => 'FSADocumentpageCollectionMigration',
         'group_name' => 'fsa_fc',
@@ -94,6 +98,14 @@ function fsa_migrate_migrate_api() {
       ),
       'FSAMultibranchCollectionChild' => array(
         'class_name' => 'FSAMultibranchCollectionChildMigration',
+        'group_name' => 'fsa_fc',
+      ),
+      'FSATreebranchCollection' => array(
+        'class_name' => 'FSATreebranchCollectionMigration',
+        'group_name' => 'fsa_fc',
+      ),
+      'FSATreebranchCollectionChild' => array(
+        'class_name' => 'FSATreebranchCollectionChildMigration',
         'group_name' => 'fsa_fc',
       ),
     )

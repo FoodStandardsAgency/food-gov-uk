@@ -13,6 +13,7 @@ files[] = classes/fsa_migrate_news_document.migrate.inc
 files[] = classes/fsa_migrate_alert_document.migrate.inc
 files[] = classes/fsa_migrate_consultationpage.migrate.inc
 files[] = classes/fsa_migrate_multibranch_documentpage.migrate.inc
+files[] = classes/fsa_migrate_treebranch_documentpage.migrate.inc
 files[] = classes/fsa_migrate_auditreport_fc.migrate.inc
 files[] = classes/fsa_migrate_documentpage_fc.migrate.inc
 files[] = classes/fsa_migrate_faqpage_fc.migrate.inc
@@ -24,6 +25,8 @@ files[] = classes/fsa_migrate_media_images.migrate.inc
 files[] = classes/fsa_migrate_media_document.migrate.inc
 files[] = classes/fsa_migrate_childpage_fc.migrate.inc
 files[] = classes/fsa_migrate_multibranch_fc_child.migrate.inc
+files[] = classes/fsa_migrate_treebranch_fc.migrate.inc
+files[] = classes/fsa_migrate_treebranch_fc_child.migrate.inc
 ; Sources.
 files[] = sources/fsa_migratelist_base.inc
 files[] = sources/fsa_migratelist_oracle_text_collection.inc
@@ -34,6 +37,7 @@ files[] = sources/fsa_migratelist_files_sql.inc
 files[] = sources/fsa_migratelist_oracle_object_from_csv.inc
 files[] = sources/fsa_migratelist_oracle_child_from_csv.inc
 files[] = sources/fsa_migratelist_oracle_multibranch_child_csv.inc
+files[] = sources/fsa_migratelist_oracle_treebranch_child_csv.inc
 
 dependencies[] = migrate
 dependencies[] = migrate_extras

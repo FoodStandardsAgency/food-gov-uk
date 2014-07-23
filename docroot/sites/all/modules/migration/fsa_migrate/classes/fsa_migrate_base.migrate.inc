@@ -218,9 +218,9 @@ ENDSQL;
     $statement = oci_parse($connection, $query);
 
     // @TODO Check on this.
-//    foreach ($params as $key => $value) {
-//      oci_bind_by_name($statement, $key, $value);
-//    }
+    // foreach ($params as $key => $value) {
+    //    oci_bind_by_name($statement, $key, $value);
+    // }
 
     if (oci_execute($statement)) {
       $row = oci_fetch_array($statement, $flags = OCI_ASSOC);
@@ -267,6 +267,44 @@ ENDSQL;
     }
 
     return NULL;
+  }
+
+  /**
+   * Executes one query on the oracle database which contains a series of results including LOB.
+   *
+   * @param string $query
+   *   The string containing an oracle query to run against the db.
+   * @param array $params
+   *   Parameters as an array
+   * @param resource $connection
+   *  An active connection to the Oracle Server.
+   *
+   * @return array|null
+   *   The result returned or NULL if empty
+   */
+  public function oracleQueryAllLob($query, array $params, $connection) {
+    $statement = oci_parse($connection, $query);
+
+    foreach ($params as $key => $value) {
+      oci_bind_by_name($statement, $key, $value);
+    }
+
+    oci_execute($statement);
+
+    $finalRows = array();
+
+    while (($row = oci_fetch_array($statement, OCI_ASSOC + OCI_RETURN_LOBS)) != false) {
+      if (isset($row['PARENTID'])) {
+        $finalRows[$row['PARENTID']] = $row;
+      }
+      else {
+        $finalRows[] = $row;
+      }
+    }
+
+    oci_free_statement($statement);
+
+    return $finalRows;
   }
 
   /**
