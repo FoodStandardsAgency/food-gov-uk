@@ -1,0 +1,155 @@
+diff --git a/file_lock.inc b/file_lock.inc
+new file mode 100644
+index 0000000..eee5c91
+--- /dev/null
++++ b/file_lock.inc
+@@ -0,0 +1,58 @@
++<?php
++
++/**
++ * @file
++ * Common functions
++ */
++
++// Modules have no id, but file_usage want's one.
++define("FILE_LOCK_ID", 0);
++
++/**
++ * Add lock for the $file
++ * This is done by adding an entry to the file_usage table.
++ *
++ * @param file $file
++ *   file object (with at least 'fid' set)
++ */
++function file_lock_add_lock($file) {
++  if (!file_lock_is_locked($file)) {
++    // Only add one lock for every file.
++    file_usage_add($file, 'file_lock', 'module', FILE_LOCK_ID);
++  }
++}
++
++/**
++ * Remove lock for the $file
++ *
++ * @param file $file
++ *   file object (with at least 'fid' set)
++ */
++function file_lock_remove_lock($file) {
++  file_usage_delete($file, 'file_lock', FILE_LOCK_ID);
++}
++
++/**
++ * Remove lock for all locked files
++ */
++function file_lock_remove_all_lock() {
++  $files = file_load_multiple(FALSE);
++  foreach ($files as $file) {
++    file_lock_remove_lock($file);
++  }
++}
++
++/**
++ * Check if a file has already an entry in file_usage for file_lock
++ *
++ * @param file $file
++ *   the file to check
++ *
++ * @return bool
++ *   TRUE if file is locked
++ *   FALSE if file is not locked
++ */
++function file_lock_is_locked($file) {
++  $file_usage_list = file_usage_list($file);
++  return isset($file_usage_list['file_lock']);
++}
+diff --git a/file_lock.info b/file_lock.info
+index 6fee8f7..edab00f 100644
+--- a/file_lock.info
++++ b/file_lock.info
+@@ -3,3 +3,9 @@ description = Prevent deletion of untracked files from file system.
+ package = Media
+ core = 7.x
+ dependencies[] = file
++
++files[] = file_lock.module
++files[] = file_lock.inc
++files[] = file_lock.admin.inc
++
++configure = admin/config/media/lock
+diff --git a/file_lock.install b/file_lock.install
+index c56e488..f3d09f5 100644
+--- a/file_lock.install
++++ b/file_lock.install
+@@ -5,6 +5,7 @@
+  * Install, update, and uninstall functions for the file_lock module
+  */
+ 
++require_once (dirname(__FILE__) . '/file_lock.inc');
+ 
+ /**
+  * Implements hook_uninstall().
+@@ -14,6 +15,7 @@ function file_lock_uninstall() {
+   variable_del('file_lock_pattern');
+   variable_del('file_lock_regex');
+   variable_del('file_lock_hook');
++  file_lock_remove_all_lock();
+ }
+ 
+ /**
+diff --git a/file_lock.module b/file_lock.module
+index 72178be..2cf30d6 100644
+--- a/file_lock.module
++++ b/file_lock.module
+@@ -7,8 +7,7 @@
+  * drupal deletes files which aren't used anymore
+  */
+ 
+-// Modules have no id, but file_usage want's one.
+-define("FILE_LOCK_ID", 0);
++require_once (dirname(__FILE__) . '/file_lock.inc');
+ 
+ /**
+  * Implements hook_help().
+@@ -146,42 +145,3 @@ function file_lock_unlock_files($files) {
+   }
+   drupal_set_message(t('Unlocked @count files.', array('@count' => count($files))));
+ }
+-
+-/**
+- * Add lock for the $file
+- * This is done by adding an entry to the file_usage table.
+- *
+- * @param file $file
+- *   file object (with at least 'fid' set)
+- */
+-function file_lock_add_lock($file) {
+-  if (!file_lock_is_locked($file)) {
+-    // Only add one lock for every file.
+-    file_usage_add($file, 'file_lock', 'module', FILE_LOCK_ID);
+-  }
+-}
+-
+-/**
+- * Remove lock for the $file
+- *
+- * @param file $file
+- *   file object (with at least 'fid' set)
+- */
+-function file_lock_remove_lock($file) {
+-  file_usage_delete($file, 'file_lock', 'FILE_LOCK_ID');
+-}
+-
+-/**
+- * Check if a file has already an entry in file_usage for file_lock
+- *
+- * @param file $file
+- *   the file to check
+- *
+- * @return bool
+- *   TRUE if file is locked
+- *   FALSE if file is not locked
+- */
+-function file_lock_is_locked($file) {
+-  $file_usage_list = file_usage_list($file);
+-  return isset($file_usage_list['file_lock']);
+-}
