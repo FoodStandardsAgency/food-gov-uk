@@ -40,3 +40,10 @@
 		}
 	}
 }
+
+/* print styling overrides */
+@media print {
+	.field--name-field-fc-section-quote {
+		display: none;
+	}
+}

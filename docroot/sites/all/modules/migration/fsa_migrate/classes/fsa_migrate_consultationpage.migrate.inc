@@ -147,6 +147,10 @@ class FSAConsultationpageMigration extends FSAMigration {
     // Section affiliation management.
     $this->addFieldMapping('field_site_section')
       ->defaultValue('News and Updates');
+
+    // Node status, published or unpublished.
+    $this->addFieldMapping('status', 'STATUSID')
+      ->callbacks(array($this, 'convertStatusId'));
   }
 
   /**
@@ -217,7 +221,7 @@ class FSAConsultationpageMigration extends FSAMigration {
    * @return string
    */
   protected function consultationStateFormatter($value) {
-    if ($value == 'Yes') {
+    if ($value == 'No') {
       return 'Open';
     }
     else {
@@ -242,7 +246,9 @@ class FSAConsultationpageMigration extends FSAMigration {
     );
     foreach ((array) $value as $path) {
       $path = explode('/', $path);
-      $nation_tids = array_merge($nation_tids, $mapping[$path[3]]);
+      if (isset($path[3]) && array_key_exists($path[3],$mapping)) {
+        $nation_tids = array_merge($nation_tids, $mapping[$path[3]]);
+      }
     }
 
     return $nation_tids;

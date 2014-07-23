@@ -66,3 +66,32 @@
 .l-region--sidebar-second .block.featured-side-content {
 	margin-bottom: 0;
 }
+
+/* print styling overrides */
+@media print {
+	.featured-side-content {
+		.field--name-field-title-side-content-generic {
+			coloe: #000;
+		}
+		.field-collection-view {
+			border: 1px solid #000;
+			background: transparent;
+		}
+		li:first-child .field-collection-view {
+			border: 1px solid #000;
+			background: transparent;
+			color: #000;
+			a {
+				color: #000;
+			}
+			.field--name-field-title-side-content-generic {
+				color: #000;
+				font-weight: bold;
+			}
+			span.ext {
+				background: none;
+				display: none;
+			}
+		}
+	}
+}

@@ -341,7 +341,7 @@ fast_404_ext_check();
 $conf['shield_user'] = 'shield';
 $conf['shield_pass'] = 'down';
 $conf['shield_allow_cli'] = 1;
-$conf['shield_print'] =  'Hello, user: [user], pass: [pass]';
+$conf['shield_print'] =  'Authentication required';
 
 
 #========================== Local File Overrides

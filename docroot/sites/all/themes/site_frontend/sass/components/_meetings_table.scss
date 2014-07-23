@@ -32,3 +32,22 @@
 		font-weight: bold;
 	}
 }
+
+/* print styling overrides */
+@media print {
+	.meetings-table {
+		table {
+			caption {
+				h2, h3 {
+					color: #000;
+					background: transparent;
+					border-top: 1px solid #000;
+					border-bottom: 1px solid #000;
+				}
+			}
+			tr {
+				border-bottom: 1px solid #000;
+			}
+		}
+	}
+}

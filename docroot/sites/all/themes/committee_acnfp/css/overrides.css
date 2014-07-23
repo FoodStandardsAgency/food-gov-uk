@@ -363,7 +363,176 @@ h3.inline-section-heading {
 }
 
 
+/* webform */
+.webfrom-node-template .field--name-body h2 {
+	color: #666600;
+}
 
+
+/************************* Print styling *******************************/
+
+/* print styling overrides */
+@media print {
+	/* page title */
+	h1 {
+		color: #000;
+	}
+	/* links */
+	a,
+	.page-section-teaser .node__title a {
+		color: #000;
+	}
+	/* back to top links */
+	.section-back-top {
+		display: none;
+	}
+	/* summary field */
+	.field--name-field-summary,
+	.views-field-field-summary {
+		color: #000;
+	}
+	/* section headings */
+	.page-section-heading {
+		background: none;
+		background-color: transparent;
+	}
+	/* latest news view title */
+	.committee-news h2.block__title, 
+	.committee-news h3.block__title {
+		background: none;
+		background-color: transparent;	}
+	/* committee news node title */
+	.committee-news .node__title a {
+		color: #000;
+	}
+	.committee-news .views-row {
+		border-bottom: none;
+	}
+	/* pages section subheadings eg related media */
+	.page-section-subheading {
+		color: #000;
+	}
+	/* file item links in page sections */
+	.page-section-teaser .file-item a {
+		color: #000;
+	}
+	/* table of contents */
+	#table-of-contents-links a {
+		color: #000;
+	}
+	/* generic block titles */
+	.generic-blocks .field--name-field-title-side-content-generic {
+		color: #000;
+	}
+	/* tables */
+	.field--name-field-fc-section-body table, 
+	.field--name-body .field--type-text-with-summary table, 
+	.field--type-text-long table {
+		border-top: 1px solid #000;
+	}
+	.field--name-field-fc-section-body th, 
+	.field--name-field-fc-section-body thead th, 
+	.field--name-field-fc-section-body thead td, 
+	.field--name-field-fc-section-body tfoot th, 
+	.field--name-field-fc-section-body tfoot td, 
+	.field--name-body .field--type-text-with-summary th, 
+	.field--name-body .field--type-text-with-summary thead th, 
+	.field--name-body .field--type-text-with-summary thead td, 
+	.field--name-body .field--type-text-with-summary tfoot th, 
+	.field--name-body .field--type-text-with-summary tfoot td, 
+	.field--type-text-long th, 
+	.field--type-text-long thead th, 
+	.field--type-text-long thead td, 
+	.field--type-text-long tfoot th, 
+	.field--type-text-long tfoot td {
+		color: #000; 
+	}
+	/* guidance highlight box */
+	.field--name-field-fc-section-body .guidance, 
+	.field--name-body .field--type-text-with-summary .guidance, 
+	.field--type-text-long .guidance {
+		background: none; 
+		background-color: transparent;
+		border: 1px solid #000;
+	}
+	/* search results */
+	.current-search-item-text .search-results-heading, 
+	.current-search-item-text h2.search-results-heading {
+		background: #000; 
+	}
+	.views-field-zs-view-mode-search-result a,
+	.views-field-zs-view-mode-search-results-2 a,
+	.views-field-zs-view-mode-search-results-3 a,
+	.views-field-zs-view-mode-search-results-4 a,
+	.views-field-zs-view-mode-search-results-5 a,
+	.views-field-zs-view-mode-search-results-6 a,
+	.views-field-zs-view-mode-search-results-7 a,
+	.views-field-zs-view-mode-search-results-8 a,
+	.views-field-zs-view-mode-search-results-9 a,
+	.views-field-zs-view-mode-search-results-10 a {
+		color: #000;
+	}
+	.views-field-zs-view-mode-search-result,
+	.views-field-zs-view-mode-search-results-2,
+	.views-field-zs-view-mode-search-results-3,
+	.views-field-zs-view-mode-search-results-4,
+	.views-field-zs-view-mode-search-results-5,
+	.views-field-zs-view-mode-search-results-6,
+	.views-field-zs-view-mode-search-results-7,
+	.views-field-zs-view-mode-search-results-8,
+	.views-field-zs-view-mode-search-results-9,
+	.views-field-zs-view-mode-search-results-10 {
+		border-bottom: 1px solid #000;
+	}
+	/* foodbase links */
+	.foodbase-links h2.block__title, 
+	.foodbase-links h3.block__title, 
+	.foodbase-links .block__title {
+		color: #000;
+	}
+	.foodbase-links .views-field-field-url a {
+		color: #000;
+	}
+	/* science field  */
+	.field--name-field-science-data h2,
+	.field--name-field-science-data h3,
+	.field--name-field-science-data .field__label {
+		color: #000;
+	}
+	.field--name-field-science-data {
+		border: 1px solid #000;
+	}
+	/* science inline class applied using ckeditor */
+	.science, 
+	.moreInfo {
+		border: 1px solid #000;
+	}
+	.science h2, 
+	.science h3,
+	.moreInfo h2,
+	.moreInfo h3 {
+		color: #000;
+	}
+	/* inline section heading applied using ckeditor */
+	.inline-section-heading, 
+	h2.inline-section-heading, 
+	h3.inline-section-heading {
+		background: none;
+		background-color: transparent;
+	}
+	/* meetings table - meetings listing */
+	.meetings-table table caption h2, 
+	.meetings-table table caption h3 {
+	  background: none;
+		background-color: transparent;
+		border-top: 1px solid #000;
+	}
+	.meetings-table table tr {
+	  border-bottom: 1px solid #000; 
+	}
+}
+
+/************************* End of Print styling *******************************/
 
 
 

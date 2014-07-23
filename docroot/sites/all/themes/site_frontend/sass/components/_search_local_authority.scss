@@ -269,3 +269,12 @@
 		margin-bottom: 20px;
 	}
 }
+
+
+/* print styling overrides */
+@media print {
+	.local-authority-search,
+	#main-content .local-authority-search {
+		display: none;
+	}
+}

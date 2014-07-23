@@ -86,3 +86,30 @@
 		float: none;
 	}	
 }
+
+
+/* print styling overrides */
+@media print {
+	.resources {
+		clear: both;
+		float: none;
+		width: auto;
+		margin-left: 0;
+		.node__title a,
+		.field--name-field-summary,
+		.node__links a {
+			color: #000;
+		}
+		.node__title a {
+			font-weight: normal;
+		}
+		.views-row {
+			border-bottom: none;
+		}
+	}
+	.node-type-landing-page .resources {
+		width: auto;
+		margin-left: 0;
+		float: none;
+	}
+}

@@ -21,3 +21,16 @@
 		margin-bottom: 0.5em;
 	}
 }
+
+/* print styling overrides */
+@media print {
+	.book-triple-title {
+		.book-parent-title {
+			color: #000;
+		}
+		.book-section-title,
+		 h1#page-title {
+			color: #000;
+		}
+	}
+}

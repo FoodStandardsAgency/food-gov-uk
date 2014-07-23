@@ -176,7 +176,9 @@ class FSANewsDocumentMigration extends FSAMigration {
       ->arguments(array('source_type' => 'tid'))
       ->callbacks(array($this, 'convertPathToPrimaryNationGeneric'));
 
-
+    // Node status, published or unpublished.
+    $this->addFieldMapping('status', 'STATUSID')
+      ->callbacks(array($this, 'convertStatusId'));
   }
 
   /**

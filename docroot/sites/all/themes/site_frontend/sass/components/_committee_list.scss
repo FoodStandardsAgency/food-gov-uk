@@ -39,3 +39,20 @@
 		border-bottom: 1px solid #7dac41;
 	}
 }
+
+/* print styling overrides */
+@media print {
+	.committee-list {
+		h2.block__title {
+			color: #000;
+			background: none;
+			background-color: transparent;
+			border-top: 1px solid #000;
+			border-bottom: 1px solid #000;
+		}
+		.views-row,
+		.views-row.views-row-last  {
+			border: none;
+		}
+	}
+}

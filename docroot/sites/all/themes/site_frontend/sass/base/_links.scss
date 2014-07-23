@@ -6,6 +6,9 @@ a {
 a:hover {
 	text-decoration: underline;
 }
+a:focus {
+	text-decoration: underline!important;
+}
 
 /* external links icon - requires external links module */
 span.ext {
@@ -180,4 +183,19 @@ p .more-button {
 	text-align: left;
 }
 
-
+/* print styling overrides */
+@media print {
+	a,
+	a.fsa-more-link,
+	a.fsa-more-link-orange-arrow,
+	a.more-link-orange-icon-right,
+	.more-button {
+		color: #000;
+	}
+	.green-sidebar-links1,
+	.green-sidebar-links2 {
+		li a {
+			color: #000;
+		}
+	}
+}

@@ -66,9 +66,7 @@
 		display: none;
 	}
 }
-.field--name-field-fc-qanda {
-	
-}
+
 .field--name-field-fc-quanda-question.ui-state-active {
 	h2 {
 		background-image: url('../images/sidebar-arrow-down.png');
@@ -82,4 +80,35 @@
 }
 div.field.field--name-field-fc-quanda-answer.field--type-text-long.field--label-hidden.ui-accordion-content.ui-helper-reset.ui-widget-content.ui-corner-bottom.ui-accordion-content-active {
 	padding: 0 0 0 24px;
+}
+
+
+/* print styling overrides */
+@media print {
+	.field--name-field-fc-qanda {
+		.ui-state-default, 
+		.ui-widget-content .ui-state-default, 
+		.ui-widget-header .ui-state-default {
+			color: #000;
+		}
+		.ui-state-active, 
+		.ui-widget-content .ui-state-active, 
+		.ui-widget-header .ui-state-active {
+			color: #000;
+		}
+		.ui-widget-content {
+			color: #000;
+		}
+	}
+	.field--name-field-fc-qanda > .field__items > .field__item {
+		border-top: 1px solid #000;
+	}
+	.field--name-field-fc-qanda > .field__items > .field__item:last-child {
+		border-bottom: 1px solid #000;
+	}
+	.field--name-field-fc-quanda-question {
+		h2 {
+			color: #000;
+		}
+	}
 }

@@ -31,3 +31,10 @@ ul.pager {
 		}
 	}
 }
+
+/* print styling overrides */
+@media print {
+	ul.pager {
+		display: none;
+	}
+}

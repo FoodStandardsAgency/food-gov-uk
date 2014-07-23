@@ -211,3 +211,62 @@ h3.inline-section-heading {
 	.fsatable td ul { margin:0 0 0 14px; padding-left:3px; }
 	.fsatable td ul li{font-size: 130%;}
 }
+
+/* print styling overrides */
+@media print {
+	.guidance,
+	.training,
+	.science,
+	.moreInfo {
+		border: 1px solid #000;
+		background: none;
+		background-color: transparent;
+		color: #000;
+		-webkit-border-radius: 0px;
+		-moz-border-radius: 0px;
+		-o-border-radius: 0px;
+		-ms-border-radius: 0px;
+		border-radius: 0px;
+		h2, h3 {
+			color: #000;
+		}
+	}
+	.inline-section-heading,
+	h2.inline-section-heading,
+	h3.inline-section-heading {
+		color: #000;
+		background: transparent;
+		border-top: 1px solid #000;
+		border-bottom: 1px solid #000;
+	}
+	.field--name-field-fc-section-body,
+	.field--name-body,
+	.field--type-text-with-summary,
+	.field--type-text-long {
+		table {
+			border-top: 1px solid #000;
+		}
+		caption {
+			color: #000;
+		}
+		th, thead th, thead td, tfoot th, tfoot td {
+			color: #000;
+		}
+		table.linearTable {
+			border-top: 1px solid #000;
+		}
+		.linearTable tbody th.grouper {
+			color: #000;
+		}
+	}
+	/* legacy css for tables from old site */
+	.field--name-field-fc-section-body,
+	.field--name-body,
+	.field--type-text-with-summary,
+	.field--type-text-long {	
+		.fsatable thead th { color:#000; }
+		.fsatable tbody th { color:#000; }
+		.fsatable td { color:#000; }
+		.fsatable td a { color:#000; }
+	}
+}

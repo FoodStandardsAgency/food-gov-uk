@@ -1,4 +1,4 @@
-/* Feature blocks are: Business and industry, Enforcement and regulation, Science and research 
+/* Feature blocks are: Business and industry, Enforcement and regulation, Science and policy 
  * requires block classes: feature-block green-block and for the last block we also use the class: last
  * block styling comes from base styles and block content styling comes from this style sheet.
  */
@@ -113,5 +113,13 @@
 @include breakpoint($mobile) {
 	.l-content .feature-block {
 		margin-bottom: 11px;
+	}
+}
+
+
+/* print styling overrides */
+@media print {
+	.feature-block {
+		display: none;
 	}
 }

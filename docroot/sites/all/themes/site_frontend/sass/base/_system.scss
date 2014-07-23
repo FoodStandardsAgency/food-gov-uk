@@ -1,0 +1,14 @@
+/* Drupal system output */
+
+/* print styling overrides */
+@media print {
+	.messages {
+		display: none;
+	}
+	/* hide edit tabs */
+	ul.tabs {
+		display: none;
+	}
+}
+
+

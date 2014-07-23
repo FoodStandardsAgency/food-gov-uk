@@ -222,3 +222,115 @@
 		min-width: 0;	// note min-width: none has no effect (not valid), must be 0;
 	}
 }
+
+/* print styling overrides */
+@media print {
+	.header-wrapper-inner,
+	.l-breadcrumb-accessibility,
+	.l-preface,
+	.l-main,
+	.bottom-menu-wrapper-inner,
+	.l-footer {
+		width: auto;
+		padding-left: 6px;
+		padding-right: 6px;
+		margin: 0.5%;
+	}
+	.l-header-branding {
+		@include grid-span(12,1);
+	}
+	.l-header-top-menu {
+		@include grid-span(0,1);
+		display: none;
+	}
+	.l-header-search {
+		@include grid-span(0,1);
+		display: none;
+	}
+	.header-bottom {
+		@include clearfix;
+		display: none;
+	}
+	.l-header-main-menu {
+		@include grid-span(0,1);
+		display: none;
+	}
+	.l-header-social-media {
+		@include grid-span(0,1);
+		display: none;
+	}
+	.breadcrumb-accessibility-wrapper {
+		 @include clearfix;
+	}
+	.l-breadcrumb {
+		@include grid-span(12,1);
+		clear: both;
+		float: none;
+	}
+	.l-accessibility {
+		@include grid-span(0,1);
+		display: none;
+	}
+	.l-preface {
+		@include grid-span(12,1);
+		clear: both;
+		float: none;
+	}
+	.main-wrapper {
+		@include clearfix;
+	}
+	.l-sidebar-first {
+		@include grid-span(12,1);
+		clear: both;
+		float: none;
+		display: none;
+	}
+	.l-content {
+		@include grid-span(12,1);
+		clear: both;
+		float: none;
+	}
+	.l-sidebar-second {
+		@include grid-span(12,1);
+		clear: both;
+		float: none;
+		display: none;
+	}
+	.bottom-menu-wrapper {
+		@include clearfix;
+		display: none;
+	}
+	.l-bottom-menu {
+		@include grid-span(12,1);
+		clear: both;
+		float: none;
+		display: none;
+	}
+	.footer-bottom {
+		@include clearfix;
+	}
+	.l-footer-copyright {
+		@include grid-span(12,1);
+		clear: both;
+		float: none;
+	}
+	.l-footer-menu {
+		@include grid-span(12,1);
+		clear: both;
+		float: none;
+		display: none;
+	}
+	.l-footer-buttons {
+		@include grid-span(12,1);
+		clear: both;
+		float: none;
+		display: none;
+	}	
+	.header-wrapper,
+	.breadcrumb-accessibility-wrapper,
+	.main-wrapper,
+	.bottom-menu-wrapper,
+	.footer-wrapper {
+		min-width: 0;	// note min-width: none has no effect (not valid), must be 0;
+	}
+}

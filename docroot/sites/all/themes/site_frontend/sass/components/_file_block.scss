@@ -39,3 +39,10 @@
 		padding: 0px 10px 12px 10px;
 	}
 }
+
+/* print styling overrides */
+@media print {
+	.file-block {
+		display: none;
+	}
+}

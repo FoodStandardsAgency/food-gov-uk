@@ -192,6 +192,31 @@
 			margin-right: 0;
 			min-height: 0;
 		}
+	}
+}
 
+
+/* print styling overrides */
+@media print {
+	.section-wales .nation-statement-banner,
+	.section-scotland .nation-statement-banner,
+	.section-northern-ireland .nation-statement-banner {
+		.views-field-field-nation-banner-image {
+			display: none;
+		}
+		.block__content {
+			margin-right: 0;
+			min-height: 0;
+			padding: 0;
+			background-color: transparent;
+			min-height: 0;
+		}
+		.views-field-field-nation-banner-link {
+			display: none;
+		}
+		a {
+			color: #000;
+			font-weight: bold;
+		}
 	}
 }
