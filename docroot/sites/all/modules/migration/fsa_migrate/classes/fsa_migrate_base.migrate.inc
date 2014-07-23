@@ -553,4 +553,19 @@ ENDSQL;
     }
     return $sections;
   }
+
+  /**
+   * Converts a status ID to a boolean value to publish or unpublish the node.
+   *
+   * @param $value
+   * @return int
+   */
+  public function convertStatusId($value) {
+    if ($value == 106) {
+      return 1;
+    }
+    else {
+      return 0;
+    }
+  }
 }

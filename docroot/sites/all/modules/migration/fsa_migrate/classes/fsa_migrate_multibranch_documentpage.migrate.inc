@@ -103,6 +103,9 @@ class FSAMultibranchDocumentMigration extends FSAMigration {
     $this->addFieldMapping('field_child_page_style')
       ->defaultValue('micro_teaser');
 
+    // Node status, published or unpublished.
+    $this->addFieldMapping('status', 'STATUSID')
+      ->callbacks(array($this, 'convertStatusId'));
   }
 
   /**

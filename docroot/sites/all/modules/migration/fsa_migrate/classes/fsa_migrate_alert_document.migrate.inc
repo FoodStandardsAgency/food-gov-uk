@@ -152,6 +152,9 @@ class FSAAlertDocumentMigration extends FSAMigration {
     // Category mapping.
     $this->addFieldMapping('field_alert_ref', 'ref');
 
+    // Node status, published or unpublished.
+    $this->addFieldMapping('status', 'STATUSID')
+      ->callbacks(array($this, 'convertStatusId'));
   }
 
   /**

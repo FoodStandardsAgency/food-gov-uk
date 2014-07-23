@@ -129,6 +129,10 @@ class FSADocumentpageMigration extends FSAMigration {
       ->separator('__');
     $this->addFieldMapping('field_business_type', 'IndexBusinessType')
       ->separator('__');
+
+    // Node status, published or unpublished.
+    $this->addFieldMapping('status', 'STATUSID')
+      ->callbacks(array($this, 'convertStatusId'));
   }
 
   /**

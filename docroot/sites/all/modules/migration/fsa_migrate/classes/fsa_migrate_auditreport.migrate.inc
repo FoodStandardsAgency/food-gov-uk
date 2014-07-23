@@ -153,6 +153,9 @@ ENDSQL;
     $this->addFieldMapping('migrate_redirects', 'PATH')
       ->defaultValue('MigrateRedirectEntity');
 
+    // Node status, published or unpublished.
+    $this->addFieldMapping('status', 'STATUSID')
+      ->callbacks(array($this, 'convertStatusId'));
   }
 
   /**

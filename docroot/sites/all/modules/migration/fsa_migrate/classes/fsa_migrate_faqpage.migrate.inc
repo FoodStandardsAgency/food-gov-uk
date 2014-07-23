@@ -59,7 +59,6 @@ class FSAFAQpageMigration extends FSAMigration {
       );
     }
 
-
     // Destination detail.
     $this->destination = new MigrateDestinationNode('faq');
 
@@ -130,6 +129,10 @@ class FSAFAQpageMigration extends FSAMigration {
       ->defaultValue(2);
     $this->addFieldMapping('toc_node_back_to_top_links')
       ->defaultValue(0);
+
+    // Node status, published or unpublished.
+    $this->addFieldMapping('status', 'STATUSID')
+      ->callbacks(array($this, 'convertStatusId'));
   }
 
   /**

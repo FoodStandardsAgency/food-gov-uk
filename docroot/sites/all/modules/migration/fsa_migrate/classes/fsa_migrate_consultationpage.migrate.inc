@@ -147,6 +147,10 @@ class FSAConsultationpageMigration extends FSAMigration {
     // Section affiliation management.
     $this->addFieldMapping('field_site_section')
       ->defaultValue('News and Updates');
+
+    // Node status, published or unpublished.
+    $this->addFieldMapping('status', 'STATUSID')
+      ->callbacks(array($this, 'convertStatusId'));
   }
 
   /**
