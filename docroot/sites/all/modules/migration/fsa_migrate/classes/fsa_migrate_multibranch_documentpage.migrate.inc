@@ -86,8 +86,16 @@ class FSAMultibranchDocumentMigration extends FSAMigration {
       ->defaultValue(TRUE);
 
     $this->addFieldMapping('field_path', 'title');
-    $this->addFieldMapping('field_path:machine', 'PATH')
+    $this->addFieldMapping('field_path:machine', 'SIMPLENAME')
       ->callbacks(array($this, 'pathFormatter'));
+
+    // we will rebuild the path later when we build the menu
+    // for now, we want the path set so that we can build redirects
+    $this->addFieldMapping('pathauto')
+      ->defaultValue(0);
+    $this->addFieldMapping('path', 'PATH')
+      ->callbacks(array($this, 'pathFormatter'));
+
 
     // Table of content module settings migration.
     $this->addFieldMapping('toc_node_style', 'indexed')
@@ -97,6 +105,23 @@ class FSAMultibranchDocumentMigration extends FSAMigration {
       ->defaultValue(2);
     $this->addFieldMapping('toc_node_back_to_top_links')
       ->defaultValue(0);
+
+    // Nation and site section
+    // specific nation rules
+    //@todo use attach points rather than path
+    $this->addFieldMapping('field_nation', 'PATH')
+      ->arguments(array('source_type' => 'tid'))
+      ->callbacks(array($this, 'convertPathToNationGeneric'));
+
+    $this->addFieldMapping('field_site_section', 'SiteSectionPATH')
+      ->callbacks(array($this, 'convertPathToSectionGeneric'));
+
+    // Topics and Business Type indexes.
+    // Uses '__' as separator as there is comma in the values.
+    $this->addFieldMapping('field_topic', 'IndexTopic')
+      ->separator('__');
+    $this->addFieldMapping('field_business_type', 'IndexBusinessType')
+      ->separator('__');
 
     // set teaser style
     // @todo This may require a custom plugin
