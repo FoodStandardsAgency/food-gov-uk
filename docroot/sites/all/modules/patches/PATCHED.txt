@@ -94,3 +94,12 @@ Module do not remove file lock after uninstall
 https://www.drupal.org/node/2107925
 
 
+===========================================
+
+Field Collection
+
+Deleting revisions via node_revision_delete wrongly deletes entire field collection
+https://www.drupal.org/node/2000690
+
+Stop the field collection field from deleting media files.
+FSA-stop_deletion_media_migration_on_roll_back.patch
