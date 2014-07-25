@@ -808,7 +808,7 @@ img, media {
 .file-item span.filesize {
   margin-left: 10px; }
 
-/* generic classes that can be used in views or elsewhere */
+/* generic classes that are not captured elsewhere */
 /* example usage: to hide RDF content */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_misc_other\.scss}line{font-family:\000034}}
 .hidden {
@@ -819,6 +819,27 @@ img, media {
 a.site-logo:focus img {
   border: 1px solid #fff; }
 
+/* apply page section title if a parent group has class: page-section  - used mainly in display settings formatting */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_misc_other\.scss}line{font-family:\0000314}}
+.page-section h2 {
+  display: block;
+  margin: 0 0 1em 0;
+  padding: .3em 11px;
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #fff;
+  background: #5d9711;
+  clear: both; }
+
+/* print styling overrides */
+@media print {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_misc_other\.scss}line{font-family:\0000327}}
+  .page-section h2 {
+    color: #000;
+    background: none;
+    background-color: transparent;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000; } }
 /**
  * requires classes to be added to fields (example: page-section-heading)- done in field preprocess
  */
@@ -5760,6 +5781,26 @@ ul.pager {
   font-size: 1.5em;
   color: #fff;
   margin: 0 0 0.4em 0; }
+
+/* project node header (view block)
+ * requires block class: project-node-header
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_project_node_header\.scss}line{font-family:\000039}}
+.project-node-header .views-field-field-duration,
+.project-node-header .views-field-field-contractor,
+.project-node-header .views-field-field-project-code,
+.project-node-header .views-field-field-contact-blolb {
+  font-size: 1.2em;
+  line-height: 1.4em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_project_node_header\.scss}line{font-family:\0000313}}
+.project-node-header p {
+  font-size: 1em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_project_node_header\.scss}line{font-family:\0000316}}
+.project-node-header div.display-inline {
+  display: inline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_project_node_header\.scss}line{font-family:\0000318}}
+  .project-node-header div.display-inline p {
+    display: inline; }
 
 /* requires block class: resources and blokc class: blue-block */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\000032}}

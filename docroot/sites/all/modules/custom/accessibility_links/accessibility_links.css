@@ -3,6 +3,7 @@
   display: block;
   margin-top: 2px;
 }
+/*
 #dixeritRefererForm {
   margin: 0;
   padding: 0;
@@ -17,6 +18,7 @@
   overflow: hidden;
   text-indent: 2px;
 }
+*/
 #accessTools ul {
   float: right;
   list-style: none;
@@ -40,6 +42,7 @@
 #accessTools li a:hover {
 	text-decoration: underline;
 }
+/*
 #accessTools li#accessListen {
 	position: relative;
 	margin-left: 0;
@@ -56,6 +59,7 @@
   overflow: hidden;
   background: url('listen.png') 0 0 no-repeat;
 }
+*/
 #accessTools li#fontScale {
   margin-top: -.3em;
 }
@@ -67,6 +71,9 @@
   line-height: 1em;
   background: none;
   border-left: 1px solid #333;
+}
+#accessTools li.first {
+	border-left: none;
 }
 #accessTools a#fontScale0 {
   font-size: 1.1em;
