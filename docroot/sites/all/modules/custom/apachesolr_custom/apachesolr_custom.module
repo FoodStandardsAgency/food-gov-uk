@@ -52,6 +52,8 @@ function apachesolr_custom_removetab(&$vars, $path) {
  *
  */
 function apachesolr_custom_apachesolr_index_document_build_node(ApacheSolrDocument $document, $entity, $env_id) {
+  // set a sortable timestamp on all nodes that have a published year
+  apachesolr_sortable_date_field($document, $entity, 'field_updated', 'is_field_updated');
 
   switch ($entity->type) {
     case 'audit_report':
@@ -129,6 +131,26 @@ function apachesolr_custom_year_field(&$document, $entity, $field, $solr_field, 
     $document->setField($solr_field, "$year");
   }
 }
+
+/**
+ * Generate a unix timestamp version of a date field that will allow sorting.
+ *
+ * @param $document
+ * @param $entity
+ * @param $field
+ * @param $solr_field
+
+ */
+function apachesolr_sortable_date_field(&$document, $entity, $field, $solr_field) {
+  if (isset($entity->{$field}['und'][0]['value']) && !empty($entity->{$field}['und'][0]['value'])) {
+    $datetime = $entity->{$field}['und'][0]['value'];
+    $date = new DateTime($datetime);
+    $timestamp = (int) ($date->format('U') * $multiplier);
+    $document->setField($solr_field, $timestamp);
+  }
+}
+
+
 
 /**
  * Add custom facets.
