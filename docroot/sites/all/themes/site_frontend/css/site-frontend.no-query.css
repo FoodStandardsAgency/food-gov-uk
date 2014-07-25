@@ -795,7 +795,7 @@ img, media {
 .file-item span.filesize {
   margin-left: 10px; }
 
-/* generic classes that can be used in views or elsewhere */
+/* generic classes that are not captured elsewhere */
 /* example usage: to hide RDF content */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_misc_other\.scss}line{font-family:\000034}}
 .hidden {
@@ -806,6 +806,27 @@ img, media {
 a.site-logo:focus img {
   border: 1px solid #fff; }
 
+/* apply page section title if a parent group has class: page-section  - used mainly in display settings formatting */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_misc_other\.scss}line{font-family:\0000314}}
+.page-section h2 {
+  display: block;
+  margin: 0 0 1em 0;
+  padding: .3em 11px;
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #fff;
+  background: #5d9711;
+  clear: both; }
+
+/* print styling overrides */
+@media print {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_misc_other\.scss}line{font-family:\0000327}}
+  .page-section h2 {
+    color: #000;
+    background: none;
+    background-color: transparent;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000; } }
 /**
  * requires classes to be added to fields (example: page-section-heading)- done in field preprocess
  */
