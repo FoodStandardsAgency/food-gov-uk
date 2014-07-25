@@ -54,11 +54,12 @@ function apachesolr_custom_removetab(&$vars, $path) {
 function apachesolr_custom_apachesolr_index_document_build_node(ApacheSolrDocument $document, $entity, $env_id) {
   // set a sortable timestamp on all nodes that have a published year
   apachesolr_sortable_date_field($document, $entity, 'field_updated', 'is_field_updated');
+  // Last updated year.
+  apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year');
 
   switch ($entity->type) {
     case 'audit_report':
-      // Last updated year.
-      apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year');
+
       apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year_sort', 10);
 
       if (empty($entity->field_audit_action_plan)) {
@@ -70,8 +71,6 @@ function apachesolr_custom_apachesolr_index_document_build_node(ApacheSolrDocume
       break;
 
     case 'audit_news':
-      // Last updated year.
-      apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year');
       // we want audit news to come before audit reports
       apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year_sort',10.001);
 
@@ -85,8 +84,6 @@ function apachesolr_custom_apachesolr_index_document_build_node(ApacheSolrDocume
       break;
 
     case 'consultation':
-      // Last updated year.
-      apachesolr_custom_year_field($document, $entity, 'field_updated', 'is_last_updated_year');
       break;
 
     case 'paper':
