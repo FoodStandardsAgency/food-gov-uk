@@ -56,7 +56,8 @@ function apachesolr_custom_apachesolr_index_document_build_node(ApacheSolrDocume
   switch ($entity->type) {
     case 'audit_report':
       // Last updated year.
-      apachesolr_custom_year_field($document, $entity, 'field_updated', 'is_last_updated_year');
+      apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year');
+      apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year_sort', 10);
 
       if (empty($entity->field_audit_action_plan)) {
         $document->addField('ss_has_audit_action_plan', t('No action plan'));
@@ -69,6 +70,8 @@ function apachesolr_custom_apachesolr_index_document_build_node(ApacheSolrDocume
     case 'audit_news':
       // Last updated year.
       apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year');
+      // we want audit news to come before audit reports
+      apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year_sort',10.001);
 
       if (!empty($entity->field_heading_audit_news[LANGUAGE_NONE][0]['value'])) {
         $document->addField('ss_heading_audit_news', $entity->field_heading_audit_news[LANGUAGE_NONE][0]['value']);
@@ -111,8 +114,13 @@ function apachesolr_custom_apachesolr_index_document_build_node(ApacheSolrDocume
 /**
  * Converts field datetime value into a year and stores it in Apache Solr.
  *
- **/
-function apachesolr_custom_year_field(&$document, $entity, $field, $solr_field) {
+ * @param $document
+ * @param $entity
+ * @param $field
+ * @param $solr_field
+ * @param int $multiplier  Multiply the final value by a specified amount. Used for sorting with multiple content types
+ */
+function apachesolr_custom_year_field(&$document, $entity, $field, $solr_field, $multiplier = 1) {
 
   if (isset($entity->{$field}['und'][0]['value']) && !empty($entity->{$field}['und'][0]['value'])) {
     $datetime = $entity->{$field}['und'][0]['value'];
