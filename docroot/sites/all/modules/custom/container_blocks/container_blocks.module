@@ -83,7 +83,12 @@ function container_blocks_block_view($delta = '') {
     case 'search_all_news_facets':
       $blocks[] = block_load('views', '-exp-news_centre___search-page');
       $blocks[] = block_load('facetapi', 'mo10eVoL905Qwndxck1XcD0dZWgc0x7s');
-      $blocks[] = block_load('facetapi', 'bLPXAQDJqA1Re1OTSoyUJM9gUBaIgZMG');
+      // updated time facet
+      // $blocks[] = block_load('facetapi', 'bLPXAQDJqA1Re1OTSoyUJM9gUBaIgZMG');
+      // Nation
+      $blocks[] = block_load('facetapi', 'ly6396gbtdufodpd8je0qyujejn73bws');
+      // Last updated year.
+      $blocks[] = block_load('facetapi', 'z0n0mr7e3co9o4fke31fjmkzq9qgwfqq');
 
       $content = container_blocks_concatenate_content($blocks);
 
@@ -126,6 +131,7 @@ function container_blocks_block_view($delta = '') {
     case 'search_consultations':
       $blocks[] = block_load('facetapi', 'x4nnoysr1rqw1vfaghilcfbruu0t1ml1');
       $blocks[] = block_load('facetapi', '4oshdock6vikervr03r0jhzo1vob4nh5');
+      // Nation
       $blocks[] = block_load('facetapi', 'ly6396gbtdufodpd8je0qyujejn73bws');
       // Last updated year.
       $blocks[] = block_load('facetapi', 'z0n0mr7e3co9o4fke31fjmkzq9qgwfqq');
