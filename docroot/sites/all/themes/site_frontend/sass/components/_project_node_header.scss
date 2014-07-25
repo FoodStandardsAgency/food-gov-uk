@@ -1,0 +1,22 @@
+/* project node header (view block)
+ * requires block class: project-node-header
+ */
+
+.project-node-header {
+	.views-field-field-duration,
+	.views-field-field-contractor,
+	.views-field-field-project-code,
+	.views-field-field-contact-blolb {
+		font-size: 1.2em;
+		line-height: 1.4em;
+	}
+	p {
+		font-size: 1em;	// to take care of nesting issues, p takes size from parent container
+	}
+	div.display-inline {
+		display: inline;
+		p {
+			display: inline;
+		}
+	}
+}
