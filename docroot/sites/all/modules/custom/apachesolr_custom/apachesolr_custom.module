@@ -125,7 +125,7 @@ function apachesolr_custom_year_field(&$document, $entity, $field, $solr_field, 
   if (isset($entity->{$field}['und'][0]['value']) && !empty($entity->{$field}['und'][0]['value'])) {
     $datetime = $entity->{$field}['und'][0]['value'];
     $date = new DateTime($datetime);
-    $year = (int) $date->format('Y') * $multiplier;
+    $year = (int) ($date->format('Y') * $multiplier);
     $document->setField($solr_field, "$year");
   }
 }
