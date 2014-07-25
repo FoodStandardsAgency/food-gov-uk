@@ -7277,6 +7277,21 @@ ul.pager {
     background-repeat: no-repeat;
     background-position: 9px center; }
 
+/* site map menublock
+ * requires block class: site-map
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_site_map\.scss}line{font-family:\000035}}
+.site-map {
+  /* prevent nested em's from affecting font sizes */
+  /* remove menu name */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_site_map\.scss}line{font-family:\000038}}
+  .site-map ul ul,
+  .site-map li li {
+    font-size: 1em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_site_map\.scss}line{font-family:\0000312}}
+  .site-map h2.block__title {
+    display: none; }
+
 /* social media icons
  * requires block class: social-media-icons
  */

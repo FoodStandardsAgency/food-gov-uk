@@ -1,0 +1,15 @@
+/* site map menublock
+ * requires block class: site-map
+ */
+
+.site-map {
+	/* prevent nested em's from affecting font sizes */
+	ul ul,
+	li li {
+		font-size: 1em;
+	}
+	/* remove menu name */
+	h2.block__title {
+		display: none;
+	}
+}
