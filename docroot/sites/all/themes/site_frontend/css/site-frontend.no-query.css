@@ -5598,22 +5598,25 @@ ul.pager {
 /* project node header (view block)
  * requires block class: project-node-header
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_project_node_header\.scss}line{font-family:\000039}}
-.project-node-header .views-field-field-duration,
-.project-node-header .views-field-field-contractor,
-.project-node-header .views-field-field-project-code,
-.project-node-header .views-field-field-contact-blolb {
-  font-size: 1.2em;
-  line-height: 1.4em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_project_node_header\.scss}line{font-family:\0000313}}
-.project-node-header p {
-  font-size: 1em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_project_node_header\.scss}line{font-family:\0000316}}
-.project-node-header div.display-inline {
-  display: inline; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_project_node_header\.scss}line{font-family:\0000318}}
-  .project-node-header div.display-inline p {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_project_node_header\.scss}line{font-family:\000035}}
+.project-node-header {
+  margin-bottom: 20px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_project_node_header\.scss}line{font-family:\0000310}}
+  .project-node-header .views-field-field-duration,
+  .project-node-header .views-field-field-contractor,
+  .project-node-header .views-field-field-project-code,
+  .project-node-header .views-field-field-contact-blolb {
+    font-size: 1.2em;
+    line-height: 1.4em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_project_node_header\.scss}line{font-family:\0000314}}
+  .project-node-header p {
+    font-size: 1em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_project_node_header\.scss}line{font-family:\0000317}}
+  .project-node-header div.display-inline {
     display: inline; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_project_node_header\.scss}line{font-family:\0000319}}
+    .project-node-header div.display-inline p {
+      display: inline; }
 
 /* requires block class: resources and blokc class: blue-block */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_resources\.scss}line{font-family:\000032}}
