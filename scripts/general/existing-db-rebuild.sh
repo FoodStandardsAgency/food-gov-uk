@@ -15,8 +15,8 @@ cd `drush $DRUSH_DEST dd`
 # sleep 30
 
 # Sync db and files
-drush sql-sync -y $DRUSH_SOURCE $DRUSH_DEST
-drush rsync -y $DRUSH_SOURCE:%files $DRUSH_DEST:%files
+#drush sql-sync -y $DRUSH_SOURCE $DRUSH_DEST
+#drush rsync -y $DRUSH_SOURCE:%files $DRUSH_DEST:%files
 
 drush $DRUSH_DEST cc all
 
