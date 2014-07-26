@@ -30,24 +30,24 @@ drush vset fsa_migrate_pathauto_restrict 1
 drush vset fsa_migrate_production 1
 
 # Roll back the existing migration.
-drush mr FSAChildpageCollection
-drush mr FSARelatedContentCollection
-drush mr FSAMultibranchCollectionChild
-drush mr FSANewsDocumentCollection
-drush mr FSAAuditReportCollection
-drush mr FSAAlertDocumentCollection
-drush mr FSAFAQpageCollection
-drush mr FSADocumentpageCollection
-drush mr FSAMultibranchCollection
-drush mr FSAMultibranchDocument
-drush mr FSANewsDocument
-drush mr FSAAlertDocument
-drush mr FSAFAQpage
-drush mr FSAAuditReport
-drush mr FSAConsultationpage
-drush mr FSADocumentpage
-drush mr FSAMediaDocument
-drush mr FSAMediaImages
+drush mr --force FSAChildpageCollection
+drush mr --force FSARelatedContentCollection
+drush mr --force FSAMultibranchCollectionChild
+drush mr --force FSANewsDocumentCollection
+drush mr --force FSAAuditReportCollection
+drush mr --force FSAAlertDocumentCollection
+drush mr --force FSAFAQpageCollection
+drush mr --force FSADocumentpageCollection
+drush mr --force FSAMultibranchCollection
+drush mr --force FSAMultibranchDocument
+drush mr --force FSANewsDocument
+drush mr --force FSAAlertDocument
+drush mr --force FSAFAQpage
+drush mr --force FSAAuditReport
+drush mr --force FSAConsultationpage
+drush mr --force FSADocumentpage
+drush mr --force FSAMediaDocument
+drush mr --force FSAMediaImages
 
 # Migrate all users.
 
