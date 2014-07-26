@@ -16,7 +16,7 @@ cd `drush $DRUSH_DEST dd`
 
 # Sync db and files
 drush sql-sync -y $DRUSH_SOURCE $DRUSH_DEST
-drush rsync -y $DRUSH_SOURCE $DRUSH_DEST
+drush rsync -y $DRUSH_SOURCE:%files $DRUSH_DEST:%files
 
 # Optional. Enable the FSA migration module.
 drush en fsa_migrate -y
