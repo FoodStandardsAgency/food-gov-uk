@@ -152,17 +152,25 @@ ENDSQL;
     // Gets the list of object ids from the CSV file.
     $objectList = FSAMigrateListBase::getIdListFromCSV($this->fileCSV);
 
-    $replacedCountQuery = str_replace(':obj_ids', implode(',', $objectList), $this->countQuery);
+    // Fix for reaching the 1000 items limit.
+    // Re-assign the value of the object list.
+    $chunkedObjectList[] = $objectList;
+    if (count($objectList) > FSAMigrateListBase::QUERYITEMMAXNUMBER) {
+      $chunkedObjectList = array_chunk($objectList, FSAMigrateListBase::QUERYITEMMAXNUMBER);
+    }
+    $count = 0;
+    // Loop on chuncked array.
+    foreach ($chunkedObjectList as $smallObjectList) {
+      $replacedCountQuery = str_replace(':obj_ids', implode(',', $smallObjectList), $this->countQuery);
+      $queryResult = FSAMigration::oracleQuerySingle(
+        $replacedCountQuery,
+        array(),
+        $connectionOracle
+      );
+      $count += $queryResult['COUNTER'];
+    }
 
-    // Query the oracle DB to get the child objects.
-    // @TODO Pass a list of ids to oracleQueryAll instead of str_replace() directly in the request.
-    $queryResult = FSAMigration::oracleQuerySingle(
-      $replacedCountQuery,
-      array(),
-      $connectionOracle
-    );
-
-    return $queryResult['COUNTER'];
+    return $count;
   }
 }
 

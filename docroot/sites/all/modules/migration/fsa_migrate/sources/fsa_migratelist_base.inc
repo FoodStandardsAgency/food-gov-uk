@@ -136,6 +136,7 @@ ENDSQL;
     // Gets the objects id list.
     $objectList = FSAMigrateListBase::getIdListFromCSV($this->fileCSV);
 
+
     $replacedQuery = str_replace(':obj_ids', implode(',', $objectList), $countQuery);
     $sqlResult = FSAMigration::oracleQueryAll($replacedQuery, array(), $connectionOracle);
 
@@ -146,6 +147,7 @@ ENDSQL;
     else {
       return NULL;
     }
+
   }
 
   /**
