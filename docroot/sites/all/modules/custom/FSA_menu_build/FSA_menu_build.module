@@ -26,7 +26,6 @@ function FSA_menu_build_menu() {
 * Page controller.
  */
 function FSA_menu_build_page(){
-  set_time_limit(0);
   // build a tree of all migrated nodes
   $url_tree = FSA_menu_build_process_list(FSA_menu_build_get_url_list());
   $output = kprint_r($url_tree,1);
@@ -44,7 +43,15 @@ function FSA_menu_build_page(){
 }
 
 function FSA_menu_build_get_list_from_CSV($file){
+  $urlList = array();
 
+  $handle = fopen($file, "r");
+  while(!feof($handle)){
+    $line = fgetcsv ($handle);
+    $urlList[] = $line[1];
+  }
+  fclose($handle);
+  return $urlList;
 }
 
 
@@ -61,8 +68,21 @@ function FSA_menu_build_clear_redirects($path = null){
 /**
  * Retrieve the list of urls to process
  */
-function FSA_menu_build_get_url_list($file = null){
-  if (!$file) {
+function FSA_menu_build_get_url_list($csv = false){
+  if ($csv) {
+    $basepath = drupal_get_path('module', 'fsa_migrate') . '/data/csv';
+    $url_list = array();
+    $files = array(
+      'document.csv',
+      'faq.csv',
+      'treebranch.csv',
+      'multibranch-alterian-id-list.csv'
+    );
+    foreach ($files as $file) {
+      $url_list = array_merge($url_list, FSA_menu_build_get_list_from_CSV($basepath .'/'. $file));
+    }
+  }
+  else {
     $url_list = array(
       '/business-industry/allergy-guide/',
       '/business-industry/allergy-guide/gluten/',
@@ -1313,14 +1333,23 @@ function FSA_menu_build_get_main_menu_mlid($data) {
  */
 function FSA_menu_build_flag($action = 'check', $url = null) {
   $flagged = &drupal_static(__FUNCTION__);
+  $counter = &drupal_static(__FUNCTION__2);
 
   if (!isset($flagged)) {
     $flagged = variable_get('FSA_menu_build_processed', array());
+  }
+  if (!isset($counter)) {
+    $counter['max'] = variable_get('FSA_menu_build_max', 99999999);
+    $counter['count'] = 0;
   }
   switch ($action){
     case 'check':
       $result = false;
       if (in_array($url, $flagged)) {
+        $result = true;
+      }
+      // check to see if we have reached our maximim
+      if ($counter['count'] >= $counter['max']) {
         $result = true;
       }
     break;
@@ -1329,12 +1358,20 @@ function FSA_menu_build_flag($action = 'check', $url = null) {
         $flagged[] = $url;
       }
       variable_set('FSA_menu_build_processed', $flagged);
+      ++$counter['count'];
       $result = true;
     break;
     case 'reset':
       $flagged = array();
       variable_set('FSA_menu_build_processed',$flagged);
       $result = true;
+    break;
+    case 'max':
+      // set the maximum number of entries to process in one cycle.
+      $counter['max'] = $url;
+      break;
+    case 'count':
+      $result = $counter['count'];
     break;
   }
   return $result;

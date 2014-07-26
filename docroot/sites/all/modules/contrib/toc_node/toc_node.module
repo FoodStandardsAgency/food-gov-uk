@@ -168,6 +168,16 @@ function toc_node_node_update($node) {
   if (empty($toc_enabled)) {
     return;
   }
+  // check defaults
+  if (!isset($node->toc_node_style)) {
+    $node->toc_node_style = variable_get('toc_node_style_default_' . $node->type, 'bullets');
+  }
+  if (!isset($node->toc_node_level)) {
+    $node->toc_node_level = variable_get('toc_node_level_' . $node->type, 'h2');
+  }
+  if (!isset($node->toc_node_back_to_top_links)) {
+    $node->toc_node_back_to_top_links = variable_get('toc_node_back_to_top_links_' . $node->type, 0);
+  }
 
   db_merge('toc_node')
     ->key(array('nid' => $node->nid))
