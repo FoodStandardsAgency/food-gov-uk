@@ -18,8 +18,11 @@ cd `drush $DRUSH_DEST dd`
 drush sql-sync -y $DRUSH_SOURCE $DRUSH_DEST
 drush rsync -y $DRUSH_SOURCE:%files $DRUSH_DEST:%files
 
+drush $DRUSH_DEST cc all
+
 # Optional. Enable the FSA migration module.
 drush en fsa_migrate -y
+drush mar
 
 # disable pathauto for Document page updates
 drush vset fsa_migrate_pathauto_restrict 1
