@@ -1,20 +1,30 @@
 #!/bin/bash
 
+DRUSH_SOURCE="@food.development"
+DRUSH_DEST="@food.migration"
+
 DATE=$(date | tr ' ' '-' | tr ':' '-')
 
 echo "${DATE}"
 
-cd ../../docroot/sites/default
+# go to main docroot
+cd `drush $DRUSH_DEST dd`
 
 # Optional considering we have the tunnel in another tab.
 # setup-ssh-tunnel.sh &
 # sleep 30
 
+# Sync db and files
+drush sql-sync -y $DRUSH_SOURCE $DRUSH_DEST
+drush rsync -y $DRUSH_SOURCE $DRUSH_DEST
+
 # Optional. Enable the FSA migration module.
-# drush en fsa_migrate -y
+drush en fsa_migrate -y
 
 # disable pathauto for Document page updates
 drush vset fsa_migrate_pathauto_restrict 1
+# set production mode
+drush vset fsa_migrate_production 1
 
 # Roll back the existing migration.
 drush mr FSAChildpageCollection
@@ -40,8 +50,8 @@ drush mr FSAMediaImages
 
 # Get all the media assets into the new system
 # - Redirects may also need to be migrated here so that aliases are assigned to media
-drush mi FSAMediaImages
-drush mi FSAMediaDocument
+drush mi FSAMediaImages --feedback="50 items"
+drush mi FSAMediaDocument --feedback="50 items"
 
 # Migrate nodes.
 drush mi --feedback="50 items" FSADocumentpage
@@ -63,6 +73,12 @@ drush mi --force --feedback="50 items" FSAAlertDocumentCollection
 drush mi --force --feedback="50 items" FSAMultibranchDocument
 drush mi --force --feedback="50 items" FSAMultibranchCollection
 drush mi --force --feedback="50 items" FSAMultibranchCollectionChild
+
+# Treebranch
+drush mi --force --feedback="50 items" FSATreebranchDocument
+drush mi --force --feedback="50 items" FSATreebranchCollection
+drush mi --force --feedback="50 items" FSATreebranchCollectionChild
+
 
 # Migrate related media
 # - related media appears in it's own field collection
