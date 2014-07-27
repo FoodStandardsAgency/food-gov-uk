@@ -102,42 +102,53 @@ ENDSQL;
     $objectList = FSAMigrateListBase::getIdListFromCSV($this->fileCSV);
 
     // $objectsSortOrder = FSAMigrateListBase::objectListSortMethodUsed($objectList, $connectionOracle);
+    // Fix for reaching the 1000 items limit.
+    // Re-assign the value of the object list.
 
-    $replacedQuery = str_replace(':obj_ids', implode(',', $objectList), $this->query);
-
-    // Query the oracle DB to get the child objects.
-    // @TODO Pass a list of ids to oracleQueryAll instead of str_replace() directly in the request.
-    $queryResult = FSAMigration::oracleQueryAll(
-      $replacedQuery,
-      array(),
-      $connectionOracle
-    );
-
-    // Sort order management.
-    // $sortorderArray = FSAMigrateListBase::objectsFieldidSortingOrder($objectList, $connectionOracle);
-
-    // Extract the results to pass an array to the MigrateItem class.
-    $idList = array();
-    foreach($queryResult['PARENTID'] as $itemNumber => $parentObjectid) {
-      // Commented for sort order management.
-      // @TODO Check on sort order migration for child pages.
-      /*
-      $objectids = $queryResult['OBJECTIDS'][$itemNumber];
-      $finalObjectsIdsArray = explode(',', $objectids);
-      // Check if we have the same number of items in the sort and the main query.
-      if (count($finalObjectsIdsArray) > 1) {
-        if (count($finalObjectsIdsArray) == count($sortorderArray[$parentObjectid])) {
-          $objectids = implode(',', array_keys($sortorderArray[$parentObjectid]));
-        }
-      }
-      $idList[$itemNumber]['OBJECTIDS'] = $objectids;
-      */
-
-      $idList[$itemNumber]['PARENTID'] = $parentObjectid;
-      $idList[$itemNumber]['OBJECTIDS'] = $queryResult['OBJECTIDS'][$itemNumber];
-
+    $chunkedObjectList[] = $objectList;
+    if (count($objectList) > FSAMigrateListBase::QUERYITEMMAXNUMBER) {
+      $chunkedObjectList = array_chunk($objectList, FSAMigrateListBase::QUERYITEMMAXNUMBER);
     }
+    $count = 0;
+    $idList = array();
+    // Loop on chuncked array.
 
+    foreach ($chunkedObjectList as $smallObjectList) {
+      $replacedQuery = str_replace(':obj_ids', implode(',', $smallObjectList), $this->query);
+
+      // Query the oracle DB to get the child objects.
+      // @TODO Pass a list of ids to oracleQueryAll instead of str_replace() directly in the request.
+      $queryResult = FSAMigration::oracleQueryAll(
+        $replacedQuery,
+        array(),
+        $connectionOracle
+      );
+
+      // Sort order management.
+      // $sortorderArray = FSAMigrateListBase::objectsFieldidSortingOrder($objectList, $connectionOracle);
+
+      // Extract the results to pass an array to the MigrateItem class.
+
+      foreach($queryResult['PARENTID'] as $itemNumber => $parentObjectid) {
+        // Commented for sort order management.
+        // @TODO Check on sort order migration for child pages.
+        /*
+        $objectids = $queryResult['OBJECTIDS'][$itemNumber];
+        $finalObjectsIdsArray = explode(',', $objectids);
+        // Check if we have the same number of items in the sort and the main query.
+        if (count($finalObjectsIdsArray) > 1) {
+          if (count($finalObjectsIdsArray) == count($sortorderArray[$parentObjectid])) {
+            $objectids = implode(',', array_keys($sortorderArray[$parentObjectid]));
+          }
+        }
+        $idList[$itemNumber]['OBJECTIDS'] = $objectids;
+        */
+
+        $idList[$itemNumber]['PARENTID'] = $parentObjectid;
+        $idList[$itemNumber]['OBJECTIDS'] = $queryResult['OBJECTIDS'][$itemNumber];
+
+      }
+    }
     return $idList;
   }
 
