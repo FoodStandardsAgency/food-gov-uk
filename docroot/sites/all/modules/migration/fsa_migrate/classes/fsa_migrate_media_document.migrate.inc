@@ -68,6 +68,11 @@ class FSAMediaDocumentMigration extends FSAMigration {
     $this->addFieldMapping('source_dir', 'SOURCEDIRECTORY');
     $this->addFieldMapping('destination_file', 'FILEPATHDEST');
 
+    // map redirects
+    $this->addFieldMapping('migrate_redirects', 'PATH')
+      ->defaultValue('MigrateRedirectEntity');
+
+
     // Media migrated by admin.
     // @TODO Change the user to migration user.
     $this->addFieldMapping('uid')
