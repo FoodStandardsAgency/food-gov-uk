@@ -33,6 +33,7 @@ class FSAMediaImagesMigration extends FSAMigration {
     // Source fields available.
     $fields = array(
       'FILEPATH' => t('Image filename, as in images/document/...'),
+      'SOURCEPATH' => t('Alterian path'),
       'FILENAME' => t('Name of the file with the extension.'),
       'DRUPALPATH' => t('Full path from Drupal root as in sites/default/files/...'),
       'SOURCEDIRECTORY' => t('Source directory for the files.'),
@@ -62,6 +63,10 @@ class FSAMediaImagesMigration extends FSAMigration {
     // The source images are in a local directory.
     $this->addFieldMapping('source_dir', 'SOURCEDIRECTORY');
     $this->addFieldMapping('destination_file', 'FILEPATHDEST');
+
+    // map redirects
+    $this->addFieldMapping('migrate_redirects', 'SOURCEPATH')
+      ->defaultValue('MigrateRedirectEntity');
 
     // Media migrated by admin.
     // @TODO Change the user to migration user.

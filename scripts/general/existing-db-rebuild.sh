@@ -1,7 +1,6 @@
 #!/bin/bash
 
-DRUSH_SOURCE="@food.development"
-DRUSH_DEST="@food.migration"
+export DRUSH_SOURCE="@food.development"; export DRUSH_DEST="@food.migration"
 
 DATE=$(date | tr ' ' '-' | tr ':' '-')
 
@@ -15,10 +14,10 @@ cd `drush $DRUSH_DEST dd`
 # sleep 30
 
 # Sync db and files
-#drush sql-sync -y $DRUSH_SOURCE $DRUSH_DEST
-#drush rsync -y $DRUSH_SOURCE:%files $DRUSH_DEST:%files
 
-drush $DRUSH_DEST cc all
+#drush sql-sync -y $DRUSH_SOURCE $DRUSH_DEST; drush rsync -y $DRUSH_SOURCE:%files $DRUSH_DEST:%files
+
+drush cc all
 
 # Optional. Enable the FSA migration module.
 drush en fsa_migrate -y

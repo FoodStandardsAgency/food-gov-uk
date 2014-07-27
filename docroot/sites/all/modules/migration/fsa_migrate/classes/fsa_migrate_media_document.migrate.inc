@@ -31,6 +31,7 @@ class FSAMediaDocumentMigration extends FSAMigration {
 
     // Source fields available.
     $fields = array(
+      'SOURCEPATH' => t('Alterian source path'),
       'FILEPATH' => t('Image filename, as in images/document/...'),
       'FILENAME' => t('Name of the file with the extension.'),
       'DRUPALPATH' => t('Full path from Drupal root as in sites/default/files/...'),
@@ -69,7 +70,7 @@ class FSAMediaDocumentMigration extends FSAMigration {
     $this->addFieldMapping('destination_file', 'FILEPATHDEST');
 
     // map redirects
-    $this->addFieldMapping('migrate_redirects', 'PATH')
+    $this->addFieldMapping('migrate_redirects', 'SOURCEPATH')
       ->defaultValue('MigrateRedirectEntity');
 
 

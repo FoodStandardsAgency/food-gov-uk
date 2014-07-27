@@ -74,7 +74,9 @@ class MigrateListFilesSQL extends MigrateList {
       // This only stores a line for each file, just for the counter.
       $di = new RecursiveDirectoryIterator($this->directory);
       foreach (new RecursiveIteratorIterator($di) as $filename => $file) {
-        $filesList[] = $filename;
+        if ( !$file->isDir() ) {
+          $filesList[] = $filename;
+        }
       }
       return count($filesList);
     }
@@ -142,6 +144,8 @@ ENDSQL;
     // File path as in /images/document/*.
     $object->FILEPATH = str_replace(variable_get('file_public_path', 'sites/default/files') . '/sources', '', $id);
 
+    // keep the original source path
+    $object->SOURCEPATH = $reducedPath;
     // File name as in image9uber.jpg.
     $object->FILENAME = substr($id, strrpos($id, '/') + 1);
     // Directory source like sites/default/files/images/.
