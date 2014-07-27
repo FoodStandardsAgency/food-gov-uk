@@ -128,25 +128,26 @@ ENDSQL;
       // $sortorderArray = FSAMigrateListBase::objectsFieldidSortingOrder($objectList, $connectionOracle);
 
       // Extract the results to pass an array to the MigrateItem class.
-
-      foreach($queryResult['PARENTID'] as $itemNumber => $parentObjectid) {
-        // Commented for sort order management.
-        // @TODO Check on sort order migration for child pages.
-        /*
-        $objectids = $queryResult['OBJECTIDS'][$itemNumber];
-        $finalObjectsIdsArray = explode(',', $objectids);
-        // Check if we have the same number of items in the sort and the main query.
-        if (count($finalObjectsIdsArray) > 1) {
-          if (count($finalObjectsIdsArray) == count($sortorderArray[$parentObjectid])) {
-            $objectids = implode(',', array_keys($sortorderArray[$parentObjectid]));
+      if (is_array($queryResult)) {
+        foreach($queryResult['PARENTID'] as $itemNumber => $parentObjectid) {
+          // Commented for sort order management.
+          // @TODO Check on sort order migration for child pages.
+          /*
+          $objectids = $queryResult['OBJECTIDS'][$itemNumber];
+          $finalObjectsIdsArray = explode(',', $objectids);
+          // Check if we have the same number of items in the sort and the main query.
+          if (count($finalObjectsIdsArray) > 1) {
+            if (count($finalObjectsIdsArray) == count($sortorderArray[$parentObjectid])) {
+              $objectids = implode(',', array_keys($sortorderArray[$parentObjectid]));
+            }
           }
+          $idList[$itemNumber]['OBJECTIDS'] = $objectids;
+          */
+
+          $idList[$itemNumber]['PARENTID'] = $parentObjectid;
+          $idList[$itemNumber]['OBJECTIDS'] = $queryResult['OBJECTIDS'][$itemNumber];
+
         }
-        $idList[$itemNumber]['OBJECTIDS'] = $objectids;
-        */
-
-        $idList[$itemNumber]['PARENTID'] = $parentObjectid;
-        $idList[$itemNumber]['OBJECTIDS'] = $queryResult['OBJECTIDS'][$itemNumber];
-
       }
     }
     return $idList;
