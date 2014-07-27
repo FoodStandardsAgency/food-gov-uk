@@ -168,10 +168,8 @@ function FSA_menu_build_graft(&$url_tree, $url) {
     // in case there is no node here, lets set the url
     if (!isset($branch[$fragment])) {
       if (!$internal_url = drupal_lookup_path('source', implode('/',$branch_url))){
-        if ($redirects = redirect_load_by_source(implode('/',$branch_url))) {
-          // just get one redirect
-          $redirects = array_pop($redirects);
-          $internal_url = $redirects->url;
+        if ($redirect = redirect_load_by_source(implode('/',$branch_url), 'en')) {
+          $internal_url = $redirect->redirect;
         }
       }
 
