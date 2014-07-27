@@ -53,7 +53,10 @@ class MigrateListFilesSQL extends MigrateList {
       $drupalBasePath = realpath(".") . '/';
       $di = new RecursiveDirectoryIterator($this->directory);
       foreach (new RecursiveIteratorIterator($di) as $filename => $file) {
-        $fileList[] = str_replace($drupalBasePath, '', $filename);
+        // exclude directories
+        if ( !$file->isDir() ) {
+          $fileList[] = str_replace($drupalBasePath, '', $filename);
+        }
       }
     }
 
