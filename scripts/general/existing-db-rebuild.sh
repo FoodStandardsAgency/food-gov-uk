@@ -92,11 +92,28 @@ drush mi --force --feedback="50 items" FSARelatedContentCollection
 # - section title is "More in this section"
 drush mi --force --feedback="50 items" FSAChildpageCollection
 
+
+# do menus
+# break into sections to make a little easier to see progress - may also be more reliable
+drush vset fsa_migrate_pathauto_restrict 0
+drush FSA-menu-build --filter="/news-updates";
+drush FSA-menu-build --filter="/business-industry";
+drush FSA-menu-build --filter="/enforcement";
+drush FSA-menu-build --filter="/science";
+drush FSA-menu-build --filter="/about-us"
+drush FSA-menu-build --filter="/wales"
+drush FSA-menu-build --filter="/scotland"
+drush FSA-menu-build --filter="/northern-ireland"
+
+
+# Get solr indexed up
 drush cc all
 drush solr-mark-all
+drush solr-index
 
 drush -y vset "fsa_migration_date" "${DATE}"
 # reenable document page pathauto
-drush vset fsa_migrate_pathauto_restrict 0
+
+
 
 
