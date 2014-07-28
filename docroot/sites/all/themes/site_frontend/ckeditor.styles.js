@@ -18,7 +18,6 @@ if (typeof(CKEDITOR) !== 'undefined') {
 
 
       /* Inline Styles */
-			// { name: 'Text align: Left', element: 'p', attributes: { 'class': 'text-align-left' } },
       { name: 'Section', element: 'h2', attributes: { 'class': 'inline-section-heading' } },
       { name: 'Guidance', element: 'div', attributes: { 'class': 'guidance' } },
       { name: 'Training', element: 'div', attributes: { 'class': 'training' } },
