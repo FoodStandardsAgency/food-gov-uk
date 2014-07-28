@@ -31,6 +31,9 @@ drush vset fsa_migrate_production 1
 # Roll back the existing migration.
 drush mr --force FSAChildpageCollection
 drush mr --force FSARelatedContentCollection
+drush mi --force FSAResearchProject
+drush mi --force FSAResearchProgramme
+drush mi --force FSAResearchProjectList
 drush mr --force FSAMultibranchCollectionChild
 drush mr --force FSANewsDocumentCollection
 drush mr --force FSAAuditReportCollection
@@ -81,6 +84,10 @@ drush mi --force --feedback="50 items" FSATreebranchDocument
 drush mi --force --feedback="50 items" FSATreebranchCollection
 drush mi --force --feedback="50 items" FSATreebranchCollectionChild
 
+# Research
+drush mi --force --feedback="50 items" FSAResearchProjectList
+drush mi --force --feedback="50 items" FSAResearchProject
+drush mi --force --feedback="50 items" FSAResearchProgramme
 
 # Migrate related media
 # - related media appears in it's own field collection
