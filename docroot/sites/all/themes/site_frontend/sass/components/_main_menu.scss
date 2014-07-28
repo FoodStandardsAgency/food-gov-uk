@@ -1,7 +1,11 @@
 /** Main menu depends on Superfish module
-  * Superfish settings:
-  * Type: horizontal, style: simple, path class: active-trail, slide-in-effect: vertical, auto-arrows: off, drop-shadows: on
-  * supersubs: on, min-width: 21em, max-width: 21em, SF-smallscreen: disabled, multi-column sub-menus: off 
+  * Superfish block settings:
+	* Block title: <none>, Menu parent: Mian Menu, Menu depth: 2, Menu type: Horizontal, Style: none,
+	*	Animation speed: fast, Mouse delay: 800, Path class: active-trail, Path levels 1, 
+	* Slide in effect: Vertical, Auto-arrows: off, Drip-shadows: on, More options: botb "use theme functions" ticked,
+	* Plugins - BigFrame: off, Use jQuery Supposition: on, Enable hoverintent: on, Touchscreen: disable, Smallscreen: disable,
+	* Plugins - Enable Supersubs: on, Supersubs min-widh: 25 max-width: 25, Multi-column submenus: off, 
+	* Advanced HTML: none set, HTML wrappers: none set, Advanced CSS: none set, CSS classes: main-menu-desktop
   * The Superfish menu block needs a block class: main-menu-desktop
   * Important note: CSS below hides first item of second level Superfish menu items
   */
