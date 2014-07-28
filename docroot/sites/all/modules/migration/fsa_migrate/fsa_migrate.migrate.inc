@@ -108,6 +108,18 @@ function fsa_migrate_migrate_api() {
         'class_name' => 'FSATreebranchCollectionChildMigration',
         'group_name' => 'fsa_fc',
       ),
+      'FSAResearchProjectList' => array(
+        'class_name' => 'FSAResearchProjectListMigration',
+        'group_name' => 'fsa_types',
+      ),
+      'FSAResearchProject' => array(
+        'class_name' => 'FSAResearchProjectMigration',
+        'group_name' => 'fsa_types',
+      ),
+      'FSAResearchProgramme' => array(
+        'class_name' => 'FSAResearchProgrammeMigration',
+        'group_name' => 'fsa_types',
+      ),
     )
   );
 
