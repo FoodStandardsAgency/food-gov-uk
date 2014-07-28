@@ -31,9 +31,9 @@ drush vset fsa_migrate_production 1
 # Roll back the existing migration.
 drush mr --force FSAChildpageCollection
 drush mr --force FSARelatedContentCollection
-drush mi --force FSAResearchProject
-drush mi --force FSAResearchProgramme
-drush mi --force FSAResearchProjectList
+drush mr --force FSAResearchProject
+drush mr --force FSAResearchProgramme
+drush mr --force FSAResearchProjectList
 drush mr --force FSAMultibranchCollectionChild
 drush mr --force FSANewsDocumentCollection
 drush mr --force FSAAuditReportCollection
