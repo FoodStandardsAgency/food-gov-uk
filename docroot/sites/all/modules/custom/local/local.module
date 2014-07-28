@@ -36,10 +36,18 @@ function local_theme_registry_alter(&$theme_registry) {
 function theme_local_superfish_build($variables) {
 
   // Links to be hidden on Main Menu.
-  $hide_links = array('FSA in UK', 'Scotland', 'Wales', 'Northern Ireland');
+  // Specify which links should be Visible in the main menu
+  $show_links = array(
+    'Home',
+    'News & updates',
+    'Business & industry',
+    'Enforcement & regulation',
+    'Science & policy',
+    'About us'
+  );
 
   foreach ($variables['menu'] as $key => $menu_item) {
-    if (in_array($menu_item['link']['title'], $hide_links)) {
+    if (!in_array($menu_item['link']['title'], $show_links)) {
       unset($variables['menu'][$key]);
     }
   }
