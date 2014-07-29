@@ -129,53 +129,6 @@ ENDSQL;
       }
     }
 
-    // @TODO There maybe a case when there is related items to the field directly and not the related objects.
-    // @TODO In that case we would need to check with SQL before and add the object number.
-    $queryFieldResult = FSAMigrateListBase::chunkSQLQueryAndMerge($objectList, $this->fieldQuery);
-
-    foreach ($queryFieldResult['OBJECTID'] as $item_number => $field_objectid) {
-      // Original parent id.
-      $originalParentId = $queryFieldResult['PARENTID'][$item_number];
-
-      $replacedRelatedQuery = str_replace(':obj_ids', $field_objectid, $this->relatedCountObjectQuery);
-
-      $relatedResult = FSAMigration::oracleQueryAll(
-        $replacedRelatedQuery,
-        array(),
-        $connectionOracle
-      );
-
-      if (!is_null($relatedResult)) {
-        $relatedResultsReturn[$originalParentId]['OBJECTID'] = $originalParentId;
-
-        foreach ($relatedResult['PARENTID'] as $relatedItemNumber => $relatedParentId) {
-          $relatedItemObjectId = $relatedResult['OBJECTID'][$relatedItemNumber];
-          $relatedItemPath = $relatedResult['PATH'][$relatedItemNumber];
-          $relatedItemTypeName = $relatedResult['NAME'][$relatedItemNumber];
-
-          switch ($relatedItemTypeName)
-          {
-            case 'AdobeAcrobatDocument':
-            case 'MicrosoftExcelSpreadsheet':
-            case 'MicrosoftWordDocument':
-            case 'MicrosoftPowerpointDocument':
-              $relatedResultsReturn[$originalParentId]['FILEPATHS'][] = $relatedItemPath;
-              break;
-            case 'GenericBranch':
-            case 'TreeBranch':
-            case 'Document':
-              $relatedResultsReturn[$originalParentId]['DOCUMENTIDS'][] = $relatedItemObjectId;
-              break;
-            case 'CSV':
-              $relatedResultsReturn[$originalParentId]['CSVPATHS'][] = $relatedItemPath;
-              break;
-            default:
-              break;
-          }
-        }
-      }
-    }
-
     return $relatedResultsReturn;
   }
 
@@ -185,39 +138,19 @@ ENDSQL;
    * @return int|null
    */
   public function computeCount() {
-    GLOBAL $connectionOracle;
-
     // Gets the list of object ids from the CSV file.
     $objectList = FSAMigrateListBase::getIdListFromCSV($this->fileCSV);
 
-    // @TODO There maybe a case when there is related items to the field directly and not the related objects.
-    // @TODO In that case we would need to check with SQL before and add the object number.
-    $queryFieldResult = FSAMigrateListBase::chunkSQLQueryAndMerge($objectList, $this->fieldQuery);
+    $queryMainAttachmentResult = FSAMigrateListBase::chunkSQLQueryAndMerge($objectList, $this->relatedCountObjectQuery);
 
-    if (is_null($queryFieldResult)) {
-      return 0;
-    }
-
-    foreach ($queryFieldResult['OBJECTID'] as $item_number => $field_objectid) {
-      // Original parent id.
-      $originalParentId = $queryFieldResult['PARENTID'][$item_number];
-
-      // Called 'obj_ids', but in this case it's only one.
-      $replacedRelatedQuery = str_replace(':obj_ids', $field_objectid, $this->relatedCountObjectQuery);
-
-      $relatedResult = FSAMigration::oracleQueryAll(
-        $replacedRelatedQuery,
-        array(),
-        $connectionOracle
-      );
-
-      if (!is_null($relatedResult)) {
-        // It's a counter we don't need to store a value.
-        $relatedResultsReturn['PARENTID'][$originalParentId] = $originalParentId;
+    if (!is_null($queryMainAttachmentResult)) {
+      foreach ($queryMainAttachmentResult['PARENTID'] as $relatedItemNumber => $relatedParentId) {
+        $relatedItemParentId = $queryMainAttachmentResult['PARENTID'][$relatedItemNumber];
+        $relatedResultsReturn[$relatedItemParentId]['OBJECTID'] = $relatedItemParentId;
       }
     }
 
-    return count($relatedResultsReturn['PARENTID']);
+    return count($relatedResultsReturn);
   }
 }
 

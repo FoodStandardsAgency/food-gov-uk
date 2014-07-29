@@ -99,6 +99,32 @@ class FSATreebranchCollectionMigration extends FSAMigration {
 
     $this->addFieldMapping('field_fc_image_position', 'IMAGEPOSITION')
       ->callbacks(array($this, 'imagePositionValue'));
+
+    // Related content.
+    // Related media.
+    $this->addFieldMapping('field_fc_related_items_heading')
+      ->defaultValue('Related content');
+    $this->addFieldMapping('field_fc_related_items', 'sourceRelatedItemsPath')
+      ->separator(',')
+      ->sourceMigration('FSAMediaDocument');
+    $this->addFieldMapping('field_fc_related_items:file_class')
+      ->defaultValue('MigrateFileFid');
+
+    // Related CSV.
+    $this->addFieldMapping('field_fc_files_csv_heading')
+      ->defaultValue('Related CSV');
+    $this->addFieldMapping('field_fc_files_csv', 'sourceRelatedCSVPath')
+      ->separator(',')
+      ->sourceMigration('FSAMediaDocument');
+    $this->addFieldMapping('field_fc_files_csv:file_class')
+      ->defaultValue('MigrateFileFid');
+
+    // Related pages.
+    $this->addFieldMapping('field_child_pages_heading')
+      ->defaultValue('Related pages');
+    $this->addFieldMapping('field_child_page', 'DOCUMENTIDS')
+      ->separator(',')
+      ->sourceMigration('FSADocumentpage');
   }
 
   /**
@@ -114,6 +140,35 @@ class FSATreebranchCollectionMigration extends FSAMigration {
     $row->sourceImagePath = NULL;
     if (!is_null($row->IMAGEPATH)) {
       $row->sourceImagePath = variable_get('file_public_path', 'sites/default/files') . '/sources' . $row->IMAGEPATH;
+    }
+
+    $relatedResultsReturnByFunc = $this->treebranchLookupRelatedItemsSingleObject($row->OBJECTID);
+
+    $newRelatedItemsPath = NULL;
+    if (isset($relatedResultsReturnByFunc['FILEPATHS'])
+      && !is_null($relatedResultsReturnByFunc['FILEPATHS']
+      && is_array($relatedResultsReturnByFunc['FILEPATHS']) )) {
+      foreach ($relatedResultsReturnByFunc['FILEPATHS'] as $PATH) {
+        $newRelatedItemsPath .= variable_get('file_public_path', 'sites/default/files') . '/sources/files' . $PATH . ',';
+      }
+    }
+    $row->sourceRelatedItemsPath = $newRelatedItemsPath;
+
+    $newRelatedCSVPath = NULL;
+    if (isset($relatedResultsReturnByFunc['CSVPATHS'])
+      && !is_null($relatedResultsReturnByFunc['CSVPATHS'])
+      && is_array($relatedResultsReturnByFunc['CSVPATHS']) ) {
+      foreach ($relatedResultsReturnByFunc['CSVPATHS'] as $PATH) {
+        $newRelatedCSVPath .= variable_get('file_public_path', 'sites/default/files') . '/sources/files' . $PATH . ',';
+      }
+    }
+    $row->sourceRelatedCSVPath = $newRelatedCSVPath;
+
+    if (isset($relatedResultsReturnByFunc['DOCUMENTIDS'])) {
+      $row->DOCUMENTIDS = $relatedResultsReturnByFunc['DOCUMENTIDS'];
+    }
+    else {
+      $row->DOCUMENTIDS = NULL;
     }
   }
 }

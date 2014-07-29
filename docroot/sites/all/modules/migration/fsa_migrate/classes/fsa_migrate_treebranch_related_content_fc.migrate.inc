@@ -10,59 +10,12 @@
 /**
  * Class FSATreebranchRelatedContentCollectionMigration
  * Migration class for the FSA related content of Tree branch field collection.
+ *
+ * Unlike for a classic migration class in FSA, the related items for Treebranch are related items
+ * directly linked to the main content. They will create a new field collection.
+ * This migration class should be run last for Tree branches.
  */
 class FSATreebranchRelatedContentCollectionMigration extends FSAMigration {
-
-  /**
-   * SQL Query to get the feature image from an object id.
-   *
-   * @var string
-   */
-  protected $query_related_items = <<<'ENDSQL'
-    SELECT LINK.PARENTID, WM_CONCAT(OBJ.PATH) as VALUE
-    FROM OBJ, LINK, OBJTYPE, LINKTYPE
-    WHERE LINK.CHILDID = OBJ.OBJECTID
-    AND LINK.LINKTYPEID = LINKTYPE.LINKTYPEID
-    AND OBJTYPE.OBJECTTYPEID = OBJ.OBJECTTYPEID
-    AND LINKTYPE.LINKTYPENAME = 'Relation'
-    AND LINK.PARENTID IN ( :obj_ids )
-    AND OBJTYPE.NAME IN ('AdobeAcrobatDocument', 'MicrosoftExcelSpreadsheet', 'MicrosoftWordDocument', 'MicrosoftPowerpointDocument')
-    GROUP BY LINK.PARENTID
-ENDSQL;
-
-  /**
-   * SQL Query to get the feature image from an object id.
-   *
-   * @var string
-   */
-  protected $query_related_CSV = <<<'ENDSQL'
-    SELECT LINK.PARENTID, WM_CONCAT(OBJ.PATH) as VALUE
-    FROM OBJ, LINK, OBJTYPE, LINKTYPE
-    WHERE LINK.CHILDID = OBJ.OBJECTID
-    AND LINK.LINKTYPEID = LINKTYPE.LINKTYPEID
-    AND OBJTYPE.OBJECTTYPEID = OBJ.OBJECTTYPEID
-    AND LINKTYPE.LINKTYPENAME = 'Relation'
-    AND LINK.PARENTID IN ( :obj_ids )
-    AND OBJTYPE.NAME IN ('CSV')
-    GROUP BY LINK.PARENTID
-ENDSQL;
-
-  /**
-   * SQL Query to get the feature image from an object id.
-   *
-   * @var string
-   */
-  protected $query_related_pages = <<<'ENDSQL'
-    SELECT LINK.PARENTID, WM_CONCAT(OBJ.OBJECTID) as VALUE
-    FROM OBJ, LINK, OBJTYPE, LINKTYPE
-    WHERE LINK.CHILDID = OBJ.OBJECTID
-    AND LINK.LINKTYPEID = LINKTYPE.LINKTYPEID
-    AND OBJTYPE.OBJECTTYPEID = OBJ.OBJECTTYPEID
-    AND LINKTYPE.LINKTYPENAME = 'Relation'
-    AND LINK.PARENTID IN ( :obj_ids )
-    AND OBJTYPE.NAME IN ('GenericBranch', 'Document', 'BlankPage', 'FAQ')
-    GROUP BY LINK.PARENTID
-ENDSQL;
 
   public function __construct($arguments) {
     // Calls to parent constructor from official doc.
@@ -93,26 +46,6 @@ ENDSQL;
       'PATHS' => t('Images path'),
       'sourceImagePath' => t('Image path with the drupal file path'),
     );
-
-//    // Configure the source of the migration.
-//    if (variable_get('fsa_migrate_production',false)) {
-//      $this->source = new MigrateSourceList(
-//        new FSAMigrateListOracleGenericCollection(
-//          array('data/csv/treebranch-alterian-id-list.csv'),
-//          array( $this->query_related_items, $this->query_related_CSV, $this->query_related_pages )
-//        ),
-//        new FSAMigrateItemOracleGenericCollection()
-//      );
-//    }
-//    else {
-//      $this->source = new MigrateSourceList(
-//        new FSAMigrateListOracleGenericCollection(
-//          array('data/csv/treebranch-alterian-id-list.csv'),
-//          array( $this->query_related_items, $this->query_related_CSV, $this->query_related_pages )
-//        ),
-//        new FSAMigrateItemOracleGenericCollection()
-//      );
-//    }
 
     // Configure the source of the migration.
     if (variable_get('fsa_migrate_production',false)) {
