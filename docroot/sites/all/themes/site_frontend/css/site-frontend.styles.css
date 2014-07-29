@@ -7295,6 +7295,17 @@ ul.pager {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_site_map\.scss}line{font-family:\0000312}}
   .site-map h2.block__title {
     display: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_site_map\.scss}line{font-family:\0000315}}
+  .site-map ul.menu {
+    margin-left: 0;
+    padding-left: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_site_map\.scss}line{font-family:\0000318}}
+    .site-map ul.menu li, .site-map ul.menu li.leaf, .site-map ul.menu li.expanded, .site-map ul.menu li.collapsed {
+      list-style-image: none;
+      list-style-type: none;
+      list-style: none;
+      margin-left: 0;
+      padding-left: 1em; }
 
 /* social media icons
  * requires block class: social-media-icons

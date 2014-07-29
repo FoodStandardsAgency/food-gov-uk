@@ -12,4 +12,15 @@
 	h2.block__title {
 		display: none;
 	}
+	ul.menu {
+		margin-left: 0;
+		padding-left: 0;
+		li, li.leaf, li.expanded, li.collapsed {
+			list-style-image: none;
+			list-style-type: none;
+			list-style: none;
+			margin-left: 0;
+			padding-left: 1em;
+		}
+	}
 }
