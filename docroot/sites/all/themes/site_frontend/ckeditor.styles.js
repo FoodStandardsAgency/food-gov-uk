@@ -18,7 +18,12 @@ if (typeof(CKEDITOR) !== 'undefined') {
 
 
       /* Inline Styles */
-      { name: 'Section', element: 'h2', attributes: { 'class': 'inline-section-heading' } },
+      // { name: 'Section', element: 'h2', attributes: { 'class': 'inline-section-heading' } },
+			{ name : 'Paragraph', element : 'p' },
+      { name : 'Heading 3', element : 'h3' },
+      { name : 'Heading 4', element : 'h4' },
+      { name : 'Heading 5', element : 'h5' },
+      { name : 'Heading 6', element : 'h6' },
       { name: 'Guidance', element: 'div', attributes: { 'class': 'guidance' } },
       { name: 'Training', element: 'div', attributes: { 'class': 'training' } },
       { name: 'Science', element: 'div', attributes: { 'class': 'science moreInfo' } },
