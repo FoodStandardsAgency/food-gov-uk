@@ -79,6 +79,43 @@ ENDSQL;
 ENDSQL;
 
   /**
+   * SQL Query to get the primary info and the object id.
+   * Excluded images atm, "OR FIELDNAME.VARIABLE LIKE 'imageposition%')".
+   *
+   * @var string
+   */
+  protected $relatedFieldObjectQuery = <<<'ENDSQL'
+    SELECT LINK.PARENTID, OBJ.OBJECTID
+    FROM OBJ, LINK, OBJTYPE, STATUS, LINKTYPE
+    WHERE OBJ.OBJECTID = LINK.CHILDID
+    AND OBJ.OBJECTTYPEID = OBJTYPE.OBJECTTYPEID
+    AND OBJ.STATUSID = STATUS.STATUSID
+    AND LINK.LINKTYPEID = LINKTYPE.LINKTYPEID
+    AND STATUS.STATUSNAME = 'Published'
+    AND LINKTYPE.LINKTYPENAME = 'Primary link'
+    AND LINK.PARENTID IN ( :obj_id )
+ENDSQL;
+
+  /**
+   * SQL Query to get the primary info and the object id.
+   * Excluded images atm, "OR FIELDNAME.VARIABLE LIKE 'imageposition%')".
+   *
+   * @var string
+   */
+  protected $relatedEndObjectQuery = <<<'ENDSQL'
+    SELECT LINK.PARENTID, OBJ.OBJECTID, OBJ.PATH, OBJTYPE.NAME
+    FROM OBJ, LINK, OBJTYPE, LINKTYPE
+    WHERE LINK.CHILDID = OBJ.OBJECTID
+    AND LINK.LINKTYPEID = LINKTYPE.LINKTYPEID
+    AND OBJTYPE.OBJECTTYPEID = OBJ.OBJECTTYPEID
+    AND LINKTYPE.LINKTYPENAME = 'Relation'
+    AND ( OBJTYPE.NAME IN ( 'GenericBranch', 'TreeBranch', 'Document' )
+     OR OBJTYPE.NAME IN ('AdobeAcrobatDocument', 'MicrosoftExcelSpreadsheet', 'MicrosoftWordDocument', 'MicrosoftPowerpointDocument')
+     OR OBJTYPE.NAME IN ('CSV') )
+    AND LINK.PARENTID IN ( :obj_id )
+ENDSQL;
+
+  /**
    * Reference array between [vocabulary][term name] and between a term id in drupal.
    *
    * @var array
@@ -605,5 +642,53 @@ ENDSQL;
     else {
       return 0;
     }
+  }
+
+  public function treebranchLookupRelatedItemsSingleObject($objectid) {
+    GLOBAL $connectionOracle;
+
+    $replacedRelatedQuery = str_replace(':obj_id', $objectid, $this->relatedEndObjectQuery);
+
+    $relatedResult = FSAMigration::oracleQueryAll(
+      $replacedRelatedQuery,
+      array(),
+      $connectionOracle
+    );
+
+    $relatedResultsReturn = array();
+
+    if (!is_null($relatedResult)) {
+      foreach ($relatedResult['PARENTID'] as $relatedItemNumber => $relatedParentId) {
+        $relatedItemObjectId = $relatedResult['OBJECTID'][$relatedItemNumber];
+        $relatedItemPath = $relatedResult['PATH'][$relatedItemNumber];
+        $relatedItemTypeName = $relatedResult['NAME'][$relatedItemNumber];
+
+        switch ($relatedItemTypeName)
+        {
+          case 'AdobeAcrobatDocument':
+          case 'MicrosoftExcelSpreadsheet':
+          case 'MicrosoftWordDocument':
+          case 'MicrosoftPowerpointDocument':
+            $relatedResultsReturn['FILEPATHS'][] = $relatedItemPath;
+            break;
+          case 'GenericBranch':
+          case 'TreeBranch':
+          case 'Document':
+            $relatedResultsArray['DOCUMENTIDS'][] = $relatedItemObjectId;
+            break;
+          case 'CSV':
+            $relatedResultsReturn['CSVPATHS'][] = $relatedItemPath;
+            break;
+          default:
+            break;
+        }
+      }
+    }
+
+    if (isset($relatedResultsArray['DOCUMENTIDS']) && is_array($relatedResultsArray['DOCUMENTIDS'])) {
+      $relatedResultsReturn['DOCUMENTIDS'] = implode(',', $relatedResultsArray['DOCUMENTIDS']);
+    }
+
+    return $relatedResultsReturn;
   }
 }

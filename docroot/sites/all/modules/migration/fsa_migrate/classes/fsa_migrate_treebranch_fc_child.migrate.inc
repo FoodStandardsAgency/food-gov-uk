@@ -8,6 +8,8 @@
 /**
  * Class FSATreebranchCollectionChildMigration
  * Migration class for the FSA Treebranch child page field collection.
+ *
+ * For tree branches, child pages migrate related content and few fields.
  */
 class FSATreebranchCollectionChildMigration extends FSAMigration {
 
@@ -19,6 +21,13 @@ class FSATreebranchCollectionChildMigration extends FSAMigration {
     AND FIELDVALUE.FIELDID = FIELDNAME.FIELDID
     AND ( FIELDNAME.VARIABLE LIKE 'sectionheading%'
     OR FIELDNAME.VARIABLE LIKE 'text%' )
+    AND OBJ.OBJECTID = :obj_id
+ENDSQL;
+
+  protected $relatedObjectDataType = <<<'ENDSQL'
+    SELECT OBJTYPE.NAME, OBJ.PATH
+    FROM OBJ, OBJTYPE
+    WHERE OBJ.OBJECTTYPEID = OBJTYPE.OBJECTTYPEID
     AND OBJ.OBJECTID = :obj_id
 ENDSQL;
 
@@ -81,8 +90,29 @@ ENDSQL;
     $this->addFieldMapping('field_fc_section_body:format', 'text1')
       ->callbacks(array($this, 'textAreaFormat'));
 
-    // Fields mapping.
-    $this->addFieldMapping('field_child_page', 'SortedObjectIds')
+    // Related content.
+    // Related media.
+    $this->addFieldMapping('field_fc_related_items_heading')
+      ->defaultValue('Related content');
+    $this->addFieldMapping('field_fc_related_items', 'FilePath')
+      ->separator(',')
+      ->sourceMigration('FSAMediaDocument');
+    $this->addFieldMapping('field_fc_related_items:file_class')
+      ->defaultValue('MigrateFileFid');
+
+    // Related CSV.
+    $this->addFieldMapping('field_fc_files_csv_heading')
+      ->defaultValue('Related CSV');
+    $this->addFieldMapping('field_fc_files_csv', 'CSVPaths')
+      ->separator(',')
+      ->sourceMigration('FSAMediaDocument');
+    $this->addFieldMapping('field_fc_files_csv:file_class')
+      ->defaultValue('MigrateFileFid');
+
+    // Related pages.
+    $this->addFieldMapping('field_child_pages_heading')
+      ->defaultValue('Related pages');
+    $this->addFieldMapping('field_child_page', 'DocumentIds')
       ->separator(',')
       ->sourceMigration('FSADocumentpage');
   }
@@ -109,27 +139,68 @@ ENDSQL;
       }
     }
 
+    $newFilePath = array();
+    $newDocumentIds = array();
+    $newCSVPaths = array();
+
     // Sort order management for child pages.
     $sortorderArray = FSAMigrateListBase::objectsFieldidSortingOrder(array($row->OBJECTID), $connectionOracle);
-    $objectList = explode(',', $row->OBJECTIDS);
-    foreach ($objectList as $objectListItem) {
-      // Test if there is a sort order value for the item.
-      if (isset($sortorderArray[$row->OBJECTID][$objectListItem])) {
-        $itemOrder = $sortorderArray[$row->OBJECTID][$objectListItem];
+
+    if (!is_null($row->OBJECTIDS)) {
+      $objectList = explode(',', $row->OBJECTIDS);
+
+      foreach ($objectList as $objectListItem) {
+        // Test if there is a sort order value for the item.
+        if (isset($sortorderArray[$row->OBJECTID][$objectListItem])) {
+          $itemOrder = $sortorderArray[$row->OBJECTID][$objectListItem];
+        }
+        else {
+          $itemOrder = 999;
+        }
+
+        $replacedRelatedDataTypeQuery = str_replace(':obj_id', $objectListItem, $this->relatedObjectDataType);
+
+        $relatedDataTypeResult = FSAMigration::oracleQuerySingle(
+          $replacedRelatedDataTypeQuery,
+          array(),
+          $connectionOracle
+        );
+
+        switch ($relatedDataTypeResult['NAME'])
+        {
+          case 'AdobeAcrobatDocument':
+          case 'MicrosoftExcelSpreadsheet':
+          case 'MicrosoftWordDocument':
+          case 'MicrosoftPowerpointDocument':
+            $newFilePath[$itemOrder . '-' . $objectListItem] =
+              variable_get('file_public_path', 'sites/default/files') . '/sources/files' . $relatedDataTypeResult['PATH'];
+            break;
+          case 'GenericBranch':
+          case 'TreeBranch':
+          case 'Document':
+            $newDocumentIds[$itemOrder . '-' . $objectListItem] = $objectListItem;
+            break;
+          case 'CSV':
+            $newCSVPaths[$itemOrder . '-' . $objectListItem] =
+              variable_get('file_public_path', 'sites/default/files') . '/sources/files' . $relatedDataTypeResult['PATH'];
+            break;
+          default:
+            break;
+        }
       }
-      else {
-        $itemOrder = 999;
-      }
-      // Assign the sort order value.
-      $results[$itemOrder . '-' . $objectListItem] = $objectListItem;
+
+      // Ksort the items to put them in the right order.
+      // Performance should be tracked in here as the array could be quite big.
+      migrate_instrument_start('ksort prepareRow FSATreebranchCollectionChildMigration');
+      $ksortSuccess = ksort($newFilePath, SORT_NUMERIC);
+      $ksortSuccess = ksort($newDocumentIds, SORT_NUMERIC);
+      $ksortSuccess = ksort($newCSVPaths, SORT_NUMERIC);
+      migrate_instrument_stop('ksort prepareRow FSATreebranchCollectionChildMigration');
     }
 
-    // Ksort the items to put them in the right order.
-    // Performance should be tracked in here as the array could be quite big.
-    migrate_instrument_start('ksort prepareRow FSATreebranchCollectionChildMigration');
-    $ksortSuccess = ksort($results, SORT_NUMERIC);
-    migrate_instrument_stop('ksort prepareRow FSATreebranchCollectionChildMigration');
     // Assigning to row the sorted value.
-    $row->SortedObjectIds = implode(',', $results);
+    $row->FilePath = implode(',', $newFilePath);
+    $row->DocumentIds = implode(',', $newDocumentIds);
+    $row->CSVPaths = implode(',', $newCSVPaths);
   }
 }
