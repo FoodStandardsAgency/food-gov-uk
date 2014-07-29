@@ -30,6 +30,13 @@
 		li li.first {
 			display: none;
 		}
+		li li {
+			margin-bottom: 0.5em;
+		}
+		li li.last,
+		li li.first.last {
+			margin-bottom: 1em;
+		}
 		li a {
 			display: block;
 			margin: 0 0 1em 0;
@@ -50,6 +57,27 @@
 			background-repeat: no-repeat;
 			background-position: left 3px;
 			margin: 0 0 2px 0;
+		}
+	}
+}
+
+/* print styling overrides */
+@media print { 
+	.site-map {
+		ul.menu {
+			li a {
+				color: #000;
+				background-color: transparent;
+				border-top: 1px solid #000;
+				border-bottom: 1px solid #000;
+			}
+			li li a {
+				color: #000;
+				background: none;
+				padding-left: 0;
+				border-top: none;
+				border-bottom: none;
+			}
 		}
 	}
 }

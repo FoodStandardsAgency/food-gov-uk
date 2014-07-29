@@ -7047,6 +7047,13 @@ ul.pager {
     .site-map ul.menu li li.first {
       display: none; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_site_map\.scss}line{font-family:\0000333}}
+    .site-map ul.menu li li {
+      margin-bottom: 0.5em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_site_map\.scss}line{font-family:\0000337}}
+    .site-map ul.menu li li.last,
+    .site-map ul.menu li li.first.last {
+      margin-bottom: 1em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_site_map\.scss}line{font-family:\0000340}}
     .site-map ul.menu li a {
       display: block;
       margin: 0 0 1em 0;
@@ -7055,7 +7062,7 @@ ul.pager {
       font-weight: bold;
       color: #fff;
       background: #5d9711; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_site_map\.scss}line{font-family:\0000342}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_site_map\.scss}line{font-family:\0000349}}
     .site-map ul.menu li li a {
       display: inline;
       font-size: 1em;
@@ -7068,6 +7075,21 @@ ul.pager {
       background-position: left 3px;
       margin: 0 0 2px 0; }
 
+/* print styling overrides */
+@media print {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_site_map\.scss}line{font-family:\0000368}}
+  .site-map ul.menu li a {
+    color: #000;
+    background-color: transparent;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_site_map\.scss}line{font-family:\0000374}}
+  .site-map ul.menu li li a {
+    color: #000;
+    background: none;
+    padding-left: 0;
+    border-top: none;
+    border-bottom: none; } }
 /* social media icons
  * requires block class: social-media-icons
  */
