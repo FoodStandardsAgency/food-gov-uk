@@ -20,7 +20,7 @@ cd `drush $DRUSH_DEST dd`
 drush cc all
 
 # Optional. Enable the FSA migration module.
-drush en fsa_migrate -y
+drush en fsa_migrate FSA_menu_build -y
 drush mar
 
 # disable pathauto for Document page updates
@@ -107,10 +107,10 @@ drush FSA-menu-build --filter="/news-updates";
 drush FSA-menu-build --filter="/business-industry";
 drush FSA-menu-build --filter="/enforcement";
 drush FSA-menu-build --filter="/science";
-drush FSA-menu-build --filter="/about-us"
-drush FSA-menu-build --filter="/wales"
-drush FSA-menu-build --filter="/scotland"
-drush FSA-menu-build --filter="/northern-ireland"
+drush FSA-menu-build --filter="/about-us";
+drush FSA-menu-build --filter="/wales";
+drush FSA-menu-build --filter="/scotland";
+drush FSA-menu-build --filter="/northern-ireland";
 
 
 # Get solr indexed up
