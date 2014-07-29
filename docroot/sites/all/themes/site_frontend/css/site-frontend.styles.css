@@ -7299,6 +7299,7 @@ ul.pager {
   .site-map ul.menu {
     margin-left: 0;
     padding-left: 0;
+    /* hide first item (the home link) */
     /* hide first second level item (its a repeat of its parent) */ }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_site_map\.scss}line{font-family:\0000318}}
     .site-map ul.menu li, .site-map ul.menu li.leaf, .site-map ul.menu li.expanded, .site-map ul.menu li.collapsed {
@@ -7308,9 +7309,12 @@ ul.pager {
       margin-left: 0;
       padding-left: 1em; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_site_map\.scss}line{font-family:\0000326}}
+    .site-map ul.menu li.first {
+      display: none; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_site_map\.scss}line{font-family:\0000330}}
     .site-map ul.menu li li.first {
       display: none; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_site_map\.scss}line{font-family:\0000329}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_site_map\.scss}line{font-family:\0000333}}
     .site-map ul.menu li a {
       display: block;
       margin: 0 0 1em 0;
@@ -7319,16 +7323,18 @@ ul.pager {
       font-weight: bold;
       color: #fff;
       background: #5d9711; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_site_map\.scss}line{font-family:\0000338}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_site_map\.scss}line{font-family:\0000342}}
     .site-map ul.menu li li a {
       display: inline;
-      margin: 0;
-      padding: 0;
       font-size: 1em;
       font-weight: normal;
       color: #006f51;
       background-color: transparent;
-      background: none; }
+      padding: 0 0 0 10px;
+      background-image: url("../images/green-arrow-thin-right.png");
+      background-repeat: no-repeat;
+      background-position: left 3px;
+      margin: 0 0 2px 0; }
 
 /* social media icons
  * requires block class: social-media-icons

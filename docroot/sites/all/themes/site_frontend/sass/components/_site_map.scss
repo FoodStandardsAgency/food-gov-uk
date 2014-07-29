@@ -22,6 +22,10 @@
 			margin-left: 0;
 			padding-left: 1em;
 		}
+		/* hide first item (the home link) */
+		li.first {
+			display: none;
+		}
 		/* hide first second level item (its a repeat of its parent) */
 		li li.first {
 			display: none;
@@ -37,13 +41,15 @@
 		}
 		li li a {
 			display: inline;
-			margin: 0;
-			padding: 0;
 			font-size: 1em;
 			font-weight: normal;
 			color: #006f51;
 			background-color: transparent;
-			background: none;
+			padding: 0 0 0 10px;
+			background-image: url("../images/green-arrow-thin-right.png");
+			background-repeat: no-repeat;
+			background-position: left 3px;
+			margin: 0 0 2px 0;
 		}
 	}
 }
