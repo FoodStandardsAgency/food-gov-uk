@@ -12,4 +12,72 @@
 	h2.block__title {
 		display: none;
 	}
+	ul.menu {
+		margin-left: 0;
+		padding-left: 0;
+		li, li.leaf, li.expanded, li.collapsed {
+			list-style-image: none;
+			list-style-type: none;
+			list-style: none;
+			margin-left: 0;
+			padding-left: 1em;
+		}
+		/* hide first item (the home link) */
+		li.first {
+			display: none;
+		}
+		/* hide first second level item (its a repeat of its parent) */
+		li li.first {
+			display: none;
+		}
+		li li {
+			margin-bottom: 0.5em;
+		}
+		li li.last,
+		li li.first.last {
+			margin-bottom: 1em;
+		}
+		li a {
+			display: block;
+			margin: 0 0 1em 0;
+			padding: .3em 11px;
+			font-size: 1.167em;	// 1.2 (parent) * 1.167 = 1.4em
+			font-weight: bold;
+			color: #fff;
+			background: #5d9711;
+		}
+		li li a {
+			display: inline;
+			font-size: 1em;
+			font-weight: normal;
+			color: #006f51;
+			background-color: transparent;
+			padding: 0 0 0 10px;
+			background-image: url("../images/green-arrow-thin-right.png");
+			background-repeat: no-repeat;
+			background-position: left 3px;
+			margin: 0 0 2px 0;
+		}
+	}
+}
+
+/* print styling overrides */
+@media print { 
+	.site-map {
+		ul.menu {
+			li a {
+				color: #000;
+				background-color: transparent;
+				border-top: 1px solid #000;
+				border-bottom: 1px solid #000;
+			}
+			li li a {
+				color: #000;
+				background: none;
+				padding-left: 0;
+				border-top: none;
+				border-bottom: none;
+			}
+		}
+	}
 }

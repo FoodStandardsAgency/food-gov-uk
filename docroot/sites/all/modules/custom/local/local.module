@@ -47,7 +47,7 @@ function theme_local_superfish_build($variables) {
   );
 
   foreach ($variables['menu'] as $key => $menu_item) {
-    if (!in_array($menu_item['link']['title'], $show_links)) {
+    if ($menu_item['link']['plid'] == 0 && !in_array($menu_item['link']['title'], $show_links)) {
       unset($variables['menu'][$key]);
     }
   }

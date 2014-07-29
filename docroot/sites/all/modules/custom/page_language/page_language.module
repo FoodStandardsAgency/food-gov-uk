@@ -18,10 +18,12 @@ function page_language_preprocess_html(&$variables) {
       if (substr($nid, 0, 1) != '#' && is_numeric($nid) && $node['#node']->language != 'en') {
         $langcode = $node['#node']->language;
         $languages = language_list();
-        $language = $languages[$langcode];
-        // Direction is stored as a number/boolean but needed as a string by template.
-        $language->dir = $language->direction ? 'rtl' : 'ltr';
-        $variables['language'] = $language;
+        if (isset($languages[$langcode])) {
+          $language = $languages[$langcode];
+          // Direction is stored as a number/boolean but needed as a string by template.
+          $language->dir = $language->direction ? 'rtl' : 'ltr';
+          $variables['language'] = $language;
+        }
       }
     }
   }

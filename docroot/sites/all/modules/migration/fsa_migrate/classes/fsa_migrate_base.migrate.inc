@@ -395,7 +395,7 @@ ENDSQL;
 //      }
 //    }
 //    // nl2br
-    return $textValue . '<p></p>';
+    return '<p>'. $textValue .'</p>';
   }
 
   /**

@@ -20,7 +20,7 @@ cd `drush $DRUSH_DEST dd`
 drush cc all
 
 # Optional. Enable the FSA migration module.
-drush en fsa_migrate -y
+drush en fsa_migrate FSA_menu_build -y
 drush mar
 
 # disable pathauto for Document page updates
@@ -31,6 +31,9 @@ drush vset fsa_migrate_production 1
 # Roll back the existing migration.
 drush mr --force FSAChildpageCollection
 drush mr --force FSARelatedContentCollection
+drush mr --force FSAResearchProject
+drush mr --force FSAResearchProgramme
+drush mr --force FSAResearchProjectList
 drush mr --force FSAMultibranchCollectionChild
 drush mr --force FSANewsDocumentCollection
 drush mr --force FSAAuditReportCollection
@@ -81,6 +84,10 @@ drush mi --force --feedback="50 items" FSATreebranchDocument
 drush mi --force --feedback="50 items" FSATreebranchCollection
 drush mi --force --feedback="50 items" FSATreebranchCollectionChild
 
+# Research
+drush mi --force --feedback="50 items" FSAResearchProjectList
+drush mi --force --feedback="50 items" FSAResearchProject
+drush mi --force --feedback="50 items" FSAResearchProgramme
 
 # Migrate related media
 # - related media appears in it's own field collection
@@ -100,10 +107,10 @@ drush FSA-menu-build --filter="/news-updates";
 drush FSA-menu-build --filter="/business-industry";
 drush FSA-menu-build --filter="/enforcement";
 drush FSA-menu-build --filter="/science";
-drush FSA-menu-build --filter="/about-us"
-drush FSA-menu-build --filter="/wales"
-drush FSA-menu-build --filter="/scotland"
-drush FSA-menu-build --filter="/northern-ireland"
+drush FSA-menu-build --filter="/about-us";
+drush FSA-menu-build --filter="/wales";
+drush FSA-menu-build --filter="/scotland";
+drush FSA-menu-build --filter="/northern-ireland";
 
 
 # Get solr indexed up

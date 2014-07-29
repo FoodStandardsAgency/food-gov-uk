@@ -96,9 +96,6 @@ class MigrateItemFilePath extends MigrateItem {
 
     // File path as in /images/document/*.
     $object->FILEPATH = str_replace(variable_get('file_public_path', 'sites/default/files') . '/sources', '', $id);
-    // original alterian path
-    $object->SOURCEPATH = str_replace(variable_get('file_public_path', 'sites/default/files') . '/sources/files', '', $id);
-
 
     // File name as in image9uber.jpg.
     $object->FILENAME = substr($id, strrpos($id, '/') + 1);
