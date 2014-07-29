@@ -22,7 +22,7 @@ class FSAChildpageCollectionMigration extends FSAMigration {
 
     // We need all the content types available for that field to be available.
     // @TODO Add the other possible content types related.
-    $this->dependencies = array('FSADocumentpage');
+    $this->dependencies = array('FSADocumentpage', 'FSAFAQpage','FSAMultibranchDocument','FSATreebranchDocument');
 
     // Map the source id.
     $this->map = new MigrateSQLMap(
@@ -47,7 +47,7 @@ class FSAChildpageCollectionMigration extends FSAMigration {
     // Configure the source of the migration.
     if (variable_get('fsa_migrate_production')) {
       $this->source = new MigrateSourceList(
-        new FSAMigrateListOracleChildObjectsFromCSV('data/csv/document.csv'),
+        new FSAMigrateListOracleChildObjectsFromCSV('data/csv/document.csv', 'data/csv/faq.csv','data/csv/multibranch-alterian-id-list.csv','data/csv/treebranch.csv'),
         new FSAMigrateItemChildOracleObject()
       );
     }

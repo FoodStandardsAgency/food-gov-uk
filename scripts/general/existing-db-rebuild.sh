@@ -83,6 +83,7 @@ drush mi --force --feedback="50 items" FSAMultibranchCollectionChild
 drush mi --force --feedback="50 items" FSATreebranchDocument
 drush mi --force --feedback="50 items" FSATreebranchCollection
 drush mi --force --feedback="50 items" FSATreebranchCollectionChild
+drush mi --force --feedback="50 items" FSATreebranchRelatedContentCollection
 
 # Research
 drush mi --force --feedback="50 items" FSAResearchProjectList

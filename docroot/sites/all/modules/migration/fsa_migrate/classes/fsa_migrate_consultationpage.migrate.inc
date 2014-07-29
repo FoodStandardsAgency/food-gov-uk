@@ -70,7 +70,7 @@ class FSAConsultationpageMigration extends FSAMigration {
       ->callbacks(array($this, 'convertLanguage'));
 
     //main create date
-    $this->addFieldMapping('created', 'pubdate'); #@todo this should probably be the original date
+    $this->addFieldMapping('created', 'pubdate');
     // Updated date field.
     $this->addFieldMapping('field_updated', 'pubdate');
     $this->addFieldMapping('field_display_updated_date', 'showLastUpdated')

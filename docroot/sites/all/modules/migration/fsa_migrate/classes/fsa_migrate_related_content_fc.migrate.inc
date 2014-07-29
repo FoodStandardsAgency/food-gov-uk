@@ -58,7 +58,7 @@ ENDSQL;
     AND OBJTYPE.OBJECTTYPEID = OBJ.OBJECTTYPEID
     AND LINKTYPE.LINKTYPENAME = 'Relation'
     AND LINK.PARENTID IN ( :obj_ids )
-    AND OBJTYPE.NAME IN ('GenericBranch', 'Document', 'BlankPage', 'FAQ')
+    AND OBJTYPE.NAME IN ('GenericBranch', 'Document', 'BlankPage', 'FAQ','Consultation','FoodHazardWarning','NewsDocument')
     GROUP BY LINK.PARENTID
 ENDSQL;
 
@@ -69,7 +69,7 @@ ENDSQL;
     $this->description = t('Migrates the related content into a field collection from Oracle to Drupal.');
 
     // @TODO add dependencies to other content types.
-    $this->dependencies = array('FSADocumentpage', 'FSAMediaDocument', 'FSANewsDocument','FSAAuditReport');
+    $this->dependencies = array('FSADocumentpage', 'FSAMediaDocument', 'FSANewsDocument','FSAAuditReport','FSAConsultationpage','FSAAlertDocument');
 
     // Map the source id.
     $this->map = new MigrateSQLMap(
