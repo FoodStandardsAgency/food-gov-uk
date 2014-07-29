@@ -22,5 +22,28 @@
 			margin-left: 0;
 			padding-left: 1em;
 		}
+		/* hide first second level item (its a repeat of its parent) */
+		li li.first {
+			display: none;
+		}
+		li a {
+			display: block;
+			margin: 0 0 1em 0;
+			padding: .3em 11px;
+			font-size: 1.167em;	// 1.2 (parent) * 1.167 = 1.4em
+			font-weight: bold;
+			color: #fff;
+			background: #5d9711;
+		}
+		li li a {
+			display: inline;
+			margin: 0;
+			padding: 0;
+			font-size: 1em;
+			font-weight: normal;
+			color: #006f51;
+			background-color: transparent;
+			background: none;
+		}
 	}
 }
