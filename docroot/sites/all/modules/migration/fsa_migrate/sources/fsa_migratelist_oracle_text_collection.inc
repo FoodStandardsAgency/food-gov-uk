@@ -186,12 +186,12 @@ ENDSQL;
   public function getIdList() {
     GLOBAL $connectionOracle;
 
-    $mergedQueryResultArray = $this->chunkSQLQueryAndMerge($this->countQuery);
+    $mergedQueryResultArray = FSAMigrateListBase::chunkSQLQueryAndMerge($this->listObjectsIds, $this->countQuery);
 
     // Split the SQLResults by objects and type of value.
     $textSplit = $this->textVariableSplit($mergedQueryResultArray, $connectionOracle);
 
-    $query_image_results_array = $this->chunkSQLQueryAndMerge($this->imageQuery);
+    $query_image_results_array = FSAMigrateListBase::chunkSQLQueryAndMerge($this->listObjectsIds, $this->imageQuery);
 
     // Test if there is images for the objects.
     if (isset($query_image_results_array['OBJECTID'][0])) {
@@ -239,10 +239,14 @@ ENDSQL;
   public function computeCount() {
     GLOBAL $connectionOracle;
 
-    $mergedQueryResultArray = $this->chunkSQLQueryAndMerge($this->countQuery);
+    $mergedQueryResultArray = FSAMigrateListBase::chunkSQLQueryAndMerge($this->listObjectsIds, $this->countQuery);
 
     // Split the SQLResults by objects and type of value.
     $textSplit = $this->textVariableSplit($mergedQueryResultArray, $connectionOracle);
+
+    if (is_null($textSplit)) {
+      return 0;
+    }
 
     // Loop on every object to get the amount of data to migrate.
     $totalCount = NULL;
@@ -251,57 +255,6 @@ ENDSQL;
     }
 
     return $totalCount;
-  }
-
-  /**
-   * Chunk ids, Query and Merge the results of a query.
-   * This function is used to avoid the limitation of 1000 items inside a IN in SQL.
-   * It does not used a prefixed structure with $queriesResults[$parent_id]['PARENTID'].
-   * @param $query string
-   *
-   * @return array
-   */
-  public function chunkSQLQueryAndMerge($query) {
-    GLOBAL $connectionOracle;
-
-    // Fix for reaching the 1000 items limit.
-    // Re-assign the value of the object list.
-    $chunkedObjectList[] = $this->listObjectsIds;
-    if (count($this->listObjectsIds) > FSAMigrateListBase::QUERYITEMMAXNUMBER) {
-      $chunkedObjectList = array_chunk($this->listObjectsIds, FSAMigrateListBase::QUERYITEMMAXNUMBER);
-    }
-
-    $mergedQueryResultArray = array();
-    // Loop on chuncked array.
-    foreach ($chunkedObjectList as $smallObjectList) {
-      // @TODO Pass a list of ids to oracleQueryAll instead of str_replace() directly in the request.
-      $replacedCountQuery = str_replace(':obj_ids', implode(',', $smallObjectList), $query);
-
-      // Query the oracle DB to count the number for items.
-      $query_results_array[] = FSAMigration::oracleQueryAll(
-        $replacedCountQuery,
-        array(),
-        $connectionOracle
-      );
-    }
-
-    if (!is_null($query_results_array) > 0) {
-      foreach ($query_results_array as $queryResultArrayItem) {
-        if (!is_null($queryResultArrayItem)) {
-          foreach ($queryResultArrayItem as $resultVariable => $arrayResultValues) {
-            if (!isset($mergedQueryResultArray[$resultVariable]) || is_null($mergedQueryResultArray[$resultVariable])) {
-              $mergedQueryResultArray[$resultVariable] = array();
-            }
-
-            $mergedQueryResultArray[$resultVariable] = array_merge(
-              $mergedQueryResultArray[$resultVariable],
-              $arrayResultValues
-            );
-          }
-        }
-      }
-    }
-    return $mergedQueryResultArray;
   }
 
   /**
