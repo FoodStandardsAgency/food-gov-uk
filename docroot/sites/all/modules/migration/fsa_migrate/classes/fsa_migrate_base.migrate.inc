@@ -403,6 +403,7 @@ ENDSQL;
    * @return string
    */
   public function textAreaFormat($textValue) {
+    $format = 'preserve';
     // @todo - remove this and correctly set up formats
     return 'preserve';
     if (strpos($textValue, '<!-- preserve start -->') !== false) {
@@ -434,7 +435,7 @@ ENDSQL;
 //      }
 //    }
 //    // nl2br
-    return '<p>'. $textValue .'</p>';
+    return $textValue .'<p></p>';
   }
 
   /**

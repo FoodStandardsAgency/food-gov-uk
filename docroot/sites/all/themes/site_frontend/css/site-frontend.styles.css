@@ -511,6 +511,16 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
     background: linear-gradient(top, #ffffff 0%, #ffffff 46%, #eaeaea 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#eaeaea',GradientType=0); }
 
+/* fields that need site-wide styling */
+/* research programme fields */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_fields\.scss}line{font-family:\000037}}
+.field--name-field-contact-name,
+.field--name-field-phone-number,
+.field--name-field-email {
+  font-size: 1.2em;
+  line-height: 1.4em;
+  margin-bottom: 0.3em; }
+
 /* files */
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/base\/_files\.scss}line{font-family:\000032}}
 .file-item {
@@ -5786,26 +5796,90 @@ ul.pager {
   color: #fff;
   margin: 0 0 0.4em 0; }
 
+/* Contact for further information */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_research_programme\.scss}line{font-family:\000032}}
+#node_programme_full_group_further_info {
+  padding-bottom: 12px; }
+
+/* Project list */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_research_programme\.scss}line{font-family:\000037}}
+#node_programme_full_group_projects {
+  padding-bottom: 12px;
+  /* teaser title */
+  /* teaser text */
+  /* field items */
+  /* rows */ }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_research_programme\.scss}line{font-family:\0000310}}
+  #node_programme_full_group_projects h3.node__title {
+    font-size: 1.3em;
+    line-height: 1.4em;
+    margin-bottom: 0;
+    font-weight: bold; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_research_programme\.scss}line{font-family:\0000317}}
+  #node_programme_full_group_projects .field--name-field-subtitle {
+    font-size: 1.2em;
+    line-height: 1.4em;
+    display: block; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_research_programme\.scss}line{font-family:\0000323}}
+  #node_programme_full_group_projects .field__item {
+    margin-bottom: 0.5em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_research_programme\.scss}line{font-family:\0000327}}
+  #node_programme_full_group_projects .node__content {
+    border-bottom: 1px solid #5d9711;
+    padding-bottom: 7px;
+    margin-bottom: 7px; }
+
+/* research project list
+ * requires block class: research-project-list
+ */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_research_project_list\.scss}line{font-family:\000035}}
+.research-project-list .views-field-title h2 {
+  font-size: 1.3em;
+  line-height: 1.3em;
+  margin-bottom: 0.5em;
+  font-weight: bold; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_research_project_list\.scss}line{font-family:\0000311}}
+.research-project-list .views-field-field-summary {
+  font-size: 1.2em;
+  line-height: 1.4em;
+  display: block;
+  color: #333;
+  margin-bottom: 0.5em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_research_project_list\.scss}line{font-family:\0000318}}
+.research-project-list .views-field-field-results-added {
+  font-size: 1.2em;
+  line-height: 1.4em;
+  font-weight: bold; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_research_project_list\.scss}line{font-family:\0000323}}
+.research-project-list .views-row {
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #5d9711; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_research_project_list\.scss}line{font-family:\0000328}}
+.research-project-list .field__item {
+  margin-bottom: 0.5em; }
+
 /* project node header (view block)
  * requires block class: project-node-header
  */
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_project_node_header\.scss}line{font-family:\000035}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_research_project_node_header\.scss}line{font-family:\000035}}
 .project-node-header {
   margin-bottom: 20px; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_project_node_header\.scss}line{font-family:\0000310}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_research_project_node_header\.scss}line{font-family:\0000310}}
   .project-node-header .views-field-field-duration,
   .project-node-header .views-field-field-contractor,
   .project-node-header .views-field-field-project-code,
   .project-node-header .views-field-field-contact-blolb {
     font-size: 1.2em;
-    line-height: 1.4em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_project_node_header\.scss}line{font-family:\0000314}}
+    line-height: 1.4em;
+    margin-bottom: 0.3em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_research_project_node_header\.scss}line{font-family:\0000315}}
   .project-node-header p {
     font-size: 1em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_project_node_header\.scss}line{font-family:\0000317}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_research_project_node_header\.scss}line{font-family:\0000318}}
   .project-node-header div.display-inline {
     display: inline; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_project_node_header\.scss}line{font-family:\0000319}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_research_project_node_header\.scss}line{font-family:\0000320}}
     .project-node-header div.display-inline p {
       display: inline; }
 

@@ -74,7 +74,7 @@ class FSAResearchProjectMigration extends FSAMigration {
     $this->addFieldMapping('body', 'background')
       ->callbacks(array($this, 'textAreaPargraphLineFormatter'));
     // Text area input text format.
-    $this->addFieldMapping('body:format', 'text')
+    $this->addFieldMapping('body:format', 'background')
       ->callbacks(array($this, 'textAreaFormat'));
 
 
@@ -90,7 +90,7 @@ class FSAResearchProjectMigration extends FSAMigration {
     $this->addFieldMapping('field_results', 'results')
       ->callbacks(array($this, 'textAreaPargraphLineFormatter'));
     // Text area input text format.
-    $this->addFieldMapping('field_results:format', 'text')
+    $this->addFieldMapping('field_results:format', 'results')
       ->callbacks(array($this, 'textAreaFormat'));
 
 

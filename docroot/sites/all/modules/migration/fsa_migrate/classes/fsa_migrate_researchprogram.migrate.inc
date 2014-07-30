@@ -83,22 +83,25 @@ class FSAResearchProgrammeMigration extends FSAMigration {
     $this->addFieldMapping('field_phone_number', 'contacttel');
     $this->addFieldMapping('field_email', 'contactemail');
 
-    $this->addFieldMapping('field_aims', 'aims')
-      ->callbacks(array($this, 'textAreaPargraphLineFormatter'));
+    $this->addFieldMapping('field_aims', 'aims');
+     // ->callbacks(array($this, 'textAreaPargraphLineFormatter'));
     // Text area input text format.
-    $this->addFieldMapping('field_aims:format', 'text')
+    $this->addFieldMapping('field_aims:format', 'aims')
       ->callbacks(array($this, 'textAreaFormat'));
+
+
+
 
     $this->addFieldMapping('field_abstract', 'abstract')
       ->callbacks(array($this, 'textAreaPargraphLineFormatter'));
     // Text area input text format.
-    $this->addFieldMapping('field_abstract:format', 'text')
+    $this->addFieldMapping('field_abstract:format', 'abstract')
       ->callbacks(array($this, 'textAreaFormat'));
 
-    $this->addFieldMapping('field_rationale', 'abstract')
+    $this->addFieldMapping('field_rationale', 'rationale')
       ->callbacks(array($this, 'textAreaPargraphLineFormatter'));
     // Text area input text format.
-    $this->addFieldMapping('field_rationale:format', 'text')
+    $this->addFieldMapping('field_rationale:format', 'rationale')
       ->callbacks(array($this, 'textAreaFormat'));
 
     // set language

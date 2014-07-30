@@ -138,7 +138,7 @@ class FSADocumentpageMigration extends FSAMigration {
     $this->addFieldMapping('body', 'content')
       ->callbacks(array($this, 'textAreaPargraphLineFormatter'));
     // Text area input text format.
-    $this->addFieldMapping('body:format', 'text')
+    $this->addFieldMapping('body:format', 'content')
       ->callbacks(array($this, 'textAreaFormat'));
     $this->addFieldMapping('field_layout', 'layout')
       ->separator('__');

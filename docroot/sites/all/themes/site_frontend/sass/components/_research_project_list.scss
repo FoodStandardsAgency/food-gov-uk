@@ -1,0 +1,31 @@
+/* research project list
+ * requires block class: research-project-list
+ */
+.research-project-list {
+	.views-field-title h2 {
+		font-size: 1.3em; 
+		line-height: 1.3em;
+		margin-bottom: 0.5em;
+		font-weight: bold;
+	}
+	.views-field-field-summary {
+		font-size: 1.2em; 
+		line-height: 1.4em;
+		display: block;
+		color: #333;
+		margin-bottom: 0.5em;
+	}
+	.views-field-field-results-added {
+		font-size: 1.2em;
+		line-height: 1.4em;
+		font-weight: bold;
+	}
+	.views-row {
+		padding-bottom: 15px;
+		margin-bottom: 15px;
+		border-bottom: 1px solid #5d9711;
+	}
+	.field__item {
+		margin-bottom: 0.5em;
+	}
+}
