@@ -224,6 +224,8 @@ ENDSQL;
 
     // $rows = oci_fetch_array($statement, OCI_ASSOC);
 
+    $finalRows = NULL;
+
     while (($row = oci_fetch_array($statement, OCI_ASSOC)) != false) {
       if (isset($row['PARENTID'])) {
         $finalRows[$row['PARENTID']] = $row;
