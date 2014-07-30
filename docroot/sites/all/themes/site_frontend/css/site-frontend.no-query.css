@@ -5611,14 +5611,15 @@ ul.pager {
   .project-node-header .views-field-field-project-code,
   .project-node-header .views-field-field-contact-blolb {
     font-size: 1.2em;
-    line-height: 1.4em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_project_node_header\.scss}line{font-family:\0000314}}
+    line-height: 1.4em;
+    margin-bottom: 0.3em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_project_node_header\.scss}line{font-family:\0000315}}
   .project-node-header p {
     font-size: 1em; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_project_node_header\.scss}line{font-family:\0000317}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_project_node_header\.scss}line{font-family:\0000318}}
   .project-node-header div.display-inline {
     display: inline; }
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_project_node_header\.scss}line{font-family:\0000319}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_project_node_header\.scss}line{font-family:\0000320}}
     .project-node-header div.display-inline p {
       display: inline; }
 
