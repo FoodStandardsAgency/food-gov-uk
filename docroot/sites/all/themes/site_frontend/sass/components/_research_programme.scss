@@ -1,0 +1,35 @@
+/* Contact for further information */
+#node_programme_full_group_further_info {
+	padding-bottom: 12px;
+}
+
+/* Project list */
+#node_programme_full_group_projects {
+	padding-bottom: 12px;
+	/* teaser title */
+	h3.node__title {
+		font-size: 1.3em; 
+		line-height: 1.4em;
+		margin-bottom: 0;
+		font-weight: bold;
+	}
+	/* teaser text */
+	.field--name-field-subtitle {
+		font-size: 1.2em; 
+		line-height: 1.4em;
+		display: block;
+	}
+	/* field items */
+	.field__item {
+		margin-bottom: 0.5em;
+	}
+	/* rows */
+	.node__content {
+		border-bottom: 1px solid #5d9711;
+		padding-bottom: 7px;
+		margin-bottom: 7px;
+		}
+}
+
+
+
