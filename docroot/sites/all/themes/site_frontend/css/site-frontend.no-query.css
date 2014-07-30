@@ -4129,10 +4129,17 @@ p.job-line-item {
     background-image: url("../images/flag-en.gif");
     background-repeat: no-repeat;
     background-position: 5px 4px; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_language_switcher\.scss}line{font-family:\0000355}}
+  .language-switcher p {
+    margin: 0;
+    font-size: 1em; }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_language_switcher\.scss}line{font-family:\0000359}}
+  .language-switcher h1, .language-switcher h2, .language-switcher h3, .language-switcher h4, .language-switcher h5, .language-switcher h6 {
+    display: none; }
 
 /* print styling overrides */
 @media print {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_language_switcher\.scss}line{font-family:\0000359}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_language_switcher\.scss}line{font-family:\0000366}}
   .language-switcher {
     display: none; } }
 /* for nation news blocks for nation "home pages", see _nation_news.scss */

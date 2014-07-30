@@ -52,6 +52,13 @@
 		background-repeat: no-repeat;
 		background-position: 5px 4px;
 	}
+	p {
+		margin: 0;
+		font-size: 1em;
+	}
+	h1, h2, h3, h4, h5, h6 {
+		display: none;
+	}
 }
 
 /* print styling overrides */
