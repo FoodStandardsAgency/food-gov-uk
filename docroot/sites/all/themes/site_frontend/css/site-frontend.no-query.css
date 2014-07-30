@@ -5665,8 +5665,8 @@ ul.pager {
   font-weight: bold; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_research_project_list\.scss}line{font-family:\0000323}}
 .research-project-list .views-row {
-  padding-bottom: 7px;
-  margin-bottom: 7px;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
   border-bottom: 1px solid #5d9711; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_research_project_list\.scss}line{font-family:\0000328}}
 .research-project-list .field__item {
