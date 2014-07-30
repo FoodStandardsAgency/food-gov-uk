@@ -5648,8 +5648,8 @@ ul.pager {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_research_project_list\.scss}line{font-family:\000035}}
 .research-project-list .views-field-title h2 {
   font-size: 1.3em;
-  line-height: 1.4em;
-  margin-bottom: 0;
+  line-height: 1.3em;
+  margin-bottom: 0.5em;
   font-weight: bold; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_research_project_list\.scss}line{font-family:\0000311}}
 .research-project-list .views-field-field-summary {
@@ -5657,7 +5657,7 @@ ul.pager {
   line-height: 1.4em;
   display: block;
   color: #333;
-  margin-bottom: 0.2em; }
+  margin-bottom: 0.5em; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_research_project_list\.scss}line{font-family:\0000318}}
 .research-project-list .views-field-field-results-added {
   font-size: 1.2em;
