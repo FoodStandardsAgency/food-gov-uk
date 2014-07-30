@@ -20,7 +20,8 @@ class FSATreebranchCollectionChildMigration extends FSAMigration {
     AND OBJ.OBJECTTYPEID = OBJTYPE.OBJECTTYPEID
     AND FIELDVALUE.FIELDID = FIELDNAME.FIELDID
     AND ( FIELDNAME.VARIABLE LIKE 'sectionheading%'
-    OR FIELDNAME.VARIABLE LIKE 'text%' )
+    OR FIELDNAME.VARIABLE LIKE 'text%'
+    OR FIELDNAME.VARIABLE LIKE 'title' )
     AND OBJ.OBJECTID = :obj_id
 ENDSQL;
 
@@ -202,5 +203,10 @@ ENDSQL;
     $row->FilePath = implode(',', $newFilePath);
     $row->DocumentIds = implode(',', $newDocumentIds);
     $row->CSVPaths = implode(',', $newCSVPaths);
+
+    // Relation branches do not use sectionheading1 as field collection title.
+    if (!isset($row->sectionheading1) && isset($row->title)) {
+      $row->sectionheading1 = $row->title;
+    }
   }
 }

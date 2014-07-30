@@ -31,7 +31,7 @@ class FSAMigrateListOracleTreebranchChildFromCSV extends MigrateList {
    * @var string
    */
   protected $query = <<<'ENDSQL'
-    SELECT OBJ.OBJECTID,
+    SELECT OBJ.OBJECTID, OBJ.NAME AS OBJECTNAME,
      (
      SELECT WM_CONCAT(OBJ2.OBJECTID) AS CHILDPAGESIDS
      FROM OBJ OBJ2, LINK LINK2
@@ -43,7 +43,7 @@ class FSAMigrateListOracleTreebranchChildFromCSV extends MigrateList {
     AND OBJ.OBJECTTYPEID = OBJTYPE.OBJECTTYPEID
     AND OBJ.STATUSID = STATUS.STATUSID
     AND LINKTYPE.LINKTYPEID = LINK.LINKTYPEID
-    AND OBJTYPE.NAME IN ('GenericBranch')
+    AND OBJTYPE.NAME IN ('GenericBranch', 'RelationBranch')
     AND STATUS.STATUSNAME = 'Published'
     AND LINKTYPE.LINKTYPENAME = 'Primary link'
     AND LINK.PARENTID = :obj_id
@@ -62,7 +62,7 @@ ENDSQL;
     AND OBJ.OBJECTTYPEID = OBJTYPE.OBJECTTYPEID
     AND OBJ.STATUSID = STATUS.STATUSID
     AND LINKTYPE.LINKTYPEID = LINK.LINKTYPEID
-    AND OBJTYPE.NAME IN ('GenericBranch')
+    AND OBJTYPE.NAME IN ('GenericBranch', 'RelationBranch')
     AND STATUS.STATUSNAME = 'Published'
     AND LINKTYPE.LINKTYPENAME = 'Primary link'
     AND LINK.PARENTID IN ( :obj_ids )
@@ -103,6 +103,7 @@ ENDSQL;
    */
   public function getIdList() {
     GLOBAL $connectionOracle;
+    $results = NULL;
 
     // Gets the list of object ids from the CSV file.
     $objectList = FSAMigrateListBase::getIdListFromCSV($this->fileCSV);
@@ -118,9 +119,11 @@ ENDSQL;
         $connectionOracle
       );
 
-      foreach ($queryResult as $queryResultItem) {
-        $queryResultItem['PARENTID'] = $objectid;
-        $results[$queryResultItem['OBJECTID']] = $queryResultItem;
+      if (!is_null($queryResult)) {
+        foreach ($queryResult as $queryResultItem) {
+          $queryResultItem['PARENTID'] = $objectid;
+          $results[$queryResultItem['OBJECTID']] = $queryResultItem;
+        }
       }
     }
 
