@@ -3068,9 +3068,9 @@ ul.breadcrumb {
     background-image: url("../images/sidebar-arrow-right.png");
     background-repeat: no-repeat;
     background-position: 10px 4px;
-    margin-top: 4px;
-    margin-bottom: 6px;
-    font-size: 1.4em; }
+    margin-top: 8px;
+    margin-bottom: 10px;
+    font-size: 1.3em; }
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_faq\.scss}line{font-family:\0000362}}
   .field--name-field-fc-quanda-question h2:hover {
     text-decoration: underline; }
