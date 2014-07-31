@@ -3272,10 +3272,14 @@ div.field.field--name-field-fc-quanda-answer.field--type-text-long.field--label-
 @media (min-width: 0px) and (max-width: 480px) {
 @media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\00003114}}
   .l-content .feature-block {
-    margin-bottom: 11px; } }
+    margin-bottom: 11px; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\00003117}}
+  .feature-block {
+    display: none; } }
 /* print styling overrides */
 @media print {
-@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\00003122}}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/Volumes\/mysites\/fsa-local\/docroot\/sites\/all\/themes\/site_frontend\/sass\/components\/_feature_blocks\.scss}line{font-family:\00003125}}
   .feature-block {
     display: none; } }
 /**
