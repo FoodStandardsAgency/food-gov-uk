@@ -61,16 +61,16 @@ drush mi FSAMediaDocument --feedback="50 items"
 # Migrate nodes.
 drush mi --feedback="50 items" FSADocumentpage
 drush mi --feedback="50 items" FSAFAQpage
-drush mi --feedback="50 items" FSAAuditReport
-drush mi --feedback="50 items" FSAConsultationpage
-drush mi --feedback="50 items" FSANewsDocument
-drush mi --feedback="50 items" FSAAlertDocument
-drush mi --feedback="50 items" FSAMultibranchDocument
+drush mi --feedback="50 items" FSAAuditReport;
+drush mi --feedback="50 items" FSAConsultationpage;
+drush mi --feedback="50 items" FSANewsDocument;
+drush mi --feedback="50 items" FSAAlertDocument;
+drush mi --feedback="50 items" FSAMultibranchDocument;
 
 # Migrate fc.
-drush mi --force --feedback="50 items" FSADocumentpageCollection
-drush mi --force --feedback="50 items" FSAFAQpageCollection
-drush mi --force --feedback="50 items" FSAAuditReportCollection
+drush mi --force --feedback="50 items" FSADocumentpageCollection;
+drush mi --force --feedback="50 items" FSAFAQpageCollection;
+drush mi --force --feedback="50 items" FSAAuditReportCollection;
 drush mi --force --feedback="50 items" FSANewsDocumentCollection
 drush mi --force --feedback="50 items" FSAAlertDocumentCollection
 
@@ -80,10 +80,10 @@ drush mi --force --feedback="50 items" FSAMultibranchCollection
 drush mi --force --feedback="50 items" FSAMultibranchCollectionChild
 
 # Treebranch
-drush mi --force --feedback="50 items" FSATreebranchDocument
-drush mi --force --feedback="50 items" FSATreebranchCollection
-drush mi --force --feedback="50 items" FSATreebranchCollectionChild
-drush mi --force --feedback="50 items" FSATreebranchRelatedContentCollection
+drush mi --force --feedback="50 items" FSATreebranchDocument;
+drush mi --force --feedback="50 items" FSATreebranchCollection;
+drush mi --force --feedback="50 items" FSATreebranchCollectionChild;
+drush mi --force --feedback="50 items" FSATreebranchRelatedContentCollection;
 
 # Research
 drush mi --force --feedback="50 items" FSAResearchProjectList
@@ -103,7 +103,7 @@ drush mi --force --feedback="50 items" FSAChildpageCollection
 
 # do menus
 # break into sections to make a little easier to see progress - may also be more reliable
-drush vset fsa_migrate_pathauto_restrict 0
+drush vset fsa_migrate_pathauto_restrict 0;
 drush FSA-menu-build --filter="/news-updates";
 drush FSA-menu-build --filter="/business-industry";
 drush FSA-menu-build --filter="/enforcement";

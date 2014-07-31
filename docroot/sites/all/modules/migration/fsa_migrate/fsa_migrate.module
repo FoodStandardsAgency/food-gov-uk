@@ -32,7 +32,12 @@ function fsa_migrate_node_update($node) {
   }
 }
 
-
+/**
+ * Get hold of the Node id for an alterian id
+ * @param $action
+ * @param null $value
+ * @return null
+ */
 function fsa_migrate_global_id_map($action, $value = null){
   $map = &drupal_static(__FUNCTION__);
   $result = null;
