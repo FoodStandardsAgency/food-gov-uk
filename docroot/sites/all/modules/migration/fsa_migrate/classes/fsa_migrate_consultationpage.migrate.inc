@@ -9,11 +9,43 @@
  * Migration class for the FSA Document page.
  */
 class FSAConsultationpageMigration extends FSAMigration {
+
+  /**
+   * SQL Query to get the path of the main files for consultation.
+   *
+   * @var string
+   */
+  protected $consultationQueryFile = <<<'ENDSQL'
+    SELECT OBJ.PATH
+    FROM OBJ, LINK, OBJTYPE, LINKTYPE
+    WHERE LINK.CHILDID = OBJ.OBJECTID
+    AND LINK.LINKTYPEID = LINKTYPE.LINKTYPEID
+    AND OBJTYPE.OBJECTTYPEID = OBJ.OBJECTTYPEID
+    AND LINKTYPE.LINKTYPENAME = 'Relation'
+    AND OBJTYPE.NAME IN ( 'AdobeAcrobatDocument', 'MicrosoftExcelSpreadsheet', 'MicrosoftWordDocument', 'MicrosoftPowerpointDocument' )
+    AND LINK.PARENTID IN ( :obj_id )
+ENDSQL;
+
+  /**
+   * SQL Query to get the path of the consultation responses files for consultation.
+   *
+   * @var string
+   */
+  protected $consultationResponseQueryFile = <<<'ENDSQL'
+    SELECT LINK.PARENTID, OBJ.OBJECTID, OBJ.PATH, OBJTYPE.NAME, LINKTYPE.LINKTYPENAME
+    FROM OBJ, LINK, OBJTYPE, LINKTYPE
+    WHERE LINK.CHILDID = OBJ.OBJECTID
+    AND LINK.LINKTYPEID = LINKTYPE.LINKTYPEID
+    AND OBJTYPE.OBJECTTYPEID = OBJ.OBJECTTYPEID
+    AND LINKTYPE.LINKTYPENAME = 'Relation'
+    AND OBJTYPE.NAME IN ( 'ConsultationResponse' )
+    AND LINK.PARENTID IN ( :obj_id )
+ENDSQL;
+
   /**
    * Class constructor.
    */
   public function __construct($arguments) {
-
     // Calls to parent constructor from official doc.
     parent::__construct();
     // Calls the parent constructor.
@@ -138,7 +170,6 @@ class FSAConsultationpageMigration extends FSAMigration {
     $this->addFieldMapping('toc_node_back_to_top_links')
       ->defaultValue(0);
 
-
     // Consultation specific nation rules
     $this->addFieldMapping('field_nation', 'PATH')
       ->arguments(array('source_type' => 'tid'))
@@ -151,6 +182,20 @@ class FSAConsultationpageMigration extends FSAMigration {
     // Node status, published or unpublished.
     $this->addFieldMapping('status', 'STATUSID')
       ->callbacks(array($this, 'convertStatusId'));
+
+    // Consultation files.
+    $this->addFieldMapping('field_consultation_pack', 'ConsultationFilesPath')
+      ->separator(',')
+      ->sourceMigration('FSAMediaDocument');
+    $this->addFieldMapping('field_consultation_pack:file_class')
+      ->defaultValue('MigrateFileFid');
+
+    // Consultation responses files.
+    $this->addFieldMapping('field_consultation_summary', 'ConsultationResponsesFilesPath')
+      ->separator(',')
+      ->sourceMigration('FSAMediaDocument');
+    $this->addFieldMapping('field_consultation_summary:file_class')
+      ->defaultValue('MigrateFileFid');
   }
 
   /**
@@ -211,6 +256,42 @@ class FSAConsultationpageMigration extends FSAMigration {
     if (!is_null($feature_image_res)) {
       $row->FEATUREDIMAGEPATH = variable_get('file_public_path', 'sites/default/files') .
         '/sources' . $feature_image_res['PATH'];
+    }
+
+    // Consultation files.
+    $replacedConsultationFileQuery = str_replace(':obj_id', $row->OBJECTID, $this->consultationQueryFile);
+    // Query the oracle DB to get the child objects.
+    // @TODO Pass a list of ids to oracleQueryAll instead of str_replace() directly in the request.
+    $queryConsultationFileResult = FSAMigration::oracleQueryAllOneDimension(
+      $replacedConsultationFileQuery,
+      array(),
+      $connectionOracle
+    );
+    $row->ConsultationFilesPath = array();
+    if (!is_null($queryConsultationFileResult)) {
+      $consultationFilesPath = NULL;
+      foreach ($queryConsultationFileResult as $ConsultationFilePath) {
+        $consultationFilesPath .= variable_get('file_public_path', 'sites/default/files') . '/sources/files' . $ConsultationFilePath['PATH'] . ',';
+      }
+      $row->ConsultationFilesPath = $consultationFilesPath;
+    }
+
+    // Consultation responses files.
+    $replacedConsultationResponsesFileQuery = str_replace(':obj_id', $row->OBJECTID, $this->consultationResponseQueryFile);
+    // Query the oracle DB to get the child objects.
+    // @TODO Pass a list of ids to oracleQueryAll instead of str_replace() directly in the request.
+    $queryConsultationResponsesFileResult = FSAMigration::oracleQueryAllOneDimension(
+      $replacedConsultationResponsesFileQuery,
+      array(),
+      $connectionOracle
+    );
+    $row->ConsultationResponsesFilesPath = array();
+    if (!is_null($queryConsultationResponsesFileResult)) {
+      $consultationResponsesFilesPath = NULL;
+      foreach ($queryConsultationResponsesFileResult as $consultationResponsesFilePath) {
+        $consultationResponsesFilesPath .= variable_get('file_public_path', 'sites/default/files') . '/sources/files' . $consultationResponsesFilePath['PATH'] . ',';
+      }
+      $row->ConsultationResponsesFilesPath = $consultationResponsesFilesPath;
     }
   }
 
