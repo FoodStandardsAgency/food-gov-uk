@@ -63,8 +63,8 @@ class FSADocumentpageMigration extends FSAMigration {
     $this->destination = new MigrateDestinationNode('document_page');
 
     // General fields mapping.
-    $this->addFieldMapping('title', 'NAME');
-    $this->addFieldMapping('field_title_short', 'title');
+    $this->addFieldMapping('title', 'title');
+    $this->addFieldMapping('field_title_short', 'NAME');
     $this->addFieldMapping('field_subtitle', 'OBJECTCOMMENT');
     $this->addFieldMapping('field_summary', 'summary')
       ->callbacks(array($this, 'pastedApostropheFormatter'));
