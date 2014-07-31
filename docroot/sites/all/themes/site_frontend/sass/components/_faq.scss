@@ -57,6 +57,7 @@
 	  background-position: 10px 4px;
 	  margin-top: 4px;
 	  margin-bottom: 6px;
+		font-size: 1.4em;
 	}
 	h2:hover {
 		text-decoration: underline;
@@ -110,5 +111,9 @@ div.field.field--name-field-fc-quanda-answer.field--type-text-long.field--label-
 		h2 {
 			color: #000;
 		}
+	}
+	/* force collapsed questions to be expanded when we print them */
+	#field_collection_item_field_fc_qanda_full_group_accordion_set {
+		display: block!important;
 	}
 }
