@@ -22,7 +22,7 @@ class FSAMultibranchCollectionChildMigration extends FSAMigration {
 
     // We need all the content types available for that field to be available.
     // @TODO Add the other possible content types related.
-    $this->dependencies = array('FSAMultibranchDocument', 'FSAMultibranchCollection', 'FSADocumentpage', 'FSAFAQpage');
+    $this->dependencies = array('FSAMultibranchDocument', 'FSAMultibranchCollection', 'FSADocumentpage', 'FSAFAQpage','FSAResearchProjectList','FSAResearchProgramme','FSAResearchProject');
 
     // Map the source id.
     $this->map = new MigrateSQLMap(
@@ -68,7 +68,7 @@ class FSAMultibranchCollectionChildMigration extends FSAMigration {
     // Fields mapping.
     $this->addFieldMapping('field_child_page', 'SortedObjectIds')
       ->separator(',')
-      ->sourceMigration('FSADocumentpage');
+      ->sourceMigration('FSADocumentpage','FSAFAQpage','FSAMultibranchDocument','FSAResearchProjectList','FSAResearchProgramme','FSAResearchProject','FSATreebranchDocument');
   }
 
   /**

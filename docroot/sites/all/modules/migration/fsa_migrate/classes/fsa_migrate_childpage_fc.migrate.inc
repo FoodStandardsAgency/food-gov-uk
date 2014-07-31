@@ -47,7 +47,7 @@ class FSAChildpageCollectionMigration extends FSAMigration {
     // Configure the source of the migration.
     if (variable_get('fsa_migrate_production')) {
       $this->source = new MigrateSourceList(
-        new FSAMigrateListOracleChildObjectsFromCSV('data/csv/document.csv', 'data/csv/faq.csv','data/csv/multibranch-alterian-id-list.csv','data/csv/treebranch.csv'),
+        new FSAMigrateListOracleChildObjectsFromCSV('data/csv/document.csv'),
         new FSAMigrateItemChildOracleObject()
       );
     }
@@ -74,6 +74,6 @@ class FSAChildpageCollectionMigration extends FSAMigration {
     // Fields mapping.
     $this->addFieldMapping('field_child_page', 'OBJECTIDS')
       ->separator(',')
-      ->sourceMigration('FSADocumentpage');
+      ->sourceMigration('FSADocumentpage','FSAFAQpage','FSAMultibranchDocument','FSAResearchProjectList','FSAResearchProgramme','FSAResearchProject','FSATreebranchDocument');
   }
 }

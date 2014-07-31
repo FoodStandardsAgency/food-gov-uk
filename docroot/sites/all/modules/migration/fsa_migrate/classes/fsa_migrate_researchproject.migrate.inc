@@ -8,7 +8,19 @@
 
 class FSAResearchProjectMigration extends FSAMigration {
 
-
+  /**
+   * SQL Query for project list
+   *
+   * @var string
+   */
+  protected $projectList = <<<'ENDSQL'
+    SELECT OBJ.OBJECTID
+    FROM OBJ, LINK, LINKTYPE
+    WHERE OBJ.OBJECTID = LINK.PARENTID
+    AND LINKTYPE.LINKTYPEID = LINK.LINKTYPEID
+    AND LINK.CHILDID IN ( :obj )
+    AND LINKTYPE.LINKTYPENAME = 'Primary link'
+ENDSQL;
   /**
    * Class constructor.
    */
@@ -42,6 +54,7 @@ class FSAResearchProjectMigration extends FSAMigration {
       'FIELDIDS' => t('Fields ids'),
       'VARIABLE' => t('Variable field name'),
       'VALUE' => t('Field value'),
+      'PROJECTLIST' =>t('Object id of parent project'),
     );
 
     if (variable_get('fsa_migrate_production', false)) {
@@ -134,6 +147,12 @@ class FSAResearchProjectMigration extends FSAMigration {
        // Node status, published or unpublished.
     $this->addFieldMapping('status', 'STATUSID')
       ->callbacks(array($this, 'convertStatusId'));
+
+
+    // Fields mapping.
+    $this->addFieldMapping('field_project_list', 'PROJECTLIST')
+      ->sourceMigration('FSAResearchProject');
+
   }
 
   /**
@@ -158,6 +177,14 @@ class FSAResearchProjectMigration extends FSAMigration {
       foreach ($fields_res_array as $fieldVariable => $fieldValue) {
         $row->{$fieldVariable} = $fieldValue;
       }
+    }
+
+    // Project List
+    $replacedQueryProjectList = str_replace(':obj', $row->OBJECTID, $this->projectList);
+    $sqlResultProjectList = FSAMigration::oracleQueryAllOneDimension($replacedQueryProjectList, array(), $connectionOracle);
+    $row->PROJECTLIST = NULL;
+    if (isset($sqlResultProjectList[0]['OBJECTID'])) {
+      $row->PROJECTLIST = $sqlResultProjectList[0]['OBJECTID'];
     }
   }
 }

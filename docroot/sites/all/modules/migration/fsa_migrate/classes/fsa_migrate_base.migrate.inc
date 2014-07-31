@@ -676,6 +676,8 @@ ENDSQL;
             break;
           case 'GenericBranch':
           case 'TreeBranch':
+          case 'MultiBranch':
+          case 'FAQ':
           case 'Document':
             $relatedResultsArray['DOCUMENTIDS'][] = $relatedItemObjectId;
             break;
