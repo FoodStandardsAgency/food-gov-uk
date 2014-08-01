@@ -39,7 +39,9 @@ class FSAMigrateListOracleChildObjectsFromCSV extends MigrateList {
       AND LINK.LINKTYPEID = LINKTYPE.LINKTYPEID
       AND OBJTYPE.OBJECTTYPEID = OBJ.OBJECTTYPEID
       AND ( LINKTYPE.LINKTYPENAME LIKE 'Primary link' OR LINKTYPE.LINKTYPENAME LIKE 'Secondary link' )
-      AND ( OBJTYPE.NAME LIKE 'GenericBranch' OR OBJTYPE.NAME LIKE 'Document' )
+      AND ( OBJTYPE.NAME LIKE 'GenericBranch'
+            OR OBJTYPE.NAME LIKE 'Document'
+            OR OBJTYPE.NAME LIKE 'FAQ' )
       AND LINK.PARENTID IN ( :obj_ids )
       GROUP BY LINK.PARENTID
 ENDSQL;
