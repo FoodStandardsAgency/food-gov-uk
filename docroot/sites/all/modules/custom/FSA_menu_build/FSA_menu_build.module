@@ -214,6 +214,12 @@ function FSA_menu_build_get_main_menu_mlid($data) {
     'northern-ireland' => 1111,
     'scotland' => 1109,
     'wales' => 1112,
+    'science/ouradvisors/acaf' => 1649,
+    'science/ouradvisors/acnfp' => 1651,
+    'science/ouradvisors/acmsf' => 1643,
+    'science/ouradvisors/cot' => 1375,
+    'science/ouradvisors/gacs' => 1653,
+    'science/ouradvisors/ssrc' => 1655
   );
 
   $result = null;
@@ -225,7 +231,8 @@ function FSA_menu_build_get_main_menu_mlid($data) {
     if (is_array($links)) {
       // we found some menu links, now we need to make sure we have the correct menu
       foreach ($links as $mlid => $link_data) {
-       if ($link_data->menu_name =='main-menu') {
+       if ($link_data->menu_name =='main-menu' or $link_data->menu_name == 'og-menu-single') {
+         // main menu or committee menu
          $result = $mlid;
         }
       }
