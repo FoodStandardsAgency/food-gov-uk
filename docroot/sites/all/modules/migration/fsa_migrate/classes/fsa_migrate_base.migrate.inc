@@ -116,6 +116,22 @@ ENDSQL;
 ENDSQL;
 
   /**
+   * SQL Query to get the related external sites object id.
+   *
+   * @var string
+   */
+  protected $queryExternalSite = <<<'ENDSQL'
+    SELECT OBJ.OBJECTID AS ExternalSiteIds
+    FROM OBJ, LINK, OBJTYPE, LINKTYPE
+    WHERE LINK.CHILDID = OBJ.OBJECTID
+    AND LINK.LINKTYPEID = LINKTYPE.LINKTYPEID
+    AND OBJTYPE.OBJECTTYPEID = OBJ.OBJECTTYPEID
+    AND LINKTYPE.LINKTYPENAME LIKE 'Relation'
+    AND OBJTYPE.NAME LIKE 'ExternalSite'
+    AND LINK.PARENTID IN ( :objid )
+ENDSQL;
+
+  /**
    * Reference array between [vocabulary][term name] and between a term id in drupal.
    *
    * @var array

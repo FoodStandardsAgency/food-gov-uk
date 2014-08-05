@@ -131,6 +131,11 @@ class FSAMultibranchDocumentMigration extends FSAMigration {
     // Node status, published or unpublished.
     $this->addFieldMapping('status', 'STATUSID')
       ->callbacks(array($this, 'convertStatusId'));
+
+    // External sites.
+    $this->addFieldMapping('field_links_external', 'externalSites')
+      ->separator(',')
+      ->sourceMigration('FSAExternalsite');
   }
 
   /**
@@ -171,6 +176,21 @@ class FSAMultibranchDocumentMigration extends FSAMigration {
     if (!is_null($feature_image_res)) {
       $row->FEATUREDIMAGEPATH = variable_get('file_public_path', 'sites/default/files') .
         '/sources' . $feature_image_res['PATH'];
+    }
+
+    // Manage the related external sites relation.
+    $queryExternalSite = str_replace(':objid', "'" . $row->OBJECTID . "'", $this->queryExternalSite);
+    // Query the oracle DB to look for a feature image from the object id.
+    $externalSitesResults = $this->oracleQueryAll(
+      $queryExternalSite,
+      array(),
+      $connectionOracle
+    );
+    if (!is_null($externalSitesResults)) {
+      $row->externalSites = implode(',', $externalSitesResults['EXTERNALSITEIDS']);
+    }
+    else {
+      $row->externalSites = NULL;
     }
   }
 }

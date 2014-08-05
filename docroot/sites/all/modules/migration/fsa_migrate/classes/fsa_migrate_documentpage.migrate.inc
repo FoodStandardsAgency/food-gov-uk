@@ -142,6 +142,11 @@ class FSADocumentpageMigration extends FSAMigration {
       ->callbacks(array($this, 'textAreaFormat'));
     $this->addFieldMapping('field_layout', 'layout')
       ->separator('__');
+
+    // External sites.
+    $this->addFieldMapping('field_links_external', 'externalSites')
+      ->separator(',')
+      ->sourceMigration('FSAExternalsite');
   }
 
   /**
@@ -216,6 +221,21 @@ class FSADocumentpageMigration extends FSAMigration {
     // set layout to blank if object type is BlankPage
     if ($row->OBJECTTYPE == 'BlankPage') {
       $row->layout = 'One column blank (no sidebars, header or footer)';
+    }
+
+    // Manage the related external sites relation.
+    $queryExternalSite = str_replace(':objid', "'" . $row->OBJECTID . "'", $this->queryExternalSite);
+    // Query the oracle DB to look for a feature image from the object id.
+    $externalSitesResults = $this->oracleQueryAll(
+      $queryExternalSite,
+      array(),
+      $connectionOracle
+    );
+    if (!is_null($externalSitesResults)) {
+      $row->externalSites = implode(',', $externalSitesResults['EXTERNALSITEIDS']);
+    }
+    else {
+      $row->externalSites = NULL;
     }
   }
 }
