@@ -41,7 +41,8 @@ class FSAMigrateListOracleChildObjectsFromCSV extends MigrateList {
       AND ( LINKTYPE.LINKTYPENAME LIKE 'Primary link' OR LINKTYPE.LINKTYPENAME LIKE 'Secondary link' )
       AND ( OBJTYPE.NAME LIKE 'GenericBranch'
             OR OBJTYPE.NAME LIKE 'Document'
-            OR OBJTYPE.NAME LIKE 'FAQ' )
+            OR OBJTYPE.NAME LIKE 'FAQ'
+            OR OBJTYPE.NAME LIKE 'CommitteeDocumentSSRC' )
       AND LINK.PARENTID IN ( :obj_ids )
       GROUP BY LINK.PARENTID
 ENDSQL;
@@ -60,7 +61,9 @@ ENDSQL;
       AND LINK.LINKTYPEID = LINKTYPE.LINKTYPEID
       AND OBJTYPE.OBJECTTYPEID = OBJ.OBJECTTYPEID
       AND LINKTYPE.LINKTYPENAME LIKE 'Primary link'
-      AND ( OBJTYPE.NAME LIKE 'GenericBranch' OR OBJTYPE.NAME LIKE 'Document' )
+      AND ( OBJTYPE.NAME LIKE 'GenericBranch'
+            OR OBJTYPE.NAME LIKE 'Document'
+            OR OBJTYPE.NAME LIKE 'CommitteeDocumentSSRC'  )
       AND LINK.PARENTID IN ( :obj_ids )
 ENDSQL;
 
@@ -176,6 +179,7 @@ ENDSQL;
     // Loop on chuncked array.
     foreach ($chunkedObjectList as $smallObjectList) {
       $replacedCountQuery = str_replace(':obj_ids', implode(',', $smallObjectList), $this->countQuery);
+
       $queryResult = FSAMigration::oracleQuerySingle(
         $replacedCountQuery,
         array(),
