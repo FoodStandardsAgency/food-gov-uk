@@ -412,6 +412,16 @@ ENDSQL;
       $itemsList[$explodedItem[0]] = $explodedItem[1];
     }
 
+    if (!isset($itemsList['objectid']) or !isset($itemsList['itemnumber'])) {
+      //we have a problem.
+      migrate_watchdog(array(
+        'severity' => WATCHDOG_ERROR,
+        'variables' => $oracleIds,
+        'message' => 'Bad information for document child'
+      ));
+      return NULL;
+    }
+
     // The object id is always first.
     $objectId = $itemsList['objectid'];
     unset($itemsList['objectid']);
