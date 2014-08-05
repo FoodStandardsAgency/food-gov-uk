@@ -267,7 +267,7 @@ ENDSQL;
       array(),
       $connectionOracle
     );
-    $row->ConsultationFilesPath = array();
+    $row->ConsultationFilesPath = null;
     if (!is_null($queryConsultationFileResult)) {
       $consultationFilesPath = NULL;
       foreach ($queryConsultationFileResult as $ConsultationFilePath) {
@@ -285,7 +285,7 @@ ENDSQL;
       array(),
       $connectionOracle
     );
-    $row->ConsultationResponsesFilesPath = array();
+    $row->ConsultationResponsesFilesPath = NULL;
     if (!is_null($queryConsultationResponsesFileResult)) {
       $consultationResponsesFilesPath = NULL;
       foreach ($queryConsultationResponsesFileResult as $consultationResponsesFilePath) {
