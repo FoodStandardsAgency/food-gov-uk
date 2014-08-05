@@ -20,36 +20,36 @@ cd `drush $DRUSH_DEST dd`
 drush cc all
 
 # Optional. Enable the FSA migration module.
-drush en fsa_migrate FSA_menu_build -y
-drush mar
+drush en fsa_migrate FSA_menu_build -y;
+drush mar;
 
 # disable pathauto for Document page updates
-drush vset fsa_migrate_pathauto_restrict 1
+drush vset fsa_migrate_pathauto_restrict 1;
 # set production mode
-drush vset fsa_migrate_production 1
+drush vset fsa_migrate_production 1;
 
 # Roll back the existing migration.
-drush mr --force FSAChildpageCollection
-drush mr --force FSARelatedContentCollection
-drush mr --force FSAResearchProject
-drush mr --force FSAResearchProgramme
-drush mr --force FSAResearchProjectList
-drush mr --force FSAMultibranchCollectionChild
-drush mr --force FSANewsDocumentCollection
-drush mr --force FSAAuditReportCollection
-drush mr --force FSAAlertDocumentCollection
-drush mr --force FSAFAQpageCollection
-drush mr --force FSADocumentpageCollection
-drush mr --force FSAMultibranchCollection
-drush mr --force FSAMultibranchDocument
-drush mr --force FSANewsDocument
-drush mr --force FSAAlertDocument
-drush mr --force FSAFAQpage
-drush mr --force FSAAuditReport
-drush mr --force FSAConsultationpage
-drush mr --force FSADocumentpage
-drush mr --force FSAMediaDocument
-drush mr --force FSAMediaImages
+drush mr --force FSAChildpageCollection;
+drush mr --force FSARelatedContentCollection;
+drush mr --force FSAResearchProject;
+drush mr --force FSAResearchProgramme;
+drush mr --force FSAResearchProjectList;
+drush mr --force FSAMultibranchCollectionChild;
+drush mr --force FSANewsDocumentCollection;
+drush mr --force FSAAuditReportCollection;
+drush mr --force FSAAlertDocumentCollection;
+drush mr --force FSAFAQpageCollection;
+drush mr --force FSADocumentpageCollection;
+drush mr --force FSAMultibranchCollection;
+drush mr --force FSAMultibranchDocument;
+drush mr --force FSANewsDocument;
+drush mr --force FSAAlertDocument;
+drush mr --force FSAFAQpage;
+drush mr --force FSAAuditReport;
+drush mr --force FSAConsultationpage;
+drush mr --force FSADocumentpage;
+drush mr --force FSAMediaDocument;
+drush mr --force FSAMediaImages;
 
 # Migrate all users.
 
