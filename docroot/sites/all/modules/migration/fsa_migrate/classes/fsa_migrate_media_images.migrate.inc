@@ -63,14 +63,15 @@ class FSAMediaImagesMigration extends FSAMigration {
     $this->addFieldMapping('source_dir', 'SOURCEDIRECTORY');
     $this->addFieldMapping('destination_file', 'FILEPATHDEST');
 
-    // map redirects
-    $this->addFieldMapping('migrate_redirects', 'FILEPATH')
-      ->defaultValue('MigrateRedirectEntity');
+    $this->addFieldMapping('field_file_tags', 'TAGS')
+      ->arguments(array(
+        'create_term' => TRUE,
+        'ignore_case' => TRUE
+      ));
 
-    // Media migrated by admin.
-    // @TODO Change the user to migration user.
+    // Media migrated by migration user
     $this->addFieldMapping('uid')
-      ->defaultValue(1);
+      ->defaultValue(919);
   }
   /**
    * Function prepareRow.
@@ -78,5 +79,14 @@ class FSAMediaImagesMigration extends FSAMigration {
   public function prepareRow($row) {
     // Setup destination file path.
     $row->FILEPATHDEST = str_replace(variable_get('file_public_path', 'sites/default/files') . '/sources', '', $row->DRUPALPATH);
+    // split the path and assign tags based on location
+    $exploded = explode('/',$row->FILEPATHDEST );
+    if (isset($exploded[2])) {
+      $row->TAGS = $exploded[2];
+    }
+    else {
+      $row->TAGS = null;
+    }
+
   }
 }

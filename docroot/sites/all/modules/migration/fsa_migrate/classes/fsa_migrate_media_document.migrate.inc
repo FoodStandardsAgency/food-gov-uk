@@ -73,11 +73,16 @@ class FSAMediaDocumentMigration extends FSAMigration {
     $this->addFieldMapping('migrate_redirects', 'SOURCEPATH')
       ->defaultValue('MigrateRedirectEntity');
 
+    $this->addFieldMapping('field_file_tags', 'TAGS')
+      ->arguments(array(
+        'create_term' => TRUE,
+        'ignore_case' => TRUE
+      ));
 
     // Media migrated by admin.
     // @TODO Change the user to migration user.
     $this->addFieldMapping('uid')
-      ->defaultValue(1);
+      ->defaultValue(919);
   }
 
   /**
@@ -86,5 +91,13 @@ class FSAMediaDocumentMigration extends FSAMigration {
   public function prepareRow($row) {
     // Setup destination file path.
     $row->FILEPATHDEST = str_replace(variable_get('file_public_path', 'sites/default/files') . '/sources/files', '', $row->DRUPALPATH);
+    // split the path and assign tags based on location
+    $exploded = explode('/',$row->FILEPATHDEST );
+    if (isset($exploded[3])) {
+      $row->TAGS = $exploded[3];
+    }
+    else {
+      $row->TAGS = null;
+    }
   }
 }
