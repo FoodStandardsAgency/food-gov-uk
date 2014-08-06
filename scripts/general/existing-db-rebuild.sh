@@ -15,7 +15,7 @@ cd `drush $DRUSH_DEST dd`
 
 # Sync db and files
 
-#drush sql-sync -y $DRUSH_SOURCE $DRUSH_DEST; drush rsync -y $DRUSH_SOURCE:%files $DRUSH_DEST:%files
+#drush sql-sync -y $DRUSH_SOURCE $DRUSH_DEST; drush -y rsync $DRUSH_SOURCE:%files $DRUSH_DEST:%files
 
 drush cc all;
 
@@ -74,6 +74,7 @@ drush mi --force --feedback="50 items" FSAFAQpageCollection;
 drush mi --force --feedback="50 items" FSAAuditReportCollection;
 drush mi --force --feedback="50 items" FSANewsDocumentCollection;
 drush mi --force --feedback="50 items" FSAAlertDocumentCollection;
+drush mi --force --feedback="50 items" FSAConsultationpageCollection;
 
 # Multibranch
 drush mi --force --feedback="50 items" FSAMultibranchDocument;
