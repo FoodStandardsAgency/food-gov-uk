@@ -14,7 +14,7 @@ function document_content_type_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'additional_settings__active_tab_document_page';
-  $strongarm->value = 'edit-auto-nodetitle';
+  $strongarm->value = 'edit-workflow';
   $export['additional_settings__active_tab_document_page'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -37,55 +37,6 @@ function document_content_type_feature_strongarm() {
   $strongarm->name = 'ant_php_document_page';
   $strongarm->value = 0;
   $export['ant_php_document_page'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_anonymous_document_page';
-  $strongarm->value = 0;
-  $export['comment_anonymous_document_page'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_default_mode_document_page';
-  $strongarm->value = 1;
-  $export['comment_default_mode_document_page'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_default_per_page_document_page';
-  $strongarm->value = '50';
-  $export['comment_default_per_page_document_page'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_document_page';
-  $strongarm->value = '1';
-  $export['comment_document_page'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_form_location_document_page';
-  $strongarm->value = 1;
-  $export['comment_form_location_document_page'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_preview_document_page';
-  $strongarm->value = '1';
-  $export['comment_preview_document_page'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_subject_field_document_page';
-  $strongarm->value = 1;
-  $export['comment_subject_field_document_page'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -147,6 +98,9 @@ function document_content_type_feature_strongarm() {
       'search_results_2' => array(
         'custom_settings' => FALSE,
       ),
+      'entityreference_view_widget' => array(
+        'custom_settings' => TRUE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
@@ -154,25 +108,34 @@ function document_content_type_feature_strongarm() {
           'weight' => '0',
         ),
         'metatags' => array(
-          'weight' => '10',
+          'weight' => '11',
         ),
         'path' => array(
-          'weight' => '8',
-        ),
-        'redirect' => array(
           'weight' => '9',
         ),
+        'redirect' => array(
+          'weight' => '10',
+        ),
         'xmlsitemap' => array(
-          'weight' => '7',
+          'weight' => '8',
         ),
         'language' => array(
           'weight' => '0',
+        ),
+        'rabbit_hole' => array(
+          'weight' => '12',
+        ),
+        'cpn' => array(
+          'weight' => '7',
+        ),
+        'workbench_access' => array(
+          'weight' => '7',
         ),
       ),
       'display' => array(
         'language' => array(
           'default' => array(
-            'weight' => '0',
+            'weight' => '3',
             'visible' => FALSE,
           ),
           'full' => array(
@@ -227,7 +190,8 @@ function document_content_type_feature_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'menu_options_document_page';
   $strongarm->value = array(
-    0 => 'main-menu',
+    0 => 'og-menu-single',
+    1 => 'main-menu',
   );
   $export['menu_options_document_page'] = $strongarm;
 
@@ -250,8 +214,7 @@ function document_content_type_feature_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'node_options_document_page';
   $strongarm->value = array(
-    0 => 'status',
-    1 => 'revision',
+    0 => 'revision',
   );
   $export['node_options_document_page'] = $strongarm;
 
@@ -273,7 +236,7 @@ function document_content_type_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_node_document_page_pattern';
-  $strongarm->value = '[node:menu-link:parents:join-path]/[node:field_path]';
+  $strongarm->value = '[node:menu-link:parent:url:path]/[node:field_path]';
   $export['pathauto_node_document_page_pattern'] = $strongarm;
 
   $strongarm = new stdClass();
