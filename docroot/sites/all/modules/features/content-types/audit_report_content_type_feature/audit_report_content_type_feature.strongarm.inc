@@ -14,7 +14,7 @@ function audit_report_content_type_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'additional_settings__active_tab_audit_report';
-  $strongarm->value = 'edit-xmlsitemap';
+  $strongarm->value = 'edit-workflow';
   $export['additional_settings__active_tab_audit_report'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -44,57 +44,10 @@ function audit_report_content_type_feature_strongarm() {
   $strongarm->name = 'apachesolr_view_modes_audit_report';
   $strongarm->value = array(
     'search_result' => 'search_result',
+    'search_results_2' => 'search_results_2',
+    'short_teaser' => 'short_teaser',
   );
   $export['apachesolr_view_modes_audit_report'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_anonymous_audit_report';
-  $strongarm->value = 0;
-  $export['comment_anonymous_audit_report'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_audit_report';
-  $strongarm->value = '1';
-  $export['comment_audit_report'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_default_mode_audit_report';
-  $strongarm->value = 1;
-  $export['comment_default_mode_audit_report'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_default_per_page_audit_report';
-  $strongarm->value = '50';
-  $export['comment_default_per_page_audit_report'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_form_location_audit_report';
-  $strongarm->value = 1;
-  $export['comment_form_location_audit_report'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_preview_audit_report';
-  $strongarm->value = '1';
-  $export['comment_preview_audit_report'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_subject_field_audit_report';
-  $strongarm->value = 1;
-  $export['comment_subject_field_audit_report'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -154,34 +107,43 @@ function audit_report_content_type_feature_strongarm() {
         'custom_settings' => TRUE,
       ),
       'search_results_2' => array(
-        'custom_settings' => FALSE,
+        'custom_settings' => TRUE,
+      ),
+      'entityreference_view_widget' => array(
+        'custom_settings' => TRUE,
       ),
     ),
     'extra_fields' => array(
       'form' => array(
         'metatags' => array(
-          'weight' => '7',
+          'weight' => '10',
         ),
         'title' => array(
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '5',
+          'weight' => '8',
         ),
         'redirect' => array(
-          'weight' => '6',
+          'weight' => '9',
         ),
         'xmlsitemap' => array(
-          'weight' => '4',
+          'weight' => '7',
         ),
         'language' => array(
-          'weight' => '1',
+          'weight' => '6',
+        ),
+        'rabbit_hole' => array(
+          'weight' => '2',
+        ),
+        'workbench_access' => array(
+          'weight' => '0',
         ),
       ),
       'display' => array(
         'language' => array(
           'default' => array(
-            'weight' => '0',
+            'weight' => '2',
             'visible' => FALSE,
           ),
           'full' => array(
@@ -189,19 +151,23 @@ function audit_report_content_type_feature_strongarm() {
             'visible' => FALSE,
           ),
           'teaser' => array(
-            'weight' => '0',
+            'weight' => '11',
             'visible' => FALSE,
           ),
           'search_result' => array(
-            'weight' => '0',
+            'weight' => '16',
             'visible' => FALSE,
           ),
           'short_teaser' => array(
-            'weight' => '0',
+            'weight' => '10',
             'visible' => FALSE,
           ),
           'micro_teaser' => array(
             'weight' => '0',
+            'visible' => FALSE,
+          ),
+          'search_results_2' => array(
+            'weight' => '11',
             'visible' => FALSE,
           ),
         ),
@@ -264,9 +230,7 @@ function audit_report_content_type_feature_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'node_options_audit_report';
   $strongarm->value = array(
-    0 => 'status',
-    1 => 'promote',
-    2 => 'revision',
+    0 => 'revision',
   );
   $export['node_options_audit_report'] = $strongarm;
 
