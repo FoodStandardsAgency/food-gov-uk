@@ -17,6 +17,7 @@ function ckeditor___editor_user_default_permissions() {
       'About Us' => 'About Us',
       'Administrator' => 'Administrator',
       'Business' => 'Business',
+      'Committee' => 'Committee',
       'General' => 'General',
       'Manager' => 'Manager',
       'News' => 'News',
