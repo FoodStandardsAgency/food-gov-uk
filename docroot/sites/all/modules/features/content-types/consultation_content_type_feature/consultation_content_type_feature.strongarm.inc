@@ -14,7 +14,7 @@ function consultation_content_type_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'additional_settings__active_tab_consultation';
-  $strongarm->value = 'edit-menu';
+  $strongarm->value = 'edit-workflow';
   $export['additional_settings__active_tab_consultation'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -44,6 +44,8 @@ function consultation_content_type_feature_strongarm() {
   $strongarm->name = 'apachesolr_view_modes_consultation';
   $strongarm->value = array(
     'search_result' => 'search_result',
+    'teaser' => 'teaser',
+    'search_results_2' => 'search_results_2',
   );
   $export['apachesolr_view_modes_consultation'] = $strongarm;
 
@@ -154,42 +156,48 @@ function consultation_content_type_feature_strongarm() {
         'custom_settings' => TRUE,
       ),
       'search_results_2' => array(
-        'custom_settings' => FALSE,
+        'custom_settings' => TRUE,
+      ),
+      'entityreference_view_widget' => array(
+        'custom_settings' => TRUE,
       ),
     ),
     'extra_fields' => array(
       'form' => array(
         'metatags' => array(
-          'weight' => '40',
+          'weight' => '10',
         ),
         'title' => array(
-          'weight' => '-5',
+          'weight' => '0',
         ),
         'path' => array(
-          'weight' => '30',
+          'weight' => '7',
         ),
         'redirect' => array(
-          'weight' => '30',
+          'weight' => '8',
         ),
         'xmlsitemap' => array(
-          'weight' => '30',
+          'weight' => '6',
         ),
         'language' => array(
           'weight' => '0',
+        ),
+        'rabbit_hole' => array(
+          'weight' => '9',
         ),
       ),
       'display' => array(
         'language' => array(
           'default' => array(
-            'weight' => '0',
+            'weight' => '1',
             'visible' => FALSE,
           ),
           'teaser' => array(
-            'weight' => '0',
+            'weight' => '11',
             'visible' => FALSE,
           ),
           'search_result' => array(
-            'weight' => '0',
+            'weight' => '6',
             'visible' => FALSE,
           ),
           'short_teaser' => array(
@@ -197,11 +205,15 @@ function consultation_content_type_feature_strongarm() {
             'visible' => FALSE,
           ),
           'full' => array(
-            'weight' => '12',
+            'weight' => '13',
             'visible' => FALSE,
           ),
           'micro_teaser' => array(
             'weight' => '0',
+            'visible' => FALSE,
+          ),
+          'search_results_2' => array(
+            'weight' => '6',
             'visible' => FALSE,
           ),
         ),
@@ -235,7 +247,9 @@ function consultation_content_type_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'menu_options_consultation';
-  $strongarm->value = array();
+  $strongarm->value = array(
+    0 => 'main-menu',
+  );
   $export['menu_options_consultation'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -257,9 +271,7 @@ function consultation_content_type_feature_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'node_options_consultation';
   $strongarm->value = array(
-    0 => 'status',
-    1 => 'promote',
-    2 => 'revision',
+    0 => 'revision',
   );
   $export['node_options_consultation'] = $strongarm;
 

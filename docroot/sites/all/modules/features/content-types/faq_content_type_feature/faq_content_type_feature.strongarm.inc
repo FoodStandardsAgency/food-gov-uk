@@ -49,32 +49,41 @@ function faq_content_type_feature_strongarm() {
       'search_results_2' => array(
         'custom_settings' => FALSE,
       ),
+      'entityreference_view_widget' => array(
+        'custom_settings' => TRUE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
         'metatags' => array(
-          'weight' => '40',
+          'weight' => '9',
         ),
         'title' => array(
-          'weight' => '-5',
+          'weight' => '0',
         ),
         'path' => array(
-          'weight' => '30',
+          'weight' => '7',
         ),
         'redirect' => array(
-          'weight' => '30',
+          'weight' => '8',
         ),
         'xmlsitemap' => array(
-          'weight' => '30',
+          'weight' => '6',
         ),
         'language' => array(
+          'weight' => '0',
+        ),
+        'rabbit_hole' => array(
+          'weight' => '10',
+        ),
+        'workbench_access' => array(
           'weight' => '0',
         ),
       ),
       'display' => array(
         'language' => array(
           'default' => array(
-            'weight' => '0',
+            'weight' => '3',
             'visible' => FALSE,
           ),
           'teaser' => array(
@@ -94,7 +103,7 @@ function faq_content_type_feature_strongarm() {
             'visible' => FALSE,
           ),
           'full' => array(
-            'weight' => '0',
+            'weight' => '10',
             'visible' => FALSE,
           ),
         ),
@@ -114,7 +123,9 @@ function faq_content_type_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'menu_options_faq';
-  $strongarm->value = array();
+  $strongarm->value = array(
+    0 => 'main-menu',
+  );
   $export['menu_options_faq'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -129,8 +140,7 @@ function faq_content_type_feature_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'node_options_faq';
   $strongarm->value = array(
-    0 => 'status',
-    1 => 'revision',
+    0 => 'revision',
   );
   $export['node_options_faq'] = $strongarm;
 
