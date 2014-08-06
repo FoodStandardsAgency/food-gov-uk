@@ -140,7 +140,7 @@ function menus_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'superfish_maxwidth_1';
-  $strongarm->value = '20';
+  $strongarm->value = '25';
   $export['superfish_maxwidth_1'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -175,7 +175,7 @@ function menus_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'superfish_minwidth_1';
-  $strongarm->value = '20';
+  $strongarm->value = '25';
   $export['superfish_minwidth_1'] = $strongarm;
 
   $strongarm = new stdClass();
