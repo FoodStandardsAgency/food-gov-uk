@@ -149,6 +149,10 @@ ENDSQL;
       ->arguments(array('source_type' => 'tid'))
       ->callbacks(array($this, 'auditNationConvert'));
 
+    // Migrate nation according to primary attach point
+    $this->addFieldMapping('field_year', 'PATH')
+      ->callbacks(array($this, 'auditYearConvert'));
+
     // migrate redirects
     $this->addFieldMapping('migrate_redirects', 'PATH')
       ->defaultValue('MigrateRedirectEntity');
@@ -250,6 +254,23 @@ ENDSQL;
     }
 
     return $nation_tids;
+  }
+
+  /**
+   * Extract the year based on the path.
+   *
+   * @param $value
+   */
+  protected function auditYearConvert($path) {
+    $path = explode('/', $path);
+    if (isset($path[5])) {
+      $year =  filter_var($path[5], FILTER_SANITIZE_NUMBER_INT);
+    } else {
+      // set default year to now so that mistakes are obvious
+      $year = 2014;
+    }
+    $year = "1 Jan ".$year;
+    return $year;
   }
 
 }
