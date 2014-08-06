@@ -19,7 +19,7 @@ function research_project_content_type_feature_ctools_plugin_api($module = NULL,
 function research_project_content_type_feature_node_info() {
   $items = array(
     'research_project' => array(
-      'name' => t('Research project'),
+      'name' => t('xx'),
       'base' => 'node_content',
       'description' => t('Research project'),
       'has_title' => '1',
