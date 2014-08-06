@@ -51,7 +51,7 @@ class FSATreebranchRelatedContentCollectionMigration extends FSAMigration {
     if (variable_get('fsa_migrate_production',false)) {
       // Configure the source of the migration.
       $this->source = new MigrateSourceList(
-        new FSAMigrateListOracleTreebranchRelatedFromCSV('data/csv/treebranch-alterian-id-list.csv'),
+        new FSAMigrateListOracleTreebranchRelatedFromCSV('data/csv/treebranch.csv'),
         new FSAMigrateItemTreebranchRelatedOracleObject()
       );
     }

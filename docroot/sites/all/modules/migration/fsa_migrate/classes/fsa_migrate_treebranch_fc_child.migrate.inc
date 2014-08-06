@@ -68,11 +68,18 @@ ENDSQL;
     );
 
     // Configure the source of the migration.
-    $this->source = new MigrateSourceList(
-      new FSAMigrateListOracleTreebranchChildFromCSV('data/csv/treebranch-alterian-id-list.csv'),
-      new FSAMigrateItemTreebranchChildOracleObject()
-    );
-
+    if (variable_get('fsa_migrate_production', false)) {
+      $this->source = new MigrateSourceList(
+        new FSAMigrateListOracleTreebranchChildFromCSV('data/csv/treebranch.csv'),
+        new FSAMigrateItemTreebranchChildOracleObject()
+      );
+    }
+    else {
+      $this->source = new MigrateSourceList(
+        new FSAMigrateListOracleTreebranchChildFromCSV('data/csv/treebranch-alterian-id-list.csv'),
+        new FSAMigrateItemTreebranchChildOracleObject()
+      );
+    }
     // Destination detail.
     $this->destination = new MigrateDestinationFieldCollection(
       'field_fc_page_section',
