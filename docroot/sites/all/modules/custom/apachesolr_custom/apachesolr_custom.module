@@ -60,8 +60,9 @@ function apachesolr_custom_apachesolr_index_document_build_node(ApacheSolrDocume
   switch ($entity->type) {
     case 'audit_report':
       // Last updated year. (use the year field)
-      apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year');
-      apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year_sort', 10);
+     // apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year');
+     // apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year_sort', 10);
+      apachesolr_custom_year_field($document, $entity, 'field_updated', 'is_last_updated_year_sort', 10);
 
       if (empty($entity->field_audit_action_plan)) {
         $document->addField('ss_has_audit_action_plan', t('No action plan'));
@@ -73,8 +74,9 @@ function apachesolr_custom_apachesolr_index_document_build_node(ApacheSolrDocume
 
     case 'audit_news':
       // we want audit news to come before audit reports
-      apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year');
-      apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year_sort',10.001);
+      //apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year');
+      //apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year_sort',10.001);
+      apachesolr_custom_year_field($document, $entity, 'field_updated', 'is_last_updated_year_sort',10.001);
 
       if (!empty($entity->field_heading_audit_news[LANGUAGE_NONE][0]['value'])) {
         $document->addField('ss_heading_audit_news', $entity->field_heading_audit_news[LANGUAGE_NONE][0]['value']);
