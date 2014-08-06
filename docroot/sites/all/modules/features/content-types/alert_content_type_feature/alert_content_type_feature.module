@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Alert Content Type feature.
+ */
+
+include_once 'alert_content_type_feature.features.inc';
