@@ -16,7 +16,8 @@
 		border: 0;
 	}
 	/* title */
-	.views-field-title {
+	.views-field-title,
+	.views-field-field-title-short {
 		font-size: 1.3em;
 		line-height: 1.2em;
 		margin-bottom: 0.5em;
@@ -231,7 +232,8 @@
 		.view-content {
 			margin: 0;
 		}
-		.views-field-title a {
+		.views-field-title a,
+		.views-field-field-title-short a {
 			color: #000;
 		}
 		.views-row {
