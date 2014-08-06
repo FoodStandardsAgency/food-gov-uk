@@ -21,6 +21,12 @@ function taxonomy_feature_metatag_export_default() {
       'description' => array(
         'value' => '[term:description]',
       ),
+      'dcterms.description' => array(
+        'value' => '[term:description]',
+      ),
+      'dcterms.title' => array(
+        'value' => '[term:name]',
+      ),
     ),
   );
 
