@@ -15,23 +15,63 @@ function general_block_content_type_feature_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'field_bundle_settings_node__general_block';
   $strongarm->value = array(
-    'view_modes' => array(),
+    'view_modes' => array(
+      'teaser' => array(
+        'custom_settings' => TRUE,
+      ),
+      'entityreference_view_widget' => array(
+        'custom_settings' => TRUE,
+      ),
+      'full' => array(
+        'custom_settings' => FALSE,
+      ),
+      'rss' => array(
+        'custom_settings' => FALSE,
+      ),
+      'search_index' => array(
+        'custom_settings' => FALSE,
+      ),
+      'search_result' => array(
+        'custom_settings' => FALSE,
+      ),
+      'diff_standard' => array(
+        'custom_settings' => FALSE,
+      ),
+      'token' => array(
+        'custom_settings' => FALSE,
+      ),
+      'micro_teaser' => array(
+        'custom_settings' => FALSE,
+      ),
+      'search_results_2' => array(
+        'custom_settings' => FALSE,
+      ),
+      'short_teaser' => array(
+        'custom_settings' => FALSE,
+      ),
+      'revision' => array(
+        'custom_settings' => FALSE,
+      ),
+    ),
     'extra_fields' => array(
       'form' => array(
         'metatags' => array(
-          'weight' => '5',
+          'weight' => '7',
         ),
         'title' => array(
-          'weight' => '0',
+          'weight' => '1',
         ),
         'path' => array(
-          'weight' => '4',
+          'weight' => '6',
         ),
         'redirect' => array(
-          'weight' => '3',
+          'weight' => '5',
         ),
         'xmlsitemap' => array(
-          'weight' => '2',
+          'weight' => '4',
+        ),
+        'rabbit_hole' => array(
+          'weight' => '0',
         ),
       ),
       'display' => array(),
