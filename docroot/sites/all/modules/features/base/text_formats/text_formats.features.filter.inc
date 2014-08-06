@@ -44,6 +44,11 @@ function text_formats_filter_default_formats() {
         'status' => 1,
         'settings' => array(),
       ),
+      'filter_autop' => array(
+        'weight' => 0,
+        'status' => 1,
+        'settings' => array(),
+      ),
     ),
   );
 
@@ -65,6 +70,11 @@ function text_formats_filter_default_formats() {
         ),
       ),
       'ckeditor_link_filter' => array(
+        'weight' => 0,
+        'status' => 1,
+        'settings' => array(),
+      ),
+      'filter_autop' => array(
         'weight' => 0,
         'status' => 1,
         'settings' => array(),
@@ -125,7 +135,7 @@ function text_formats_filter_default_formats() {
   $formats['preserve'] = array(
     'format' => 'preserve',
     'name' => 'Preserve',
-    'cache' => 0,
+    'cache' => 1,
     'status' => 1,
     'weight' => -7,
     'filters' => array(
