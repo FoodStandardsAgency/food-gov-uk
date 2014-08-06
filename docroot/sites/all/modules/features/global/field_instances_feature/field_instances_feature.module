@@ -1,5 +1,7 @@
 <?php
 /**
  * @file
- * Drupal needs this blank file.
+ * Code for the Field Instances feature.
  */
+
+include_once 'field_instances_feature.features.inc';
