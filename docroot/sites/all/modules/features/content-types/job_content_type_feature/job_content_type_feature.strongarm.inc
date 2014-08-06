@@ -14,7 +14,7 @@ function job_content_type_feature_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'additional_settings__active_tab_job';
-  $strongarm->value = 'edit-menu';
+  $strongarm->value = 'edit-workflow';
   $export['additional_settings__active_tab_job'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -46,55 +46,6 @@ function job_content_type_feature_strongarm() {
     'search_result' => 'search_result',
   );
   $export['apachesolr_view_modes_job'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_anonymous_job';
-  $strongarm->value = 0;
-  $export['comment_anonymous_job'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_default_mode_job';
-  $strongarm->value = 1;
-  $export['comment_default_mode_job'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_default_per_page_job';
-  $strongarm->value = '50';
-  $export['comment_default_per_page_job'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_form_location_job';
-  $strongarm->value = 1;
-  $export['comment_form_location_job'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_job';
-  $strongarm->value = '1';
-  $export['comment_job'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_preview_job';
-  $strongarm->value = '1';
-  $export['comment_preview_job'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_subject_field_job';
-  $strongarm->value = 1;
-  $export['comment_subject_field_job'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -156,25 +107,34 @@ function job_content_type_feature_strongarm() {
       'search_results_2' => array(
         'custom_settings' => FALSE,
       ),
+      'entityreference_view_widget' => array(
+        'custom_settings' => TRUE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
         'metatags' => array(
-          'weight' => '6',
+          'weight' => '9',
         ),
         'title' => array(
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '5',
+          'weight' => '8',
         ),
         'redirect' => array(
-          'weight' => '4',
+          'weight' => '7',
         ),
         'xmlsitemap' => array(
-          'weight' => '3',
+          'weight' => '6',
         ),
         'language' => array(
+          'weight' => '0',
+        ),
+        'rabbit_hole' => array(
+          'weight' => '10',
+        ),
+        'workbench_access' => array(
           'weight' => '0',
         ),
       ),
@@ -259,9 +219,7 @@ function job_content_type_feature_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'node_options_job';
   $strongarm->value = array(
-    0 => 'status',
-    1 => 'promote',
-    2 => 'revision',
+    0 => 'revision',
   );
   $export['node_options_job'] = $strongarm;
 
