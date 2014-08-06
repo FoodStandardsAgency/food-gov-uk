@@ -92,6 +92,11 @@ function fsa_migrate_migrate_api() {
         'class_name' => 'FSANewsDocumentCollectionMigration',
         'group_name' => 'fsa_fc',
       ),
+      'FSAConsultationpageCollection' => array(
+        'class_name' => 'FSAConsultationpageCollectionMigration',
+        'group_name' => 'fsa_fc',
+      ),
+
       'FSAAlertDocumentCollection' => array(
         'class_name' => 'FSAAlertDocumentCollectionMigration',
         'group_name' => 'fsa_fc',
