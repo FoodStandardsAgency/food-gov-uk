@@ -58,7 +58,7 @@ ENDSQL;
     AND OBJTYPE.OBJECTTYPEID = OBJ.OBJECTTYPEID
     AND LINKTYPE.LINKTYPENAME = 'Relation'
     AND LINK.PARENTID IN ( :obj_ids )
-    AND OBJTYPE.NAME IN ('GenericBranch', 'Document', 'BlankPage', 'FAQ','Consultation','FoodHazardWarning','NewsDocument')
+    AND OBJTYPE.NAME NOT IN ('ExternalSite', 'CSV', 'AdobeAcrobatDocument', 'MicrosoftExcelSpreadsheet', 'MicrosoftWordDocument', 'MicrosoftPowerpointDocument')
     GROUP BY LINK.PARENTID
 ENDSQL;
 
