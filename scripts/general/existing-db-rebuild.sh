@@ -17,7 +17,7 @@ cd `drush $DRUSH_DEST dd`
 
 #drush sql-sync -y $DRUSH_SOURCE $DRUSH_DEST; drush rsync -y $DRUSH_SOURCE:%files $DRUSH_DEST:%files
 
-drush cc all
+drush cc all;
 
 # Optional. Enable the FSA migration module.
 drush en fsa_migrate FSA_menu_build -y;
@@ -55,12 +55,13 @@ drush mr --force FSAMediaImages;
 
 # Get all the media assets into the new system
 # - Redirects may also need to be migrated here so that aliases are assigned to media
-drush mi FSAMediaImages --feedback="50 items"
-drush mi FSAMediaDocument --feedback="50 items"
+drush mi FSAMediaImages --feedback="50 items";
+drush mi FSAMediaDocument --feedback="50 items";
 
 # Migrate nodes.
-drush mi --feedback="50 items" FSADocumentpage
-drush mi --feedback="50 items" FSAFAQpage
+drush mi --feedback="50 items" FSAExternalsite;
+drush mi --feedback="50 items" FSADocumentpage;
+drush mi --feedback="50 items" FSAFAQpage;
 drush mi --feedback="50 items" FSAAuditReport;
 drush mi --feedback="50 items" FSAConsultationpage;
 drush mi --feedback="50 items" FSANewsDocument;
@@ -71,13 +72,13 @@ drush mi --feedback="50 items" FSAMultibranchDocument;
 drush mi --force --feedback="50 items" FSADocumentpageCollection;
 drush mi --force --feedback="50 items" FSAFAQpageCollection;
 drush mi --force --feedback="50 items" FSAAuditReportCollection;
-drush mi --force --feedback="50 items" FSANewsDocumentCollection
-drush mi --force --feedback="50 items" FSAAlertDocumentCollection
+drush mi --force --feedback="50 items" FSANewsDocumentCollection;
+drush mi --force --feedback="50 items" FSAAlertDocumentCollection;
 
 # Multibranch
-drush mi --force --feedback="50 items" FSAMultibranchDocument
-drush mi --force --feedback="50 items" FSAMultibranchCollection
-drush mi --force --feedback="50 items" FSAMultibranchCollectionChild
+drush mi --force --feedback="50 items" FSAMultibranchDocument;
+drush mi --force --feedback="50 items" FSAMultibranchCollection;
+drush mi --force --feedback="50 items" FSAMultibranchCollectionChild;
 
 # Treebranch
 drush mi --force --feedback="50 items" FSATreebranchDocument;
@@ -86,14 +87,14 @@ drush mi --force --feedback="50 items" FSATreebranchCollectionChild;
 drush mi --force --feedback="50 items" FSATreebranchRelatedContentCollection;
 
 # Research
-drush mi --force --feedback="50 items" FSAResearchProjectList
-drush mi --force --feedback="50 items" FSAResearchProject
-drush mi --force --feedback="50 items" FSAResearchProgramme
+drush mi --force --feedback="50 items" FSAResearchProjectList;
+drush mi --force --feedback="50 items" FSAResearchProject;
+drush mi --force --feedback="50 items" FSAResearchProgramme;
 
 # Migrate related media
 # - related media appears in it's own field collection
 # - the related media field collection has no title
-drush mi --force --feedback="50 items" FSARelatedContentCollection
+drush mi --force --feedback="50 items" FSARelatedContentCollection;
 
 # Migrate more in this section
 # - Child pages are added as their own field collection
