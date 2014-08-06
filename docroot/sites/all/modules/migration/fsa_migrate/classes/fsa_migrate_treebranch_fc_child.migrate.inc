@@ -119,10 +119,11 @@ ENDSQL;
 
     // Related pages.
     $this->addFieldMapping('field_child_pages_heading')
+      ->separator(',')
       ->defaultValue('Related pages');
     $this->addFieldMapping('field_child_page', 'DocumentIds')
       ->separator(',')
-      ->sourceMigration('FSADocumentpage');
+      ->sourceMigration(array('FSADocumentpage', 'FSANewsDocument','FSAAuditReport','FSAConsultationpage','FSAAlertDocument','FSAMultibranchDocument','FSAResearchProjectList','FSAResearchProgramme','FSAResearchProject','FSATreebranchDocument'));
   }
 
   /**

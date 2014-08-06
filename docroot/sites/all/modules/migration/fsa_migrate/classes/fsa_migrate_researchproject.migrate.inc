@@ -153,6 +153,11 @@ ENDSQL;
     $this->addFieldMapping('field_project_list', 'PROJECTLIST')
       ->sourceMigration('FSAResearchProject');
 
+
+    // External sites.
+    $this->addFieldMapping('field_links_external', 'externalSites')
+      ->separator(',')
+      ->sourceMigration('FSAExternalsite');
   }
 
   /**
@@ -186,5 +191,22 @@ ENDSQL;
     if (isset($sqlResultProjectList[0]['OBJECTID'])) {
       $row->PROJECTLIST = $sqlResultProjectList[0]['OBJECTID'];
     }
+
+    // Manage the related external sites relation.
+    $queryExternalSite = str_replace(':objid', "'" . $row->OBJECTID . "'", $this->queryExternalSite);
+    // Query the oracle DB to look for a feature image from the object id.
+    $externalSitesResults = $this->oracleQueryAll(
+      $queryExternalSite,
+      array(),
+      $connectionOracle
+    );
+    if (!is_null($externalSitesResults)) {
+      $row->externalSites = implode(',', $externalSitesResults['EXTERNALSITEIDS']);
+    }
+    else {
+      $row->externalSites = NULL;
+    }
+
+
   }
 }

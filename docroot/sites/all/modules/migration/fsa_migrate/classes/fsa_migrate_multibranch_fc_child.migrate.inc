@@ -68,7 +68,7 @@ class FSAMultibranchCollectionChildMigration extends FSAMigration {
     // Fields mapping.
     $this->addFieldMapping('field_child_page', 'SortedObjectIds')
       ->separator(',')
-      ->sourceMigration('FSADocumentpage','FSAFAQpage','FSAMultibranchDocument','FSAResearchProjectList','FSAResearchProgramme','FSAResearchProject','FSATreebranchDocument');
+      ->sourceMigration(array('FSADocumentpage','FSAFAQpage','FSAMultibranchDocument','FSAResearchProjectList','FSAResearchProgramme','FSAResearchProject','FSATreebranchDocument'));
   }
 
   /**

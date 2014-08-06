@@ -69,7 +69,7 @@ ENDSQL;
     $this->description = t('Migrates the related content into a field collection from Oracle to Drupal.');
 
     // @TODO add dependencies to other content types.
-    $this->dependencies = array('FSADocumentpage', 'FSAMediaDocument', 'FSANewsDocument','FSAAuditReport','FSAConsultationpage','FSAAlertDocument');
+    $this->dependencies = array('FSADocumentpage', 'FSAMediaDocument', 'FSANewsDocument','FSAAuditReport','FSAConsultationpage','FSAAlertDocument','FSAResearchProject');
 
     // Map the source id.
     $this->map = new MigrateSQLMap(
@@ -120,14 +120,13 @@ ENDSQL;
 
     // Migration source dependency.
     $this->addFieldMapping('host_entity_id', 'OBJECTID')
-      ->sourceMigration(array('FSADocumentpage', 'FSAAuditReport'));
+      ->sourceMigration(array('FSADocumentpage', 'FSAAuditReport', 'FSAFAQpage','FSANewsDocument','FSAConsultationpage','FSAAlertDocument','FSAResearchProject'));
 
     // Related content.
     // Related media.
     $this->addFieldMapping('field_fc_related_items_heading')
       ->defaultValue('Related content');
     $this->addFieldMapping('field_fc_related_items', 'sourceRelatedItemsPath')
-      ->separator(',')
       ->sourceMigration('FSAMediaDocument');
     $this->addFieldMapping('field_fc_related_items:file_class')
       ->defaultValue('MigrateFileFid');
@@ -136,7 +135,7 @@ ENDSQL;
     $this->addFieldMapping('field_fc_files_csv_heading')
       ->defaultValue('Related CSV');
     $this->addFieldMapping('field_fc_files_csv', 'sourceRelatedCSVPath')
-      ->separator(',')
+
       ->sourceMigration('FSAMediaDocument');
     $this->addFieldMapping('field_fc_files_csv:file_class')
       ->defaultValue('MigrateFileFid');
@@ -145,8 +144,7 @@ ENDSQL;
     $this->addFieldMapping('field_child_pages_heading')
       ->defaultValue('Related pages');
     $this->addFieldMapping('field_child_page', 'sourceRelatedPagesPath')
-      ->separator(',')
-      ->sourceMigration('FSADocumentpage');
+      ->sourceMigration(array('FSADocumentpage', 'FSANewsDocument','FSAAuditReport','FSAConsultationpage','FSAAlertDocument','FSAMultibranchDocument','FSAResearchProjectList','FSAResearchProgramme','FSAResearchProject','FSATreebranchDocument'));
   }
 
   /**

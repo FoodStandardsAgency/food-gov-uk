@@ -71,7 +71,7 @@ class FSATreebranchRelatedContentCollectionMigration extends FSAMigration {
 
     // Migration source dependency.
     $this->addFieldMapping('host_entity_id', 'OBJECTID')
-      ->sourceMigration(array('FSADocumentpage', 'FSAAuditReport', 'FSATreebranchDocument'));
+      ->sourceMigration(array('FSADocumentpage', 'FSANewsDocument','FSAAuditReport','FSAAlertDocument','FSAResearchProgramme','FSAResearchProject'));
 
     // Related content.
     // Related media.
@@ -96,8 +96,7 @@ class FSATreebranchRelatedContentCollectionMigration extends FSAMigration {
     $this->addFieldMapping('field_child_pages_heading')
       ->defaultValue('Related pages');
     $this->addFieldMapping('field_child_page', 'sourceRelatedPagesPath')
-      ->separator(',')
-      ->sourceMigration('FSADocumentpage');
+      ->sourceMigration(array('FSADocumentpage', 'FSANewsDocument','FSAAuditReport','FSAConsultationpage','FSAAlertDocument','FSAMultibranchDocument','FSAResearchProjectList','FSAResearchProgramme','FSAResearchProject','FSATreebranchDocument'));
   }
 
   /**

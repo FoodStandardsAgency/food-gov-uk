@@ -132,7 +132,7 @@ class FSATreebranchCollectionMigration extends FSAMigration {
       ->defaultValue('Related pages');
     $this->addFieldMapping('field_child_page', 'DOCUMENTIDS')
       ->separator(',')
-      ->sourceMigration('FSADocumentpage');
+      ->sourceMigration(array('FSADocumentpage', 'FSANewsDocument','FSAAuditReport','FSAConsultationpage','FSAAlertDocument','FSAMultibranchDocument','FSAResearchProjectList','FSAResearchProgramme','FSAResearchProject','FSATreebranchDocument'));
   }
 
   /**

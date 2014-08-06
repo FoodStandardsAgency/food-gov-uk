@@ -43,7 +43,9 @@ class FSAExternalsiteMigration extends FSAMigration {
       'NAME' => t('Node title'),
       'STATUSID' => t('Status of publication'),
       'otherurl' => t('External URL'),
+      'fsaext' => t('Url Classification'),
     );
+
 
     // Configure the source of the migration.
     if (variable_get('fsa_migrate_production')) {
@@ -81,6 +83,9 @@ class FSAExternalsiteMigration extends FSAMigration {
 
     $this->addFieldMapping('field_url', 'otherurl');
     $this->addFieldMapping('field_url:title', 'NAME');
+
+    $this->addFieldMapping('field_link_category', 'fsaext')
+      ->separator('__');
   }
 
   /**
@@ -99,7 +104,7 @@ class FSAExternalsiteMigration extends FSAMigration {
         ),
         $connectionOracle,
         // You can add extra fields to extract from the field table here.
-        array('title', 'pubdate', 'otherurl')
+        array('title', 'pubdate', 'otherurl','fsaext')
       );
 
       foreach ($fields_res_array as $fieldVariable => $fieldValue) {
