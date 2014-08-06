@@ -23,7 +23,7 @@ function interactive_block_content_type_feature_node_info() {
       'base' => 'node_content',
       'description' => t('Interactive block'),
       'has_title' => '1',
-      'title_label' => t('Title'),
+      'title_label' => t('Admin title'),
       'help' => '',
     ),
   );
