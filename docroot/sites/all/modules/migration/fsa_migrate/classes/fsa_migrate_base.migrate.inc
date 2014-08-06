@@ -507,13 +507,16 @@ ENDSQL;
   }
 
   /**
-   * Formats a given value to ASCII//TRANSLIT.
+   * Encodes special characters in a plain-text.
    *
    * @param $value
    * @return string
    */
   public function pastedApostropheFormatter($value) {
-    $formattedValue = iconv('UTF-8', 'ASCII//TRANSLIT', $value);
+    // Previous use to formats a given value to ASCII//TRANSLIT.
+    // $formattedValue = iconv('UTF-8', 'ASCII//TRANSLIT', $value);
+    $formattedValue = check_plain($value);
+
     return $formattedValue;
   }
 
