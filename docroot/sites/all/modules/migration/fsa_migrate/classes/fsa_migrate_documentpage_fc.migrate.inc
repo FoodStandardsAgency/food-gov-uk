@@ -44,6 +44,7 @@ class FSADocumentpageCollectionMigration extends FSAMigration {
         ),
       ),
       MigrateDestinationFieldCollection::getKeySchema()
+
     );
 
     // Source fields available.
@@ -80,7 +81,7 @@ class FSADocumentpageCollectionMigration extends FSAMigration {
       'field_fc_page_section',
       array('host_entity_type' => 'node')
     );
-
+    $this->highwaterField = array('name' => 'object_source_id_orig');
     // Migration source dependency.
     $this->addFieldMapping('host_entity_id', 'OBJECTID')
       ->sourceMigration('FSADocumentpage');
@@ -114,6 +115,7 @@ class FSADocumentpageCollectionMigration extends FSAMigration {
    */
   public function prepareRow($row) {
     // Assigning sources keys.
+    $row->object_source_id_orig = $row->object_source_id;
     $row->object_source_id = $row->OBJECTID;
     $row->field_source_id1 = $row->FIELDID1;
     $row->field_source_id2 = $row->FIELDID2;

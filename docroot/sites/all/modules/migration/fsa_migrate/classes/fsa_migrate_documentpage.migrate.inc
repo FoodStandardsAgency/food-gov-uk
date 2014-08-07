@@ -31,7 +31,9 @@ class FSADocumentpageMigration extends FSAMigration {
           'description' => 'Object ID',
         ),
       ),
-      MigrateDestinationNode::getKeySchema()
+      MigrateDestinationNode::getKeySchema(),
+      'default',
+      array('track_last_imported' => TRUE)
     );
 
     // Oracle fields from sql request or generated.
@@ -61,6 +63,10 @@ class FSADocumentpageMigration extends FSAMigration {
 
     // Destination detail.
     $this->destination = new MigrateDestinationNode('document_page');
+    $this->highwaterField = array(
+      'name' => 'OBJECTID',
+      'type' => 'int'
+    );
 
     // General fields mapping.
     $this->addFieldMapping('title', 'title');
@@ -73,6 +79,7 @@ class FSADocumentpageMigration extends FSAMigration {
       ->callbacks(array($this, 'convertLanguage'));
     //main create date
     $this->addFieldMapping('created', 'pubdate');
+
 
     // Updated date field.
     $this->addFieldMapping('field_updated', 'pubdate');
