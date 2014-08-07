@@ -77,7 +77,6 @@ drush mi --force --feedback="50 items" FSAAlertDocumentCollection;
 drush mi --force --feedback="50 items" FSAConsultationpageCollection;
 
 # Multibranch
-drush mi --force --feedback="50 items" FSAMultibranchDocument;
 drush mi --force --feedback="50 items" FSAMultibranchCollection;
 drush mi --force --feedback="50 items" FSAMultibranchCollectionChild;
 
@@ -100,7 +99,7 @@ drush mi --force --feedback="50 items" FSARelatedContentCollection;
 # Migrate more in this section
 # - Child pages are added as their own field collection
 # - section title is "More in this section"
-drush mi --force --feedback="50 items" FSAChildpageCollection
+drush mi --force --feedback="50 items" FSAChildpageCollection;
 
 
 # do menus

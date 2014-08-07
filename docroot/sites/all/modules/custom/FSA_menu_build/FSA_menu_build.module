@@ -148,7 +148,7 @@ function FSA_menu_build_process_list($url_list){
 function FSA_menu_build_filter($url_list, $filter) {
   $filter_list = array();
   foreach ($url_list as $url) {
-    if (substr( $url,0, strlen($filter)) == $filter) {
+    if (substr( trim($url,'/'),0, strlen($filter)) == $filter) {
       $filter_list[]=$url;
     }
   }
