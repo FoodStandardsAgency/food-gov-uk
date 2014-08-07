@@ -34,6 +34,10 @@ files[] = classes/fsa_migrate_treebranch_related_content_fc.migrate.inc
 files[] = classes/fsa_migrate_researchprojectlist.migrate.inc
 files[] = classes/fsa_migrate_researchproject.migrate.inc
 files[] = classes/fsa_migrate_researchprogram.migrate.inc
+
+files[] = classes/fsa_migrate_committee_childpage_fc.migrate.inc
+files[] = classes/fsa_migrate_committeepage.migrate.inc
+files[] = classes/fsa_migrate_committeepage_fc.migrate.inc
 ; Sources.
 files[] = sources/fsa_migratelist_base.inc
 files[] = sources/fsa_migratelist_oracle_text_collection.inc
