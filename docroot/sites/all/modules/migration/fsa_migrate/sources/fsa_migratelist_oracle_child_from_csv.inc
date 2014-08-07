@@ -56,7 +56,7 @@ ENDSQL;
       WHERE LINK.CHILDID = OBJ.OBJECTID
       AND LINK.LINKTYPEID = LINKTYPE.LINKTYPEID
       AND OBJTYPE.OBJECTTYPEID = OBJ.OBJECTTYPEID
-      AND LINKTYPE.LINKTYPENAME LIKE 'Primary link'
+      AND ( LINKTYPE.LINKTYPENAME LIKE 'Primary link' OR LINKTYPE.LINKTYPENAME LIKE 'Secondary link' )
       AND LINK.PARENTID IN ( :obj_ids )
 ENDSQL;
 
@@ -111,6 +111,7 @@ ENDSQL;
     $idList = array();
     // Loop on chuncked array.
 
+    $listItemNumber = 0;
     foreach ($chunkedObjectList as $smallObjectList) {
       $replacedQuery = str_replace(':obj_ids', implode(',', $smallObjectList), $this->query);
 
@@ -142,9 +143,9 @@ ENDSQL;
           $idList[$itemNumber]['OBJECTIDS'] = $objectids;
           */
 
-          $idList[$itemNumber]['PARENTID'] = $parentObjectid;
-          $idList[$itemNumber]['OBJECTIDS'] = $queryResult['OBJECTIDS'][$itemNumber];
-
+          $idList[$listItemNumber]['PARENTID'] = $parentObjectid;
+          $idList[$listItemNumber]['OBJECTIDS'] = $queryResult['OBJECTIDS'][$itemNumber];
+          $listItemNumber++;
         }
       }
     }
