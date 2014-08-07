@@ -515,7 +515,7 @@ ENDSQL;
   public function pastedApostropheFormatter($value) {
     // Previous use to formats a given value to ASCII//TRANSLIT.
     // $formattedValue = iconv('UTF-8', 'ASCII//TRANSLIT', $value);
-    $formattedValue = check_plain($value);
+    $formattedValue = htmlspecialchars($value, ENT_COMPAT, 'UTF-8');
 
     return $formattedValue;
   }
