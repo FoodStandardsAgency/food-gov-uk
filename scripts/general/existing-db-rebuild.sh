@@ -67,6 +67,7 @@ drush mi --feedback="50 items" FSAConsultationpage;
 drush mi --feedback="50 items" FSANewsDocument;
 drush mi --feedback="50 items" FSAAlertDocument;
 drush mi --feedback="50 items" FSAMultibranchDocument;
+drush mi --force --feedback="50 items" FSATreebranchDocument;
 
 # Migrate fc.
 drush mi --force --feedback="50 items" FSADocumentpageCollection;
@@ -76,20 +77,20 @@ drush mi --force --feedback="50 items" FSANewsDocumentCollection;
 drush mi --force --feedback="50 items" FSAAlertDocumentCollection;
 drush mi --force --feedback="50 items" FSAConsultationpageCollection;
 
+# Research
+drush mi --force --feedback="50 items" FSAResearchProjectList;
+drush mi --force --feedback="50 items" FSAResearchProject;
+drush mi --force --feedback="50 items" FSAResearchProgramme;
+
 # Multibranch
 drush mi --force --feedback="50 items" FSAMultibranchCollection;
 drush mi --force --feedback="50 items" FSAMultibranchCollectionChild;
 
 # Treebranch
-drush mi --force --feedback="50 items" FSATreebranchDocument;
 drush mi --force --feedback="50 items" FSATreebranchCollection;
 drush mi --force --feedback="50 items" FSATreebranchCollectionChild;
 drush mi --force --feedback="50 items" FSATreebranchRelatedContentCollection;
 
-# Research
-drush mi --force --feedback="50 items" FSAResearchProjectList;
-drush mi --force --feedback="50 items" FSAResearchProject;
-drush mi --force --feedback="50 items" FSAResearchProgramme;
 
 # Migrate related media
 # - related media appears in it's own field collection

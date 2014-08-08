@@ -137,19 +137,18 @@ function fsa_migrate_migrate_api() {
         'class_name' => 'FSAResearchProgrammeMigration',
         'group_name' => 'fsa_types',
       ),
-      'FSACommitteeDocument' => array(
+      'FSACommitteepage' => array(
         'class_name' => 'FSACommitteepageMigration',
         'group_name' => 'fsa_types',
       ),
-      'FSACommitteeDocumentCollection' => array(
+      'FSACommitteeCollection' => array(
         'class_name' => 'FSACommitteeCollectionMigration',
         'group_name' => 'fsa_fc',
       ),
-      'FSACommitteeChild' => array(
+      'FSACommitteeChildpageCollection' => array(
         'class_name' => 'FSACommitteeChildpageCollectionMigration',
         'group_name' => 'fsa_child',
       ),
-
     )
   );
 

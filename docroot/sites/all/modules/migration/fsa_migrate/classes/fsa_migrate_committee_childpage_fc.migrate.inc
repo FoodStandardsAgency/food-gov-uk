@@ -66,7 +66,7 @@ class FSACommitteeChildpageCollectionMigration extends FSAMigration {
 
     // Migration source dependency.
     $this->addFieldMapping('host_entity_id', 'PARENTID')
-      ->sourceMigration('FSADocumentpage');
+      ->sourceMigration('FSACommitteepage');
 
     $this->addFieldMapping('field_fc_section_heading')
       ->defaultValue(t('More in this section'));
