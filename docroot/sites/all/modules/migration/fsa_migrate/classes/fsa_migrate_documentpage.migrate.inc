@@ -179,7 +179,10 @@ class FSADocumentpageMigration extends FSAMigration {
         $row->{$fieldVariable} = $fieldValue;
       }
     }
-
+   // sometimes there is no title
+    if (!isset($row['title'])) {
+      $row['NAME'] = $row['title'];
+    }
     // Manage the feature image query.
     $queryImageFeature = str_replace(':objid', "'" . $row->OBJECTID . "'", $this->queryFeatureImage);
     // Query the oracle DB to look for a feature image from the object id.

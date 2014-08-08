@@ -96,7 +96,7 @@ ENDSQL;
     if (variable_get('fsa_migrate_production',false)) {
       $this->source = new MigrateSourceList(
         new FSAMigrateListOracleGenericCollection(
-          array('data/csv/document.csv','data/csv/faq.csv', 'data/csv/audits.csv','data/csv/consultations.csv', 'data/csv/multibranch-alterian-id-list.csv','data/csv/news.csv'),
+          array('data/csv/document.csv','data/csv/faq.csv', 'data/csv/audits.csv','data/csv/consultations.csv', 'data/csv/multibranch-alterian-id-list.csv','data/csv/news.csv', 'data/csv/foodhazard.csv'),
           array( $this->query_related_items, $this->query_related_CSV, $this->query_related_pages )
         ),
         new FSAMigrateItemOracleGenericCollection()

@@ -79,7 +79,9 @@ function FSA_menu_build_get_url_list($csv = false){
       'multibranch-alterian-id-list.csv',
       'researchproject.csv',
       'researchprojectlist.csv',
-      'researchprogramme.csv'
+      'researchprogramme.csv',
+      'committees.csv',
+
     );
     foreach ($files as $file) {
       $url_list = array_merge($url_list, FSA_menu_build_get_list_from_CSV($basepath .'/'. $file));
