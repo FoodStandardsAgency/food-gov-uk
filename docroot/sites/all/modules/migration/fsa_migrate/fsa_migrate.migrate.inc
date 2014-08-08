@@ -56,6 +56,10 @@ function fsa_migrate_migrate_api() {
         'class_name' => 'FSAContactMigration',
         'group_name' => 'fsa_types',
       ),
+      'FSAMeeting' => array(
+        'class_name' => 'FSAMeetingMigration',
+        'group_name' => 'fsa_types',
+      ),
       'FSAExternalsite' => array(
         'class_name' => 'FSAExternalsiteMigration',
         'group_name' => 'fsa_types',
