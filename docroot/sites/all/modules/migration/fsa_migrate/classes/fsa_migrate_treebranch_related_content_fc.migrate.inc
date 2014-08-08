@@ -24,7 +24,7 @@ class FSATreebranchRelatedContentCollectionMigration extends FSAMigration {
     $this->description = t('Migrates the related content into a field collection from Oracle to Drupal.');
 
     // @TODO add dependencies to other content types.
-    $this->dependencies = array('FSADocumentpage', 'FSAMediaDocument', 'FSANewsDocument','FSAAuditReport');
+    $this->dependencies = array('FSADocumentpage', 'FSAMediaDocument', 'FSANewsDocument','FSAAuditReport', 'FSATreebranchDocument');
 
     // Map the source id.
     $this->map = new MigrateSQLMap(
@@ -71,7 +71,7 @@ class FSATreebranchRelatedContentCollectionMigration extends FSAMigration {
 
     // Migration source dependency.
     $this->addFieldMapping('host_entity_id', 'OBJECTID')
-      ->sourceMigration(array('FSADocumentpage', 'FSANewsDocument','FSAAuditReport','FSAAlertDocument','FSAResearchProgramme','FSAResearchProject'));
+      ->sourceMigration('FSATreebranchDocument');
 
     // Related content.
     // Related media.
