@@ -122,6 +122,27 @@ ENDSQL;
   }
 
   /**
+   * Returns a list of object ids from a CSV file.
+   *
+   * @param $file
+   * @return array
+   */
+  public function getAllInfoFromCSV($file) {
+    $objectList = array();
+
+    $handle = fopen($file, "r");
+    while(!feof($handle)){
+      $line = fgets($handle);
+
+      $objectArray[] = str_getcsv($line);
+    }
+
+    fclose($handle);
+
+    return $objectArray;
+  }
+
+  /**
    * Return an integer from a count query.
    *
    * @param string
