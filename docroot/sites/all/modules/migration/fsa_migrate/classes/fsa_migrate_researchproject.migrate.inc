@@ -91,9 +91,9 @@ ENDSQL;
       ->callbacks(array($this, 'textAreaFormat'));
 
 
-    $this->addFieldMapping('field_duration', 'duration');
+    $this->addFieldMapping('field_duration', 'studyduration');
     $this->addFieldMapping('field_contractor', 'contractor');
-    $this->addFieldMapping('field_project_code', 'project_code');
+    $this->addFieldMapping('field_project_code', 'projectcode');
 
     //@todo conversion callback
     $this->addFieldMapping('field_results_added', 'resultsadded')
@@ -105,6 +105,37 @@ ENDSQL;
     // Text area input text format.
     $this->addFieldMapping('field_results:format', 'results')
       ->callbacks(array($this, 'textAreaFormat'));
+
+    $this->addFieldMapping('field_research_aproach', 'researchapproach')
+      ->callbacks(array($this, 'textAreaPargraphLineFormatter'));
+    // Text area input text format.
+    $this->addFieldMapping('field_research_aproach:format', 'researchapproach')
+      ->callbacks(array($this, 'textAreaFormat'));
+
+    $this->addFieldMapping('field_dissemination', 'dissemination')
+      ->callbacks(array($this, 'textAreaPargraphLineFormatter'));
+    // Text area input text format.
+    $this->addFieldMapping('field_dissemination:format', 'dissemination')
+      ->callbacks(array($this, 'textAreaFormat'));
+
+    $this->addFieldMapping('field_published_papers', 'publishedpapers')
+      ->callbacks(array($this, 'textAreaPargraphLineFormatter'));
+    // Text area input text format.
+    $this->addFieldMapping('field_published_papers:format', 'publishedpapers')
+      ->callbacks(array($this, 'textAreaFormat'));
+
+    $this->addFieldMapping('field_contact_blolb', 'contact')
+      ->callbacks(array($this, 'textAreaPargraphLineFormatter'));
+    // Text area input text format.
+    $this->addFieldMapping('field_contact_blolb:format', 'contact')
+      ->callbacks(array($this, 'textAreaFormat'));
+
+    $this->addFieldMapping('field_additional_info', 'addinfo')
+      ->callbacks(array($this, 'textAreaPargraphLineFormatter'));
+    // Text area input text format.
+    $this->addFieldMapping('field_additional_info:format', 'addinfo')
+      ->callbacks(array($this, 'textAreaFormat'));
+
 
 
     // set language
@@ -176,7 +207,7 @@ ENDSQL;
         ),
         $connectionOracle,
         // You can add extra fields to extract from the field table here.
-        array('title', 'summary', 'backtotop', 'showLastUpdated', 'pubdate', 'indexed', 'studyduration','contractor','background','projectcode','results','resultsadded' )
+        array('title', 'summary', 'backtotop', 'showLastUpdated', 'pubdate', 'indexed', 'studyduration','contractor','background','projectcode','results','researchapproach','resultsadded','dissemination','publishedpapers','contact','addinfo'  )
       );
 
       foreach ($fields_res_array as $fieldVariable => $fieldValue) {
