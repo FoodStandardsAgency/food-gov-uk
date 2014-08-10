@@ -79,7 +79,10 @@ ENDSQL;
 
     // Destination detail.
     $this->destination = new MigrateDestinationNode('audit_report');
-
+    $this->highwaterField = array(
+      'name' => 'OBJECTID',
+      'type' => 'int'
+    );
     // General fields mapping.
     // General fields mapping.
     $this->addFieldMapping('title', 'NAME');

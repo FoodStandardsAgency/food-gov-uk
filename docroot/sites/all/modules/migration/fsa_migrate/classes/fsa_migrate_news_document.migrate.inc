@@ -92,7 +92,10 @@ class FSANewsDocumentMigration extends FSAMigration {
 
     // Destination detail.
     $this->destination = new MigrateDestinationNode('news');
-
+    $this->highwaterField = array(
+      'name' => 'OBJECTID',
+      'type' => 'int'
+    );
     // General fields mapping.
     $this->addFieldMapping('title', 'NAME');
     $this->addFieldMapping('field_title_short', 'title');

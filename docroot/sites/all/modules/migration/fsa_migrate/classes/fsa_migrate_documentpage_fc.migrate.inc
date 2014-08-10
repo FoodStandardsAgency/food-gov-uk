@@ -81,7 +81,7 @@ class FSADocumentpageCollectionMigration extends FSAMigration {
       'field_fc_page_section',
       array('host_entity_type' => 'node')
     );
-    $this->highwaterField = array('name' => 'object_source_id_orig');
+    $this->highwaterField = array('name' => 'COLLECTIONID');
     // Migration source dependency.
     $this->addFieldMapping('host_entity_id', 'OBJECTID')
       ->sourceMigration('FSADocumentpage');
@@ -115,8 +115,8 @@ class FSADocumentpageCollectionMigration extends FSAMigration {
    */
   public function prepareRow($row) {
     // Assigning sources keys.
-    $row->object_source_id_orig = $row->object_source_id;
-    $row->object_source_id = $row->OBJECTID;
+    //$row->object_source_id = $row->OBJECTID;
+    $row->object_source_id = $row->COLLECTIONID;
     $row->field_source_id1 = $row->FIELDID1;
     $row->field_source_id2 = $row->FIELDID2;
 
@@ -125,5 +125,10 @@ class FSADocumentpageCollectionMigration extends FSAMigration {
     if (!is_null($row->IMAGEPATH)) {
       $row->sourceImagePath = variable_get('file_public_path', 'sites/default/files') . '/sources' . $row->IMAGEPATH;
     }
+    // if there is no content,
+    if ((!isset($row->text) or ($row->text =='')) and (!isset($row->section) or ($row->sectionheading ==''))) {
+      return false;
+    }
+
   }
 }

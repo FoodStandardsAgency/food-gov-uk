@@ -51,7 +51,7 @@ ENDSQL;
       OR FIELDNAME.VARIABLE LIKE 'quote'
       OR FIELDNAME.VARIABLE LIKE 'quoteposition'
       OR FIELDNAME.VARIABLE LIKE 'sciencetext')
-      ORDER BY FIELDNAME.FIELDID ASC
+      ORDER BY OBJ.OBJECTID ASC, FIELDNAME.FIELDID ASC
 ENDSQL;
 
   /**
@@ -211,7 +211,7 @@ ENDSQL;
     // in order to be passed to the MigrateItem class.
     foreach ($textSplit as $textSplitObject) {
       foreach ($textSplitObject as $textSplitLine) {
-        $splitLine = NULL;
+        $splitLine = array($textSplitLine['objectid'].$textSplitLine['itemnumber']);
         foreach ($textSplitLine as $textSplitType => $textSplitItem) {
           $splitLine[] =  $textSplitType . ':' . $textSplitItem;
         }
@@ -355,6 +355,7 @@ ENDSQL;
     }
 
     // Reorder the array.
+    ksort($array_variable);
     foreach ($array_variable as $array_variable_key => $array_variable_value) {
       ksort($array_variable_value);
       $array_variable[$array_variable_key] = $array_variable_value;
@@ -406,7 +407,7 @@ ENDSQL;
 
     // Extract oracle ids from the array.
     $oracleIds = explode('-', $id);
-
+    $collectionId = array_shift($oracleIds); // remove the first item, it's a counter
     foreach ($oracleIds as $oracleItem) {
       $explodedItem = explode(':', $oracleItem);
       $itemsList[$explodedItem[0]] = $explodedItem[1];
@@ -414,11 +415,7 @@ ENDSQL;
 
     if (!isset($itemsList['objectid']) or !isset($itemsList['itemnumber'])) {
       //we have a problem.
-      migrate_watchdog(array(
-        'severity' => WATCHDOG_ERROR,
-        'variables' => $oracleIds,
-        'message' => 'Bad information for document child'
-      ));
+      watchdog('FSATextCollection','Bad information for document child', $id, WATCHDOG_ERROR );
       return NULL;
     }
 
@@ -511,6 +508,7 @@ ENDSQL;
     }
 
     $object->OBJECTID = $objectId;
+    $object->COLLECTIONID = $collectionId;
 
     // Add more keys if you add fields to the field collection.
     if(isset($itemsList['sectionheading']) && trim($itemsList['sectionheading'])) {

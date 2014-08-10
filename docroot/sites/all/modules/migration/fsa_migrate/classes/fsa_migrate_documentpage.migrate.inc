@@ -180,8 +180,8 @@ class FSADocumentpageMigration extends FSAMigration {
       }
     }
    // sometimes there is no title
-    if (!isset($row['title'])) {
-      $row['NAME'] = $row['title'];
+    if (!isset($row->title)) {
+      $row->NAME = $row->title;
     }
     // Manage the feature image query.
     $queryImageFeature = str_replace(':objid', "'" . $row->OBJECTID . "'", $this->queryFeatureImage);
