@@ -211,7 +211,7 @@ ENDSQL;
     // in order to be passed to the MigrateItem class.
     foreach ($textSplit as $textSplitObject) {
       foreach ($textSplitObject as $textSplitLine) {
-        $splitLine = array($textSplitLine['objectid'].$textSplitLine['itemnumber']);
+        $splitLine = array($textSplitLine['objectid'].sprintf ("%03d", $textSplitLine['itemnumber']));
         foreach ($textSplitLine as $textSplitType => $textSplitItem) {
           $splitLine[] =  $textSplitType . ':' . $textSplitItem;
         }
