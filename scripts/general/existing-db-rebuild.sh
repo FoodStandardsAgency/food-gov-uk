@@ -69,6 +69,12 @@ drush mi --feedback="50 items" FSAAlertDocument;
 drush mi --feedback="50 items" FSAMultibranchDocument;
 drush mi --force --feedback="50 items" FSATreebranchDocument;
 
+
+# Research
+drush mi --force --feedback="50 items" FSAResearchProjectList;
+drush mi --force --feedback="50 items" FSAResearchProject;
+drush mi --force --feedback="50 items" FSAResearchProgramme;
+
 # Migrate fc.
 drush mi --force --feedback="50 items" FSADocumentpageCollection;
 drush mi --force --feedback="50 items" FSAFAQpageCollection;
@@ -77,10 +83,6 @@ drush mi --force --feedback="50 items" FSANewsDocumentCollection;
 drush mi --force --feedback="50 items" FSAAlertDocumentCollection;
 drush mi --force --feedback="50 items" FSAConsultationpageCollection;
 
-# Research
-drush mi --force --feedback="50 items" FSAResearchProjectList;
-drush mi --force --feedback="50 items" FSAResearchProject;
-drush mi --force --feedback="50 items" FSAResearchProgramme;
 
 # Multibranch
 drush mi --force --feedback="50 items" FSAMultibranchCollection;
@@ -109,6 +111,8 @@ drush vset fsa_migrate_pathauto_restrict 0;
 drush FSA-menu-build --filter="/news-updates";
 drush FSA-menu-build --filter="/business-industry";
 drush FSA-menu-build --filter="/enforcement";
+drush FSA-menu-build --filter="/science/ouradvisors/cot";
+drush FSA-menu-build --filter="/science/ouradvisors";
 drush FSA-menu-build --filter="/science";
 drush FSA-menu-build --filter="/about-us";
 drush FSA-menu-build --filter="/wales";

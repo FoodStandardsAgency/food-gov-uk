@@ -92,6 +92,10 @@ ENDSQL;
 
     // Destination detail.
     $this->destination = new MigrateDestinationNode('consultation');
+    $this->highwaterField = array(
+      'name' => 'OBJECTID',
+      'type' => 'int'
+    );
 
     // General fields mapping.
     $this->addFieldMapping('title', 'title');
@@ -263,7 +267,6 @@ ENDSQL;
     if (isset($row->enddate)) {
       $row->enddate = strtr($row->enddate,$months );
     }
-
 
     // Manage the feature image query.
     $queryImageFeature = str_replace(':objid', "'" . $row->OBJECTID . "'", $this->queryFeatureImage);
