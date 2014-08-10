@@ -242,6 +242,29 @@ ENDSQL;
       }
     }
 
+    // handle welshdates
+    $months = array(
+      'Ionawr' => 'January',
+      'Chwefror' => 'February',
+      'Mawrth' => 'March',
+      'Ebrill' => 'April',
+      'Mai' => 'May',
+      'Mehefin' => 'June',
+      'Gorffennaf' => 'July',
+      'Awst' => 'August',
+      'Medi' => 'September',
+      'Hydref' => 'October',
+      'Tachwedd' => 'November',
+      'Rhagfyr' => 'December'
+    );
+    if (isset($row->startdate)) {
+      $row->startdate = strtr($row->startdate,$months );
+    }
+    if (isset($row->enddate)) {
+      $row->enddate = strtr($row->enddate,$months );
+    }
+
+
     // Manage the feature image query.
     $queryImageFeature = str_replace(':objid', "'" . $row->OBJECTID . "'", $this->queryFeatureImage);
     // Query the oracle DB to look for a feature image from the object id.
