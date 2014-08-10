@@ -81,7 +81,7 @@ class FSADocumentpageCollectionMigration extends FSAMigration {
       'field_fc_page_section',
       array('host_entity_type' => 'node')
     );
-    $this->highwaterField = array('name' => 'COLLECTIONID');
+    $this->highwaterField = array('name' => 'OBJECTID', 'type' => 'int');
     // Migration source dependency.
     $this->addFieldMapping('host_entity_id', 'OBJECTID')
       ->sourceMigration('FSADocumentpage');

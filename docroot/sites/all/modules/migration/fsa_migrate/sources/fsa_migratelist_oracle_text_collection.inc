@@ -207,15 +207,30 @@ ENDSQL;
       }
     }
 
+    // set up central data cache for fields
+    $dataCache = &drupal_static('FSATextCollectionDataCache');
+
     // Change the format from array to string for each field collection,
     // in order to be passed to the MigrateItem class.
     foreach ($textSplit as $textSplitObject) {
       foreach ($textSplitObject as $textSplitLine) {
-        $splitLine = array($textSplitLine['objectid'].sprintf ("%03d", $textSplitLine['itemnumber']));
-        foreach ($textSplitLine as $textSplitType => $textSplitItem) {
-          $splitLine[] =  $textSplitType . ':' . $textSplitItem;
+        //$splitLine = array($textSplitLine['objectid'].sprintf ("%03d", $textSplitLine['itemnumber']));
+        //foreach ($textSplitLine as $textSplitType => $textSplitItem) {
+        //  $splitLine[] =  $textSplitType . ':' . $textSplitItem;
+        //}
+        //$generatedObjectidFieldid[] = implode('-', $splitLine);
+        // cache data in a variable so that we can use a highwatermark
+        if ($textSplitLine['itemnumber']) {
+
+          $objectid = $textSplitLine['objectid'].sprintf ("%03d", $textSplitLine['itemnumber']);
+          $dataCache[$objectid] = $textSplitLine;
+          $generatedObjectidFieldid[]=$objectid;
         }
-        $generatedObjectidFieldid[] = implode('-', $splitLine);
+        else {
+          watchdog('FSATextCollection','Bad information for document child:'. $objectid , array(), WATCHDOG_ERROR );
+          print "\nNo itemnumber: ";
+          print_r($textSplitLine);
+        }
       }
     }
 
@@ -404,14 +419,18 @@ ENDSQL;
    */
   public function getItem($id) {
     GLOBAL $connectionOracle;
+    // set up central data cache for fields
+    $dataCache = &drupal_static('FSATextCollectionDataCache');
 
     // Extract oracle ids from the array.
-    $oracleIds = explode('-', $id);
-    $collectionId = array_shift($oracleIds); // remove the first item, it's a counter
-    foreach ($oracleIds as $oracleItem) {
-      $explodedItem = explode(':', $oracleItem);
-      $itemsList[$explodedItem[0]] = $explodedItem[1];
-    }
+    //$oracleIds = explode('-', $id);
+    //$collectionId = array_shift($oracleIds); // remove the first item, it's a counter
+    //foreach ($oracleIds as $oracleItem) {
+    //  $explodedItem = explode(':', $oracleItem);
+    //  $itemsList[$explodedItem[0]] = $explodedItem[1];
+    //}
+    $itemsList = $dataCache[$id];
+    $collectionId = $id;
 
     if (!isset($itemsList['objectid']) or !isset($itemsList['itemnumber'])) {
       //we have a problem.
