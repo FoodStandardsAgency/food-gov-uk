@@ -77,6 +77,7 @@ field_collections(){
   drush mi --force --feedback="50 items" FSAAlertDocumentCollection;
   drush mi --force --feedback="50 items" FSAConsultationpageCollection;
 }
+
 multibranch(){
   # Multibranch
   drush mi --force --feedback="50 items" FSAMultibranchCollection;
@@ -89,6 +90,15 @@ treebranch(){
   drush mi --force --feedback="50 items" FSATreebranchRelatedContentCollection;
 }
 
+committees(){
+  drush mi --force --feedback="50 items" FSACommitteepage;
+  drush mi --force --feedback="50 items" FSACommitteeCollection;
+  drush mi --force --feedback="50 items" FSACommitteeChildpageCollection;
+}
+
+
+
+}
 related_items(){
   # Migrate related media
   # - related media appears in it's own field collection
@@ -107,16 +117,16 @@ menus(){
   # do menus
   # break into sections to make a little easier to see progress - may also be more reliable
   drush vset fsa_migrate_pathauto_restrict 0;
-  drush FSA-menu-build --filter="/news-updates";
-  drush FSA-menu-build --filter="/business-industry";
-  drush FSA-menu-build --filter="/enforcement";
-  drush FSA-menu-build --filter="/science/ouradvisors/cot";
-  drush FSA-menu-build --filter="/science/ouradvisors";
-  drush FSA-menu-build --filter="/science";
-  drush FSA-menu-build --filter="/about-us";
-  drush FSA-menu-build --filter="/wales";
-  drush FSA-menu-build --filter="/scotland";
-  drush FSA-menu-build --filter="/northern-ireland";
+  drush FSA-menu-build --reset --filter="news-updates";
+  drush FSA-menu-build --filter="business-industry";
+  drush FSA-menu-build --filter="enforcement";
+  drush FSA-menu-build --filter="science/ouradvisors/cot";
+  drush FSA-menu-build --filter="science/ouradvisors";
+  drush FSA-menu-build --filter="science";
+  drush FSA-menu-build --filter="about-us";
+  drush FSA-menu-build --filter="wales";
+  drush FSA-menu-build --filter="scotland";
+  drush FSA-menu-build --filter="northern-ireland";
 }
 
 cleanup(){
@@ -165,6 +175,8 @@ related_items
   backup "related"
 child_pages
   backup "child_pages"
+committees
+  backup "committees"
 menus
 cleanup
 

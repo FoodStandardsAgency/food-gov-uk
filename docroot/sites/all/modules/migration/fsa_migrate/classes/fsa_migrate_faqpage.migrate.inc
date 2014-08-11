@@ -136,6 +136,8 @@ class FSAFAQpageMigration extends FSAMigration {
     // Node status, published or unpublished.
     $this->addFieldMapping('status', 'STATUSID')
       ->callbacks(array($this, 'convertStatusId'));
+    $this->addFieldMapping('language', 'language')
+      ->callbacks(array($this, 'convertLanguage'));
   }
 
   /**
@@ -154,7 +156,7 @@ class FSAFAQpageMigration extends FSAMigration {
         ),
         $connectionOracle,
         // You can add extra fields to extract from the field table here.
-        array('title', 'summary', 'backtotop', 'showLastUpdated', 'pubdate')
+        array('title', 'summary', 'backtotop', 'showLastUpdated', 'pubdate','language')
       );
 
       foreach ($fields_res_array as $fieldVariable => $fieldValue) {

@@ -59,8 +59,10 @@ function fsa_migrate_global_id_map($action, $value = null){
     );
     // loop through all our map tables and create one array
     foreach ($tables as $table) {
-      $map_section = db_select($table,'m')->fields('m', array('sourceid1','destid1'))->execute()->fetchAllAssoc('sourceid1');
-      $map = array_merge($map, $map_section);
+      $map_query = db_select($table,'m')->fields('m', array('sourceid1','destid1'))->execute();
+      while ($values = $map_query->fetchAssoc()) {
+        $map[$values['sourceid1']] = $values['destid1'];
+      }
     }
   }
   switch($action) {
