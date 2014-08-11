@@ -144,6 +144,7 @@ ENDSQL;
     $this->addFieldMapping('field_child_pages_heading')
       ->defaultValue('Related pages');
     $this->addFieldMapping('field_child_page', 'sourceRelatedPagesPath')
+      ->separator(',')
       ->sourceMigration(array('FSADocumentpage', 'FSANewsDocument','FSAAuditReport','FSAConsultationpage','FSAAlertDocument','FSAMultibranchDocument','FSAResearchProjectList','FSAResearchProgramme','FSAResearchProject','FSATreebranchDocument'));
   }
 
@@ -158,7 +159,7 @@ ENDSQL;
     if (!is_null($row->query1)) {
       $PATHS = explode(',', $row->query1);
       foreach ($PATHS as $PATH) {
-        $newRelatedItemsPath .= variable_get('file_public_path', 'sites/default/files') . '/sources/files' . $PATH . ',';
+        $newRelatedItemsPath[] = variable_get('file_public_path', 'sites/default/files') . '/sources/files' . $PATH;
       }
     }
     $row->sourceRelatedItemsPath = $newRelatedItemsPath;
@@ -167,7 +168,7 @@ ENDSQL;
     if (!is_null($row->query2)) {
       $PATHS = explode(',', $row->query2);
       foreach ($PATHS as $PATH) {
-        $newRelatedCSVPath .= variable_get('file_public_path', 'sites/default/files') . '/sources/files' . $PATH . ',';
+        $newRelatedCSVPath[] = variable_get('file_public_path', 'sites/default/files') . '/sources/files' . $PATH ;
       }
     }
     $row->sourceRelatedCSVPath = $newRelatedCSVPath;
