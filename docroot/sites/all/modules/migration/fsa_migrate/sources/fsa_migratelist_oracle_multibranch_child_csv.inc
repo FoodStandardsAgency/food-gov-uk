@@ -106,6 +106,7 @@ ENDSQL;
 
     // Sort order management.
     $sortorderArray = FSAMigrateListBase::objectsFieldidSortingOrder($objectList, $connectionOracle);
+    $results = array();
 
     foreach ($objectList as $objectid) {
       $replacedQuery = str_replace(':obj_id', $objectid, $this->query);
@@ -117,17 +118,18 @@ ENDSQL;
         array(),
         $connectionOracle
       );
+      if (is_array($queryResult)) {
+        foreach ($queryResult as $queryResultItem) {
+          if (isset($sortorderArray[$objectid][$queryResultItem['OBJECTID']])) {
+            $itemSortOrderValue = $sortorderArray[$objectid][$queryResultItem['OBJECTID']];
+          }
+          else {
+            $itemSortOrderValue = 999;
+          }
 
-      foreach ($queryResult as $queryResultItem) {
-        if (isset($sortorderArray[$objectid][$queryResultItem['OBJECTID']])) {
-          $itemSortOrderValue = $sortorderArray[$objectid][$queryResultItem['OBJECTID']];
+          $queryResultItem['PARENTID'] = $objectid;
+          $results[$itemSortOrderValue . '-' . $queryResultItem['OBJECTID']] = $queryResultItem;
         }
-        else {
-          $itemSortOrderValue = 999;
-        }
-
-        $queryResultItem['PARENTID'] = $objectid;
-        $results[$itemSortOrderValue . '-' . $queryResultItem['OBJECTID']] = $queryResultItem;
       }
     }
 
