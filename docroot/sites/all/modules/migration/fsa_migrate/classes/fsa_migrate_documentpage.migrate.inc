@@ -172,7 +172,7 @@ class FSADocumentpageMigration extends FSAMigration {
         ),
         $connectionOracle,
         // You can add extra fields to extract from the field table here.
-        array('title', 'summary', 'backtotop', 'showLastUpdated', 'pubdate', 'indexed', 'content')
+        array('title', 'summary', 'backtotop', 'showLastUpdated', 'pubdate', 'indexed', 'content', 'language')
       );
 
       foreach ($fields_res_array as $fieldVariable => $fieldValue) {
