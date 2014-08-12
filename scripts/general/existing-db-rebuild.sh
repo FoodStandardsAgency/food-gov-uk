@@ -96,9 +96,12 @@ committees(){
   drush mi --force --feedback="50 items" FSACommitteeChildpageCollection;
 }
 
-
-
+meetings(){
+  drush mi FSAMeetinglist;
+  drush mi FSAMeeting;
 }
+
+
 related_items(){
   # Migrate related media
   # - related media appears in it's own field collection
@@ -166,8 +169,11 @@ media
 nodes
   backup "nodes"
 research
+  backup "research"
+meetings
+  backup "meetings"
 field_collections
-  backup "nodes"
+  backup "field_collectons"
 multibranch
 treebranch
   backup "treebranch"
