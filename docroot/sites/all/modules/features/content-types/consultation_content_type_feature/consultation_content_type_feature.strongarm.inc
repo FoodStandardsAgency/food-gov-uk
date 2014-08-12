@@ -189,7 +189,7 @@ function consultation_content_type_feature_strongarm() {
       'display' => array(
         'language' => array(
           'default' => array(
-            'weight' => '1',
+            'weight' => '3',
             'visible' => FALSE,
           ),
           'teaser' => array(
@@ -205,7 +205,7 @@ function consultation_content_type_feature_strongarm() {
             'visible' => FALSE,
           ),
           'full' => array(
-            'weight' => '13',
+            'weight' => '19',
             'visible' => FALSE,
           ),
           'micro_teaser' => array(
