@@ -91,7 +91,6 @@ ul.toc-node-bullets {
 	}
 }
 
-
 @include breakpoint($mobile) {
 	#table-of-contents-links {
 		ul.toc-node-bullets li,
@@ -100,7 +99,6 @@ ul.toc-node-bullets {
 		}
 	}
 }
-
 
 /* print styling overrides */
 @media print {
