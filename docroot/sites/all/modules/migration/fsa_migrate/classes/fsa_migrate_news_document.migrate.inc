@@ -182,6 +182,11 @@ class FSANewsDocumentMigration extends FSAMigration {
     // Node status, published or unpublished.
     $this->addFieldMapping('status', 'STATUSID')
       ->callbacks(array($this, 'convertStatusId'));
+
+    // External sites.
+    $this->addFieldMapping('field_links_external', 'externalSites')
+      ->separator(',')
+      ->sourceMigration('FSAExternalsite');
   }
 
   /**
@@ -250,6 +255,21 @@ class FSANewsDocumentMigration extends FSAMigration {
       if (isset($this->sectionAffiliationRefArray[$row->secondaffiliation])) {
         $row->site_section[] = $this->sectionAffiliationRefArray[$row->secondaffiliation];
       }
+    }
+
+    // Manage the related external sites relation.
+    $queryExternalSite = str_replace(':objid', "'" . $row->OBJECTID . "'", $this->queryExternalSite);
+    // Query the oracle DB to look for a feature image from the object id.
+    $externalSitesResults = $this->oracleQueryAll(
+      $queryExternalSite,
+      array(),
+      $connectionOracle
+    );
+    if (!is_null($externalSitesResults)) {
+      $row->externalSites = implode(',', $externalSitesResults['EXTERNALSITEIDS']);
+    }
+    else {
+      $row->externalSites = NULL;
     }
   }
 
