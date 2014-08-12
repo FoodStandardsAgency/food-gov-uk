@@ -26,7 +26,20 @@ class FSAMeetingMigration extends FSAMigration {
     AND OBJ.PATH = :objpath
 ENDSQL;
 
-
+  /**
+   * SQL Query to get the parent meeting id.
+   *
+   * @var string
+   */
+  protected $queryMeetingLinkMeetingList = <<<'ENDSQL'
+    SELECT LINK.PARENTID, OBJ.NAME, OBJ.OBJECTID, OBJTYPE.NAME, LINKTYPE.LINKTYPENAME
+    FROM OBJ, LINK, OBJTYPE, LINKTYPE
+    WHERE LINK.CHILDID = OBJ.OBJECTID
+    AND LINK.LINKTYPEID = LINKTYPE.LINKTYPEID
+    AND OBJTYPE.OBJECTTYPEID = OBJ.OBJECTTYPEID
+    AND LINKTYPE.LINKTYPENAME = 'Primary link'
+    AND LINK.CHILDID IN ( :objpath )
+ENDSQL;
 
   /**
    * Class constructor.
@@ -36,6 +49,8 @@ ENDSQL;
     parent::__construct();
     // Calls the parent constructor.
     $this->description = t('Migrates the document from Oracle to Drupal.');
+
+    $this->dependencies = array('FSAMeetinglist');
 
     // Map the source id.
     $this->map = new MigrateSQLMap(
@@ -132,6 +147,9 @@ ENDSQL;
     // Meeting video.
     $this->addFieldMapping('field_video_and_audio', 'meetingVideoLink');
     $this->addFieldMapping('field_video_and_audio:title', 'meetingVideoLinkTitle');
+
+    $this->addFieldMapping('field_meeting_list', 'meetingListId')
+      ->sourceMigration('FSAMeetinglist');
   }
 
   /**
@@ -220,5 +238,40 @@ ENDSQL;
     }
     $row->meetingVideoLink = $meetingVideoLink;
     $row->meetingVideoLinkTitle = $meetingVideoLinkTitle;
+
+    // Would have been nice as a recursive, but this is quicker.
+    // Linking up the meeting data to the meeting list.
+    $meetingLinkMeetingList = NULL;
+    $queryMeetingLink1 = str_replace(':objpath', "'". $row->OBJECTID . "'", $this->queryMeetingLinkMeetingList);
+    // Query the oracle DB to look for a webaddress from the file path.
+    $queryMeetingLink1Result = $this->oracleQuerySingle(
+      $queryMeetingLink1,
+      array(),
+      $connectionOracle
+    );
+    if (!is_null($queryMeetingLink1Result)) {
+      // Linking up the meeting data to the meeting list.
+      $queryMeetingLink2 = str_replace(':objpath', "'". $queryMeetingLink1Result['PARENTID'] . "'", $this->queryMeetingLinkMeetingList);
+      // Query the oracle DB to look for a webaddress from the file path.
+      $queryMeetingLink2Result = $this->oracleQuerySingle(
+        $queryMeetingLink2,
+        array(),
+        $connectionOracle
+      );
+      if (!is_null($queryMeetingLink2Result)) {
+        // Linking up the meeting data to the meeting list.
+        $queryMeetingLink3 = str_replace(':objpath', "'". $queryMeetingLink2Result['PARENTID'] . "'", $this->queryMeetingLinkMeetingList);
+        // Query the oracle DB to look for a webaddress from the file path.
+        $queryMeetingLink3Result = $this->oracleQuerySingle(
+          $queryMeetingLink3,
+          array(),
+          $connectionOracle
+        );
+        if (!is_null($queryMeetingLink3Result)) {
+          $meetingLinkMeetingList = $queryMeetingLink3Result['PARENTID'];
+        }
+      }
+    }
+    $row->meetingListId = $meetingLinkMeetingList;
   }
 }
