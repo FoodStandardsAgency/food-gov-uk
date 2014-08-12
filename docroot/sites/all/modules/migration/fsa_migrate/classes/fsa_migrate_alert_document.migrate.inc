@@ -95,14 +95,14 @@ class FSAAlertDocumentMigration extends FSAMigration {
       ->defaultValue(FALSE);
 
     // Promote to front page.
-    $this->addFieldMapping('promote', 'includeinmailshot')
+    $this->addFieldMapping('promote', 'visibleonhomepage')
       ->callbacks(array($this, 'convertYesNoBoolean'))
       ->defaultValue(FALSE);
 
     // Include in mailshot.
-    $this->addFieldMapping('field_mailshot', 'visibleonhomepage')
-      ->callbacks(array($this, 'convertYesNoBoolean'))
-      ->defaultValue(FALSE);
+    //$this->addFieldMapping('field_mailshot', 'includeinmailshot')
+    //  ->callbacks(array($this, 'convertYesNoBoolean'))
+    //  ->defaultValue(FALSE);
 
     // Feature image mapping.
     $this->addFieldMapping('field_feature_image', 'FEATUREDIMAGEPATH')

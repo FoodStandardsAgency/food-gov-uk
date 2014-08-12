@@ -123,14 +123,14 @@ class FSANewsDocumentMigration extends FSAMigration {
       ->defaultValue(FALSE);
 
     // Promote to front page.
-    $this->addFieldMapping('promote', 'includeinmailshot')
+    $this->addFieldMapping('promote', 'visibleonhomepage')
       ->callbacks(array($this, 'convertYesNoBoolean'))
       ->defaultValue(FALSE);
 
     // Include in mailshot.
-    $this->addFieldMapping('field_mailshot', 'visibleonhomepage')
-      ->callbacks(array($this, 'convertYesNoBoolean'))
-      ->defaultValue(FALSE);
+   // $this->addFieldMapping('field_mailshot', 'includeinmailshot')
+    //  ->callbacks(array($this, 'convertYesNoBoolean'))
+     // ->defaultValue(FALSE);
 
     // Category term mapping.
     $this->addFieldMapping('field_news_type', 'category')
