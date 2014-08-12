@@ -525,7 +525,7 @@ function field_instances_feature_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Audience',
-    'weight' => '3',
+    'weight' => '1',
     'children' => array(
       0 => 'body',
     ),
@@ -873,7 +873,7 @@ function field_instances_feature_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'All comments and views should be sent to ',
-    'weight' => '1',
+    'weight' => '0',
     'children' => array(
       0 => 'field_consultations_contact_name',
       1 => 'field_consultation_dates',
@@ -964,7 +964,7 @@ function field_instances_feature_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Consultation details',
-    'weight' => '4',
+    'weight' => '2',
     'children' => array(
       0 => 'field_consultation_details',
     ),

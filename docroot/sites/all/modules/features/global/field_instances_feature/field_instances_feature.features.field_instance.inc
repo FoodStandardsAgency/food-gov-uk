@@ -14243,7 +14243,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 5,
+        'weight' => 7,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -14374,7 +14374,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 23,
+        'weight' => 25,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -14386,7 +14386,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 12,
+        'weight' => 18,
       ),
       'micro_teaser' => array(
         'label' => 'above',
@@ -14448,7 +14448,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 18,
+        'weight' => 20,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -14577,7 +14577,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 14,
+        'weight' => 16,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -14676,7 +14676,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 13,
+        'weight' => 15,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -14803,7 +14803,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 12,
+        'weight' => 14,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -14929,7 +14929,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 15,
+        'weight' => 17,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -15129,7 +15129,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 17,
+        'weight' => 19,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -15257,7 +15257,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 25,
+        'weight' => 27,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -15269,7 +15269,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 7,
+        'weight' => 13,
       ),
       'micro_teaser' => array(
         'label' => 'above',
@@ -15356,7 +15356,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 16,
+        'weight' => 18,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -15368,7 +15368,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'inline',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 18,
+        'weight' => 24,
       ),
       'micro_teaser' => array(
         'label' => 'above',
@@ -15429,7 +15429,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 26,
+        'weight' => 28,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -15441,7 +15441,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 4,
       ),
       'micro_teaser' => array(
         'label' => 'above',
@@ -15572,7 +15572,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 11,
+        'weight' => 13,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -15703,7 +15703,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 27,
+        'weight' => 29,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -15715,7 +15715,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 6,
+        'weight' => 11,
       ),
       'micro_teaser' => array(
         'label' => 'above',
@@ -15781,7 +15781,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 10,
+        'weight' => 12,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -15793,7 +15793,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 21,
+        'weight' => 27,
       ),
       'micro_teaser' => array(
         'label' => 'above',
@@ -15856,7 +15856,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 19,
+        'weight' => 21,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -15868,7 +15868,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 14,
+        'weight' => 20,
       ),
       'micro_teaser' => array(
         'label' => 'above',
@@ -15929,7 +15929,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 3,
+        'weight' => 5,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -15941,7 +15941,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 8,
+        'weight' => 14,
       ),
       'micro_teaser' => array(
         'label' => 'hidden',
@@ -16021,7 +16021,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 33,
+        'weight' => 34,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -16033,7 +16033,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 9,
       ),
       'micro_teaser' => array(
         'label' => 'above',
@@ -16095,7 +16095,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 22,
+        'weight' => 24,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -16107,7 +16107,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 10,
+        'weight' => 16,
       ),
       'micro_teaser' => array(
         'label' => 'above',
@@ -16169,7 +16169,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 21,
+        'weight' => 23,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -16181,7 +16181,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 16,
+        'weight' => 22,
       ),
       'micro_teaser' => array(
         'label' => 'above',
@@ -16240,7 +16240,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 20,
+        'weight' => 22,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -16252,7 +16252,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 15,
+        'weight' => 21,
       ),
       'micro_teaser' => array(
         'label' => 'above',
@@ -16319,7 +16319,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 2,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -16331,7 +16331,7 @@ function field_instances_feature_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 5,
       ),
       'micro_teaser' => array(
         'label' => 'above',
@@ -16396,7 +16396,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 9,
+        'weight' => 11,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -16408,7 +16408,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 20,
+        'weight' => 26,
       ),
       'micro_teaser' => array(
         'label' => 'above',
@@ -16522,7 +16522,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 7,
+        'weight' => 9,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -16534,7 +16534,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 19,
+        'weight' => 25,
       ),
       'micro_teaser' => array(
         'label' => 'above',
@@ -16595,7 +16595,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 29,
+        'weight' => 31,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -16607,7 +16607,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 6,
       ),
       'micro_teaser' => array(
         'label' => 'above',
@@ -16683,7 +16683,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 28,
+        'weight' => 30,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -16695,7 +16695,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 7,
+        'weight' => 12,
       ),
       'micro_teaser' => array(
         'label' => 'above',
@@ -16758,7 +16758,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 8,
+        'weight' => 10,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -16770,7 +16770,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 17,
+        'weight' => 23,
       ),
       'micro_teaser' => array(
         'label' => 'above',
@@ -16832,7 +16832,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 6,
+        'weight' => 8,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -16844,7 +16844,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 22,
+        'weight' => 28,
       ),
       'micro_teaser' => array(
         'label' => 'above',
@@ -16959,7 +16959,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 4,
+        'weight' => 6,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -16971,7 +16971,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 9,
+        'weight' => 15,
       ),
       'micro_teaser' => array(
         'label' => 'hidden',
@@ -17088,7 +17088,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 31,
+        'weight' => 32,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -17100,7 +17100,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 8,
       ),
       'micro_teaser' => array(
         'label' => 'above',
@@ -17191,7 +17191,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 24,
+        'weight' => 26,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -17203,7 +17203,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 11,
+        'weight' => 17,
       ),
       'micro_teaser' => array(
         'label' => 'above',
@@ -17265,7 +17265,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 32,
+        'weight' => 33,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -17277,7 +17277,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 7,
       ),
       'micro_teaser' => array(
         'label' => 'above',
@@ -17338,7 +17338,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'inline',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 2,
+        'weight' => 4,
       ),
       'entityreference_view_widget' => array(
         'label' => 'above',
@@ -17350,7 +17350,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'inline',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 5,
+        'weight' => 10,
       ),
       'micro_teaser' => array(
         'label' => 'inline',

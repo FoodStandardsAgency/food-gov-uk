@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Committee Site Content Type feature.
+ */
+
+include_once 'committee_site_content_type_feature.features.inc';
