@@ -187,8 +187,8 @@ switch (getenv('AH_SITE_ENVIRONMENT')) {
     $conf['content_experiments_pages'] = '*';
 
     // Disable aggregation
-    $conf['preprocess_css'] = 0;
-    $conf['preprocess_js'] = 0;
+    $conf['preprocess_css'] = 1;
+    $conf['preprocess_js'] = 1;
     $conf['less_devel'] = TRUE;
 
     // Enable some handy module
