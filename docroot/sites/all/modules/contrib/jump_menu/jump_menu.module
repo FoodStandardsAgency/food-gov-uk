@@ -10,6 +10,52 @@
 define('JUMP_MENU_DEFAULT_CHOOSE', '-- Choose --');
 
 /**
+ * Implements hook_form_alter().
+ */
+function jump_menu_form_menu_edit_menu_alter(&$form, &$form_state, $form_id) {
+  $enabled = variable_get('jump_menu_enabled', array());
+  $enabled_setting = FALSE;
+  $menu = '';
+
+  if (isset($form['menu_name']['#default_value']) && !empty($form['menu_name']['#default_value'])) {
+    $menu = $form['menu_name']['#default_value'];
+  }
+
+  if (!empty($menu) && isset($enabled[$menu])) {
+    $enabled_setting = TRUE;
+  }
+
+  $form['jump_menu_enabled'] = array(
+    '#type'          => 'checkbox',
+    '#title'         => t('Display as a jump menu'),
+    '#default_value' => $enabled_setting,
+  );
+
+  $form['#submit'][] = 'jump_menu_form_menu_edit_menu_alter_submit';
+}
+
+function jump_menu_form_menu_edit_menu_alter_submit($form, &$form_state) {
+  $enabled = variable_get('jump_menu_enabled', array());
+  $menu_name = $form_state['values']['menu_name'];
+  $old_name = $form_state['values']['old_name'];
+  $jump_menu_enabled = $form_state['values']['jump_menu_enabled'];
+
+  if (empty($jump_menu_enabled) && (isset($enabled[$old_name]) || isset($enabled[$menu_name]))) {
+    unset($enabled[$old_name]);
+    unset($enabled[$menu_name]);
+    block_flush_caches();
+  }
+
+  if (!empty($jump_menu_enabled) && !isset($enabled[$menu_name])) {
+    unset($enabled[$old_name]);
+    $enabled[$menu_name] = $menu_name;
+    block_flush_caches();
+  }
+
+  variable_set('jump_menu_enabled', $enabled);
+}
+
+/**
  * Output a core menu as a select jump menu.
  */
 function jump_menu($menu, $parent, $btn = FALSE, $max_depth = 0, $choose = 'Select a destination') {
@@ -109,14 +155,18 @@ function _jump_menu_create_options(&$t, &$m, &$d) {
 function jump_menu_block_info() {
   // Add all menus as blocks.
   $menus = menu_get_menus(TRUE);
+  $enabled = variable_get('jump_menu_enabled', array());
+
   $blocks = array();
   foreach ($menus as $name => $title) {
-    // Prefix length is 12 chars, leaves 20 for menu name according to 32 char db limit.
-    $delta = 'jump_menu-m_' . substr($name, 0, 20);
-    $blocks[$delta]['info'] = t('Jump Menu') . ' ' . t('menu') . ' - ' . check_plain($title);
-    // Menu blocks can't be cached because each menu item can have a custom
-    // access callback. menu.inc manages its own caching.
-    $blocks[$delta]['cache'] = DRUPAL_NO_CACHE;
+    if (isset($enabled[$name])) {
+      // Prefix length is 12 chars, leaves 20 for menu name according to 32 char db limit.
+      $delta = 'jump_menu-m_' . substr($name, 0, 20);
+      $blocks[$delta]['info'] = t('Jump Menu') . ' ' . t('menu') . ' - ' . check_plain($title);
+      // Menu blocks can't be cached because each menu item can have a custom
+      // access callback. menu.inc manages its own caching.
+      $blocks[$delta]['cache'] = DRUPAL_NO_CACHE;
+    }
   }
   // Add local menu tasks block.
   $blocks['jump_menu-local-tasks']['info'] = t('Jump Menu') . ': ' . t('Local tasks');
@@ -181,7 +231,7 @@ function _jump_menu_render_block($delta, $options = array()) {
   $options['hide'] = (isset($options['hide'])) ? $options['hide'] : TRUE;
 
   // If a menu block.
-  if (substr($block_name, 0, 2) == 'm_') {    
+  if (substr($block_name, 0, 2) == 'm_') {
     foreach ($menus as $k => $v) {
       // Block delta prefix length is 12 chars, leaves 20 for menu name.
       // Compare as much fits against the menu portion of the delta.
@@ -224,7 +274,7 @@ function _jump_menu_render_block($delta, $options = array()) {
         }
       }
       // Take options and place defaults.
-      $options['choose'] = (isset($options['choose'])) ? $options['choose'] : t(JUMP_MENU_DEFAULT_CHOOSE);      
+      $options['choose'] = (isset($options['choose'])) ? $options['choose'] : t(JUMP_MENU_DEFAULT_CHOOSE);
       // Populate block.
       $data['subject'] = t('Local Tasks');
       $data['content'] = drupal_render(drupal_get_form('ctools_jump_menu', $targets, $options));
@@ -245,7 +295,7 @@ function _jump_menu_render_block($delta, $options = array()) {
 }
 
 function _trim_name(&$value) {
-  $value = $value+1;    
+  $value = $value+1;
 }
 
 /**
@@ -261,7 +311,7 @@ function jump_menu_theme_registry_alter(&$theme_registry) {
  * Override select theme function (points select theming to following function).
  */
 function jump_menu_select($variables) {
-  
+
   $element = $variables['element'];
   element_set_attributes($element, array('id', 'name', 'size'));
   _form_set_class($element, array('form-select'));

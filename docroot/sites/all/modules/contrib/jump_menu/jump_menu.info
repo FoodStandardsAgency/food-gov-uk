@@ -1,4 +1,4 @@
-name = Better Jump Menus
+name = Better Jump Menus - PATCHED
 description = Enables creating custom jump menus programmatically via the CTools API.
 dependencies[] = ctools
 dependencies[] = block
