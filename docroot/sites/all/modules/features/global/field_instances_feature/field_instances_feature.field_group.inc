@@ -233,6 +233,7 @@ function field_instances_feature_field_group_info() {
     'children' => array(
       0 => 'group_main_text',
       1 => 'group_additional',
+      2 => 'group_page_sections',
     ),
     'format_type' => 'accordion',
     'format_settings' => array(
@@ -384,6 +385,7 @@ function field_instances_feature_field_group_info() {
       1 => 'field_video_and_audio',
       2 => 'field_publication_year',
       3 => 'field_publication_date',
+      4 => 'field_paper_docs',
     ),
     'format_type' => 'accordion-item',
     'format_settings' => array(
@@ -2493,6 +2495,34 @@ function field_instances_feature_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_page_sections|node|meeting|form';
+  $field_group->group_name = 'group_page_sections';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'meeting';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_accordion';
+  $field_group->data = array(
+    'label' => 'Page sections',
+    'weight' => '10',
+    'children' => array(
+      0 => 'field_child_page_style',
+      1 => 'field_fc_page_section',
+    ),
+    'format_type' => 'accordion-item',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-page-sections field-group-accordion-item',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_page_sections|node|meeting|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_page_sections|node|programme|form';
   $field_group->group_name = 'group_page_sections';
   $field_group->entity_type = 'node';
@@ -2716,9 +2746,8 @@ function field_instances_feature_field_group_info() {
     'label' => 'Page settings',
     'weight' => '5',
     'children' => array(
-      0 => 'field_migrate_node',
-      1 => 'field_updated',
-      2 => 'field_reveiw_date',
+      0 => 'field_updated',
+      1 => 'field_reveiw_date',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
