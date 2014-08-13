@@ -10,23 +10,23 @@
 function menus_feature_menu_default_menu_custom() {
   $menus = array();
 
-  // Exported menu: menu-food-hygiene-rating-ni.
-  $menus['menu-food-hygiene-rating-ni'] = array(
-    'menu_name' => 'menu-food-hygiene-rating-ni',
+  // Exported menu: menu-fhrs-ni.
+  $menus['menu-fhrs-ni'] = array(
+    'menu_name' => 'menu-fhrs-ni',
     'title' => 'Food Hygiene Rating Scheme in Northern Ireland',
-    'description' => 'Jump menu for food hygiene rating scheme in Northern Ireland',
+    'description' => 'Food Hygiene Rating Scheme in Northern Ireland Menu',
   );
-  // Exported menu: menu-food-hygiene-rating-scot.
-  $menus['menu-food-hygiene-rating-scot'] = array(
-    'menu_name' => 'menu-food-hygiene-rating-scot',
+  // Exported menu: menu-fhrs-sco.
+  $menus['menu-fhrs-sco'] = array(
+    'menu_name' => 'menu-fhrs-sco',
     'title' => 'Food Hygiene Rating Scheme in Scotland',
-    'description' => 'Jump menu for food hygiene rating scheme in Scotland',
+    'description' => 'Food Hygiene Rating Scheme in Scotland Menu',
   );
-  // Exported menu: menu-food-hygiene-rating-wales.
-  $menus['menu-food-hygiene-rating-wales'] = array(
-    'menu_name' => 'menu-food-hygiene-rating-wales',
+  // Exported menu: menu-fhrs-wls.
+  $menus['menu-fhrs-wls'] = array(
+    'menu_name' => 'menu-fhrs-wls',
     'title' => 'Food Hygiene Rating Scheme in Wales',
-    'description' => 'Jump menu for food hygiene rating scheme in Wales',
+    'description' => 'Food Hygiene Rating Scheme in Wales Menu',
   );
   // Exported menu: menu-footer-buttons.
   $menus['menu-footer-buttons'] = array(
@@ -57,13 +57,13 @@ function menus_feature_menu_default_menu_custom() {
   t('Committees');
   t('Contains all the links for Committee sites');
   t('Food Hygiene Rating Scheme in Northern Ireland');
+  t('Food Hygiene Rating Scheme in Northern Ireland Menu');
   t('Food Hygiene Rating Scheme in Scotland');
+  t('Food Hygiene Rating Scheme in Scotland Menu');
   t('Food Hygiene Rating Scheme in Wales');
+  t('Food Hygiene Rating Scheme in Wales Menu');
   t('Footer buttons');
   t('Footer menu');
-  t('Jump menu for food hygiene rating scheme in Northern Ireland');
-  t('Jump menu for food hygiene rating scheme in Scotland');
-  t('Jump menu for food hygiene rating scheme in Wales');
   t('Nation menu');
   t('This is the small menu at the top of the page header');
   t('Used to add links for footer buttons');
