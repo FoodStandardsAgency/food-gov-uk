@@ -1,6 +1,7 @@
 #!/bin/bash
 
 export DRUSH_SOURCE="@food.development"; export DRUSH_DEST="@food.migration"
+#drush sql-sync -y $DRUSH_SOURCE $DRUSH_DEST; drush -y rsync $DRUSH_SOURCE:%files $DRUSH_DEST:%files
 
 DATE=$(date | tr ' ' '-' | tr ':' '-')
 
@@ -19,27 +20,7 @@ setup(){
 
 rollback(){
   # Roll back the existing migration.
-  drush mr --force FSAChildpageCollection;
-  drush mr --force FSARelatedContentCollection;
-  drush mr --force FSAResearchProject;
-  drush mr --force FSAResearchProgramme;
-  drush mr --force FSAResearchProjectList;
-  drush mr --force FSAMultibranchCollectionChild;
-  drush mr --force FSANewsDocumentCollection;
-  drush mr --force FSAAuditReportCollection;
-  drush mr --force FSAAlertDocumentCollection;
-  drush mr --force FSAFAQpageCollection;
-  drush mr --force FSADocumentpageCollection;
-  drush mr --force FSAMultibranchCollection;
-  drush mr --force FSAMultibranchDocument;
-  drush mr --force FSANewsDocument;
-  drush mr --force FSAAlertDocument;
-  drush mr --force FSAFAQpage;
-  drush mr --force FSAAuditReport;
-  drush mr --force FSAConsultationpage;
-  drush mr --force FSADocumentpage;
-  drush mr --force FSAMediaDocument;
-  drush mr --force FSAMediaImages;
+  drush mr --all
 }
 
 media(){
@@ -150,13 +131,14 @@ echo "${DATE}"
 # go to main docroot
 cd `drush $DRUSH_DEST dd`
 
+drush use $DRUSH_DEST
+
 # Optional considering we have the tunnel in another tab.
 # setup-ssh-tunnel.sh &
 # sleep 30
 
-# Sync db and files
 
-#drush sql-sync -y $DRUSH_SOURCE $DRUSH_DEST; drush -y rsync $DRUSH_SOURCE:%files $DRUSH_DEST:%files
+
 
 
 
