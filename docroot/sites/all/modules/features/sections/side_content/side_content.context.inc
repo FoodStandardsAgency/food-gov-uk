@@ -53,6 +53,15 @@ function side_content_context_default_contexts() {
   $context->description = 'Adds generic block to right sidebar (sidebar second) region';
   $context->tag = 'Side Content';
   $context->conditions = array(
+    'context_og_condition_group_type' => array(
+      'values' => array(
+        '_none_' => '_none_',
+        'committee_sub_site' => 'committee_sub_site',
+      ),
+      'options' => array(
+        'node_form' => 0,
+      ),
+    ),
     'path' => array(
       'values' => array(
         '*' => '*',
@@ -67,12 +76,12 @@ function side_content_context_default_contexts() {
           'module' => 'views',
           'delta' => 'generic_blocks-block',
           'region' => 'sidebar_second',
-          'weight' => '0',
+          'weight' => '1',
         ),
       ),
     ),
   );
-  $context->condition_mode = 0;
+  $context->condition_mode = 1;
 
   // Translatables
   // Included for use with string extractors like potx.
