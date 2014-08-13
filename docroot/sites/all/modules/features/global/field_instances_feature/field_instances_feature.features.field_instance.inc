@@ -10,6 +10,100 @@
 function field_instances_feature_field_default_field_instances() {
   $field_instances = array();
 
+  // Exported field_instance: 'field_collection_item-field_fc_block_section-field_fc_section_image'
+  $field_instances['field_collection_item-field_fc_block_section-field_fc_section_image'] = array(
+    'bundle' => 'field_fc_block_section',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'entityreference_view_widget' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'full' => array(
+        'label' => 'hidden',
+        'module' => 'image',
+        'settings' => array(
+          'custom_link_to_entity' => 0,
+          'custom_prefix' => '',
+          'custom_reverse' => 0,
+          'custom_strip_preserve' => '',
+          'custom_strip_tags' => 0,
+          'custom_strtolower' => 0,
+          'custom_strtoupper' => 0,
+          'custom_suffix' => '',
+          'custom_trim' => 0,
+          'custom_ucfirst' => 0,
+          'custom_ucwords' => 0,
+          'image_link' => '',
+          'image_style' => 'interactive',
+          'linked_field' => array(
+            'advanced' => array(
+              'class' => '',
+              'rel' => '',
+              'target' => '',
+              'text' => '',
+              'title' => '',
+            ),
+            'destination' => '',
+            'linked' => 0,
+          ),
+        ),
+        'type' => 'image',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_fc_section_image',
+    'label' => 'Image',
+    'required' => 1,
+    'settings' => array(
+      'alt_field' => 0,
+      'default_image' => 0,
+      'file_directory' => 'interactive-block-images',
+      'file_extensions' => 'png gif jpg jpeg',
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'title_field' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'media',
+      'settings' => array(
+        'allowed_schemes' => array(
+          'private' => 'private',
+          'public' => 'public',
+        ),
+        'allowed_types' => array(
+          'audio' => 0,
+          'csv' => 0,
+          'document' => 0,
+          'image' => 'image',
+          'video' => 0,
+        ),
+        'browser_plugins' => array(
+          'media_default--media_browser_1' => 'media_default--media_browser_1',
+          'media_default--media_browser_my_files' => 0,
+          'media_internet' => 0,
+          'upload' => 'upload',
+        ),
+        'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
+      ),
+      'type' => 'media_generic',
+      'weight' => 1,
+    ),
+  );
+
   // Exported field_instance: 'field_collection_item-field_fc_block_section-field_fc_section_link'
   $field_instances['field_collection_item-field_fc_block_section-field_fc_section_link'] = array(
     'bundle' => 'field_fc_block_section',
@@ -24528,141 +24622,6 @@ When assigned to all nations, they will appear as UK.
     ),
   );
 
-  // Exported field_instance: 'node-internal_link_set-field_links_media'
-  $field_instances['node-internal_link_set-field_links_media'] = array(
-    'bundle' => 'internal_link_set',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 1,
-      ),
-      'entityreference_view_widget' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'full' => array(
-        'label' => 'hidden',
-        'module' => 'entityreference',
-        'settings' => array(
-          'custom_link_to_entity' => '',
-          'custom_prefix' => '',
-          'custom_reverse' => '',
-          'custom_strip_preserve' => '',
-          'custom_strip_tags' => '',
-          'custom_strtolower' => '',
-          'custom_strtoupper' => '',
-          'custom_suffix' => '',
-          'custom_trim' => '',
-          'custom_ucfirst' => '',
-          'custom_ucwords' => '',
-          'linked_field' => array(
-            'advanced' => array(
-              'class' => '',
-              'rel' => '',
-              'target' => '',
-              'text' => '',
-              'title' => '',
-            ),
-            'destination' => '',
-            'linked' => 0,
-          ),
-          'links' => TRUE,
-          'view_mode' => 'default',
-        ),
-        'type' => 'entityreference_entity_view',
-        'weight' => 0,
-      ),
-      'micro_teaser' => array(
-        'label' => 'hidden',
-        'module' => 'entityreference',
-        'settings' => array(
-          'custom_link_to_entity' => '',
-          'custom_prefix' => '',
-          'custom_reverse' => '',
-          'custom_strip_preserve' => '',
-          'custom_strip_tags' => '',
-          'custom_strtolower' => '',
-          'custom_strtoupper' => '',
-          'custom_suffix' => '',
-          'custom_trim' => '',
-          'custom_ucfirst' => '',
-          'custom_ucwords' => '',
-          'linked_field' => array(
-            'advanced' => array(
-              'class' => '',
-              'rel' => '',
-              'target' => '',
-              'text' => '',
-              'title' => '',
-            ),
-            'destination' => '',
-            'linked' => 0,
-          ),
-          'links' => TRUE,
-          'view_mode' => 'default',
-        ),
-        'type' => 'entityreference_entity_view',
-        'weight' => 0,
-      ),
-      'short_teaser' => array(
-        'label' => 'hidden',
-        'module' => 'entityreference',
-        'settings' => array(
-          'custom_link_to_entity' => '',
-          'custom_prefix' => '',
-          'custom_reverse' => '',
-          'custom_strip_preserve' => '',
-          'custom_strip_tags' => '',
-          'custom_strtolower' => '',
-          'custom_strtoupper' => '',
-          'custom_suffix' => '',
-          'custom_trim' => '',
-          'custom_ucfirst' => '',
-          'custom_ucwords' => '',
-          'linked_field' => array(
-            'advanced' => array(
-              'class' => '',
-              'rel' => '',
-              'target' => '',
-              'text' => '',
-              'title' => '',
-            ),
-            'destination' => '',
-            'linked' => 0,
-          ),
-        ),
-        'type' => 'entityreference_entity_id',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_links_media',
-    'label' => 'Media',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 3,
-    ),
-  );
-
   // Exported field_instance: 'node-job-body'
   $field_instances['node-job-body'] = array(
     'bundle' => 'job',
@@ -29652,156 +29611,6 @@ When assigned to all nations, they will appear as UK.
     ),
   );
 
-  // Exported field_instance: 'node-meeting-field_child_page_style'
-  $field_instances['node-meeting-field_child_page_style'] = array(
-    'bundle' => 'meeting',
-    'default_value' => array(
-      0 => array(
-        'field_collection_select' => 'fc_teaser',
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 14,
-      ),
-      'entityreference_view_widget' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'full' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 5,
-      ),
-      'micro_teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_child_page_style',
-    'label' => 'Child page style',
-    'required' => 0,
-    'settings' => array(
-      'field_collection' => 'field_fc_page_section',
-      'user_register_form' => FALSE,
-      'view_modes' => array(
-        'diff_standard' => 0,
-        'entityreference_view_widget' => 0,
-        'fc_teaser' => 'fc_teaser',
-        'full' => 0,
-        'micro_teaser' => 'micro_teaser',
-        'short_teaser' => 0,
-        'token' => 0,
-      ),
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'node_view_mode',
-      'settings' => array(
-        'maxlength_js_label' => 'Content limited to @limit characters, remaining: <strong>@remaining</strong>',
-      ),
-      'type' => 'field_collection_select',
-      'weight' => 14,
-    ),
-  );
-
-  // Exported field_instance: 'node-meeting-field_fc_page_section'
-  $field_instances['node-meeting-field_fc_page_section'] = array(
-    'bundle' => 'meeting',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 15,
-      ),
-      'entityreference_view_widget' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'full' => array(
-        'label' => 'hidden',
-        'module' => 'node_view_mode',
-        'settings' => array(
-          'add' => 'Add',
-          'custom_link_to_entity' => '',
-          'custom_prefix' => '',
-          'custom_reverse' => '',
-          'custom_strip_preserve' => '',
-          'custom_strip_tags' => '',
-          'custom_strtolower' => '',
-          'custom_strtoupper' => '',
-          'custom_suffix' => '',
-          'custom_trim' => '',
-          'custom_ucfirst' => '',
-          'custom_ucwords' => '',
-          'delete' => 'Delete',
-          'description' => TRUE,
-          'edit' => 'Edit',
-          'linked_field' => array(
-            'advanced' => array(
-              'class' => '',
-              'rel' => '',
-              'target' => '',
-              'text' => '',
-              'title' => '',
-            ),
-            'destination' => '',
-            'linked' => 0,
-          ),
-        ),
-        'type' => 'field_collection_node_view_mode',
-        'weight' => 2,
-      ),
-      'micro_teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_fc_page_section',
-    'label' => 'Page section',
-    'required' => FALSE,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'module' => 'field_collection',
-      'settings' => array(),
-      'type' => 'field_collection_embed',
-      'weight' => 15,
-    ),
-  );
-
   // Exported field_instance: 'node-meeting-field_meeting_list'
   $field_instances['node-meeting-field_meeting_list'] = array(
     'bundle' => 'meeting',
@@ -29825,7 +29634,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 4,
+        'weight' => 0,
       ),
       'micro_teaser' => array(
         'label' => 'above',
@@ -29887,7 +29696,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 10,
+        'weight' => 6,
       ),
       'micro_teaser' => array(
         'label' => 'above',
@@ -29973,7 +29782,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 3,
+        'weight' => 0,
       ),
       'micro_teaser' => array(
         'label' => 'hidden',
@@ -30082,7 +29891,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 9,
+        'weight' => 5,
       ),
       'micro_teaser' => array(
         'label' => 'above',
@@ -30143,7 +29952,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 8,
+        'weight' => 4,
       ),
       'micro_teaser' => array(
         'label' => 'above',
@@ -30214,7 +30023,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 7,
+        'weight' => 3,
       ),
       'micro_teaser' => array(
         'label' => 'above',
@@ -30285,7 +30094,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 13,
+        'weight' => 10,
       ),
       'micro_teaser' => array(
         'label' => 'above',
@@ -30357,7 +30166,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 11,
+        'weight' => 7,
       ),
       'micro_teaser' => array(
         'label' => 'above',
@@ -30447,7 +30256,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 12,
+        'weight' => 9,
       ),
       'micro_teaser' => array(
         'label' => 'above',
@@ -30519,7 +30328,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 6,
+        'weight' => 2,
       ),
       'micro_teaser' => array(
         'label' => 'above',
@@ -30575,7 +30384,7 @@ When assigned to all nations, they will appear as UK.
         'urls_search' => 'start',
       ),
       'type' => 'advanced_link',
-      'weight' => 22,
+      'weight' => 24,
     ),
   );
 
@@ -30602,7 +30411,7 @@ When assigned to all nations, they will appear as UK.
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 14,
+        'weight' => 11,
       ),
       'micro_teaser' => array(
         'label' => 'above',
@@ -41441,7 +41250,6 @@ When assigned to all nations, they will appear as UK.
   t('Location');
   t('Main text');
   t('Main text of page describing the paper.');
-  t('Media');
   t('Meetings Listing');
   t('Migrate node');
   t('Minutes');
