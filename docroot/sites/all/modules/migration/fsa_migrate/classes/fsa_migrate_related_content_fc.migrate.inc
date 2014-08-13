@@ -120,7 +120,7 @@ ENDSQL;
 
     // Migration source dependency.
     $this->addFieldMapping('host_entity_id', 'OBJECTID')
-      ->sourceMigration(array('FSADocumentpage', 'FSAAuditReport', 'FSAFAQpage','FSANewsDocument','FSAConsultationpage','FSAAlertDocument','FSAResearchProject'));
+      ->sourceMigration(array('FSADocumentpage', 'FSAAuditReport', 'FSAFAQpage','FSANewsDocument','FSAAlertDocument','FSAResearchProject'));
 
     // Related content.
     // Related media.
