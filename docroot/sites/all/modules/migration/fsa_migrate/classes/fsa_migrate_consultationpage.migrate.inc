@@ -261,12 +261,6 @@ ENDSQL;
       'Tachwedd' => 'November',
       'Rhagfyr' => 'December'
     );
-    // force welsh language based on path
-    $explodedPath = explode('/', $row->PATH);
-    if (isset($explodedPath[3]) && $explodedPath[3] == 'cymru') {
-      $row->language = 'Welsh';
-    }
-
     if (isset($row->startdate)) {
       $row->startdate = strtr($row->startdate,$months );
     }
@@ -341,8 +335,6 @@ ENDSQL;
       return 'Closed';
     }
   }
-
-
 
   /**
    * Extract the nation based on the consultation path.

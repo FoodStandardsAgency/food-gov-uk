@@ -81,7 +81,6 @@ function FSA_menu_build_get_url_list($csv = false){
       'researchprojectlist.csv',
       'researchprogramme.csv',
       'committees.csv',
-      'meeting-list.csv'
 
     );
     foreach ($files as $file) {
