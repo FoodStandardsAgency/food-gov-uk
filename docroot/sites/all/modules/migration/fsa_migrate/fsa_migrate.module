@@ -56,6 +56,8 @@ function fsa_migrate_global_id_map($action, $value = null){
       'migrate_map_fsamultibranchdocument',
       'migrate_map_fsanewsdocument',
       'migrate_map_fsatreebranchdocument',
+      'migrate_map_fsaresearchproject',
+      'migrate_map_fsaresearchprogramme',
     );
     // loop through all our map tables and create one array
     foreach ($tables as $table) {
@@ -75,3 +77,21 @@ function fsa_migrate_global_id_map($action, $value = null){
   return $result;
 }
 
+/**
+ * Returns a connection resource to alterian oracle db.
+ *
+ * @return null|resource
+ */
+function fsa_alterian_db_connect() {
+  global $conf;
+  $dbOracleDetails = $conf['oracle_db'];
+  $connectionOracle = oci_connect($dbOracleDetails['username'], $dbOracleDetails['password'], $dbOracleDetails['connection_string'], 'AL32UTF8');
+  if (!$connectionOracle) {
+    $e = oci_error();
+    trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+    return NULL;
+  }
+  else {
+    return $connectionOracle;
+  }
+}
