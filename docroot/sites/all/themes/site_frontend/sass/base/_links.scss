@@ -10,6 +10,22 @@ a:focus {
 	text-decoration: underline!important;
 }
 
+/* links for body and textarea fields */
+.field--type-text-with-summary,
+.field--type-text-long,
+.field-type-text-long,
+.field-type-text-with-summary {
+	a {
+		text-decoration: underline!important;
+	}
+	a:hover {
+		text-decorartion: none!important;
+	}
+	a:focus {
+		text-decoration: none!important;
+	}
+}
+
 /* external links icon - requires external links module */
 span.ext {
 	background: url('../images/icons/external-link-icon.gif') right center no-repeat;
