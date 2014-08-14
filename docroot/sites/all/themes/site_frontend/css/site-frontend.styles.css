@@ -626,14 +626,20 @@ a:focus {
 }
 
 /* links for body and textarea fields */
+.field--type-text-with-summary a,
+.field--type-text-long a,
 .field-type-text-long a,
 .field-type-text-with-summary a {
   text-decoration: underline;
 }
+.field--type-text-with-summary a:hover,
+.field--type-text-long a:hover,
 .field-type-text-long a:hover,
 .field-type-text-with-summary a:hover {
   text-decorartion: none;
 }
+.field--type-text-with-summary a:focus,
+.field--type-text-long a:focus,
 .field-type-text-long a:focus,
 .field-type-text-with-summary a:focus {
   text-decoration: none !important;
