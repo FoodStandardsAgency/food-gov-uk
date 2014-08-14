@@ -16,10 +16,10 @@ a:focus {
 .field-type-text-long,
 .field-type-text-with-summary {
 	a {
-		text-decoration: underline;
+		text-decoration: underline!important;
 	}
 	a:hover {
-		text-decorartion: none;
+		text-decorartion: none!important;
 	}
 	a:focus {
 		text-decoration: none!important;
