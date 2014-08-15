@@ -80,4 +80,29 @@ function local_node_view($node, $view_mode, $langcode) {
 }
 
 
-
+/**
+ * Implements hook_node_validate.
+ *
+ * We need to make sure that users do not add content to the top level of the menu
+ * @param $node
+ * @param $form
+ * @param $form_state
+ */
+function local_node_validate($node, $form, $form_state) {
+  $menu_required_types = array(
+    'document_page',
+    'faq',
+    'job'
+  );
+  $banned_plids = array('0','227');
+  if (in_array($node->type,$menu_required_types)) {
+    $plid = 0;
+    if (isset($node->menu['parent'])) {
+      $menu_parent = $node->menu['parent'][0];
+      list($menu, $plid) = explode(':',$menu_parent);
+    }
+    if (in_array($plid, $banned_plids )) {
+      form_set_error('menu', t('You must specify the location of your page in the menu'));
+    }
+  }
+}
