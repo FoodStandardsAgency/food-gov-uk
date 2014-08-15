@@ -95,3 +95,37 @@ function fsa_alterian_db_connect() {
     return $connectionOracle;
   }
 }
+
+/**
+ * Return the child of a given alterian id.
+ * The child is compared to an existing object.
+ *
+ * @param $objectIdSearched
+ * @param $objectIdExisting
+ * @return string
+ *  Alterian Object id.
+ */
+function fsa_migrate_getChildAlterianId($objectIdSearched, $objectIdExisting) {
+  GLOBAL $connectionOracle;
+
+  // Extracts the object path.
+  $childSQLRequest = <<<'ENDSQL'
+    SELECT LINK.PARENTID, OBJ.NAME, OBJ.OBJECTID, OBJTYPE.NAME, LINKTYPE.LINKTYPENAME
+    FROM OBJ, LINK, OBJTYPE, LINKTYPE
+    WHERE LINK.CHILDID = OBJ.OBJECTID
+    AND LINK.LINKTYPEID = LINKTYPE.LINKTYPEID
+    AND OBJTYPE.OBJECTTYPEID = OBJ.OBJECTTYPEID
+    AND LINK.PARENTID IN ( :obj_id )
+ENDSQL;
+
+  $replacedQuery = str_replace(':obj_id', $objectIdSearched, $childSQLRequest);
+  $sqlResult = FSAMigration::oracleQueryAll($replacedQuery, array(), $connectionOracle);
+
+  if (!is_null($sqlResult)) {
+    foreach ($sqlResult['OBJECTID'] as $objectId) {
+      if ($objectId !== $objectIdExisting) {
+        return $objectId;
+      }
+    }
+  }
+}

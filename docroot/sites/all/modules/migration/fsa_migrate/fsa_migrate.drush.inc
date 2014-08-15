@@ -22,6 +22,13 @@ function fsa_migrate_drush_command(){
     'aliases' => array('fsa-lang-up'),
   );
 
+  $items['fsa-create-translation'] = array(
+    'description' => "Link one node to its translation.",
+    'bootstrap' => DRUSH_BOOTSTRAP_DRUPAL_FULL,
+    'drupal dependencies' => array('fsa_migrate'),
+    'aliases' => array('fsa-cr-trans'),
+  );
+
   return $items;
 }
 
@@ -111,6 +118,61 @@ ENDSQL;
     }
     else {
       drush_log('CSV file ' . $fileCSV . ' is unavailable.', 'error');
+    }
+  }
+
+  // Close the oracle connection properly.
+  $connectionClosed = oci_close($connectionOracle);
+}
+
+/**
+ * Translation helper for drush.
+ * From a CSV file translation_map, lookup for the translation mapping between two nodes and change the nodes.
+ */
+function drush_fsa_migrate_fsa_create_translation() {
+
+  GLOBAL $connectionOracle;
+
+  // Opens the oracle connection.
+  $connectionOracle = fsa_alterian_db_connect();
+
+  $realPath = FSAMigrateListBase::checkCSVFileExists('data/csv/translation_map.csv');
+  if (!is_null($realPath)) {
+    $csvInfo = FSAMigrateListBase::getAllInfoFromCSV($realPath);
+    foreach ($csvInfo as $csvItem) {
+      $parentObjectId = $csvItem[0];
+      $childObjectId = $csvItem[1];
+
+      $parentNodeId = fsa_migrate_global_id_map('dest', $parentObjectId);
+      $childNodeId = fsa_migrate_global_id_map('dest', $childObjectId);
+
+      // If one value is null, we will lookup for more information.
+      if (is_null($parentNodeId) && !is_null($childNodeId) || is_null($childNodeId && !is_null($parentNodeId))) {
+        if (is_null($parentNodeId)) {
+          $parentObjectIdFromChild = fsa_migrate_getChildAlterianId($parentObjectId, $childObjectId);
+          $parentNodeId = fsa_migrate_global_id_map('dest', $parentObjectIdFromChild);
+          if (is_null($parentNodeId)) {
+            watchdog('migration', 'Translation error. Can not find a relation for alterian object id ' . $parentObjectId, NULL, WATCHDOG_ERROR);
+          }
+        }
+        if (is_null($childNodeId)) {
+          $childObjectIdFromParent = fsa_migrate_getChildAlterianId($childObjectId, $parentObjectId);
+          $childNodeId = fsa_migrate_global_id_map('dest', $childObjectIdFromParent);
+          if (is_null($childNodeId)) {
+            watchdog('migration', 'Translation error. Can not find a relation for alterian object id ' . $childObjectId, NULL, WATCHDOG_ERROR);
+          }
+        }
+      }
+
+      if (!is_null($parentNodeId) && !is_null($childNodeId)) {
+        $nodeParent = node_load($parentNodeId);
+        $nodeChild = node_load($childNodeId);
+
+        $nodeChild->tnid = $parentNodeId;
+        node_save($nodeChild);
+        $nodeParent->tnid = $parentNodeId;
+        node_save($nodeParent);
+      }
     }
   }
 
