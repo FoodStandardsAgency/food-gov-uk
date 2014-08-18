@@ -55,14 +55,15 @@ function apachesolr_custom_apachesolr_index_document_build_node(ApacheSolrDocume
   // set a sortable timestamp on all nodes that have a published year
   apachesolr_sortable_date_field($document, $entity, 'field_updated', 'is_field_updated');
   // Last updated year. (overridden by some types)
-  apachesolr_custom_year_field($document, $entity, 'field_updated', 'is_last_updated_year');
+  apachesolr_custom_year_field($document, $entity, 'field_updated', 'is_last_updated_year', '');
 
   switch ($entity->type) {
     case 'audit_report':
       // Last updated year. (use the year field)
-     // apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year');
-     // apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year_sort', 10);
-      apachesolr_custom_year_field($document, $entity, 'field_updated', 'is_last_updated_year_sort', 10);
+     apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year');
+     apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year_sort', 10);
+     apachesolr_custom_year_field($document, $entity, 'field_year', 'ss_last_updated_year_title_sort', 10, $entity->title);
+
 
       if (empty($entity->field_audit_action_plan)) {
         $document->addField('ss_has_audit_action_plan', t('No action plan'));
@@ -74,9 +75,9 @@ function apachesolr_custom_apachesolr_index_document_build_node(ApacheSolrDocume
 
     case 'audit_news':
       // we want audit news to come before audit reports
-      //apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year');
-      //apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year_sort',10.001);
-      apachesolr_custom_year_field($document, $entity, 'field_updated', 'is_last_updated_year_sort',10.001);
+      apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year');
+      apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year_sort',10.001);
+      apachesolr_custom_year_field($document, $entity, 'field_year', 'ss_last_updated_year_title_sort', 10);
 
       if (!empty($entity->field_heading_audit_news[LANGUAGE_NONE][0]['value'])) {
         $document->addField('ss_heading_audit_news', $entity->field_heading_audit_news[LANGUAGE_NONE][0]['value']);
@@ -89,12 +90,12 @@ function apachesolr_custom_apachesolr_index_document_build_node(ApacheSolrDocume
 
     case 'consultation':
       // Last updated year. (overridden by some types)
-      apachesolr_custom_year_field($document, $entity, 'field_consultation_dates', 'is_last_updated_year');
+      apachesolr_custom_year_field($document, $entity, 'field_consultation_dates', 'is_last_updated_year', '');
       break;
 
     case 'paper':
       // Last updated year.
-      apachesolr_custom_year_field($document, $entity, 'field_publication_year', 'is_last_updated_year');
+      apachesolr_custom_year_field($document, $entity, 'field_publication_year', 'is_last_updated_year', '');
       break;
   }
 
@@ -123,15 +124,16 @@ function apachesolr_custom_apachesolr_index_document_build_node(ApacheSolrDocume
  * @param $entity
  * @param $field
  * @param $solr_field
- * @param int $multiplier  Multiply the final value by a specified amount. Used for sorting with multiple content types
+ * @param int $multiplier Multiply the final value by a specified amount. Used for sorting with multiple content types
+ * @param $suffix
  */
-function apachesolr_custom_year_field(&$document, $entity, $field, $solr_field, $multiplier = 1) {
+function apachesolr_custom_year_field(&$document, $entity, $field, $solr_field, $multiplier = 1, $suffix = '') {
 
   if (isset($entity->{$field}['und'][0]['value']) && !empty($entity->{$field}['und'][0]['value'])) {
     $datetime = $entity->{$field}['und'][0]['value'];
     $date = new DateTime($datetime);
     $year = (int) ($date->format('Y') * $multiplier);
-    $document->setField($solr_field, "$year");
+    $document->setField($solr_field, "$year".$suffix);
   }
 }
 
