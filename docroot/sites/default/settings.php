@@ -360,6 +360,6 @@ if (file_exists('/var/www/site-php/food-settings.inc')) {
   // server specific config
   require('/var/www/site-php/food-settings.inc');
 }
-else if (file_exists(DRUPAL_ROOT . '/' . conf_path() . '/settings.local.php')) {
+if (file_exists(DRUPAL_ROOT . '/' . conf_path() . '/settings.local.php')) {
   include DRUPAL_ROOT . '/' . conf_path() . '/settings.local.php';
 }
