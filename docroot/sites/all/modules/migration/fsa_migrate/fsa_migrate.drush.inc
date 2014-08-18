@@ -29,6 +29,13 @@ function fsa_migrate_drush_command(){
     'aliases' => array('fsa-cr-trans'),
   );
 
+  $items['fsa_external_site_postprocess'] = array(
+    'description' => "Attach nodes to their external sites.",
+    'bootstrap' => DRUSH_BOOTSTRAP_DRUPAL_FULL,
+    'drupal dependencies' => array('fsa_migrate'),
+    'aliases' => array('fsa-ext-sites'),
+  );
+
   return $items;
 }
 
@@ -178,4 +185,35 @@ function drush_fsa_migrate_fsa_create_translation() {
 
   // Close the oracle connection properly.
   $connectionClosed = oci_close($connectionOracle);
+}
+
+/**
+ * Attach the nodes to external links.
+ */
+function drush_fsa_migrate_fsa_external_site_postprocess() {
+  // Read the external-links-export.csv
+  $realPath = FSAMigrateListBase::checkCSVFileExists('data/csv/external-links-export.csv');
+  if (!is_null($realPath)) {
+    $listObjectsIds = FSAMigrateListBase::getAllInfoFromCSV($realPath);
+
+    foreach ($listObjectsIds as $objectsResultArray) {
+      $parentNodeId = fsa_migrate_global_id_map('dest', $objectsResultArray[0]);
+
+      if (!is_null($parentNodeId)) {
+        $externalSites = explode(',', $objectsResultArray[1]);
+        foreach ($externalSites as $itemNumberExternalSite => $externalSitesObjectId) {
+          $externalNodeId = fsa_migrate_global_id_map('dest', $externalSitesObjectId);
+
+          if (!is_null($externalNodeId)) {
+            $nodeParent = node_load($parentNodeId);
+            $nodeParent->field_links_external[LANGUAGE_NONE][$itemNumberExternalSite]['target_id'] = $externalNodeId;
+            node_save($nodeParent);
+          }
+        }
+      }
+    }
+  }
+  else {
+    watchdog('migration', 'no file external-links-export.csv', NULL, WATCHDOG_ERROR);
+  }
 }
