@@ -77,13 +77,31 @@ ENDSQL;
   if (variable_get('fsa_migrate_production')) {
     // @TODO Add all the CSV file required.
     $csvFilesList = array(
+      'data/csv/foodhazard.csv',
+      'data/csv/audits.csv',
+      'data/csv/committees.csv',
       'data/csv/document.csv',
+      'data/csv/faq.csv',
+      'data/csv/multibranch-alterian-id-list.csv',
+      'data/csv/news.csv',
+      'data/csv/researchprogramme.csv',
+      'data/csv/researchproject.csv',
+      'data/csv/treebranch.csv',
     );
   }
   else {
     // @TODO Add all the CSV file required.
     $csvFilesList = array(
+      'data/csv/foodhazard-alterian-id-list.csv',
+      'data/csv/auditreport-alterian-id-list.csv',
+      'data/csv/committees-alterian-id-list.csv',
       'data/csv/dev-alterian-id-list.csv',
+      'data/csv/faq-alterian-id-list.csv',
+      'data/csv/multibranch-alterian-id-list.csv',
+      'data/csv/news-alterian-id-list.csv',
+      'data/csv/researchprogramme.csv',
+      'data/csv/researchproject.csv',
+      'data/csv/treebranch-alterian-id-list.csv',
     );
   }
 
