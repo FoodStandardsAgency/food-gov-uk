@@ -57,6 +57,7 @@ function fsa_migrate_global_id_map($action, $value = null){
       'migrate_map_fsanewsdocument',
       'migrate_map_fsatreebranchdocument',
       'migrate_map_fsaresearchproject',
+      'migrate_map_fsaresearchprojectlist',
       'migrate_map_fsaresearchprogramme',
       'migrate_map_fsaexternalsite'
     );
