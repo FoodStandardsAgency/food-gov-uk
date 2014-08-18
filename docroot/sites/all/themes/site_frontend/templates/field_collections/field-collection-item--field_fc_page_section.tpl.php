@@ -188,7 +188,7 @@ if (!empty($field_collection_item->field_child_page)) {
     ?>
     <?php if ($back_to_top) : ?>
       <div class="section-back-top">
-        <a href="#main-content"><? print t('Back to top'); ?> </a>
+        <a href="#main-content"><?php print t('Back to top'); ?> </a>
       </div>
     <?php endif; ?>
 
