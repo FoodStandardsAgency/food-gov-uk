@@ -36,6 +36,13 @@ function fsa_migrate_drush_command(){
     'aliases' => array('fsa-ext-sites'),
   );
 
+  $items['fsa_projectlist_postprocess'] = array(
+    'description' => "Attach research project to their research project list.",
+    'bootstrap' => DRUSH_BOOTSTRAP_DRUPAL_FULL,
+    'drupal dependencies' => array('fsa_migrate'),
+    'aliases' => array('fsa-proj-to-projlst'),
+  );
+
   return $items;
 }
 
@@ -209,6 +216,43 @@ function drush_fsa_migrate_fsa_external_site_postprocess() {
             $nodeParent->field_links_external[LANGUAGE_NONE][$itemNumberExternalSite]['target_id'] = $externalNodeId;
             node_save($nodeParent);
           }
+        }
+      }
+    }
+  }
+  else {
+    watchdog('migration', 'no file external-links-export.csv', NULL, WATCHDOG_ERROR);
+  }
+}
+
+/**
+ * Attach the nodes to external links.
+ */
+function drush_fsa_migrate_fsa_projectlist_postprocess() {
+  // Read the external-links-export.csv
+  $realPath = FSAMigrateListBase::checkCSVFileExists('data/csv/project_to_projectlist.csv');
+  if (!is_null($realPath)) {
+    $listObjectsIds = FSAMigrateListBase::getAllInfoFromCSV($realPath);
+
+    foreach ($listObjectsIds as $objectsResultArray) {
+      $parentNodeId = fsa_migrate_global_id_map('dest', $objectsResultArray[0]);
+
+      if (!is_null($parentNodeId)) {
+        $projectListObjectId = $objectsResultArray[1];
+        $projectListNodeId = fsa_migrate_global_id_map('dest', $projectListObjectId);
+
+        if (!is_null($projectListNodeId)) {
+          $nodeParent = node_load($parentNodeId);
+
+          if (isset($nodeParent->field_project_list[LANGUAGE_NONE])) {
+            $itemNumber = count($nodeParent->field_project_list[LANGUAGE_NONE]);
+          }
+          else {
+            $itemNumber = 0;
+          }
+
+          $nodeParent->field_project_list[LANGUAGE_NONE][$itemNumber]['target_id'] = $projectListNodeId;
+          node_save($nodeParent);
         }
       }
     }
