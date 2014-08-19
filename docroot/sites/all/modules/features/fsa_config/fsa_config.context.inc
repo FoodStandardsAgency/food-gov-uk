@@ -1,10 +1,3 @@
-/**
- * Created by PhpStorm.
- * User: Peter
- * Date: 18/08/14
- * Time: 10:19
- */
-
 <?php
 
 /**
