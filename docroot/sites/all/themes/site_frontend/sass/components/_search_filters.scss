@@ -119,6 +119,12 @@
 		font-size: 1.2em;
   } 
 }
+.l-sidebar-second,
+.l-sidebar-first {
+	.search-facet .form-item {
+		margin-bottom: 0.35em;
+	}
+}
 
 /* active links tabs */
 .current-search-item-active-links {

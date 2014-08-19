@@ -6084,6 +6084,11 @@ ul.pager li.pager__item--last a:hover {
   font-size: 1.2em;
 }
 
+.l-sidebar-second .search-facet .form-item,
+.l-sidebar-first .search-facet .form-item {
+  margin-bottom: 0.35em;
+}
+
 /* active links tabs */
 .current-search-item-active-links {
   margin-bottom: 20px;
