@@ -200,10 +200,12 @@ function drush_fsa_migrate_fsa_create_translation() {
         $nodeParent = node_load($parentNodeId);
         $nodeChild = node_load($childNodeId);
 
-        $nodeChild->tnid = $parentNodeId;
-        node_save($nodeChild);
-        $nodeParent->tnid = $parentNodeId;
-        node_save($nodeParent);
+       if ($nodeParent && $nodeChild) {
+          $nodeChild->tnid = $parentNodeId;
+          node_save($nodeChild);
+          $nodeParent->tnid = $parentNodeId;
+          node_save($nodeParent);
+       }
       }
     }
   }
@@ -230,9 +232,10 @@ function drush_fsa_migrate_fsa_external_site_postprocess() {
           $externalNodeId = fsa_migrate_global_id_map('dest', $externalSitesObjectId);
 
           if (!is_null($externalNodeId)) {
-            $nodeParent = node_load($parentNodeId);
-            $nodeParent->field_links_external[LANGUAGE_NONE][$itemNumberExternalSite]['target_id'] = $externalNodeId;
-            node_save($nodeParent);
+            if ($nodeParent = node_load($parentNodeId)) {
+              $nodeParent->field_links_external[LANGUAGE_NONE][$itemNumberExternalSite]['target_id'] = $externalNodeId;
+              node_save($nodeParent);
+            }
           }
         }
       }
