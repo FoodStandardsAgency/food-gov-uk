@@ -4254,11 +4254,12 @@ p.job-line-item {
   font-size: 1.2em;
   color: #333;
 }
-.jump-menu-block label {
+.jump-menu-block .form-item label {
+  font-weight: normal;
   display: block;
   font-size: 1.2em;
   line-height: 1.4em;
-  margin: 0 0 .8em 0;
+  margin: 0 0 1em 0;
 }
 
 /* depends on block class: language-switcher */
