@@ -4138,7 +4138,7 @@ span.copyright {
 }
 
 .inline-file-block-content {
-  padding: 6px 10px 12px 10px;
+  padding: 12px 10px 12px 10px;
   /* remove styling just in case */
 }
 .inline-file-block-content ul, .inline-file-block-content li {
@@ -4176,7 +4176,7 @@ span.copyright {
 .field--type-text-long .inline-file-block-content a:hover,
 .field-type-text-long .inline-file-block-content a:hover,
 .field-type-text-with-summary .inline-file-block-content a:hover {
-  text-decorartion: underline !important;
+  text-decoration: underline !important;
 }
 .field--type-text-with-summary .inline-file-block-content a:focus,
 .field--type-text-long .inline-file-block-content a:focus,
@@ -4198,12 +4198,10 @@ span.copyright {
 		<div class="inline-file-block">
 			<div class="inline-file-block-content">
 				<div class="file-item">
-					<div class="file-item">
-						<a href="/sites/default/files/multimedia/pdfs/consultfeedback.pdf"><img alt="" class="file-icon" src="/modules/file/icons/application-pdf.png" title="application/pdf" /> Consultation feedback questionnaire</a>
-					</div>
-					<div class="file-item">
-						<a href="/sites/default/files/multimedia/worddocs/consultfeedback.doc"><img alt="" class="file-icon" src="/modules/file/icons/x-office-document.png" title="application/msword" /> Consultation feedback questionnaire</a>
-					</div>
+					<a href="/sites/default/files/multimedia/pdfs/consultfeedback.pdf"><img alt="" class="file-icon" src="/modules/file/icons/application-pdf.png" title="application/pdf" /> Consultation feedback questionnaire</a>
+				</div>
+				<div class="file-item">
+					<a href="/sites/default/files/multimedia/worddocs/consultfeedback.doc"><img alt="" class="file-icon" src="/modules/file/icons/x-office-document.png" title="application/msword" /> Consultation feedback questionnaire</a>
 				</div>
 			</div>
 		</div>
