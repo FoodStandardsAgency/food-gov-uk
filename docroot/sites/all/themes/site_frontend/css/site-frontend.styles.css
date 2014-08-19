@@ -2568,9 +2568,8 @@ ul.breadcrumb {
 }
 .node-type-consultation #main-content .node .page-section-heading h2 {
   font-size: 1em;
-  line-height: 1.2em;
-  font-weight: bold;
   margin: 0;
+  padding: 0;
 }
 .node-type-consultation #main-content #block-toc-node-toc-node {
   clear: both;
