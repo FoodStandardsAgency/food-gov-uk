@@ -1,7 +1,9 @@
 <?php
 
+
+
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter().
  */
 function local_form_news_node_form_alter(&$form, &$form_state, $form_id) {
 
@@ -16,6 +18,31 @@ function local_form_news_node_form_alter(&$form, &$form_state, $form_id) {
 
   $form['field_primary_nation'][LANGUAGE_NONE]['#options'] = $options;
 }
+
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function local_form_ctools_jump_menu_alter(&$form, &$form_state, $form_id) {
+
+  $food_hygiene_rating_schemes = array(t('Food Hygiene Rating Scheme in Wales'), t('Food Hygiene Information Scheme in Scotland'), t('Food Hygiene Rating Scheme in Northern Ireland'));
+
+  // Use the menu title, which is provided as default option, to check this is a relevant jump menu.
+  // This will break if menu titles are changed, until $food_hygiene_rating_schemes is updated.
+  foreach ($form['jump']['#options'] as $key => $value) {
+
+    if ($key === '' && in_array($value, $food_hygiene_rating_schemes)) {
+      // Add label to select.
+      $form['jump']['#title'] = t('Check businesses in your area');
+      // Change default option
+      $form['jump']['#options'][$key] = t('Select your authority');
+    }
+  }
+
+}
+
+
+
 
 /**
  * Implements hook_theme_registry_alter().
@@ -55,6 +82,7 @@ function theme_local_superfish_build($variables) {
   $output = theme_superfish_build($variables);
   return $output;
 }
+
 function local_form_alter(&$form, &$form_state, $form_id){
   $id = $form_id;
 }
