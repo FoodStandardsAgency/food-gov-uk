@@ -2552,6 +2552,7 @@ ul.breadcrumb {
 
 /* section headings for consultation main content area */
 .node-type-consultation #main-content {
+  /* section headings from the field collection */
   /* toc block */
 }
 .node-type-consultation #main-content .node h2,
@@ -2564,6 +2565,11 @@ ul.breadcrumb {
   color: #fff;
   background: #5d9711;
   clear: both;
+}
+.node-type-consultation #main-content .node .page-section-heading h2 {
+  font-size: 1em;
+  margin: 0;
+  padding: 0;
 }
 .node-type-consultation #main-content #block-toc-node-toc-node {
   clear: both;
