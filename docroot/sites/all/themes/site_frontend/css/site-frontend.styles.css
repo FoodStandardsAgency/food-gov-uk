@@ -6643,6 +6643,35 @@ ul.pager li.pager__item--last a:hover {
   border: 1px solid #fff;
 }
 
+/* local authority map - dependant on block class: local-authority-map */
+.local-authority-map {
+  margin-bottom: 20px;
+}
+
+/* local authority search results - depandant on block class: local-authority-search-results */
+.local-authority-search-results .block__content a {
+  text-decoration: underline;
+}
+.local-authority-search-results .block__content a:hover {
+  text-decoration: none;
+}
+.local-authority-search-results .block__content h2.block__title {
+  display: none;
+}
+.local-authority-search-results .block__content ol {
+  padding-left: 2em;
+}
+.local-authority-search-results .block__content li {
+  font-size: 1.2em;
+  line-height: 1.4em;
+  margin-bottom: 1em;
+  padding-bottom: 0.8em;
+  border-bottom: 1px solid #ccc;
+}
+.local-authority-search-results .block__content li p, .local-authority-search-results .block__content li li {
+  font-size: 1em;
+}
+
 /* mobile layout */
 @media (min-width: 0px) and (max-width: 480px) {
   /* form default for mobile */

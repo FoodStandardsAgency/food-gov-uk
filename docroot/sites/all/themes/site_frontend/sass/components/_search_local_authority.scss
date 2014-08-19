@@ -215,6 +215,41 @@
 	}
 }
 
+
+/* local authority map - dependant on block class: local-authority-map */
+.local-authority-map {
+	margin-bottom: 20px;
+}
+
+/* local authority search results - depandant on block class: local-authority-search-results */
+.local-authority-search-results {
+	.block__content {
+		a {
+			text-decoration: underline;
+		}
+		a:hover {
+			text-decoration: none;
+		}
+		h2.block__title {
+			display: none;
+		}
+		ol {
+			padding-left: 2em;
+		}
+		li {
+			font-size: 1.2em;
+			line-height: 1.4em;
+			margin-bottom: 1em;
+			padding-bottom: 0.8em;
+			border-bottom: 1px solid #ccc;		
+		}
+		li p, li li {
+			font-size: 1em;
+		}
+	}
+}
+
+
 /* mobile layout */
 @include breakpoint($mobile) {
 	/* form default for mobile */
