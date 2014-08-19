@@ -99,5 +99,11 @@ class FSAMediaDocumentMigration extends FSAMigration {
     else {
       $row->TAGS = null;
     }
+
+    // Test if the file exists already.
+    $realPathCSV = drupal_realpath(str_replace('/sources/files', '', $row->DRUPALPATH));
+    if (file_exists($realPathCSV)) {
+      return FALSE;
+    }
   }
 }
