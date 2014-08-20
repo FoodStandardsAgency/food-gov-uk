@@ -335,6 +335,16 @@ fast_404_ext_check();
 //fast_404_path_check();
 
 
+# ========================= Memory boosting
+# Some admin pages are resource heavy. Rather than boosting the memory for all pages,
+# we can selectively increase memory for the pages that need it
+
+
+if (strpos($_GET['q'], 'admin') === 0) { ini_set('memory_limit', '512M'); }
+
+// Boost cron runs.
+if (isset($_GET['cron'])) { ini_set('memory_limit', '512M'); }
+
 
 # ========================= General Variable Overrides
 //shield settings
