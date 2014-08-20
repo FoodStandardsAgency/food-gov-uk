@@ -151,7 +151,7 @@ switch (getenv('AH_SITE_ENVIRONMENT')) {
     $conf['preprocess_js'] = 1;
     $conf['error_level'] = 0;
     $conf['cache'] = 1;
-    $conf['block_cache'] = 1;
+    $conf['block_cache'] = 0;
     $conf['cache_lifetime'] = 300;
     $conf['page_cache_maximum_age'] = 600;
 
@@ -174,7 +174,7 @@ switch (getenv('AH_SITE_ENVIRONMENT')) {
     $conf['user_register'] = 0;
     $conf['error_level'] = 0;
     $conf['cache'] = 1;
-    $conf['block_cache'] = 1;
+    $conf['block_cache'] = 0;
     $conf['cache_lifetime'] = 300;
     $conf['page_cache_maximum_age'] = 600;
     break;
