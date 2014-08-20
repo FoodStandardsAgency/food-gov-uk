@@ -135,10 +135,14 @@ ENDSQL;
               $nodeId = fsa_migrate_global_id_map('dest', $objectId);
               if (!is_null($nodeId)) {
                 // Once we have the node id, load, change the language and save the updated node.
-                $node = node_load($nodeId);
-                $node->language = 'cy';
-                node_save($node);
-                drush_log('Language changed to welsh for drupal node ' . $nodeId, 'success');
+                if ($node = node_load($nodeId)) {
+                  $node->language = 'cy';
+                  node_save($node);
+                  drush_log('Language changed to welsh for drupal node ' . $nodeId, 'success');
+                }
+                else {
+                  drush_log('Node no longer exists for alterian ' . $objectId, 'error');
+                }
               }
               else {
                 drush_log('No related id found for alterian ' . $objectId, 'error');
@@ -263,17 +267,21 @@ function drush_fsa_migrate_fsa_projectlist_postprocess() {
         $projectListNodeId = fsa_migrate_global_id_map('dest', $projectListObjectId);
 
         if (!is_null($projectListNodeId)) {
-          $nodeParent = node_load($parentNodeId);
+          if ($nodeParent = node_load($parentNodeId)) {
 
-          if (isset($nodeParent->field_project_list[LANGUAGE_NONE])) {
-            $itemNumber = count($nodeParent->field_project_list[LANGUAGE_NONE]);
+            if (isset($nodeParent->field_project_list[LANGUAGE_NONE])) {
+              $itemNumber = count($nodeParent->field_project_list[LANGUAGE_NONE]);
+            }
+            else {
+              $itemNumber = 0;
+            }
+
+            $nodeParent->field_project_list[LANGUAGE_NONE][$itemNumber]['target_id'] = $projectListNodeId;
+            node_save($nodeParent);
           }
           else {
-            $itemNumber = 0;
+            drush_log('Node no longer exists '. $parentNodeId);
           }
-
-          $nodeParent->field_project_list[LANGUAGE_NONE][$itemNumber]['target_id'] = $projectListNodeId;
-          node_save($nodeParent);
         }
       }
     }

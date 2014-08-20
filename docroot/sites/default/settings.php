@@ -340,7 +340,10 @@ fast_404_ext_check();
 # we can selectively increase memory for the pages that need it
 
 
-if (strpos($_GET['q'], 'admin') === 0) { ini_set('memory_limit', '512M'); }
+if (strpos($_GET['q'], 'admin') === 0) {
+  ini_set('memory_limit', '512M');
+  ini_set('max_execution_time', 120);
+}
 
 // Boost cron runs.
 if (isset($_GET['cron'])) { ini_set('memory_limit', '512M'); }

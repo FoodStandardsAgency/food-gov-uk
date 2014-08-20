@@ -1,0 +1,6 @@
+name = Google Tag Manager
+description = Inserts GTM code into the page.
+package = Local
+core = 7.x
+
+

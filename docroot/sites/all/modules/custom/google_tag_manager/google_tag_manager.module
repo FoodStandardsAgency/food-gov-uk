@@ -1,0 +1,91 @@
+<?php
+
+
+/**
+ * Implement hook_menu().
+ */
+function google_tag_manager_menu() {
+  $items = array();
+
+  $items['admin/config/system/google_tag_manager'] = array(
+    'title' => 'Google Tag Manager',
+    'description' => 'Configuration for the Google Tag Manager.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('google_tag_manager_admin_form'),
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+
+/**
+ * Defines a form for GTM settings
+ */
+function google_tag_manager_admin_form(){
+  $form['GTMID'] = array(
+    '#type' => 'textfield',
+    '#default_value' => variable_get('GTMID'),
+    '#title' => t('Tag Manager ID'),
+    '#description' => t(''),
+  );
+
+  return system_settings_form($form);
+}
+/**
+ * Implements hook_theme().
+ */
+function google_tag_manager_theme() {
+  $theme = array(
+    'google_tag_manager_embed' => array(),
+  );
+  return $theme;
+}
+
+/**
+ * Implements hook_preprocess_html
+ *
+ * This may only be compatible with Omega based themes as the JS is added to the page_top variable.
+ */
+function google_tag_manager_preprocess_html(&$vars) {
+  // prepend tag manager
+  $embed = theme('google_tag_manager_embed', array('gtm_id' => google_tag_manager_get_id()));
+  $vars['google_tag_manager'] = array(
+    '#weight' => -100,
+    '#markup' => $embed
+  );
+
+
+
+
+}
+
+/**
+ * Retrieves the tag manager
+ * @return string Tag manager id
+ */
+function google_tag_manager_get_id() {
+  return variable_get('GTMID', '');
+}
+
+function theme_google_tag_manager_embed() {
+  $gtm_id = google_tag_manager_get_id();
+  if ($gtm_id) {
+    $output = "
+    <!-- Google Tag Manager -->
+  <noscript><iframe src=\"//www.googletagmanager.com/ns.html?id=". $gtm_id ."\"
+  height=\"0\" width=\"0\" style=\"display:none;visibility:hidden\"></iframe></noscript>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','". $gtm_id ."');</script>
+  <!-- End Google Tag Manager -->
+    ";
+  }
+  else {
+    $output = "<!-- Google Tag Manager ID not set -->";
+  }
+  return $output;
+}
