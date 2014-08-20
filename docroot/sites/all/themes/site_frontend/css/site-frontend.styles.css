@@ -4022,6 +4022,12 @@ span.copyright {
   margin-bottom: 17px;
 }
 
+/* mobile view */
+@media (min-width: 0px) and (max-width: 480px) {
+  .field--name-field-banner-image {
+    display: none;
+  }
+}
 /* print styling overrides */
 @media print {
   .field--name-field-banner-image {
@@ -4044,6 +4050,13 @@ span.copyright {
   border: 0;
 }
 
+/* mobile view */
+@media (min-width: 0px) and (max-width: 480px) {
+  .field--name-field-feature-image,
+  .views-field-field-feature-image {
+    display: none;
+  }
+}
 /* print styling overrides */
 @media print {
   .field--name-field-feature-image,

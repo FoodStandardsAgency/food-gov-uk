@@ -18,6 +18,15 @@
 	}
 }
 
+
+/* mobile view */
+@include breakpoint($mobile) {
+	.field--name-field-feature-image,
+	.views-field-field-feature-image {
+		display: none;
+	}
+}
+
 /* print styling overrides */
 @media print {
 	.field--name-field-feature-image,

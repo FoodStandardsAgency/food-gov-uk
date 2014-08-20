@@ -3951,6 +3951,7 @@ span.copyright {
   margin-bottom: 17px;
 }
 
+/* mobile view */
 /* print styling overrides */
 @media print {
   .field--name-field-banner-image {
@@ -3973,6 +3974,7 @@ span.copyright {
   border: 0;
 }
 
+/* mobile view */
 /* print styling overrides */
 @media print {
   .field--name-field-feature-image,

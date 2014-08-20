@@ -3,6 +3,12 @@
 	margin-bottom: 17px;
 }
 
+/* mobile view */
+@include breakpoint($mobile) {
+	.field--name-field-banner-image {
+		display: none;
+	}
+}
 
 /* print styling overrides */
 @media print {
