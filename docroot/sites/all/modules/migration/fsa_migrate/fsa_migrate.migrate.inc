@@ -32,6 +32,10 @@ function fsa_migrate_migrate_api() {
         'class_name' => 'FSADocumentpageMigration',
         'group_name' => 'fsa_types',
       ),
+      'FSADocumentpageTop' => array(
+        'class_name' => 'FSADocumentpageTopMigration',
+        'group_name' => 'fsa_types',
+      ),
       'FSAFAQpage' => array(
         'class_name' => 'FSAFAQpageMigration',
         'group_name' => 'fsa_types',
@@ -84,12 +88,20 @@ function fsa_migrate_migrate_api() {
         'class_name' => 'FSADocumentpageCollectionMigration',
         'group_name' => 'fsa_fc',
       ),
+      'FSADocumentpageCollectionTop' => array(
+        'class_name' => 'FSADocumentpageCollectionTopMigration',
+        'group_name' => 'fsa_fc',
+      ),
       'FSAFAQpageCollection' => array(
         'class_name' => 'FSAFAQpageCollectionMigration',
         'group_name' => 'fsa_fc',
       ),
       'FSARelatedContentCollection' => array(
         'class_name' => 'FSARelatedContentCollectionMigration',
+        'group_name' => 'fsa_fc',
+      ),
+      'FSARelatedContentCollectionTop' => array(
+        'class_name' => 'FSARelatedContentCollectionTopMigration',
         'group_name' => 'fsa_fc',
       ),
       'FSADocumentpageCollection' => array(
@@ -122,6 +134,10 @@ function fsa_migrate_migrate_api() {
       ),
       'FSAChildpageCollection' => array(
         'class_name' => 'FSAChildpageCollectionMigration',
+        'group_name' => 'fsa_fc',
+      ),
+      'FSAChildpageCollectionTop' => array(
+        'class_name' => 'FSAChildpageCollectionTopMigration',
         'group_name' => 'fsa_fc',
       ),
       'FSAMultibranchCollectionChild' => array(
