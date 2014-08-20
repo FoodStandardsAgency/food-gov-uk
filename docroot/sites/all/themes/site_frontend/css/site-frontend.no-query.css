@@ -2885,6 +2885,7 @@ ul.breadcrumb {
 }
 .external-sites .views-field-field-url {
   font-size: 1.2em;
+  line-height: 1.4em;
   padding-left: 10px;
   background-image: url("../images/green-arrow-thin-right.png");
   background-repeat: no-repeat;
@@ -2900,6 +2901,7 @@ ul.breadcrumb {
 }
 .external-sites .views-field-field-subtitle {
   font-size: 1.2em;
+  line-height: 1.4em;
   padding-left: 10px;
 }
 .external-sites .views-row {
@@ -2941,6 +2943,7 @@ ul.breadcrumb {
 }
 .external-sites-with-logos .views-field-field-url {
   font-size: 1.2em;
+  line-height: 1.4em;
   padding-left: 10px;
   background-image: url("../images/green-arrow-thin-right.png");
   background-repeat: no-repeat;
@@ -2956,6 +2959,7 @@ ul.breadcrumb {
 }
 .external-sites-with-logos .views-field-field-subtitle {
   font-size: 1.2em;
+  line-height: 1.4em;
   padding-left: 10px;
 }
 .external-sites-with-logos .views-row {
@@ -2980,6 +2984,7 @@ ul.breadcrumb {
 }
 .foodbase-links .views-field-field-url {
   font-size: 1.2em;
+  line-height: 1.4em;
   padding-left: 10px;
   background-image: url("../images/green-arrow-thin-right.png");
   background-repeat: no-repeat;
@@ -2995,6 +3000,7 @@ ul.breadcrumb {
 }
 .foodbase-links .views-field-field-subtitle {
   font-size: 1.2em;
+  line-height: 1.4em;
   padding-left: 10px;
 }
 .foodbase-links .views-row {
