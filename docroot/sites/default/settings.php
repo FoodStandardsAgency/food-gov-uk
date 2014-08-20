@@ -67,7 +67,12 @@ if ($memcache_hosts = getenv('MEMCACHE_HOSTS')) {
   foreach ($memcache_hosts as $memcache_host) {
     $conf['memcache_servers'][$memcache_host . ':11211'] = 'default';
   }
+
+  $conf['memcache_bins'] = array(
+    'cache' => 'default',
+  );
 }
+
 
 /**
  * Allow Varnish configuration to be overridden by environment variables.
