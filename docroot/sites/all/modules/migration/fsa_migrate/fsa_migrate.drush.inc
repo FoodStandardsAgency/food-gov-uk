@@ -51,7 +51,7 @@ function fsa_migrate_drush_command(){
   );
 
   $items['fsa_news_terms_update'] = array(
-    'description' => "Attach nodes to their internal sites.",
+    'description' => "Update news terms.",
     'bootstrap' => DRUSH_BOOTSTRAP_DRUPAL_FULL,
     'drupal dependencies' => array('fsa_migrate'),
     'aliases' => array('fsa-news-tup'),
