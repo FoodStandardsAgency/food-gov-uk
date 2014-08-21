@@ -96,7 +96,7 @@ ENDSQL;
     if (variable_get('fsa_migrate_production',false)) {
       $this->source = new MigrateSourceList(
         new FSAMigrateListOracleGenericCollection(
-          array('data/csv/top_up.csv'),
+          array('data/csv/top_up.csv','data/csv/committees.csv'),
           array( $this->query_related_items, $this->query_related_CSV, $this->query_related_pages )
         ),
         new FSAMigrateItemOracleGenericCollection()
@@ -120,7 +120,7 @@ ENDSQL;
 
     // Migration source dependency.
     $this->addFieldMapping('host_entity_id', 'OBJECTID')
-      ->sourceMigration('FSADocumentpageTop');
+      ->sourceMigration(array('FSADocumentpageTop','FSACommitteepage'));
 
     // Related content.
     // Related media.
@@ -145,7 +145,7 @@ ENDSQL;
       ->defaultValue('Related pages');
     $this->addFieldMapping('field_child_page', 'sourceRelatedPagesPath')
       ->separator(',')
-      ->sourceMigration(array('FSADocumentpage', 'FSADocumentpageTop', 'FSANewsDocument','FSAAuditReport','FSAConsultationpage','FSAAlertDocument','FSAMultibranchDocument','FSAResearchProjectList','FSAResearchProgramme','FSAResearchProject','FSATreebranchDocument'));
+      ->sourceMigration(array('FSADocumentpage', 'FSADocumentpageTop', 'FSACommitteepage','FSANewsDocument','FSAAuditReport','FSAConsultationpage','FSAAlertDocument','FSAMultibranchDocument','FSAResearchProjectList','FSAResearchProgramme','FSAResearchProject','FSATreebranchDocument'));
   }
 
   /**
