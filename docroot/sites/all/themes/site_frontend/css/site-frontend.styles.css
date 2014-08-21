@@ -1205,6 +1205,10 @@ p, li, dt, dd, blockquote, pre, address, label, th, td, code {
   line-height: 1.4em;
 }
 
+td p, td li {
+  font-size: 1em;
+}
+
 p, ul, ol, dl, address, blockquote {
   margin: 0 0 1.3em 0;
 }
