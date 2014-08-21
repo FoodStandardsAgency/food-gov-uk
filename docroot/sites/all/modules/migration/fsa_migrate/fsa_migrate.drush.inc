@@ -50,6 +50,13 @@ function fsa_migrate_drush_command(){
     'aliases' => array('fsa-int-sites'),
   );
 
+  $items['fsa_news_terms_update'] = array(
+    'description' => "Attach nodes to their internal sites.",
+    'bootstrap' => DRUSH_BOOTSTRAP_DRUPAL_FULL,
+    'drupal dependencies' => array('fsa_migrate'),
+    'aliases' => array('fsa-news-tup'),
+  );
+
   return $items;
 }
 
@@ -329,4 +336,28 @@ function drush_fsa_migrate_fsa_internal_site_postprocess() {
   else {
     watchdog('migration', 'no file external-links-export.csv', NULL, WATCHDOG_ERROR);
   }
+}
+
+/**
+ * Rearrange terms for news nodes.
+ * Change all news with term 'Food Alert' to 'Product recall'.
+ */
+function drush_fsa_migrate_fsa_news_terms_update() {
+  // Final term id.
+  $newTermObject = taxonomy_get_term_by_name('Product recall', 'news_type');
+  $counter = 0;
+
+  $nodes = node_load_multiple(array(), array('type' => 'news'));
+  foreach($nodes as $news) {
+    $news_type_row = field_get_items('node', $news, 'field_news_type');
+    $news_type = field_view_value('node', $news, 'field_news_type', $news_type_row[0]);
+
+    if ($news_type['#title'] == 'Food Alert') {
+      $news->field_news_type[LANGUAGE_NONE][0] = array_shift($newTermObject)->tid;
+      node_save($news);
+      watchdog('migration', 'tid changed for node ' . $news->nid, NULL);
+      $counter++;
+    }
+  }
+  watchdog('migration', $counter . ' tids changed for news node', NULL);
 }
