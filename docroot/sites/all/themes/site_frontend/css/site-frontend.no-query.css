@@ -914,6 +914,9 @@ a.site-logo:focus img {
   font-size: 1.2em;
   line-height: 1.3em;
 }
+.field--name-field-fc-section-body td li {
+  font-size: 1em;
+}
 .field--name-field-fc-section-body li li {
   font-size: 1em;
 }
@@ -1182,6 +1185,10 @@ h1, h2, h3, h4, h5, h6 {
 p, li, dt, dd, blockquote, pre, address, label, th, td, code {
   font-size: 1.2em;
   line-height: 1.4em;
+}
+
+td p, td li {
+  font-size: 1em;
 }
 
 p, ul, ol, dl, address, blockquote {
