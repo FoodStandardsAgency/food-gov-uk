@@ -345,6 +345,7 @@ function drush_fsa_migrate_fsa_internal_site_postprocess() {
 function drush_fsa_migrate_fsa_news_terms_update() {
   // Final term id.
   $newTermObject = taxonomy_get_term_by_name('Food Alert', 'news_type');
+  $newTermId = array_shift($newTermObject)->tid;
   $NATermObject = taxonomy_get_term_by_name('General news', 'news_type');
   $NATTermId = array_shift($NATermObject)->tid;
   $counter = 0;
@@ -364,7 +365,7 @@ function drush_fsa_migrate_fsa_news_terms_update() {
       $news_type = field_view_value('node', $news, 'field_news_type', $news_type_row[0]);
       if ($news_type['#title'] == 'Product recall') {
         // Converts the term to 'Food Alert'.
-        $news->field_news_type[LANGUAGE_NONE][0] = array_shift($newTermObject)->tid;
+        $news->field_news_type[LANGUAGE_NONE][0] = $newTermId;
         node_save($news);
         watchdog('migration', 'tid changed for node ' . $news->nid, NULL);
         $counter++;
