@@ -74,6 +74,6 @@ class FSAChildpageCollectionTopMigration extends FSAMigration {
     // Fields mapping.
     $this->addFieldMapping('field_child_page', 'OBJECTIDS')
       ->separator(',')
-      ->sourceMigration(array('FSADocumentpage', 'FSADocumentpageTop','FSAFAQpage','FSAMultibranchDocument','FSAResearchProjectList','FSAResearchProgramme','FSAResearchProject','FSATreebranchDocument'));
+      ->sourceMigration(array('FSADocumentpage', 'FSADocumentpageTop','FSACommitteepage','FSAFAQpage','FSAMultibranchDocument','FSAResearchProjectList','FSAResearchProgramme','FSAResearchProject','FSATreebranchDocument'));
   }
 }
