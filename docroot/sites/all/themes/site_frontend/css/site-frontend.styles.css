@@ -1220,6 +1220,10 @@ p, ul, ol, dl, address, blockquote {
   margin: 0 0 1.3em 0;
 }
 
+ol, ul {
+  padding: 0 0 0 16px;
+}
+
 .file-item {
   font-size: 1.2em;
   line-height: 1.4em;

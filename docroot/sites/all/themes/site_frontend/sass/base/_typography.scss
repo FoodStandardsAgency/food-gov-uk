@@ -48,6 +48,9 @@ td p, td li {
 p, ul, ol, dl, address, blockquote {
   margin: 0 0 1.3em 0;                                            // 12 x 1.3 = 15.6px
 }
+ol, ul {
+	padding: 0 0 0 16px;																						// override base theme default of 0 0 0 40px;
+}
 .file-item {
 	font-size: 1.2em;                                               // 1.2 x 10 = 12px
   line-height: 1.4em;                                             // 12 x 1.4 = 16.8px
