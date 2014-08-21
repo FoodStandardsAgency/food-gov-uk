@@ -346,6 +346,7 @@ function drush_fsa_migrate_fsa_news_terms_update() {
   // Final term id.
   $newTermObject = taxonomy_get_term_by_name('Food Alert', 'news_type');
   $NATermObject = taxonomy_get_term_by_name('General news', 'news_type');
+  $NATTermId = array_shift($NATermObject)->tid;
   $counter = 0;
 
   $nodes = node_load_multiple(array(), array('type' => 'news'));
@@ -354,7 +355,7 @@ function drush_fsa_migrate_fsa_news_terms_update() {
 
     // Converts an empty term to 'General news'.
     if (is_null($news_type_row[0])) {
-      $news->field_news_type[LANGUAGE_NONE][0] = array_shift($NATermObject)->tid;
+      $news->field_news_type[LANGUAGE_NONE][0] = $NATTermId;
       node_save($news);
       watchdog('migration', 'tid changed for node ' . $news->nid, NULL);
       $counter++;
