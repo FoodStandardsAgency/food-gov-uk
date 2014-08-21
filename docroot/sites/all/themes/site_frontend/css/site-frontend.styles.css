@@ -7243,7 +7243,7 @@ ul.pager li.pager__item--last a:hover {
 }
 .view-audit-reports .views-row {
   border-bottom: 1px solid #5d9711;
-  padding: 7px 0 7px 0;
+  padding: 12px 0 7px 0;
 }
 .view-audit-reports .views-row.views-row-last,
 .view-audit-reports .views-row.views-row-first.views-row-last {
