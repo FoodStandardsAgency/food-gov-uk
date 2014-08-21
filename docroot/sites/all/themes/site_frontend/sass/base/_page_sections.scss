@@ -50,8 +50,11 @@
 		font-size: 1.2em;
 		line-height: 1.3em;
 	}
+	td li {
+		font-size: 1em;	// to avoid nested em's
+	}
 	li li {
-		font-size: 1em;
+		font-size: 1em;	// to avoid nested em's
 	}
 }
 

@@ -914,6 +914,9 @@ a.site-logo:focus img {
   font-size: 1.2em;
   line-height: 1.3em;
 }
+.field--name-field-fc-section-body td li {
+  font-size: 1em;
+}
 .field--name-field-fc-section-body li li {
   font-size: 1em;
 }
