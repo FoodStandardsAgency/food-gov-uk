@@ -43,6 +43,13 @@ function fsa_migrate_drush_command(){
     'aliases' => array('fsa-proj-to-projlst'),
   );
 
+  $items['fsa_internal_site_postprocess'] = array(
+    'description' => "Attach nodes to their internal sites.",
+    'bootstrap' => DRUSH_BOOTSTRAP_DRUPAL_FULL,
+    'drupal dependencies' => array('fsa_migrate'),
+    'aliases' => array('fsa-int-sites'),
+  );
+
   return $items;
 }
 
@@ -251,7 +258,7 @@ function drush_fsa_migrate_fsa_external_site_postprocess() {
 }
 
 /**
- * Attach the nodes to external links.
+ * Attach the project to their projectlist.
  */
 function drush_fsa_migrate_fsa_projectlist_postprocess() {
   // Read the external-links-export.csv
@@ -281,6 +288,39 @@ function drush_fsa_migrate_fsa_projectlist_postprocess() {
           }
           else {
             drush_log('Node no longer exists '. $parentNodeId);
+          }
+        }
+      }
+    }
+  }
+  else {
+    watchdog('migration', 'no file external-links-export.csv', NULL, WATCHDOG_ERROR);
+  }
+}
+
+/**
+ * Attach the nodes to internal links.
+ */
+function drush_fsa_migrate_fsa_internal_site_postprocess() {
+  // Read the external-links-export.csv
+  $realPath = FSAMigrateListBase::checkCSVFileExists('data/csv/internal-links-export.csv');
+  if (!is_null($realPath)) {
+    $listObjectsIds = FSAMigrateListBase::getAllInfoFromCSV($realPath);
+
+    foreach ($listObjectsIds as $objectsResultArray) {
+      $parentNodeId = fsa_migrate_global_id_map('dest', $objectsResultArray[0]);
+
+      if (!is_null($parentNodeId)) {
+        $internalSites = explode(',', $objectsResultArray[1]);
+
+        foreach ($internalSites as $itemNumberInternalSite => $internalSitesObjectId) {
+          $internalNodeId = fsa_migrate_global_id_map('dest', $internalSitesObjectId);
+
+          if (!is_null($internalNodeId)) {
+            if ($nodeParent = node_load($parentNodeId)) {
+              $nodeParent->field_links_see_also[LANGUAGE_NONE][$itemNumberInternalSite]['target_id'] = $internalNodeId;
+              node_save($nodeParent);
+            }
           }
         }
       }

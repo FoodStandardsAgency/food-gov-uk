@@ -59,7 +59,8 @@ function fsa_migrate_global_id_map($action, $value = null){
       'migrate_map_fsaresearchproject',
       'migrate_map_fsaresearchprojectlist',
       'migrate_map_fsaresearchprogramme',
-      'migrate_map_fsaexternalsite'
+      'migrate_map_fsaexternalsite',
+      'migrate_map_fsainternallinkset'
     );
     // loop through all our map tables and create one array
     foreach ($tables as $table) {
