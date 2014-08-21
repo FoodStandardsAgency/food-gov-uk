@@ -2885,6 +2885,7 @@ ul.breadcrumb {
 }
 .external-sites .views-field-field-url {
   font-size: 1.2em;
+  line-height: 1.4em;
   padding-left: 10px;
   background-image: url("../images/green-arrow-thin-right.png");
   background-repeat: no-repeat;
@@ -2900,6 +2901,7 @@ ul.breadcrumb {
 }
 .external-sites .views-field-field-subtitle {
   font-size: 1.2em;
+  line-height: 1.4em;
   padding-left: 10px;
 }
 .external-sites .views-row {
@@ -2941,6 +2943,7 @@ ul.breadcrumb {
 }
 .external-sites-with-logos .views-field-field-url {
   font-size: 1.2em;
+  line-height: 1.4em;
   padding-left: 10px;
   background-image: url("../images/green-arrow-thin-right.png");
   background-repeat: no-repeat;
@@ -2956,6 +2959,7 @@ ul.breadcrumb {
 }
 .external-sites-with-logos .views-field-field-subtitle {
   font-size: 1.2em;
+  line-height: 1.4em;
   padding-left: 10px;
 }
 .external-sites-with-logos .views-row {
@@ -2980,6 +2984,7 @@ ul.breadcrumb {
 }
 .foodbase-links .views-field-field-url {
   font-size: 1.2em;
+  line-height: 1.4em;
   padding-left: 10px;
   background-image: url("../images/green-arrow-thin-right.png");
   background-repeat: no-repeat;
@@ -2995,6 +3000,7 @@ ul.breadcrumb {
 }
 .foodbase-links .views-field-field-subtitle {
   font-size: 1.2em;
+  line-height: 1.4em;
   padding-left: 10px;
 }
 .foodbase-links .views-row {
@@ -3581,7 +3587,7 @@ span.copyright {
   border: 0;
 }
 .fsa-in-the-nations .block__content h3 a {
-  font-size: 1.2em;
+  font-size: 1.4em;
   line-height: 1.4em;
 }
 .fsa-in-the-nations .block__content ul {
@@ -3632,7 +3638,7 @@ span.copyright {
 .fsa-in-the-nations .block__content ul.nation-links li a {
   display: block;
   border-right: 1px solid #006f51;
-  font-size: 1.1em;
+  font-size: 1.2em;
   line-height: 1em;
   margin-right: 4px;
   padding-right: 4px;
@@ -3951,6 +3957,7 @@ span.copyright {
   margin-bottom: 17px;
 }
 
+/* mobile view */
 /* print styling overrides */
 @media print {
   .field--name-field-banner-image {
@@ -3973,6 +3980,7 @@ span.copyright {
   border: 0;
 }
 
+/* mobile view */
 /* print styling overrides */
 @media print {
   .field--name-field-feature-image,
@@ -7629,7 +7637,7 @@ ul.toc-node-bullets li.toc-node-level-6 {
   -ms-border-radius: 8px;
   border-radius: 8px;
   background-color: #eef4e7;
-  color: #5d9711;
+  color: #006f51;
   overflow: hidden;
 }
 .field--name-field-fc-section-quote p {
