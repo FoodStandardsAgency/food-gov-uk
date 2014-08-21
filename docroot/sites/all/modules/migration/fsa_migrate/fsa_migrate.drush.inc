@@ -344,19 +344,30 @@ function drush_fsa_migrate_fsa_internal_site_postprocess() {
  */
 function drush_fsa_migrate_fsa_news_terms_update() {
   // Final term id.
-  $newTermObject = taxonomy_get_term_by_name('Product recall', 'news_type');
+  $newTermObject = taxonomy_get_term_by_name('Food Alert', 'news_type');
+  $NATermObject = taxonomy_get_term_by_name('General news', 'news_type');
   $counter = 0;
 
   $nodes = node_load_multiple(array(), array('type' => 'news'));
   foreach($nodes as $news) {
     $news_type_row = field_get_items('node', $news, 'field_news_type');
-    $news_type = field_view_value('node', $news, 'field_news_type', $news_type_row[0]);
 
-    if ($news_type['#title'] == 'Food Alert') {
-      $news->field_news_type[LANGUAGE_NONE][0] = array_shift($newTermObject)->tid;
+    // Converts an empty term to 'General news'.
+    if (is_null($news_type_row[0])) {
+      $news->field_news_type[LANGUAGE_NONE][0] = array_shift($NATermObject)->tid;
       node_save($news);
       watchdog('migration', 'tid changed for node ' . $news->nid, NULL);
       $counter++;
+    }
+    else {
+      $news_type = field_view_value('node', $news, 'field_news_type', $news_type_row[0]);
+      if ($news_type['#title'] == 'Product recall') {
+        // Converts the term to 'Food Alert'.
+        $news->field_news_type[LANGUAGE_NONE][0] = array_shift($newTermObject)->tid;
+        node_save($news);
+        watchdog('migration', 'tid changed for node ' . $news->nid, NULL);
+        $counter++;
+      }
     }
   }
   watchdog('migration', $counter . ' tids changed for news node', NULL);
