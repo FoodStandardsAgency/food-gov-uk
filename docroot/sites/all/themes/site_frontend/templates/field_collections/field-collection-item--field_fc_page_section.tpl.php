@@ -55,7 +55,7 @@ if (
 
 if (
   isset($field_collection_item->field_science_data) &&
-  isset($field_collection_item->field_science_data[$language][0]['value']) &&
+  isset($field_collection_item->field_science_data[$language][0]) &&
   !$field_collection_item->field_science_data[$language][0]['value']
 ) {
   hide($content['field_science_data']);
