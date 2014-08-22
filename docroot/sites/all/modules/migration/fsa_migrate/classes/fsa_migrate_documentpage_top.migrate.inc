@@ -50,7 +50,7 @@ class FSADocumentpageTopMigration extends FSAMigration {
     // Configure the source of the migration.
     if (variable_get('fsa_migrate_production')) {
       $this->source = new MigrateSourceList(
-        new FSAMigrateListOracleObjectsFromCSV('data/csv/top_up.csv'),
+        new FSAMigrateListOracleObjectsFromCSV('data/csv/top_up2.csv'),
         new FSAMigrateItemOracleObject()
       );
     }
