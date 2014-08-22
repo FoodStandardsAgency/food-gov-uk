@@ -3453,6 +3453,25 @@ div.field.field--name-field-fc-quanda-answer.field--type-text-long.field--label-
     display: none;
   }
 }
+/* overrides for zendesk feedback widget */
+body #zenbox_tab {
+  position: fixed;
+  bottom: 3%;
+}
+
+/* hide feedback tab for smaller screens - that are smaller than the popup form width */
+@media all and (max-width: 640px) {
+  body #zenbox_tab,
+  #zenbox_overlay {
+    display: none;
+  }
+}
+/* hide the extra feedback tab on the Drupal editing overlay */
+.overlay-open body #zenbox_tab,
+.overlay-open body #zenbox_overlay {
+  display: none;
+}
+
 /* Styling for blocks with files, similar to the file styling on page sections
  * requires block style: file-block. Styles the block but not its contents
  */
