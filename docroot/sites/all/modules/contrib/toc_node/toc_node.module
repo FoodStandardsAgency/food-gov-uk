@@ -71,12 +71,12 @@ function toc_node_form_node_form_alter(&$form, &$form_state, $form_id) {
     return;
   }
 
-  $options_all       = array('none' => t('No TOC'), 'bullets' => t('Bullets'), 'numbers' => t('Numbered'));
-  $options_enabled   = variable_get('toc_node_styles_' . $type, array());
-  $options           = array_intersect_key($options_all, array_flip($options_enabled));
-  $style             = variable_get('toc_node_style_default_' . $type, 'bullets');
+  $options_all                = array('none' => t('No TOC'), 'bullets' => t('Bullets'), 'numbers' => t('Numbered'));
+  $options_enabled            = variable_get('toc_node_styles_' . $type, array());
+  $options                    = array_intersect_key($options_all, array_flip($options_enabled));
+  $style                      = variable_get('toc_node_style_default_' . $type, 'bullets');
   $back_to_top_links_defaults = variable_get('toc_node_back_to_top_links_' . $type, 0);
-  $level             = variable_get('toc_node_level_' . $type, 'h2');
+  $level                      = variable_get('toc_node_level_' . $type, 'h2');
 
   if (isset($form['nid']['#value'])) {
     $node_settings = db_query('SELECT * FROM {toc_node} WHERE nid = :nid', array(':nid' => $form['nid']['#value']))->fetchAssoc();
@@ -296,14 +296,16 @@ function toc_node_block_view($delta = '') {
         return;
       }
 
-      $node_rendered    = node_view($node);
-      $content          = drupal_render($node_rendered);
-      $content          = toc_node_generate($content, $node->toc_node_style, $node->toc_node_level, $node->toc_node_back_to_top_links, 'toc_list');
-      $block['subject'] = t('Contents');
-      $block['content'] = $content;
+      $node_rendered = node_view($node);
+      $node_content  = drupal_render($node_rendered);
+      $content       = toc_node_generate($node_content, $node->toc_node_style, $node->toc_node_level, $node->toc_node_back_to_top_links, 'toc_list');
+
+      if ($content != $node_content) {
+        $block['subject'] = t('Contents');
+        $block['content'] = $content;
+      }
 
       break;
-
   }
 
   return $block;
@@ -392,7 +394,7 @@ function toc_node_add_anchors(&$dom_document, &$anchor_count, &$links, $heading_
 
     // Headings, add class.
     $classes = $header->getAttribute('class');
-    $header->setAttribute('class', $classes. ' toc-headings');
+    $header->setAttribute('class', $classes . ' toc-headings');
 
     // Anchors above headings.
     $anchor_div = $dom_document->createElement('div');
