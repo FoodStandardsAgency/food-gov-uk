@@ -1,23 +1,32 @@
 /* overrides for zendesk feedback widget */
+
+// styling needs to be done via zendesk as Zendesk overrides this, just keeping it here for reference
+
+/*
 body #zenbox_tab {
 	position: fixed;
 	bottom: 3%;
 }
+*/
 
 /* hide feedback tab for smaller screens - that are smaller than the popup form width */
+/*
 @media all and (max-width: 640px) {
 	body #zenbox_tab,
 	#zenbox_overlay {
 		display: none;
 	}
 }
+*/
 
 /* hide the extra feedback tab on the Drupal editing overlay */
+/*
 .overlay-open body {
 	#zenbox_tab,
 	#zenbox_overlay {
 		display: none;
 	}
 }
+*/
 
 
