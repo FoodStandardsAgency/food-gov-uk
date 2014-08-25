@@ -49,8 +49,8 @@ function fsa_config_custom_formatters_custom_formatters_defaults() {
     foreach ($variables[\'#items\'] as $item) {
        $output .= \'<div class="file-item">\';
 
-       if (isset($item[\'field_file_title\'][LANGUAGE_NONE][0][\'safe_value\'])) {
-         $item[\'filename\'] = $item[\'field_file_title\'][LANGUAGE_NONE][0][\'safe_value\'] . \' \';
+       if (isset($item[\'field_file_title\'][LANGUAGE_NONE][0][\'value\'])) {
+         $item[\'filename\'] = $item[\'field_file_title\'][LANGUAGE_NONE][0][\'value\'] . \' \';
        }
 
        if (isset($item[\'field_file_type\']) && isset($item[\'field_file_type\'][LANGUAGE_NONE][0][\'value\'])) {
@@ -86,7 +86,7 @@ function fsa_config_custom_formatters_custom_formatters_defaults() {
     $langcode = \'und\';
     foreach ($variables[\'#items\'] as $item) {
        // reassign title
-       $item[\'filename\'] =   $item[\'field_file_title\'][$langcode][0][\'safe_value\'];
+       $item[\'filename\'] =   $item[\'field_file_title\'][$langcode][0][\'value\'];
 
        $output .= \'<div class="file-item">\';
        $output .= theme(\'file_link\', array(\'file\' => (object) $item));
