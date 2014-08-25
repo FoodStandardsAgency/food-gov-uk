@@ -68,7 +68,7 @@ function custom_formatters_field_formatter_settings_summary($field, $instance, $
 /**
  * Implements hook_field_formatter_settings_form().
  */
-function custom_formatters_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
+function custom_formatters_field_formatter_settings_form($field, $instance, $view_mode, $full_form, &$form_state) {
   $display = $instance['display'][$view_mode];
   $settings = $display['settings'];
   $formatter = custom_formatters_crud_load(drupal_substr($display['type'], 18));

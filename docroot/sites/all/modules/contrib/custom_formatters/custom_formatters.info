@@ -36,7 +36,7 @@ files[] = plugins/export_ui/custom_formatters_ui.class.php
 files[] = custom_formatters.module
 
 ; Information added by drupal.org packaging script on 2012-07-04
-version = "7.x-2.2"
+version = "7.x-2.2-PATCHED"
 core = "7.x"
 project = "custom_formatters"
 datestamp = "1341407783"

@@ -1,0 +1,5 @@
+name = fsa_config_custom_formatters export module
+description = Export objects from CTools
+dependencies[] = custom_formatters
+package = Chaos tool suite
+core = 7.x

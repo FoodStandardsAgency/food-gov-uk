@@ -227,7 +227,12 @@ function field_redirection_field_formatter_view($entity_type, $entity, $field, $
         break;
     }
   }
-
+  // File entities do not pass a field array to the formatter, but the uri is consistent
+  if ($entity_type == 'file') {
+    if (!empty($item['uri'])) {
+      $path = file_create_url($item['uri']);
+    }
+  }
   // Only proceed if a path was identified.
   if (!empty($path)) {
     // If the user has permission to bypass the page redirection, return a
