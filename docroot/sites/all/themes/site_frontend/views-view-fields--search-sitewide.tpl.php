@@ -23,11 +23,16 @@
  *
  * @ingroup views_templates
  */
-
+  if (isset($row->ts_uri)) {
+    $url = $row->ts_uri;
+  }
+  else if (isset($row->url)) {
+    $url = $row->url;
+  }
   // For search results which are file entities convert the heading into a link, so that it's consistent with node results.
-  if (isset($row->entity_type) && $row->entity_type == 'file' && isset($row->ts_uri) && !empty($row->ts_uri) && isset($row->sm_field_file_title[0]) && !empty($row->sm_field_file_title[0]) && isset($fields['zs_view_mode_search_result']->content)) {
+  if (isset($row->entity_type) && $row->entity_type == 'file' && !empty($url) && isset($row->sm_field_file_title[0]) && !empty($row->sm_field_file_title[0]) && isset($fields['zs_view_mode_search_result']->content)) {
     $title = '<h2 property="title">' . $row->sm_field_file_title[0] . '</h2>';
-    $title_replacement = '<h2 property="title">' . l($row->sm_field_file_title[0], $row->ts_uri) . '</h2>';
+    $title_replacement = '<h2 property="title">' . l($row->sm_field_file_title[0], $url) . '</h2>';
 
     // Sometimes the heading tag has a space before property attribute.
     $title_alternative = '<h2  property="title">' . $row->sm_field_file_title[0] . '</h2>';
