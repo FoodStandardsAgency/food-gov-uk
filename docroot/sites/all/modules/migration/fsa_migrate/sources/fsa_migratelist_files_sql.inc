@@ -113,6 +113,9 @@ ENDSQL;
     GLOBAL $connectionOracle;
 
     $reducedPath = str_replace(variable_get('file_public_path', 'sites/default/files') . '/sources/files', '', $id);
+    // override for cot
+ //   $reducedPath = str_replace(variable_get('file_public_path', 'sites/default/files') . '/sources/files/cot/', $id);
+
 
     $queryObject = str_replace(':obj_path', "'" . $reducedPath . "'", $this->query);
 
