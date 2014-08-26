@@ -55,7 +55,7 @@ function apachesolr_custom_apachesolr_index_document_build_node(ApacheSolrDocume
   // set a sortable timestamp on all nodes that have a published year
   apachesolr_sortable_date_field($document, $entity, 'field_updated', 'is_field_updated');
   // Last updated year. (overridden by some types)
-  apachesolr_custom_year_field($document, $entity, 'field_updated', 'is_last_updated_year', '');
+  apachesolr_custom_year_field($document, $entity, 'field_updated', 'is_last_updated_year', 1);
 
   switch ($entity->type) {
     case 'audit_report':
@@ -90,12 +90,12 @@ function apachesolr_custom_apachesolr_index_document_build_node(ApacheSolrDocume
 
     case 'consultation':
       // Last updated year. (overridden by some types)
-      apachesolr_custom_year_field($document, $entity, 'field_consultation_dates', 'is_last_updated_year', '');
+      apachesolr_custom_year_field($document, $entity, 'field_consultation_dates', 'is_last_updated_year', 1);
       break;
 
     case 'paper':
       // Last updated year.
-      apachesolr_custom_year_field($document, $entity, 'field_publication_year', 'is_last_updated_year', '');
+      apachesolr_custom_year_field($document, $entity, 'field_publication_year', 'is_last_updated_year', 1);
       break;
   }
 
