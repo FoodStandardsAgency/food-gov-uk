@@ -100,7 +100,9 @@ function container_blocks_block_view($delta = '') {
 
     case 'search_alerts_facets':
       $blocks[] = block_load('views', '-exp-alerts-page');
-      $blocks[] = block_load('facetapi', 'bLPXAQDJqA1Re1OTSoyUJM9gUBaIgZMG');
+      // Last updated year.
+      $blocks[] = block_load('facetapi', 'z0n0mr7e3co9o4fke31fjmkzq9qgwfqq');
+
 
       $content = container_blocks_concatenate_content($blocks);
 
