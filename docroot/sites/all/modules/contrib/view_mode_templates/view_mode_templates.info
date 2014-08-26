@@ -1,0 +1,10 @@
+name = View Mode Templates
+description = Templates for Entity View Modes
+core = 7.x
+
+; Information added by Drupal.org packaging script on 2014-08-25
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "view_mode_templates"
+datestamp = "1409006329"
+

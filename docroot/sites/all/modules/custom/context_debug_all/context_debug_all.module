@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * Implements hook_context_load_alter().
+ *
+ * Enable debugging for all contexts
+ */
+function context_debug_all_context_load_alter(&$context) {
+  if (!array_key_exists('debug', $context->reactions)) {
+    $context->reactions['debug'] = array(
+      'debug' => 1,
+    );
+  }
+}
