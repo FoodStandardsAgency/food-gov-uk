@@ -427,10 +427,20 @@ ENDSQL;
 
       $parentNodeId = fsa_migrate_global_id_map('dest', $filepath, array('migrate_map_fsamediadocument'));
       if (!is_null($parentNodeId)) {
-
         // Probably need to update that.
-        $reducedPath = str_replace('/mnt/drupal_data/sources/files', '', $objectsResultArray[0]);
-        $queryObject = str_replace(':obj_path', "'" . $reducedPath . "'", $fileMetadataSQL);
+        if (strpos($objectsResultArray[0], '/mnt/drupal_data/sources/files') === 0) {
+          $reducedPath = str_replace('/mnt/drupal_data/sources/files', '', $objectsResultArray[0]);
+          $queryObject = str_replace(':obj_path', "'" . $reducedPath . "'", $fileMetadataSQL);
+        }
+        elseif (strpos($objectsResultArray[0], '/cot/') === 0) {
+          $reducedPath = str_replace('/cot/', '/science/ouradvisors/cot/pdfs/', $objectsResultArray[0]);
+          $queryObject = str_replace(':obj_path', "'" . $reducedPath . "'", $fileMetadataSQL);
+        }
+        else {
+          watchdog('migration', 'Could not find the position of both "mnt/drupal_data/..." or ' .
+           '"/cot/" for ' . $objectsResultArray[0], NULL, WATCHDOG_ERROR);
+          continue;
+        }
 
         // Query the oracle db.
         $queryResults = FSAMigration::oracleQuerySingle(
