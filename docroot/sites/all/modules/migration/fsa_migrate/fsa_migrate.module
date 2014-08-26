@@ -33,12 +33,13 @@ function fsa_migrate_node_update($node) {
 }
 
 /**
- * Get hold of the Node id for an alterian id
+ * Get hold of the Node id for an alterian id.
  * @param $action
  * @param null $value
+ * @param null $tables Tables names.
  * @return null
  */
-function fsa_migrate_global_id_map($action, $value = null){
+function fsa_migrate_global_id_map($action, $value = null, $tables = NULL){
   $map = &drupal_static(__FUNCTION__);
   $result = null;
   if ($action == 'reset') {
@@ -47,21 +48,25 @@ function fsa_migrate_global_id_map($action, $value = null){
   if (!$map) {
     // initialise the map
     $map = array();
-    $tables = array(
-      'migrate_map_fsaalertdocument',
-      'migrate_map_fsaauditreport',
-      'migrate_map_fsaconsultationpage',
-      'migrate_map_fsadocumentpage',
-      'migrate_map_fsafaqpage',
-      'migrate_map_fsamultibranchdocument',
-      'migrate_map_fsanewsdocument',
-      'migrate_map_fsatreebranchdocument',
-      'migrate_map_fsaresearchproject',
-      'migrate_map_fsaresearchprojectlist',
-      'migrate_map_fsaresearchprogramme',
-      'migrate_map_fsaexternalsite',
-      'migrate_map_fsainternallinkset'
-    );
+
+    if (is_null($tables)) {
+      $tables = array(
+        'migrate_map_fsaalertdocument',
+        'migrate_map_fsaauditreport',
+        'migrate_map_fsaconsultationpage',
+        'migrate_map_fsadocumentpage',
+        'migrate_map_fsafaqpage',
+        'migrate_map_fsamultibranchdocument',
+        'migrate_map_fsanewsdocument',
+        'migrate_map_fsatreebranchdocument',
+        'migrate_map_fsaresearchproject',
+        'migrate_map_fsaresearchprojectlist',
+        'migrate_map_fsaresearchprogramme',
+        'migrate_map_fsaexternalsite',
+        'migrate_map_fsainternallinkset'
+      );
+    }
+
     // loop through all our map tables and create one array
     foreach ($tables as $table) {
       $map_query = db_select($table,'m')->fields('m', array('sourceid1','destid1'))->execute();
@@ -79,6 +84,8 @@ function fsa_migrate_global_id_map($action, $value = null){
   }
   return $result;
 }
+
+
 
 /**
  * Returns a connection resource to alterian oracle db.

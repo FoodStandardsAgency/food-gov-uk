@@ -57,6 +57,13 @@ function fsa_migrate_drush_command(){
     'aliases' => array('fsa-news-tup'),
   );
 
+  $items['fsa_file_metadata'] = array(
+    'description' => "Update files metadata.",
+    'bootstrap' => DRUSH_BOOTSTRAP_DRUPAL_FULL,
+    'drupal dependencies' => array('fsa_migrate'),
+    'aliases' => array('fsa-file-meta-up'),
+  );
+
   return $items;
 }
 
@@ -388,4 +395,91 @@ function drush_fsa_migrate_fsa_news_terms_update() {
     }
   }
   watchdog('migration', $counter . ' tids changed for news node', NULL);
+}
+
+/**
+ * Update the metadata on media files.
+ */
+function drush_fsa_migrate_fsa_file_metadata() {
+  GLOBAL $connectionOracle;
+  $counter = 0;
+
+  // Opens the oracle connection.
+  $connectionOracle = fsa_alterian_db_connect();
+
+  // Extracts the object path.
+  $fileMetadataSQL = <<<'ENDSQL'
+    SELECT OBJ.OBJECTID, OBJ.NAME, OBJ.OBJECTCOMMENT
+      FROM OBJ, LINK, OBJTYPE, LINKTYPE
+      WHERE LINK.CHILDID = OBJ.OBJECTID
+      AND LINK.LINKTYPEID = LINKTYPE.LINKTYPEID
+      AND OBJTYPE.OBJECTTYPEID = OBJ.OBJECTTYPEID
+      AND OBJ.PATH LIKE :obj_path
+      AND ROWNUM <= 1
+ENDSQL;
+
+  // Read the file-metadata-update.csv
+  $realPath = FSAMigrateListBase::checkCSVFileExists('data/csv/file-metadata-update.csv');
+  if (!is_null($realPath)) {
+    $listObjectsIds = FSAMigrateListBase::getAllInfoFromCSV($realPath);
+    foreach ($listObjectsIds as $objectsResultArray) {
+      $filepath = variable_get('file_public_path', 'sites/default/files') . '/sources/files' . $objectsResultArray[0];
+
+      $parentNodeId = fsa_migrate_global_id_map('dest', $filepath, array('migrate_map_fsamediadocument'));
+      if (!is_null($parentNodeId)) {
+        // Probably need to update that.
+        if (strpos($objectsResultArray[0], '/mnt/drupal_data/sources/files') === 0) {
+          $reducedPath = str_replace('/mnt/drupal_data/sources/files', '', $objectsResultArray[0]);
+          $queryObject = str_replace(':obj_path', "'" . $reducedPath . "'", $fileMetadataSQL);
+        }
+        elseif (strpos($objectsResultArray[0], '/cot/') === 0) {
+          $reducedPath = str_replace('/cot/', '/science/ouradvisors/cot/pdfs/', $objectsResultArray[0]);
+          $queryObject = str_replace(':obj_path', "'" . $reducedPath . "'", $fileMetadataSQL);
+        }
+        else {
+          watchdog('migration', 'Could not find the position of both "mnt/drupal_data/..." or ' .
+           '"/cot/" for ' . $objectsResultArray[0], NULL, WATCHDOG_ERROR);
+          continue;
+        }
+
+        // Query the oracle db.
+        $queryResults = FSAMigration::oracleQuerySingle(
+          $queryObject,
+          array(),
+          $connectionOracle
+        );
+
+        if (!is_null($queryResults)) {
+          $entityFile = entity_load_single('file', $parentNodeId);
+
+          // Update title.
+          if (isset($queryResults['NAME']) && !is_null($queryResults['NAME'])) {
+            $entityFile->field_file_title[LANGUAGE_NONE][0]['value'] = $queryResults['NAME'];
+          }
+          // Update description.
+          if (isset($queryResults['OBJECTCOMMENT']) && !is_null($queryResults['OBJECTCOMMENT'])) {
+            $entityFile->field_file_description[LANGUAGE_NONE][0]['value'] = $queryResults['OBJECTCOMMENT'];
+          }
+
+          $entitySaveResult = entity_save('file', $entityFile);
+
+          if ($entitySaveResult === FALSE) {
+            watchdog('migration', 'Could not save entity file with path: ' . $filepath, NULL, WATCHDOG_ERROR);
+          }
+          else {
+            watchdog('migration', 'Media file record updated for path: ' . $filepath, NULL);
+            $counter++;
+          }
+        }
+      }
+      else {
+        watchdog('migration', 'Could not find a drupal id for file with path: ' . $filepath, NULL, WATCHDOG_ERROR);
+      }
+    }
+  }
+
+  watchdog('migration', $counter . ' media file record updated.', NULL);
+
+  // Close the oracle connection properly.
+  $connectionClosed = oci_close($connectionOracle);
 }
