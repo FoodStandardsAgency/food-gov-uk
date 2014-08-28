@@ -64,6 +64,13 @@ function fsa_migrate_drush_command(){
     'aliases' => array('fsa-file-meta-up'),
   );
 
+  $items['fsa_file_tags_update'] = array(
+    'description' => "Update files tags from path.",
+    'bootstrap' => DRUSH_BOOTSTRAP_DRUPAL_FULL,
+    'drupal dependencies' => array('fsa_migrate'),
+    'aliases' => array('fsa-file-tags'),
+  );
+
   return $items;
 }
 
@@ -482,4 +489,73 @@ ENDSQL;
 
   // Close the oracle connection properly.
   $connectionClosed = oci_close($connectionOracle);
+}
+
+/**
+ * Updates the tag field on media files regarding their path.
+ */
+function drush_fsa_migrate_fsa_file_tags_update() {
+  $result = db_query("SELECT sourceid1, destid1 FROM {migrate_map_fsamediadocument}");
+  $counter = 0;
+
+  $vid = taxonomy_vocabulary_machine_name_load('file_tags')->vid;
+
+  if ($result) {
+    while ($row = $result->fetchAssoc()) {
+      $pathArray = explode('/', $row['sourceid1']);
+      $entityFile = entity_load_single('file', $row['destid1']);
+
+      if (!is_null($entityFile->type)) {
+
+        // The types of media supporting the tag field.
+        $entityTypeArray = array(
+          'document',
+          'presentation',
+          'spreadsheet',
+          'text',
+          'image',
+        );
+
+        if (in_array($entityFile->type, $entityTypeArray)) {
+          $fileTag = $pathArray[count($pathArray) - 2];
+
+          // Lookup from name to tid.
+          $fileTagObj = taxonomy_get_term_by_name($fileTag, 'file_tags');
+
+          if (empty($fileTagObj)) {
+            $fileTagTid = fsa_migrate_helper_create_taxonomy_term($fileTag, $vid);
+          }
+          else {
+            $fileTagTid = array_shift($fileTagObj)->tid;
+          }
+
+          // If the value of the field is different, we change it.
+          if ($entityFile->field_file_tags[LANGUAGE_NONE][0]['tid'] !== $fileTagTid) {
+            $entityFile->field_file_tags[LANGUAGE_NONE][0]['tid'] = $fileTagTid;
+            $entitySaveResult = entity_save('file', $entityFile);
+
+            if ($entitySaveResult === FALSE) {
+              watchdog('migration', 'Tag update could not save entity file: ' . $row['destid1'], NULL, WATCHDOG_ERROR);
+            }
+            else {
+              watchdog('migration', 'Tag on media file record updated: ' . $row['destid1'], NULL);
+              $counter++;
+            }
+          }
+        }
+      }
+    }
+    watchdog('migration', $counter . ' media file record updated.', NULL);
+  }
+}
+
+/**
+ * Create a taxonomy term and return the tid.
+ */
+function fsa_migrate_helper_create_taxonomy_term($name, $vid) {
+  $term = new stdClass();
+  $term->name = $name;
+  $term->vid = $vid;
+  taxonomy_term_save($term);
+  return $term->tid;
 }
