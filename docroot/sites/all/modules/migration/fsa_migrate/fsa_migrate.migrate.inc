@@ -52,6 +52,10 @@ function fsa_migrate_migrate_api() {
         'class_name' => 'FSAAlertDocumentMigration',
         'group_name' => 'fsa_types',
       ),
+      'FSAAlertAllergyDocument' => array(
+        'class_name' => 'FSAAlertAllergyDocumentMigration',
+        'group_name' => 'fsa_types',
+      ),
       'FSAConsultationpage' => array(
         'class_name' => 'FSAConsultationpageMigration',
         'group_name' => 'fsa_types',
@@ -100,6 +104,10 @@ function fsa_migrate_migrate_api() {
         'class_name' => 'FSARelatedContentCollectionMigration',
         'group_name' => 'fsa_fc',
       ),
+      'FSARelatedContentAlertAllergyCollection' => array(
+        'class_name' => 'FSARelatedContentAlertAllergyCollectionMigration',
+        'group_name' => 'fsa_fc',
+      ),
       'FSARelatedContentCollectionTop' => array(
         'class_name' => 'FSARelatedContentCollectionTopMigration',
         'group_name' => 'fsa_fc',
@@ -126,6 +134,10 @@ function fsa_migrate_migrate_api() {
       ),
       'FSAAlertDocumentCollection' => array(
         'class_name' => 'FSAAlertDocumentCollectionMigration',
+        'group_name' => 'fsa_fc',
+      ),
+      'FSAAlertAllergyDocumentCollection' => array(
+        'class_name' => 'FSAAlertAllergyDocumentCollectionMigration',
         'group_name' => 'fsa_fc',
       ),
       'FSAMultibranchCollection' => array(
