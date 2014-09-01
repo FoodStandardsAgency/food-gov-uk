@@ -1,0 +1,217 @@
+diff -Naurw field_collection_old/field_collection.module field_collection/field_collection.module
+--- field_collection_old/field_collection.module	2013-10-11 12:57:33.000000000 +0100
++++ field_collection/field_collection.module	2013-10-11 12:47:56.000000000 +0100
+@@ -403,7 +403,66 @@
+     }
+     return !empty($this->hostEntityId) || !empty($this->hostEntity) || !empty($this->hostEntityRevisionId);
+   }
+-
++  /**
++   * Fetch an assosciative array of all non deleted entities, other than the
++   * (optionally) passed host entity that are using this field collection.
++   * Optionally retrieve only those entities using the current revision
++   *
++   * This is needed to account for ...
++   * 1) node revisions being removed from the database before deleteRevision is
++   *    called
++   * 2) Multiple host entities referring to the same field collection as a result
++   *    of migration from an older version of field collection
++   *
++   * We don't want to clobber those field collections on deleteRevision, so
++   * we check for references here, in this nasty, hacky piece of code :-)
++   *
++   * @param bool $for_current_revision_only
++   * @param int $exclude_this_revision_id
++   * @return array
++   * @throws Exception
++   */
++  protected function fetchAllHostEntityIds($for_current_revision_only = FALSE, $exclude_this_revision_id = NULL) {
++    $results = array();
++    if ($this->item_id) {
++      // Retrieve data from field tables using EntityFieldQuery
++      $query = new EntityFieldQuery();
++      if($for_current_revision_only) {
++        $query->fieldCondition($this->fieldInfo(), 'revision_id', $this->revision_id);
++      }
++      else {
++        $query->fieldCondition($this->fieldInfo(), 'value', $this->item_id);
++      }
++      $query->age(FIELD_LOAD_REVISION);
++      $entities = $query->execute();
++      // I'm assuming a field collection isn't going to be referenced from more
++      // than one entity type.
++      if($entities) {
++        $entity_type = key($entities);
++        $entity_info = entity_get_info($entity_type);
++        if (empty($entity_info['entity keys']['revision'])) {
++          return $results;
++        }
++        if (isset($entities[$entity_type]) && $entities[$entity_type]) {
++          // EntityFieldQuery can fetch host entity revision ids that have already
++          // been delted from the database. Check our ids exist.
++          $revisions_for_query = array_keys($entities[$entity_type]);
++          $squery = db_select($entity_info['revision table'], 'revision');
++          $squery->fields('revision', array($entity_info['entity keys']['id'], $entity_info['entity keys']['revision']))
++                ->condition($entity_info['entity keys']['revision'], $revisions_for_query, 'IN');
++          $revisions = $squery->execute()->fetchAllAssoc($entity_info['entity keys']['revision']);
++          if($revisions) {
++            foreach ($revisions as $rid => $revision) {
++              if($rid != $exclude_this_revision_id) {
++                $results[$rid] = $entities[$entity_type][$rid];
++              }
++            }
++          }
++        }
++      }
++    }
++    return $results;
++  }
+   /**
+    * Determines the $delta of the reference pointing to this field collection
+    * item.
+@@ -534,28 +593,42 @@
+    * If no revisions are left or the host is not revisionable, the whole item
+    * is deleted.
+    */
+-  public function deleteRevision($skip_host_update = FALSE) {
++  public function deleteRevision($skip_host_update = FALSE, $calling_host_entity_revision_id = NULL) {
+     if (!$this->revision_id) {
+       return;
+     }
+-    $info = entity_get_info($this->hostEntityType());
+-    if (empty($info['entity keys']['revision']) || !$this->hostEntity()) {
++    // When called from node_revision_delete, the host entity has already been
++    // removed from the database, but other entities can still refer to the field
++    // collection. Retrieve those entities here.
++    $host_entities = $this->fetchAllHostEntityIds(FALSE, $calling_host_entity_revision_id);
++    if (! $host_entities) {
++      return $this->delete();
++    }
++    $hostEntityType = $this->hostEntityType();
++    $info = entity_get_info($hostEntityType);
++    if ($hostEntityType && empty($info['entity keys']['revision'])) {
+       return $this->delete();
+     }
+-    if (!$skip_host_update) {
++    // After running update.php from a site with old unversioned field
++    // collections, there can be multiple host entities using the same
++    // revision. We do NOT want to delete the revision if it's
++    // still being referenced. This checks for that condition.
++    $host_entities_using_this_revision = $this->fetchAllHostEntityIds(TRUE, $calling_host_entity_revision_id);
++    if (!$skip_host_update && $this->hostEntity()) {
+       // Just remove the item from the host, which cares about deleting the
+       // item (depending on whether the update creates a new revision).
+       $this->deleteHostEntityReference();
+     }
+-    elseif (!$this->isDefaultRevision()) {
++    elseif (!$this->isDefaultRevision() && !$host_entities_using_this_revision) {
+       entity_revision_delete('field_collection_item', $this->revision_id);
+     }
+     // If deleting the default revision, take care!
+-    else {
++    elseif (!$host_entities_using_this_revision) {
+       $row = db_select('field_collection_item_revision', 'r')
+         ->fields('r')
+         ->condition('item_id', $this->item_id)
+         ->condition('revision_id', $this->revision_id, '<>')
++        ->orderBy('revision_id', 'DESC')
+         ->execute()
+         ->fetchAssoc();
+       // If no other revision is left, delete. Else archive the item.
+@@ -564,11 +637,16 @@
+       }
+       else {
+         // Make the other revision the default revision and archive the item.
+-        db_update('field_collection_item')
+-          ->fields(array('archived' => 1, 'revision_id' => $row['revision_id']))
+-          ->condition('item_id', $this->item_id)
+-          ->execute();
+         entity_get_controller('field_collection_item')->resetCache(array($this->item_id));
++        $new_default_entity = field_collection_item_revision_load($row['revision_id']);
++        if($new_default_entity) {
++          $new_default_entity_type = $new_default_entity->hostEntityType();
++          if($new_default_entity_type) {
++            entity_revision_set_default($new_default_entity_type, $new_default_entity);
++            $new_default_entity->archived = TRUE;
++            $new_default_entity->save(TRUE);
++          }
++        }
+         entity_revision_delete('field_collection_item', $this->revision_id);
+       }
+     }
+@@ -968,7 +1046,7 @@
+     else {
+       // Delete unused field collection items now.
+       foreach (field_collection_item_load_multiple($ids) as $un_item) {
+-        $un_item->deleteRevision(TRUE);
++        $un_item->deleteRevision(TRUE, field_collection_get_revision_id($host_entity_type, $host_entity));
+       }
+     }
+   }
+@@ -1011,8 +1089,8 @@
+ function field_collection_field_delete_revision($entity_type, $entity, $field, $instance, $langcode, &$items) {
+   foreach ($items as $item) {
+     if (!empty($item['revision_id'])) {
+-      if ($entity = field_collection_item_revision_load($item['revision_id'])) {
+-        $entity->deleteRevision(TRUE);
++      if ($field_collection = field_collection_item_revision_load($item['revision_id'])) {
++        $field_collection->deleteRevision(TRUE, field_collection_get_revision_id($entity_type, $entity));
+       }
+     }
+   }
+@@ -1911,3 +1989,18 @@
+ 
+   return array('value' => $field_collection->item_id);
+ }
++/**
++ * Get revision ID from a passed entity
++ *
++ * @param string $entity_type
++ * @param object $entity
++ * @return null|int
++ */
++function field_collection_get_revision_id($entity_type, $entity) {
++  $ids = entity_extract_ids($entity_type, $entity);
++  $vid = NULL;
++  if(is_array($ids)) {
++    list($id, $vid, $bundle) = $ids;
++  }
++  return $vid;
++}
+\ No newline at end of file
+diff -Naurw field_collection_old/field_collection.test field_collection/field_collection.test
+--- field_collection_old/field_collection.test	2013-10-11 12:57:33.000000000 +0100
++++ field_collection/field_collection.test	2013-10-11 12:32:19.000000000 +0100
+@@ -158,11 +158,9 @@
+     $node_vid = $node->vid;
+     $node->revision = TRUE;
+     node_save($node);
+-
+     $node_vid2 = $node->vid;
+     $node->revision = TRUE;
+     node_save($node);
+-
+     // Now delete the field collection item for the default revision.
+     $item = field_collection_item_load($node->{$this->field_name}[LANGUAGE_NONE][0]['value']);
+     $item_revision_id = $item->revision_id;
+@@ -210,6 +208,20 @@
+     $item = field_collection_item_load($item->item_id);
+     $this->assertTrue($item, 'Removed field collection item still exists.');
+     $this->assertTrue($item->archived, 'Removed field collection item is archived.');
++
++    // Test removing an old node revision. Make sure that the field collection
++    // is not removed
++    list ($node, $item) = $this->createNodeWithFieldCollection();
++    $node_vid = $node->vid;
++    $node->revision = TRUE;
++    node_save($node);
++    $node_vid2 = $node->vid;
++    $item_vid2 = $node->{$this->field_name}[LANGUAGE_NONE][0]['revision_id'];
++    node_revision_delete($node_vid);
++    $item2 = field_collection_item_revision_load($item_vid2);
++    $item_id2 = isset($item2->item_id) ? $item2->item_id : -1;
++    $this->assertEqual($item_id2, $item->item_id, 'Removing an old node revision does not delete newer field collection revisions');
++
+   }
+ 
+   /**
