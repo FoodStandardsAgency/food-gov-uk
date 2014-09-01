@@ -103,3 +103,19 @@ https://www.drupal.org/node/2000690
 
 Stop the field collection field from deleting media files.
 FSA-stop_deletion_media_migration_on_roll_back.patch
+
+
+============================================
+
+Field Redirection
+
+Updated to allow redirection to work with file entities. Checks for an entity of type file and gets the uri from the correct location.
+
+=============================================
+
+Custom formatters
+
+The settings form on custom formatters is not set up correctly. It has a minor patch to allow updates to be saved.
+
+
+

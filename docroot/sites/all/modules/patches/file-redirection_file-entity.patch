@@ -1,0 +1,21 @@
+Index: docroot/sites/all/modules/contrib/field_redirection/field_redirection.module
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- docroot/sites/all/modules/contrib/field_redirection/field_redirection.module	(date 1408978370000)
++++ docroot/sites/all/modules/contrib/field_redirection/field_redirection.module	(revision )
+@@ -227,7 +227,12 @@
+         break;
+     }
+   }
+-
++  // File entities do not pass a field array to the formatter, but the uri is consistent
++  if ($entity_type == 'file') {
++    if (!empty($item['uri'])) {
++      $path = file_create_url($item['uri']);
++    }
++  }
+   // Only proceed if a path was identified.
+   if (!empty($path)) {
+     // If the user has permission to bypass the page redirection, return a

@@ -1,0 +1,59 @@
+diff --git a/field_collection.module b/field_collection.module
+index 0507d4e..cc3d2c6 100644
+--- a/field_collection.module
++++ b/field_collection.module
+@@ -536,17 +536,11 @@ class FieldCollectionItemEntity extends Entity {
+    * delete the collection item from archived revisions too. Instead, we delete
+    * the current default revision and archive the field collection.
+    *
+-   * If no revisions are left or the host is not revisionable, the whole item
+-   * is deleted.
+    */
+   public function deleteRevision($skip_host_update = FALSE) {
+     if (!$this->revision_id) {
+       return;
+     }
+-    $info = entity_get_info($this->hostEntityType());
+-    if (empty($info['entity keys']['revision']) || !$this->hostEntity()) {
+-      return $this->delete();
+-    }
+     if (!$skip_host_update) {
+       // Just remove the item from the host, which cares about deleting the
+       // item (depending on whether the update creates a new revision).
+diff --git a/field_collection.test b/field_collection.test
+index 8013a00..e850893 100644
+--- a/field_collection.test
++++ b/field_collection.test
+@@ -195,11 +195,6 @@ class FieldCollectionBasicTestCase extends DrupalWebTestCase {
+     $this->assertTrue($item->archived, 'Field collection item is still archived.');
+     $this->assertFalse($item->isInUse(), 'Field collection item specified as not in use.');
+ 
+-    // Test that deleting the first node revision deletes the whole field
+-    // collection item as it contains its last revision.
+-    node_revision_delete($node_vid);
+-    $this->assertFalse(field_collection_item_load($item->item_id), 'Archived field collection deleted when last revision deleted.');
+-
+     // Test that removing a field-collection item also deletes it.
+     list ($node, $item) = $this->createNodeWithFieldCollection();
+ 
+@@ -217,6 +212,20 @@ class FieldCollectionBasicTestCase extends DrupalWebTestCase {
+     $item = field_collection_item_load($item->item_id);
+     $this->assertTrue($item, 'Removed field collection item still exists.');
+     $this->assertTrue($item->archived, 'Removed field collection item is archived.');
++    
++    // Test removing an old node revision. Make sure that the field collection
++    // is not removed
++    list ($node, $item) = $this->createNodeWithFieldCollection();
++    $node_vid = $node->vid;
++    $node->revision = TRUE;
++    node_save($node);
++    $node_vid2 = $node->vid;
++    $item_vid2 = $node->{$this->field_name}[LANGUAGE_NONE][0]['revision_id'];
++    node_revision_delete($node_vid);
++    $item2 = field_collection_item_revision_load($item_vid2);
++    $item_id2 = isset($item2->item_id) ? $item2->item_id : -1;
++    $this->assertEqual($item_id2, $item->item_id, 'Removing an old node revision does not delete newer field collection revisions');
++
+   }
+ 
+   /**
