@@ -204,7 +204,8 @@ function container_blocks_concatenate_content($blocks) {
   $content = '';
 
   foreach ($blocks as $block) {
-    $content .= drupal_render(_block_get_renderable_array(_block_render_blocks(array($block))));
+    $render = _block_get_renderable_array(_block_render_blocks(array($block)));
+    $content .= drupal_render($render);
   }
 
   return $content;
