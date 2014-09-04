@@ -183,15 +183,15 @@ function _authorities_compile_authorities(AuthoritiesSearchParameters &$paramete
 
 		// If the city is set: append the urlencoded city
 		$city = $parameters->getCity();
-		if (!is_null($city)) { $url .= '&locality=' . rawurlencode($city); }
+		if (!is_null($city)) { $url .= '&q=' . rawurlencode($city) .',UK'; }
 
 		// if street is set: append the urlencoded street
 		$street = $parameters->getStreet();
-		if (!is_null($street)) { $url .= '&addressLine=' . rawurlencode($street); }
+		if (trim($street) != '') { $url .= '&addressLine=' . rawurlencode($street); }
 
 		// if post code is set: append the urlencoded post code
 		$postcode = $parameters->getPostcode();
-		if (!is_null($postcode)) { $url .= '&postalCode=' . rawurlencode($postcode); }
+		if (trim($postcode) != '') { $url .= '&postalCode=' . rawurlencode($postcode); }
 
 		// hit BING
 		$response = drupal_http_request($url);
@@ -320,6 +320,7 @@ function authorities_theme() {
 		'variables' => array(
 			'authorities' => NULL,
 			'parameters' => NULL,
+
 		),
 		'template' => 'list',
 		'path' => $theme_path,
@@ -330,6 +331,7 @@ function authorities_theme() {
 		'variables' => array(
 			'authority' => NULL,
 			'parameters' => NULL,
+            'showdistance' => NULL,
 		),
 		'template' => 'list-item',
 		'path' => $theme_path,

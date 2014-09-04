@@ -46,6 +46,8 @@
 
 	$position = $authority->getPosition() + 1;
 	$detailUrl .= "&position={$position}";
+
+    $showDistance = true;
 ?>
 <div id='authority-<?=$position;?>' class='authority'>
 	<div class="details">
@@ -83,7 +85,7 @@
 			<a href="<?=$authority->getUrl();?>" target="_blank" title="<?=$authority->getAddr1();?> <?=t('(Opens in new window)');?>" itemprop="url"><?=$authority->getUrl();?></a>
 		</div>
 	</div>
-<?php if ($showdistance) : ?>
+<?php if ($showDistance) : ?>
 	<div class="distance">
 		<div>
 			<b><?=t('Distance');?>:</b><?=number_format($km, 2);?> km<br>
