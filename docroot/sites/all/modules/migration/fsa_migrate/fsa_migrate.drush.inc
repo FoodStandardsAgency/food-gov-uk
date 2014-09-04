@@ -69,6 +69,9 @@ function fsa_migrate_drush_command(){
     'bootstrap' => DRUSH_BOOTSTRAP_DRUPAL_FULL,
     'drupal dependencies' => array('fsa_migrate'),
     'aliases' => array('fsa-file-tags'),
+    'arguments' => array(
+      'type' => 'Type of file to update. "documents" or "images".',
+    ),
   );
 
   $items['fsa_file_path_update'] = array(
@@ -502,8 +505,19 @@ ENDSQL;
 /**
  * Updates the tag field on media files regarding their path.
  */
-function drush_fsa_migrate_fsa_file_tags_update() {
-  $result = db_query("SELECT sourceid1, destid1 FROM {migrate_map_fsamediadocument}");
+function drush_fsa_migrate_fsa_file_tags_update($type = 'documents') {
+
+  if ($type == 'documents') {
+    $result = db_query("SELECT sourceid1, destid1 FROM {migrate_map_fsamediadocument}");
+  }
+  elseif ($type == 'images') {
+    $result = db_query("SELECT sourceid1, destid1 FROM {migrate_map_fsamediaimages}");
+  }
+  else {
+    drush_log('Type of file for tags update not recognized.', 'error');
+    exit;
+  }
+
   $counter = 0;
 
   $vid = taxonomy_vocabulary_machine_name_load('file_tags')->vid;
