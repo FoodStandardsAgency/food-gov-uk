@@ -196,17 +196,22 @@ function _authorities_compile_authorities(AuthoritiesSearchParameters &$paramete
 		// hit BING
 		$response = drupal_http_request($url);
 
-		$json = $response->data;
+		if (isset($response->data)) {
+          $json = $response->data;
 
-		$json = drupal_json_decode($json);
+		  $json = drupal_json_decode($json);
+        }
 
 		// did we have the right credentials?
-		if ($json['authenticationResultCode'] == 'ValidCredentials') {
+		if (isset($json['authenticationResultCode']) && $json['authenticationResultCode'] == 'ValidCredentials') {
 
 			// did we get any result?
 			if (count($json['resourceSets'][0]['resources']) > 0) {
+              foreach ($json['resourceSets'][0]['resources'] as $resource_data) {
+                $country = $resource_data['address']['countryRegion'];
+                if (in_array($country, array('United Kingdom','Wales','Scotland','Northern Ireland'))) {
 
-				$coordinates = $json['resourceSets'][0]['resources'][0]['point']['coordinates'];
+				$coordinates = $resource_data['point']['coordinates'];
 				list($latitude, $longitude) = $coordinates;
 
 				// add it to the search parameters
@@ -246,8 +251,9 @@ function _authorities_compile_authorities(AuthoritiesSearchParameters &$paramete
 						$authorities->addAuthority($authority);
 					}
 				}
+              }
 			}
-
+          }
 		} else {
 
 			watchdog('food:authorities', 'BING credentials are invalid');
