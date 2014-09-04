@@ -160,6 +160,11 @@ function file_entity_field_formatter_settings_form($field, $instance, $view_mode
       '#type' => 'checkbox',
       '#default_value' => $settings['loop'],
     );
+    $element['muted'] = array(
+      '#title' => t('Muted'),
+      '#type' => 'checkbox',
+      '#default_value' => $settings['muted'],
+    );
     $element['width'] = array(
       '#type' => 'textfield',
       '#title' => t('Width'),
@@ -220,10 +225,8 @@ function file_entity_field_formatter_settings_summary($field, $instance, $view_m
     if (isset($settings['multiple_file_behavior'])) {
       $summary[] = t('Multiple files: %multiple', array('%multiple' => $settings['multiple_file_behavior']));
     }
-
   }
   elseif ($display['type'] === 'file_video') {
-    $summary_items = array();
     if (isset($settings['controls'])) {
       $summary[] = t('Controls: %controls', array('%controls' => $settings['controls'] ? 'visible' : 'hidden'));
     }
@@ -264,7 +267,8 @@ function file_entity_field_formatter_view($entity_type, $entity, $field, $instan
     // If no 'referencing entity' is set, we are starting a new 'reference
     // thread' and need to reset the queue.
     // @todo Bug: $entity->referencing_entity on files referenced in a different
-    // thread on the page. E.g: 1 references 1+2 / 2 references 1+2 / visit homepage.
+    // thread on the page.
+    // E.g: 1 references 1+2 / 2 references 1+2 / visit homepage.
     // We'd need a more accurate way...
     if (!isset($entity->referencing_entity)) {
       $recursion_queue = array();
@@ -285,6 +289,9 @@ function file_entity_field_formatter_view($entity_type, $entity, $field, $instan
     foreach ($items as $delta => $item) {
       if (!isset($recursion_queue[$item['fid']])) {
         $files_display[$item['fid']] = file_load($item['fid']);
+        if (!empty($item['description'])) {
+          $files_display[$item['fid']]->description = $item['description'];
+        }
       }
     }
 
@@ -329,19 +336,19 @@ function file_entity_field_formatter_view($entity_type, $entity, $field, $instan
     if ($multiple_file_behavior == 'tags') {
       foreach ($items as $delta => $item) {
         if ($item['type'] == 'audio') {
-          $source_lists[] = array($item);
+          $source_lists[$delta] = array($item);
         }
       }
     }
     else {
       foreach ($items as $delta => $item) {
         if ($item['type'] == 'audio') {
-          $source_lists[0][] = $item;
+          $source_lists[0][$delta] = $item;
         }
       }
     }
 
-    // render each source list as an <audio> element
+    // Render each source list as an <audio> element.
     foreach ($source_lists as $delta => $sources) {
       $element[$delta] = array(
         '#theme' => 'file_entity_file_audio',
@@ -363,22 +370,20 @@ function file_entity_field_formatter_view($entity_type, $entity, $field, $instan
     if ($multiple_file_behavior == 'tags') {
       foreach ($items as $delta => $item) {
         if ($item['type'] == 'video') {
-          $source_lists[] = array($item);
+          $source_lists[$delta] = array($item);
         }
       }
     }
     else {
       foreach ($items as $delta => $item) {
         if ($item['type'] == 'video') {
-          $source_lists[0][] = $item;
+          $source_lists[0][$delta] = $item;
         }
       }
     }
 
-    // render each source list as an <video> element
+    // Render each source list as an <video> element.
     foreach ($source_lists as $delta => $sources) {
-      $width = $settings['width'];
-      $height = $settings['height'];
       $element[$delta] = array(
         '#theme' => 'file_entity_file_video',
         '#files' => $sources,
@@ -386,8 +391,8 @@ function file_entity_field_formatter_view($entity_type, $entity, $field, $instan
         '#autoplay' => $settings['autoplay'],
         '#loop' => $settings['loop'],
         '#muted' => $settings['muted'],
-        '#width' => ($width && $height) ? $width : NULL,
-        '#height' => ($width && $height) ? $height : NULL,
+        '#width' => $settings['width'],
+        '#height' => $settings['height'],
       );
     }
   }
