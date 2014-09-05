@@ -34,7 +34,7 @@ function _authorities_search_form($form, &$form_state) {
 
 	$form['address']['street'] = array(
 		'#title' => t('Street'),
-		'#attributes' => array('placeholder' => t('Enter street')),
+		'#attributes' => array('placeholder' => t('Enter street of business')),
 		'#type' => 'textfield',
 		'#size' => 20,
 		'#maxlength' => 64,
@@ -43,7 +43,7 @@ function _authorities_search_form($form, &$form_state) {
 
 	$form['address']['city'] = array(
 		'#title' => t('City'),
-		'#attributes' => array('placeholder' => t('Enter city')),
+		'#attributes' => array('placeholder' => t('Enter town or city of business')),
 		'#type' => 'textfield',
 		'#size' => 20,
 		'#maxlength' => 64,
