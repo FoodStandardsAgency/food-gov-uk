@@ -9,17 +9,6 @@
  * Menu callback; view a single file entity.
  */
 function file_entity_view_page($file) {
-  // @todo Implement granular editorial access: http://drupal.org/node/696970.
-  //   In the meantime, protect information about private files from being
-  //   discovered by unprivileged users. File IDs are autoincrement, so one can
-  //   attempt discovery by trying to access different media/ID paths. See also
-  //   media_browser_list(). This logic potentially belongs within
-  //   media_access(), but that would require extending that function's
-  //   signature to accept a $file paramter, and this is temporary code anyway.
-  if (!user_access('administer files') && (file_uri_scheme($file->uri) === 'private')) {
-    return MENU_ACCESS_DENIED;
-  }
-
   drupal_set_title($file->filename);
 
   $uri = entity_uri('file', $file);
@@ -48,20 +37,34 @@ function file_entity_download_page($file) {
   }
 
   $headers = array(
-    'Content-Type' => 'force-download',
-    'Content-Disposition' => 'attachment; filename="' . $file->filename . '"',
+    'Content-Type' => mime_header_encode($file->filemime),
+    'Content-Disposition' => 'attachment; filename="' . mime_header_encode(drupal_basename($file->uri)) . '"',
     'Content-Length' => $file->filesize,
     'Content-Transfer-Encoding' => 'binary',
     'Pragma' => 'no-cache',
     'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
     'Expires' => '0',
-    'Accept-Ranges' => 'bytes',
   );
 
   // Let other modules alter the download headers.
   drupal_alter('file_download_headers', $headers, $file);
 
-  file_transfer($file->uri, $headers);
+  // Let other modules know the file is being downloaded.
+  module_invoke_all('file_transfer', $file->uri, $headers);
+
+  if (file_entity_file_is_local($file)) {
+    // For local files, transfer the file and do not reveal the actual URL.
+    file_transfer($file->uri, $headers);
+  }
+  else {
+    // For remote files, just redirect the user to that file's actual URL.
+    $headers['Location'] = file_create_url($file->uri);
+    foreach ($headers as $name => $value) {
+      drupal_add_http_header($name, $value);
+    }
+    drupal_send_headers();
+    drupal_exit();
+  }
 }
 
 /**
@@ -77,15 +80,20 @@ function file_entity_download_page($file) {
 function file_entity_add_upload($form, &$form_state, array $options = array()) {
   $step = (isset($form_state['step']) && in_array($form_state['step'], array(1, 2, 3, 4))) ? $form_state['step'] : 1;
   $form['#step'] = $step;
+  $form['#options'] = $options;
   switch ($step) {
     case 1:
       return file_entity_add_upload_step_upload($form, $form_state, $options);
+
     case 2:
       return file_entity_add_upload_step_filetype($form, $form_state, $options);
+
     case 3:
       return file_entity_add_upload_step_scheme($form, $form_state, $options);
+
     case 4:
       return file_entity_add_upload_step_fields($form, $form_state, $options);
+
   }
 }
 
@@ -186,6 +194,16 @@ function file_entity_add_upload_step_fields($form, &$form_state, array $options 
   $file = file_load($form_state['storage']['upload']);
   $file->type = $form_state['storage']['type'];
 
+  // Let users modify the filename here.
+  $form['filename'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Name'),
+    '#default_value' => $file->filename,
+    '#required' => TRUE,
+    '#maxlength' => 255,
+    '#weight' => -10,
+  );
+
   // Add fields.
   field_attach_form('file', $file, $form, $form_state);
 
@@ -214,7 +232,8 @@ function file_entity_usage_page($file) {
   foreach (file_usage_list($file) as $module => $usage) {
     $info = system_get_info('module', $module);
 
-    // There are cases, where actual entitiy doesen't exist. We have to handle this.
+    // There are cases, where actual entitiy doesen't exist.
+    // We have to handle this.
     foreach ($usage as $entity_type => $entity_ids) {
       $entity_info = entity_get_info($entity_type);
       $entities = empty($entity_info) ? NULL : entity_load($entity_type, array_keys($entity_ids));
@@ -231,11 +250,11 @@ function file_entity_usage_page($file) {
 
         // Some entities do not have URL.
         if (empty($entity_uri)) {
-          $rows[] = array($entity_type, check_plain($label), $count);
+          $rows[] = array(check_plain($label), $entity_type, $module, $count);
         }
         else {
           $uri = $entity_uri['path'];
-          $rows[] = array($entity_type, l($label, $uri), $count);
+          $rows[] = array(l($label, $uri), $entity_type, $module, $count);
         }
 
         $occured_entities[$entity_type][$entity_id] = count($rows) - 1;
@@ -243,13 +262,16 @@ function file_entity_usage_page($file) {
     }
   }
   $header[] = array(
-    'data' => t('Type'),
+    'data' => t('Entity'),
   );
   $header[] = array(
-    'data' => t('Title'),
+    'data' => t('Entity type'),
   );
   $header[] = array(
-    'data' => t('Count'),
+    'data' => t('Registering module'),
+  );
+  $header[] = array(
+    'data' => t('Use count'),
   );
   $build['usage_table'] = array(
     '#theme' => 'table',
@@ -299,20 +321,22 @@ function file_entity_add_upload_submit($form, &$form_state) {
 
   $steps_to_check = array(2, 3);
   if ($trigger == 'edit-previous') {
-    //if the previous button was hit, the step checking order should be reversed 3, 2
+    // If the previous button was hit,
+    // the step checking order should be reversed 3, 2.
     $steps_to_check = array_reverse($steps_to_check);
   }
 
   foreach ($steps_to_check as $step) {
-    //Check if we can skip step 2 and 3
+    // Check if we can skip step 2 and 3.
     if (($form['#step'] == $step - 1 && $trigger == 'edit-next') || ($form['#step'] == $step + 1 && $trigger == 'edit-previous')) {
       $file = file_load($form_state['storage']['upload']);
       if ($step == 2) {
-        //check if we can skip step 2
+        // Check if we can skip step 2.
         $candidates = file_entity_get_filetype_candidates($file);
         if (count($candidates) == 1) {
           $candidates_keys = array_keys($candidates);
-          // There is only one possible filetype for this file. Skip the second page.
+          // There is only one possible filetype for this file.
+          // Skip the second page.
           $form['#step'] += ($trigger == 'edit-previous') ? -1 : 1;
           $form_state['storage']['type'] = reset($candidates_keys);
         }
@@ -323,10 +347,16 @@ function file_entity_add_upload_submit($form, &$form_state) {
         }
       }
       else {
-        //check if we can skip step 3
+        // Check if we can skip step 3.
         $schemes = file_get_stream_wrappers(STREAM_WRAPPERS_WRITE_VISIBLE);
-        if (count($schemes) == 1) {
-          // There is only one possible stream wrapper for this file. Skip the third page.
+        if (!file_entity_file_is_writeable($file)) {
+          // The file is read-only (remote) and must use its provided scheme.
+          $form['#step'] += ($trigger == 'edit-previous') ? -1 : 1;
+          $form_state['storage']['scheme'] = file_uri_scheme($file->uri);
+        }
+        elseif (count($schemes) == 1) {
+          // There is only one possible stream wrapper for this file.
+          // Skip the third page.
           $form['#step'] += ($trigger == 'edit-previous') ? -1 : 1;
           $form_state['storage']['scheme'] = key($schemes);
         }
@@ -423,7 +453,7 @@ function file_entity_add_upload_submit($form, &$form_state) {
  * @param array $data
  *   (optional) An array of token objects to pass to token_replace().
  *
- * @return
+ * @return string
  *   A file directory URI with tokens replaced.
  *
  * @see token_replace()
@@ -442,6 +472,9 @@ function file_entity_upload_destination_uri(array $params, array $data = array()
   return $params['uri_scheme'] . '://' . $destination;
 }
 
+/**
+ * Form for uploading multiple files.
+ */
 function file_entity_add_upload_multiple($form, &$form_state, $params = array()) {
   $form = file_entity_add_upload($form, $form_state, $params);
   unset($form['upload']['#title']);
@@ -469,12 +502,19 @@ function file_entity_add_upload_multiple($form, &$form_state, $params = array())
   return $form;
 }
 
+/**
+ * Submit handler for the multiple upload form.
+ */
 function file_entity_add_upload_multiple_submit($form, &$form_state) {
   $upload_location = !empty($form['upload']['#upload_location']) ?
     $form['upload']['#upload_location'] . '/' :
     variable_get('file_default_scheme', 'public') . '://';
 
-  // We can't use file_save_upload() because of http://www.jacobsingh.name/content/tight-coupling-no-not
+  // Ensure writable destination directory for the files.
+  file_prepare_directory($upload_location, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS);
+
+  // We can't use file_save_upload() because of
+  // http://www.jacobsingh.name/content/tight-coupling-no-not.
   foreach ($form_state['values']['upload'] as $uploaded_file) {
     if ($uploaded_file['status'] == 'done') {
       $source = $uploaded_file['tmppath'];
@@ -482,7 +522,6 @@ function file_entity_add_upload_multiple_submit($form, &$form_state) {
       // Rename it to its original name, and put it in its final home.
       // Note - not using file_move here because if we call file_get_mime
       // (in file_uri_to_object) while it has a .tmp extension, it horks.
-
       $destination = file_unmanaged_move($source, $destination, FILE_EXISTS_RENAME);
 
       $file = file_uri_to_object($destination);
@@ -581,7 +620,7 @@ function file_entity_edit($form, &$form_state, $file) {
     '#weight' => 99,
   );
 
-  // File destination information for administrators
+  // File destination information for administrators.
   $form['destination'] = array(
     '#type' => 'fieldset',
     '#access' => user_access('administer files') && file_entity_file_is_writeable($file),
@@ -611,7 +650,7 @@ function file_entity_edit($form, &$form_state, $file) {
     '#default_value' => file_uri_scheme($file->uri),
   );
 
-  // File user information for administrators
+  // File user information for administrators.
   $form['user'] = array(
     '#type' => 'fieldset',
     '#access' => user_access('administer files'),
@@ -721,7 +760,10 @@ function file_entity_edit_submit($form, &$form_state) {
   if (!empty($form_state['values']['replace_upload'])) {
     $replacement = $form_state['values']['replace_upload'];
     // Move file from temp to permanent home.
-    file_unmanaged_copy($replacement->uri, $file->uri, FILE_EXISTS_REPLACE);
+    if (file_unmanaged_copy($replacement->uri, $file->uri, FILE_EXISTS_REPLACE)) {
+      // @todo Add watchdog() about replaced file here?
+      file_delete($replacement);
+    }
   }
 
   // Run entity form submit handling and save the file.
@@ -736,7 +778,8 @@ function file_entity_edit_submit($form, &$form_state) {
       $file->uid = $user->uid;
     }
     else {
-      $file->uid = 0; // anonymous user
+      // Anonymous user.
+      $file->uid = 0;
     }
   }
   elseif ($file->uid) {
@@ -948,14 +991,21 @@ function file_entity_get_upload_validators(array $options = array()) {
     $validators['file_validate_extensions'] = array(variable_get('file_entity_default_allowed_extensions', 'jpg jpeg gif png txt doc docx xls xlsx pdf ppt pptx pps ppsx odt ods odp mp3 mov mp4 m4a m4v mpeg avi ogg oga ogv weba webp webm'));
   }
 
-  // Validate file size but do not allow anything higher than file_upload_max_size().
-  $max_filesize = file_upload_max_size();
+  // Cap the upload size according to the system or user defined limit.
+  $max_filesize = parse_size(file_upload_max_size());
+  $file_entity_max_filesize = parse_size(variable_get('file_entity_max_filesize', ''));
+
+  // If the user defined a size limit, use the smaller of the two.
+  if (!empty($file_entity_max_filesize)) {
+    $max_filesize = min($max_filesize, $file_entity_max_filesize);
+  }
+
   if (!empty($options['max_filesize']) && $options['max_filesize'] < $max_filesize) {
-    $validators['file_validate_size'] = array(parse_size($options['max_filesize']));
+    $max_filesize = parse_size($options['max_filesize']);
   }
-  else {
-    $validators['file_validate_size'] = array($max_filesize);
-  }
+
+  // There is always a file size limit due to the PHP server limit.
+  $validators['file_validate_size'] = array($max_filesize);
 
   // Add image validators.
   $options += array('min_resolution' => 0, 'max_resolution' => 0);
@@ -969,4 +1019,85 @@ function file_entity_get_upload_validators(array $options = array()) {
   }
 
   return $validators;
+}
+
+function file_entity_upload_archive_form($form, &$form_state) {
+  $options = array(
+    'file_extensions' => archiver_get_extensions(),
+  );
+
+  $form['upload'] = array(
+    '#type' => 'managed_file',
+    '#title' => t('Upload an archive file'),
+    '#upload_location' => NULL, // Upload to the temporary directory.
+    '#upload_validators' => file_entity_get_upload_validators($options),
+    '#progress_indicator' => 'bar',
+    '#required' => TRUE,
+    '#pre_render' => array('file_managed_file_pre_render', 'file_entity_upload_validators_pre_render'),
+  );
+
+  $form['pattern'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Pattern'),
+    '#description' => t('Only files matching this pattern will be imported. For example, to import all jpg and gif files, the pattern would be <em>*.jpg|*.gif</em>. Use <em>.*</em> to extract all files in the archive.'),
+    '#default_value' => '.*',
+    '#required' => TRUE,
+  );
+
+  $form['actions'] = array('#type' => 'actions');
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Submit'),
+  );
+
+  form_load_include($form_state, 'inc', 'file_entity', 'file_entity.pages');
+
+  return $form;
+}
+
+/**
+ * Upload a file.
+ */
+function file_entity_upload_archive_form_submit($form, &$form_state) {
+  $form_state['files'] = array();
+
+  if ($archive = file_load($form_state['values']['upload'])) {
+    if ($archiver = archiver_get_archiver($archive->uri)) {
+      $files = $archiver->listContents();
+
+      $extract_dir = file_default_scheme() . '://' . pathinfo($archive->filename, PATHINFO_FILENAME);
+      $extract_dir = file_destination($extract_dir, FILE_EXISTS_RENAME);
+      if (!file_prepare_directory($extract_dir, FILE_MODIFY_PERMISSIONS | FILE_CREATE_DIRECTORY)) {
+        throw new Exception(t('Unable to prepar, e directory %dir for extraction.', array('%dir' => $extract_dir)));
+      }
+
+      $archiver->extract($extract_dir);
+      $pattern = '/' . $form_state['values']['pattern'] . '/';
+      if ($files = file_scan_directory($extract_dir, $pattern)) {
+        foreach ($files as $file) {
+          $file->status = FILE_STATUS_PERMANENT;
+          $file->uid = $archive->uid;
+          file_save($file);
+          $form_state['files'][$file->fid] = $file;
+        }
+      }
+      drupal_set_message(t('Extracted %file and added @count new files.', array('%file' => $archive->filename, '@count' => count($files))));
+    }
+    else {
+      throw new Exception(t('Cannot extract %file, not a valid archive.', array('%file' => $archive->uri)));
+    }
+  }
+
+  // Redirect to the file edit page.
+  if (file_entity_access('edit') && module_exists('multiform')) {
+    $destination = array('destination' => 'admin/content/file');
+    if (isset($_GET['destination'])) {
+      $destination = drupal_get_destination();
+      unset($_GET['destination']);
+    }
+    $form_state['redirect'] = array('admin/content/file/edit-multiple/' . implode(' ', array_keys($form_state['files'])), array('query' => $destination));
+  }
+  else {
+    $form_state['redirect'] = 'admin/content/file';
+  }
 }

@@ -69,6 +69,17 @@ function fsa_migrate_drush_command(){
     'bootstrap' => DRUSH_BOOTSTRAP_DRUPAL_FULL,
     'drupal dependencies' => array('fsa_migrate'),
     'aliases' => array('fsa-file-tags'),
+    'arguments' => array(
+      'type' => 'Type of file to update. "documents" or "images".',
+    ),
+  );
+
+  $items['fsa_file_path_update'] = array(
+    'description' => "Update files path from wrong location." .
+      "At the moment manages the wrong source 'mnt/drupal_data/sources/files/'. ",
+    'bootstrap' => DRUSH_BOOTSTRAP_DRUPAL_FULL,
+    'drupal dependencies' => array('fsa_migrate'),
+    'aliases' => array('fsa-file-path-up'),
   );
 
   return $items;
@@ -494,8 +505,19 @@ ENDSQL;
 /**
  * Updates the tag field on media files regarding their path.
  */
-function drush_fsa_migrate_fsa_file_tags_update() {
-  $result = db_query("SELECT sourceid1, destid1 FROM {migrate_map_fsamediadocument}");
+function drush_fsa_migrate_fsa_file_tags_update($type = 'documents') {
+
+  if ($type == 'documents') {
+    $result = db_query("SELECT sourceid1, destid1 FROM {migrate_map_fsamediadocument}");
+  }
+  elseif ($type == 'images') {
+    $result = db_query("SELECT sourceid1, destid1 FROM {migrate_map_fsamediaimages}");
+  }
+  else {
+    drush_log('Type of file for tags update not recognized.', 'error');
+    exit;
+  }
+
   $counter = 0;
 
   $vid = taxonomy_vocabulary_machine_name_load('file_tags')->vid;
@@ -546,6 +568,66 @@ function drush_fsa_migrate_fsa_file_tags_update() {
       }
     }
     watchdog('migration', $counter . ' media file record updated.', NULL);
+  }
+}
+
+/**
+ * Update the path of files from a wrong location.
+ * At the moment manages the wrong source 'mnt/drupal_data/sources/files/'.
+ */
+function drush_fsa_migrate_fsa_file_path_update() {
+  $wrongSourcePath = 'mnt/drupal_data/sources/files/';
+  $wrongPath =  'sources/files/' . $wrongSourcePath;
+  $counter = 0;
+
+  $result = db_query(
+    "SELECT sourceid1, destid1 FROM {migrate_map_fsamediadocument} WHERE sourceid1 LIKE :path",
+    array(':path' => '%' . db_like($wrongSourcePath) . '%')
+  );
+
+  if ($result) {
+    while ($row = $result->fetchAssoc()) {
+      // Moving source files.
+      $newSourcePath = str_replace($wrongSourcePath, '', $row['sourceid1']);
+      // Directory creation if non existant.
+      if (!file_exists(dirname($newSourcePath))) {
+        mkdir(dirname($newSourcePath), 0777, true);
+      }
+
+      // Move source file.
+      $resultSourceCopy = rename($row['sourceid1'], $newSourcePath);
+      if ($resultSourceCopy) {
+        watchdog('migration-cleanup', 'Migration source file moved to new location. From: ' .
+          $row['sourceid1'] . ' to ' . $newSourcePath, NULL);
+      }
+
+      // Tables update for media migration.
+      $num_updated = db_update('migrate_map_fsamediadocument ') // Table name no longer needs {}
+        ->fields(array(
+          'sourceid1' => $newSourcePath,
+        ))
+        ->condition('destid1', $row['destid1'], '=')
+        ->execute();
+
+      // Moving final file.
+      $fileObject = file_load($row['destid1']);
+
+      $newFileObjectURI = str_replace($wrongSourcePath, '', $fileObject->uri);
+      $newPath = str_replace($wrongPath, '', $row['sourceid1']);
+
+      // Directory creation if non existant.
+      if (!file_exists(dirname($newPath))) {
+        mkdir(dirname($newPath), 0777, true);
+      }
+
+      $movedFile = file_move($fileObject, $newFileObjectURI, FILE_EXISTS_REPLACE);
+      if ($movedFile) {
+        watchdog('migration-cleanup', 'Final file moved to new location. From: ' .
+          $fileObject->uri . ' to ' . $newFileObjectURI, NULL);
+        $counter++;
+      }
+    }
+    watchdog('migration-cleanup', $counter . ' media files moved and records updated.', NULL);
   }
 }
 

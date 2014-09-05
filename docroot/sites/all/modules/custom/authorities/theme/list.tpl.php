@@ -13,6 +13,15 @@
 
 	// only display the list if there are any search results
 	if ($authorities->count() > 0) {
+      // if we have a large number of results, remove the numbers because we probably have multiple matching locations
+      if ($authorities->count() > 9 ) {
+        $type = 'ul';
+        $distance = false;
+      }
+      else {
+        $type = 'ol';
+        $distance = true;
+      }
 
 		// iterate over all the authorities and theme them
 		$items = array();
@@ -22,6 +31,7 @@
 				'#theme' => THEME_AUTHORITIES_LIST_ITEM,
 				'#authority' => $authority,
 				'#parameters' => $parameters,
+                '#showdistance' => $distance,
 			);
 
 			$items[] = drupal_render($item);
@@ -30,7 +40,7 @@
 		$element += array(
 			'#theme' => 'item_list',
 			'#items' => $items,
-			'#type' => 'ol',
+			'#type' => $type,
 			'#attributes' => array('class' => 'authorities'),
 		);
 

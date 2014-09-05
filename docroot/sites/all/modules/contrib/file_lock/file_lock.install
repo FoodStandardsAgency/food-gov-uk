@@ -5,7 +5,6 @@
  * Install, update, and uninstall functions for the file_lock module
  */
 
-require_once (dirname(__FILE__) . '/file_lock.inc');
 
 /**
  * Implements hook_uninstall().
@@ -15,11 +14,10 @@ function file_lock_uninstall() {
   variable_del('file_lock_pattern');
   variable_del('file_lock_regex');
   variable_del('file_lock_hook');
-  file_lock_remove_all_lock();
 }
 
 /**
- * Remove old variables
+ * Remove old variables.
  */
 function file_lock_update_7200() {
   variable_del('media_lock_mode');
@@ -49,8 +47,7 @@ function file_lock_update_7201(&$sandbox) {
     ->execute()
     ->fetchCol();
   foreach ($fids as $fid) {
-    $file = file_load($fid);
-    file_lock_remove_lock($file);
+    file_lock_unlock_file($fid);
     // Update the progress information for the batch update.
     $sandbox['progress']++;
     $sandbox['last_fid_processed'] = $fid;
