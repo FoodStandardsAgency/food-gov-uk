@@ -1,5 +1,126 @@
 <?php
 
+/**
+ *  Committee url rewrites.
+ *  We need to fake the subdomains for
+ */
+/**
+ * Returns the main site domain for rewriting non committee urls
+ * @return string
+ */
+function local_get_site_domain(){
+  return "http://www.food.gov.uk";
+}
+/**
+ * Implements hook url inbound alter
+ * @param $path
+ * @param $original_path
+ * @param $path_language
+ */
+function local_url_inbound_alter(&$path, $original_path, $path_language) {
+  // map committee domain to the path.
+  // do not include leading or trailing slash
+  $path_domains = array(
+    'cot.food.gov.uk' => 'committee/committee-on-toxicity',
+    'cot.staging.food.gov.uk' => 'committee/committee-on-toxicity',
+    'acmsf.food.gov.uk' => 'committee/acmsf',
+    'acnfp.food.gov.uk'=> 'committee/acnfp',
+    'acaf.food.gov.uk' => 'committee/acaf',
+    'acaf.staging.food.gov.uk' => 'committee/acaf',
+    'gacs.food.gov.uk'=> 'committee/gacs',
+    'ssrc.food.gov.uk'=> 'committee/social-science-research-committee-ssrc',
+  );
+  // if $_SERVER['HTTP_HOST'] is one of the path domains, rewrite the path
+
+  if (in_array($_SERVER['HTTP_HOST'], array_keys($path_domains))) {
+    if (drupal_is_front_page()) {
+      $original_path = '';
+    }
+    $path_exploded = explode('/', $original_path);
+    // check that we are working with an alias here... a node url will not work.
+    if (!isset($path_exploded[0]) or $path_exploded[0] != 'node' ) {
+      $path = $path_domains[$_SERVER['HTTP_HOST']]. '/'. $original_path;
+
+      if ($source = drupal_lookup_path('source', trim($path,'/'), $path_language)) {
+        $path = $source;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_url_outbound_alter
+ * @param $path
+ * @param $options
+ * @param $original_path
+ */
+function local_url_outbound_alter(&$path, &$options, $original_path) {
+  $site_domain = local_get_site_domain();
+  $path_domains = array(
+    'cot.food.gov.uk' => 'committee/committee-on-toxicity',
+    'acmsf.food.gov.uk' => 'committee/acmsf',
+    'acnfp.food.gov.uk'=> 'committee/acnfp',
+    'acaf.food.gov.uk' => 'committee/acaf',
+    'gacs.food.gov.uk'=> 'committee/gacs',
+    'ssrc.food.gov.uk'=> 'committee/social-science-research-committee-ssrc',
+  );
+
+  // if we are already on one of the committee domains
+  if (in_array($_SERVER['HTTP_HOST'], array_keys($path_domains))) {
+    $path_base = $path_domains[$_SERVER['HTTP_HOST']];
+    // do we want the front page?
+    if ($original_path == '<front>' or !$original_path) {
+      $path = '';
+    }
+    // make sure we have an original path, otherwise get_path_alias will revert to request... but this has issues
+    else  {
+      $path_exploded = explode('/', $original_path);
+      // check that we have an internal path, and get it's alias if we need to
+      if ($path_exploded[0] == 'node') {
+        $alias = drupal_lookup_path('alias', $path);
+      }
+      else {
+        $alias = $original_path;
+      }
+      // if the path we are checking is shorter than the replacement string... ignore it
+      // otherwise, if our path is relative to the committee
+      if (strlen($path_base) < strlen($alias) && (substr($alias,0,strlen($path_base)) == $path_base)) {
+          $path = substr($alias,strlen($path_base)+1);
+          $options['alias'] = $path; // set the alias flag
+      }
+      else if ($alias == $path_base) {
+        // we are on the home page
+        $path = '';
+      }
+      else {
+        // we have a link that is not on the committee site
+        // set it up relative to the main domain
+        $path=$site_domain. '/'. $alias;
+        $options['external'] = true;
+      }
+    }
+  }
+  else {
+    // we are on the main domain, lets look for links to committee pages
+    $path_exploded = explode('/',$original_path);
+    if ($path_exploded[0] == 'node') {
+      $path_exploded = explode('/',drupal_lookup_path('alias', $original_path));
+    }
+
+    if ($path_exploded[0] == 'committee') {
+      // search the committee array for the first 2 elements of the path
+      if ($domain = array_search(implode('/',array_slice($path_exploded,0,2)),$path_domains)) {
+        $committee_path = implode('/', array_slice($path_exploded,3));
+        $committee[] = $domain;
+        if ($committee_path) {
+          $committee[] = $committee_path;
+        }
+        $path = 'http://'.implode('/', $committee);
+        $options['external'] = true;
+      }
+    }
+  }
+}
 
 
 /**
