@@ -1,10 +1,19 @@
 <?php
 
-define('REWRITE_COMMITTEE_URLS', FALSE);
+
 /**
  *  Committee url rewrites.
- *  We need to fake the subdomains for
+ *  We need to fake the subdomains for the various committee sites.
+ *  These sites map subdomains onto committee site content.
+ *
+ *  EG: cot.food.gov
  */
+
+// set this constant to true if we want to do the url rewriting inside Drupal
+// These rules are used to translate the committee domains to the correct paths
+// The system is not compatible with fast_404 or globalredirect
+define('REWRITE_COMMITTEE_URLS', TRUE);
+
 /**
  * Returns the main site domain for rewriting non committee urls
  * @return string
