@@ -82,6 +82,19 @@ function fsa_migrate_drush_command(){
     'aliases' => array('fsa-file-path-up'),
   );
 
+
+  $items['fsa_group_assign'] = array(
+    'description' => "assign node to a group",
+    'bootstrap' => DRUSH_BOOTSTRAP_DRUPAL_FULL,
+    'drupal dependencies' => array('og'),
+    'aliases' => array('og-assign'),
+    'arguments' => array(
+      'gid' => 'Group ID',
+      'nid' => 'Node ID'
+    ),
+  );
+
+
   return $items;
 }
 
@@ -640,4 +653,21 @@ function fsa_migrate_helper_create_taxonomy_term($name, $vid) {
   $term->vid = $vid;
   taxonomy_term_save($term);
   return $term->tid;
+}
+
+
+/**
+ *  Assigns a node to a group
+ * @param null $gid
+ * @param null $nid
+ */
+function  drush_fsa_migrate_fsa_group_assign($gid = null, $nid = null) {
+  if ($gid && $nid) {
+  // load node
+  // load group
+    $node = node_load($nid);
+    $values = array('entity type' => 'node', 'entity' => $node, 'state' => OG_STATE_ACTIVE);
+    og_group('node', $gid, $values);
+    node_save($node);
+  }
 }

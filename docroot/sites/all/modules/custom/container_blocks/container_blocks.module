@@ -131,7 +131,6 @@ function container_blocks_block_view($delta = '') {
       break;
 
     case 'search_consultations':
-      $blocks[] = block_load('facetapi', '4oshdock6vikervr03r0jhzo1vob4nh5');
       // Nation
       $blocks[] = block_load('facetapi', 'ly6396gbtdufodpd8je0qyujejn73bws');
       // Last updated year.
