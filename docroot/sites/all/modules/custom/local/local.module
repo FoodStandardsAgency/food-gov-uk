@@ -33,13 +33,20 @@ function local_url_inbound_alter(&$path, $original_path, $path_language) {
   // if $_SERVER['HTTP_HOST'] is one of the path domains, rewrite the path
 
   if (in_array($_SERVER['HTTP_HOST'], array_keys($path_domains))) {
+    $path_base = $path_domains[$_SERVER['HTTP_HOST']];
     if (drupal_is_front_page()) {
       $original_path = '';
     }
     $path_exploded = explode('/', $original_path);
     // check that we are working with an alias here... a node url will not work.
+
     if (!isset($path_exploded[0]) or $path_exploded[0] != 'node' ) {
-      $path = $path_domains[$_SERVER['HTTP_HOST']]. '/'. $original_path;
+      if (strlen($path_base) < strlen($original_path) && (substr($original_path,0,strlen($path_base)) == $path_base)) {
+        // we are already on a committee path.....  bad?
+      }
+      else {
+        $path = $path_base. '/'. $original_path;
+      }
 
       if ($source = drupal_lookup_path('source', trim($path,'/'), $path_language)) {
         $path = $source;
@@ -76,6 +83,7 @@ function local_url_outbound_alter(&$path, &$options, $original_path) {
       }
       // make sure we have an original path, otherwise get_path_alias will revert to request... but this has issues
       else  {
+        $alias = NULL;
         $path_exploded = explode('/', $original_path);
         // check that we have an internal path, and get it's alias if we need to
         if ($path_exploded[0] == 'node') {
@@ -99,6 +107,7 @@ function local_url_outbound_alter(&$path, &$options, $original_path) {
           // set it up relative to the main domain
           $path=$site_domain. '/'. $alias;
           $options['external'] = true;
+          $options['absolute'] = true;
         }
       }
     }
@@ -119,6 +128,7 @@ function local_url_outbound_alter(&$path, &$options, $original_path) {
           }
           $path = 'http://'.implode('/', $committee);
           $options['external'] = true;
+          $options['absolute'] = true;
         }
       }
     }

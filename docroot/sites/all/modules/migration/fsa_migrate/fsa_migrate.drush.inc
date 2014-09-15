@@ -667,7 +667,7 @@ function  drush_fsa_migrate_fsa_group_assign($gid = null, $nid = null) {
   // load group
     $node = node_load($nid);
     $values = array('entity_type' => 'node', 'entity' => $node, 'state' => OG_STATE_ACTIVE);
-    print_r(og_group('node', $gid, $values));
+    og_group('node', $gid, $values);
    // node_save($node);
   }
 }
