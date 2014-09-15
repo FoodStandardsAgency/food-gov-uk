@@ -1,6 +1,6 @@
 <?php
 
-define('REWRITE_COMMITTEE_URLS', FALSE);
+define('REWRITE_COMMITTEE_URLS', TRUE);
 /**
  *  Committee url rewrites.
  *  We need to fake the subdomains for
