@@ -1,5 +1,6 @@
 <?php
 
+define('REWRITE_COMMITTEE_URLS', FALSE);
 /**
  *  Committee url rewrites.
  *  We need to fake the subdomains for
@@ -18,6 +19,7 @@ function local_get_site_domain(){
  * @param $path_language
  */
 function local_url_inbound_alter(&$path, $original_path, $path_language) {
+  if (!REWRITE_COMMITTEE_URLS) return; // short circuit rewriting if disabled
   // map committee domain to the path.
   // do not include leading or trailing slash
   $path_domains = array(
@@ -62,6 +64,7 @@ function local_url_inbound_alter(&$path, $original_path, $path_language) {
  * @param $original_path
  */
 function local_url_outbound_alter(&$path, &$options, $original_path) {
+  if (!REWRITE_COMMITTEE_URLS) return; // short circuit rewriting if disabled
   global $user;
   $site_domain = local_get_site_domain();
   $path_domains = array(
