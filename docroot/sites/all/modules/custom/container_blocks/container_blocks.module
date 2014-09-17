@@ -31,9 +31,14 @@ function container_blocks_block_info() {
     'info' => t('Search All News Facets'),
   );
 
+  $blocks['search_all_news_facets_ie'] = array(
+    'info' => t('Search All News Facets (Ireland)'),
+  );
+
   $blocks['search_alerts_facets'] = array(
     'info' => t('Search Alerts Facets'),
   );
+
   $blocks['search_guidance'] = array(
     'info' => t('Search Guidance'),
   );
@@ -97,6 +102,21 @@ function container_blocks_block_view($delta = '') {
         '#markup' => $content,
       );
       break;
+
+    case 'search_all_news_facets_ie':
+      $blocks[] = block_load('views', '-exp-news_centre___search-page');
+      $blocks[] = block_load('facetapi', 'mo10eVoL905Qwndxck1XcD0dZWgc0x7s');
+      // Last updated year.
+      $blocks[] = block_load('facetapi', 'z0n0mr7e3co9o4fke31fjmkzq9qgwfqq');
+
+      $content = container_blocks_concatenate_content($blocks);
+
+      $block['subject'] = NULL;
+      $block['content'] = array(
+        '#markup' => $content,
+      );
+      break;
+
 
     case 'search_alerts_facets':
       $blocks[] = block_load('views', '-exp-alerts-page');
