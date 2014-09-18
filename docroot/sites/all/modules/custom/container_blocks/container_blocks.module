@@ -31,8 +31,8 @@ function container_blocks_block_info() {
     'info' => t('Search All News Facets'),
   );
 
-  $blocks['search_all_news_facets_ie'] = array(
-    'info' => t('Search All News Facets (Ireland)'),
+  $blocks['search_all_news_facets_nations'] = array(
+    'info' => t('Search All News Facets (Nations)'),
   );
 
   $blocks['search_alerts_facets'] = array(
@@ -103,7 +103,8 @@ function container_blocks_block_view($delta = '') {
       );
       break;
 
-    case 'search_all_news_facets_ie':
+    case 'search_all_news_facets_nations':
+       // a version of the news facets that does not have an option to filter by nation
       $blocks[] = block_load('views', '-exp-news_centre___search-page');
       $blocks[] = block_load('facetapi', 'mo10eVoL905Qwndxck1XcD0dZWgc0x7s');
       // Last updated year.
