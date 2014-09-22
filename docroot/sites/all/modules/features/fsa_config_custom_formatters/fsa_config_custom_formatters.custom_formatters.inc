@@ -165,6 +165,3 @@ $form[\'destination_image_style\'] = array(
   return $formatters;
 }
 
-
-A
-
