@@ -8,7 +8,7 @@
 /**
  * Implements hook_custom_formatters_defaults().
  */
-function export_custom_formatters_defaults() {
+function foo_custom_formatters_defaults() {
   $formatters = array();
 
   $formatter = new stdClass();
@@ -164,4 +164,3 @@ $form[\'destination_image_style\'] = array(
 
   return $formatters;
 }
-
