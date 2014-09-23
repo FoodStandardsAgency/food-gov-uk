@@ -1,0 +1,17 @@
+<?php
+// $Id: pathcache.module,v 1.1 2008/12/03 21:29:46 jvandyk Exp $
+
+/**
+ * @file
+ * Caches path lookups by providing alternate drupal_lookup_path().
+ */
+
+/**
+ * Implementation of hook_flush_caches().
+ */
+function pathcache_flush_caches() {
+  return array(
+    'cache_pathsrc',
+    'cache_pathdst',
+  );
+}

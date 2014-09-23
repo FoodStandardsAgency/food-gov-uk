@@ -1,0 +1,12 @@
+; $Id: pathcache.info,v 1.1 2008/12/03 21:29:46 jvandyk Exp $
+name = Path Cache
+description = Perform path caching for better URL alias performance.
+dependencies[] = path
+package = Caching
+core = 6.x
+; Information added by drupal.org packaging script on 2010-07-18
+version = "6.x-1.4"
+core = "6.x"
+project = "pathcache"
+datestamp = "1279423208"
+

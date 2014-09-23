@@ -1,0 +1,87 @@
+<?php
+// $Id: pathcache.install,v 1.1.2.4 2010/07/18 02:10:04 jvandyk Exp $
+
+/**
+ * @file
+ * .install file for pathcache module.
+ */
+
+/**
+ * Implementation of hook_requirements().
+ */
+function pathcache_requirements($phase) {
+  // Ensure translations don't break at install time.
+  $t = get_t();
+  $requirements = array();
+  if ($phase == 'runtime') {
+    $aliases_exist = (int)db_result(db_query('SELECT pid FROM {url_alias} LIMIT 1'));
+    $requirements['pathcache'] = array(
+      'title' => $t('Path Cache'),
+      'value' => $aliases_exist ? t('URL aliases present') : t('No URL aliases exist'),
+      'severity' => $aliases_exist ? REQUIREMENT_OK : REQUIREMENT_WARNING,
+      'description' => $aliases_exist ? '' : $t('The path cache module expects to have URL aliases in your url_aliases database table. Currently that table is empty. If you are not using path aliases (by using the Path module, for example) the Path Cache module will actually slow down your site instead of speeding it up.'),
+    );
+  }
+  return $requirements;
+}
+
+/**
+ * Implementation of hook_install().
+ */
+function pathcache_install() {
+  drupal_install_schema('pathcache');
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function pathcache_uninstall() {
+  // Remove tables.
+  drupal_uninstall_schema('pathcache');
+}
+
+/**
+ * Implementation of hook_schema().
+ */
+function pathcache_schema() {
+  $schema['cache_pathsrc'] = array(
+    'description' => t('Cache table for URL aliases.'),
+    'fields' => array(
+      'cid' => array(
+        'description' => t('Primary Key: Unique cache ID.'),
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => ''),
+      'data' => array(
+        'description' => t('A collection of data to cache.'),
+        'type' => 'blob',
+        'not null' => FALSE,
+        'size' => 'big'),
+      'expire' => array(
+        'description' => t('A Unix timestamp indicating when the cache entry should expire, or 0 for never.'),
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0),
+      'created' => array(
+        'description' => t('A Unix timestamp indicating when the cache entry was created.'),
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0),
+      'headers' => array(
+        'description' => t('Any custom HTTP headers to be added to cached data.'),
+        'type' => 'text',
+        'not null' => FALSE),
+      'serialized' => array(
+        'description' => t('A flag to indicate whether content is serialized (1) or not (0).'),
+        'type' => 'int',
+        'size' => 'small',
+        'not null' => TRUE,
+        'default' => 0)
+      ),
+    'indexes' => array('expire' => array('expire')),
+    'primary key' => array('cid'),
+    );
+  $schema['cache_pathdst'] = $schema['cache_pathsrc'];
+  return $schema;
+}
