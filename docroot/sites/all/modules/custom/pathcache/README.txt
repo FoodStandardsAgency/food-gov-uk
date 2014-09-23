@@ -52,14 +52,9 @@ you assigned. At the command line:
 
 ps aux | grep memc
 
-STEP FIVE: Apply the patch to includes/path.inc. At the command line:
+STEP FIVE: Switch path_inc to use the one provided by this module:
 
-cd /path/to/your/drupal/root
-patch -p0 < sites/all/modules/pathcache/path.inc.patch
-
-This adds caching to drupal_lookup_path() in path.inc.
-
-The patch is against Drupal 6.
+$conf['path_inc'] = './sites/all/modules/contrib/pathcache/path.inc';
 
 STEP SIX: Enable pathcache.module. All the module does is make sure that
 the path caches get cleared when someone clicks the Clear cached data button
