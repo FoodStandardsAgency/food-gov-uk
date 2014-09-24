@@ -8,7 +8,7 @@
 /**
  * Implements hook_custom_formatters_defaults().
  */
-function foo_custom_formatters_defaults() {
+function fsa_config_custom_formatters_custom_formatters_defaults() {
   $formatters = array();
 
   $formatter = new stdClass();
@@ -36,62 +36,6 @@ function foo_custom_formatters_defaults() {
     return $output;';
   $formatter->fapi = '';
   $formatters['clone_of_type_and_link'] = $formatter;
-
-  $formatter = new stdClass();
-  $formatter->disabled = FALSE; /* Edit this to true to make a default formatter disabled initially */
-  $formatter->api_version = 2;
-  $formatter->name = 'example_php_image';
-  $formatter->label = 'Example: Image (PHP)';
-  $formatter->description = 'A PHP example formatter; Display a Thumbnail image linked to a Large image.';
-  $formatter->mode = 'php';
-  $formatter->field_types = 'image';
-  $formatter->code = '// Formatter settings.
-$settings = $variables[\'#display\'][\'settings\'];
-
-$element = array();
-foreach ($variables[\'#items\'] as $delta => $item) {
-  $element[$delta] = array(
-    \'#type\' => \'link\',
-    \'#href\' => file_create_url(image_style_path($settings[\'destination_image_style\'], $item[\'uri\'])),
-    \'#title\' => theme(\'image_style\', array(
-      \'style_name\' => $settings[\'source_image_style\'],
-      \'path\' => $item[\'uri\'],
-    )),
-    \'#options\' => array(
-      \'html\' => TRUE,
-    ),
-  );
-}
-return $element;';
-  $formatter->fapi = '$form = array();
-$form[\'source_image_style\'] = array(
-  \'#title\' => t(\'Source image styles\'),
-  \'#multiple_toggle\' => \'1\',
-  \'#required\' => \'0\',
-  \'#type\' => \'custom_formatters_image_styles\',
-  \'#weight\' => \'0\',
-);
-$form[\'destination_image_style\'] = array(
-  \'#title\' => t(\'Destination image styles\'),
-  \'#multiple_toggle\' => \'1\',
-  \'#required\' => \'0\',
-  \'#type\' => \'custom_formatters_image_styles\',
-  \'#weight\' => \'1\',
-);
-';
-  $formatters['example_php_image'] = $formatter;
-
-  $formatter = new stdClass();
-  $formatter->disabled = FALSE; /* Edit this to true to make a default formatter disabled initially */
-  $formatter->api_version = 2;
-  $formatter->name = 'example_token_image';
-  $formatter->label = 'Example: Image (HTML + Token)';
-  $formatter->description = 'A HTML + Tokens example formatter; Display a Thumbnail image linked to a Large image.';
-  $formatter->mode = 'token';
-  $formatter->field_types = 'image';
-  $formatter->code = '<a href="[image-field-value:styles:url:large]"><img src="[image-field-value:styles:url:thumbnail]" alt="[image-field-value:alt]" title="[image-field-value:title]" /></a>';
-  $formatter->fapi = '';
-  $formatters['example_token_image'] = $formatter;
 
   $formatter = new stdClass();
   $formatter->disabled = FALSE; /* Edit this to true to make a default formatter disabled initially */
@@ -139,7 +83,7 @@ $form[\'destination_image_style\'] = array(
   $formatter->mode = 'php';
   $formatter->field_types = 'file';
   $formatter->code = '    $output = \'\';
-    $langcode = $variables[\'#langcode\'];
+    $langcode = \'und\';
     foreach ($variables[\'#items\'] as $item) {
        // reassign title
        $item[\'filename\'] =   $item[\'field_file_title\'][$langcode][0][\'value\'];
