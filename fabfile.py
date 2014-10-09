@@ -61,10 +61,12 @@ def fix_perms():
     with cd(env.docroot):
         # would use chown -R but can't exclude sites/default/files
         run('find . -path ./sites/default/files -prune -o '
-            '-exec chown root:dev {} + ')
+            '-exec chown root:dev {} +')
         run('chmod -R g+w .')
         run('find . -type d -exec chmod g+s {} +')
         run('find . -type f -exec chmod -sx {} +')
+        run('chown www-data:dev sites/default/settings.php')
+        run('chmod 440 sites/default/settings.php')
 
 
 def copy_files(delete=False):
