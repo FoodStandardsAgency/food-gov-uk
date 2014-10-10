@@ -13,7 +13,6 @@ env.roledefs = {
         'fsaenaa3.miniserver.com',
         'fsaenaa5.miniserver.com',
         'fsaenaa10.miniserver.com',
-	'fsaenaa12.miniserver.com',
     ],
 }
 
