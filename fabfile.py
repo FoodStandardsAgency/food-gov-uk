@@ -89,3 +89,12 @@ def post_deploy():
     with cd(env.docroot):
         run('drush updatedb')
         run('drush cc all')
+
+def copy_latest_db
+    """Copy the live db from the mirror into another environment"""
+    with cd(env.docroot)
+        datedfile = 'food.' + datetime.date.today.strftime('%Y%m%d%H%M%S') + '.sql'
+        run('mysqldump -h 10.247.17.22 -u replication -pwjYSa5JM9hUD food > /tmp/' + datedfile)
+        run('drush sql-cli < /tmp/' + datedfile)
+        post_deploy()
+
