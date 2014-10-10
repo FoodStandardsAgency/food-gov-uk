@@ -94,7 +94,21 @@ def copy_latest_db
     """Copy the live db from the mirror into another environment"""
     with cd(env.docroot)
         datedfile = 'food.' + datetime.date.today.strftime('%Y%m%d%H%M%S') + '.sql'
-        run('mysqldump -h 10.247.17.22 -u replication -pwjYSa5JM9hUD food > /tmp/' + datedfile)
-        run('drush sql-cli < /tmp/' + datedfile)
+        run('mysqldump -h 10.247.17.22 -u replication -pwjYSa5JM9hUD food > /srv/' + datedfile)
+        # don't want the dump to include the contents of the caches...
+        run('drush cc')
+        # backup then drop the current db
+        run('drush sql-dump > /srv/old.' + datedfile)
+        run('drush sql-drop')
+        # import the one we just took from live
+        run('drush sql-cli < /srv/' + datedfile)
         post_deploy()
+
+def backup_db
+    """Backup the database of the current environment to a file"""
+    with cd(env.docroot)
+        datedfile = 'food.' + datetime.date.today.strftime('%Y%m%d%H%M%S') + '.sql'
+        # clear the cache so it isn't written to the backup, then take a backup
+        run('drush cc')
+        run('drush sql-dump > /srv/' + datedfile)
 
