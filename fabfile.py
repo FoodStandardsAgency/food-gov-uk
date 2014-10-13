@@ -97,6 +97,13 @@ def post_deploy():
 
 
 @task
+@hosts('fsaenaa14.miniserver.com')
+def sync_drupal_files():
+     """Copy the contents of the files directory from prod to staging/dev."""
+     run('rsync -av --delete /srv/drupal_data/ /srv/drupal_data_dev/')
+
+
+@task
 def copy_latest_db():
     """Copy the live db from the mirror into another environment"""
     with cd(env.docroot):
