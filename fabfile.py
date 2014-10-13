@@ -20,6 +20,8 @@ env.user = 'root'
 
 env.docroot = env.get('docroot', '/var/www/food.gov.uk')
 
+
+@task
 def full_deploy():
     """Nuke the current docroot and replace with local code."""
     check_docroot()
@@ -29,6 +31,7 @@ def full_deploy():
     post_deploy()
 
 
+@task
 def deploy():
     """Upload local code over current docroot contents.
 
@@ -46,6 +49,7 @@ def check_docroot():
         abort('docroot empty or fs root')
 
 
+@task
 def clean():
     """Delete and re-create the docroot directory structure."""
     with warn_only():
@@ -56,6 +60,7 @@ def clean():
     run('mount {docroot}/sites/default/files'.format(**env))
 
 
+@task
 def fix_perms():
     """Ensure permissions on the docroot contents are sane."""
     with cd(env.docroot):
@@ -69,6 +74,7 @@ def fix_perms():
         run('chmod 440 sites/default/settings.php')
 
 
+@task
 def copy_files(delete=False):
     """Use rsync to copy local code to docroot.
 
@@ -90,6 +96,7 @@ def post_deploy():
         run('drush cc all')
 
 
+@task
 def copy_latest_db():
     """Copy the live db from the mirror into another environment"""
     with cd(env.docroot):
@@ -105,6 +112,7 @@ def copy_latest_db():
         post_deploy()
 
 
+@task
 def backup_db():
     """Backup the database of the current environment to a file"""
     with cd(env.docroot):
