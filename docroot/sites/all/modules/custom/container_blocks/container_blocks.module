@@ -13,6 +13,11 @@
  * - find the facet id
  * - add to the container block
  * - remove the facet block (as it will now be in the container block)
+ *
+ *
+ * Views exposed filters are defined in this format:
+ * exp-[view machine name as in view url]-[view display name]
+ *    e.g. -exp-news_centre___search-page
  */
 
 /**
@@ -31,19 +36,19 @@ function container_blocks_block_info() {
     'info' => t('Search All News Facets'),
   );
 
-  $blocks['search_all_news_facets_nations_scotland'] = array(
+  $blocks['search_news_facets_scotland'] = array(
     'info' => t('Search All News Facets (Scotland)'),
   );
 
-  $blocks['search_all_news_facets_nations_ireland'] = array(
+  $blocks['search_news_facets_ireland'] = array(
     'info' => t('Search All News Facets (Ireland)'),
   );
 
-  $blocks['search_all_news_facets_nations_wales'] = array(
+  $blocks['search_news_facets_wales'] = array(
     'info' => t('Search All News Facets (Wales)'),
   );
 
-  $blocks['search_all_news_facets_nations_wales_welsh'] = array(
+  $blocks['search_news_facets_wales_welsh'] = array(
     'info' => t('Search All News Facets (Wales in welsh)'),
   );
 
@@ -130,22 +135,8 @@ function container_blocks_block_view($delta = '') {
       );
       break;
 
-    case 'search_all_news_facets_nations_scotland':
-      // a version of the news facets that does not have an option to filter by nation
-      $blocks[] = block_load('views', '-exp-nations___news_updates_news-page_1');
-      $blocks[] = block_load('facetapi', 'mo10eVoL905Qwndxck1XcD0dZWgc0x7s');
-      // Last updated year.
-      $blocks[] = block_load('facetapi', 'z0n0mr7e3co9o4fke31fjmkzq9qgwfqq');
 
-      $content = container_blocks_concatenate_content($blocks);
-
-      $block['subject'] = NULL;
-      $block['content'] = array(
-        '#markup' => $content,
-      );
-      break;
-
-    case 'search_all_news_facets_nations_ireland':
+    case 'search_news_facets_ireland':
       // a version of the news facets that does not have an option to filter by nation
       $blocks[] = block_load('views', '-exp-nations___news_updates_news-page');
       $blocks[] = block_load('facetapi', 'mo10eVoL905Qwndxck1XcD0dZWgc0x7s');
@@ -159,7 +150,35 @@ function container_blocks_block_view($delta = '') {
         '#markup' => $content,
       );
       break;
-    case 'search_all_news_facets_nations_wales_welsh':
+    case 'search_news_facets_scotland':
+      // a version of the news facets that does not have an option to filter by nation
+      $blocks[] = block_load('views', '-exp-nations___news_updates_news-page_1');
+      $blocks[] = block_load('facetapi', 'mo10eVoL905Qwndxck1XcD0dZWgc0x7s');
+      // Last updated year.
+      $blocks[] = block_load('facetapi', 'z0n0mr7e3co9o4fke31fjmkzq9qgwfqq');
+
+      $content = container_blocks_concatenate_content($blocks);
+
+      $block['subject'] = NULL;
+      $block['content'] = array(
+        '#markup' => $content,
+      );
+      break;
+    case 'search_news_facets_wales':
+      // a version of the news facets that does not have an option to filter by nation
+      $blocks[] = block_load('views', '-exp-nations___news_updates_news-page_2');
+      $blocks[] = block_load('facetapi', 'mo10eVoL905Qwndxck1XcD0dZWgc0x7s');
+      // Last updated year.
+      $blocks[] = block_load('facetapi', 'z0n0mr7e3co9o4fke31fjmkzq9qgwfqq');
+
+      $content = container_blocks_concatenate_content($blocks);
+
+      $block['subject'] = NULL;
+      $block['content'] = array(
+        '#markup' => $content,
+      );
+      break;
+    case 'search_news_facets_wales_welsh':
       // a version of the news facets that does not have an option to filter by nation
       $blocks[] = block_load('views', '-exp-nations___news_updates_news-page_3');
       $blocks[] = block_load('facetapi', 'mo10eVoL905Qwndxck1XcD0dZWgc0x7s');
