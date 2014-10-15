@@ -59,6 +59,18 @@ CKEDITOR.editorConfig = function(config) {
   }
 }
 
+CKEDITOR.on( 'dialogDefinition', function( ev ) {
+    var dialogName = ev.data.name;
+    var dialogDefinition = ev.data.definition;
+
+    if ( dialogName == 'table' ) {
+        var info = dialogDefinition.getContents( 'info' );
+
+        info.get( 'txtWidth' )[ 'default' ] = '100%';       // Set default width to 100%
+    }
+});
+
+
 /*
  * Sample toolbars
  */
