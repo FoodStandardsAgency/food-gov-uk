@@ -1,4 +1,4 @@
-name = Zendesk Feedback Tab (patched)
+name = Zendesk Feedback Tab
 description = "This module supports adding the zendesk feedback tab to your site."
 core = 7.x
 package = Zendesk
