@@ -77,7 +77,7 @@ function zendesk_feedbacktab_page_alter(&$page) {
   global $user;
   // Add the Zendesk Support Tab on the side of the site
   if (user_access('show zendesk_feedbacktab')) {
-    drupal_add_js('/sites/all/modules/contrib/zendesk_feedbacktab/seutest/zenbox.js', array('type' => 'external'));
+    drupal_add_js('//assets.zendesk.com/external/zenbox/v2.6/zenbox.js', array('type' => 'external'));
     drupal_add_css('//assets.zendesk.com/external/zenbox/v2.6/zenbox.css', array('type' => 'external', 'media' => 'screen, projection'));
     $script = '(function ($) {
     if (typeof(Zenbox) !== "undefined") {
