@@ -81,7 +81,7 @@ def copy_files(delete=False):
     The delete argument corresponds to rsync's --delete option.
     """
     rsync_project(env.docroot, 'docroot/',
-                  extra_opts='--no-times --no-perms',
+                  extra_opts='--no-times --no-perms --chmod=ugo=rwX',
                   exclude=['.gitignore'],
                   delete=delete)
 
