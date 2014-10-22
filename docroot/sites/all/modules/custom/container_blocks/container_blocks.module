@@ -26,6 +26,7 @@
 function container_blocks_block_info() {
   $blocks['search_all_facets'] = array(
     'info' => t('Search All Facets'),
+    'cache' => DRUPAL_NO_CACHE,
   );
 
   $blocks['search_all_dependant_facets'] = array(
@@ -293,6 +294,7 @@ function container_blocks_block_view($delta = '') {
 
 /**
  * Implements hook_block_view().
+ * @param $blocks Array Array of blocks
  */
 function container_blocks_concatenate_content($blocks) {
   $content = '';

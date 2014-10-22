@@ -1,0 +1,5 @@
+name = Context Debug All
+description = Enables the Debug Reaction on all Contexts
+core = 7.x
+dependencies[] = context
+
