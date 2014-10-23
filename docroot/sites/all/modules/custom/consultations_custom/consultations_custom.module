@@ -1,0 +1,132 @@
+<?php
+
+/**
+ * Implementation of hook_block_info().
+ */
+function consultations_custom_block_info() {
+
+  $blocks['consultations_custom'] = array(
+    'info' => t('Consultations Custom Search'),
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implementation of hook_block_view().
+ */
+function consultations_custom_block_view($delta = '') {
+
+  $block = array();
+
+  switch ($delta) {
+    case 'consultations_custom':
+      $content = drupal_get_form('consultations_custom_search_form');
+
+      $block['subject'] = NULL;
+      $block['content'] = $content;
+      break;
+  }
+
+  return $block;
+}
+
+function consultations_custom_search_form($form_state) {
+
+  $nation_options = consultations_custom_top_level_terms('nation');
+
+  $status_options = array(
+	'Closed' => t('Closed'),
+	'Open' => t('Open'),
+  );
+
+
+  $form['nation'] = array(
+    '#type'          => 'select',
+    '#required'      => FALSE,
+    '#title'         => t('Search by nation'),
+    '#default_value' => 0,
+    '#empty_option'  => t('All nations'),
+    '#options'       => $nation_options,
+  );
+
+  $form['status'] = array(
+    '#type'          => 'select',
+    '#required'      => FALSE,
+    '#title'         => t('Browse by status'),
+    '#default_value' => 0,
+    '#empty_option'  => t('Any status'),
+    '#options'       => $status_options,
+  );
+
+  $form['submit_consultations_custom_facets'] = array(
+    '#type'  => 'submit',
+    '#value' => t('Submit'),
+  );
+
+  return $form;
+}
+
+function consultations_custom_search_form_submit($form, &$form_state) {
+  $view_name = 'consultation_search';
+  $facet_count = 0;
+  $facets = array();
+  $consultations_term = 8;
+
+  $view = views_get_view($view_name, $reset = FALSE);
+  $path = $view->display['page']->display_options['path'];
+
+
+  $facets[] = array (
+    'key' => 'f[' . $facet_count . ']',
+    'facet' => 'im_field_site_section:' . $consultations_term
+  );
+
+
+
+  if (!empty($form_state['values']['nation'])) {
+    $facet_count++;
+
+    $facets[] = array (
+      'key' => 'f[' . $facet_count . ']',
+      'facet' => 'im_field_nation:' . $form_state['values']['nation'],
+    );
+  }
+
+  if (!empty($form_state['values']['status'])) {
+    $facet_count++;
+
+    $facets[] = array (
+      'key' => 'f[' . $facet_count . ']',
+      'facet' => 'im_field_status:' . $form_state['values']['status'],
+    );
+  }
+
+  foreach ($facets as $facet) {
+    $facet_filters[$facet['key']] = $facet['facet'];
+  }
+
+  drupal_goto($path, array('query' => $facet_filters));
+}
+
+function consultations_custom_top_level_terms($vocabulary) {
+
+  $vocabularies = taxonomy_vocabulary_get_names();
+
+  if (isset($vocabularies[$vocabulary])) {
+    $vid = $vocabularies[$vocabulary]->vid;
+  }
+  else {
+    return array();
+  }
+
+  $terms = taxonomy_get_tree($vid, $parent = 0, $max_depth = 1, $load_entities = FALSE);
+
+  foreach ($terms as $term) {
+    $options[$term->tid] = $term->name;
+  }
+
+  return $options;
+}
+
+
