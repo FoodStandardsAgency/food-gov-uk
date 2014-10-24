@@ -117,5 +117,15 @@ Custom formatters
 
 The settings form on custom formatters is not set up correctly. It has a minor patch to allow updates to be saved.
 
+=============================================
+
+Zendesk Feedback Tab
+
+FSA-981: Iframe is missing a description (https://codepositive.atlassian.net/browse/FSA-981)
+
+Changed from external JS to including JS with the module, so that we could change the title of the iframe.
+
+Patch: FSA-981-iframe-is-missing-a-description.patch
+
 
 

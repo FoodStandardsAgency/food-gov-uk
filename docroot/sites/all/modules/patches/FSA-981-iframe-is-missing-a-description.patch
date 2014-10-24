@@ -1,0 +1,32 @@
+Index: docroot/sites/all/modules/contrib/zendesk_feedbacktab/seutest/zenbox.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- docroot/sites/all/modules/contrib/zendesk_feedbacktab/seutest/zenbox.js	(revision cd1072c4ca57817f3347315eade6bff8e02eda9b)
++++ docroot/sites/all/modules/contrib/zendesk_feedbacktab/seutest/zenbox.js	(revision )
+@@ -71,7 +71,7 @@
+     overlay.style.display = 'none';
+     overlay.innerHTML = '<div id="zenbox_container">' +
+                         '  <div class="zenbox_header"><img id="zenbox_close" /></div>' +
+-                        '  <iframe id="zenbox_body" title="ZenBox Feedback" frameborder="0" scrolling="auto" allowTransparency="true"></iframe>' +
++                        '  <iframe id="zenbox_body" title="Feedback form" frameborder="0" scrolling="auto" allowTransparency="true"></iframe>' +
+                         '</div>' +
+                         '<div id="zenbox_scrim">&nbsp;</div>';
+     document.body.appendChild(overlay);
+Index: docroot/sites/all/modules/contrib/zendesk_feedbacktab/zendesk_feedbacktab.module
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- docroot/sites/all/modules/contrib/zendesk_feedbacktab/zendesk_feedbacktab.module	(revision cd1072c4ca57817f3347315eade6bff8e02eda9b)
++++ docroot/sites/all/modules/contrib/zendesk_feedbacktab/zendesk_feedbacktab.module	(revision )
+@@ -77,7 +77,7 @@
+   global $user;
+   // Add the Zendesk Support Tab on the side of the site
+   if (user_access('show zendesk_feedbacktab')) {
+-    drupal_add_js('//assets.zendesk.com/external/zenbox/v2.6/zenbox.js', array('type' => 'external'));
++    drupal_add_js(drupal_get_path('module', 'zendesk_feedbacktab') . '/seutest/zenbox.js');
+     drupal_add_css('//assets.zendesk.com/external/zenbox/v2.6/zenbox.css', array('type' => 'external', 'media' => 'screen, projection'));
+     $script = '(function ($) {
+     if (typeof(Zenbox) !== "undefined") {
