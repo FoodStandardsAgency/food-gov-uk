@@ -74,7 +74,7 @@ function consultations_custom_search_form_submit($form, &$form_state) {
   $consultations_term = 8;
 
   $view = views_get_view($view_name, $reset = FALSE);
-  $path = $view->display['page']->display_options['path'];
+  $path = $view->display['page_1']->display_options['path'];
 
 
   $facets[] = array (
