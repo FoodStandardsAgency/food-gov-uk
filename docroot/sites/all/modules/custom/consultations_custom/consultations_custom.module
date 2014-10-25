@@ -35,6 +35,8 @@ function consultations_custom_search_form($form_state) {
 
   $nation_options = consultations_custom_top_level_terms('nation');
 
+  $year_options = array_combine(range(2009, date("Y")), range(2009, date("Y")));
+  
   $status_options = array(
 	'Closed' => t('Closed'),
 	'Open' => t('Open'),
@@ -48,6 +50,15 @@ function consultations_custom_search_form($form_state) {
     '#default_value' => 0,
     '#empty_option'  => t('All nations'),
     '#options'       => $nation_options,
+  );
+
+  $form['year'] = array(
+    '#type'          => 'select',
+    '#required'      => FALSE,
+    '#title'         => t('Search by year'),
+    '#default_value' => 0,
+    '#empty_option'  => t('All years'),
+    '#options'       => $year_options,
   );
 
   $form['status'] = array(
@@ -71,17 +82,9 @@ function consultations_custom_search_form_submit($form, &$form_state) {
   $view_name = 'consultation_search';
   $facet_count = 0;
   $facets = array();
-  $consultations_term = 8;
 
   $view = views_get_view($view_name, $reset = FALSE);
   $path = $view->display['page_1']->display_options['path'];
-
-
-  $facets[] = array (
-    'key' => 'f[' . $facet_count . ']',
-    'facet' => 'im_field_site_section:' . $consultations_term
-  );
-
 
 
   if (!empty($form_state['values']['nation'])) {
@@ -93,12 +96,21 @@ function consultations_custom_search_form_submit($form, &$form_state) {
     );
   }
 
+  if (!empty($form_state['values']['year'])) {
+    $facet_count++;
+
+    $facets[] = array (
+      'key' => 'f[' . $facet_count . ']',
+      'facet' => 'is_last_updated_year:' . $form_state['values']['year'],
+    );
+  }
+
   if (!empty($form_state['values']['status'])) {
     $facet_count++;
 
     $facets[] = array (
       'key' => 'f[' . $facet_count . ']',
-      'facet' => 'im_field_status:' . $form_state['values']['status'],
+      'facet' => 'sm_field_consultation_state:' . $form_state['values']['status'],
     );
   }
 
@@ -128,5 +140,3 @@ function consultations_custom_top_level_terms($vocabulary) {
 
   return $options;
 }
-
-
