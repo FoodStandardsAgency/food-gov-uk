@@ -1,0 +1,22 @@
+/* FAQ accordion expand-collapse feature */
+.expand-collapse a {
+	margin-right: 5px;
+	display: none;
+}
+.expand-collapse a.show {
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+}
+.expand-collapse {
+	display: block;
+	text-align: right;
+	margin-top: 5px;
+	margin-bottom: 12px;
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+
+
+

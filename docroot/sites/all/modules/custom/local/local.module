@@ -250,6 +250,7 @@ function local_node_view($node, $view_mode, $langcode) {
   if ($node->type == 'faq' && $view_mode == 'full') {
     drupal_add_library('system','ui.accordion');
     drupal_add_js(drupal_get_path('module', 'local') . '/js/local.js');
+    drupal_add_css(drupal_get_path('module', 'local') . '/css/local.css');
   }
 }
 
