@@ -20,6 +20,8 @@ env.user = 'root'
 
 env.docroot = env.get('docroot', '/var/www/food.gov.uk')
 
+
+@task
 def full_deploy():
     """Nuke the current docroot and replace with local code."""
     check_docroot()
@@ -29,6 +31,7 @@ def full_deploy():
     post_deploy()
 
 
+@task
 def deploy():
     """Upload local code over current docroot contents.
 
@@ -46,6 +49,7 @@ def check_docroot():
         abort('docroot empty or fs root')
 
 
+@task
 def clean():
     """Delete and re-create the docroot directory structure."""
     with warn_only():
@@ -56,6 +60,7 @@ def clean():
     run('mount {docroot}/sites/default/files'.format(**env))
 
 
+@task
 def fix_perms():
     """Ensure permissions on the docroot contents are sane."""
     with cd(env.docroot):
@@ -69,13 +74,14 @@ def fix_perms():
         run('chmod 440 sites/default/settings.php')
 
 
+@task
 def copy_files(delete=False):
     """Use rsync to copy local code to docroot.
 
     The delete argument corresponds to rsync's --delete option.
     """
     rsync_project(env.docroot, 'docroot/',
-                  extra_opts='--no-times --no-perms',
+                  extra_opts='--no-times --no-perms --chmod=ugo=rwX',
                   exclude=['.gitignore'],
                   delete=delete)
 
@@ -88,3 +94,36 @@ def post_deploy():
     with cd(env.docroot):
         run('drush updatedb')
         run('drush cc all')
+
+
+@task
+@hosts('fsaenaa14.miniserver.com')
+def sync_drupal_files():
+     """Copy the contents of the files directory from prod to staging/dev."""
+     run('rsync -av --delete /srv/drupal_data/ /srv/drupal_data_dev/')
+
+
+@task
+def copy_latest_db():
+    """Copy the live db from the mirror into another environment"""
+    with cd(env.docroot):
+        datedfile = 'food.' + datetime.date.today.strftime('%Y%m%d%H%M%S') + '.sql'
+        run('mysqldump -h 10.247.17.22 -u replication -pwjYSa5JM9hUD food > /srv/' + datedfile)
+        # don't want the dump to include the contents of the caches...
+        run('drush cc')
+        # backup then drop the current db
+        run('drush sql-dump > /srv/old.' + datedfile)
+        run('drush sql-drop')
+        # import the one we just took from live
+        run('drush sql-cli < /srv/' + datedfile)
+        post_deploy()
+
+
+@task
+def backup_db():
+    """Backup the database of the current environment to a file"""
+    with cd(env.docroot):
+        datedfile = 'food.' + datetime.date.today.strftime('%Y%m%d%H%M%S') + '.sql'
+        # clear the cache so it isn't written to the backup, then take a backup
+        run('drush cc')
+        run('drush sql-dump > /srv/' + datedfile)
