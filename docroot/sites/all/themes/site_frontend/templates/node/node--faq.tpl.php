@@ -111,7 +111,7 @@
 	    <a href="#" id="collapse" class="hide">Collapse All</a>
 	  </span>
 	<?php endif; ?>
-    <?php>
+    <?php
       print render($content);
     ?>
   </div>
