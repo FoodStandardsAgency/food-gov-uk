@@ -15,6 +15,13 @@ https://drupal.org/comment/7707699#comment-7707699
 
 ===========================================
 
+Context
+
+FSA-978: Context is very hard to edit on the live  (https://codepositive.atlassian.net/browse/FSA-978)
+https://www.drupal.org/node/873936#comment-5624148
+
+===========================================
+
 Media
 Upload image freeze on wysiwyg integration with multi field media
 https://drupal.org/node/1630288#comment-7806387
