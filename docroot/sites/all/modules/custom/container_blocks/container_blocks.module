@@ -259,6 +259,8 @@ function container_blocks_block_view($delta = '') {
       break;
 
     case 'search_audit_reports':
+      // add the views exposed filters
+      $blocks[] = block_load('views', '-exp-audit_reports-page');
       // Nation.
       $blocks[] = block_load('facetapi', 'ly6396gbtdufodpd8je0qyujejn73bws');
       // Audit type.
