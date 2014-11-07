@@ -111,15 +111,6 @@ function container_blocks_block_view($delta = '') {
       if ($delta == 'search_all_news_facets' ) {
         $blocks[] = block_load('views', '-exp-news_centre___search-page');
       }
-<<<<<<< HEAD
-      else if ($delta == 'search_food_alerts_facets') {
-        $blocks[] = block_load('views', '-exp-news_centre___search-page_1');
-      }
-      else if ($delta == 'search_allergy_alerts_facets') {
-     	 $blocks[] = block_load('views', '-exp-news_centre___search-page_2');
-      }
-=======
->>>>>>> feature/0077-Search_in_alerts_news_solr
       $blocks[] = block_load('facetapi', 'mo10eVoL905Qwndxck1XcD0dZWgc0x7s');
       // updated time facet
       // $blocks[] = block_load('facetapi', 'bLPXAQDJqA1Re1OTSoyUJM9gUBaIgZMG');
@@ -365,3 +356,4 @@ function container_blocks_concatenate_content($blocks) {
 
   return $content;
 }
+
