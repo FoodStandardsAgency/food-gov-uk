@@ -297,7 +297,7 @@ function container_blocks_block_view($delta = '') {
       
       case 'search_all_news_facets_food_alerts':
 	// select the appropriate exposed filters for this block.
-	($delta == 'search_food_alerts_news') 
+	($delta == 'search_food_alerts_facets') 
 	  $blocks[] = block_load('views', '-exp-news_centre___search-page_1');
 	$blocks[] = block_load('facetapi', 'mo10eVoL905Qwndxck1XcD0dZWgc0x7s');
 	// updated time facet
@@ -318,7 +318,7 @@ function container_blocks_block_view($delta = '') {
       
       case 'search_all_news_facets_allergy_alerts':
 	// select the appropriate exposed filters for this block.
-	($delta == 'search_allergy_alerts_news') 
+	($delta == 'search_allergy_alerts_facets') 
 	  $blocks[] = block_load('views', '-exp-news_centre___search-page_2');
 	$blocks[] = block_load('facetapi', 'mo10eVoL905Qwndxck1XcD0dZWgc0x7s');
 	// updated time facet
