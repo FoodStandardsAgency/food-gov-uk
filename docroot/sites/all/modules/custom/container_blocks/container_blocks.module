@@ -37,9 +37,9 @@ function container_blocks_block_info() {
     'info' => t('Search All News Facets (food alerts)'),
   );
   
-  $blocks['search_all_news_facets_allergy_alerts'] = array(
-    'info' => t('Search All News Facets (food alerts)'),
-  );
+  //$blocks['search_all_news_facets_allergy_alerts'] = array(
+    //'info' => t('Search All News Facets (food alerts)'),
+  //);
 
   $blocks['search_news_facets_scotland'] = array(
     'info' => t('Search All News Facets (Scotland)'),
@@ -109,7 +109,7 @@ function container_blocks_block_view($delta = '') {
 
     case 'search_all_news_facets':
     case 'search_all_news_facets_food_alerts':
-    case 'search_all_news_facets_allergy_alerts':
+    //case 'search_all_news_facets_allergy_alerts':
       // select the appropriate exposed filters for this block.
       // the rest of the facets should be the same
       if ($delta == 'search_all_news_facets' ) {
