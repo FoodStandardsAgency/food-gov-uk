@@ -29,16 +29,12 @@ function container_blocks_block_info() {
     'cache' => DRUPAL_NO_CACHE,
   );
 
-  $blocks['search_all_news_facets'] = array(
-    'info' => t('Search All News Facets'),
+  $blocks['search_all_dependant_facets'] = array(
+    'info' => t('Search All Dependant Facets'),
   );
 
-  $blocks['search_all_news_facets_food_alerts'] = array(
-    'info' => t('Search All News Facets (food alerts)'),
-  );
-  
-  $blocks['search_all_news_facets_allergy_alerts'] = array(
-    'info' => t('Search All News Facets (food alerts)'),
+  $blocks['search_all_news_facets'] = array(
+    'info' => t('Search All News Facets'),
   );
 
   $blocks['search_news_facets_scotland'] = array(
@@ -108,19 +104,7 @@ function container_blocks_block_view($delta = '') {
       break;
 
     case 'search_all_news_facets':
-    case 'search_all_news_facets_food_alerts':
-    case 'search_all_news_facets_allergy_alerts':
-      // select the appropriate exposed filters for this block.
-      // the rest of the facets should be the same
-      if ($delta == 'search_all_news_facets' ) {
-        $blocks[] = block_load('views', '-exp-news_centre___search-page');
-      }
-      else if ($delta == 'search_all_news_facets_food_alerts') {
-        $blocks[] = block_load('views', '-exp-news_centre___search-page_1');
-      }
-      else if ($delta == 'search_all_news_facets_allergy_alerts') {
-	$blocks[] = block_load('views', '-exp-news_centre___search-page_2');
-      }
+      $blocks[] = block_load('views', '-exp-news_centre___search-page');
       $blocks[] = block_load('facetapi', 'mo10eVoL905Qwndxck1XcD0dZWgc0x7s');
       // updated time facet
       // $blocks[] = block_load('facetapi', 'bLPXAQDJqA1Re1OTSoyUJM9gUBaIgZMG');
@@ -262,8 +246,6 @@ function container_blocks_block_view($delta = '') {
       break;
 
     case 'search_audit_reports':
-      // add the views exposed filters
-      $blocks[] = block_load('views', '-exp-audit_reports-page');
       // Nation.
       $blocks[] = block_load('facetapi', 'ly6396gbtdufodpd8je0qyujejn73bws');
       // Audit type.
