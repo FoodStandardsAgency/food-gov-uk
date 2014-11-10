@@ -38,7 +38,7 @@ function container_blocks_block_info() {
   );
   
   $blocks['search_all_news_facets_allergy_alerts'] = array(
-    'info' => t('Search All News Facets (food alerts)'),
+    'info' => t('Search All News Facets (allergy alerts)'),
   );
 
   $blocks['search_news_facets_scotland'] = array(
@@ -115,10 +115,10 @@ function container_blocks_block_view($delta = '') {
       if ($delta == 'search_all_news_facets' ) {
         $blocks[] = block_load('views', '-exp-news_centre___search-page');
       }
-      else if ($delta == 'search_all_news_facets_food_alerts') {
+      else if ($delta == 'search_food_alerts_facets') {
         $blocks[] = block_load('views', '-exp-news_centre___search-page_1');
       }
-      else if ($delta == 'search_all_news_facets_allergy_alerts') {
+      else if ($delta == 'search_allergy_alerts_facets') {
 	$blocks[] = block_load('views', '-exp-news_centre___search-page_2');
       }
       $blocks[] = block_load('facetapi', 'mo10eVoL905Qwndxck1XcD0dZWgc0x7s');
