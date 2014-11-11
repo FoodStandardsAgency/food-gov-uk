@@ -133,7 +133,7 @@ function local_url_outbound_alter(&$path, &$options, $original_path) {
       if ($path_exploded[0] == 'committee') {
         // search the committee array for the first 2 elements of the path
         if ($domain = array_search(implode('/',array_slice($path_exploded,0,2)),$path_domains)) {
-          $committee_path = implode('/', array_slice($path_exploded,3));
+          $committee_path = implode('/', array_slice($path_exploded,2));
           $committee[] = $domain;
           if ($committee_path) {
             $committee[] = $committee_path;
