@@ -8,7 +8,7 @@
 	line-height: 1.4em;
 	/* block title */
 	h2.block__title {
-		color: #4B7A0A;
+		color: #4b800d;
 		margin: 0 0 0.5em 0;
 		font-size: 1.6em;
 		font-weight: normal;
