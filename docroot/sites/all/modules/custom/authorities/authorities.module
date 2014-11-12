@@ -19,6 +19,8 @@ define ('THEME_AUTHORITIES_MAP', 'TAS_MAP');
 define ('THEME_AUTHORITIES_LIST', 'TAS_LIST');
 define ('THEME_AUTHORITIES_LIST_ITEM', 'TAS_LIST_ITEM');
 define ('THEME_AUTHORITIES_FORM', 'TAS_FORM');
+define ('THEME_AUTHORITIES_LOCALITIES', 'TAS_LOCALITIES');
+define ('THEME_AUTHORITIES_LOCALITIES_ITEM', 'TAS_LOCALITIES_ITEM');
 
 /**
  * Implements hook_block_info()
@@ -81,12 +83,18 @@ function authorities_block_view($delta = '') {
 
 					if ($authorities->count() > 0) {
 
-						$block['subject'] = t('Map');
-						$block['content'] = array(
-							'#theme' => THEME_AUTHORITIES_MAP,
-							'#authorities' => $authorities,
-							'#parameters' => $parameters,
-						);
+						// do they all belong to the same locality?
+						// if not, then do not display anything.
+						// the list form will render it out for us in that case
+						if ($authorities->isDistinctLocality()) {
+
+							$block['subject'] = t('Map');
+							$block['content'] = array(
+								'#theme' => THEME_AUTHORITIES_MAP,
+								'#authorities' => $authorities,
+								'#parameters' => $parameters,
+							);
+						}
 					}
 				}
 			}
@@ -103,12 +111,23 @@ function authorities_block_view($delta = '') {
 				// only display the list any search has been performed
 				if ($parameters->hasParameters()) {
 
-					$block['subject'] = t('List');
-					$block['content'] = array(
-						'#theme' => THEME_AUTHORITIES_LIST,
-						'#authorities' => $authorities,
-						'#parameters' => $parameters,
-					);
+					if ($authorities->isDistinctLocality()) {
+
+						$block['subject'] = t('List');
+						$block['content'] = array(
+							'#theme' => THEME_AUTHORITIES_LIST,
+							'#authorities' => $authorities,
+							'#parameters' => $parameters,
+						);
+					} else {
+
+						$block['subject'] = t('Choose your locality');
+						$block['content'] = array(
+							'#theme' => THEME_AUTHORITIES_LOCALITIES,
+							'#authorities' => $authorities,
+							'#parameters' => $parameters,
+						);
+					}
 				}
 			}
 			break;
@@ -197,63 +216,78 @@ function _authorities_compile_authorities(AuthoritiesSearchParameters &$paramete
 		$response = drupal_http_request($url);
 
 		if (isset($response->data)) {
-          $json = $response->data;
+			$json = $response->data;
 
 		  $json = drupal_json_decode($json);
-        }
+		}
 
 		// did we have the right credentials?
 		if (isset($json['authenticationResultCode']) && $json['authenticationResultCode'] == 'ValidCredentials') {
 
 			// did we get any result?
 			if (count($json['resourceSets'][0]['resources']) > 0) {
-              foreach ($json['resourceSets'][0]['resources'] as $resource_data) {
-                $country = $resource_data['address']['countryRegion'];
-                if (in_array($country, array('United Kingdom','Wales','Scotland','Northern Ireland'))) {
 
-				$coordinates = $resource_data['point']['coordinates'];
-				list($latitude, $longitude) = $coordinates;
+				foreach ($json['resourceSets'][0]['resources'] as $resource_data) {
 
-				// add it to the search parameters
-				$parameters->setLatitude($latitude);
-				$parameters->setLongitude($longitude);
+					$country = $resource_data['address']['countryRegion'];
 
-				// hit the server again and retrieve the results
-				$url = "http://spatial.virtualearth.net/REST/v1/data/{$access_id}/{$dsn}/{$etn}";
+					if (in_array($country, array('United Kingdom','Wales','Scotland','Northern Ireland'))) {
 
-				$url .= "?key={$key}";
-				$url .= '&' . rawurlencode('$filter') .'='. rawurlencode("{$parameters->getCategory()} Eq '1'");
-				$url .= '&'. rawurlencode('$format') .'=json';
-				$url .= "&spatialFilter=nearby({$latitude},{$longitude},{$radius})";
+						// we have to iterate and figure out if the results are all in the same area.
+						// for example searching for Croydon returns
+						// - Croydon, Cambridgeshire, United Kingdom
+						// - Croydon, London, London, United Kingdom
+						// and in this case we have to give the user a chance to select one of them.
+						// so also pick up the locality, so we then can check if we have any duplicates
+						// and act on it.
+						// (ok, it would be quicker to check for this in an extra loop instead of
+						//  resolving the details, however it's only a rare case that we have duplicates
+						//  so I rather think it's better to keep the nice process flow)
+						$locality = $resource_data['address']['formattedAddress'];
 
-				// hit BING
-				$response = drupal_http_request($url);
+						$coordinates = $resource_data['point']['coordinates'];
+						list($latitude, $longitude) = $coordinates;
 
-				$json = $response->data;
+						// add it to the search parameters
+						$parameters->setLatitude($latitude);
+						$parameters->setLongitude($longitude);
 
-				$json = drupal_json_decode($json);
+						// hit the server again and retrieve the results
+						$url = "http://spatial.virtualearth.net/REST/v1/data/{$access_id}/{$dsn}/{$etn}";
 
-				// BING returns XML in case of an error,
-				// so check for this
-				if (is_null($json) || ($json === FALSE)) {
+						$url .= "?key={$key}";
+						$url .= '&' . rawurlencode('$filter') .'='. rawurlencode("{$parameters->getCategory()} Eq '1'");
+						$url .= '&'. rawurlencode('$format') .'=json';
+						$url .= "&spatialFilter=nearby({$latitude},{$longitude},{$radius})";
 
-					watchdog('food:authorities', 'BING spatial lookup failed');
+						// hit BING
+						$response = drupal_http_request($url);
 
-				} else {
+						$json = $response->data;
 
-					$records = $json['d']['results'];
+						$json = drupal_json_decode($json);
 
-					// only keep maximum of 6 records as per LBI code
-					$records = array_splice($records, 0, variable_get_value('authorities_max_results'));
+						// BING returns XML in case of an error,
+						// so check for this
+						if (is_null($json) || ($json === FALSE)) {
 
-					foreach ($records as $record) {
-						$authority = Authority::fromBing($record);
-						$authorities->addAuthority($authority);
+							watchdog('food:authorities', 'BING spatial lookup failed');
+
+						} else {
+
+							$records = $json['d']['results'];
+
+							// only keep maximum of 6 records as per LBI code
+							$records = array_splice($records, 0, variable_get_value('authorities_max_results'));
+
+							foreach ($records as $record) {
+								$authority = Authority::fromBing($locality, $record);
+								$authorities->addAuthority($authority);
+							}
+						}
 					}
 				}
-              }
 			}
-          }
 		} else {
 
 			watchdog('food:authorities', 'BING credentials are invalid');
@@ -312,6 +346,26 @@ function authorities_theme() {
 			'parameters' => NULL,
 		),
 		'template' => 'map',
+		'path' => $theme_path,
+	);
+
+	// theme the localities
+	$items[THEME_AUTHORITIES_LOCALITIES] = array(
+		'variables' => array(
+			'authorities' => NULL,
+			'parameters' => NULL,
+		),
+		'template' => 'localities',
+		'path' => $theme_path,
+	);
+
+	// theme the one list entry
+	$items[THEME_AUTHORITIES_LOCALITIES_ITEM] = array(
+		'variables' => array(
+			'authority' => NULL,
+			'parameters' => NULL,
+		),
+		'template' => 'localities-list-item',
 		'path' => $theme_path,
 	);
 
