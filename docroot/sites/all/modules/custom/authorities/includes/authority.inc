@@ -3,6 +3,7 @@
 class Authority {
 
 	private $position = 0;
+	private $locality;
 	private $entityID;
 	private $latitude, $longitude;
 	private $trading;
@@ -20,6 +21,7 @@ class Authority {
 
 	public function setPosition($v) { $this->position = $v; return $this; }
 	public function getPosition() { return $this->position; }
+	public function getLocality() { return $this->locality; }
 	public function getEntityID() { return $this->entityID; }
 	public function getLatitude() { return $this->latitude; }
 	public function getLongitude() { return $this->longitude; }
@@ -32,18 +34,25 @@ class Authority {
 	public function getAddr3() { return $this->addr3; }
 	public function getAddressLine() { return $this->addressLine; }
 	public function getPostCode() { return $this->postCode; }
+	public function getOutward() {
+		$postCode = $this->postCode;
+		$parts = explode(' ', $postCode);
+		return $parts[0];
+	}
 	public function getTelephone() { return $this->telephone; }
 	public function getMail() { return $this->mail; }
 	public function getUrl() { return $this->url; }
 
 	/**
 	 * Instantiates an object from the Bing JSON response
+	 * @param $locality The address' locality
 	 * @param $json One Bing record in JSON
 	 * @return The instantiated object
 	 */
-	static public function fromBing($json) {
+	static public function fromBing($locality, $json) {
 
 		$o = new self();
+		$o->locality = $locality;
 		$o->entityID = $json['EntityID'];
 		$o->latitude = $json['Latitude'];
 		$o->longitude = $json['Longitude'];
