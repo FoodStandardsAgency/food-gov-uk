@@ -7,7 +7,7 @@ ul.pager {
 		font-size: 1.2em;
 		line-height: 1.4em;
 		a {
-			color: #368303;
+			color: #5d9711;
 			font-weight: normal;
 			text-decoration: none;
 		}
