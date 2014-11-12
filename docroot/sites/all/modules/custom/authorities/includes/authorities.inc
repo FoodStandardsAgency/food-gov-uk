@@ -34,6 +34,22 @@ class Authorities implements Iterator {
 		return $this;
 	}
 
+	/**
+	 * Returns <code>TRUE|FALSE</code> whether or not all Authorities belong to the same locality
+	 * @return <code>TRUE|FALSE</code> whether or not all Authorities belong to the same locality
+	 */
+	public function isDistinctLocality() {
+
+		$localities = array();
+
+		// iterate over all authorities and gather their locality
+		foreach ($this->authorities as $authority) {
+			$localities[$authority->getLocality()] = TRUE;
+		}
+
+		return (count($localities) == 1);
+	}
+
 	public function count() {
 		return count($this->authorities);
 	}
