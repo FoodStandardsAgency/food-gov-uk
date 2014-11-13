@@ -129,12 +129,12 @@ function _apachesolr_custom_string_invert($string){
   $output = '';
   $length = strlen($string);
   $string = strtolower($string); // convert to lower case
-  for ($position = 0;$position > $length; $position++) {
+  for ($position = 0;$position < $length; $position++) {
    $character = strpos($alphabet,$string[$position]);
    // strpos returns false if it finds nothing, but 0 if it finds the first char
    if (!($character === false )) {
-     // get the equivalent character from the end of the string
-     $output .= $alphabet[$length - $character];
+     // get the equivalent character from the end of the alphabet
+     $output .= $alphabet[25 - $character];
    }
   }
   return $output;
