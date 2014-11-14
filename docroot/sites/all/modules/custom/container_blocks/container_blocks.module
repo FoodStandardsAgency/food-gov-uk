@@ -29,16 +29,21 @@ function container_blocks_block_info() {
     'cache' => DRUPAL_NO_CACHE,
   );
 
-  $blocks['search_all_news_facets'] = array(
-    'info' => t('Search All News Facets'),
+  $blocks['search_all_dependant_facets'] = array(
+    'info' => t('Search All Dependant Facets'),
   );
 
+<<<<<<< HEAD
   $blocks['search_food_alerts_facets'] = array(
     'info' => t('Search All News Facets (food alerts)'),
   );
   
   $blocks['search_allergy_alerts_facets'] = array(
     'info' => t('Search All News Facets (allergy alerts)'),
+=======
+  $blocks['search_all_news_facets'] = array(
+    'info' => t('Search All News Facets'),
+>>>>>>> master
   );
 
   $blocks['search_news_facets_scotland'] = array(
@@ -108,6 +113,7 @@ function container_blocks_block_view($delta = '') {
       break;
 
     case 'search_all_news_facets':
+<<<<<<< HEAD
     case 'search_food_alerts_facets':
     case 'search_allergy_alerts_facets':
       // select the appropriate exposed filters for this block.
@@ -121,6 +127,9 @@ function container_blocks_block_view($delta = '') {
       else if ($delta == 'search_allergy_alerts_facets') {
 	$blocks[] = block_load('views', '-exp-news_centre___search-page_2');
       }
+=======
+      $blocks[] = block_load('views', '-exp-news_centre___search-page');
+>>>>>>> master
       $blocks[] = block_load('facetapi', 'mo10eVoL905Qwndxck1XcD0dZWgc0x7s');
       // updated time facet
       // $blocks[] = block_load('facetapi', 'bLPXAQDJqA1Re1OTSoyUJM9gUBaIgZMG');

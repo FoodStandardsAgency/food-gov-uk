@@ -71,7 +71,7 @@
     overlay.style.display = 'none';
     overlay.innerHTML = '<div id="zenbox_container">' +
                         '  <div class="zenbox_header"><img id="zenbox_close" /></div>' +
-                        '  <iframe id="zenbox_body" title="Feedback form" scrolling="auto" allowTransparency="true"></iframe>' +
+                        '  <iframe id="zenbox_body" title="Feedback form" frameborder="0.1" scrolling="auto" allowTransparency="true"></iframe>' +
                         '</div>' +
                         '<div id="zenbox_scrim">&nbsp;</div>';
     document.body.appendChild(overlay);
