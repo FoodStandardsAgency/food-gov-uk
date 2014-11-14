@@ -5528,7 +5528,7 @@ h1.nation-wales {
   /* rows of content */
 }
 .nation-news h2.block__title {
-  color: #4B7A0A;
+  color: #4b800d;
   margin: 0 0 0.5em 0;
   font-size: 1.6em;
   font-weight: normal;
@@ -5840,7 +5840,7 @@ ul.pager li {
   line-height: 1.4em;
 }
 ul.pager li a {
-  color: #368303;
+  color: #5d9711;
   font-weight: normal;
   text-decoration: none;
 }
@@ -6232,8 +6232,6 @@ ul.pager li.pager__item--last a:hover {
   border: 1px solid #ccc;
   font-family: Arial, Verdana, Helvetica, sans-serif;
   font-size: 1.2em;
-  background: #D3461A;
-  hover: #CC3708;
 }
 
 .l-sidebar-second .search-facet .form-item,
