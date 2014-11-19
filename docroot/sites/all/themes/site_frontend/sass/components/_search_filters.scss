@@ -40,7 +40,7 @@
 	}
 	input.form-submit {
 		overflow: hidden;
-    display: block;
+		display: block;
 		margin: 0;
 		padding: 4px;
 		width: 24px;
@@ -53,13 +53,13 @@
 		-o-border-radius: 5px;
 		-ms-border-radius: 5px;
 		border-radius: 5px;
-		background-color: #fa953e;
+		background-color: #D3461A;
 		background-image: url("../images/search.png");
 		background-repeat: no-repeat;
 		background-position: 5px 3px;
 		text-indent: -9999px;
 		&:hover {
-			background-color: #f67f2a;
+			background-color: #CC3708;
 		}
 	}
 	/* wrapper for submit button */
@@ -145,14 +145,14 @@
 				font-size: 1.2em;
 				font-weight: normal;
 				color: #ffffff;
-				background-color: #fa953e;
+				background-color: #D3461A;
 				padding: 5px 8px 5px 8px;
 				border: none;
 				text-decoration: none;
 			}
 			a:hover {
 				color: #ffffff;
-				background-color: #f67f2a;
+				background-color: #CC3708;
 				text-decoration: none;
 			}
 		}
