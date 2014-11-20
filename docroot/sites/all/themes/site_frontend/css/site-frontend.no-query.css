@@ -3853,14 +3853,14 @@ span.copyright {
   -o-border-radius: 5px;
   -ms-border-radius: 5px;
   border-radius: 5px;
-  background-color: #fa953e;
+  background-color: #D3491A;
   background-image: url("../images/search.png");
   background-repeat: no-repeat;
   background-position: 5px 3px;
   text-indent: -9999px;
 }
 .global-search input.form-submit:hover {
-  background-color: #f67f2a;
+  background-color: #CC3708;
 }
 
 /* mobile layout */
@@ -6187,7 +6187,7 @@ ul.pager li.pager__item--last a:hover {
   -o-border-radius: 5px;
   -ms-border-radius: 5px;
   border-radius: 5px;
-  background-color: #D3461A;
+  background-color: #D3491A;
   background-image: url("../images/search.png");
   background-repeat: no-repeat;
   background-position: 5px 3px;
