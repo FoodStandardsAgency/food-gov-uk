@@ -183,6 +183,36 @@ function apachesolr_sortable_date_field(&$document, $entity, $field, $solr_field
 
 
 /**
+ * Implementation of hook_apachesolr_query_alter($query)
+ */
+function apachesolr_custom_apachesolr_query_alter($query) {
+
+
+
+  /**
+   * === Result Boosting
+   * - Requires:
+   *  - boolean boost field
+   *  - views should sort by score
+   *
+   * The boost field allows us to push content to the top of search results with a query alter
+   * To implement this feature, add a boolean, single on/off checkbox field called "boost" to
+   * any content type that you would like to have promoted in search results. (machine name: field_boost.)
+   *
+   * At search time, this will multiply the score of the result by 100, so that boosted results always appear
+   * at the beginning of searches. If a view is set to sort by score, then boosted results will appear first.  
+   *
+  **/
+
+
+  $query->addParam('bq', array('bs_field_boost' =>
+    '(bs_field_boost:true^100 OR bs_field_boost:false^0)'
+  ));
+}
+
+
+
+/**
  * Add custom facets.
  * @param array $searcher_info
  * @return array
