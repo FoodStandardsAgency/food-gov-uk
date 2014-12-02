@@ -200,7 +200,7 @@ function apachesolr_custom_apachesolr_query_alter($query) {
    * any content type that you would like to have promoted in search results. (machine name: field_boost.)
    *
    * At search time, this will multiply the score of the result by 100, so that boosted results always appear
-   * at the beginning of searches. If a view is set to sort by score, then boosted results will appear first.  
+   * at the beginning of searches. If a view is set to sort by score, then boosted results will appear first.
    *
   **/
 
@@ -208,6 +208,14 @@ function apachesolr_custom_apachesolr_query_alter($query) {
   $query->addParam('bq', array('bs_field_boost' =>
     '(bs_field_boost:true^100 OR bs_field_boost:false^0)'
   ));
+
+
+  /** Promote english results
+   *  All content in welsh needs to have a lower score, so we boost all english results a bit
+   */
+  $query->addParam('bq', 'ss_language:en^2');
+
+
 }
 
 
