@@ -213,7 +213,7 @@ function apachesolr_custom_apachesolr_query_alter($query) {
   /** Promote english results
    *  All content in welsh needs to have a lower score, so we boost all english results a bit
    */
-  $query->addParam('bq', 'ss_language:en^2');
+  $query->addParam('bq', 'ss_language:en^10');
 
 
 }
