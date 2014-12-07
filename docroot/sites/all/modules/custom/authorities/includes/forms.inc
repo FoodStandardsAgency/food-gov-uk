@@ -32,17 +32,18 @@ function _authorities_search_form($form, &$form_state) {
 		'#weight' => 5,
 	);
 
-	$form['address']['street'] = array(
-		'#title' => t('Street'),
-		'#attributes' => array('placeholder' => t('Enter street of business')),
-		'#type' => 'textfield',
-		'#size' => 20,
-		'#maxlength' => 64,
-		'#required' => FALSE,
-	);
-
+/** Item removed at FSA request December 2014
+*	$form['address']['street'] = array(
+*		'#title' => t('Street'),
+*		'#attributes' => array('placeholder' => t('Enter street of business')),
+*		'#type' => 'textfield',
+*		'#size' => 20,
+*		'#maxlength' => 64,
+*		'#required' => FALSE,
+*	);
+*/
 	$form['address']['city'] = array(
-		'#title' => t('City'),
+		'#title' => t('Town/City'),
 		'#attributes' => array('placeholder' => t('Enter town or city of business')),
 		'#type' => 'textfield',
 		'#size' => 20,
