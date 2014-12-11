@@ -117,7 +117,7 @@ class views_plugin_row_node_rss extends views_plugin_row {
       ),
       array(
         'key' => 'dc:creator',
-        'value' => $node->name,
+        'value' => 'Food Standards Agency',
       ),
       array(
         'key' => 'guid',
