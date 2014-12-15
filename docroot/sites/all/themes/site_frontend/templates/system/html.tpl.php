@@ -76,7 +76,7 @@
     print theme('google_tag_manager_embed', array('gtm_id' => google_tag_manager_get_id()));
   }
   ?>
-  <a href="#main-content" class="element-invisible element-focusable" accesskey="S"><?php print t('Skip to main content'); ?></a>
+  <a href="#main-content" class="element-invisible element-focusable" accesskey="S" font-style="underline; bold"><?php print t('Skip to main content'); ?></a>
   <?php print $page_top; ?>
   <?php print $page; ?>
   <?php print $page_bottom; ?>
