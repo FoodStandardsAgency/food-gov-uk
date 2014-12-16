@@ -5968,7 +5968,10 @@ ul.pager li.pager__item--last a:hover {
 .project-node-header .views-field-field-duration,
 .project-node-header .views-field-field-contractor,
 .project-node-header .views-field-field-project-code,
-.project-node-header .views-field-field-contact-blolb {
+.project-node-header .views-field-field-contact-blolb,
+.project-node-header .views-field-field-start-date,
+.project-node-header .views-field-field-lead-author,
+.project-node-header .views-field-field-budget {
   font-size: 1.2em;
   line-height: 1.4em;
   margin-bottom: 0.3em;
