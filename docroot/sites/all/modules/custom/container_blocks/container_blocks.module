@@ -276,7 +276,6 @@ function container_blocks_block_view($delta = '') {
       $blocks[] = block_load('facetapi', 'ae1hugfdpdtovvqzvnuos6xa7bkpit9h');
       // Add exposed filters from view
 
-      //$blocks[] = block_load('views', '-exp-audit_reports-page');
 
       $content = container_blocks_concatenate_content($blocks);
 
