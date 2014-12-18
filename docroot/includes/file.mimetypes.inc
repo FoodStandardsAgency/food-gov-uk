@@ -361,7 +361,6 @@ function file_default_mimetype_mapping() {
       321 => 'text/x-tex',
       322 => 'text/x-vcalendar',
       323 => 'text/x-vcard',
-      349 => 'text/xml'
       324 => 'video/3gpp',
       325 => 'video/dl',
       326 => 'video/dv',
@@ -855,7 +854,6 @@ function file_default_mimetype_mapping() {
       'f4b' => 346,
       'flv' => 347,
       'm4v' => 348,
-      'xsd' => 349,
     ),
   );
 }
