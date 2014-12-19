@@ -82,6 +82,17 @@ function fsa_migrate_drush_command(){
     'aliases' => array('fsa-file-path-up'),
   );
 
+  $items['fsa_file_move'] = array(
+    'description' => "Move a file",
+    'bootstrap' => DRUSH_BOOTSTRAP_DRUPAL_FULL,
+    'drupal dependencies' => array('media'),
+    'aliases' => array('fsa-file-move'),
+    'arguments' => array(
+      'fileid' => 'id of file to move',
+      'dest' => 'the new file path'
+    ),
+  );
+
 
   $items['fsa_group_assign'] = array(
     'description' => "assign node to a group",
@@ -643,6 +654,31 @@ function drush_fsa_migrate_fsa_file_path_update() {
     watchdog('migration-cleanup', $counter . ' media files moved and records updated.', NULL);
   }
 }
+
+/**
+ * Move a file
+ *
+ */
+function drush_fsa_migrate_fsa_file_move($file_id, $path) {
+  // Moving final file.
+  $fileObject = file_load($file_id);
+
+  $newFileObjectURI = $path.basename($fileObject->uri);
+
+  // Directory creation if non existant.
+  if (!file_exists(dirname($path))) {
+    mkdir(dirname($path), 0777, true);
+  }
+
+  $movedFile = file_move($fileObject, $newFileObjectURI, FILE_EXISTS_REPLACE);
+  if ($movedFile) {
+    watchdog('File move', 'File moved from ' .
+      $fileObject->uri . ' to ' . $newFileObjectURI, NULL);
+  }
+}
+
+
+
 
 /**
  * Create a taxonomy term and return the tid.

@@ -62,7 +62,7 @@ function apachesolr_custom_apachesolr_index_document_build_node(ApacheSolrDocume
       // Last updated year. (use the year field)
      apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year');
      apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year_sort', 10);
-     apachesolr_custom_year_field($document, $entity, 'field_year', 'ss_last_updated_year_title_sort', 10, $entity->title);
+     apachesolr_custom_year_field($document, $entity, 'field_year', 'ss_last_updated_year_title_sort', 10, _apachesolr_custom_string_invert($entity->title));
 
 
       if (empty($entity->field_audit_action_plan)) {
@@ -77,7 +77,8 @@ function apachesolr_custom_apachesolr_index_document_build_node(ApacheSolrDocume
       // we want audit news to come before audit reports
       apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year');
       apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year_sort',10.001);
-      apachesolr_custom_year_field($document, $entity, 'field_year', 'ss_last_updated_year_title_sort', 10);
+      //  The year title sort field needs to work descending. Audit news must also come first, so we add the ZZZZ to force it first
+      apachesolr_custom_year_field($document, $entity, 'field_year', 'ss_last_updated_year_title_sort', 10, 'ZZZZZZ');
 
       if (!empty($entity->field_heading_audit_news[LANGUAGE_NONE][0]['value'])) {
         $document->addField('ss_heading_audit_news', $entity->field_heading_audit_news[LANGUAGE_NONE][0]['value']);
@@ -118,6 +119,31 @@ function apachesolr_custom_apachesolr_index_document_build_node(ApacheSolrDocume
 }
 
 /**
+ * Inverts string values A becomes Z etc.
+ * We need this to handle reversse sort order... when we cant currently use multiple sorts.
+ *
+ * @param $string
+ */
+function _apachesolr_custom_string_invert($string){
+  $alphabet = "abcdefghijklmnopqrstuvwxyz";
+  // find position of letter in string, replace it with the character at the same position from the back .
+  $output = '';
+  $length = strlen($string);
+  $string = strtolower($string); // convert to lower case
+  for ($position = 0;$position < $length; $position++) {
+   $character = strpos($alphabet,$string[$position]);
+   // strpos returns false if it finds nothing, but 0 if it finds the first char
+   if (!($character === false )) {
+     // get the equivalent character from the end of the alphabet
+     $output .= $alphabet[25 - $character];
+   }
+  }
+  return $output;
+}
+
+
+
+/**
  * Converts field datetime value into a year and stores it in Apache Solr.
  *
  * @param $document
@@ -153,6 +179,44 @@ function apachesolr_sortable_date_field(&$document, $entity, $field, $solr_field
     $timestamp = (int) ($date->format('U'));
     $document->setField($solr_field, $timestamp);
   }
+}
+
+
+
+/**
+ * Implementation of hook_apachesolr_query_alter($query)
+ */
+function apachesolr_custom_apachesolr_query_alter($query) {
+
+
+
+  /**
+   * === Result Boosting
+   * - Requires:
+   *  - boolean boost field
+   *  - views should sort by score
+   *
+   * The boost field allows us to push content to the top of search results with a query alter
+   * To implement this feature, add a boolean, single on/off checkbox field called "boost" to
+   * any content type that you would like to have promoted in search results. (machine name: field_boost.)
+   *
+   * At search time, this will multiply the score of the result by 100, so that boosted results always appear
+   * at the beginning of searches. If a view is set to sort by score, then boosted results will appear first.
+   *
+  **/
+
+
+  $query->addParam('bq', array('bs_field_boost' =>
+    '(bs_field_boost:true^100 OR bs_field_boost:false^0)'
+  ));
+
+
+  /** Promote english results
+   *  All content in welsh needs to have a lower score, so we boost all english results a bit
+   */
+  $query->addParam('bq', 'ss_language:en^10');
+
+
 }
 
 

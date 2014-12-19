@@ -1205,7 +1205,7 @@ h1, h2, h3, h4, h5, h6 {
 
 p, li, dt, dd, blockquote, pre, address, label, th, td, code {
   font-size: 1.2em;
-  line-height: 1.4em;
+  line-height: 1.5em;
 }
 
 li li {
@@ -3912,14 +3912,14 @@ span.copyright {
   -o-border-radius: 5px;
   -ms-border-radius: 5px;
   border-radius: 5px;
-  background-color: #fa953e;
+  background-color: #D34D1A;
   background-image: url("../images/search.png");
   background-repeat: no-repeat;
   background-position: 5px 3px;
   text-indent: -9999px;
 }
 .global-search input.form-submit:hover {
-  background-color: #f67f2a;
+  background-color: #CC3708;
 }
 
 /* mobile layout */
@@ -5728,7 +5728,7 @@ h1.nation-wales {
   /* rows of content */
 }
 .nation-news h2.block__title {
-  color: #4b800d;
+  color: #4B7A0A;
   margin: 0 0 0.5em 0;
   font-size: 1.6em;
   font-weight: normal;
@@ -6058,7 +6058,7 @@ ul.pager li {
   line-height: 1.4em;
 }
 ul.pager li a {
-  color: #5d9711;
+  color: #368303;
   font-weight: normal;
   text-decoration: none;
 }
@@ -6186,7 +6186,11 @@ ul.pager li.pager__item--last a:hover {
 .project-node-header .views-field-field-duration,
 .project-node-header .views-field-field-contractor,
 .project-node-header .views-field-field-project-code,
-.project-node-header .views-field-field-contact-blolb {
+.project-node-header .views-field-field-contact-blolb,
+.project-node-header .views-field-field-start-date,
+.project-node-header .views-field-field-end-date,
+.project-node-header .views-field-field-lead-author,
+.project-node-header .views-field-field-budget {
   font-size: 1.2em;
   line-height: 1.4em;
   margin-bottom: 0.3em;
@@ -6413,14 +6417,14 @@ ul.pager li.pager__item--last a:hover {
   -o-border-radius: 5px;
   -ms-border-radius: 5px;
   border-radius: 5px;
-  background-color: #fa953e;
+  background-color: #D34D1A;
   background-image: url("../images/search.png");
   background-repeat: no-repeat;
   background-position: 5px 3px;
   text-indent: -9999px;
 }
 .search-keyword-page input.form-submit:hover {
-  background-color: #f67f2a;
+  background-color: #CC3708;
 }
 .search-keyword-page .views-exposed-form .views-exposed-widget.views-submit-button {
   position: relative;
@@ -6502,14 +6506,14 @@ ul.pager li.pager__item--last a:hover {
   font-size: 1.2em;
   font-weight: normal;
   color: #ffffff;
-  background-color: #fa953e;
+  background-color: #D3461A;
   padding: 5px 8px 5px 8px;
   border: none;
   text-decoration: none;
 }
 .current-search-item-active-links ul li a:hover {
   color: #ffffff;
-  background-color: #f67f2a;
+  background-color: #CC3708;
   text-decoration: none;
 }
 
