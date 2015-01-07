@@ -7580,7 +7580,7 @@ ul.pager li.pager__item--last a:hover {
   list-style: none;
 }
 .sidebar-menu .menu-block-wrapper li {
-  margin-left: -3px;
+  margin: 0;
   padding: 0;
 }
 .sidebar-menu .menu-block-wrapper a {
