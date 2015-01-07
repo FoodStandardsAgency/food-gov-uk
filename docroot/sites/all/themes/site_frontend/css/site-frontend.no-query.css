@@ -7278,7 +7278,7 @@ ul.pager li.pager__item--last a:hover {
   list-style: none;
 }
 .sidebar-menu .menu-block-wrapper li {
-  margin: 0;
+  margin-left: -3px;
   padding: 0;
 }
 .sidebar-menu .menu-block-wrapper a {
