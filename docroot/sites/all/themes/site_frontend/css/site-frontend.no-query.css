@@ -1201,6 +1201,7 @@ p, ul, ol, dl, address, blockquote {
 
 ol, ul {
   padding: 0 0 0 16px;
+  margin-left: -3px;
 }
 
 .file-item {
