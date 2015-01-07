@@ -23,7 +23,7 @@
 			list-style: none;
 		}
 		li {
-			margin-left: -3px;
+			margin: 0;
 			padding: 0;
 		}
 		a {
@@ -33,8 +33,8 @@
 			border-bottom: 1px solid #c4c4c4;
 			background-color: #f0f0f0;
 			background-image: url('../images/sidebar-arrow-right.png');
-			background-repeat: no-repeat;
-			background-position: 10px center;
+		  background-repeat: no-repeat;
+		  background-position: 10px center;
 		}
 		a.active {
 			color: #02684a;
@@ -59,8 +59,8 @@
 			color: #02684a;
 			font-weight: bold;
 			background-image: url('../images/sidebar-arrow-down.png');
-			background-repeat: no-repeat;
-			background-position: 9px center;
+		  background-repeat: no-repeat;
+		  background-position: 9px center;
 		}
 		li.first {
 			a {
@@ -80,8 +80,8 @@
 				color: #333;
 				background-color: #f7f7f7;
 				background-image: url('../images/sidebar-sub-arrow-right.png');
-				background-repeat: no-repeat;
-				background-position: 23px center;
+			  background-repeat: no-repeat;
+			  background-position: 23px center;
 			}
 			a.active {
 				color: #02684a;
@@ -127,8 +127,8 @@
 			border-bottom: 1px solid #c4c4c4;
 			background-color: #f0f0f0;
 			background-image: url('../images/sidebar-arrow-right.png');
-			background-repeat: no-repeat;
-			background-position: 10px center;
+		  background-repeat: no-repeat;
+		  background-position: 10px center;
 		}
 		a.active {
 			color: #02684a;
@@ -153,8 +153,8 @@
 			color: #02684a;
 			font-weight: bold;
 			background-image: url('../images/sidebar-arrow-down.png');
-			background-repeat: no-repeat;
-			background-position: 9px center;
+		  background-repeat: no-repeat;
+		  background-position: 9px center;
 		}
 	}
 }
