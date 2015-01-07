@@ -3895,6 +3895,7 @@ span.copyright {
   -o-border-radius: 5px;
   -ms-border-radius: 5px;
   border-radius: 5px;
+  font-family: Arial,Verdana,Helvetica,san-serif;
 }
 .global-search input.form-submit {
   overflow: hidden;
