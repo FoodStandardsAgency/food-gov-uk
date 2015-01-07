@@ -598,6 +598,7 @@ label.element-invisible.compact-form-label {
   line-height: 1.4em;
   top: 2px;
   left: 6px;
+  font-family: Arial,Verdana,Helvetica,san-serif;
 }
 
 /* print styling overrides */
