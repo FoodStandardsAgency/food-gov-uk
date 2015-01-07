@@ -39,6 +39,10 @@ p, li, dt, dd, blockquote, pre, address, label, th, td, code {
   font-size: 1.2em;                                               // 1.2 x 10 = 12px
   line-height: 1.5em;                                             // 12 x 1.4 = 18px
 }
+.field--name-field-fc-section-body li {
+	line-height: 1.5em;
+}
+
 li li {
 	font-size: 1em;																									// to overcome nested em issues
 }
