@@ -2674,16 +2674,16 @@ ul.breadcrumb {
 }
 .contact-glossary .view-content .views-row h4,
 .contact-glossary .view-content .views-row h4.node__title {
-  font-size: 1.2em;
+  font-size: 1.3em;
   line-height: 1.5em;
   margin-bottom: 0.5em;
 }
 .contact-glossary .view-content .views-row p {
-  margin-bottom: 0.5em;
+  margin-bottom: 0.25em;
 }
 .contact-glossary .view-content .views-row .field--name-field-phone-number,
 .contact-glossary .view-content .views-row .field--name-field-fax {
-  font-size: 1.2em;
+  font-size: 1.3em;
   line-height: 1.5em;
   margin-bottom: 0.5em;
 }
