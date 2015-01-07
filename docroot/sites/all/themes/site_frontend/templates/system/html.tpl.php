@@ -76,7 +76,11 @@
     print theme('google_tag_manager_embed', array('gtm_id' => google_tag_manager_get_id()));
   }
   ?>
+<<<<<<< HEAD
   <a href="#main-content" class="element-invisible element-focusable" accesskey="S" text-decoration="underline; bold"><?php print t('Skip to main content'); ?></a>
+=======
+  <a href="#main-content" class="element-invisible element-focusable" accesskey="S"><?php print t('Skip to main content'); ?></a>
+>>>>>>> parent of 63a4b5e... Adding underline and bold font-styles to the skip to main content link
   <?php print $page_top; ?>
   <?php print $page; ?>
   <?php print $page_bottom; ?>
