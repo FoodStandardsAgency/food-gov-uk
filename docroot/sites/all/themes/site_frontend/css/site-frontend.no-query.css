@@ -7316,7 +7316,6 @@ ul.pager li.pager__item--last a:hover {
   background-image: url("../images/sidebar-arrow-down.png");
   background-repeat: no-repeat;
   background-position: 9px center;
-  margin-left: -3px;
 }
 .sidebar-menu .menu-block-wrapper li.first a {
   font-weight: bold;
