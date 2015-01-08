@@ -1188,6 +1188,10 @@ p, li, dt, dd, blockquote, pre, address, label, th, td, code {
   line-height: 1.5em;
 }
 
+li {
+  margin-left: -3px;
+}
+
 .field--name-field-fc-section-body li {
   line-height: 1.5em;
 }
