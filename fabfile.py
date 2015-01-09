@@ -101,6 +101,7 @@ def post_deploy():
 def sync_drupal_files():
      """Copy the contents of the files directory from prod to staging/dev."""
      run('rsync -av --delete /srv/drupal_data/ /srv/drupal_data_dev/')
+     run('rsync -av --delete /srv/drupal_data/ /srv/drupal_data_fsadev/')
 
 
 @task
