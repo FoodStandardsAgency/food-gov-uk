@@ -70,7 +70,7 @@
     overlay.setAttribute('id', 'zenbox_overlay');
     overlay.style.display = 'none';
     overlay.innerHTML = '<div id="zenbox_container">' +
-                        '  <div class="zenbox_header"><img id="zenbox_close" /></div>' +
+                        '  <div class="zenbox_header"><img alt="close" id="zenbox_close" /></div>' +
                         '  <iframe id="zenbox_body" title="Feedback form" frameborder="0.1" scrolling="auto" allowTransparency="true"></iframe>' +
                         '</div>' +
                         '<div id="zenbox_scrim">&nbsp;</div>';
@@ -100,7 +100,7 @@
   }
 
   function updateTabImage() {
-      tab.innerHTML = '<img src="' + settings.tabImageURL + '" />';
+      tab.innerHTML = '<img alt="feedback" src="' + settings.tabImageURL + '" />';
   }
 
   function updateTab() {
