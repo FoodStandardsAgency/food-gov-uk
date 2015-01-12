@@ -55,14 +55,15 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
   background: #f5f8f1;
 }
 .node-type-landing-page .field--type-blockreference .block h2.block__title {
-  color: #4b800d;
-  margin: 0;
+  color: #4B7A0A;
+  margin: 0 0 0.5em 0;
   font-size: 1.6em;
   font-weight: normal;
   padding: .46875em 11px .140625em 11px;
 }
 .node-type-landing-page .field--type-blockreference .block .block__content {
   padding: .5em 11px .3em 11px;
+  overflow: hidden;
 }
 
 /* mobile view */
