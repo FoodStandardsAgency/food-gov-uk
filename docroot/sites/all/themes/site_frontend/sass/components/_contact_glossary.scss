@@ -29,9 +29,25 @@
 				-o-border-radius: 10px;
 				border-radius: 10px;
 				line-height: 1.2em;
-		}
+			}
 			a:hover {
 				text-decoration: underline;
+			}
+			p {
+				display: block;
+				text-decoration: none;
+				color: #000;
+				background: #5d9711;
+				font-weight: bold;
+				text-align: center;
+				min-width: 2.1em;
+				padding: 8px 8px;
+				-webkit-border-radius: 10px;
+				-moz-border-radius: 10px;
+				-ms-border-radius: 10px;
+				-o-border-radius: 10px;
+				border-radius: 10px;
+				line-height: 1.2em;
 			}
 		}
 	}
