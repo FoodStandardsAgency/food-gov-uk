@@ -29,9 +29,25 @@
 				-o-border-radius: 10px;
 				border-radius: 10px;
 				line-height: 1.2em;
-		}
+			}
 			a:hover {
 				text-decoration: underline;
+			}
+			span.non_link_objects {
+				display: block;
+				text-decoration: none;
+				color: #000;
+				background: #5d9711;
+				font-weight: bold;
+				text-align: center;
+				min-width: 2.1em;
+				padding: 8px 8px;
+				-webkit-border-radius: 10px;
+				-moz-border-radius: 10px;
+				-ms-border-radius: 10px;
+				-o-border-radius: 10px;
+				border-radius: 10px;
+				line-height: 1.2em;
 			}
 		}
 	}
@@ -67,16 +83,16 @@
 			/* contact content */
 			h4,
 			h4.node__title {
-				font-size:1.3em;
+				font-size:1.2em;
 				line-height: 1.5em;
 				margin-bottom: 0.5em;
 			}
 			p {
-				margin-bottom: 0.25em;
+				margin-bottom: 0.5em;
 			}
 			.field--name-field-phone-number,
 			.field--name-field-fax {
-				font-size: 1.3em;
+				font-size: 1.2em;
 				line-height: 1.5em;
 				margin-bottom: 0.5em;
 			}

@@ -2656,6 +2656,22 @@ ul.breadcrumb {
 .contact-glossary ul.contacts_alphabet li a:hover {
   text-decoration: underline;
 }
+.contact-glossary ul.contacts_alphabet li span.non_link_objects {
+  display: block;
+  text-decoration: none;
+  color: #000;
+  background: #5d9711;
+  font-weight: bold;
+  text-align: center;
+  min-width: 2.1em;
+  padding: 8px 8px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+  line-height: 1.2em;
+}
 .contact-glossary .view-content {
   clear: left;
   /* hide empty h3 spacers */
@@ -2690,16 +2706,16 @@ ul.breadcrumb {
 }
 .contact-glossary .view-content .views-row h4,
 .contact-glossary .view-content .views-row h4.node__title {
-  font-size: 1.3em;
+  font-size: 1.2em;
   line-height: 1.5em;
   margin-bottom: 0.5em;
 }
 .contact-glossary .view-content .views-row p {
-  margin-bottom: 0.25em;
+  margin-bottom: 0.5em;
 }
 .contact-glossary .view-content .views-row .field--name-field-phone-number,
 .contact-glossary .view-content .views-row .field--name-field-fax {
-  font-size: 1.3em;
+  font-size: 1.2em;
   line-height: 1.5em;
   margin-bottom: 0.5em;
 }
