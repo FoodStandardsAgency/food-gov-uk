@@ -762,9 +762,8 @@ function theme_file_icon($variables) {
   $icon_directory = $variables['icon_directory'];
 
   $mime = check_plain($file->filemime);
-  
-$icon_url = file_icon_url($file, $icon_directory);
-  return '<img class="file-icon" alt="file_icon" title="' . $mime . '" src="' . $icon_url . '" />';
+  $icon_url = file_icon_url($file, $icon_directory);
+  return '<img class="file-icon" alt="" title="' . $mime . '" src="' . $icon_url . '" />';
 }
 
 /**
