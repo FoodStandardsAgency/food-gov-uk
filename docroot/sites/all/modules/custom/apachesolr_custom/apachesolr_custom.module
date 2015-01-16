@@ -78,7 +78,7 @@ function apachesolr_custom_apachesolr_index_document_build_node(ApacheSolrDocume
       apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year');
       apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year_sort',10.001);
       //  The year title sort field needs to work descending. Audit news must also come first, so we add the ZZZZ to force it first
-      apachesolr_custom_year_field($document, $entity, 'field_year', 'ss_last_updated_year_title_sort', 10, 'ZZZZZZ');
+      apachesolr_custom_year_field($document, $entity, 'field_year', 'ss_last_updated_year_title_sort', 10.001, 'ZZZZZZ');
 
       if (!empty($entity->field_heading_audit_news[LANGUAGE_NONE][0]['value'])) {
         $document->addField('ss_heading_audit_news', $entity->field_heading_audit_news[LANGUAGE_NONE][0]['value']);
