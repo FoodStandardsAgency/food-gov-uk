@@ -48,14 +48,15 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
   background: #f5f8f1;
 }
 .node-type-landing-page .field--type-blockreference .block h2.block__title {
-  color: #4b800d;
-  margin: 0;
+  color: #4B7A0A;
+  margin: 0 0 0.5em 0;
   font-size: 1.6em;
   font-weight: normal;
   padding: .46875em 11px .140625em 11px;
 }
 .node-type-landing-page .field--type-blockreference .block .block__content {
   padding: .5em 11px .3em 11px;
+  overflow: hidden;
 }
 
 /* mobile view */
@@ -583,6 +584,7 @@ label.element-invisible.compact-form-label {
   line-height: 1.4em;
   top: 2px;
   left: 6px;
+  font-family: Arial,Verdana,Helvetica,san-serif;
 }
 
 /* print styling overrides */
@@ -607,6 +609,12 @@ a:hover {
 }
 
 a:focus {
+  text-decoration: underline !important;
+}
+
+/* Skip to main content */
+.element-invisible {
+  color: #006f51;
   text-decoration: underline !important;
 }
 
@@ -1187,6 +1195,10 @@ p, li, dt, dd, blockquote, pre, address, label, th, td, code {
   line-height: 1.5em;
 }
 
+.field--name-field-fc-section-body li {
+  line-height: 1.5em;
+}
+
 li li {
   font-size: 1em;
 }
@@ -1201,6 +1213,7 @@ p, ul, ol, dl, address, blockquote {
 
 ol, ul {
   padding: 0 0 0 16px;
+  margin-left: -3px;
 }
 
 .file-item {
@@ -2639,6 +2652,21 @@ ul.breadcrumb {
 .contact-glossary ul.contacts_alphabet li a:hover {
   text-decoration: underline;
 }
+.contact-glossary ul.contacts_alphabet li span.non_link_objects {
+  display: block;
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+  text-align: center;
+  min-width: 2.1em;
+  padding: 8px 8px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+  line-height: 1.2em;
+}
 .contact-glossary .view-content {
   clear: left;
   /* hide empty h3 spacers */
@@ -3835,6 +3863,7 @@ span.copyright {
   -o-border-radius: 5px;
   -ms-border-radius: 5px;
   border-radius: 5px;
+  font-family: Arial,Verdana,Helvetica,san-serif;
 }
 .global-search input.form-submit {
   overflow: hidden;
@@ -6897,7 +6926,7 @@ ul.pager li.pager__item--last a:hover {
 .view-audit-reports .view-content .views-row h3 {
   font-size: 1.4em;
   line-height: 1.3em;
-  margin: 0 0 0 0.4em 0;
+  margin: 0 0 0.4em 0;
   padding: 0;
   background: none;
   background-color: transparent;
