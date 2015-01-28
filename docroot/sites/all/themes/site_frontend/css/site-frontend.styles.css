@@ -2675,17 +2675,8 @@ ul.breadcrumb {
 .contact-glossary ul.contacts_alphabet li span.non_link_objects {
   display: block;
   text-decoration: none;
-<<<<<<< HEAD
-  color: #000;
-  background: #5d9711;
-=======
   color: #fff;
-<<<<<<< HEAD
-  backgroung: #666;
->>>>>>> 14c529e... Altering colour of contacts list items to match request from Tatiana
-=======
   background: #666;
->>>>>>> 2fc9efa... Correcting spelling mistake in previous commit
   font-weight: bold;
   text-align: center;
   min-width: 2.1em;
