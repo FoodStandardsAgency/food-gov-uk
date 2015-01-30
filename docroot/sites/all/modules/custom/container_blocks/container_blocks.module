@@ -32,6 +32,10 @@ function container_blocks_block_info() {
   $blocks['search_all_dependant_facets'] = array(
     'info' => t('Search All Dependant Facets'),
   );
+  
+  $blocks['search_all_news_facets'] = array(
+    'info' => t('Search All News Facets'),
+  );
 
   $blocks['search_food_alerts_facets'] = array(
     'info' => t('Search All News Facets (food alerts)'),
