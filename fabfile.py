@@ -6,6 +6,7 @@ from fabric.api import *
 from fabric.contrib.project import rsync_project
 
 env.roledefs = {
+    'vagrant': ['localhost'],
     'dev': ['fsaenaa20.miniserver.com'],
     'staging': ['fsaenaa8.miniserver.com'],
     'production': [
