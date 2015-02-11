@@ -1,5 +1,0 @@
-name = Research Project Custom
-description = A search module to search research projects
-dependencies[] = block
-dependencies[] = apachesolr
-core = 7.x

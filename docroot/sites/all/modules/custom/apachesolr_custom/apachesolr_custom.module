@@ -78,7 +78,7 @@ function apachesolr_custom_apachesolr_index_document_build_node(ApacheSolrDocume
       apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year');
       apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year_sort',10.001);
       //  The year title sort field needs to work descending. Audit news must also come first, so we add the ZZZZ to force it first
-      apachesolr_custom_year_field($document, $entity, 'field_year', 'ss_last_updated_year_title_sort', 10.001, 'ZZZZZZ');
+      apachesolr_custom_year_field($document, $entity, 'field_year', 'ss_last_updated_year_title_sort', 10, 'ZZZZZZ');
 
       if (!empty($entity->field_heading_audit_news[LANGUAGE_NONE][0]['value'])) {
         $document->addField('ss_heading_audit_news', $entity->field_heading_audit_news[LANGUAGE_NONE][0]['value']);
@@ -98,6 +98,12 @@ function apachesolr_custom_apachesolr_index_document_build_node(ApacheSolrDocume
       // Last updated year.
       apachesolr_custom_year_field($document, $entity, 'field_publication_year', 'is_last_updated_year', 1);
       break;
+    
+    case 'research_project':
+      // Research Project status
+      if (isset($entity->field_project_status)) {
+	$document->addField('sm_field_project_status', $entity->field_project_status[LANGUAGE_NONE][0]['value']);
+      }
   }
 
   // Node is assigned to a Organic Group.
@@ -232,18 +238,18 @@ function apachesolr_custom_facetapi_facet_info(array $searcher_info) {
   if (isset($searcher_info['types']['node'])) {
     // Audit Report last updated year.
     $facets['is_last_updated_year'] = array(
-      'name' => 'is_last_updated_year',
-      'label' => t('Last Updated Year'),
-      'description' => t('Last updated as a year.'),
-      'field' => 'is_last_updated_year',
-      'dependency plugins' => array('role'),
-      'default widget' => 'links',
-      'allowed operators' => array(FACETAPI_OPERATOR_AND => TRUE, FACETAPI_OPERATOR_OR => TRUE),
-      'facet missing allowed' => FALSE,
-      'facet mincount allowed' => FALSE,
-      'map callback' => 'apachesolr_custom_map_values',
-      'max callback' => FALSE,
-      'default sorts' => array(
+      'name' 			=> 'is_last_updated_year',
+      'label' 			=> t('Last Updated Year'),
+      'description' 		=> t('Last updated as a year.'),
+      'field' 			=> 'is_last_updated_year',
+      'dependency plugins' 	=> array('role'),
+      'default widget' 		=> 'links',
+      'allowed operators' 	=> array(FACETAPI_OPERATOR_AND => TRUE, FACETAPI_OPERATOR_OR => TRUE),
+      'facet missing allowed' 	=> FALSE,
+      'facet mincount allowed' 	=> FALSE,
+      'map callback' 		=> 'apachesolr_custom_map_values',
+      'max callback' 		=> FALSE,
+      'default sorts' 		=> array(
         array('active', SORT_DESC),
         array('count', SORT_DESC),
         array('display', SORT_ASC),
@@ -252,23 +258,44 @@ function apachesolr_custom_facetapi_facet_info(array $searcher_info) {
 
     // Audit Report has action plan.
     $facets['ss_has_audit_action_plan'] = array(
-      'name' => 'ss_has_audit_action_plan',
-      'label' => t('Has Action Plan'),
-      'description' => t('Audit Report has action plan (file).'),
-      'field' => 'ss_has_audit_action_plan',
-      'dependency plugins' => array('role'),
-      'default widget' => 'links',
-      'allowed operators' => array(FACETAPI_OPERATOR_AND => TRUE, FACETAPI_OPERATOR_OR => TRUE),
-      'facet missing allowed' => FALSE,
-      'facet mincount allowed' => FALSE,
-      'map callback' => 'apachesolr_custom_map_values',
-      'max callback' => FALSE,
-      'default sorts' => array(
+      'name' 			=> 'ss_has_audit_action_plan',
+      'label' 			=> t('Has Action Plan'),
+      'description' 		=> t('Audit Report has action plan (file).'),
+      'field' 			=> 'ss_has_audit_action_plan',
+      'dependency plugins' 	=> array('role'),
+      'default widget' 		=> 'links',
+      'allowed operators' 	=> array(FACETAPI_OPERATOR_AND => TRUE, FACETAPI_OPERATOR_OR => TRUE),
+      'facet missing allowed' 	=> FALSE,
+      'facet mincount allowed' 	=> FALSE,
+      'map callback' 		=> 'apachesolr_custom_map_values',
+      'max callback' 		=> FALSE,
+      'default sorts' 		=> array(
         array('active', SORT_DESC),
         array('count', SORT_DESC),
         array('display', SORT_ASC),
       ),
     );
+  
+    // Research Project has status
+    $facets['sm_field_project_status'] = array(
+      'name' 			=> 'sm_field_project_status',
+      'label' 			=> t('Research Project Status'),
+      'description'		=> t('Current research project status'),
+      'field'			=> 'sm_field_project_status',
+      'dependency plugins'	=> array('role'),
+      'default widget'		=> 'links',
+      'allowed operators'	=> array(FACETAPI_OPERATOR_AND => TRUE, FACETAPI_OPERATOR_OR => TRUE),
+      'facet missing allowed'	=> FALSE,
+      'facet mincount allowed'	=> FALSE,
+      'map callback'		=> 'apachesolr_custom_map_values',
+      'max callback'		=> FALSE,
+      'default sorts'		=> array(
+	array('active', SORT_DESC),
+	array('count', SORT_DESC),
+	array('display', SORT_DESC),
+      ),
+    );
+  
   }
   return $facets;
 }
