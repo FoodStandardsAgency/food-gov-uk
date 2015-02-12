@@ -33,7 +33,7 @@ function rss_author_custom_node_view($node, $view_mode, $langcode) {
 	    // populated, otherwise we leave it alone and it gets the default.
 	    case 'pubDate':
 		if(!empty($published_date)){
-		    $node->rss_elements[$index]['value'] = $published_date;
+		    $node-rss_elements[$index]['value'] = $published_date;
 		}
 		break;
 	}
