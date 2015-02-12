@@ -18,7 +18,7 @@ function rss_author_custom_node_view($node, $view_mode, $langcode) {
   
   // Loop through the RSS elements, checking the 'key' and setting value if
   // we want to change what's there by default.
-  foreach($node->rss_elements as $index => $element){
+  foreach($node->rss_elements as $indev => $element){
     
     if(!empty($element['key'])){
 	
