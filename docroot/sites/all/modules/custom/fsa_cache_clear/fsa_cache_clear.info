@@ -1,0 +1,3 @@
+name = FSA Cache Clear
+description = Enhanced cache clearing for Varnish and CloudFlare on the FSA website
+dependencies[] = varnish
