@@ -1,3 +1,5 @@
 name = FSA Cache Clear
-description = Enhanced cache clearing for Varnish and CloudFlare on the FSA website
+description = "Provides enhanced cache clearing for Varnish and CloudFlare on the FSA website."
+package = Caching
 dependencies[] = varnish
+core = 7.x
