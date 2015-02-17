@@ -25,11 +25,11 @@ function fsa_cache_clear_menu() {
   );
 
   // A test interface.
-  $items['admin/config/development/fsa-cache-clear/test'] = array(
-    'title' => t('FSA cache clear test'),
-    'description' => t('Test functions for the FSA cache clearing module'),
+  $items['admin/config/development/fsa-cache-clear/purge'] = array(
+    'title' => t('Purge URLs'),
+    'description' => t('Purge a URL from the Varnish and/or CloudFlare caches'),
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('fsa_cache_clear_test_form'),
+    'page arguments' => array('fsa_cache_clear_purge_form'),
     'access arguments' => array('administer site configuration'),
     'file' => 'fsa_cache_clear.admin.inc',
   );
@@ -79,6 +79,12 @@ function _fsa_cache_clear_varnish_purge($paths) {
   if (!function_exists('varnish_purge')) {
     return;
   }
+  
+  // We need $paths to be an array. If it's not, make it one now.
+  if (!is_array($paths)) {
+    $paths = array($paths);
+  }
+  
   // Get the base_path.
   $base = base_path();
 

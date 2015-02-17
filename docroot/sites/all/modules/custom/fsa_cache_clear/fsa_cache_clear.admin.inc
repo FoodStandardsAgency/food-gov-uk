@@ -184,12 +184,35 @@ function fsa_cache_clear_admin_settings_form_submit($form, &$form_state) {
 
 }
 
+/**
+ * Form builder for the cache purge function
+ * @param type $form
+ * @param type $form_state
+ * @return string
+ */
+function fsa_cache_clear_purge_form($form, &$form_state) {
 
-function fsa_cache_clear_test_form($form, &$form_state) {
-
+  $form['intro'] = array(
+    '#markup' => 'Use this page to clear the Varnish and/or CloudFlare caches manually for a given path. Typically this should happen automatically as pages and files are updated, but in some circumstances, manual intervention may be required.',
+  );
+  
   $form['url'] = array(
     '#type' => 'textfield',
-    '#title' => t('URL to purge'),
+    '#title' => t('Path to purge'),
+    '#description' => t('Enter the path you want to purge from the cache(s). Do not include the domain, protocol or forward slash.'),
+    '#size' => 80,
+    '#required' => TRUE,
+    '#element_validate' => array('_fsa_cache_clear_validate_drupal_path'),
+  );
+  
+  $form['caches'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Caches to clear'),
+    '#description' => t('Tick the boxes to clear the caches'),
+    '#options' => array(
+      'varnish' => t('Varnish'),
+      'cloudflare' => t('CloudFlare'),
+    ),
     '#required' => TRUE,
   );
 
@@ -202,15 +225,61 @@ function fsa_cache_clear_test_form($form, &$form_state) {
 }
 
 
-
-function fsa_cache_clear_test_form_submit($form, &$form_state) {
+/**
+ * Submit handler for the cache purge form
+ * 
+ * @param array $form
+ *   The form.
+ * @param array $form_state
+ *   The form state
+ * @return NULL
+ */
+function fsa_cache_clear_purge_form_submit($form, &$form_state) {
   $form_state['rebuild'] = TRUE;
-
-  $url = $form_state['values']['url'];
-  if (!empty($url)) {
+  
+  $url = !empty($form_state['values']['url']) ? $form_state['values']['url'] : NULL;
+  
+  if (empty($url)) {
+    drupal_set_message('No URL supplied', 'error');
+    return;
+  }
+  
+  $caches_to_clear = !empty($form_state['values']['caches']) ? $form_state['values']['caches'] : array();
+  
+  if (!empty($caches_to_clear['varnish'])) {
+    _fsa_cache_clear_varnish_purge($url);
+  }
+  
+  if (!empty($caches_to_clear['cloudflare'])) {
     _fsa_cache_clear_cloudflare_purge_url($url);
   }
-  else {
-    drupal_set_message('No URL to purge.', 'error');
-  }
+  
+}
+
+/**
+ * Validation function to check for a Drupal path, not a URL.
+ * 
+ * We don't want full URLs or root-relative URLs passed to the cache clearing
+ * functions, so check for them here and throw a validation error if the path
+ * looks suspect.
+ * 
+ * 
+ * @param array $element
+ *   The form element being validated.
+ * 
+ * @param array $form_state
+ *   The form state.
+ * 
+ * @param array $form
+ *   The form array.
+ * 
+ */
+function _fsa_cache_clear_validate_drupal_path($element, &$form_state, $form) {
+  $url = $element['#value'];
+  $pattern = "/^((http(s)*:\/\/)|\/).*$/";
+  if (preg_match($pattern, $url)) {
+    form_error($element, t('Please provide a Drupal path, not a URL or a root-relative path.'));
+  }  
+  
+  
 }
