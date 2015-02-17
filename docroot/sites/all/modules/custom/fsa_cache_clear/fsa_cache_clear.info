@@ -1,5 +1,7 @@
 name = FSA Cache Clear
 description = "Provides enhanced cache clearing for Varnish and CloudFlare on the FSA website."
 package = Caching
+configure = admin/config/development/fsa-cache-clear
 dependencies[] = varnish
+dependencies[] = expire
 core = 7.x

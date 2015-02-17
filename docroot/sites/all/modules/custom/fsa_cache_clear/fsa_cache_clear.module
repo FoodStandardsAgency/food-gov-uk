@@ -1,5 +1,320 @@
 <?php
 /**
  * @file
- * Module file for the FSA enhanced cache clearing module.
+ * Module file for the FSA enhanced cache clearing module. This is used to clear
+ * additional domains from Varnish and to clear URLs from the CloudFlare cache.
+ *
+ * This module draws heavily on existing functionality provided by the Varnish
+ * and Expire modules, without which it will not work.
  */
+
+/**
+ * Implementation of hook_menu().
+ */
+function fsa_cache_clear_menu() {
+
+  // Configuration interface.
+  $items['admin/config/development/fsa-cache-clear'] = array(
+    'title' => 'FSA cache clearing',
+    'description' => 'Settings for clearing Varnish and CloudFlare caches.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_cache_clear_admin_settings_form'),
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'fsa_cache_clear.admin.inc',
+  );
+
+  // A test interface.
+  $items['admin/config/development/fsa-cache-clear/test'] = array(
+    'title' => t('FSA cache clear test'),
+    'description' => t('Test functions for the FSA cache clearing module'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_cache_clear_test_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'fsa_cache_clear.admin.inc',
+  );
+
+  return $items;
+}
+
+
+/*
+ * Implements hook_expire_cache().
+ *
+ * This hook is provided by the Expire module, and will be run according to the
+ * configuration settings for that module as specified here:
+ * admin/config/system/expire
+ *
+ */
+function fsa_cache_clear_expire_cache($urls, $wildcards, $object_type, $object) {
+
+  // Clear the Varnish cache for any additional domains.
+  _fsa_cache_clear_varnish_purge($urls);
+
+  // Clear the CloudFlare cache if activated. This is determined via the
+  // configuration UI using a checkbox.
+  if (_fsa_cache_clear_settings('clear_cloudflare')) {
+    _fsa_cache_clear_cloudflare_purge($urls, $object_type);
+  }
+
+}
+
+/**
+ * Purge the Varnish cache for the given paths.
+ *
+ * This is essentially just a wrapper for the varnish_purge() function. The
+ * main purpose is to clear paths for any additional domains specified via this
+ * module's configuration interface.
+ *
+ * @param array $paths
+ *   An array of paths to be purged from Varnish.
+ *
+ * @see varnish_purge()
+ * @see varnish_expire_cache()
+ */
+function _fsa_cache_clear_varnish_purge($paths) {
+
+  // This function requires the varnish_purge() function, so if we don't have
+  // it, exit now.
+  if (!function_exists('varnish_purge')) {
+    return;
+  }
+  // Get the base_path.
+  $base = base_path();
+
+  // Get the domains to clear from the settings.
+  $domains = _fsa_cache_clear_settings('varnish_domains');
+
+  // Check that we have some domains and that $domains is an array.
+  if (empty($domains) || !is_array($domains)) {
+    return;
+  }
+
+  // Get the $host that the Varnish module already defines. There's no need to
+  // clear the cache for that domain a second time.
+  $host = function_exists('_varnish_get_host') ? _varnish_get_host() : '';
+  // Remove $host from the array of domains - if present.
+  $domains = array_diff($domains, array(trim($host)));
+
+  // Make sure we still have some domains. If not, return now.
+  if (empty($domains)) {
+    return;
+  }
+
+  // For each additional domain, clear the relevant paths from Varnish.
+  // @see varnish_expire_cache()
+  foreach ($domains as $host) {
+    $purge = implode('$|^' . $base, $paths);
+    $purge = '^'. $base . $purge .'$';
+    varnish_purge($host, $purge);
+  }
+}
+
+
+/**
+ * Clear the CloudFlare cache for the given URLs.
+ */
+function _fsa_cache_clear_cloudflare_purge($paths = array(), $object_type = NULL) {
+
+  // Get an array of the types of objects for which we want to clear the
+  // CloudFlare cache.
+  $object_types = array_filter(_fsa_cache_clear_settings('cloudflare_object_types'));
+
+  // If we don't have a path specified, or we don't have an object type, or
+  // the object type is one that we want to clear the CloudFlare cache for,
+  // then exit now.
+  if (empty($paths) || empty($object_type) || !in_array($object_type, $object_types)) {
+    return;
+  }
+
+  // Get the limit for the number of items to clear from the CloudFlare cache
+  // per page update/deletion.
+  $limit = _fsa_cache_clear_settings('cloudflare_max_items');
+  // Assume a default limit of 10 items.
+  $limit = !empty($limit) ? $limit : 10;
+  $counter = 1;
+  foreach ($paths as $path) {
+    if ($counter <= $limit && !empty($path)) {
+      //drupal_set_message($counter . ': ' . $path);
+      //_fsa_cache_clear_cloudflare_purge_url($path);
+      $counter ++;
+    }
+  }
+}
+
+
+/**
+ * Returns settings for the FSA cache clear module.
+ *
+ * Settings for this module are stored in a Drupal variable called
+ * fsa_cache_clear_settings. We use drupal_static() to avoid repeat calls to the
+ * database as we'll need repeat access to the settings.
+ *
+ * @param string $setting
+ *   The name of the setting to retrieve.
+ *
+ * @param string|array|object|int $default
+ *   (optional) A default value to return if the specified setting is empty or
+ *   not available.
+ *
+ * @return string|array|object|NULL|int
+ *   The value of the setting requested (if set). If not set and a default has
+ *   been specifed via the $default parameter, then this is returned, otherwise
+ *   NULL.
+ *
+ */
+function _fsa_cache_clear_settings($setting = NULL, $default = NULL) {
+
+  // Since we'll want to access the settings many times, we use drupal_static()
+  // to avoid repeat database calls.
+  $settings = &drupal_static(__FUNCTION__);
+
+  // Get the settings from the Drupal variable. Should run just once per load.
+  if (!isset($settings)) {
+    $settings = variable_get('fsa_cache_clear_settings');
+  }
+
+  // Check that we have some settings, that a setting was specified to be
+  // retrieved and that the specified setting exists in the array.
+  if (!empty($settings) && !empty($setting) && !empty($settings[$setting])) {
+
+    switch ($setting) {
+      case 'varnish_domains':
+      case 'cloudflare_domains':
+        // Varnish domains and CloudFlare domains are separated by line breaks
+        // in the admin interface, so we use preg_split() to turn them into
+        // arrays before returning them. preg_split() handles the cross-platform
+        // linebreak issues.
+        return preg_split("/\r\n|\n|\r/", trim($settings[$setting]));
+        break;
+      default:
+        return $settings[$setting];
+        break;
+    }
+  }
+  // If a $default has been specified, return it now.
+  elseif (!empty($default)) {
+    return $default;
+  }
+  // Otherwise, return NULL.
+  else {
+    return NULL;
+  }
+
+}
+
+
+
+/**
+ * Clears the CloudFlare cache for the given path.
+ *
+ * @param string $path
+ *   The path to be cleared. This should be a Drupal path relative to the site
+ *   root, but excluding the leading forward slash, eg
+ *   sites/default/files/test.doc
+ *
+ * @see https://www.cloudflare.com/docs/client-api.html
+ */
+function _fsa_cache_clear_cloudflare_purge_url($path = NULL) {
+
+  // If we have no URL, return now.
+  if (empty($path)) {
+    drupal_set_message('No path supplied', 'error');
+    return;
+  }
+
+  // Get the CloudFlare endpoint. We specify a default in case it's not set,
+  // but this can be overridden via the configuration UI for this module.
+  $endpoint = _fsa_cache_clear_settings('cloudflare_endpoint', 'https://www.cloudflare.com/api_json.html');
+
+  // An array to hold the URLs to be purged from CloudFlare
+  $urls = array();
+
+  // According to the CloudFlare API documentation, we need to clear both HTTP
+  // and HTTPS versions of a URL separately
+  // @see https://www.cloudflare.com/docs/client-api.html#s4.5
+  // We also need to clear the cache for each of the defined domains.
+  foreach (_fsa_cache_clear_settings('cloudflare_domains') as $domain) {
+    $urls[] = "http://$domain/$path";
+    $urls[] = "https://$domain/$path";
+  }
+
+  foreach ($urls as $url) {
+
+    // Settings for the CloudFlare API
+    // @see https://www.cloudflare.com/docs/client-api.html#s4.5
+    $data = array(
+      'a' => 'zone_file_purge',
+      'tkn' => _fsa_cache_clear_settings('cloudflare_api_key'),
+      'email' => _fsa_cache_clear_settings('cloudflare_email'),
+      'z' => 'food.gov.uk',
+      'url' => $url,
+    );
+
+    // Turn the settings into a string of the form a=b&c=d.
+    $data = http_build_query($data);
+
+    // Array of headers to be passed with the request to CloudFlare endpoint.
+    $headers = array(
+      "Content-type: application/x-www-form-urlencoded",
+      "Content-Length: " . strlen($data),
+      "Connection: close",
+    );
+
+    // Set stream context options.
+    $context_options = array (
+      'http' => array (
+        'method' => 'POST',
+        'header' => implode("\r\n", $headers) . "\r\n",
+        'content' => $data,
+      ),
+    );
+
+    // Create the stream context.
+    $context = stream_context_create($context_options);
+
+
+    $fp = '{}';
+    // When we go live, the line below needs to be uncommented and the line above removed.
+    //$fp = file_get_contents($endpoint, false, $context);
+
+    $result_object = json_decode($fp);
+    if (is_object($result_object) && !empty($result_object->result) && $result_object->result == 'success') {
+      drupal_set_message('Successfully purged ' . $url . ' from the CloudFlare zone cache.');
+    }
+    else {
+      drupal_set_message('An error occurred purging ' . $url . ' from the CloudFlare zone cache', 'error');
+    }
+
+  }
+
+}
+
+
+
+/**
+ * For debugging only. Remove before going live.
+ * @param type $variables
+ */
+function fsa_cache_clear_preprocess_page(&$variables) {
+
+//  $host = 'local.fsa.gov.uk';
+//
+//  $domains = array(
+//    '123.456.789',
+//    'test.test.test',
+//    'local.fsa.gov.uk',
+//  );
+//
+//  //var_dump($domains);
+//  print "\r\n<br><br><br><br>";
+//  //var_dump(array_splice($domains, 1));
+//  foreach (array_diff($domains, array($host)) as $domain) {
+//    print "<p>$domain</p>";
+//  }
+
+  //$varnish_domains = _fsa_cache_clear_settings('cloudflare_domains');
+  //var_dump($varnish_domains);
+
+
+}
