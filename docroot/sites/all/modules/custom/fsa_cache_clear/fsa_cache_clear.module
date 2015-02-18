@@ -141,8 +141,7 @@ function _fsa_cache_clear_cloudflare_purge($paths = array(), $object_type = NULL
   $counter = 1;
   foreach ($paths as $path) {
     if ($counter <= $limit && !empty($path)) {
-      //drupal_set_message($counter . ': ' . $path);
-      //_fsa_cache_clear_cloudflare_purge_url($path);
+      _fsa_cache_clear_cloudflare_purge_url($path);
       $counter ++;
     }
   }
@@ -285,7 +284,7 @@ function _fsa_cache_clear_cloudflare_purge_url($path = NULL) {
     // Decode the results.
     $result_object = json_decode($fp);
     if (is_object($result_object) && !empty($result_object->result) && $result_object->result == 'success') {
-      drupal_set_message('Successfully purged ' . $url . ' from the CloudFlare zone cache.');
+      //drupal_set_message('Successfully purged ' . $url . ' from the CloudFlare zone cache.');
     }
     else {
       drupal_set_message('An error occurred purging ' . $url . ' from the CloudFlare zone cache', 'error');
