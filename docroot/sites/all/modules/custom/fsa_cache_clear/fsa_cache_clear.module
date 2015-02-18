@@ -279,11 +279,10 @@ function _fsa_cache_clear_cloudflare_purge_url($path = NULL) {
     // Create the stream context.
     $context = stream_context_create($context_options);
 
-
-    $fp = '{}';
-    // When we go live, the line below needs to be uncommented and the line above removed.
-    //$fp = file_get_contents($endpoint, false, $context);
-
+    // Make the request.
+    $fp = file_get_contents($endpoint, false, $context);
+    
+    // Decode the results.
     $result_object = json_decode($fp);
     if (is_object($result_object) && !empty($result_object->result) && $result_object->result == 'success') {
       drupal_set_message('Successfully purged ' . $url . ' from the CloudFlare zone cache.');
@@ -293,34 +292,5 @@ function _fsa_cache_clear_cloudflare_purge_url($path = NULL) {
     }
 
   }
-
-}
-
-
-
-/**
- * For debugging only. Remove before going live.
- * @param type $variables
- */
-function fsa_cache_clear_preprocess_page(&$variables) {
-
-//  $host = 'local.fsa.gov.uk';
-//
-//  $domains = array(
-//    '123.456.789',
-//    'test.test.test',
-//    'local.fsa.gov.uk',
-//  );
-//
-//  //var_dump($domains);
-//  print "\r\n<br><br><br><br>";
-//  //var_dump(array_splice($domains, 1));
-//  foreach (array_diff($domains, array($host)) as $domain) {
-//    print "<p>$domain</p>";
-//  }
-
-  //$varnish_domains = _fsa_cache_clear_settings('cloudflare_domains');
-  //var_dump($varnish_domains);
-
 
 }
