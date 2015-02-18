@@ -208,7 +208,7 @@ function fsa_cache_clear_purge_form($form, &$form_state) {
   $form['caches'] = array(
     '#type' => 'checkboxes',
     '#title' => t('Caches to clear'),
-    '#description' => t('Tick the boxes to clear the caches'),
+    '#description' => t('Select the caches from which you would like the URL removed.'),
     '#options' => array(
       'varnish' => t('Varnish'),
       'cloudflare' => t('CloudFlare'),
@@ -217,7 +217,7 @@ function fsa_cache_clear_purge_form($form, &$form_state) {
   );
 
   $form['submit'] = array(
-    '#value' => 'Submit',
+    '#value' => 'Clear caches now',
     '#type' => 'submit'
    );
 

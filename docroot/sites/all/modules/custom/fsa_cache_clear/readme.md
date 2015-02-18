@@ -106,3 +106,29 @@ Clearing the CloudFlare cache can be triggered by updates and changes to a numbe
 * Menu links
 
 Use this field to determine which of these will be used to trigger a cache clear.
+
+## Clearing caches for a given path ##
+This module also provides an administration interface that enables a given path to be removed from the Varnish and/or CloudFlare caches immediately.
+
+This can be accessed via:
+
+> Administration > Configuration > Development > FSA cache clearing > Purge URLs
+
+Using this interface, it is possible to specify a path to be purged from the caches. It is also possible to choose which cache to purge (Varnish and/or CloudFlare).
+
+**Note:** It is important that the path to purge is a Drupal path, not a full URL. So, this is OK:
+
+> about/contact
+
+but this is not:
+
+> http://www.food.gov.uk/about/contact
+
+and nor is this:
+
+> /about/contact
+
+## Maintainers ##
+* Matt Farrow - https://www.drupal.org/user/3054707
+
+This project has been created at Sirius - stress free technology - http://www.siriusopensource.com
