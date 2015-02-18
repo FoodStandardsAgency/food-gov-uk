@@ -98,7 +98,7 @@ function apachesolr_custom_apachesolr_index_document_build_node(ApacheSolrDocume
     case 'paper':
       // Last updated year.
       apachesolr_custom_year_field($document, $entity, 'field_publication_year', 'is_last_updated_year', 1);
-      break
+      break;
 
     
     case 'project':
