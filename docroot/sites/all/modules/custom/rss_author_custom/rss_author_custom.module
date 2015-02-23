@@ -14,29 +14,29 @@ function rss_author_custom_node_view($node, $view_mode, $langcode) {
   $wrapper = entity_metadata_wrapper('node', $node);
   
   // Set the published date. 
-  $published_date = !empty($wrapper->field_updated) ? format_date($wrapper->field_updated->raw(), 'custom', 'D, d m y H:i:s O'):NULL;
+  $published_date = !empty($node->changed) ? format_date($node->changed, 'custom', 'D, d M Y H:i:s O') : format_date($node->created, 'custom', 'D, d M Y H:i:s O');
   
   // Loop through the RSS elements, checking the 'key' and setting value if
   // we want to change what's there by default.
   foreach($node->rss_elements as $index => $element){
     
     if(!empty($element['key'])){
-	
-	switch ($element['key']){
-	
-	    // For dc:creator, we always want this to be 'Food Standards Agency'.
-	    case 'dc:creator':
-		$node->rss_elements[$index]['value'] = 'Food Standards Agency';
-		break;
-	    
-	    // For pubDate, use the $published_date value we assigned above if it's
-	    // populated, otherwise we leave it alone and it gets the default.
-	    case 'pubDate':
-		if(!empty($published_date)){
-		    $node->rss_elements[$index]['value'] = $published_date;
-		}
-		break;
-	  }
-      }
+    	
+    	switch ($element['key']){
+    	
+    	    // For dc:creator, we always want this to be 'Food Standards Agency'.
+    	    case 'dc:creator':
+    		$node->rss_elements[$index]['value'] = 'Food Standards Agency';
+    		break;
+    	    
+    	    // For pubDate, use the $published_date value we assigned above if it's
+    	    // populated, otherwise we leave it alone and it gets the default.
+    	    case 'pubDate':
+    		if(!empty($published_date)){
+    		    $node->rss_elements[$index]['value'] = $published_date;
+    		}
+    		break;
+    	}
+    }
   }
 }
