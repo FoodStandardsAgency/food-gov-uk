@@ -12,9 +12,9 @@ function rss_author_custom_node_view($node, $view_mode, $langcode) {
   
   // Create an entity_metadata_wrapper for the node object.
   $wrapper = entity_metadata_wrapper('node', $node);
-  
-  // Set the published date. 
-  $published_date = !empty($node->changed) ? format_date($node->changed, 'custom', 'D, d M Y H:i:s O') : format_date($node->created, 'custom', 'D, d M Y H:i:s O');
+    $last_updated = !empty($wrapper->field_updated) ? $wrapper->field_updated->raw() : NULL;
+    $pub_date = !empty($last_updated) ? $last_updated : $node->created;
+    $pub_date = format_date($pub_date, 'custom', 'D, d M Y H:i:s O');
   
   // Loop through the RSS elements, checking the 'key' and setting value if
   // we want to change what's there by default.
