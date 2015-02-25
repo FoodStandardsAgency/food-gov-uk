@@ -67,3 +67,87 @@ function site_frontend_links__locale_block(&$vars) {
 }
 
 
+/**
+ * Implements hook_theme_registry_alter().
+ *
+ * We use this function to add a process function for entities in order to
+ * override some settings in omega_cleanup_attributes().
+ *
+ * @param array $theme_registry
+ *   The theme registry array
+ *
+ * @see _theme_build_registry().
+ * @see omega_cleanup_attributes().
+ * @see site_frontend_cleanup_attributes().
+ */
+function site_frontend_theme_registry_alter(&$theme_registry) {
+  if (!empty($theme_registry['entity']) && !empty($theme_registry['entity']['process functions'])) {
+    foreach ($theme_registry['entity']['process functions'] as $key => $function) {
+      if ($function == 'omega_cleanup_attributes') {
+        // We want to add our process function immediately after
+        // omega_cleanup_attributes.
+        array_splice($theme_registry['entity']['process functions'], $key + 1, 0, 'site_frontend_cleanup_attributes');
+      }
+    }
+
+  }
+}
+
+/**
+ * Clean up the attributes and classes arrays - remove duplication.
+ *
+ * This process hook runs immediately after omega_cleanup_attributes() in order
+ * to fix an issue that is introduced there. In field collection items, the
+ * template outputs the  $classes variable, as well as the $attributes variable.
+ * This leads to a duplication of classes in the markup, which renders it
+ * invalid.
+ *
+ * Using this hook, we check that we have both a 'classes_array' and a class
+ * element on the 'attributes_array' and if so, we merge them, remove
+ * duplicates and then unset the 'class' element of the 'attributes_array'.
+ *
+ * @param array $variables
+ *   Theme variables passed by reference.
+ *
+ * @param string $hook
+ *   The theme hook being called, eg 'entity'
+ *
+ * @return NULL
+ *
+ * @see omega_cleanup_attributes().
+ * @see site_frontend_theme_registry_alter().
+ *
+ */
+function site_frontend_cleanup_attributes(&$variables, $hook) {
+
+  // An array of theme hooks for which we want this function to run.
+  $allowed_hooks = array('entity');
+
+  // If the current hook is not one of our allowed hooks, exit now.
+  if (!in_array($hook, $allowed_hooks)) {
+    return;
+  }
+
+  // An array of the fields for which we want this function to run.
+  $allowed_fields = array('field_fc_qanda', 'field_fc_page_section');
+
+  // Get the field collection item from the variables
+  $field_collection_item = !empty($variables['field_collection_item']) ? $variables['field_collection_item'] : NULL;
+
+  // Get the field name.
+  $field_name = !empty($field_collection_item) && !empty($field_collection_item->field_name) ? $field_collection_item->field_name : NULL;
+
+  // If we don't have a field name, or the field isn't one on which we want to
+  // operate, exit now.
+  if (empty($field_name) || !in_array($field_name, $allowed_fields)) {
+    return;
+  }
+
+  // Merge the 'classes_array' and 'class' element of 'attributes_array' so we
+  // don't miss any, then unset the 'class' element of the 'attributes_array' so
+  // we don't end up with duplicated classes in the markup.
+  if (!empty($variables['classes_array']) && !empty($variables['attributes_array']['class'])) {
+    $variables['classes_array'] = array_unique(array_merge($variables['classes_array'], $variables['attributes_array']['class']));
+    unset($variables['attributes_array']['class']);
+  }
+}
