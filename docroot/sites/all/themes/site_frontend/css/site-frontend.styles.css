@@ -633,15 +633,12 @@ a:focus {
   text-decoration: underline !important;
 }
 
-<<<<<<< HEAD
-=======
 /* Skip to main content */
 .element-invisible {
   color: #006f51;
   text-decoration: underline !important;
 }
 
->>>>>>> feature/rss-author-custom
 /* links for body and textarea fields */
 .field--type-text-with-summary a,
 .field--type-text-long a,
@@ -1223,13 +1220,10 @@ h1, h2, h3, h4, h5, h6 {
 p, li, dt, dd, blockquote, pre, address, label, th, td, code {
   font-size: 1.2em;
   line-height: 1.5em;
-<<<<<<< HEAD
-=======
 }
 
 .field--name-field-fc-section-body li {
   line-height: 1.5em;
->>>>>>> feature/rss-author-custom
 }
 
 li li {
