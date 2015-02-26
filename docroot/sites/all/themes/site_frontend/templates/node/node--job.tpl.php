@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Default theme implementation to display a node.
+ * Node template for displaying Job nodes.
  *
  * Available variables:
  * - $title: the (sanitized) title of the node.
@@ -15,6 +15,11 @@
  *   calling format_date() with the desired parameters on the $created variable.
  * - $name: Themed username of node author output from theme_username().
  * - $node_url: Direct url of the current node.
+ * - $job_link: Link array used to build the link to either the job page on the
+ *     current site, or to an external URL. This array has the following
+ *     elements:
+ *     - 'url': The actual URL for the link
+ *     - 'attributes': an array of attributes such as 'target' etc.
  * - $display_submitted: Whether submission information should be displayed.
  * - $submitted: Submission information created from $name and $date during
  *   template_preprocess_node().
@@ -84,7 +89,7 @@
     <header>
       <?php print render($title_prefix); ?>
       <?php if (!$page): ?>
-        <h3<?php print $title_attributes; ?>><a href="<?php print $node_url; ?>" rel="bookmark"><?php print $title; ?></a></h3>
+        <h3<?php print $title_attributes; ?>><a href="<?php print $job_link['url'] ?>" <?php print drupal_attributes($job_link['attributes']); ?>><?php print $title; ?></a></h3>
       <?php endif; ?>
       <?php print render($title_suffix); ?>
     </header>
