@@ -599,6 +599,7 @@ label.element-invisible.compact-form-label {
   line-height: 1.4em;
   top: 2px;
   left: 6px;
+  font-family: Arial,Verdana,Helvetica,san-serif;
 }
 
 /* print styling overrides */
@@ -632,6 +633,15 @@ a:focus {
   text-decoration: underline !important;
 }
 
+<<<<<<< HEAD
+=======
+/* Skip to main content */
+.element-invisible {
+  color: #006f51;
+  text-decoration: underline !important;
+}
+
+>>>>>>> feature/rss-author-custom
 /* links for body and textarea fields */
 .field--type-text-with-summary a,
 .field--type-text-long a,
@@ -1213,6 +1223,13 @@ h1, h2, h3, h4, h5, h6 {
 p, li, dt, dd, blockquote, pre, address, label, th, td, code {
   font-size: 1.2em;
   line-height: 1.5em;
+<<<<<<< HEAD
+=======
+}
+
+.field--name-field-fc-section-body li {
+  line-height: 1.5em;
+>>>>>>> feature/rss-author-custom
 }
 
 li li {
@@ -1229,6 +1246,7 @@ p, ul, ol, dl, address, blockquote {
 
 ol, ul {
   padding: 0 0 0 16px;
+  margin-left: -3px;
 }
 
 .file-item {
@@ -3917,6 +3935,7 @@ span.copyright {
   -o-border-radius: 5px;
   -ms-border-radius: 5px;
   border-radius: 5px;
+  font-family: Arial,Verdana,Helvetica,san-serif;
 }
 .global-search input.form-submit {
   overflow: hidden;
@@ -7222,7 +7241,7 @@ ul.pager li.pager__item--last a:hover {
 .view-audit-reports .view-content .views-row h3 {
   font-size: 1.4em;
   line-height: 1.3em;
-  margin: 0 0 0 0.4em 0;
+  margin: 0 0 0.4em 0;
   padding: 0;
   background: none;
   background-color: transparent;

@@ -38,7 +38,15 @@ h1, h2, h3, h4, h5, h6 {
 p, li, dt, dd, blockquote, pre, address, label, th, td, code {
   font-size: 1.2em;                                               // 1.2 x 10 = 12px
   line-height: 1.5em;                                             // 12 x 1.4 = 18px
+<<<<<<< HEAD
+=======
 }
+
+.field--name-field-fc-section-body li {
+	line-height: 1.5em;
+>>>>>>> feature/rss-author-custom
+}
+
 li li {
 	font-size: 1em;																									// to overcome nested em issues
 }
@@ -50,6 +58,7 @@ p, ul, ol, dl, address, blockquote {
 }
 ol, ul {
 	padding: 0 0 0 16px;																						// override base theme default of 0 0 0 40px;
+	margin-left: -3px;
 }
 .file-item {
 	font-size: 1.2em;                                               // 1.2 x 10 = 12px
