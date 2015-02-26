@@ -202,7 +202,12 @@ switch (getenv('AH_SITE_ENVIRONMENT')) {
       //'stage_file_proxy' => 'sites/all/modules/contrib/contrib/stage_file_proxy/stage_file_proxy.module',
     );
     // Disable memcache.
-    $conf['cache_default_class'] = 'DrupalDatabaseCache';
+    // Commenting out the below as it's causing problems when using Drush
+    // @see Ticket#2015022410000048
+    // The AH_SITE_ENVIRONMENT variable is not getting set when using Drush, so
+    // Drush was trying to use database caching, not memcache. Since we always
+    // have memcache in place, it should be fine to leave the below out.
+    // $conf['cache_default_class'] = 'DrupalDatabaseCache';
     // Set stage file proxy source
     //$conf['stage_file_proxy_origin'] = 'http://' . urlencode('username') . ':password@http://developmentdomain.com/';
     //$conf['stage_file_proxy_use_imagecache_root'] = TRUE;
