@@ -281,3 +281,45 @@ function local_node_validate($node, $form, $form_state) {
     }
   }
 }
+
+
+/**
+ * Implements hook_field_group_pre_render_alter().
+ *
+ * This is a temporary workaround to fix the issue of duplicated IDs on pages
+ * where mutliple field group elements are displayed, for instance:
+ *
+ * http://www.food.gov.uk/science/acrylamide
+ *
+ * This is a known bug in the Field Group module:
+ * http://www.drupal.org/project/field_group
+ *
+ * @see https://www.drupal.org/node/2037731
+ * @eee Ticket#2015012710000017 — Use unique identification for elements - FAQ
+ *
+ * The culprit is field_group_pre_render_div() in field_group.module, which adds
+ * an ID attribute to each group, but doesn't use Drupal's drupal_html_id()
+ * function to ensure that the ID is unique on a page.
+ *
+ * @see field_group_pre_render_div()
+ *
+ * The long-term fix is to upgrade the Field Group module.
+ *
+ */
+function local_field_group_pre_render_alter(&$element, $group, & $form) {
+
+  // For now, we just want to act on the FAQ elements.
+  $identifier = 'group_accordion_set|field_collection_item|field_fc_qanda|default';
+
+  // If we're on another group, exit now.
+  if ($group->identifier != $identifier) {
+    return;
+  }
+
+  // Unset the #prefix element as that's what's causing the problem.
+  unset($element['#prefix']);
+
+  // Recreate the #prefix element, but without the ID and with proper markup
+  // around the classes.
+  $element['#prefix'] = '<div class="' . $group->classes . '">';
+}
