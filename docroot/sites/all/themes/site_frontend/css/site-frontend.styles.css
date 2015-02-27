@@ -6213,6 +6213,22 @@ ul.pager li.pager__item--last a:hover {
   margin-bottom: 0.5em;
 }
 
+#views-exposed-form-research-projects-page .form-text {
+  width: 100%;
+}
+#views-exposed-form-research-projects-page .views-exposed-widget {
+  float: none;
+}
+#views-exposed-form-research-projects-page .views-widget-filter-keyword {
+  max-width: none !important;
+}
+#views-exposed-form-research-projects-page .views-widget-filter-ss_field_project_status {
+  display: inline-block !important;
+}
+#views-exposed-form-research-projects-page .views-exposed-widget.views-submit-button {
+  display: inline-block !important;
+}
+
 /* project node header (view block)
  * requires block class: project-node-header
  */
