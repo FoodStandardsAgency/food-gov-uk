@@ -29,3 +29,33 @@
 		margin-bottom: 0.5em;
 	}
 }
+
+// Styles for the research project search form.
+#views-exposed-form-research-projects-page {
+
+    // Make text boxes full width
+    .form-text {
+        width: 100%;
+    }
+
+    // Don't float the filters
+    .views-exposed-widget {
+        float: none;
+    }
+
+    // Get rid of max width on keyword search field
+    .views-widget-filter-keyword {
+        max-width: none !important;
+    }
+
+    // Display the status field inline block
+    .views-widget-filter-ss_field_project_status {
+        display: inline-block !important;
+    }
+
+    // Display the submit button inline block
+    .views-exposed-widget.views-submit-button {
+        display: inline-block !important;
+    }
+
+}
