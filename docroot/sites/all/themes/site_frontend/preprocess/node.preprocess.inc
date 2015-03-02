@@ -25,7 +25,6 @@ function site_frontend_preprocess_node(&$variables) {
       $function($variables, $node);
     }
   }
-
 }
 
 /**
@@ -78,4 +77,48 @@ function site_frontend_preprocess_node__job(&$variables, $node = NULL) {
     $variables['job_link'] = $external_link;
   }
 
+}
+
+/**
+ * Preprocess function for research project nodes.
+ */
+function site_frontend_preprocess_node__project(&$variables, $node) {
+  // Create an entity metadata wrapper for the node object
+  $wrapper = entity_metadata_wrapper('node', $node);
+
+  // Get the view mode, we'll need it later
+  $view_mode = !empty($variables['view_mode']) ? $variables['view_mode'] : NULL;
+
+  // Get the study start and end dates, if set.
+  $start_date = !empty($wrapper->field_start_date) ? $wrapper->field_start_date->raw() : NULL;
+  $end_date = !empty($wrapper->field_end_date) ? $wrapper->field_end_date->raw() : NULL;
+
+  // String for custom date format.
+  $date_format = 'F Y';
+
+  // If we're in search result view mode and we have both a start and an end
+  // date, set 'field_duration' as a render array in content. This will replace
+  // the render array for the duration field if populated.
+  if (!empty($start_date) && !empty($end_date) && $view_mode == 'search_result') {
+
+    $variables['content']['field_duration'] = array(
+
+      '#prefix' => '<div class="field--label-inline">',
+      '#suffix' => '</div>',
+      '#weight' => 10,
+
+      'label' => array(
+        '#prefix' => '<div class="field__label">',
+        '#markup' => t('Study Duration'),
+        '#suffix' => ':&nbsp;</div>',
+      ),
+
+      'data' => array(
+        '#prefix' => '<div>',
+        '#markup' => format_date($start_date, 'custom', $date_format) . ' to ' . format_date($end_date, 'custom', $date_format),
+        '#suffix' => '</div>',
+      ),
+
+    );
+  }
 }
