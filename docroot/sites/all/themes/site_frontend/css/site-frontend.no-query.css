@@ -6004,7 +6004,7 @@ ul.pager li.pager__item--last a:hover {
 #views-exposed-form-research-projects-page .views-widget-filter-keyword {
   max-width: none !important;
 }
-#views-exposed-form-research-projects-page .views-widget-filter-ss_field_project_status {
+#views-exposed-form-research-projects-page .views-widget-filter-project_status {
   display: inline-block !important;
 }
 #views-exposed-form-research-projects-page .views-exposed-widget.views-submit-button {
