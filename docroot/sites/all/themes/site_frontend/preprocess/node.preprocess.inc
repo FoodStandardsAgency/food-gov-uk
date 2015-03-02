@@ -105,13 +105,13 @@ function site_frontend_preprocess_node__project(&$variables, $node) {
 
     $variables['content']['field_duration'] = array(
 
-      '#prefix' => '<div class="field--label-inline">',
+      '#prefix' => '<div class="field field--label-inline">',
       '#suffix' => '</div>',
       '#weight' => 10,
 
       'label' => array(
         '#prefix' => '<div class="field__label">',
-        '#markup' => t('Study Duration'),
+        '#markup' => t('Study duration'),
         '#suffix' => ':&nbsp;</div>',
       ),
 
