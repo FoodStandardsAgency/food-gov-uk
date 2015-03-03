@@ -618,6 +618,12 @@ a:focus {
   text-decoration: underline !important;
 }
 
+/* Skip to main content */
+.element-invisible {
+  color: #006f51;
+  text-decoration: underline !important;
+}
+
 /* links for body and textarea fields */
 .field--type-text-with-summary a,
 .field--type-text-long a,

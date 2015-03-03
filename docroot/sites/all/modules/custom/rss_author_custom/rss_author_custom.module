@@ -3,19 +3,19 @@
  * Implements hook_node_view().
  */
 function rss_author_custom_node_view($node, $view_mode, $langcode) {
-  
+
   // Check that we have a $node object and that the rss_elemnents property is 
   // set. If not, return now.
   if(empty($node) || empty($node->rss_elements)) {
       return;
   }
-  
+
   // Create an entity_metadata_wrapper for the node object.
   $wrapper = entity_metadata_wrapper('node', $node);
     $last_updated = !empty($wrapper->field_updated) ? $wrapper->field_updated->raw() : NULL;
     $published_date = !empty($last_updated) ? $last_updated : $node->created;
     $published_date = format_date($published_date, 'custom', 'D, d M Y H:i:s O');
-  
+
   // Loop through the RSS elements, checking the 'key' and setting value if
   // we want to change what's there by default.
   foreach($node->rss_elements as $index => $element){
