@@ -822,7 +822,6 @@ function news_section_feature_views_default_views() {
     t('<a class="fsa-more-link" href="/scotland/news-updates/news">All news</a>'),
     t('News page - Scotland news'),
   );
-
   $export['news'] = $view;
 
   $view = new view();
@@ -1076,10 +1075,6 @@ function news_section_feature_views_default_views() {
   $handler->display->display_options['exposed_block'] = TRUE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['filter_groups']['operator'] = 'OR';
-  $handler->display->display_options['filter_groups']['groups'] = array(
-    1 => 'AND',
-    2 => 'AND',
-  );
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Apache Solr: bundle_name */
   $handler->display->display_options['filters']['bundle_name']['id'] = 'bundle_name';
@@ -1119,30 +1114,18 @@ function news_section_feature_views_default_views() {
   $handler->display->display_options['filters']['ss_language']['operator'] = '!=';
   $handler->display->display_options['filters']['ss_language']['value'] = 'cy';
   $handler->display->display_options['filters']['ss_language']['group'] = 1;
-  /* Filter criterion: Apache Solr: bs_promote */
-  $handler->display->display_options['filters']['bs_promote']['id'] = 'bs_promote';
-  $handler->display->display_options['filters']['bs_promote']['table'] = 'apachesolr__solr';
-  $handler->display->display_options['filters']['bs_promote']['field'] = 'bs_promote';
-  $handler->display->display_options['filters']['bs_promote']['value'] = '1';
-  $handler->display->display_options['filters']['bs_promote']['group'] = 1;
   /* Filter criterion: Apache Solr: im_field_news_type */
   $handler->display->display_options['filters']['im_field_news_type']['id'] = 'im_field_news_type';
   $handler->display->display_options['filters']['im_field_news_type']['table'] = 'apachesolr__solr';
   $handler->display->display_options['filters']['im_field_news_type']['field'] = 'im_field_news_type';
   $handler->display->display_options['filters']['im_field_news_type']['value'] = '3';
   $handler->display->display_options['filters']['im_field_news_type']['group'] = 1;
-  /* Filter criterion: Apache Solr: bundle_name */
-  $handler->display->display_options['filters']['bundle_name_1']['id'] = 'bundle_name_1';
-  $handler->display->display_options['filters']['bundle_name_1']['table'] = 'apachesolr__solr';
-  $handler->display->display_options['filters']['bundle_name_1']['field'] = 'bundle_name';
-  $handler->display->display_options['filters']['bundle_name_1']['value'] = 'News';
-  $handler->display->display_options['filters']['bundle_name_1']['group'] = 2;
   /* Filter criterion: Apache Solr: im_field_nation */
   $handler->display->display_options['filters']['im_field_nation']['id'] = 'im_field_nation';
   $handler->display->display_options['filters']['im_field_nation']['table'] = 'apachesolr__solr';
   $handler->display->display_options['filters']['im_field_nation']['field'] = 'im_field_nation';
   $handler->display->display_options['filters']['im_field_nation']['value'] = '17';
-  $handler->display->display_options['filters']['im_field_nation']['group'] = 2;
+  $handler->display->display_options['filters']['im_field_nation']['group'] = 1;
   $handler->display->display_options['filters']['im_field_nation']['expose']['operator_id'] = '';
   $handler->display->display_options['filters']['im_field_nation']['expose']['label'] = 'im_field_nation';
   $handler->display->display_options['filters']['im_field_nation']['expose']['operator'] = 'im_field_nation_op';
@@ -1164,17 +1147,6 @@ function news_section_feature_views_default_views() {
     13 => 0,
     14 => 0,
   );
-  /* Filter criterion: Apache Solr: im_field_news_type */
-  $handler->display->display_options['filters']['im_field_news_type_1']['id'] = 'im_field_news_type_1';
-  $handler->display->display_options['filters']['im_field_news_type_1']['table'] = 'apachesolr__solr';
-  $handler->display->display_options['filters']['im_field_news_type_1']['field'] = 'im_field_news_type';
-  $handler->display->display_options['filters']['im_field_news_type_1']['value'] = '3';
-  $handler->display->display_options['filters']['im_field_news_type_1']['group'] = 2;
-  /* Filter criterion: Apache Solr: Search */
-  $handler->display->display_options['filters']['keyword_1']['id'] = 'keyword_1';
-  $handler->display->display_options['filters']['keyword_1']['table'] = 'apachesolr__solr';
-  $handler->display->display_options['filters']['keyword_1']['field'] = 'keyword';
-  $handler->display->display_options['filters']['keyword_1']['group'] = 2;
   $handler->display->display_options['path'] = 'news-updates/news/allergy-alerts-news';
   $handler->display->display_options['menu']['title'] = 'News Centre';
   $handler->display->display_options['menu']['description'] = 'Latest news';
@@ -1204,7 +1176,6 @@ function news_section_feature_views_default_views() {
     t('Food alerts news'),
     t('Allergy alerts news'),
   );
-
   $export['news_centre___search'] = $view;
 
   return $export;
