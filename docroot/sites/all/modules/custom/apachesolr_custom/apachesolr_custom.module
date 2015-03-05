@@ -113,6 +113,11 @@ function apachesolr_custom_apachesolr_index_document_build_node(ApacheSolrDocume
         $document->addField('ts_field_contractor', trim($entity->field_contractor[LANGUAGE_NONE][0]['value']));
       }
 
+      // Add start date field as ds_ field so we can sort on it.
+      if (!empty($entity->field_start_date)) {
+        apachesolr_sortable_date_field($document, $entity, 'field_start_date', 'is_field_start_date');
+      }
+
       break;
       
     
