@@ -118,6 +118,11 @@ function apachesolr_custom_apachesolr_index_document_build_node(ApacheSolrDocume
         apachesolr_sortable_date_field($document, $entity, 'field_start_date', 'is_field_start_date');
       }
 
+      // Add project status field as ss field to allow sorting
+      if (!empty($entity->field_project_status)) {
+        $document->addField('ss_field_project_status', trim($entity->field_project_status[LANGUAGE_NONE][0]['value']));
+      }
+
       break;
       
     
