@@ -5,10 +5,8 @@
  */
 
 /**
- * Implements hook_ctools_plugin_api().
+ * Implements hook_views_api().
  */
-function science_section_feature_ctools_plugin_api($module = NULL, $api = NULL) {
-  if ($module == "context" && $api == "context") {
-    return array("version" => "3");
-  }
+function science_section_feature_views_api($module = NULL, $api = NULL) {
+  return array("api" => "3.0");
 }

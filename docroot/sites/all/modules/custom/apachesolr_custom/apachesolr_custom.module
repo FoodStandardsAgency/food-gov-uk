@@ -108,6 +108,21 @@ function apachesolr_custom_apachesolr_index_document_build_node(ApacheSolrDocume
         $document->addField('ts_field_project_code', $entity->field_project_code[LANGUAGE_NONE][0]['value']);
       }
 
+      // Add contractor field as a text field so it can be case-insensitive.
+      if (!empty($entity->field_contractor)) {
+        $document->addField('ts_field_contractor', trim($entity->field_contractor[LANGUAGE_NONE][0]['value']));
+      }
+
+      // Add start date field as ds_ field so we can sort on it.
+      if (!empty($entity->field_start_date)) {
+        apachesolr_sortable_date_field($document, $entity, 'field_start_date', 'is_field_start_date');
+      }
+
+      // Add project status field as ss field to allow sorting
+      if (!empty($entity->field_project_status)) {
+        $document->addField('ss_field_project_status', trim($entity->field_project_status[LANGUAGE_NONE][0]['value']));
+      }
+
       break;
     
     case 'research_project':
