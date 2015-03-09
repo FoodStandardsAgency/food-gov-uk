@@ -57,9 +57,10 @@
 	.node__content .field,
 	.node .content .field {
 		font-size: 1.2em;
-		margin-bottom: .6em;
+		margin-bottom: .3em; // reducing space between audit type and audit state.
 		line-height: 1.5em;
 		color: #333;
+		margin-top: -.3em; // reducing space between title link and audit type.
 		li, p {
 			font-size: 1em;	// inherit font size of parent container ie. 1.2 em
 		}
