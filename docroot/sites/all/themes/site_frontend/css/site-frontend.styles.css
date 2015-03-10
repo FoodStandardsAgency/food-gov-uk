@@ -942,6 +942,7 @@ a.site-logo:focus img {
 .field--name-field-fc-section-body li {
   font-size: 1.2em;
   line-height: 1.3em;
+  margin-bottom: 0.3em;
 }
 .field--name-field-fc-section-body td li {
   font-size: 1em;
@@ -7116,9 +7117,10 @@ ul.pager li.pager__item--last a:hover {
 .views-field-zs-view-mode-search-results-10 .node__content .field,
 .views-field-zs-view-mode-search-results-10 .node .content .field {
   font-size: 1.2em;
-  margin-bottom: .6em;
+  margin-bottom: .3em;
   line-height: 1.5em;
   color: #333;
+  margin-top: -.3em;
 }
 .views-field-zs-view-mode-search-result .node__content .field li, .views-field-zs-view-mode-search-result .node__content .field p,
 .views-field-zs-view-mode-search-result .node .content .field li,
