@@ -107,7 +107,6 @@ function site_frontend_preprocess_node__project(&$variables, $node) {
 
       '#prefix' => '<div class="field field--label-inline">',
       '#suffix' => '</div>',
-      '#weight' => 10,
 
       'label' => array(
         '#prefix' => '<div class="field__label">',
@@ -124,5 +123,8 @@ function site_frontend_preprocess_node__project(&$variables, $node) {
     );
 
   }
-
+  // Set the weight of the duration field
+  if (!empty($variables['content']['field_duration'])) {
+    $variables['content']['field_duration']['#weight'] = 3;
+  }
 }
