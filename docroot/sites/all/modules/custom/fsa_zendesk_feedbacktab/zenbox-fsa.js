@@ -1,6 +1,7 @@
 // IE6+SSL fix courtesy of http://www.tribalogic.net/
 
-;(function(window) {
+(function(window) {
+    
   // Zendesk Feedback Tab version 2.6
   // Most of the assets are from version 2.1. There is a slight difference
   // in the markup inside the feedback tab and some changes to the CSS for
@@ -100,7 +101,7 @@
   }
 
   function updateTabImage() {
-      tab.innerHTML = '<img alt="feedback" src="' + settings.tabImageURL + '" />';
+      tab.innerHTML = '<img alt="Feedback" src="' + settings.tabImageURL + '" />';
   }
 
   function updateTab() {
@@ -253,4 +254,3 @@
   window.Zenbox = Zenbox;
 
 }(this.window || this));
-

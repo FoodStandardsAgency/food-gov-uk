@@ -1,0 +1,41 @@
+<?php
+/**
+ * @file
+ * Module file for the FSA Zendesk Feedback Tab module.
+ */
+
+/**
+ * Implements hook_js_alter().
+ *
+ * We use this to remove the default, externally-hosted Zenbox JavaScript file
+ * and substitute our own modified version in its place. This enables us to fix
+ * some accessibility issues within the default version without having to hack
+ * the contrib module.
+ *
+ * In addition, we check to see whether we're on an admin path, and if so, we
+ * don't add the feedback tab.
+ *
+ * @param array $javascript
+ *   An array of all the JavaScripts that have been added.
+ */
+function fsa_zendesk_feedbacktab_js_alter(&$javascript) {
+
+  // Variable to indicate whether we've removed the standard zenbox.js. We'll
+  // use this to make sure we add our own script only if we've removed the
+  // existing one.
+  $zenbox_js_removed = FALSE;
+
+  // Find the existing zenbox.js file and remove it.
+  foreach ($javascript as $key => $value) {
+    if (strpos($key, 'zenbox.js') !== FALSE && !empty($value['type']) && $value['type'] == 'external') {
+      unset($javascript[$key]);
+      $zenbox_js_removed = TRUE;
+    }
+  }
+  // Add our own local version of the zenbox.js file - as long as we're not on
+  // an admin path and as long as the user has the appropriate permission, which
+  // is defined by the zendesk_feedbacktab module.
+  if (!path_is_admin(current_path()) && user_access('show zendesk_feedbacktab') && $zenbox_js_removed) {
+    drupal_add_js(drupal_get_path('module', 'fsa_zendesk_feedbacktab') . '/' . 'zenbox-fsa.js', 'file');
+  }
+}
