@@ -429,6 +429,14 @@ function science_section_feature_views_default_views() {
   $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
+  /* No results behavior: Global: Text area */
+  $handler->display->display_options['empty']['area']['id'] = 'area';
+  $handler->display->display_options['empty']['area']['table'] = 'views';
+  $handler->display->display_options['empty']['area']['field'] = 'area';
+  $handler->display->display_options['empty']['area']['label'] = 'No results found';
+  $handler->display->display_options['empty']['area']['empty'] = TRUE;
+  $handler->display->display_options['empty']['area']['content'] = 'Sorry, we couldn\'t find any research projects matching your search criteria. Please try again.';
+  $handler->display->display_options['empty']['area']['format'] = 'plain_text';
   /* Field: Broken/missing handler */
   $handler->display->display_options['fields']['url']['id'] = 'url';
   $handler->display->display_options['fields']['url']['table'] = 'apachesolr__solr';
@@ -625,6 +633,8 @@ Context is used to display the exposed filter block on the research reports page
     t('‹ previous'),
     t('next ›'),
     t('last »'),
+    t('No results found'),
+    t('Sorry, we couldn\'t find any research projects matching your search criteria. Please try again.'),
     t('url'),
     t('<h3><a href="[url]">[ss_title_project]</a></h3>'),
     t('bundle'),
