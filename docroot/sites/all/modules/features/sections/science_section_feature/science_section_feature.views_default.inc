@@ -435,15 +435,14 @@ function science_section_feature_views_default_views() {
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['label'] = 'No results found';
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area']['content'] = 'Sorry, we couldn\'t find any research projects matching your search criteria. Please try again.';
-  $handler->display->display_options['empty']['area']['format'] = 'plain_text';
-  /* Field: Broken/missing handler */
+  $handler->display->display_options['empty']['area']['content'] = '<p>Sorry, we couldn\'t find any research projects matching your search criteria. Please try again.</p>';
+  $handler->display->display_options['empty']['area']['format'] = 'full_html';
+  /* Field: Apache Solr: url */
   $handler->display->display_options['fields']['url']['id'] = 'url';
   $handler->display->display_options['fields']['url']['table'] = 'apachesolr__solr';
   $handler->display->display_options['fields']['url']['field'] = 'url';
-  $handler->display->display_options['fields']['url']['label'] = 'url';
   $handler->display->display_options['fields']['url']['exclude'] = TRUE;
-  /* Field: Broken/missing handler */
+  /* Field: Apache Solr: ss_title_project */
   $handler->display->display_options['fields']['ss_title_project']['id'] = 'ss_title_project';
   $handler->display->display_options['fields']['ss_title_project']['table'] = 'apachesolr__solr';
   $handler->display->display_options['fields']['ss_title_project']['field'] = 'ss_title_project';
@@ -453,43 +452,41 @@ function science_section_feature_views_default_views() {
   $handler->display->display_options['fields']['ss_title_project']['alter']['text'] = '<h3><a href="[url]">[ss_title_project]</a></h3>';
   $handler->display->display_options['fields']['ss_title_project']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['ss_title_project']['element_label_colon'] = FALSE;
-  /* Field: Broken/missing handler */
+  /* Field: Apache Solr: bundle */
   $handler->display->display_options['fields']['bundle']['id'] = 'bundle';
   $handler->display->display_options['fields']['bundle']['table'] = 'apachesolr__solr';
   $handler->display->display_options['fields']['bundle']['field'] = 'bundle';
-  $handler->display->display_options['fields']['bundle']['label'] = 'bundle';
   $handler->display->display_options['fields']['bundle']['exclude'] = TRUE;
-  /* Field: Broken/missing handler */
+  /* Field: Apache Solr: entity_id */
   $handler->display->display_options['fields']['entity_id']['id'] = 'entity_id';
   $handler->display->display_options['fields']['entity_id']['table'] = 'apachesolr__solr';
   $handler->display->display_options['fields']['entity_id']['field'] = 'entity_id';
-  $handler->display->display_options['fields']['entity_id']['label'] = 'entity_id';
   $handler->display->display_options['fields']['entity_id']['exclude'] = TRUE;
-  /* Field: Broken/missing handler */
+  /* Field: Apache Solr: zs_view_mode_search_result */
   $handler->display->display_options['fields']['zs_view_mode_search_result']['id'] = 'zs_view_mode_search_result';
   $handler->display->display_options['fields']['zs_view_mode_search_result']['table'] = 'apachesolr__solr';
   $handler->display->display_options['fields']['zs_view_mode_search_result']['field'] = 'zs_view_mode_search_result';
   $handler->display->display_options['fields']['zs_view_mode_search_result']['label'] = '';
   $handler->display->display_options['fields']['zs_view_mode_search_result']['element_label_colon'] = FALSE;
-  /* Field: Broken/missing handler */
+  /* Field: Apache Solr: ts_field_project_code */
   $handler->display->display_options['fields']['ts_field_project_code']['id'] = 'ts_field_project_code';
   $handler->display->display_options['fields']['ts_field_project_code']['table'] = 'apachesolr__solr';
   $handler->display->display_options['fields']['ts_field_project_code']['field'] = 'ts_field_project_code';
   $handler->display->display_options['fields']['ts_field_project_code']['label'] = '';
   $handler->display->display_options['fields']['ts_field_project_code']['exclude'] = TRUE;
   $handler->display->display_options['fields']['ts_field_project_code']['element_label_colon'] = FALSE;
-  /* Field: Broken/missing handler */
+  /* Field: Apache Solr: ts_field_contractor */
   $handler->display->display_options['fields']['ts_field_contractor']['id'] = 'ts_field_contractor';
   $handler->display->display_options['fields']['ts_field_contractor']['table'] = 'apachesolr__solr';
   $handler->display->display_options['fields']['ts_field_contractor']['field'] = 'ts_field_contractor';
   $handler->display->display_options['fields']['ts_field_contractor']['label'] = '';
   $handler->display->display_options['fields']['ts_field_contractor']['exclude'] = TRUE;
   $handler->display->display_options['fields']['ts_field_contractor']['element_label_colon'] = FALSE;
-  /* Sort criterion: Broken/missing handler */
+  /* Sort criterion: Apache Solr: ss_field_project_status */
   $handler->display->display_options['sorts']['ss_field_project_status']['id'] = 'ss_field_project_status';
   $handler->display->display_options['sorts']['ss_field_project_status']['table'] = 'apachesolr__solr';
   $handler->display->display_options['sorts']['ss_field_project_status']['field'] = 'ss_field_project_status';
-  /* Filter criterion: Broken/missing handler */
+  /* Filter criterion: Apache Solr: bundle */
   $handler->display->display_options['filters']['bundle']['id'] = 'bundle';
   $handler->display->display_options['filters']['bundle']['table'] = 'apachesolr__solr';
   $handler->display->display_options['filters']['bundle']['field'] = 'bundle';
@@ -521,7 +518,7 @@ function science_section_feature_views_default_views() {
     14 => 0,
     15 => 0,
   );
-  /* Filter criterion: Broken/missing handler */
+  /* Filter criterion: Apache Solr: ts_field_project_code */
   $handler->display->display_options['filters']['ts_field_project_code']['id'] = 'ts_field_project_code';
   $handler->display->display_options['filters']['ts_field_project_code']['table'] = 'apachesolr__solr';
   $handler->display->display_options['filters']['ts_field_project_code']['field'] = 'ts_field_project_code';
@@ -548,7 +545,7 @@ function science_section_feature_views_default_views() {
     14 => 0,
     15 => 0,
   );
-  /* Filter criterion: Broken/missing handler */
+  /* Filter criterion: Apache Solr: ts_field_contractor */
   $handler->display->display_options['filters']['ts_field_contractor']['id'] = 'ts_field_contractor';
   $handler->display->display_options['filters']['ts_field_contractor']['table'] = 'apachesolr__solr';
   $handler->display->display_options['filters']['ts_field_contractor']['field'] = 'ts_field_contractor';
@@ -574,7 +571,7 @@ function science_section_feature_views_default_views() {
     14 => 0,
     15 => 0,
   );
-  /* Filter criterion: Broken/missing handler */
+  /* Filter criterion: Apache Solr: ss_field_project_status */
   $handler->display->display_options['filters']['ss_field_project_status']['id'] = 'ss_field_project_status';
   $handler->display->display_options['filters']['ss_field_project_status']['table'] = 'apachesolr__solr';
   $handler->display->display_options['filters']['ss_field_project_status']['field'] = 'ss_field_project_status';
@@ -634,7 +631,7 @@ Context is used to display the exposed filter block on the research reports page
     t('next ›'),
     t('last »'),
     t('No results found'),
-    t('Sorry, we couldn\'t find any research projects matching your search criteria. Please try again.'),
+    t('<p>Sorry, we couldn\'t find any research projects matching your search criteria. Please try again.</p>'),
     t('url'),
     t('<h3><a href="[url]">[ss_title_project]</a></h3>'),
     t('bundle'),
