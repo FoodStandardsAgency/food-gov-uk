@@ -6815,10 +6815,9 @@ ul.pager li.pager__item--last a:hover {
 .views-field-zs-view-mode-search-results-10 .node__content .field,
 .views-field-zs-view-mode-search-results-10 .node .content .field {
   font-size: 1.2em;
-  margin-bottom: .3em;
+  margin-bottom: .6em;
   line-height: 1.5em;
   color: #333;
-  margin-top: -.3em;
 }
 .views-field-zs-view-mode-search-result .node__content .field li, .views-field-zs-view-mode-search-result .node__content .field p,
 .views-field-zs-view-mode-search-result .node .content .field li,
@@ -7057,6 +7056,16 @@ ul.pager li.pager__item--last a:hover {
 }
 .view-audit-reports .field-name-field-audit-type {
   font-style: italic;
+}
+.view-audit-reports .field--name-field-audit-state {
+  display: inline-block;
+  padding-left: 3px;
+  margin-top: -5px;
+}
+.view-audit-reports .field--name-field-audit-type {
+  display: inline-block;
+  padding-right: 3px;
+  margin-top: -5px;
 }
 
 /* print styling overrides */
