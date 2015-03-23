@@ -20,6 +20,7 @@ layout[site-frontend-three-column][stylesheets][all][] = css/layouts/site-fronte
 layout[site-frontend-two-column][stylesheets][all][] = css/layouts/site-frontend-two-column/site-frontend-two-column.layout.css
 layout[site-frontend-one-column][stylesheets][all][] = css/layouts/site-frontend-one-column/site-frontend-one-column.layout.css
 layout[site-frontend-blank-one-column][stylesheets][all][] = css/layouts/site-frontend-blank-one-column/site-frontend-blank-one-column.layout.css
+layout[site-frontend-campaign-landing-page][stylesheets][all][] = css/layouts/site-frontend-campaign-landing-page/site-frontend-campaign-landing-page.layout.css
 
 ; ========================================
 ; Scripts
@@ -47,6 +48,8 @@ regions[bottom_menu] = Bottom Menu
 regions[footer_copyright] = Footer Copyright
 regions[footer_menu] = Footer Menu
 regions[footer_buttons] = Footer Buttons
+regions[campaign_header] = Campaign header
+regions[campaign_promotions] = Campaign promotions
 ; following region is rendered in node.tpl.php for some content types
 regions[node_inline] = Node Inline
 

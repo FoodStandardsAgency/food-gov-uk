@@ -100,7 +100,6 @@ function apachesolr_custom_apachesolr_index_document_build_node(ApacheSolrDocume
       apachesolr_custom_year_field($document, $entity, 'field_publication_year', 'is_last_updated_year', 1);
       break;
 
-
     case 'project':
 
       // Add project code as a text field so it can be case-insensitive.
