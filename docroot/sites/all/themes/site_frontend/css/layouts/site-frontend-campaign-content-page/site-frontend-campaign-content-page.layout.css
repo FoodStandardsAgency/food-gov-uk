@@ -852,3 +852,6 @@
     min-width: 0;
   }
 }
+.layout--site-frontend-campaign-content-page .sidebar-menu .menu-block-wrapper li a.active {
+  background-color: #49176e;
+}
