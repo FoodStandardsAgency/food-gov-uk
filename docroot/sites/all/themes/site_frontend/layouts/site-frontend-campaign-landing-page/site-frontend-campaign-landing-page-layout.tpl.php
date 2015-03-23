@@ -8,7 +8,7 @@
 
 <!-- begin site-frontend-three-column-layout.tpl.php -->
 
-<div class="l-page">
+<div class="l-page layout--site-frontend-campaign-landing-page">
 	
   <div class="header-wrapper">	
 	<div class="header-wrapper-inner">
@@ -17,7 +17,6 @@
 		  <div class="header-top">
 	          <div class="l-header-branding">
 				<div class="header-branding-inner">
-				
 		            <?php if ($logo): ?>
 		              <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" class="site-logo"><img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" /></a>
 		            <?php endif; ?>
@@ -68,7 +67,6 @@
     </div> <!-- end header-wrapper-inner -->
   </div> <!-- end header-wrapper -->
 
-
   <div class="breadcrumb-accessibility-wrapper">
     <div class="l-breadcrumb-accessibility">
 	  <div class="breadcrumb-accessibility-inner">
@@ -104,28 +102,26 @@
 
   <div class="main-wrapper">
     <div class="l-main">
-	  <div class="main-inner">
-		
+      <div class="main-inner">
         <div id="main-content" class="l-content" role="main">
-	      <div class="main-content-inner">
-	
-	          <?php print render($page['highlighted']); ?>
+  	      <div class="main-content-inner">
+            <?php print render($page['highlighted']); ?>
+            <?php if ($page['content_top']): ?>
+              <div class="content-top-wrapper">
+                <div class="content-top-wrapper-inner">
+                  <div class="content-top">
+                    <?php print render($page['content_top']); ?>
+                  </div> <!-- end content-top -->
+                </div> <!-- end content-top-wrapper-inner -->
+              </div> <!-- end content-top-wrapper -->
+            <?php endif; ?>
 
-	          <?php if ($page['content_top']): ?>
-		        <div class="content-top-wrapper">
-			        <div class="content-top-wrapper-inner">
-				        <div class="content-top">
-						  <?php print render($page['content_top']); ?>
-					    </div> <!-- end content-top -->
-				    </div> <!-- end content-top-wrapper-inner -->
-			    </div> <!-- end content-top-wrapper -->
-		      <?php endif; ?>
-	          <?php print render($title_prefix); ?>
-              <?php if (isset($book_parent_title) && $book_parent_title): ?>
-                <div class="book-triple-title">
-                  <div class="book-parent-title"><?php print $book_parent_title; ?></div>
-                  <div class="book-section-title"><?php if (isset($book_section_title)) print $book_section_title; ?></div>
-              <?php endif; ?>
+            <?php print render($title_prefix); ?>
+            <?php if (isset($book_parent_title) && $book_parent_title): ?>
+              <div class="book-triple-title">
+                <div class="book-parent-title"><?php print $book_parent_title; ?></div>
+                <div class="book-section-title"><?php if (isset($book_section_title)) print $book_section_title; ?></div>
+            <?php endif; ?>
 	          <?php if ($title): ?>
 	            <h1 id="page-title"><?php print $title; ?></h1>
 	          <?php endif; ?>
@@ -139,6 +135,11 @@
 	          <?php if ($action_links): ?>
 	            <ul class="action-links"><?php print render($action_links); ?></ul>
 	          <?php endif; ?>
+              
+            <?php if (!empty($page['campaign_header'])): ?>
+              <?php print render($page['campaign_header']); ?>
+            <?php endif; ?>
+              
 	          <?php print render($page['content']); ?>
               
             <?php if (!empty($page['campaign_promotions'])): ?>
@@ -152,16 +153,11 @@
         </div> <!-- end l-content -->
         
         <div class="l-sidebar-second">
-	      <div class="sidebar-second-inner">
-		    <?php print render($page['sidebar_second']); ?>
-		  </div> <!-- end sidebar-second-inner -->
-		</div> <!-- end l-sidebar-second -->
+          <div class="sidebar-second-inner">
+            <?php print render($page['sidebar_second']); ?>
+          </div> <!-- end sidebar-second-inner -->
+        </div> <!-- end l-sidebar-second -->
 
-        <div class="l-sidebar-first">
-	      <div class="sidebar-first-inner" role="navigation">
-		    <?php print render($page['sidebar_first']); ?>
-		  </div> <!-- end sidebar-first-inner -->
-		</div> <!-- end l-sidebar-first -->
 		
       </div> <!-- end main-inner -->
     </div> <!-- end main -->
