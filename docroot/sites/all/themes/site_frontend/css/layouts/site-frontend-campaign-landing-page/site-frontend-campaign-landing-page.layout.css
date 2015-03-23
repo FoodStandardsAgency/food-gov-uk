@@ -808,7 +808,8 @@
   }
 }
 .layout--site-frontend-campaign-landing-page .field--name-body p {
-  font-size: 1.35em;
+  font-size: 1.8em;
+  line-height: 1.4;
 }
 
 .l-region--campaign-promotions {
@@ -876,6 +877,10 @@
   padding: 10px 14px;
   text-transform: uppercase;
   width: 100%;
+}
+.block--nodeblock--campaign-teaser .content p {
+  font-size: 1.35em;
+  line-height: 1.15;
 }
 .block--nodeblock--campaign-teaser .content .field--name-body {
   padding: 10px 14px;
