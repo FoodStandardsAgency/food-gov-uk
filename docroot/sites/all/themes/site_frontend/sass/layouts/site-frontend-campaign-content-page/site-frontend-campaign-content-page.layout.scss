@@ -342,3 +342,22 @@
 		min-width: 0;	// note min-width: none has no effect (not valid), must be 0;
 	}
 }
+
+
+
+// Campaign content page-specific styles
+.layout--site-frontend-campaign-content-page {
+
+  .sidebar-menu {
+    .menu-block-wrapper {
+      li {
+        a {
+          &.active {
+            background-color: #49176e;
+          }
+        }
+      }  
+    } 
+  } 
+
+}
