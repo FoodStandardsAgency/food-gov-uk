@@ -326,3 +326,108 @@
 		min-width: 0;	// note min-width: none has no effect (not valid), must be 0;
 	}
 }
+
+
+
+
+
+// Campaign landing page specific styles
+
+
+.layout--site-frontend-campaign-landing-page {
+  .field--name-body {
+    p {
+      font-size: 1.35em;
+    }
+  }
+}
+
+
+
+
+// Campaign teasers
+
+
+.l-region--campaign-promotions {
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+
+
+.block--nodeblock--campaign-teaser {
+
+  float: left;
+  margin-right: 18px;
+  position: relative;
+  width: 23.5%;
+  
+  @include breakpoint($mobile) {
+    float: none !important;
+    margin-right: 0;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+    
+  
+  &:last-child {
+    float: right; 
+    margin-right: 0;
+  }
+  
+  .field--name-field-feature-image {
+    display: block !important;
+  }
+  
+  img {
+    @include border-radius(8px);
+    display: block !important;
+    height: auto !important;
+    width: 100%;
+  }
+  
+  .content {
+    background-color: #9f218c;
+    @include border-radius(0 5px 5px 0);
+    color: #fff;
+    left: 0;
+    max-width: 85%;
+    position: absolute;
+    top: 20px;
+    z-index: 10;
+    
+    a {
+      color: #fff;
+    }
+
+    h2 {
+      @include border-radius(0 5px 0 0);
+      background-color: #49176e;
+      font-size: 1.3em;
+      margin: 0;
+      padding: 10px 14px;
+      text-transform: uppercase;
+      width: 100%;
+    }
+    
+    .field--name-body {
+      padding: 10px 14px;
+      width: 100%;
+      
+      p {
+        margin-bottom: 0;
+      }
+    }
+    
+  }
+  
+  .field--name-field-feature-image {
+    img {
+      float: none;
+      margin: 0;
+    }
+  }
+  
+  
+  
+}
