@@ -352,6 +352,15 @@
     color: #49176e;
   }
   
+  .page-section-heading {
+    background-color: transparent;
+    padding: 0;
+    
+    h2 {
+      font-size: initial !important;
+    }
+  }
+  
   .l-content {
     width: 75%;
   }
