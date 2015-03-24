@@ -348,6 +348,10 @@
 // Campaign content page-specific styles
 .layout--site-frontend-campaign-content-page {
   
+  h2, h3, h4, h5 {
+    color: #49176e;
+  }
+  
   .l-content {
     width: 75%;
   }
