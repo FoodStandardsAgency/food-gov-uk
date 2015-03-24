@@ -1,0 +1,5 @@
+name = FSA Zendesk Feedback Tab
+description = "Custom functionality to supplement that provided by the contrib Zendesk Feedback Tab module."
+core = 7.x
+package = Zendesk
+dependencies[] = zendesk_feedbacktab
