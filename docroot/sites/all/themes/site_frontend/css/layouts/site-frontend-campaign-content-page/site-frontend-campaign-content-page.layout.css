@@ -855,6 +855,13 @@
 .layout--site-frontend-campaign-content-page h2, .layout--site-frontend-campaign-content-page h3, .layout--site-frontend-campaign-content-page h4, .layout--site-frontend-campaign-content-page h5 {
   color: #49176e;
 }
+.layout--site-frontend-campaign-content-page .page-section-heading {
+  background-color: transparent;
+  padding: 0;
+}
+.layout--site-frontend-campaign-content-page .page-section-heading h2 {
+  font-size: initial !important;
+}
 .layout--site-frontend-campaign-content-page .l-content {
   width: 75%;
 }
