@@ -335,10 +335,18 @@
 
 
 .layout--site-frontend-campaign-landing-page {
-  .field--name-body {
-    p {
-      font-size: 1.8em;
-      line-height: 1.4;
+  .node__content {
+    .field--name-body {
+      border: 1px solid #49176e;
+      @include border-radius(8px);
+      margin-bottom: 20px;
+      padding: 10px;
+
+      p {
+        font-size: 1.8em;
+        line-height: 1.4;
+        margin-bottom: 0;
+      }
     }
   }
 }
