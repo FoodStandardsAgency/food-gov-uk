@@ -550,14 +550,7 @@
   }
 }
 .layout--site-frontend-campaign-landing-page .node__content .field--name-body {
-  border: 1px solid #49176e;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  -ms-border-radius: 8px;
-  -o-border-radius: 8px;
-  border-radius: 8px;
   margin-bottom: 20px;
-  padding: 10px;
 }
 .layout--site-frontend-campaign-landing-page .node__content .field--name-body p {
   font-size: 1.8em;
