@@ -367,11 +367,18 @@
   position: relative;
   width: 23.5%;
   
-  @include breakpoint($mobile) {
+  @include breakpoint(351px 480px) {
     float: left !important;
     margin-right: 3%;
     margin-bottom: 10px;
     width: 47%
+  }
+  
+  @include breakpoint(0px 350px) {
+    float: none !important;
+    margin-right: 0;
+    margin-bottom: 10px;
+    width: 100%;
   }
   
   &:last-child {
