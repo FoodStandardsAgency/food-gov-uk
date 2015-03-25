@@ -870,6 +870,9 @@
     width: 100%;
   }
 }
+.layout--site-frontend-campaign-content-page .l-region--campaign-header {
+  margin-bottom: 20px;
+}
 .layout--site-frontend-campaign-content-page .sidebar-menu .menu-block-wrapper li {
   list-style-image: none !important;
 }
