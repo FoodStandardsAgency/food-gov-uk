@@ -1,0 +1,8 @@
+/**
+ * @file
+ *   Custom CSS for the Zendesk iFrame
+ */
+
+#zenbox_body {
+  border: none;
+}
