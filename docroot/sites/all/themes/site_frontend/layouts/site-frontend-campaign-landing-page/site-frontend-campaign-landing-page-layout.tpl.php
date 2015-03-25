@@ -146,6 +146,9 @@
               <?php print render($page['campaign_promotions']); ?>
             <?php endif; ?>
               
+            <?php if (!empty($page['campaign_widget'])): ?>
+              <?php print render($page['campaign_widget']); ?>
+            <?php endif; ?>
               
 	          <?php print $feed_icons; ?>
 

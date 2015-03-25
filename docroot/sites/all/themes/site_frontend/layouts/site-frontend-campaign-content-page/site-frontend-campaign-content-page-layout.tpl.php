@@ -158,6 +158,12 @@
 	      <div class="sidebar-first-inner" role="navigation">
 		    <?php print render($page['sidebar_first']); ?>
 		  </div> <!-- end sidebar-first-inner -->
+      
+      <?php if (!empty($page['campaign_widget'])): ?>
+        <?php print render($page['campaign_widget']); ?>
+      <?php endif; ?>      
+      
+      
 		</div> <!-- end l-sidebar-first -->
 		
       </div> <!-- end main-inner -->
