@@ -836,10 +836,10 @@
 }
 @media (min-width: 0px) and (max-width: 480px) {
   .block--nodeblock--campaign-teaser {
-    float: none !important;
-    margin-right: 0;
+    float: left !important;
+    margin-right: 3%;
     margin-bottom: 10px;
-    width: 100%;
+    width: 47%;
   }
 }
 .block--nodeblock--campaign-teaser:last-child {
