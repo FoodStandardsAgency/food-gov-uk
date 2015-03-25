@@ -565,6 +565,10 @@
   margin-bottom: 0;
 }
 
+.l-region--campaign-header {
+  margin-bottom: 20px;
+}
+
 .l-region--campaign-promotions {
   margin-bottom: 20px;
   overflow: hidden;
