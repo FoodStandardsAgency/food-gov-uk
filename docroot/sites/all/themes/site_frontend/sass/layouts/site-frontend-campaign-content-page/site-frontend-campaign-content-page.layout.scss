@@ -363,6 +363,11 @@
   
   .l-content {
     width: 75%;
+    
+    @include breakpoint($mobile) {
+      width: 100%;
+    }
+    
   }
 
   .sidebar-menu {

@@ -865,6 +865,11 @@
 .layout--site-frontend-campaign-content-page .l-content {
   width: 75%;
 }
+@media (min-width: 0px) and (max-width: 480px) {
+  .layout--site-frontend-campaign-content-page .l-content {
+    width: 100%;
+  }
+}
 .layout--site-frontend-campaign-content-page .sidebar-menu .menu-block-wrapper li {
   list-style-image: none !important;
 }
