@@ -160,6 +160,7 @@ function site_frontend_preprocess_node__general_block(&$variables, $node) {
     $node = !empty($variables['node']) ? $variables['node'] : NULL;
     $wrapper = !empty($node) ? entity_metadata_wrapper('node', $node) : NULL;
     $link = !empty($wrapper) && !empty($wrapper->field_link) ? $wrapper->field_link->value() : array('url' => '');
-    $variables['link'] = !empty($link['url']) ? $link['url'] : $variables['node_url'];
+    //$variables['link'] = !empty($link['url']) ? $link['url'] : $variables['node_url'];
+    $variables['link'] = !empty($link['url']) ? $link['url'] : '';
   }
 }

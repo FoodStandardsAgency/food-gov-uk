@@ -36,7 +36,11 @@
       // Hide the linke field.
       hide($content['field_link']);
     ?>
-    <a href="<?php print $link; ?>"><h2<?php print $title_attributes; ?>><?php print $title; ?></h2></a>
+    <?php if (!empty($link)): ?>
+      <a href="<?php print $link; ?>"><h2<?php print $title_attributes; ?>><?php print $title; ?></h2></a>
+    <?php else: ?>
+      <h2<?php print $title_attributes; ?>><?php print $title; ?></h2>
+    <?php endif; ?>
     <?php  print render($content); ?>
   </div>
   <?php print render($content['field_feature_image']); ?>
