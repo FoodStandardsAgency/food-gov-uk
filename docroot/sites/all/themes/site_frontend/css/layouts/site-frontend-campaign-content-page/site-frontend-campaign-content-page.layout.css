@@ -855,12 +855,27 @@
 .layout--site-frontend-campaign-content-page h2, .layout--site-frontend-campaign-content-page h3, .layout--site-frontend-campaign-content-page h4, .layout--site-frontend-campaign-content-page h5 {
   color: #49176e;
 }
+.layout--site-frontend-campaign-content-page h2 {
+  font-size: 23px !important;
+}
+.layout--site-frontend-campaign-content-page h3 {
+  font-size: 17px !important;
+}
+.layout--site-frontend-campaign-content-page h4 {
+  font-size: 14px !important;
+}
 .layout--site-frontend-campaign-content-page .page-section-heading {
   background-color: transparent;
   padding: 0;
 }
 .layout--site-frontend-campaign-content-page .page-section-heading h2 {
-  font-size: initial !important;
+  font-size: 23px !important;
+}
+.layout--site-frontend-campaign-content-page .page-section-heading h3 {
+  font-size: 17px !important;
+}
+.layout--site-frontend-campaign-content-page .page-section-heading h4 {
+  font-size: 14px !important;
 }
 .layout--site-frontend-campaign-content-page .l-content {
   width: 75%;

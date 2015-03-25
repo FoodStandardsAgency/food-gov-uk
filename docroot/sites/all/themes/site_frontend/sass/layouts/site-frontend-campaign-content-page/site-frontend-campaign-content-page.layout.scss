@@ -352,13 +352,35 @@
     color: #49176e;
   }
   
+  h2 {
+    font-size: 23px !important;
+  }
+  
+  h3 {
+    font-size: 17px !important;
+  }
+  
+  h4 {
+    font-size: 14px !important;
+  }
+  
   .page-section-heading {
     background-color: transparent;
     padding: 0;
     
     h2 {
-      font-size: initial !important;
+      //font-size: initial !important;
+      font-size: 23px !important;
     }
+    
+    h3 {
+      font-size: 17px !important;
+    }
+
+    h4 {
+      font-size: 14px !important;
+    }
+    
   }
   
   .l-content {
