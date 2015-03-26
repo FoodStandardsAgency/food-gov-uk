@@ -15,6 +15,18 @@ function site_frontend_preprocess_node(&$variables) {
     $variables['content']['field_title_short']['#access'] = FALSE;
   }
 
+  // Get the view mode.
+  $view_mode = !empty($variables['view_mode']) ? $variables['view_mode'] : '';
+
+  // Add a theme hook suggestion specific to view modes.
+  $variables['theme_hook_suggestions'][] = 'node__' . $view_mode;
+
+  // If the nodeblock module is available, add a theme hook suggestion for the
+  // current view mode.
+  if (module_exists('nodeblock')) {
+    $variables['theme_hook_suggestions'][] = 'node__nodeblock__' . $view_mode;
+  }
+
   // Call node type-specific preprocess functions - if they exist.
   $node = !empty($variables['node']) ? $variables['node'] : NULL;
   if (!empty($node) && !empty($node->type)) {
@@ -126,5 +138,31 @@ function site_frontend_preprocess_node__project(&$variables, $node) {
   // Set the weight of the duration field
   if (!empty($variables['content']['field_duration'])) {
     $variables['content']['field_duration']['#weight'] = 3;
+  }
+}
+
+
+/**
+ * Preprocess function for general block nodes.
+ *
+ * @param array $variables
+ *   Template variables, passed by reference.
+ *
+ * @param object $node
+ *   The node object.
+ */
+function site_frontend_preprocess_node__general_block(&$variables, $node) {
+
+  // Get the view mode
+  $view_mode = !empty($variables['view_mode']) ? $variables['view_mode'] : 'full';
+
+  // If we're in campaign teaser view mode, get the link destination. This will
+  // either be the value of the link field on the content type or the node_url.
+  if ($view_mode == 'campaign_teaser') {
+    $node = !empty($variables['node']) ? $variables['node'] : NULL;
+    $wrapper = !empty($node) ? entity_metadata_wrapper('node', $node) : NULL;
+    $link = !empty($wrapper) && !empty($wrapper->field_link) ? $wrapper->field_link->value() : array('url' => '');
+    //$variables['link'] = !empty($link['url']) ? $link['url'] : $variables['node_url'];
+    $variables['link'] = !empty($link['url']) ? $link['url'] : '';
   }
 }
