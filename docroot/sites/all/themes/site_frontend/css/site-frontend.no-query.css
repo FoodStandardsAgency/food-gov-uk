@@ -3643,6 +3643,9 @@ span.copyright {
 .fsa-in-the-nations {
   clear: both;
 }
+.fsa-in-the-nations h2 {
+  display: none;
+}
 .fsa-in-the-nations .block__content a {
   text-decoration: none;
 }

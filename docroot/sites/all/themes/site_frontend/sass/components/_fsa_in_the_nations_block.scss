@@ -4,6 +4,12 @@
  */
 
 .fsa-in-the-nations {
+  
+  // Hide the block subject for now. We'll remove it when we're ready.
+  h2 {
+    display: none;
+  }
+  
 	clear: both;
 	.block__content {
 		a {
