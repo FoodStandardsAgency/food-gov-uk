@@ -3701,6 +3701,7 @@ span.copyright {
  * requires bock class: fsa-in-the-nations
  */
 .fsa-in-the-nations {
+  max-height: 269px;
   clear: both;
 }
 .fsa-in-the-nations h2 {
