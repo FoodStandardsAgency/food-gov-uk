@@ -4,6 +4,12 @@
  */
 
 .fsa-in-the-nations {
+  
+  // Hide the block subject for now. We'll remove it when we're ready.
+  h2 {
+    display: none;
+  }
+  
 	clear: both;
 	.block__content {
 		a {
@@ -12,19 +18,25 @@
 		a:hover {
 			text-decoration: underline;
 		}
-		h3 {
+		h3 {      
+      @include border-radius(5px);
+      color: #fff;
 			font-size: 1em;
 			font-weight: bold;
-			padding-top: 5px;
+			//padding-top: 5px;
+      padding: 5px 11px;
 			margin: 0 0 0.5em 0;
+      width: 100%;
 			a img {
+        display: none; // Temporarily hide
 				position: absolute;
 				top: 12px;
 				right: 0;
 				border: 0;
 			}
 			a {
-				font-size: 1.4em;	// was 1.2em
+				color: #fff;
+        font-size: 1.4em;	// was 1.2em
 				line-height: 1.4em;
 			}
 		}
@@ -39,42 +51,77 @@
 		}
 		li {
 			margin-left: 0;
-			padding-bottom: 6px;
-			margin-bottom: 6px;
-			border-bottom: 1px solid #c9c9c9;
+			//padding-bottom: 6px;
+			//margin-bottom: 6px;
+			//border-bottom: 1px solid #c9c9c9;
 			font-size: 1em;
 		}
 		.scotland {
+      display: none; // Hide Scotland for now.
 			position: relative;
 			min-height: 75px;
-			padding-right: 50px;
+			//padding-right: 50px;
 		}
 		.northern-ireland {
+      background-image: url(/sites/all/themes/site_frontend/images/icons/fsa-northern-ireland.gif);
+      background-repeat: no-repeat;
+      background-position: 90% 85%;
 			position: relative;
 			min-height: 75px;
-			padding-right: 50px;
+			//padding-right: 50px;
+      
+      h3 {
+        background-color: #800c6f;
+        background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+        background: -moz-linear-gradient(top,#800c6f 6%,#660459 100%);
+        background: -webkit-gradient(linear,left top,left bottom,color-stop(6%,#800c6f),color-stop(100%,#660459));
+        background: -webkit-linear-gradient(top,#800c6f 6%,#660459 100%);
+        background: -o-linear-gradient(top,#800c6f 6%,#660459 100%);
+        background: -ms-linear-gradient(top,#800c6f 6%,#660459 100%);
+        background: linear-gradient(top,#800c6f 6%,#660459 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#800c6f',endColorstr='#660459',GradientType=0);           
+      }
+      
+      
 		}
 		.wales {
+      background-image: url(/sites/all/themes/site_frontend/images/icons/fsa-wales.gif);
+      background-repeat: no-repeat;
+      background-position: 90% 85%;
 			position: relative;
 			min-height: 61px;
-			padding-right: 50px;
+			//padding-right: 50px;
 			border-bottom: none;
 			margin-bottom: 0;
 			padding-bottom: 0;
-		}
+      
+      h3 {
+        background-color: #888;
+        background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+        background: -moz-linear-gradient(top,#be1627 6%,#a70415 100%);
+        background: -webkit-gradient(linear,left top,left bottom,color-stop(6%,#be1627),color-stop(100%,#a70415));
+        background: -webkit-linear-gradient(top,#be1627 6%,#a70415 100%);
+        background: -o-linear-gradient(top,#be1627 6%,#a70415 100%);
+        background: -ms-linear-gradient(top,#be1627 6%,#a70415 100%);
+        background: linear-gradient(top,#be1627 6%,#3e3e3e 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#be1627',endColorstr='#a70415',GradientType=0);        
+      }
+    }
 		ul.nation-links {
-			margin: 0 4px 0 0;
+			//margin: 0 4px 0 0;
+      margin: 20px;
 			clear: both;
 			li {
 				padding-bottom: 0;
-				margin-bottom: 0;
+				margin-bottom: 5px;
 				min-height: 0;
 				border: none;
-				float: left;
+				//float: left;
 				a {
-					display: block;
-					border-right: 1px solid #006f51;
-					font-size: 1.2em;	// was 1.1em
+					display: inline-block;
+					//border-right: 1px solid #006f51;
+					font-size: 1.35em;	// was 1.1em
+          //font-weight: bold;
 					line-height: 1em;
 					margin-right: 4px;
 					padding-right: 4px;
@@ -91,8 +138,9 @@
 .fsa-in-the-nations.grey-block {
 		border-color: #c9c9c9;
 	.block__content {
-		padding-top: 0.5em;
-		padding-bottom: 0;
+    padding: 0 !important;
+		//padding-top: 0.5em;
+		//padding-bottom: 0;
 		min-height: 240px;
 	}
 }
