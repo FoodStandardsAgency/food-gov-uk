@@ -3647,6 +3647,11 @@ span.copyright {
 .fsa-in-the-nations h2 {
   display: none;
 }
+.fsa-in-the-nations .nation-icon-link {
+  position: absolute;
+  right: 10px;
+  top: 50px;
+}
 .fsa-in-the-nations .block__content a {
   text-decoration: none;
 }
@@ -3697,9 +3702,6 @@ span.copyright {
   min-height: 75px;
 }
 .fsa-in-the-nations .block__content .northern-ireland {
-  background-image: url(/sites/all/themes/site_frontend/images/icons/fsa-northern-ireland.gif);
-  background-repeat: no-repeat;
-  background-position: 90% 85%;
   position: relative;
   min-height: 75px;
 }
@@ -3715,9 +3717,6 @@ span.copyright {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#800c6f',endColorstr='#660459',GradientType=0);
 }
 .fsa-in-the-nations .block__content .wales {
-  background-image: url(/sites/all/themes/site_frontend/images/icons/fsa-wales.gif);
-  background-repeat: no-repeat;
-  background-position: 90% 85%;
   position: relative;
   min-height: 61px;
   border-bottom: none;
@@ -3736,7 +3735,7 @@ span.copyright {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#be1627',endColorstr='#a70415',GradientType=0);
 }
 .fsa-in-the-nations .block__content ul.nation-links {
-  margin: 20px;
+  margin: 20px 20px 12px 20px;
   clear: both;
 }
 .fsa-in-the-nations .block__content ul.nation-links li {
