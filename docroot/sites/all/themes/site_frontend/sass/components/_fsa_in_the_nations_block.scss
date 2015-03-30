@@ -12,6 +12,12 @@
     display: none;
   }
   
+  .nation-icon-link {
+    position: absolute;
+    right: 10px;
+    top: 50px;
+  }
+  
 	clear: both;
 	.block__content {
 		a {
@@ -65,9 +71,9 @@
 			//padding-right: 50px;
 		}
 		.northern-ireland {
-      background-image: url(/sites/all/themes/site_frontend/images/icons/fsa-northern-ireland.gif);
-      background-repeat: no-repeat;
-      background-position: 90% 85%;
+      //background-image: url(/sites/all/themes/site_frontend/images/icons/fsa-northern-ireland.gif);
+      //background-repeat: no-repeat;
+      //background-position: 90% 85%;
 			position: relative;
 			min-height: 75px;
 			//padding-right: 50px;
@@ -87,9 +93,9 @@
       
 		}
 		.wales {
-      background-image: url(/sites/all/themes/site_frontend/images/icons/fsa-wales.gif);
-      background-repeat: no-repeat;
-      background-position: 90% 85%;
+      //background-image: url(/sites/all/themes/site_frontend/images/icons/fsa-wales.gif);
+      //background-repeat: no-repeat;
+      //background-position: 90% 85%;
 			position: relative;
 			min-height: 61px;
 			//padding-right: 50px;
@@ -111,7 +117,7 @@
     }
 		ul.nation-links {
 			//margin: 0 4px 0 0;
-      margin: 20px;
+      margin: 20px 20px 12px 20px;
 			clear: both;
 			li {
 				padding-bottom: 0;
