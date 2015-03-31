@@ -35,7 +35,9 @@ function fsa_zendesk_feedbacktab_js_alter(&$javascript) {
   // Add our own local version of the zenbox.js file - as long as we're not on
   // an admin path and as long as the user has the appropriate permission, which
   // is defined by the zendesk_feedbacktab module.
+  // Also add our local CSS file.
   if (!path_is_admin(current_path()) && user_access('show zendesk_feedbacktab') && $zenbox_js_removed) {
     drupal_add_js(drupal_get_path('module', 'fsa_zendesk_feedbacktab') . '/' . 'zenbox-fsa.js', 'file');
+    drupal_add_css(drupal_get_path('module', 'fsa_zendesk_feedbacktab') . '/' . 'zenbox-fsa.css', 'file');
   }
 }
