@@ -367,6 +367,12 @@ $conf['shield_allow_cli'] = 1;
 $conf['shield_print'] =  'Authentication required';
 
 
+# ========================= Additional domains for validation
+# @see _link_domains() in link.module
+$conf['link_extra_domains'] = array('scot');
+
+
+
 #========================== Local File Overrides
 /**
  * Load local development override configuration, if available.
