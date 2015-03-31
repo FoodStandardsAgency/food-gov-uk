@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the content_update feature.
+ */
+
+include_once 'content_update.features.inc';
