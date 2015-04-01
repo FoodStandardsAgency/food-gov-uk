@@ -60,8 +60,13 @@ function _site_frontend_file_type_names($mime = NULL) {
   $file_type_names = array(
     'application/pdf' => 'PDF file',
     'application/msword' => 'Microsoft Word document',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'Microsoft Word document',
     'application/excel' => 'Microsof Excel spreadsheet',
     'application/vnd.ms-excel' => 'Microsoft Excel spreadsheet',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => 'Microsoft Excel Spreadsheet',
+    'application/vnd.ms-powerpoint' => 'Microsoft PowerPoint presentation',
+    'application/vnd.openxmlformats-officedocument.presentationml.presentation' => 'Microsoft PowerPoint presentation',
+    'application/xml' => 'XML file',
   );
 
   // Get the theme setting
