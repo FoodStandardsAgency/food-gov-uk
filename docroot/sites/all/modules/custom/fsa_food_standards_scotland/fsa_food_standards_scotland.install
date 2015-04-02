@@ -33,7 +33,9 @@ function fsa_food_standards_scotland_update_7002() {
   // For each query result, unpublish the node.
   foreach ($results as $result) {
     if (!empty($result->nid) && !empty($result->title)) {
-      db_update('node')->fields(array('status' => 0))->condition('nid', $result->nid)->execute();
+      $node = node_load($result->nid);
+      $node->status = 0;
+      node_save($node);
       $maxlength = 50;
       $title = strlen($result->title) > $maxlength ? substr($result->title, 0, $maxlength) . '...' : $result->title;
       echo "Unpublished node " . $result->nid . ' - ' . $title . ' - ' . 'http://www.food.gov.uk/' . $result->alias . PHP_EOL;
