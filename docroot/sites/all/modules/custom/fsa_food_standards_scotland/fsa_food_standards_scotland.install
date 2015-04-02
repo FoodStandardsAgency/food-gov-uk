@@ -1,0 +1,47 @@
+<?php
+/**
+ * @file
+ * Installation, update and uninstall functions for the Food Staudards Scotland
+ * module
+ */
+
+
+/**
+ * Unpublish all nodes with a URL alias /scotland...
+ */
+function fsa_food_standards_scotland_update_7001() {
+
+  // Get existing nodes
+  $query = db_select( 'node', 'n' )
+    ->fields( 'n', array('nid', 'title', 'status'));
+
+  // Left join with the alias table
+  $query->leftJoin( 'url_alias', 'ua', "ua.source = CONCAT('node/', n.nid)");
+
+  // Select only published nodes
+  $query->condition('n.status', 0, '>');
+
+  // Select nodes where the URL alias starts with 'scotland'
+  $query->condition('ua.alias', 'scotland/%', 'like');
+
+  // Get the URL alias field
+  $query->addField('ua', 'alias');
+
+  // Execute the query.
+  $results = $query->execute();
+
+  // For each query result, unpublish the node.
+  foreach ($results as $result) {
+    if (!empty($result->nid) && !empty($result->title)) {
+      db_update('node')->fields(array('status' => 0))->condition('nid', $result->nid)->execute();
+      $maxlength = 50;
+      $title = strlen($result->title) > $maxlength ? substr($result->title, 0, $maxlength) . '...' : $result->title;
+      echo "Unpublished node " . $result->nid . ' - ' . $title . ' - ' . 'http://www.food.gov.uk/' . $result->alias . PHP_EOL;
+    }
+  }
+
+  // Display a finished message.
+  return t('All Scottish nodes unpublished.');
+
+ }
+ 
