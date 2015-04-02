@@ -137,6 +137,7 @@
 	}
 	.l-header-branding {
 		@include grid-span(6,1);
+    margin-bottom: 10px;
 	}
 	.l-header-top-menu {
 		@include grid-span(6,7);
