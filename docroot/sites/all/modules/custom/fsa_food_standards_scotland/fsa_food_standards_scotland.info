@@ -1,0 +1,4 @@
+name = Food Standards Scotland
+description = "Custom module to provide basic functionality for the Food Standards Scotland separation"
+core = 7.x
+package = FSA Custom
