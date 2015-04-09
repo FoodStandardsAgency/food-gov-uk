@@ -214,7 +214,7 @@ function feedback_menu() {
 function feedback_page_build(&$page) {
   if (user_access('access feedback form') && !feedback_match_path(variable_get('feedback_excluded_paths', 'admin/reports/feedback'))) {
    $title = variable_get('feedback_title', 'Feedback');
-   $page['node_inline']['feedback'] = array(
+   $page['page_bottom']['feedback'] = array(
       '#theme' => 'feedback_form_display',
       '#title' => t($title),
       '#content' => drupal_get_form('feedback_form'),
@@ -313,24 +313,11 @@ function feedback_form($form, &$form_state) {
     '#type' => 'textarea',
     '#attributes' => array('class' => array('feedback-message')),
     '#cols' => 20,
-    '#rows' => 1,
-    '#resizable' => FALSE,
+    '#rows' ->
     '#title' => t(variable_get('message_title', 'Message')),
-    '#required' => FALSE,
+    '#required' => TRUE,
     '#wysiwyg' => FALSE,
   );
-
-  $form['message2'] = array(
-    '#type' => 'textarea',
-    '#attributes' => array('class' => array('feedback-message2')),
-    '#cols' => 20,
-    '#rows' => 1,
-    '#resizable' => FALSE,
-    '#title' => t(variable_get('message_title2', 'Message2')),
-    '#required' => FALSE,
-    '#wysiwyg' => FALSE,
-  );
-
 
   $entry = new stdClass();
   field_attach_form('feedback', $entry, $form, $form_state);
@@ -364,7 +351,7 @@ function feedback_form($form, &$form_state) {
 function feedback_form_submit($form, &$form_state) {
   $entry = new stdClass();
   entity_form_submit_build_entity('feedback', $entry, $form, $form_state);
-  $entry->message = "First message: " . $form_state['values']['message'] . " | Second message: " . $form_state['values']['message2'];
+  $entry->message = $form_state['values']['message'];
   $entry->location = $form_state['values']['location'];
   feedback_save($entry);
 

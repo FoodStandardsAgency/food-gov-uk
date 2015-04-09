@@ -8,7 +8,7 @@ Drupal.behaviors.feedbackForm = {
     $('#block-feedback-form', context).once('feedback', function () {
       var $block = $(this);
       $block.find('span.feedback-link')
-        .prepend('<span id="feedback-form-toggle">[ + ]</span> ')
+        .prepend('<span id="feedback-form-toggle"></span> ')
         .css('cursor', 'pointer')
         .toggle(function () {
             Drupal.feedbackFormToggle($block, false);
@@ -49,10 +49,10 @@ Drupal.behaviors.feedbackFormSubmit = {
 Drupal.feedbackFormToggle = function ($block, enable) {
   $block.find('form').slideToggle('medium');
   if (enable) {
-    $('#feedback-form-toggle', $block).html('[ + ]');
+    $('#feedback-form-toggle', $block).html('');
   }
   else {
-    $('#feedback-form-toggle', $block).html('[ &minus; ]');
+    $('#feedback-form-toggle', $block).html('');
   }
 };
 
