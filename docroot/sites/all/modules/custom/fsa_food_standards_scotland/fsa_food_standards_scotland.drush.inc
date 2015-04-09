@@ -11,7 +11,8 @@ function fsa_food_standards_scotland_drush_command() {
       'list' => "List Scotland nodes only without affecting their status: values are true or false",
       'publish' => "Use this option to publish, rather than unpublish Scottish pages.",
       'uri' => 'The base URI to use when constructing URLs. If none supplied, will use http://www.food.gov.uk',
-      'format' => "Format to use for listings, eg table, csv"
+      'format' => "Format to use for listings, eg table, csv",
+      'sort' => "Field on which to sort the results when listing pages",
     ),
   );
 
@@ -29,7 +30,10 @@ function drush_fsa_food_standards_scotland_fsa_scotland_unpublish() {
 
   $publish = drush_get_option('publish');
 
-  $nodes = _fsa_food_standards_scotland_get_scotland_nodes($publish);
+  $sort = drush_get_option('sort');
+  $sort = !empty($sort) ? $sort : 'nid';
+
+  $nodes = _fsa_food_standards_scotland_get_scotland_nodes($publish, $sort);
 
   // If the --list option is provided, we just provide a table of matching
   // nodes, without affecting their status
@@ -111,10 +115,12 @@ function drush_fsa_food_standards_scotland_fsa_scotland_unpublish() {
  *   Determines whether to return published or unpublished nodes
  *   - 1: return unpublished nodes
  *   - 0: return published nodes
+ * @param string $sort
+ *   Field on which to sort the results
  * @return array
  *   Array of node results.
  */
-function _fsa_food_standards_scotland_get_scotland_nodes($publish) {
+function _fsa_food_standards_scotland_get_scotland_nodes($publish, $sort = 'nid') {
 
  // Get existing nodes
   $query = db_select( 'node', 'n' )
@@ -136,6 +142,24 @@ function _fsa_food_standards_scotland_get_scotland_nodes($publish) {
 
   // Get the URL alias field
   $query->addField('ua', 'alias');
+
+  $temp_sort = $sort;
+  $sort = '';
+
+  // Check that any specified sort field corresponds to an actual field.
+  if (!empty($temp_sort)) {
+    foreach ($query->getFields() as $field) {
+      if ($temp_sort == $field['alias'] || $temp_sort == $field['field']) {
+        $sort = $temp_sort;
+      }
+    }
+  }
+
+  // If no sort order is specified, order by nid.
+  $sort = !empty($sort) ? $sort : 'nid';
+
+  // Sort the query results by the specified sort field.
+  $query->orderBy($sort, 'ASC');
 
   // Execute the query.
   $results = $query->execute();
