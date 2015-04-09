@@ -44,7 +44,7 @@ function drush_fsa_food_standards_scotland_fsa_scotland_unpublish() {
       $status = $format == 'csv' ? $node->status : $node->status . '    ';
       $rows[] = array(
         $node->nid,
-        $node->title,
+        trim($node->title),
         $status,
         $node->alias,
       );
