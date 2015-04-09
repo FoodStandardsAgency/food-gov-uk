@@ -33,6 +33,9 @@ function drush_fsa_food_standards_scotland_fsa_scotland_unpublish() {
   $sort = drush_get_option('sort');
   $sort = !empty($sort) ? $sort : 'nid';
 
+  // Set the base URI to use when constructing URLs.
+  $uri = drush_get_option('uri');
+
   $nodes = _fsa_food_standards_scotland_get_scotland_nodes($publish, $sort);
 
   // If the --list option is provided, we just provide a table of matching
@@ -46,11 +49,12 @@ function drush_fsa_food_standards_scotland_fsa_scotland_unpublish() {
     foreach ($nodes as $node) {
       // We pad the status field in table mode to make the header appear right.
       $status = $format == 'csv' ? $node->status : $node->status . '    ';
+      $alias = !empty($uri) ? "$uri/" . $node->alias : $node->alias;
       $rows[] = array(
         $node->nid,
         trim($node->title),
         $status,
-        $node->alias,
+        $alias,
       );
     }
 
@@ -88,8 +92,7 @@ function drush_fsa_food_standards_scotland_fsa_scotland_unpublish() {
       drush_user_abort('Operation cancelled');
     }
 
-    // Set the base URI to use when constructing URLs.
-    $uri = drush_get_option('uri');
+    // Set default URI if none specified.
     $uri = !empty($uri) ? $uri : 'http://www.food.gov.uk/';
 
     foreach ($nodes as $node) {
