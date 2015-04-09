@@ -11,6 +11,7 @@ function fsa_food_standards_scotland_drush_command() {
       'list' => "List Scotland nodes only without affecting their status: values are true or false",
       'publish' => "Use this option to publish, rather than unpublish Scottish pages.",
       'uri' => 'The base URI to use when constructing URLs. If none supplied, will use http://www.food.gov.uk',
+      'format' => "Format to use for listings, eg table, csv"
     ),
   );
 
@@ -33,16 +34,44 @@ function drush_fsa_food_standards_scotland_fsa_scotland_unpublish() {
   // If the --list option is provided, we just provide a table of matching
   // nodes, without affecting their status
   if ($list) {
-    $rows = array(array(dt('Nid'), dt('Title'), dt('Status'), dt('Alias')));
+    // Get the format. We'll assume table as default.
+    $format = drush_get_option('format');
+    $format = !empty($format) ? $format : 'table';
+    $headings = array(dt('Nid'), dt('Title'), dt('Status'), dt('Alias'));
+    $rows = array($headings);
     foreach ($nodes as $node) {
+      // We pad the status field in table mode to make the header appear right.
+      $status = $format == 'csv' ? $node->status : $node->status . '    ';
       $rows[] = array(
         $node->nid,
         $node->title,
-        $node->status,
+        $status,
         $node->alias,
       );
     }
-    drush_print_table($rows, TRUE);
+
+    // Output in CSV format if specified with the --format=csv option.
+    if ($format == 'csv') {
+      // Open the output stream
+      $fh = fopen('php://output', 'w');
+
+      // Start output buffering (to capture stream contents)
+      ob_start();
+
+      foreach ($rows as $item) {
+        fputcsv($fh, $item);
+      }
+
+      $string = ob_get_clean();
+      drush_print($string);
+
+    }
+
+    // Output in table format (default)
+    else {
+      drush_print_table($rows, TRUE);
+    }
+
   }
 
   // Publish or unpublish the selected nodes based on the --publish option.
