@@ -159,11 +159,21 @@
 		
       </div> <!-- end main-inner -->
 
+
     </div> <!-- end main -->
 
-<?php print render($page['node_inline']); ?>
-	
+    <?php if (!empty($page['node_inline'])): ?>
+    <div class="feedback-form-wrapper">
+      <div class="feedback-form-wrapper-inner">
+        <div class="l-feedback-form">
+          <?php print render($page['node_inline']); ?>
+        </div>
+      </div>
+    </div>
+    <?php endif; ?>
+
   </div> <!-- end main-wrapper -->
+
 
 
   <div class="bottom-menu-wrapper">
