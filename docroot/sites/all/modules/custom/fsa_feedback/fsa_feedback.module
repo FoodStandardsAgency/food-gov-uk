@@ -30,3 +30,16 @@ function fsa_feedback_page_build(&$page) {
   );
 
 }
+
+
+
+/**
+ * Implements hook_form_alter().
+ */
+function fsa_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
+  // Wrap the feedback form in a div and add a class. This will implement
+  // styling as seen on other FSA forms.
+  $form['#prefix'] = '<div class="grey-container-block">';
+  $form['#suffix'] = '</div>';
+  $form['#attributes']['class'][] = 'custom-block-inner';
+}
