@@ -18,6 +18,17 @@ define('FSA_FEEDBACK_REGION', 'node_inline');
  */
 function fsa_feedback_page_build(&$page) {
 
+  // If page_bottom is empty or doesn't contain the 'feedback' element, exit.
+  if (empty($page['page_bottom']) || empty($page['page_bottom']['feedback'])) {
+    return;
+  }
+
+  // Move the feedback element from page_bottom to FSA_FEEDBACK_REGION.
+  $page[FSA_FEEDBACK_REGION]['feedback'] = $page['page_bottom']['feedback'];
+
+  // Unset 'feedback' in 'page_bottom'.
+  unset($page['page_bottom']['feedback']);
+
   // First check that the feedback element exists. If not, exit now.
   if (empty($page[FSA_FEEDBACK_REGION]['feedback'])) {
     return;
