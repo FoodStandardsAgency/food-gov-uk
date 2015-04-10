@@ -29,6 +29,12 @@ function fsa_feedback_page_build(&$page) {
     'weight' => 100,
   );
 
+  // Add a custom JavaScript file and make sure it comes after the contrib one.
+  $page[FSA_FEEDBACK_REGION]['feedback']['#attached']['js'][drupal_get_path('module', 'fsa_feedback') . '/js/fsa-feedback.js'] = array(
+    'group' => 'theme',
+    'weight' => 100,
+  );
+
 }
 
 
