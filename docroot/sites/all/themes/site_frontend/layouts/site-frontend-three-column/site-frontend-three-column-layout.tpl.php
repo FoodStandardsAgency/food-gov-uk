@@ -140,6 +140,9 @@
 	            <ul class="action-links"><?php print render($action_links); ?></ul>
 	          <?php endif; ?>
 	          <?php print render($page['content']); ?>
+            <?php if (!empty($page['content_bottom'])): ?>
+              <?php print render($page['content_bottom']); ?>
+            <?php endif; ?>
 	          <?php print $feed_icons; ?>
 
           </div> <!-- end main-content-inner -->
@@ -160,6 +163,8 @@
       </div> <!-- end main-inner -->
     </div> <!-- end main -->
   </div> <!-- end main-wrapper -->
+  
+  
 
 
   <div class="bottom-menu-wrapper">
