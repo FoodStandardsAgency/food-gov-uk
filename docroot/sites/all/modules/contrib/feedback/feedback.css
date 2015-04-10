@@ -19,7 +19,7 @@
 
 #block-feedback-form {
   display: none;
-#  position: fixed;
+  position: fixed;
   bottom: 60px;
   right: 20px;
   overflow: hidden;
@@ -27,7 +27,7 @@
 }
 /* IE6 seems to be unable to handle fixed */
 * html #block-feedback-form {
-# position: absolute;
+  position: absolute;
 }
 #block-feedback-form .feedback-link {
   padding: 0.3em 0;
@@ -39,17 +39,15 @@
   font-size: 12px;
 }
 #block-feedback-form form {
- # border: 1px solid #ccc;
+  border: 1px solid #ccc;
   padding: 6px;
   background-color: #fff;
   opacity: 0.9;
-  max-width: 50%;
- # max-width: 300px;
+  max-width: 300px;
 }
 /* IE6 doesn't support max-width. */
 * html #block-feedback-form form {
-#  width: 300px;
-  width: 50%;
+  width: 300px;
 }
 #block-feedback-form .feedback-help {
   margin: 0 0 0.5em;
@@ -62,28 +60,15 @@
   box-sizing: border-box;
   max-width: 100%;
 }
-
-#block-feedback-form input[type="text"]:focus {
-    outline: none !important;
-    border-color: #CE9E71;
-    box-shadow: 0 0 10px #CE9E71;
-}
-
-
-
 #block-feedback-form .form-actions {
   margin: 1em 0 0;
   padding: 0;
 }
 
 /* Ajax interaction styles */
-#block-feedback-form .feedback-message .feedback-message2 {
-  height: 4ex;
+#block-feedback-form .feedback-message {
+  height: 10ex;
 }
-
-
-
-
 #block-feedback-form .ajax-progress .throbber {
   background: transparent url(images/throbber.gif) no-repeat left center;
   height: 16px;
