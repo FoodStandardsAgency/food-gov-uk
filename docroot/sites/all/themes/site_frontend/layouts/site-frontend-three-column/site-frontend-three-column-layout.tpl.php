@@ -158,7 +158,11 @@
 		</div> <!-- end l-sidebar-first -->
 		
       </div> <!-- end main-inner -->
+
     </div> <!-- end main -->
+
+<?php print render($page['node_inline']); ?>
+	
   </div> <!-- end main-wrapper -->
 
 

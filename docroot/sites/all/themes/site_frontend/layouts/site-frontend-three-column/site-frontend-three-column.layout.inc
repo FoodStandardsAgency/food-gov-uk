@@ -18,6 +18,7 @@ regions[system_help] = System Help
 regions[content] = Content
 regions[sidebar_first] = First Sidebar
 regions[sidebar_second] = Second Sidebar
+regions[node_inline] = Node inline
 regions[bottom_menu] = Bottom Menu
 regions[footer_copyright] = Footer Copyright
 regions[footer_menu] = Footer Menu
