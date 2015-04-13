@@ -113,3 +113,16 @@ function fsa_feedback_form_submit($form, &$form_state) {
   // Set the `message` element that will be saved to the database.
   $form_state['values']['message'] = $message;
 }
+
+/**
+ * Implements template_preprocess_feedback_form_display().
+ *
+ * @param array $variables
+ *   Template variables, passed by reference. Includes:
+ *   - title: The title to be displayed above the feedback form.
+ *   - content: The content to be displayed in the feedback form.
+ */
+function fsa_feedback_preprocess_feedback_form_display(&$variables) {
+  // Change the title displayed above the feedback form.
+  $variables['title'] = t('Is there anything wrong with this page?');
+}
