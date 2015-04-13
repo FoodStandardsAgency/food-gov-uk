@@ -6,7 +6,7 @@
         var $block = $(this);
         var $formContainer = $block.find('.grey-container-block');
         $formContainer.addClass('no-border');
-        $block.find('span.feedback-link').toggle(function () {
+        $block.find('span.feedback-link').css('text-decoration', 'underline').toggle(function () {
               Drupal.fsaFeedbackFormToggle($block, false);
             },
             function() {
