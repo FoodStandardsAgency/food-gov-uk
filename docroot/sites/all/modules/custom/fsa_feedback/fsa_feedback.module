@@ -59,4 +59,28 @@ function fsa_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
   $form['#prefix'] = '<div class="grey-container-block">';
   $form['#suffix'] = '</div>';
   $form['#attributes']['class'][] = 'custom-block-inner';
+
+  // Unset the default 'message' element.
+  unset($form['message']);
+
+  // Add a new element for the 'what you were doing' field.
+  $form['doing'] = array(
+    '#type' => 'textarea',
+    '#attributes' => array('class' => array('feedback-message')),
+    '#cols' => 20,
+    '#title' => t('What you were doing'),
+    '#required' => TRUE,
+    '#wysiwyg' => FALSE,
+  );
+
+  // Add a new element for the 'What went wrong' field.
+  $form['wrong'] = array(
+    '#type' => 'textarea',
+    '#attributes' => array('class' => array('feedback-message')),
+    '#cols' => 20,
+    '#title' => t('What went wrong'),
+    '#required' => TRUE,
+    '#wysiwyg' => FALSE,
+  );
+
 }
