@@ -9,6 +9,12 @@
  */
 define('FSA_FEEDBACK_REGION', 'node_inline');
 
+/**
+ * Define the message separator. This will be used to combine the two fields
+ * submitted via the form into the message element that will be saved.
+ */
+define('FSA_FEEDBACK_MESSAGE_SEPARATOR', '||||');
+
 
 /**
  * Implements hook_page_build().
@@ -83,4 +89,27 @@ function fsa_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
     '#wysiwyg' => FALSE,
   );
 
+  // Add our submit function before the existing one.
+  array_unshift($form['#submit'], 'fsa_feedback_form_submit');
+
+}
+
+
+/**
+ * Additional submit handler for the feedback form.
+ *
+ * @param array $form
+ *   The form array.
+ *
+ * @param array $form_state
+ *   The form state, including submitted values. (Passed by reference).
+ */
+function fsa_feedback_form_submit($form, &$form_state) {
+  // Build the message from the `doing` and `wrong` field values.
+  $doing = !empty($form_state['values']['doing']) ? $form_state['values']['doing'] : NULL;
+  $wrong = !empty($form_state['values']['wrong']) ? $form_state['values']['wrong'] : NULL;
+  $message = !empty($doing) ? $doing . FSA_FEEDBACK_MESSAGE_SEPARATOR : '';
+  $message = !empty($wrong) ? "$message$wrong" : '';
+  // Set the `message` element that will be saved to the database.
+  $form_state['values']['message'] = $message;
 }
