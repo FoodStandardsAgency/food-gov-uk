@@ -1,0 +1,19 @@
+#block-feedback-form {
+  display: block;
+  margin-bottom: 23px;
+  position: static;
+}
+
+#block-feedback-form .grey-container-block.no-border {
+  border: none !important;
+}
+
+#block-feedback-form form {
+  border: none;
+  max-width: initial;
+  padding: 17px;
+}
+
+#feedback-form-toggle {
+  display: none !important;
+}

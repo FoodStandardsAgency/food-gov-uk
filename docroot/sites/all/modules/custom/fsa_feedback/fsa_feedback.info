@@ -1,0 +1,5 @@
+name = FSA Feedback
+description = "Enhanced feedback module for the FSA website. Provides additional functionality and formatting for the contrib Feedback module."
+core = 7.x
+package = Development
+dependencies[] = feedback

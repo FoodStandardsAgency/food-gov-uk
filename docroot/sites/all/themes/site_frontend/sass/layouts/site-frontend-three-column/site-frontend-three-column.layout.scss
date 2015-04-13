@@ -24,6 +24,9 @@
 .l-footer {
 	overflow: hidden;
 }
+.feedback-form-wrapper-inner {
+  overflow: hidden;
+}
 .footer-top {
 	overflow: hidden;
 } 
@@ -52,7 +55,8 @@
 .l-preface,
 .l-main,
 .bottom-menu-wrapper-inner,
-.l-footer {
+.l-footer,
+.feedback-form-wrapper-inner {
 	width: 960px;		/* we are using border box plugin so padding will not increase the width of the box */
 	padding-left: 6px;
 	padding-right: 6px;
@@ -129,7 +133,8 @@
 	.l-preface,
 	.l-main,
 	.bottom-menu-wrapper-inner,
-	.l-footer {
+	.l-footer,
+  .feedback-form-wrapper-inner {
 		width: 100%;		/* we are using border box plugin so padding will not increase the width of the box */
 		padding-left: 6px;
 		padding-right: 6px;
@@ -239,7 +244,8 @@
 	.l-preface,
 	.l-main,
 	.bottom-menu-wrapper-inner,
-	.l-footer {
+	.l-footer,
+  .feedback-form-wrapper-inner {
 		width: auto;
 		padding-left: 6px;
 		padding-right: 6px;

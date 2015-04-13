@@ -1,0 +1,115 @@
+<?php
+/**
+ * @file
+ * Module code for the FSA feedback module.
+ */
+
+/**
+ * Set the region in which the feedback form will appear.
+ */
+define('FSA_FEEDBACK_REGION', 'node_inline');
+
+/**
+ * Define the message separator. This will be used to combine the two fields
+ * submitted via the form into the message element that will be saved.
+ */
+define('FSA_FEEDBACK_MESSAGE_SEPARATOR', '||||');
+
+
+/**
+ * Implements hook_page_build().
+ *
+ * @param $page
+ *   Nested array of renderable elements that make up the page.
+ */
+function fsa_feedback_page_build(&$page) {
+
+  // If page_bottom is empty or doesn't contain the 'feedback' element, exit.
+  if (empty($page['page_bottom']) || empty($page['page_bottom']['feedback'])) {
+    return;
+  }
+
+  // Move the feedback element from page_bottom to FSA_FEEDBACK_REGION.
+  $page[FSA_FEEDBACK_REGION]['feedback'] = $page['page_bottom']['feedback'];
+
+  // Unset 'feedback' in 'page_bottom'.
+  unset($page['page_bottom']['feedback']);
+
+  // First check that the feedback element exists. If not, exit now.
+  if (empty($page[FSA_FEEDBACK_REGION]['feedback'])) {
+    return;
+  }
+
+  // Add the custom CSS file and make sure it comes after the contrib one.
+  $page[FSA_FEEDBACK_REGION]['feedback']['#attached']['css'][drupal_get_path('module', 'fsa_feedback') . '/fsa-feedback.css'] = array(
+    'group' => 'theme',
+    'weight' => 100,
+  );
+
+  // Add a custom JavaScript file and make sure it comes after the contrib one.
+  $page[FSA_FEEDBACK_REGION]['feedback']['#attached']['js'][drupal_get_path('module', 'fsa_feedback') . '/js/fsa-feedback.js'] = array(
+    'group' => 'theme',
+    'weight' => 100,
+  );
+
+}
+
+
+
+/**
+ * Implements hook_form_alter().
+ */
+function fsa_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
+  // Wrap the feedback form in a div and add a class. This will implement
+  // styling as seen on other FSA forms.
+  $form['#prefix'] = '<div class="grey-container-block">';
+  $form['#suffix'] = '</div>';
+  $form['#attributes']['class'][] = 'custom-block-inner';
+
+  // Unset the default 'message' element.
+  unset($form['message']);
+
+  // Add a new element for the 'what you were doing' field.
+  $form['doing'] = array(
+    '#type' => 'textarea',
+    '#attributes' => array('class' => array('feedback-message')),
+    '#cols' => 20,
+    '#title' => t('What you were doing'),
+    '#required' => TRUE,
+    '#wysiwyg' => FALSE,
+  );
+
+  // Add a new element for the 'What went wrong' field.
+  $form['wrong'] = array(
+    '#type' => 'textarea',
+    '#attributes' => array('class' => array('feedback-message')),
+    '#cols' => 20,
+    '#title' => t('What went wrong'),
+    '#required' => TRUE,
+    '#wysiwyg' => FALSE,
+  );
+
+  // Add our submit function before the existing one.
+  array_unshift($form['#submit'], 'fsa_feedback_form_submit');
+
+}
+
+
+/**
+ * Additional submit handler for the feedback form.
+ *
+ * @param array $form
+ *   The form array.
+ *
+ * @param array $form_state
+ *   The form state, including submitted values. (Passed by reference).
+ */
+function fsa_feedback_form_submit($form, &$form_state) {
+  // Build the message from the `doing` and `wrong` field values.
+  $doing = !empty($form_state['values']['doing']) ? $form_state['values']['doing'] : NULL;
+  $wrong = !empty($form_state['values']['wrong']) ? $form_state['values']['wrong'] : NULL;
+  $message = !empty($doing) ? $doing . FSA_FEEDBACK_MESSAGE_SEPARATOR : '';
+  $message = !empty($wrong) ? "$message$wrong" : '';
+  // Set the `message` element that will be saved to the database.
+  $form_state['values']['message'] = $message;
+}
