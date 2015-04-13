@@ -15,6 +15,11 @@ define('FSA_FEEDBACK_REGION', 'node_inline');
  */
 define('FSA_FEEDBACK_MESSAGE_SEPARATOR', '||||');
 
+/**
+ * Default feedback title.
+ */
+define('FSA_FEEDBACK_DEFAULT_FEEDBACK_TITLE', 'Is there anything wrong with this page?');
+
 
 /**
  * Implements hook_page_build().
@@ -66,6 +71,30 @@ function fsa_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
   $form['#suffix'] = '</div>';
   $form['#attributes']['class'][] = 'custom-block-inner';
 
+  // Create a form heading element. The value comes from the variable
+  // `fsa_feedback_form_heading`, which is user-editable via the feedback
+  // admin form.
+  $heading = variable_get('fsa_feedback_form_heading');
+  if (!empty($heading)) {
+    $form['heading'] = array(
+      '#type' => 'html_tag',
+      '#tag' => 'h3',
+      '#value' => t('Help us improve food.gov.uk'),
+      '#weight' => -11,
+    );
+  }
+
+  // Get variable that holds the 'help' text.
+  $help = variable_get('fsa_feedback_form_help');
+  if (!empty($help)) {
+    $form['help']['#markup'] = variable_get('fsa_feedback_form_help');
+  }
+  else {
+    unset($form['help']);
+  }
+
+
+
   // Unset the default 'message' element.
   unset($form['message']);
 
@@ -74,7 +103,8 @@ function fsa_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
     '#type' => 'textarea',
     '#attributes' => array('class' => array('feedback-message')),
     '#cols' => 20,
-    '#title' => t('What you were doing'),
+    //'#title' => t('What you were doing'),
+    '#title' => variable_get('fsa_feedback_message_field1_label', t('What you were doing')),
     '#required' => TRUE,
     '#wysiwyg' => FALSE,
   );
@@ -84,7 +114,7 @@ function fsa_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
     '#type' => 'textarea',
     '#attributes' => array('class' => array('feedback-message')),
     '#cols' => 20,
-    '#title' => t('What went wrong'),
+    '#title' => variable_get('fsa_feedback_message_field2_label', t('What went wrong')),
     '#required' => TRUE,
     '#wysiwyg' => FALSE,
   );
@@ -124,5 +154,62 @@ function fsa_feedback_form_submit($form, &$form_state) {
  */
 function fsa_feedback_preprocess_feedback_form_display(&$variables) {
   // Change the title displayed above the feedback form.
-  $variables['title'] = t('Is there anything wrong with this page?');
+  $variables['title'] = variable_get('feedback_title', FSA_FEEDBACK_DEFAULT_FEEDBACK_TITLE);
+}
+
+
+/**
+ * Implements hook_form_alter().
+ */
+function fsa_feedback_form_feedback_admin_settings_form_alter(&$form, &$form_state, $form_id) {
+
+// Text for the feedback form link
+  $form['feedback_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Feedback link'),
+    '#size' => 40,
+    '#maxlength' => 128,
+    '#default_value' => variable_get('feedback_title', FSA_FEEDBACK_DEFAULT_FEEDBACK_TITLE),
+    '#description' => t("Specify the title that will appear on the feedback form. Defaults to %feedback_title", array('%feedback_title' => FSA_FEEDBACK_DEFAULT_FEEDBACK_TITLE)),
+  );
+
+  // Text for the feedback form heading
+  $form['fsa_feedback_form_heading'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Feedback form heading'),
+    '#size' => 40,
+    '#maxlength' => 128,
+    '#default_value' => variable_get('fsa_feedback_form_heading'),
+    '#description' => t("Specify a heading to appear at the top of the feedback form."),
+  );
+
+  // Label for the first field on the feedback form.
+  $form['fsa_feedback_message_field1_label'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Message Label'),
+    '#size' => 40,
+    '#maxlength' => 128,
+    '#default_value' => variable_get('fsa_feedback_message_field1_label', 'What you were doing'),
+    '#description' => t("Specify the label that will appear on the feedback form. Defaults to 'What you were doing'"),
+  );
+
+  // Label for the second field on the feedback form.
+  $form['fsa_feedback_message_field2_label'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Second Message Label'),
+    '#size' => 40,
+    '#maxlength' => 128,
+    '#default_value' => variable_get('fsa_feedback_message_field2_label', 'What went wrong'),
+    '#description' => t("Specify the second label that will appear on the feedback form. Defaults to 'What went wrong'"),
+  );
+
+  // Help text to appear at the top of the feedback form.
+  $form['fsa_feedback_form_help'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Intro text'),
+    '#size' => 40,
+    '#maxlength' => 128,
+    '#default_value' => variable_get('fsa_feedback_form_help'),
+    '#description' => t("Specify the text that will appear at the top of the feedback form."),
+  );
 }
