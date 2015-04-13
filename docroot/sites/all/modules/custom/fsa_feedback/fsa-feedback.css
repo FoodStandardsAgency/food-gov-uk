@@ -13,3 +13,7 @@
   max-width: initial;
   padding: 17px;
 }
+
+#feedback-form-toggle {
+  display: none !important;
+}
