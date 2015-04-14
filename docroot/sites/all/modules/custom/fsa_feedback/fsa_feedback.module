@@ -292,6 +292,12 @@ function template_preprocess_feedback_message(&$variables) {
  * Implements hook_form_FORMID_alter()
  */
 function fsa_feedback_form_feedback_admin_view_form_alter(&$form, &$form_state, $form_id) {
+
+  $form['#attached']['css'][drupal_get_path('module', 'fsa_feedback') . '/fsa-feedback.css'] = array(
+    'group' => 'theme',
+    'weight' => 100,
+  );
+
   // We use this function to add a view link to each feedback entry.
   $feedback_messages = $form['feedback-messages'];
   $statuses = array(FEEDBACK_OPEN, FEEDBACK_PROCESSED);
@@ -328,5 +334,17 @@ function fsa_feedback_preprocess_feedback_entry(&$variables) {
     return;
   }
   $variables['browser'] = $entry['browser'];
+  // Change the browser variable to standard markup.
+  unset($variables['browser']['#attributes']);
+  unset($variables['browser']['#theme']);
+  // Unset the default browser content element.
   unset($variables['content']['browser']);
+
+  $variables['content']['#attached']['css'][drupal_get_path('module', 'fsa_feedback') . '/fsa-feedback.css'] = array(
+    'group' => 'theme',
+    'weight' => 100,
+  );
+
+
+
 }
