@@ -101,8 +101,6 @@ function facets_select_facetapi_select_facet_form_alter(&$form, $form_state, $op
 function theme_facets_select_facetapi_widget_links($variables) {
   $element = $variables['element'];
   $build = $element['#build'];
-  $widget = $element['#widget'];
-  $widget_build = $widget->getBuild();
   $output = '';
 
   if ($options = facets_select_facetapi_link_options($build, t('anytime'))) {
@@ -120,6 +118,7 @@ function facets_select_create_select($options, $title) {
   $select = element_info('select');
   $select['#title'] = $title;
   $select['#options'] = $options;
+  $select['#id'] = 'search-by-date';
   $output .= render($select);
   $output .= '</div>';
   return $output;
