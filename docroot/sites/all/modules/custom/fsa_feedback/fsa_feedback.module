@@ -41,7 +41,6 @@ function fsa_feedback_page_build(&$page) {
 
   // Move the feedback element from page_bottom to FSA_FEEDBACK_REGION.
   $page[FSA_FEEDBACK_REGION]['feedback'] = $page['page_bottom']['feedback'];
-  //dpm($page[FSA_FEEDBACK_REGION]['feedback']);
   $page[FSA_FEEDBACK_REGION]['feedback']['#weight'] = 100;
 
   // Unset 'feedback' in 'page_bottom'.
@@ -135,18 +134,27 @@ function fsa_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
 /**
  * Additional submit handler for the feedback form.
  *
+ * This handler is used by the public feedback form and also by the feeback
+ * entry edit form.
+ *
  * @param array $form
  *   The form array.
  *
  * @param array $form_state
  *   The form state, including submitted values. (Passed by reference).
+ *
+ * @see fsa_feedback_form_feedback_entry_form_alter().
+ * @see fsa_feedback_form_feedback_form_alter().
  */
 function fsa_feedback_form_submit($form, &$form_state) {
   // Build the message from the `doing` and `wrong` field values.
   $doing = !empty($form_state['values']['doing']) ? $form_state['values']['doing'] : NULL;
   $wrong = !empty($form_state['values']['wrong']) ? $form_state['values']['wrong'] : NULL;
-  $message = !empty($doing) ? $doing . FSA_FEEDBACK_MESSAGE_SEPARATOR : '';
-  $message = !empty($wrong) ? "$message$wrong" : '';
+  $message = !empty($doing) ? $doing : '';
+  if (!empty($message) && !empty($wrong)) {
+    $message .= FSA_FEEDBACK_MESSAGE_SEPARATOR;
+  }
+  $message = !empty($wrong) ? "$message$wrong" : $message;
   // Set the `message` element that will be saved to the database.
   $form_state['values']['message'] = $message;
 }
@@ -346,5 +354,85 @@ function fsa_feedback_preprocess_feedback_entry(&$variables) {
   );
 
 
+
+}
+
+/**
+ * Implements hook_form_FORMID_alter().
+ */
+function fsa_feedback_form_feedback_entry_form_alter(&$form, &$form_state, $form_id) {
+
+  // Act only on the feedback entry form.
+  if ($form_id != 'feedback_entry_form') {
+    return;
+  }
+
+  // Ge the message.
+  $message = $form['message']['#default_value'];
+
+  // Add the 'What you were doing' field.
+  $form['doing'] = array(
+    '#type' => 'textarea',
+    '#title' => t('What you were doing'),
+    '#required' => TRUE,
+    '#wysiwyg' => FALSE,
+    '#default_value' => _fsa_feedback_split_message($message, 'doing'),
+  );
+
+  // Add the 'What went wrong' field.
+  $form['wrong'] = array(
+    '#type' => 'textarea',
+    '#title' => t('What went wrong'),
+    '#required' => FALSE,
+    '#wysiwyg' => FALSE,
+    '#default_value' => _fsa_feedback_split_message($message, 'wrong'),
+  );
+
+  // Remove the default message field.
+  unset($form['message']);
+
+  // Add our submit function before the existing one.
+  array_unshift($form['#submit'], 'fsa_feedback_form_submit');
+
+}
+
+/**
+ * Helper function to return a part of a feedback message.
+ *
+ * @param string $message
+ *   The full feedback message as stored in the database.
+ *
+ * @param string $field
+ *   The 'field' or part of the message to return. Acceptable values are:
+ *   - 'doing' : The 'What you were doing' part of the message
+ *   - 'wrong' : The 'What went wrong' part of the message
+ *
+ * @return string
+ *   The requested part of the message.
+ */
+function _fsa_feedback_split_message($message, $field = 'doing') {
+
+  // If no message is specified, return an empty string.
+  if (empty($message)) {
+    return '';
+  }
+
+  // An array of possible fields.
+  $fields = array('doing', 'wrong');
+
+  // Is the specified field one of our set? If not, return the message as is.
+  $field_index = array_search($field, $fields);
+  if ($field_index === FALSE) {
+    return $message;
+  }
+
+  // Split the message into an array on the separator.
+  $message_array = explode(FSA_FEEDBACK_MESSAGE_SEPARATOR, $message);
+
+  // Make sure that the field index is inside the range of the message array.
+  $message = $field_index < count($message_array) ? $message_array[$field_index] : '';
+
+  // Return the message
+  return $message;
 
 }
