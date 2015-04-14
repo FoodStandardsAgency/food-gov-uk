@@ -7,7 +7,7 @@
 /**
  * Set the region in which the feedback form will appear.
  */
-define('FSA_FEEDBACK_REGION', 'node_inline');
+define('FSA_FEEDBACK_REGION', 'content');
 
 /**
  * Define the message separator. This will be used to combine the two fields
@@ -19,6 +19,11 @@ define('FSA_FEEDBACK_MESSAGE_SEPARATOR', '||||');
  * Default feedback title.
  */
 define('FSA_FEEDBACK_DEFAULT_FEEDBACK_TITLE', 'Is there anything wrong with this page?');
+
+/**
+ * Show previous messages on feedback form?
+ */
+define('FSA_FEEDBACK_SHOW_MESSAGES_ON_FEEDBACK_FORM', FALSE);
 
 
 /**
@@ -36,6 +41,8 @@ function fsa_feedback_page_build(&$page) {
 
   // Move the feedback element from page_bottom to FSA_FEEDBACK_REGION.
   $page[FSA_FEEDBACK_REGION]['feedback'] = $page['page_bottom']['feedback'];
+  //dpm($page[FSA_FEEDBACK_REGION]['feedback']);
+  $page[FSA_FEEDBACK_REGION]['feedback']['#weight'] = 100;
 
   // Unset 'feedback' in 'page_bottom'.
   unset($page['page_bottom']['feedback']);
@@ -153,6 +160,10 @@ function fsa_feedback_form_submit($form, &$form_state) {
  *   - content: The content to be displayed in the feedback form.
  */
 function fsa_feedback_preprocess_feedback_form_display(&$variables) {
+  // Don't display previous feedback submissions.
+  if (!empty($variables['content']['messages']) && !FSA_FEEDBACK_SHOW_MESSAGES_ON_FEEDBACK_FORM) {
+    unset($variables['content']['messages']);
+  }
   // Change the title displayed above the feedback form.
   $variables['title'] = variable_get('feedback_title', FSA_FEEDBACK_DEFAULT_FEEDBACK_TITLE);
 }
@@ -212,4 +223,128 @@ function fsa_feedback_form_feedback_admin_settings_form_alter(&$form, &$form_sta
     '#default_value' => variable_get('fsa_feedback_form_help'),
     '#description' => t("Specify the text that will appear at the top of the feedback form."),
   );
+}
+
+function fsa_feedback_feedback_view($entry, $view_mode, $langcode) {
+  // In list mode, where the view_mode is 'teaser', we hide the browser version
+  // information as it's not that useful here.
+  if ($view_mode == 'teaser') {
+    unset($entry->content['browser']);
+  }
+  $entry->content['message'] = array(
+    '#theme' => 'feedback_message',
+    '#message' => $entry->content['message'],
+    '#view_mode' => $view_mode,
+  );
+}
+
+/**
+ * Implements hook_theme().
+ */
+function fsa_feedback_theme() {
+  return array(
+    'feedback_message' => array(
+      'template' => 'theme/feedback-message',
+      'variables' => array(
+        'message' => NULL,
+        'view_mode' => 'teaser',
+      ),
+    ),
+  );
+}
+
+/**
+ * Preprocess function for feedback messages.
+ */
+function template_preprocess_feedback_message(&$variables) {
+  $message = !empty($variables['message']) ? $variables['message'] : NULL;
+  $view_mode = !empty($variables['view_mode']) ? $variables['view_mode'] : 'full';
+
+  if (!empty($message['#markup'])) {
+    $message_array = explode(FSA_FEEDBACK_MESSAGE_SEPARATOR, $message['#markup']);
+    if (count($message_array) > 0) {
+      //$variables['doing'] = $message_array[0];
+      if ($view_mode == 'teaser') {
+        $variables['doing'] = truncate_utf8($message_array[0], 100, TRUE, TRUE, 1);
+      }
+      else {
+        $variables['doing'] = $message_array[0];
+      }
+    }
+    else {
+      $variables['doing'] = NULL;
+    }
+    if (count($message_array) > 1) {
+      if ($view_mode == 'teaser') {
+        $variables['wrong'] = truncate_utf8($message_array[1], 100, TRUE, TRUE, 1);
+      }
+      else {
+        $variables['wrong'] = $message_array[1];
+      }
+    }
+    else {
+      $variables['wrong'] = NULL;
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORMID_alter()
+ */
+function fsa_feedback_form_feedback_admin_view_form_alter(&$form, &$form_state, $form_id) {
+
+  $form['#attached']['css'][drupal_get_path('module', 'fsa_feedback') . '/fsa-feedback.css'] = array(
+    'group' => 'theme',
+    'weight' => 100,
+  );
+
+  // We use this function to add a view link to each feedback entry.
+  $feedback_messages = $form['feedback-messages'];
+  $statuses = array(FEEDBACK_OPEN, FEEDBACK_PROCESSED);
+  $messages = array();
+  foreach ($statuses as $status) {
+    foreach ($form['feedback-messages'][$status] as $fid => $entry) {
+      if (is_numeric($fid)) {
+        if (!empty($entry['operations']) && !empty($entry['operations']['#links'])) {
+          $form['feedback-messages'][$status][$fid]['operations']['#links']['view'] = array(
+            'title' => t('view'),
+            'href' => "admin/reports/feedback/$fid",
+          );
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function fsa_feedback_theme_registry_alter(&$theme_registry) {
+  if (!empty($theme_registry['feedback_entry'])) {
+    $theme_registry['feedback_entry']['template'] = drupal_get_path('module', 'fsa_feedback') . '/theme/feedback-entry';
+  }
+}
+
+/**
+ * Implements template_preprocess_feedback_entry().
+ */
+function fsa_feedback_preprocess_feedback_entry(&$variables) {
+  $entry = !empty($variables['elements']) ? $variables['elements'] : NULL;
+  if (empty($entry)) {
+    return;
+  }
+  $variables['browser'] = $entry['browser'];
+  // Change the browser variable to standard markup.
+  unset($variables['browser']['#attributes']);
+  unset($variables['browser']['#theme']);
+  // Unset the default browser content element.
+  unset($variables['content']['browser']);
+
+  $variables['content']['#attached']['css'][drupal_get_path('module', 'fsa_feedback') . '/fsa-feedback.css'] = array(
+    'group' => 'theme',
+    'weight' => 100,
+  );
+
+
+
 }

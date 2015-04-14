@@ -17,3 +17,17 @@
 #feedback-form-toggle {
   display: none !important;
 }
+
+.feedback-entry .field {
+  margin-bottom: 5px;
+}
+
+.feedback-entry-detail {
+  border-bottom: 1px solid #dddddd;
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+}
+
+.feedback-messages table td {
+  vertical-align: baseline;
+}
