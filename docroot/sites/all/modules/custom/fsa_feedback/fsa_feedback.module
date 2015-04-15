@@ -448,7 +448,7 @@ function fsa_feedback_menu() {
   // Process an item of feedback - mark as processed/open.
   $items['admin/reports/feedback/%feedback/process'] = array(
     'title' => 'Mark feedback entry as processed',
-    'page callback' => 'fsa_feedback_process',
+    'page callback' => 'fsa_feedback_process_status',
     'page arguments' => array(3),
     'access arguments' => array('view feedback messages'),
     'type' => MENU_CALLBACK,
@@ -469,7 +469,7 @@ function fsa_feedback_menu() {
  *
  * @see feedback_save()
  */
-function fsa_feedback_process($item = NULL, $status = 1) {
+function fsa_feedback_process_status($item = NULL, $status = 1) {
   // Message to return to the user.
   $error_message = t('Sorry, an error occurred updating the feedback item status.');
   $message = '';
