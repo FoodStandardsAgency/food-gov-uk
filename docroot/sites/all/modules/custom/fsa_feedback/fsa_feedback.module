@@ -157,6 +157,11 @@ function fsa_feedback_form_submit($form, &$form_state) {
   $message = !empty($wrong) ? "$message$wrong" : $message;
   // Set the `message` element that will be saved to the database.
   $form_state['values']['message'] = $message;
+
+  //if (!empty($form['#id']) && $form['#id'] == 'feedback-form') {
+  //  fsa_feedback_mail_send($message);
+  //}
+
 }
 
 /**
@@ -307,6 +312,7 @@ function fsa_feedback_form_feedback_admin_view_form_alter(&$form, &$form_state, 
   );
 
   // We use this function to add a view link to each feedback entry.
+  // We also add a 'mark as processed/unprocessed' link to each entry.
   $feedback_messages = $form['feedback-messages'];
   $statuses = array(FEEDBACK_OPEN, FEEDBACK_PROCESSED);
   $messages = array();
@@ -356,8 +362,6 @@ function fsa_feedback_preprocess_feedback_entry(&$variables) {
     'group' => 'theme',
     'weight' => 100,
   );
-
-
 
 }
 
@@ -514,4 +518,113 @@ function fsa_feedback_process_status($item = NULL, $status = 1) {
 
   // Redirect to the destination page.
   drupal_goto($destination);
+}
+
+/**
+ * Send an email containing the feedback message.
+ *
+ * @param type $message
+ */
+function fsa_feedback_mail_send($entry = NULL) {
+
+  $message = !empty($entry) && !empty($entry->message) ? $entry->message : '';
+
+  $module = 'fsa_feedback';
+  $key = 'feedback_message';
+
+  $to = 'matt.farrow@siriusopensource.com,farrow.matt@gmail.com';
+  $from = variable_get('site_mail', 'admin@example.com');
+
+  $language = language_default();
+
+  $send = TRUE;
+
+  $params = array(
+    'message' => $message,
+    'subject' => 'Feedback message',
+    'browser' => !empty($entry->useragent) ? $entry->useragent : '',
+    'url' => !empty($entry->url) ? $entry->url : '',
+    'entry' => serialize($entry),
+    'date' => !empty($entry->timestamp) ? format_date($entry->timestamp, 'medium') : '',
+    'id' => !empty($entry->fid) ? $entry->fid : 0,
+  );
+  $result = drupal_mail($module, $key, $to, $language, $params, $from, $send);
+}
+
+/**
+ * Implements hook_mail().
+ */
+function fsa_feedback_mail($key, &$message, $params) {
+  $options = array(
+    'langcode' => $message['language']->language,
+  );
+
+  switch ($key) {
+    case 'feedback_message':
+
+      $doing = _fsa_feedback_split_message($params['message'], 'doing');
+      $wrong = _fsa_feedback_split_message($params['message'], 'wrong');
+
+      $message['subject'] = t('Feedback message from @site-name', array('@site-name' => variable_get('site_name', 'food.gov.uk')), $options);
+
+      if (!empty($doing)) {
+        $message['body'][] = _fsa_feedback_email_section_heading('What you were doing') . check_plain($doing);
+      }
+
+      if (!empty($wrong)) {
+        $message['body'][] = _fsa_feedback_email_section_heading('What went wrong') . check_plain($wrong);
+      }
+
+      if (!empty($params['date'])) {
+        $message['body'][] = _fsa_feedback_email_section_heading('Date') . check_plain($params['date']);
+      }
+
+      if (!empty($params['url'])) {
+        $message['body'][] = _fsa_feedback_email_section_heading('Page') . check_plain($params['url']);
+      }
+
+      if (!empty($params['browser'])) {
+        $message['body'][] = _fsa_feedback_email_section_heading('Browser') . check_plain($params['browser']);
+      }
+
+      if (!empty($params['id'])) {
+        $message['body'][] = 'View this message in Drupal: ' . url('admin/reports/feedback/' . $params['id'], array('absolute' => TRUE));
+        $message['body'][] = 'Mark this message as processed: ' . url("admin/reports/feedback/" . $params['id'] . "/process", array('absolute' => TRUE));
+      }
+
+      break;
+  }
+}
+
+
+/**
+ * Helper function to format a section heading in the feedback email.
+ *
+ * @param string $heading
+ *   The heading text.
+ *
+ * @return string
+ *   The formatted heading to include in the email.
+ */
+function _fsa_feedback_email_section_heading($heading = '') {
+  if (empty($heading)) {
+    return '';
+  }
+
+  //$underline_length = strlen($heading);
+  $underline_length = 77;
+
+  return $heading . PHP_EOL . str_repeat('-', $underline_length) . PHP_EOL;
+}
+
+
+/**
+ * Implements hook_feedback_insert().
+ *
+ * @param object $entry
+ *   The feedback item being inserted.
+ */
+function fsa_feedback_feedback_insert($entry) {
+  // When a new feedback entry is created, send an email.
+  fsa_feedback_mail_send($entry);
 }
