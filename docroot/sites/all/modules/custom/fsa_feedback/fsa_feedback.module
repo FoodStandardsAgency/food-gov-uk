@@ -318,6 +318,10 @@ function fsa_feedback_form_feedback_admin_view_form_alter(&$form, &$form_state, 
             'title' => t('view'),
             'href' => "admin/reports/feedback/$fid",
           );
+          $form['feedback-messages'][$status][$fid]['operations']['#links']['process'] = array(
+            'title' => $status == FEEDBACK_PROCESSED ? t('mark as unprocessed') : t('mark as processed'),
+            'href' => "admin/reports/feedback/$fid/process/" . (string)(1 - intval($status)),
+          );
         }
       }
     }
@@ -435,4 +439,79 @@ function _fsa_feedback_split_message($message, $field = 'doing') {
   // Return the message
   return $message;
 
+}
+
+/**
+ * Implements hook_menu().
+ */
+function fsa_feedback_menu() {
+  // Process an item of feedback - mark as processed/open.
+  $items['admin/reports/feedback/%feedback/process'] = array(
+    'title' => 'Mark feedback entry as processed',
+    'page callback' => 'fsa_feedback_process',
+    'page arguments' => array(3),
+    'access arguments' => array('view feedback messages'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Mark an item of feedback as processed or open.
+ *
+ * @param object $item
+ *   The loaded feedback item.
+ *
+ * @param int $status
+ *   The value to set for the status field of the item.
+ *   - 1 : Processed
+ *   - 0 : Open
+ *
+ * @see feedback_save()
+ */
+function fsa_feedback_process($item = NULL, $status = 1) {
+  // Message to return to the user.
+  $error_message = t('Sorry, an error occurred updating the feedback item status.');
+  $message = '';
+  $message_status = 'status';
+
+  // Destination page to redirect to once operation is complete.
+  $destination = 'admin/reports/feedback';
+
+  // If we don't have an item, or if it's empty, set error message and redirect.
+  if (empty($item) || !is_object($item) || !isset($item->status)) {
+    $message = $error_message;
+    $message_status = 'error';
+    drupal_set_message($message, $message_status);
+    drupal_goto($destination);
+  }
+
+  // Set status - should be either 0 or 1. 1 is default.
+  $status = is_numeric($status) && intval($status) === 0 ? 0 : 1;
+
+  // Set the item status.
+  $item->status = $status;
+
+  // Save the item.
+  $save_status = feedback_save($item);
+
+  // Set message based on return value of feedback_save().
+  switch ($save_status) {
+    case SAVED_NEW:
+      $message = t('New feedback item created.');
+      break;
+    case SAVED_UPDATED:
+      $message = t('Feedback item processed.');
+      break;
+    case FALSE:
+      $message = $error_message;
+      $message_status = 'error';
+      break;
+  }
+
+  // Tell the user what has happened.
+  drupal_set_message($message, $message_status);
+
+  // Redirect to the destination page.
+  drupal_goto($destination);
 }
