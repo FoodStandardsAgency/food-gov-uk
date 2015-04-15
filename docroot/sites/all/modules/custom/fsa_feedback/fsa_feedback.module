@@ -187,6 +187,16 @@ function fsa_feedback_preprocess_feedback_form_display(&$variables) {
  */
 function fsa_feedback_form_feedback_admin_settings_form_alter(&$form, &$form_state, $form_id) {
 
+  // Email recipient address for feedback email messages.
+  $form['fsa_feedback_email_recipient'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Email recipient address'),
+    '#size' => 80,
+    '#maxlength' => 128,
+    '#default_value' => variable_get('fsa_feedback_email_recipient', variable_get('site_mail', 'content@food.gov.uk')),
+    '#description' => t("This is the email address to which feedback emails will be sent. Muliptle addresses can be added, separated by commas."),
+  );
+
 // Text for the feedback form link
   $form['feedback_title'] = array(
     '#type' => 'textfield',
@@ -532,8 +542,8 @@ function fsa_feedback_mail_send($entry = NULL) {
   $module = 'fsa_feedback';
   $key = 'feedback_message';
 
-  $to = 'matt.farrow@siriusopensource.com,farrow.matt@gmail.com';
-  $from = variable_get('site_mail', 'admin@example.com');
+  $to = variable_get('fsa_feedback_email_recipient', variable_get('site_mail', 'content@food.gov.uk'));
+  $from = variable_get('site_mail', 'content@food.gov.uk');
 
   $language = language_default();
 
