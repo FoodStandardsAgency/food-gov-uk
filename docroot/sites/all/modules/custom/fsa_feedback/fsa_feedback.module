@@ -187,6 +187,16 @@ function fsa_feedback_preprocess_feedback_form_display(&$variables) {
  */
 function fsa_feedback_form_feedback_admin_settings_form_alter(&$form, &$form_state, $form_id) {
 
+  // Email recipient address for feedback email messages.
+  $form['fsa_feedback_email_recipient'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Email recipient address'),
+    '#size' => 80,
+    '#maxlength' => 128,
+    '#default_value' => variable_get('fsa_feedback_email_recipient', variable_get('site_mail', 'content@food.gov.uk')),
+    '#description' => t("This is the email address to which feedback emails will be sent. Muliptle addresses can be added, separated by commas."),
+  );
+
 // Text for the feedback form link
   $form['feedback_title'] = array(
     '#type' => 'textfield',
@@ -457,6 +467,14 @@ function fsa_feedback_menu() {
     'access arguments' => array('view feedback messages'),
     'type' => MENU_CALLBACK,
   );
+  // Forward an item of feedback via email.
+  $items['admin/reports/feedback/%feedback/forward'] = array(
+    'title' => 'Forward feedback message by email',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_feedback_forward_form', 3),
+    'access arguments' => array('view feedback messages'),
+    'type' => MENU_CALLBACK,
+  );
   return $items;
 }
 
@@ -532,8 +550,8 @@ function fsa_feedback_mail_send($entry = NULL) {
   $module = 'fsa_feedback';
   $key = 'feedback_message';
 
-  $to = 'matt.farrow@siriusopensource.com,farrow.matt@gmail.com';
-  $from = variable_get('site_mail', 'admin@example.com');
+  $to = variable_get('fsa_feedback_email_recipient', variable_get('site_mail', 'content@food.gov.uk'));
+  $from = variable_get('site_mail', 'content@food.gov.uk');
 
   $language = language_default();
 
@@ -627,4 +645,102 @@ function _fsa_feedback_email_section_heading($heading = '') {
 function fsa_feedback_feedback_insert($entry) {
   // When a new feedback entry is created, send an email.
   fsa_feedback_mail_send($entry);
+}
+
+
+function _fsa_feedback_build_email_message($entry = NULL) {
+  if (empty($entry)) {
+    return '';
+  }
+
+  $message = !empty($entry->message) ? $entry->message : '';
+
+  $doing = _fsa_feedback_split_message($message, 'doing');
+  $wrong = _fsa_feedback_split_message($message, 'wrong');
+
+  $message = array('body' => array());
+
+  if (!empty($doing)) {
+    $message['body'][] = _fsa_feedback_email_section_heading('What you were doing') . check_plain($doing);
+  }
+
+  if (!empty($wrong)) {
+    $message['body'][] = _fsa_feedback_email_section_heading('What went wrong') . check_plain($wrong);
+  }
+
+  if (!empty($entry->timestamp)) {
+    $message['body'][] = _fsa_feedback_email_section_heading('Date') . check_plain(format_date($entry->timestamp, 'medium'));
+  }
+
+  if (!empty($entry->url)) {
+    $message['body'][] = _fsa_feedback_email_section_heading('Page') . check_plain($entry->url);
+  }
+
+  if (!empty($entry->useragent)) {
+    $message['body'][] = _fsa_feedback_email_section_heading('Browser') . check_plain($entry->useragent);
+  }
+
+  if (!empty($entry->fid)) {
+    $message['body'][] = 'View this message in Drupal: ' . url('admin/reports/feedback/' . $entry->fid, array('absolute' => TRUE));
+    $message['body'][] = 'Mark this message as processed: ' . url("admin/reports/feedback/" . $entry->fid . "/process", array('absolute' => TRUE));
+  }
+
+  return $message['body'];
+
+}
+
+
+/**
+ * Form builder for the forward an email form
+ */
+function fsa_feedback_forward_form($form, &$form_state, $entry) {
+
+  global $user;
+
+  $form['to'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Recipient email address(es)'),
+    '#description' => t('Enter the email addresses of the recipient(s). Separate multiple addresses with commas.'),
+    '#size' => 80,
+    '#maxlength' => 240,
+    '#required' => TRUE,
+  );
+
+  $form['from'] = array(
+    '#type' => 'textfield',
+    '#title' => t('From email address'),
+    '#description' => t('The email address that you\'d like this email to come from'),
+    '#size' => 80,
+    '#maxlength' => 240,
+    '#required' => TRUE,
+    '#default_value' => !empty($user->mail) ? $user->mail : variable_get('site_mail', 'content@food.gov.uk'),
+  );
+
+  $form['subject'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Email subject'),
+    '#description' => t('Enter the subject line for the email.'),
+    '#size' => 80,
+    '#maxlength' => 240,
+    '#required' => TRUE,
+    '#default_value' => t('Feedback message from @site-name', array('@site-name' => variable_get('site_name', 'food.gov.uk'))),
+  );
+
+  $form['message'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Message'),
+    //'#description' => t('Enter the email addresses of the recipient(s). Separate multiple addresses with commas.'),
+    '#cols' => 77,
+    '#rows' => 20,
+    '#required' => TRUE,
+    '#default_value' => implode(str_repeat(PHP_EOL, 2), _fsa_feedback_build_email_message($entry)),
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#title' => t('Send email'),
+    '#value' => t('Send email'),
+  );
+
+  return $form;
 }
