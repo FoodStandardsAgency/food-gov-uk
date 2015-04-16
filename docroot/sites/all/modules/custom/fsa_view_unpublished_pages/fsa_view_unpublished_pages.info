@@ -1,0 +1,4 @@
+name = View unpublished pages
+description = "Provides permissions and access checks to enable selected users to view unpublished pages."
+core = 7.x
+package = Node
