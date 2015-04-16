@@ -3,3 +3,91 @@
  * @file
  * Main module file for the FSA View unpublished pages module
  */
+
+/**
+ * Implements hook_permission().
+ *
+ * This is essentially a simplified version of the same hook from the contrib
+ * View unpublished module - https://www.drupal.org/project/view_unpublished
+ *
+ * The permissions will be named the same, so if it was decided to use that
+ * module, this would be a straight replacement.
+ *
+ * Note that this module does not define a global 'View all unpublished content'
+ * permission.
+ *
+ * @return array
+ *   An array of permissions defined by this module.
+ */
+function fsa_view_unpublished_pages_permission() {
+  $permissions = array();
+  // Generate standard node permissions for all applicable node types.
+  foreach (node_permissions_get_configured_types() as $type) {
+    $info = node_type_get_type($type);
+    $type = check_plain($info->type);
+    $permissions["view any unpublished $type content"] = array(
+      'title' => t('%type_name: View any unpublished content', array('%type_name' => $info->name)),
+    );
+  }
+  return $permissions;
+}
+
+/**
+ * Implements hook_node_access().
+ *
+ * We use this function to allow users with the relevant permissions to view
+ * unpuplished content of the relevant type. This is a very basic check that
+ * will work for page views but probably not in other circumstances, such as
+ * in views or page listings. However, for the primary purpose, which is
+ * allowing editors to view unpublished nodes created by other users, this
+ * should be sufficient.
+ *
+ * @param object $node
+ *  The node object to be checked.
+ * @param type $op
+ *  The current operation
+ * @param type $account
+ *  The user account being used to access the node
+ * @return string
+ *  The result of the check. One of:
+ *  - NODE_ACCESS_DENY : Deny access
+ *  - NODE_ACCESS_IGNORE : Neither deny nor allow access (default response)
+ *  - NODE_ACCESS_ALLOW : Allow access
+ */
+function fsa_view_unpublished_pages_node_access($node, $op, $account) {
+
+  // We're interested only in view operations, so ignore any others.
+  if ($op != 'view') {
+    return NODE_ACCESS_IGNORE;
+  }
+
+  // We need a user account. If we don't have one, return NODE_ACCESS_IGNORE.
+  if (!is_object($account) || empty($account->uid)) {
+    return NODE_ACCESS_IGNORE;
+  }
+
+  // We need a node object. If we don't have one, return NODE_ACCESS_IGNORE.
+  if (empty($node) || !is_object($node) || empty($node->type)) {
+    return NODE_ACCESS_IGNORE;
+  }
+
+  // We care only about unpublished nodes, so return NODE_ACCESS_IGNORE.
+  if ($node->status == 1) {
+    return NODE_ACCESS_IGNORE;
+  }
+
+  // Get the node type.
+  $node_type = $node->type;
+
+  // Create the permission based on node type
+  $permission = "view any unpublished $node_type content";
+
+  // Use user_access() to check if the user has the relevant permission.
+  if (user_access($permission, $account)) {
+    return NODE_ACCESS_ALLOW;
+  }
+  else {
+    return NODE_ACCESS_IGNORE;
+  }
+
+}
