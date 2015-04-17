@@ -48,6 +48,9 @@ Disallow: /user/register/
 Disallow: /user/password/
 Disallow: /user/login/
 Disallow: /user/logout/
+Disallow: /multimedia/continuity
+Disallow: /multimedia/food-safety-week-2015-la-toolkit
+Disallow: /multimedia/food-safety-week-2015-partners
 # Paths (no clean URLs)
 Disallow: /?q=admin/
 Disallow: /?q=comment/reply/
