@@ -71,10 +71,8 @@ function fsa_feedback_page_build(&$page) {
  * Implements hook_form_alter().
  */
 function fsa_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
-  // Wrap the feedback form in a div and add a class. This will implement
-  // styling as seen on other FSA forms.
-  $form['#prefix'] = '<div class="grey-container-block">';
-  $form['#suffix'] = '</div>';
+
+  // Give the form a class to enable FSA styling to be applied.
   $form['#attributes']['class'][] = 'custom-block-inner';
 
   // Create a form heading element. The value comes from the variable
@@ -171,6 +169,8 @@ function fsa_feedback_form_submit($form, &$form_state) {
  *   Template variables, passed by reference. Includes:
  *   - title: The title to be displayed above the feedback form.
  *   - content: The content to be displayed in the feedback form.
+ *
+ * @see theme/feedback-form-display.tpl.php
  */
 function fsa_feedback_preprocess_feedback_form_display(&$variables) {
   // Don't display previous feedback submissions.
@@ -179,6 +179,8 @@ function fsa_feedback_preprocess_feedback_form_display(&$variables) {
   }
   // Change the title displayed above the feedback form.
   $variables['title'] = variable_get('feedback_title', FSA_FEEDBACK_DEFAULT_FEEDBACK_TITLE);
+  // Override standard feedback form display template.
+  $variables['theme_hook_suggestions'][] = 'fsa_feedback_form_display';
 }
 
 
@@ -271,6 +273,15 @@ function fsa_feedback_theme() {
       'variables' => array(
         'message' => NULL,
         'view_mode' => 'teaser',
+      ),
+    ),
+    // FSA-specific feedback form template.
+    // Override for feedback-form-display.tpl.php
+    'fsa_feedback_form_display' => array(
+      'template' => 'theme/feedback-form-display',
+      'variables' => array(
+        'title' => NULL,
+        'content' => NULL,
       ),
     ),
   );
