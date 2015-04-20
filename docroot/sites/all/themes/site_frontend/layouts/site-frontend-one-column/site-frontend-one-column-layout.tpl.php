@@ -135,6 +135,9 @@
 	            <ul class="action-links"><?php print render($action_links); ?></ul>
 	          <?php endif; ?>
 	          <?php print render($page['content']); ?>
+            <?php if (!empty($page['node_inline'])): ?>
+              <?php print render($page['node_inline']); ?>
+            <?php endif; ?>
 	          <?php print $feed_icons; ?>
 
           </div> <!-- end main-content-inner -->
