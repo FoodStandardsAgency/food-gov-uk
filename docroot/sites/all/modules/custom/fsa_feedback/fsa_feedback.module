@@ -358,10 +358,12 @@ function fsa_feedback_form_feedback_admin_view_form_alter(&$form, &$form_state, 
           $form['feedback-messages'][$status][$fid]['operations']['#links']['process'] = array(
             'title' => $status == FEEDBACK_PROCESSED ? t('mark as unprocessed') : t('mark as processed'),
             'href' => "admin/reports/feedback/$fid/process/" . (string)(1 - intval($status)),
+            'query' => array('destination' => 'admin/reports/feedback'),
           );
           $form['feedback-messages'][$status][$fid]['operations']['#links']['forward'] = array(
             'title' => t('forward by email'),
-            'href' => "admin/reports/feedback/$fid/forward" . (string)(1 - intval($status)),
+            'href' => "admin/reports/feedback/$fid/forward",
+            'query' => array('destination' => 'admin/reports/feedback'),
           );
         }
       }
@@ -390,7 +392,7 @@ function fsa_feedback_preprocess_feedback_entry(&$variables) {
   $feedback_item = !empty($entry['#feedback']) ? $entry['#feedback'] : NULL;
 
   // Get the feedback item status.
-  $variables['status'] = !empty($feedback_item) && !empty($feedback_item->status) ? 'Processed' : 'Unprocessed';
+  $variables['status'] = !empty($feedback_item) && !empty($feedback_item->status) ? t('Processed') : t('Unprocessed');
 
   // Get the browser
   $variables['browser'] = $entry['browser'];
@@ -765,6 +767,18 @@ function fsa_feedback_forward_form($form, &$form_state, $entry) {
 
   global $user;
 
+  // If we don't have a destination specified, redirect to the view page for the
+  // feedback item.
+  if (empty($_GET['destination'])) {
+    $destination = 'destination=admin/reports/feedback/' . $entry->fid;
+    if (!empty($form['#action'])) {
+      $form['#action'] .= "?$destination";
+    }
+    else {
+      $form['#action'] = "?$destination";
+    }
+  }
+
   $form['to'] = array(
     '#type' => 'textfield',
     '#title' => t('Recipient email address(es)'),
@@ -791,7 +805,7 @@ function fsa_feedback_forward_form($form, &$form_state, $entry) {
     '#size' => 80,
     '#maxlength' => 240,
     '#required' => TRUE,
-    '#default_value' => t('Feedback message from @site-name', array('@site-name' => variable_get('site_name', 'food.gov.uk'))),
+    '#default_value' => 'Fwd: ' . _fsa_feedback_email_subject()
   );
 
   $form['message'] = array(
@@ -817,9 +831,6 @@ function fsa_feedback_forward_form($form, &$form_state, $entry) {
  * Submit handler for the feedback email forward form.
  */
 function fsa_feedback_forward_form_submit($form, &$form_state) {
-
-  // Redirect the form to the feedback list page
-  $form_state['redirect'] = 'admin/reports/feedback';
 
   // Get the message properties
   $to = !empty($form_state['values']['to']) ? $form_state['values']['to'] : NULL;
