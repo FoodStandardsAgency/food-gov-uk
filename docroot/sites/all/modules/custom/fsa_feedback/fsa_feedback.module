@@ -199,6 +199,16 @@ function fsa_feedback_form_feedback_admin_settings_form_alter(&$form, &$form_sta
     '#description' => t("This is the email address to which feedback emails will be sent. Muliptle addresses can be added, separated by commas."),
   );
 
+  // Email subject for feedback email messages.
+  $form['fsa_feedback_email_subject'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Email subject line'),
+    '#size' => 80,
+    '#maxlength' => 128,
+    '#default_value' => _fsa_feedback_email_subject(),
+    '#description' => t("This is the subject line of the feedback emails."),
+  );
+
 // Text for the feedback form link
   $form['feedback_title'] = array(
     '#type' => 'textfield',
@@ -594,7 +604,7 @@ function fsa_feedback_mail($key, &$message, $params) {
       $doing = _fsa_feedback_split_message($params['message'], 'doing');
       $wrong = _fsa_feedback_split_message($params['message'], 'wrong');
 
-      $message['subject'] = t('Feedback message from @site-name', array('@site-name' => variable_get('site_name', 'food.gov.uk')), $options);
+      $message['subject'] = _fsa_feedback_email_subject();
 
       if (!empty($doing)) {
         $message['body'][] = _fsa_feedback_email_section_heading('What you were doing') . check_plain($doing);
@@ -754,4 +764,19 @@ function fsa_feedback_forward_form($form, &$form_state, $entry) {
   );
 
   return $form;
+}
+
+/**
+ * Returns a subject line for a feedback email.
+ *
+ * @return string
+ *   Subject line for a feedback email.
+ */
+function _fsa_feedback_email_subject() {
+  $subject = &drupal_static(__FUNCTION__);
+  if (isset($subject)) {
+    return $subject;
+  }
+  $subject = variable_get('fsa_feedback_email_subject', t('Feedback message from @site-name', array('@site-name' => variable_get('site_name', 'food.gov.uk'))));
+  return $subject;
 }
