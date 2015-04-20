@@ -22,6 +22,7 @@ regions[bottom_menu] = Bottom Menu
 regions[footer_copyright] = Footer Copyright
 regions[footer_menu] = Footer Menu
 regions[footer_buttons] = Footer Buttons
+regions[page_bottom] = Page Bottom
 
 ; following region is rendered in node.tpl.php for some content types
 regions[node_inline] = Node Inline
