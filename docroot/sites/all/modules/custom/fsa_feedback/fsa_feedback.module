@@ -386,6 +386,13 @@ function fsa_feedback_preprocess_feedback_entry(&$variables) {
   if (empty($entry)) {
     return;
   }
+  // Get the feedback item.
+  $feedback_item = !empty($entry['#feedback']) ? $entry['#feedback'] : NULL;
+
+  // Get the feedback item status.
+  $variables['status'] = !empty($feedback_item) && !empty($feedback_item->status) ? 'Processed' : 'Unprocessed';
+
+  // Get the browser
   $variables['browser'] = $entry['browser'];
   // Change the browser variable to standard markup.
   unset($variables['browser']['#attributes']);
@@ -393,6 +400,7 @@ function fsa_feedback_preprocess_feedback_entry(&$variables) {
   // Unset the default browser content element.
   unset($variables['content']['browser']);
 
+  // Attach CSS file.
   $variables['content']['#attached']['css'][drupal_get_path('module', 'fsa_feedback') . '/fsa-feedback.css'] = array(
     'group' => 'theme',
     'weight' => 100,
@@ -561,6 +569,8 @@ function fsa_feedback_process_status($item = NULL, $status = 1) {
   $item_status = isset($item->status) ? $item->status : 0;
   $item_status = 1 - $item_status;
   $status = is_numeric($status) && intval($status) === 0 ? 0 : $item_status;
+
+  $destination = 'admin/reports/feedback/' . $item->fid;
 
   // Set the item status.
   $item->status = $status;
