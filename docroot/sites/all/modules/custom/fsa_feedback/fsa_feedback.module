@@ -359,6 +359,10 @@ function fsa_feedback_form_feedback_admin_view_form_alter(&$form, &$form_state, 
             'title' => $status == FEEDBACK_PROCESSED ? t('mark as unprocessed') : t('mark as processed'),
             'href' => "admin/reports/feedback/$fid/process/" . (string)(1 - intval($status)),
           );
+          $form['feedback-messages'][$status][$fid]['operations']['#links']['forward'] = array(
+            'title' => t('forward by email'),
+            'href' => "admin/reports/feedback/$fid/forward" . (string)(1 - intval($status)),
+          );
         }
       }
     }
@@ -482,21 +486,44 @@ function _fsa_feedback_split_message($message, $field = 'doing') {
 function fsa_feedback_menu() {
   // Process an item of feedback - mark as processed/open.
   $items['admin/reports/feedback/%feedback/process'] = array(
-    'title' => 'Mark feedback entry as processed',
+    'title callback' => '_fsa_feedback_process_feedback_title',
+    'title arguments' => array(3),
     'page callback' => 'fsa_feedback_process_status',
     'page arguments' => array(3),
     'access arguments' => array('view feedback messages'),
-    'type' => MENU_CALLBACK,
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 20,
   );
   // Forward an item of feedback via email.
   $items['admin/reports/feedback/%feedback/forward'] = array(
-    'title' => 'Forward feedback message by email',
+    'title' => 'Forward by email',
+    'description' => 'Forward feedback message by email',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('fsa_feedback_forward_form', 3),
     'access arguments' => array('view feedback messages'),
-    'type' => MENU_CALLBACK,
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 30,
   );
   return $items;
+}
+
+/**
+ * Title callback for the process feedback menu item.
+ * @param object $entry
+ *   The feedback entity object
+ *
+ * @return string
+ *   The menu title.
+ */
+function _fsa_feedback_process_feedback_title($entry = NULL) {
+  $status = !empty($entry) && isset($entry->status) ? $entry->status : 2;
+  $titles = array(
+    0 => t('Mark as processed'),
+    1 => t('Mark as unprocessed'),
+    2 => t('Update status'),
+  );
+  $title = !empty($titles[$status]) ? $titles[$status] : t('Update status');
+  return $title;
 }
 
 /**
@@ -530,7 +557,10 @@ function fsa_feedback_process_status($item = NULL, $status = 1) {
   }
 
   // Set status - should be either 0 or 1. 1 is default.
-  $status = is_numeric($status) && intval($status) === 0 ? 0 : 1;
+  // By default, get the current status of the item and invert it.
+  $item_status = isset($item->status) ? $item->status : 0;
+  $item_status = 1 - $item_status;
+  $status = is_numeric($status) && intval($status) === 0 ? 0 : $item_status;
 
   // Set the item status.
   $item->status = $status;
@@ -630,6 +660,13 @@ function fsa_feedback_mail($key, &$message, $params) {
         $message['body'][] = 'View this message in Drupal: ' . url('admin/reports/feedback/' . $params['id'], array('absolute' => TRUE));
         $message['body'][] = 'Mark this message as processed: ' . url("admin/reports/feedback/" . $params['id'] . "/process", array('absolute' => TRUE));
       }
+
+      break;
+
+    case 'feedback_forward_message':
+
+      $message['subject'] = $params['subject'];
+      $message['body'][] = $params['message'];
 
       break;
   }
@@ -764,6 +801,54 @@ function fsa_feedback_forward_form($form, &$form_state, $entry) {
   );
 
   return $form;
+}
+
+/**
+ * Submit handler for the feedback email forward form.
+ */
+function fsa_feedback_forward_form_submit($form, &$form_state) {
+
+  // Redirect the form to the feedback list page
+  $form_state['redirect'] = 'admin/reports/feedback';
+
+  // Get the message properties
+  $to = !empty($form_state['values']['to']) ? $form_state['values']['to'] : NULL;
+  $from = !empty($form_state['values']['from']) ? $form_state['values']['from'] : variable_get('site_mail', 'content@food.gov.uk');
+  $message = !empty($form_state['values']['message']) ? $form_state['values']['message'] : NULL;
+  $subject = !empty($form_state['values']['subject']) ? $form_state['values']['subject'] : NULL;
+
+  // Set the module and key for hook_mail().
+  $module = 'fsa_feedback';
+  $key = 'feedback_forward_message';
+
+  // Set the language
+  $language = language_default();
+
+  // Send the email.
+  $send = TRUE;
+
+  // Parameters to pass to hook_mail().
+  $params = array(
+    'message' => $message,
+    'subject' => $subject,
+  );
+
+  // If we have all the parameters we need, attempt to send the email.
+  if (!empty($to) && !empty($from) && !empty($subject) && !empty($message)) {
+    $result = drupal_mail($module, $key, $to, $language, $params, $from, $send);
+  }
+  else {
+    $result = array('result' => FALSE);
+  }
+
+  // Set a message telling the user about the outcome of the email send.
+  if ($result['result'] === TRUE) {
+    drupal_set_message('Your message has been sent');
+  }
+  else {
+    drupal_set_message('Sorry, there was a problem sending your message', 'error');
+  }
+
 }
 
 /**
