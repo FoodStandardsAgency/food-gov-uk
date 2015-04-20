@@ -7,7 +7,7 @@
 /**
  * Set the region in which the feedback form will appear.
  */
-define('FSA_FEEDBACK_REGION', 'content');
+define('FSA_FEEDBACK_REGION', 'node_inline');
 
 /**
  * Define the message separator. This will be used to combine the two fields
