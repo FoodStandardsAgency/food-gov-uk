@@ -151,3 +151,39 @@ function site_frontend_cleanup_attributes(&$variables, $hook) {
     unset($variables['attributes_array']['class']);
   }
 }
+
+
+/**
+ * Implements hook_html_head_alter().
+ *
+ * We use this function to fix some HTML validation errors relating to meta
+ * elements.
+ *
+ * @see omega_html_head_alter().
+ * @see _drupal_default_html_head().
+ * @see issue #2014091510000018.
+ */
+function site_frontend_html_head_alter(&$head) {
+  // Omega simplifies the meta tag for character encoding, but because the meta
+  // tag comes quite far down the page, the W3C validator is picking this up as
+  // a validation error. However, the full meta tag does not seem to cause the
+  // same errors, so we reinstate the standard charset meta tag.
+
+  // First unset the existing element.
+  if (!empty($head['system_meta_content_type'])) {
+    unset($head['system_meta_content_type']);
+  }
+
+  // Now recreate the tag using a copy of the code from
+  // _drupal_default_html_head()
+  $head['system_meta_content_type'] = array(
+    '#type' => 'html_tag',
+    '#tag' => 'meta',
+    '#attributes' => array(
+      'http-equiv' => 'Content-Type',
+      'content' => 'text/html; charset=utf-8',
+    ),
+    '#weight' => -1000,
+  );
+
+}
