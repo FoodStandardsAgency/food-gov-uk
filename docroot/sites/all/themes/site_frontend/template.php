@@ -186,4 +186,8 @@ function site_frontend_html_head_alter(&$head) {
     '#weight' => -1000,
   );
 
+  // Remove the cleartype tag as it fails W3C validation
+  if (!empty($head['omega-cleartype'])) {
+    unset($head['omega-cleartype']);
+  }
 }
