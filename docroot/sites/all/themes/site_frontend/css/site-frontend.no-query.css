@@ -101,7 +101,6 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
   padding: .3em 11px;
   margin: 0;
   background: #999;
-  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
   background: -moz-linear-gradient(top, #999999 6%, #3e3e3e 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(6%, #999999), color-stop(100%, #3e3e3e));
   background: -webkit-linear-gradient(top, #999999 6%, #3e3e3e 100%);
