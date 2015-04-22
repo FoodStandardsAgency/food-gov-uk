@@ -6,6 +6,18 @@
  */
 function site_frontend_preprocess_node(&$variables) {
 
+  // For nodeblocks, we add the `content` class to the
+  // `content_attributes_array` as we're using our own implementation of
+  // `node--nodeblock.tpl.php`, which doesn't apply this class by default. This
+  // is due to the fact that Omega adds classes to the `attributes_array`, which
+  // can result in duplicate attributes.
+  // We also add the clearfix `classes_array` as this was present in the
+  // original template, but again we've removed it due to duplication.
+  if (isset($variables['nodeblock']) && isset($variables['nodeblock']['shown_as_block'])) {
+    $variables['content_attributes_array']['class'][] = 'content';
+    $variables['classes_array'][] = 'clearfix';
+  }
+
   // remove readmore
   unset($variables['content']['links']['node']);
 

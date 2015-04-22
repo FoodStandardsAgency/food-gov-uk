@@ -129,7 +129,7 @@ function site_frontend_cleanup_attributes(&$variables, $hook) {
   }
 
   // An array of the fields for which we want this function to run.
-  $allowed_fields = array('field_fc_qanda', 'field_fc_page_section');
+  $allowed_fields = array('field_fc_qanda', 'field_fc_page_section', 'field_fc_side_content_generic');
 
   // Get the field collection item from the variables
   $field_collection_item = !empty($variables['field_collection_item']) ? $variables['field_collection_item'] : NULL;
