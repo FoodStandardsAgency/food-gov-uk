@@ -34,3 +34,6 @@ msgstr "Efallai bod gofyn i chi gael Acrobat Reader (sydd ar gael yn rhad ac am 
 
 msgid "External sites"
 msgstr "Gwefannau allanol"
+
+msgid "See also"
+msgstr "Gweler hefyd"
