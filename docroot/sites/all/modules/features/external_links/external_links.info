@@ -1,0 +1,10 @@
+name = External links
+description = "Views for surfacing external links and sites in the right-hand column of pages."
+core = 7.x
+package = Features
+dependencies[] = views
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features[views_view][] = external_links
+features[views_view][] = external_other
+features[views_view][] = external_sites
