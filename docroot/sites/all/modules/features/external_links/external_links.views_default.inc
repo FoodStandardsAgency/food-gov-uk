@@ -375,12 +375,25 @@ function external_links_views_default_views() {
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
+  /* Footer: Global: Unfiltered text */
+  $handler->display->display_options['footer']['area_text_custom']['id'] = 'area_text_custom';
+  $handler->display->display_options['footer']['area_text_custom']['table'] = 'views';
+  $handler->display->display_options['footer']['area_text_custom']['field'] = 'area_text_custom';
+  $handler->display->display_options['footer']['area_text_custom']['label'] = 'Disclaimer opening tag';
+  $handler->display->display_options['footer']['area_text_custom']['content'] = '<p><span class="external-link-disclaimer">';
   /* Footer: Global: Text area */
   $handler->display->display_options['footer']['area']['id'] = 'area';
   $handler->display->display_options['footer']['area']['table'] = 'views';
   $handler->display->display_options['footer']['area']['field'] = 'area';
-  $handler->display->display_options['footer']['area']['content'] = '<span class="external-link-disclaimer">The Food Standards Agency has no responsibility for the content of external sites</span>';
-  $handler->display->display_options['footer']['area']['format'] = 'full_html';
+  $handler->display->display_options['footer']['area']['label'] = 'Disclaimer';
+  $handler->display->display_options['footer']['area']['content'] = 'The Food Standards Agency has no responsibility for the content of external sites';
+  $handler->display->display_options['footer']['area']['format'] = 'plain_text';
+  /* Footer: Global: Unfiltered text */
+  $handler->display->display_options['footer']['area_text_custom_1']['id'] = 'area_text_custom_1';
+  $handler->display->display_options['footer']['area_text_custom_1']['table'] = 'views';
+  $handler->display->display_options['footer']['area_text_custom_1']['field'] = 'area_text_custom';
+  $handler->display->display_options['footer']['area_text_custom_1']['label'] = 'Disclaimer closing tag';
+  $handler->display->display_options['footer']['area_text_custom_1']['content'] = '</span></p>';
   /* Relationship: Entity Reference: Referenced Entity */
   $handler->display->display_options['relationships']['field_links_external_target_id']['id'] = 'field_links_external_target_id';
   $handler->display->display_options['relationships']['field_links_external_target_id']['table'] = 'field_data_field_links_external';
