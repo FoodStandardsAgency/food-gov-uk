@@ -1,0 +1,6 @@
+name = FSA Welsh language
+description = "Contains translations and other features for the Welsh language as used on the FSA website."
+core = 7.x
+package = Multilingual - Internationalization
+dependencies[] = locale
+files[] = fsa_welsh_language.cy.po

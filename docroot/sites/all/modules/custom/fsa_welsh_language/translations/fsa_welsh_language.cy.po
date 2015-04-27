@@ -1,0 +1,36 @@
+# Welsh translation of Various terms for the FSA website
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: Welsh\n"
+"Language: cy_GB\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != 11) ? 2 : 3;\n"
+"X-Generator: Poedit 1.7.6\n"
+
+msgid "The Food Standards Agency has no responsibility for the content of external sites"
+msgstr "Nid yw'r Asiantaeth Safonau Bwyd yn gyfrifol am gynnwys gwefannau allanol"
+
+msgid "Related documents"
+msgstr "Dogfennau cysylltiedig"
+
+msgid "Related pages"
+msgstr "Tudalennau cysylltiedig"
+
+msgid "Related content"
+msgstr "Cynnwys cysylltiedig"
+
+msgid "Food Standards Agency information available on other websites"
+msgstr "Gwybodaeth yr Asiantaeth Safonau Bwyd sydd ar gael ar wefannau eraill"
+
+msgid "You may need the free Acrobat Reader to view a pdf"
+msgstr "Efallai bod gofyn i chi gael Acrobat Reader (sydd ar gael yn rhad ac am ddim) i weld pdf"
+
+msgid "External sites"
+msgstr "Gwefannau allanol"
