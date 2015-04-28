@@ -1,5 +1,5 @@
 name = Feedback
-description = Allows site visitors and users to report issues about this site.
+description = Allows site visitors and users to report issues about the FSA Web site. Development by Sirius.
 package = Development
 core = 7.x
 configure = admin/config/user-interface/feedback

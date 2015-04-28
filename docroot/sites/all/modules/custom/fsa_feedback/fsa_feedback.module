@@ -1,0 +1,939 @@
+<?php
+/**
+ * @file
+ * Module code for the FSA feedback module.
+ */
+
+/**
+ * Set the region in which the feedback form will appear.
+ */
+define('FSA_FEEDBACK_REGION', 'node_inline');
+
+/**
+ * Define the message separator. This will be used to combine the two fields
+ * submitted via the form into the message element that will be saved.
+ */
+define('FSA_FEEDBACK_MESSAGE_SEPARATOR', '||||');
+
+/**
+ * Default feedback title.
+ */
+define('FSA_FEEDBACK_DEFAULT_FEEDBACK_TITLE', 'Is there anything wrong with this page?');
+
+/**
+ * Show previous messages on feedback form?
+ */
+define('FSA_FEEDBACK_SHOW_MESSAGES_ON_FEEDBACK_FORM', FALSE);
+
+
+/**
+ * Implements hook_variable_info().
+ */
+function fsa_feedback_variable_info($options) {
+  $variables['fsa_feedback_email_recipient'] = array(
+    'type' => 'string',
+    'title' => t('Feedback email recipient', array(), $options),
+    'default' => variable_get('site_mail', 'content@food.gov.uk'),
+    'description' => t('Email address(es) to which feedback emails will be sent.', array(), $options),
+    'required' => FALSE,
+  );
+  $variables['fsa_feedback_email_subject'] = array(
+    'type' => 'string',
+    'title' => t('Feedback email subject', array(), $options),
+    'default callback' => '_fsa_feedback_email_subject',
+    'description' => t('Subject line for feeback emails.', array(), $options),
+    'required' => FALSE,
+  );
+  $variables['fsa_feedback_form_heading'] = array(
+    'type' => 'string',
+    'title' => t('Feedback form heading', array(), $options),
+    'default' => t('Help us improve food.gov.uk', array(), $options),
+    'description' => t('Heading for the site feedback form.', array(), $options),
+    'required' => FALSE,
+  );
+  $variables['fsa_feedback_form_help'] = array(
+    'type' => 'string',
+    'title' => t('Feedback form help text', array(), $options),
+    'default' => '',
+    'description' => t('Additional help text to appear on the site feedback form.', array(), $options),
+    'required' => FALSE,
+  );
+  $variables['fsa_feedback_message_field1_label'] = array(
+    'type' => 'string',
+    'title' => t('Feedback form message label 1', array(), $options),
+    'default' => t('What you were doing', array(), $options),
+    'description' => t('Label for the first field on the site feedback form.', array(), $options),
+    'required' => FALSE,
+  );
+  $variables['fsa_feedback_message_field2_label'] = array(
+    'type' => 'string',
+    'title' => t('Feedback form message label 2', array(), $options),
+    'default' => t('What went wrong', array(), $options),
+    'description' => t('Label for the second field on the site feedback form.', array(), $options),
+    'required' => FALSE,
+  );
+
+  return $variables;
+}
+
+
+/**
+ * Implements hook_page_build().
+ *
+ * @param $page
+ *   Nested array of renderable elements that make up the page.
+ */
+function fsa_feedback_page_build(&$page) {
+
+  // If page_bottom is empty or doesn't contain the 'feedback' element, exit.
+  if (empty($page['page_bottom']) || empty($page['page_bottom']['feedback'])) {
+    return;
+  }
+
+  // Move the feedback element from page_bottom to FSA_FEEDBACK_REGION.
+  $page[FSA_FEEDBACK_REGION]['feedback'] = $page['page_bottom']['feedback'];
+  $page[FSA_FEEDBACK_REGION]['feedback']['#weight'] = 100;
+
+  // Unset 'feedback' in 'page_bottom'.
+  unset($page['page_bottom']['feedback']);
+
+  // First check that the feedback element exists. If not, exit now.
+  if (empty($page[FSA_FEEDBACK_REGION]['feedback'])) {
+    return;
+  }
+
+  // Add the custom CSS file and make sure it comes after the contrib one.
+  $page[FSA_FEEDBACK_REGION]['feedback']['#attached']['css'][drupal_get_path('module', 'fsa_feedback') . '/fsa-feedback.css'] = array(
+    'group' => 'theme',
+    'weight' => 100,
+  );
+
+  // Add a custom JavaScript file and make sure it comes after the contrib one.
+  $page[FSA_FEEDBACK_REGION]['feedback']['#attached']['js'][drupal_get_path('module', 'fsa_feedback') . '/js/fsa-feedback.js'] = array(
+    'group' => 'theme',
+    'weight' => 100,
+  );
+
+}
+
+
+
+/**
+ * Implements hook_form_alter().
+ */
+function fsa_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
+
+  // Give the form a class to enable FSA styling to be applied.
+  $form['#attributes']['class'][] = 'custom-block-inner';
+
+  // Create a form heading element. The value comes from the variable
+  // `fsa_feedback_form_heading`, which is user-editable via the feedback
+  // admin form.
+  $heading = variable_get('fsa_feedback_form_heading');
+  if (!empty($heading)) {
+    $form['heading'] = array(
+      '#type' => 'html_tag',
+      '#tag' => 'h3',
+      '#value' => t('Help us improve food.gov.uk'),
+      '#weight' => -11,
+    );
+  }
+
+  // Get variable that holds the 'help' text.
+  $help = variable_get('fsa_feedback_form_help');
+  if (!empty($help)) {
+    $form['help']['#markup'] = variable_get('fsa_feedback_form_help');
+  }
+  else {
+    unset($form['help']);
+  }
+
+
+
+  // Unset the default 'message' element.
+  unset($form['message']);
+
+  // Add a new element for the 'what you were doing' field.
+  $form['doing'] = array(
+    '#type' => 'textarea',
+    '#attributes' => array('class' => array('feedback-message')),
+    '#cols' => 20,
+    //'#title' => t('What you were doing'),
+    '#title' => variable_get('fsa_feedback_message_field1_label', t('What you were doing')),
+    '#required' => TRUE,
+    '#wysiwyg' => FALSE,
+  );
+
+  // Add a new element for the 'What went wrong' field.
+  $form['wrong'] = array(
+    '#type' => 'textarea',
+    '#attributes' => array('class' => array('feedback-message')),
+    '#cols' => 20,
+    '#title' => variable_get('fsa_feedback_message_field2_label', t('What went wrong')),
+    '#required' => TRUE,
+    '#wysiwyg' => FALSE,
+  );
+
+  // Add our submit function before the existing one.
+  array_unshift($form['#submit'], 'fsa_feedback_form_submit');
+
+}
+
+
+/**
+ * Additional submit handler for the feedback form.
+ *
+ * This handler is used by the public feedback form and also by the feeback
+ * entry edit form.
+ *
+ * @param array $form
+ *   The form array.
+ *
+ * @param array $form_state
+ *   The form state, including submitted values. (Passed by reference).
+ *
+ * @see fsa_feedback_form_feedback_entry_form_alter().
+ * @see fsa_feedback_form_feedback_form_alter().
+ */
+function fsa_feedback_form_submit($form, &$form_state) {
+  // Build the message from the `doing` and `wrong` field values.
+  $doing = !empty($form_state['values']['doing']) ? $form_state['values']['doing'] : NULL;
+  $wrong = !empty($form_state['values']['wrong']) ? $form_state['values']['wrong'] : NULL;
+  $message = !empty($doing) ? $doing : '';
+  if (!empty($message) && !empty($wrong)) {
+    $message .= FSA_FEEDBACK_MESSAGE_SEPARATOR;
+  }
+  $message = !empty($wrong) ? "$message$wrong" : $message;
+  // Set the `message` element that will be saved to the database.
+  $form_state['values']['message'] = $message;
+
+  //if (!empty($form['#id']) && $form['#id'] == 'feedback-form') {
+  //  fsa_feedback_mail_send($message);
+  //}
+
+}
+
+/**
+ * Implements template_preprocess_feedback_form_display().
+ *
+ * @param array $variables
+ *   Template variables, passed by reference. Includes:
+ *   - title: The title to be displayed above the feedback form.
+ *   - content: The content to be displayed in the feedback form.
+ *
+ * @see theme/feedback-form-display.tpl.php
+ */
+function fsa_feedback_preprocess_feedback_form_display(&$variables) {
+  // Don't display previous feedback submissions.
+  if (!empty($variables['content']['messages']) && !FSA_FEEDBACK_SHOW_MESSAGES_ON_FEEDBACK_FORM) {
+    unset($variables['content']['messages']);
+  }
+  // Change the title displayed above the feedback form.
+  $variables['title'] = variable_get('feedback_title', FSA_FEEDBACK_DEFAULT_FEEDBACK_TITLE);
+  // Override standard feedback form display template.
+  $variables['theme_hook_suggestions'][] = 'fsa_feedback_form_display';
+}
+
+
+/**
+ * Implements hook_form_alter().
+ */
+function fsa_feedback_form_feedback_admin_settings_form_alter(&$form, &$form_state, $form_id) {
+
+  // Email recipient address for feedback email messages.
+  $form['fsa_feedback_email_recipient'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Email recipient address'),
+    '#size' => 80,
+    '#maxlength' => 128,
+    '#default_value' => variable_get('fsa_feedback_email_recipient', variable_get('site_mail', 'content@food.gov.uk')),
+    '#description' => t("This is the email address to which feedback emails will be sent. Muliptle addresses can be added, separated by commas."),
+  );
+
+  // Email subject for feedback email messages.
+  $form['fsa_feedback_email_subject'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Email subject line'),
+    '#size' => 80,
+    '#maxlength' => 128,
+    '#default_value' => _fsa_feedback_email_subject(),
+    '#description' => t("This is the subject line of the feedback emails."),
+  );
+
+// Text for the feedback form link
+  $form['feedback_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Feedback link'),
+    '#size' => 40,
+    '#maxlength' => 128,
+    '#default_value' => variable_get('feedback_title', FSA_FEEDBACK_DEFAULT_FEEDBACK_TITLE),
+    '#description' => t("Specify the title that will appear on the feedback form. Defaults to %feedback_title", array('%feedback_title' => FSA_FEEDBACK_DEFAULT_FEEDBACK_TITLE)),
+  );
+
+  // Text for the feedback form heading
+  $form['fsa_feedback_form_heading'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Feedback form heading'),
+    '#size' => 40,
+    '#maxlength' => 128,
+    '#default_value' => variable_get('fsa_feedback_form_heading'),
+    '#description' => t("Specify a heading to appear at the top of the feedback form."),
+  );
+
+  // Label for the first field on the feedback form.
+  $form['fsa_feedback_message_field1_label'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Message Label'),
+    '#size' => 40,
+    '#maxlength' => 128,
+    '#default_value' => variable_get('fsa_feedback_message_field1_label', 'What you were doing'),
+    '#description' => t("Specify the label that will appear on the feedback form. Defaults to 'What you were doing'"),
+  );
+
+  // Label for the second field on the feedback form.
+  $form['fsa_feedback_message_field2_label'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Second Message Label'),
+    '#size' => 40,
+    '#maxlength' => 128,
+    '#default_value' => variable_get('fsa_feedback_message_field2_label', 'What went wrong'),
+    '#description' => t("Specify the second label that will appear on the feedback form. Defaults to 'What went wrong'"),
+  );
+
+  // Help text to appear at the top of the feedback form.
+  $form['fsa_feedback_form_help'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Intro text'),
+    '#size' => 40,
+    '#maxlength' => 128,
+    '#default_value' => variable_get('fsa_feedback_form_help'),
+    '#description' => t("Specify the text that will appear at the top of the feedback form."),
+  );
+}
+
+function fsa_feedback_feedback_view($entry, $view_mode, $langcode) {
+  // In list mode, where the view_mode is 'teaser', we hide the browser version
+  // information as it's not that useful here.
+  if ($view_mode == 'teaser') {
+    unset($entry->content['browser']);
+  }
+  $entry->content['message'] = array(
+    '#theme' => 'feedback_message',
+    '#message' => $entry->content['message'],
+    '#view_mode' => $view_mode,
+  );
+}
+
+/**
+ * Implements hook_theme().
+ */
+function fsa_feedback_theme() {
+  return array(
+    'feedback_message' => array(
+      'template' => 'theme/feedback-message',
+      'variables' => array(
+        'message' => NULL,
+        'view_mode' => 'teaser',
+      ),
+    ),
+    // FSA-specific feedback form template.
+    // Override for feedback-form-display.tpl.php
+    'fsa_feedback_form_display' => array(
+      'template' => 'theme/feedback-form-display',
+      'variables' => array(
+        'title' => NULL,
+        'content' => NULL,
+      ),
+    ),
+  );
+}
+
+/**
+ * Preprocess function for feedback messages.
+ */
+function template_preprocess_feedback_message(&$variables) {
+  $message = !empty($variables['message']) ? $variables['message'] : NULL;
+  $view_mode = !empty($variables['view_mode']) ? $variables['view_mode'] : 'full';
+
+  if (!empty($message['#markup'])) {
+    $message_array = explode(FSA_FEEDBACK_MESSAGE_SEPARATOR, $message['#markup']);
+    if (count($message_array) > 0) {
+      //$variables['doing'] = $message_array[0];
+      if ($view_mode == 'teaser') {
+        $variables['doing'] = truncate_utf8($message_array[0], 100, TRUE, TRUE, 1);
+      }
+      else {
+        $variables['doing'] = $message_array[0];
+      }
+    }
+    else {
+      $variables['doing'] = NULL;
+    }
+    if (count($message_array) > 1) {
+      if ($view_mode == 'teaser') {
+        $variables['wrong'] = truncate_utf8($message_array[1], 100, TRUE, TRUE, 1);
+      }
+      else {
+        $variables['wrong'] = $message_array[1];
+      }
+    }
+    else {
+      $variables['wrong'] = NULL;
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORMID_alter()
+ */
+function fsa_feedback_form_feedback_admin_view_form_alter(&$form, &$form_state, $form_id) {
+
+  $form['#attached']['css'][drupal_get_path('module', 'fsa_feedback') . '/fsa-feedback.css'] = array(
+    'group' => 'theme',
+    'weight' => 100,
+  );
+
+  // We use this function to add a view link to each feedback entry.
+  // We also add a 'mark as processed/unprocessed' link to each entry.
+  $feedback_messages = $form['feedback-messages'];
+  $statuses = array(FEEDBACK_OPEN, FEEDBACK_PROCESSED);
+  $messages = array();
+  foreach ($statuses as $status) {
+    foreach ($form['feedback-messages'][$status] as $fid => $entry) {
+      if (is_numeric($fid)) {
+        if (!empty($entry['operations']) && !empty($entry['operations']['#links'])) {
+          $form['feedback-messages'][$status][$fid]['operations']['#links']['view'] = array(
+            'title' => t('view'),
+            'href' => "admin/reports/feedback/$fid",
+          );
+          $form['feedback-messages'][$status][$fid]['operations']['#links']['process'] = array(
+            'title' => $status == FEEDBACK_PROCESSED ? t('mark as unprocessed') : t('mark as processed'),
+            'href' => "admin/reports/feedback/$fid/process/" . (string)(1 - intval($status)),
+            'query' => array('destination' => 'admin/reports/feedback'),
+          );
+          $form['feedback-messages'][$status][$fid]['operations']['#links']['forward'] = array(
+            'title' => t('forward by email'),
+            'href' => "admin/reports/feedback/$fid/forward",
+            'query' => array('destination' => 'admin/reports/feedback'),
+          );
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function fsa_feedback_theme_registry_alter(&$theme_registry) {
+  if (!empty($theme_registry['feedback_entry'])) {
+    $theme_registry['feedback_entry']['template'] = drupal_get_path('module', 'fsa_feedback') . '/theme/feedback-entry';
+  }
+}
+
+/**
+ * Implements template_preprocess_feedback_entry().
+ */
+function fsa_feedback_preprocess_feedback_entry(&$variables) {
+  $entry = !empty($variables['elements']) ? $variables['elements'] : NULL;
+  if (empty($entry)) {
+    return;
+  }
+  // Get the feedback item.
+  $feedback_item = !empty($entry['#feedback']) ? $entry['#feedback'] : NULL;
+
+  // Get the feedback item status.
+  $variables['status'] = !empty($feedback_item) && !empty($feedback_item->status) ? t('Processed') : t('Unprocessed');
+
+  // Get the browser
+  $variables['browser'] = $entry['browser'];
+  // Change the browser variable to standard markup.
+  unset($variables['browser']['#attributes']);
+  unset($variables['browser']['#theme']);
+  // Unset the default browser content element.
+  unset($variables['content']['browser']);
+
+  // Attach CSS file.
+  $variables['content']['#attached']['css'][drupal_get_path('module', 'fsa_feedback') . '/fsa-feedback.css'] = array(
+    'group' => 'theme',
+    'weight' => 100,
+  );
+
+}
+
+/**
+ * Implements hook_form_FORMID_alter().
+ */
+function fsa_feedback_form_feedback_entry_form_alter(&$form, &$form_state, $form_id) {
+
+  // Act only on the feedback entry form.
+  if ($form_id != 'feedback_entry_form') {
+    return;
+  }
+
+  // Ge the message.
+  $message = $form['message']['#default_value'];
+
+  // Add the 'What you were doing' field.
+  $form['doing'] = array(
+    '#type' => 'textarea',
+    '#title' => t('What you were doing'),
+    '#required' => TRUE,
+    '#wysiwyg' => FALSE,
+    '#default_value' => _fsa_feedback_split_message($message, 'doing'),
+  );
+
+  // Add the 'What went wrong' field.
+  $form['wrong'] = array(
+    '#type' => 'textarea',
+    '#title' => t('What went wrong'),
+    '#required' => FALSE,
+    '#wysiwyg' => FALSE,
+    '#default_value' => _fsa_feedback_split_message($message, 'wrong'),
+  );
+
+  // Remove the default message field.
+  unset($form['message']);
+
+  // Add our submit function before the existing one.
+  array_unshift($form['#submit'], 'fsa_feedback_form_submit');
+
+}
+
+/**
+ * Helper function to return a part of a feedback message.
+ *
+ * @param string $message
+ *   The full feedback message as stored in the database.
+ *
+ * @param string $field
+ *   The 'field' or part of the message to return. Acceptable values are:
+ *   - 'doing' : The 'What you were doing' part of the message
+ *   - 'wrong' : The 'What went wrong' part of the message
+ *
+ * @return string
+ *   The requested part of the message.
+ */
+function _fsa_feedback_split_message($message, $field = 'doing') {
+
+  // If no message is specified, return an empty string.
+  if (empty($message)) {
+    return '';
+  }
+
+  // An array of possible fields.
+  $fields = array('doing', 'wrong');
+
+  // Is the specified field one of our set? If not, return the message as is.
+  $field_index = array_search($field, $fields);
+  if ($field_index === FALSE) {
+    return $message;
+  }
+
+  // Split the message into an array on the separator.
+  $message_array = explode(FSA_FEEDBACK_MESSAGE_SEPARATOR, $message);
+
+  // Make sure that the field index is inside the range of the message array.
+  $message = $field_index < count($message_array) ? $message_array[$field_index] : '';
+
+  // Return the message
+  return $message;
+
+}
+
+/**
+ * Implements hook_menu().
+ */
+function fsa_feedback_menu() {
+  // Process an item of feedback - mark as processed/open.
+  $items['admin/reports/feedback/%feedback/process'] = array(
+    'title callback' => '_fsa_feedback_process_feedback_title',
+    'title arguments' => array(3),
+    'page callback' => 'fsa_feedback_process_status',
+    'page arguments' => array(3),
+    'access arguments' => array('view feedback messages'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 20,
+  );
+  // Forward an item of feedback via email.
+  $items['admin/reports/feedback/%feedback/forward'] = array(
+    'title' => 'Forward by email',
+    'description' => 'Forward feedback message by email',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_feedback_forward_form', 3),
+    'access arguments' => array('view feedback messages'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 30,
+  );
+  return $items;
+}
+
+/**
+ * Title callback for the process feedback menu item.
+ * @param object $entry
+ *   The feedback entity object
+ *
+ * @return string
+ *   The menu title.
+ */
+function _fsa_feedback_process_feedback_title($entry = NULL) {
+  $status = !empty($entry) && isset($entry->status) ? $entry->status : 2;
+  $titles = array(
+    0 => t('Mark as processed'),
+    1 => t('Mark as unprocessed'),
+    2 => t('Update status'),
+  );
+  $title = !empty($titles[$status]) ? $titles[$status] : t('Update status');
+  return $title;
+}
+
+/**
+ * Mark an item of feedback as processed or open.
+ *
+ * @param object $item
+ *   The loaded feedback item.
+ *
+ * @param int $status
+ *   The value to set for the status field of the item.
+ *   - 1 : Processed
+ *   - 0 : Open
+ *
+ * @see feedback_save()
+ */
+function fsa_feedback_process_status($item = NULL, $status = 1) {
+  // Message to return to the user.
+  $error_message = t('Sorry, an error occurred updating the feedback item status.');
+  $message = '';
+  $message_status = 'status';
+
+  // Destination page to redirect to once operation is complete.
+  $destination = 'admin/reports/feedback';
+
+  // If we don't have an item, or if it's empty, set error message and redirect.
+  if (empty($item) || !is_object($item) || !isset($item->status)) {
+    $message = $error_message;
+    $message_status = 'error';
+    drupal_set_message($message, $message_status);
+    drupal_goto($destination);
+  }
+
+  // Set status - should be either 0 or 1. 1 is default.
+  // By default, get the current status of the item and invert it.
+  $item_status = isset($item->status) ? $item->status : 0;
+  $item_status = 1 - $item_status;
+  $status = is_numeric($status) && intval($status) === 0 ? 0 : $item_status;
+
+  $destination = 'admin/reports/feedback/' . $item->fid;
+
+  // Set the item status.
+  $item->status = $status;
+
+  // Save the item.
+  $save_status = feedback_save($item);
+
+  // Set message based on return value of feedback_save().
+  switch ($save_status) {
+    case SAVED_NEW:
+      $message = t('New feedback item created.');
+      break;
+    case SAVED_UPDATED:
+      $message = t('Feedback item processed.');
+      break;
+    case FALSE:
+      $message = $error_message;
+      $message_status = 'error';
+      break;
+  }
+
+  // Tell the user what has happened.
+  drupal_set_message($message, $message_status);
+
+  // Redirect to the destination page.
+  drupal_goto($destination);
+}
+
+/**
+ * Send an email containing the feedback message.
+ *
+ * @param type $message
+ */
+function fsa_feedback_mail_send($entry = NULL) {
+
+  $message = !empty($entry) && !empty($entry->message) ? $entry->message : '';
+
+  $module = 'fsa_feedback';
+  $key = 'feedback_message';
+
+  $to = variable_get('fsa_feedback_email_recipient', variable_get('site_mail', 'content@food.gov.uk'));
+  $from = variable_get('site_mail', 'content@food.gov.uk');
+
+  $language = language_default();
+
+  $send = TRUE;
+
+  $params = array(
+    'message' => $message,
+    'subject' => 'Feedback message',
+    'browser' => !empty($entry->useragent) ? $entry->useragent : '',
+    'url' => !empty($entry->url) ? $entry->url : '',
+    'entry' => serialize($entry),
+    'date' => !empty($entry->timestamp) ? format_date($entry->timestamp, 'medium') : '',
+    'id' => !empty($entry->fid) ? $entry->fid : 0,
+  );
+  $result = drupal_mail($module, $key, $to, $language, $params, $from, $send);
+}
+
+/**
+ * Implements hook_mail().
+ */
+function fsa_feedback_mail($key, &$message, $params) {
+  $options = array(
+    'langcode' => $message['language']->language,
+  );
+
+  switch ($key) {
+    case 'feedback_message':
+
+      $doing = _fsa_feedback_split_message($params['message'], 'doing');
+      $wrong = _fsa_feedback_split_message($params['message'], 'wrong');
+
+      $message['subject'] = _fsa_feedback_email_subject();
+
+      if (!empty($doing)) {
+        $message['body'][] = _fsa_feedback_email_section_heading('What you were doing') . check_plain($doing);
+      }
+
+      if (!empty($wrong)) {
+        $message['body'][] = _fsa_feedback_email_section_heading('What went wrong') . check_plain($wrong);
+      }
+
+      if (!empty($params['date'])) {
+        $message['body'][] = _fsa_feedback_email_section_heading('Date') . check_plain($params['date']);
+      }
+
+      if (!empty($params['url'])) {
+        $message['body'][] = _fsa_feedback_email_section_heading('Page') . check_plain($params['url']);
+      }
+
+      if (!empty($params['browser'])) {
+        $message['body'][] = _fsa_feedback_email_section_heading('Browser') . check_plain($params['browser']);
+      }
+
+      if (!empty($params['id'])) {
+        $message['body'][] = 'View this message in Drupal: ' . url('admin/reports/feedback/' . $params['id'], array('absolute' => TRUE));
+        $message['body'][] = 'Mark this message as processed: ' . url("admin/reports/feedback/" . $params['id'] . "/process", array('absolute' => TRUE));
+      }
+
+      break;
+
+    case 'feedback_forward_message':
+
+      $message['subject'] = $params['subject'];
+      $message['body'][] = $params['message'];
+
+      break;
+  }
+}
+
+
+/**
+ * Helper function to format a section heading in the feedback email.
+ *
+ * @param string $heading
+ *   The heading text.
+ *
+ * @return string
+ *   The formatted heading to include in the email.
+ */
+function _fsa_feedback_email_section_heading($heading = '') {
+  if (empty($heading)) {
+    return '';
+  }
+
+  //$underline_length = strlen($heading);
+  $underline_length = 77;
+
+  return $heading . PHP_EOL . str_repeat('-', $underline_length) . PHP_EOL;
+}
+
+
+/**
+ * Implements hook_feedback_insert().
+ *
+ * @param object $entry
+ *   The feedback item being inserted.
+ */
+function fsa_feedback_feedback_insert($entry) {
+  // When a new feedback entry is created, send an email.
+  fsa_feedback_mail_send($entry);
+}
+
+
+function _fsa_feedback_build_email_message($entry = NULL) {
+  if (empty($entry)) {
+    return '';
+  }
+
+  $message = !empty($entry->message) ? $entry->message : '';
+
+  $doing = _fsa_feedback_split_message($message, 'doing');
+  $wrong = _fsa_feedback_split_message($message, 'wrong');
+
+  $message = array('body' => array());
+
+  if (!empty($doing)) {
+    $message['body'][] = _fsa_feedback_email_section_heading('What you were doing') . check_plain($doing);
+  }
+
+  if (!empty($wrong)) {
+    $message['body'][] = _fsa_feedback_email_section_heading('What went wrong') . check_plain($wrong);
+  }
+
+  if (!empty($entry->timestamp)) {
+    $message['body'][] = _fsa_feedback_email_section_heading('Date') . check_plain(format_date($entry->timestamp, 'medium'));
+  }
+
+  if (!empty($entry->url)) {
+    $message['body'][] = _fsa_feedback_email_section_heading('Page') . check_plain($entry->url);
+  }
+
+  if (!empty($entry->useragent)) {
+    $message['body'][] = _fsa_feedback_email_section_heading('Browser') . check_plain($entry->useragent);
+  }
+
+  if (!empty($entry->fid)) {
+    $message['body'][] = 'View this message in Drupal: ' . url('admin/reports/feedback/' . $entry->fid, array('absolute' => TRUE));
+    $message['body'][] = 'Mark this message as processed: ' . url("admin/reports/feedback/" . $entry->fid . "/process", array('absolute' => TRUE));
+  }
+
+  return $message['body'];
+
+}
+
+
+/**
+ * Form builder for the forward an email form
+ */
+function fsa_feedback_forward_form($form, &$form_state, $entry) {
+
+  global $user;
+
+  // If we don't have a destination specified, redirect to the view page for the
+  // feedback item.
+  if (empty($_GET['destination'])) {
+    $destination = 'destination=admin/reports/feedback/' . $entry->fid;
+    if (!empty($form['#action'])) {
+      $form['#action'] .= "?$destination";
+    }
+    else {
+      $form['#action'] = "?$destination";
+    }
+  }
+
+  $form['to'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Recipient email address(es)'),
+    '#description' => t('Enter the email addresses of the recipient(s). Separate multiple addresses with commas.'),
+    '#size' => 80,
+    '#maxlength' => 240,
+    '#required' => TRUE,
+  );
+
+  $form['from'] = array(
+    '#type' => 'textfield',
+    '#title' => t('From email address'),
+    '#description' => t('The email address that you\'d like this email to come from'),
+    '#size' => 80,
+    '#maxlength' => 240,
+    '#required' => TRUE,
+    '#default_value' => !empty($user->mail) ? $user->mail : variable_get('site_mail', 'content@food.gov.uk'),
+  );
+
+  $form['subject'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Email subject'),
+    '#description' => t('Enter the subject line for the email.'),
+    '#size' => 80,
+    '#maxlength' => 240,
+    '#required' => TRUE,
+    '#default_value' => 'Fwd: ' . _fsa_feedback_email_subject()
+  );
+
+  $form['message'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Message'),
+    //'#description' => t('Enter the email addresses of the recipient(s). Separate multiple addresses with commas.'),
+    '#cols' => 77,
+    '#rows' => 20,
+    '#required' => TRUE,
+    '#default_value' => implode(str_repeat(PHP_EOL, 2), _fsa_feedback_build_email_message($entry)),
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#title' => t('Send email'),
+    '#value' => t('Send email'),
+  );
+
+  return $form;
+}
+
+/**
+ * Submit handler for the feedback email forward form.
+ */
+function fsa_feedback_forward_form_submit($form, &$form_state) {
+
+  // Get the message properties
+  $to = !empty($form_state['values']['to']) ? $form_state['values']['to'] : NULL;
+  $from = !empty($form_state['values']['from']) ? $form_state['values']['from'] : variable_get('site_mail', 'content@food.gov.uk');
+  $message = !empty($form_state['values']['message']) ? $form_state['values']['message'] : NULL;
+  $subject = !empty($form_state['values']['subject']) ? $form_state['values']['subject'] : NULL;
+
+  // Set the module and key for hook_mail().
+  $module = 'fsa_feedback';
+  $key = 'feedback_forward_message';
+
+  // Set the language
+  $language = language_default();
+
+  // Send the email.
+  $send = TRUE;
+
+  // Parameters to pass to hook_mail().
+  $params = array(
+    'message' => $message,
+    'subject' => $subject,
+  );
+
+  // If we have all the parameters we need, attempt to send the email.
+  if (!empty($to) && !empty($from) && !empty($subject) && !empty($message)) {
+    $result = drupal_mail($module, $key, $to, $language, $params, $from, $send);
+  }
+  else {
+    $result = array('result' => FALSE);
+  }
+
+  // Set a message telling the user about the outcome of the email send.
+  if ($result['result'] === TRUE) {
+    drupal_set_message('Your message has been sent');
+  }
+  else {
+    drupal_set_message('Sorry, there was a problem sending your message', 'error');
+  }
+
+}
+
+/**
+ * Returns a subject line for a feedback email.
+ *
+ * @return string
+ *   Subject line for a feedback email.
+ */
+function _fsa_feedback_email_subject() {
+  $subject = &drupal_static(__FUNCTION__);
+  if (isset($subject)) {
+    return $subject;
+  }
+  $subject = variable_get('fsa_feedback_email_subject', t('Feedback message from @site-name', array('@site-name' => variable_get('site_name', 'food.gov.uk'))));
+  return $subject;
+}

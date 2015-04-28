@@ -9,8 +9,8 @@
 <!-- begin site-frontend-campaign-content-page-layout.tpl.php -->
 
 <div class="l-page layout--site-frontend-campaign-content-page">
-	
-  <div class="header-wrapper">	
+
+  <div class="header-wrapper">
     <div class="header-wrapper-inner">
       <header class="l-header" role="banner">
         <div class="header-inner">
@@ -69,20 +69,20 @@
   <div class="breadcrumb-accessibility-wrapper">
     <div class="l-breadcrumb-accessibility">
 	  <div class="breadcrumb-accessibility-inner">
-		
+
         <div class="l-breadcrumb">
 		  <div class="breadcrumb-inner">
 	      	<?php print $breadcrumb; ?>
 	      	<?php print render($page['breadcrumb']); ?>
 		  </div> <!-- end breadcrumb-inner -->
 	    </div> <!-- end l-breadcrumb -->
-	
+
 	    <div class="l-accessibility">
 		  <div class="accessibility-inner">
 	      	<?php print render($page['accessibility']); ?>
 		  </div> <!-- end accessibility-inner -->
 	    </div> <!-- end l-accessibility -->
-	
+
 	  </div> <!-- end breadcrumb-accessibility-inner -->
 	</div> <!-- end l-breadcrumb-accessibility -->
   </div> <!-- end breadcrumb-accessibility-wrapper -->
@@ -102,7 +102,7 @@
   <div class="main-wrapper">
     <div class="l-main">
 	  <div class="main-inner">
-      
+
       <?php print render($title_prefix); ?>
         <?php if (isset($book_parent_title) && $book_parent_title): ?>
           <div class="book-triple-title">
@@ -123,7 +123,7 @@
 
         <div id="main-content" class="l-content" role="main">
 	      <div class="main-content-inner">
-	
+
 	          <?php print render($page['highlighted']); ?>
 
 	          <?php if ($page['content_top']): ?>
@@ -143,11 +143,14 @@
 	            <ul class="action-links"><?php print render($action_links); ?></ul>
 	          <?php endif; ?>
 	          <?php print render($page['content']); ?>
+            <?php if (!empty($page['node_inline'])): ?>
+              <?php print render($page['node_inline']); ?>
+            <?php endif; ?>
 	          <?php print $feed_icons; ?>
 
           </div> <!-- end main-content-inner -->
         </div> <!-- end l-content -->
-        
+
         <div class="l-sidebar-second">
 	      <div class="sidebar-second-inner">
 		    <?php print render($page['sidebar_second']); ?>
@@ -158,14 +161,14 @@
 	      <div class="sidebar-first-inner" role="navigation">
 		    <?php print render($page['sidebar_first']); ?>
 		  </div> <!-- end sidebar-first-inner -->
-      
+
       <?php if (!empty($page['campaign_widget'])): ?>
         <?php print render($page['campaign_widget']); ?>
-      <?php endif; ?>      
-      
-      
+      <?php endif; ?>
+
+
 		</div> <!-- end l-sidebar-first -->
-		
+
       </div> <!-- end main-inner -->
     </div> <!-- end main -->
   </div> <!-- end main-wrapper -->
@@ -186,7 +189,7 @@
     <div class="footer-wrapper-inner">
       <footer class="l-footer" role="contentinfo">
 	    <div class="footer-inner">
-	  
+
 	      <div class="footer-top">
 	        <div class="l-footer-copyright">
 		      <div class="footer-copyright-inner">
@@ -194,7 +197,7 @@
 		        <?php print render($page['footer_copyright']); ?>
 		      </div> <!-- end l-footer-copyright -->
 		    </div> <!-- end footer-copyright-inner -->
-          </div> <!-- end footer-top -->        
+          </div> <!-- end footer-top -->
 
           <div class="footer-bottom">
 	        <div class="l-footer-menu">
@@ -207,9 +210,9 @@
 		      <div class="footer-buttons-inner">
 		        <?php print render($page['footer_buttons']); ?>
 		      </div> <!-- end l-footer-buttons -->
-		    </div> <!-- end footer-buttons-inner -->      
+		    </div> <!-- end footer-buttons-inner -->
 		  </div> <!-- end footer-bottom -->
-		
+
         </div> <!-- end footer-inner -->
       </footer>
     </div> <!-- end footer-wrapper-inner -->

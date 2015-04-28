@@ -7,7 +7,6 @@
 ?>
 
 <!-- begin site-frontend-three-column-layout.tpl.php -->
-
 <div class="l-page">
 	
   <div class="header-wrapper">	
@@ -140,6 +139,11 @@
 	            <ul class="action-links"><?php print render($action_links); ?></ul>
 	          <?php endif; ?>
 	          <?php print render($page['content']); ?>
+
+            <?php if (!empty($page['node_inline'])): ?>
+              <?php print render($page['node_inline']); ?>
+            <?php endif; ?>
+
 	          <?php print $feed_icons; ?>
 
           </div> <!-- end main-content-inner -->
@@ -158,8 +162,14 @@
 		</div> <!-- end l-sidebar-first -->
 		
       </div> <!-- end main-inner -->
+
+
     </div> <!-- end main -->
+
+
+
   </div> <!-- end main-wrapper -->
+
 
 
   <div class="bottom-menu-wrapper">

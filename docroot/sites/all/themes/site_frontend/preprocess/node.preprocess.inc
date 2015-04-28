@@ -104,7 +104,6 @@ function site_frontend_preprocess_node__job(&$variables, $node = NULL) {
 }
 
 
-
 /**
  * Preprocess function for research project nodes.
  */
@@ -145,7 +144,6 @@ function site_frontend_preprocess_node__project(&$variables, $node) {
       ),
 
     );
-
   }
   // Set the weight of the duration field
   if (!empty($variables['content']['field_duration'])) {

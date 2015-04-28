@@ -57,7 +57,7 @@
 	.node__content .field,
 	.node .content .field {
 		font-size: 1.2em;
-		margin-bottom: .6em;
+		margin-bottom: .6em; 
 		line-height: 1.5em;
 		color: #333;
 		li, p {
@@ -205,6 +205,18 @@
 	}
 	.field-name-field-audit-type {
 		font-style: italic;
+	}
+	
+	.field--name-field-audit-state {
+		display: inline-block;
+		padding-left: 3px;
+		margin-top: -5px;
+	}
+	
+	.field--name-field-audit-type {
+		display: inline-block;
+		padding-right: 3px;
+		margin-top: -5px;
 	}
 }
 

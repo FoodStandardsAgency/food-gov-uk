@@ -93,7 +93,7 @@ def post_deploy():
     Runs "updatedb" and "cc all" via drush from the docroot.
     """
     with cd(env.docroot):
-        run('drush updatedb')
+        run('drush updatedb --y')
         run('drush cc all')
 
 
