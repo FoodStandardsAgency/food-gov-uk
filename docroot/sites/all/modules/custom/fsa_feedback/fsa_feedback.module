@@ -345,6 +345,17 @@ function fsa_feedback_theme() {
         'content' => NULL,
       ),
     ),
+    'fsa_feedback_email' => array(
+      'template' => 'theme/feedback-email',
+      'variables' => array(
+        'doing' => NULL,
+        'wrong' => NULL,
+        'date' => NULL,
+        'page' => NULL,
+        'browser' => NULL,
+        'message_id' => NULL,
+      )
+    ),
   );
 }
 
@@ -699,30 +710,19 @@ function fsa_feedback_mail($key, &$message, $params) {
 
       $message['subject'] = _fsa_feedback_email_subject();
 
-      if (!empty($doing)) {
-        $message['body'][] = _fsa_feedback_email_section_heading('What you were doing') . check_plain($doing);
-      }
+      // Build a render array for the message body.
+      $message_body = array(
+        '#theme' => 'fsa_feedback_email',
+        '#doing' => $doing,
+        '#wrong' => $wrong,
+        '#browser' => check_plain($params['browser']),
+        '#page' => check_plain($params['url']),
+        '#date' => check_plain($params['date']),
+        '#message_id' => check_plain($params['id']),
+      );
 
-      if (!empty($wrong)) {
-        $message['body'][] = _fsa_feedback_email_section_heading('What went wrong') . check_plain($wrong);
-      }
-
-      if (!empty($params['date'])) {
-        $message['body'][] = _fsa_feedback_email_section_heading('Date') . check_plain($params['date']);
-      }
-
-      if (!empty($params['url'])) {
-        $message['body'][] = _fsa_feedback_email_section_heading('Page') . check_plain($params['url']);
-      }
-
-      if (!empty($params['browser'])) {
-        $message['body'][] = _fsa_feedback_email_section_heading('Browser') . check_plain($params['browser']);
-      }
-
-      if (!empty($params['id'])) {
-        $message['body'][] = 'View this message in Drupal: ' . url('admin/reports/feedback/' . $params['id'], array('absolute' => TRUE));
-        $message['body'][] = 'Mark this message as processed: ' . url("admin/reports/feedback/" . $params['id'] . "/process", array('absolute' => TRUE));
-      }
+      // Render the message body and add it to the actual email message body.
+      $message['body'][] = drupal_render($message_body);
 
       break;
 
@@ -733,6 +733,30 @@ function fsa_feedback_mail($key, &$message, $params) {
 
       break;
   }
+}
+
+
+/**
+ * Preprocess function for feedback email messages.
+ *
+ * @param array $variables
+ *   Template variables passed by reference
+ */
+function template_preprocess_fsa_feedback_email(&$variables) {
+
+  // An array of text fields to output in the email.
+  $text_fields = array('doing', 'wrong', 'browser', 'date', 'page');
+
+  foreach ($text_fields as $field) {
+    // Add an extra line break to the end of each text field to ensure that it
+    // displays properly in the emails.
+    $variables[$field] .= "\r\n";
+  }
+
+  // Set up the links for the bottom of the email
+  $variables['view_link'] = url('admin/reports/feedback/' . $variables['message_id'], array('absolute' => TRUE));
+  $variables['processed_link'] = url("admin/reports/feedback/" . $variables['message_id'] . "/process", array('absolute' => TRUE));
+
 }
 
 
