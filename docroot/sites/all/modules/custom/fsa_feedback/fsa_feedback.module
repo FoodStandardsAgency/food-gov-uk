@@ -25,56 +25,10 @@ define('FSA_FEEDBACK_DEFAULT_FEEDBACK_TITLE', 'Is there anything wrong with this
  */
 define('FSA_FEEDBACK_SHOW_MESSAGES_ON_FEEDBACK_FORM', FALSE);
 
-
 /**
- * Implements hook_variable_info().
+ * Group name for this module's variables
  */
-function fsa_feedback_variable_info($options) {
-  $variables['fsa_feedback_email_recipient'] = array(
-    'type' => 'string',
-    'title' => t('Feedback email recipient', array(), $options),
-    'default' => variable_get('site_mail', 'content@food.gov.uk'),
-    'description' => t('Email address(es) to which feedback emails will be sent.', array(), $options),
-    'required' => FALSE,
-  );
-  $variables['fsa_feedback_email_subject'] = array(
-    'type' => 'string',
-    'title' => t('Feedback email subject', array(), $options),
-    'default callback' => '_fsa_feedback_email_subject',
-    'description' => t('Subject line for feeback emails.', array(), $options),
-    'required' => FALSE,
-  );
-  $variables['fsa_feedback_form_heading'] = array(
-    'type' => 'string',
-    'title' => t('Feedback form heading', array(), $options),
-    'default' => t('Help us improve food.gov.uk', array(), $options),
-    'description' => t('Heading for the site feedback form.', array(), $options),
-    'required' => FALSE,
-  );
-  $variables['fsa_feedback_form_help'] = array(
-    'type' => 'string',
-    'title' => t('Feedback form help text', array(), $options),
-    'default' => '',
-    'description' => t('Additional help text to appear on the site feedback form.', array(), $options),
-    'required' => FALSE,
-  );
-  $variables['fsa_feedback_message_field1_label'] = array(
-    'type' => 'string',
-    'title' => t('Feedback form message label 1', array(), $options),
-    'default' => t('What you were doing', array(), $options),
-    'description' => t('Label for the first field on the site feedback form.', array(), $options),
-    'required' => FALSE,
-  );
-  $variables['fsa_feedback_message_field2_label'] = array(
-    'type' => 'string',
-    'title' => t('Feedback form message label 2', array(), $options),
-    'default' => t('What went wrong', array(), $options),
-    'description' => t('Label for the second field on the site feedback form.', array(), $options),
-    'required' => FALSE,
-  );
-
-  return $variables;
-}
+define('FSA_FEEDBACK_VARIABLE_GROUP_NAME', 'fsa_feedback');
 
 
 /**
@@ -229,7 +183,7 @@ function fsa_feedback_preprocess_feedback_form_display(&$variables) {
     unset($variables['content']['messages']);
   }
   // Change the title displayed above the feedback form.
-  $variables['title'] = variable_get('feedback_title', FSA_FEEDBACK_DEFAULT_FEEDBACK_TITLE);
+  $variables['title'] = variable_get('fsa_feedback_title', FSA_FEEDBACK_DEFAULT_FEEDBACK_TITLE);
   // Override standard feedback form display template.
   $variables['theme_hook_suggestions'][] = 'fsa_feedback_form_display';
 }
@@ -261,12 +215,12 @@ function fsa_feedback_form_feedback_admin_settings_form_alter(&$form, &$form_sta
   );
 
 // Text for the feedback form link
-  $form['feedback_title'] = array(
+  $form['fsa_feedback_title'] = array(
     '#type' => 'textfield',
     '#title' => t('Feedback link'),
     '#size' => 40,
     '#maxlength' => 128,
-    '#default_value' => variable_get('feedback_title', FSA_FEEDBACK_DEFAULT_FEEDBACK_TITLE),
+    '#default_value' => variable_get('fsa_feedback_title', FSA_FEEDBACK_DEFAULT_FEEDBACK_TITLE),
     '#description' => t("Specify the title that will appear on the feedback form. Defaults to %feedback_title", array('%feedback_title' => FSA_FEEDBACK_DEFAULT_FEEDBACK_TITLE)),
   );
 
@@ -960,4 +914,88 @@ function _fsa_feedback_email_subject() {
   }
   $subject = variable_get('fsa_feedback_email_subject', t('Feedback message from @site-name', array('@site-name' => variable_get('site_name', 'food.gov.uk'))));
   return $subject;
+}
+
+
+
+/**
+ * Imports the translation file(s) included with this module.
+ *
+ * @param string $langcode
+ *   The language code for the file being imported. Defaults to Welsh 'cy'
+ *
+ * @return boolean
+ *   TRUE : success
+ *   FALSE : failure
+ */
+function _fsa_feedback_import_translations($langcode = 'cy') {
+
+  // Default the language code to Welsh, but allow overrides.
+  $language_code = !empty($langcode) ? $langcode : 'cy';
+
+  // Set the file path for the translation .po file
+  $filepath = drupal_get_path('module', 'fsa_feedback') . "/translations/fsa_feedback.$language_code.po";
+
+  // Check that the file exists
+  if (!file_exists($filepath)) {
+    return FALSE;
+  }
+
+  // Import the file
+  if (file_exists($filepath) && function_exists('_locale_import_read_po')) {
+    $file = (object) array('filename' => drupal_basename($filepath), 'uri' => $filepath);
+    $result = _locale_import_read_po('db-store', $file, LOCALE_IMPORT_KEEP, $language_code);
+    return TRUE;
+  }
+}
+
+
+/**
+ * Sets up initial variables for the FSA Feedback module.
+ *
+ * @global object $language
+ *   The language object.
+ */
+function _fsa_feedback_variable_setup($langcode = 'cy') {
+  // Get the current language settings so we can pass them to
+  // hook_variable_info.
+  global $language;
+  $options = array(
+    'language' => $language,
+    'langcode' => $language->language,
+  );
+
+  // Get the current variable_realm_list_language settings.
+  $variable_realm_list_language = variable_get('variable_realm_list_language', array());
+  $translate_vars = array();
+
+  // Get this module's localizable variables and add them to the list.
+  $variables = module_invoke('fsa_feedback', 'variable_info', $options);
+  foreach ($variables as $variable_name => $variable_info) {
+    if (!empty($variable_info['localize']) && $variable_info['localize']) {
+      $translate_vars[] = $variable_name;
+      if (!in_array($variable_name, $variable_realm_list_language)) {
+        $variable_realm_list_language[] = $variable_name;
+      }
+    }
+  }
+
+  // Set the list of localizable variables.
+  if (count($variable_realm_list_language) > 0) {
+    variable_set('variable_realm_list_language', $variable_realm_list_language);
+  }
+
+  // Translate the variables
+  if (function_exists('i18n_variable_set')) {
+    foreach ($translate_vars as $var) {
+
+      $var_value = $variables[$var]['default'];
+      $var_value_translated = locale($variables[$var]['default'], NULL, $langcode);
+
+      if ($var_value != $var_value_translated) {
+        i18n_variable_set($var, $var_value, 'en');
+        i18n_variable_set($var, $var_value_translated, $langcode);
+      }
+    }
+  }
 }
