@@ -1,0 +1,25 @@
+<?php
+/**
+ * @file
+ * Installation, update and uninstall functions for the FSA Feedback module
+ */
+
+
+
+/**
+ * Imports Welsh language translations from the fsa_feedback.cy.po file.
+ */
+function fsa_feedback_update_7001() {
+  _fsa_feedback_import_translations('cy');
+}
+
+
+
+/**
+ * Sets up translatable variables for the FSA Feedback module
+ */
+function fsa_feedback_update_7002() {
+  _fsa_feedback_variable_setup();
+}
+
+
