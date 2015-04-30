@@ -901,3 +901,9 @@
   background-color: #49176e;
   color: #fff;
 }
+
+h1 {
+  color: #49176e;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
