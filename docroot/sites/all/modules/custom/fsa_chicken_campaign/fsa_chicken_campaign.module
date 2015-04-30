@@ -1,0 +1,105 @@
+<?php
+/**
+ * @file
+ * Module functions for the FSA Chicken Challenge campaign 2015
+ */
+
+/**
+ * Implements template_preprocess_page().
+ */
+function fsa_chicken_campaign_preprocess_page(&$variables) {
+  if (empty($variables['page'])) {
+    return;
+  }
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function fsa_chicken_campaign_block_info() {
+  $blocks['chicken_campaign_pledge'] = array(
+    'info' => t('Chicken Campaign pledge'),
+    'cache' => DRUPAL_CACHE_PER_ROLE,
+  );
+  $blocks['chicken_campaign_tint_board'] = array(
+    'info' => t('Chicken Campaign Tint board'),
+    'cache' => DRUPAL_CACHE_PER_ROLE,
+  );
+  $blocks['chicken_campaign_which_widget'] = array(
+    'info' => t('Chicken Campaign Which widget'),
+    'cache' => DRUPAL_CACHE_PER_ROLE,
+  );
+  $blocks['chicken_campaign_which_widget_m'] = array(
+    'info' => t('Chicken Campaign Which widget (mobile)'),
+    'cache' => DRUPAL_CACHE_PER_ROLE,
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function fsa_chicken_campaign_block_view($delta = '') {
+  $block = array(
+    'subject' => '',
+    'content' => '',
+  );
+  switch($delta) {
+    case 'chicken_campaign_pledge':
+    case 'chicken_campaign_pledge_2':
+      //$block['subject'] = t('Chicken Campaign pledge');
+      $block['subject'] = '';
+      $block['content'] = array(
+        '#theme' => 'fsa_chicken_campaign_pledge',
+        '#attached' => array(
+          'css' => array(
+            drupal_get_path('module', 'fsa_chicken_campaign') . '/css/fsa-chicken-campaign-pledge.css',
+          ),
+          'js' => array(
+            drupal_get_path('module', 'fsa_chicken_campaign') . '/js/fsa-chicken-campaign-pledge.js',
+          ),
+        ),
+      );
+      break;
+    case 'chicken_campaign_tint_board':
+      $block['subject'] = '';
+      $block['content'] = array(
+        '#theme' => 'fsa_chicken_campaign_tint_board',
+      );
+      break;
+    case 'chicken_campaign_which_widget':
+    case 'chicken_campaign_which_widget_m':
+      $block['content'] = array(
+        '#theme' => 'fsa_chicken_campaign_which_widget',
+        '#attached' => array(
+          'css' => array(
+            drupal_get_path('module', 'fsa_chicken_campaign') . '/css/fsa-chicken-campaign-which-widget.css',
+          ),
+        ),
+      );
+      break;
+  }
+  return $block;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function fsa_chicken_campaign_theme($existing, $type, $theme, $path) {
+  return array(
+    'fsa_chicken_campaign_pledge' => array(
+      'template' => 'theme/chicken-campaign-pledge',
+      'variables' => array(),
+    ),
+    'fsa_chicken_campaign_tint_board' => array(
+      'template' => 'theme/chicken-campaign-tint-board',
+      'variables' => array(
+        'board_id' => NULL,
+      ),
+    ),
+    'fsa_chicken_campaign_which_widget' => array(
+      'template' => 'theme/chicken-campaign-which-widget',
+      'variables' => array(),
+    )
+  );
+}
