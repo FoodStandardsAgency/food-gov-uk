@@ -25,6 +25,7 @@ regions[footer_buttons] = Footer Buttons
 regions[campaign_promotions] = Campaign promotions
 regions[campaign_header] = Campaign header
 regions[campaign_widget] = Campaign widget
+regions[campaign_pledge] = Campaign pledge
 
 ; following region is rendered in node.tpl.php for some content types
 regions[node_inline] = Node Inline

@@ -121,6 +121,23 @@
         <?php print render($page['campaign_header']); ?>
       <?php endif; ?>
 
+    <div class="l-sidebar-first">
+
+      <?php if (!empty($page['campaign_pledge'])): ?>
+        <?php print render($page['campaign_pledge']); ?>
+      <?php endif; ?>
+
+      <div class="sidebar-first-inner" role="navigation">
+		    <?php print render($page['sidebar_first']); ?>
+		  </div> <!-- end sidebar-first-inner -->
+
+      <?php if (!empty($page['campaign_widget'])): ?>
+        <?php print render($page['campaign_widget']); ?>
+      <?php endif; ?>
+
+		</div> <!-- end l-sidebar-first -->
+
+
         <div id="main-content" class="l-content" role="main">
 	      <div class="main-content-inner">
 
@@ -156,18 +173,6 @@
 		    <?php print render($page['sidebar_second']); ?>
 		  </div> <!-- end sidebar-second-inner -->
 		</div> <!-- end l-sidebar-second -->
-
-        <div class="l-sidebar-first">
-	      <div class="sidebar-first-inner" role="navigation">
-		    <?php print render($page['sidebar_first']); ?>
-		  </div> <!-- end sidebar-first-inner -->
-
-      <?php if (!empty($page['campaign_widget'])): ?>
-        <?php print render($page['campaign_widget']); ?>
-      <?php endif; ?>
-
-
-		</div> <!-- end l-sidebar-first -->
 
       </div> <!-- end main-inner -->
     </div> <!-- end main -->
