@@ -1,0 +1,12 @@
+#block-fsa-chicken-campaign-chicken-campaign-which-widget {
+  display: none;
+}
+
+@media screen and (min-width: 480px) {
+  #block-fsa-chicken-campaign-chicken-campaign-which-widget {
+    display: block;
+  }
+  #block-fsa-chicken-campaign-chicken-campaign-which-widget-m {
+    display: none;
+  }
+}
