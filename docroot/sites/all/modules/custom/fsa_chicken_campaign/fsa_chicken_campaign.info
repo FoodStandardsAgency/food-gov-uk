@@ -1,0 +1,4 @@
+name = Chicken Campaign
+description = "Provides functionality and styling for the FSA Chicken Challenge Campaign 2015"
+package = FSA
+core = 7.x
