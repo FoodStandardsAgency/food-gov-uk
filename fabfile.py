@@ -91,6 +91,7 @@ def post_deploy():
     """Perform post-deployment tasks.
 
     Runs "updatedb" and "cc all" via drush from the docroot.
+    Deletes installation files.
     """
     with cd(env.docroot):
 	run('rm CHANGELOG.txt')
@@ -104,6 +105,7 @@ def post_deploy():
 	run('rm update.php')
 	run('rm install.php')
 	run('rm COPYRIGHT.txt')
+	run('rm README.txt')
         run('drush updatedb --y')
         run('drush cc all')
 
