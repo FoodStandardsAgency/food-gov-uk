@@ -726,3 +726,7 @@
     display: none;
   }
 }
+.layout--site-frontend-campaign-content-page .l-region.l-region--campaign-header h2 {
+  font-size: 23px !important;
+  margin-bottom: 0.867em;
+}
