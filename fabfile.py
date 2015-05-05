@@ -93,17 +93,17 @@ def post_deploy():
     Runs "updatedb" and "cc all" via drush from the docroot.
     """
     with cd(env.docroot):
-	run('rm {docroot}/CHANGELOG.txt')
-        run('rm {docroot}/INSTALL.mysql.txt')
-	run('rm {docroot}/INSTALL.pgsql.txt')
-	run('rm {docroot}/INSTALL.sqlite.txt')
-	run('rm {docroot}/INSTALL.txt')
-	run('rm {docroot}/LICENSE.txt')
-	run('rm {docroot}/MAINTAINERS.txt')
-	run('rm {docroot}/UPGRADE.txt')
-	run('rm {docroot}/update.php')
-	run('rm {docroot}/install.php')
-	run('rm {docroot}/COPYRIGHT.txt')
+	run('rm CHANGELOG.txt')
+        run('rm INSTALL.mysql.txt')
+	run('rm INSTALL.pgsql.txt')
+	run('rm INSTALL.sqlite.txt')
+	run('rm INSTALL.txt')
+	run('rm LICENSE.txt')
+	run('rm MAINTAINERS.txt')
+	run('rm UPGRADE.txt')
+	run('rm update.php')
+	run('rm install.php')
+	run('rm COPYRIGHT.txt')
         run('drush updatedb --y')
         run('drush cc all')
 
