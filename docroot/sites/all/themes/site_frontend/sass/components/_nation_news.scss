@@ -34,14 +34,14 @@
 		margin: 0 100px 0.5em 118px;
 		font-weight: normal;
 	}
-	p {
+	p, span.more-link-wrapper {
 		margin-left: 118px;
 		font-size: 1.2em;
 		line-height: 1.3em;
 		margin-bottom: 15px;
 	}
 	/* more link */
-	p.more-link-wrapper {
+	span.more-link-wrapper, p.more-link-wrapper {
 		display: block;
 		margin-left: 118px;
 		a.fsa-more-link {
@@ -100,7 +100,7 @@
 		h3 {
 			margin: 0;
 		}
-		p.more-link-wrapper {
+		span.more-link-wrapper, p.more-link-wrapper {
 			display: none;
 		}
 		p {

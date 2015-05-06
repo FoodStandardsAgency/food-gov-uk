@@ -5618,17 +5618,17 @@ h1.nation-wales {
   margin: 0 100px 0.5em 118px;
   font-weight: normal;
 }
-.nation-news p {
+.nation-news p, .nation-news span.more-link-wrapper {
   margin-left: 118px;
   font-size: 1.2em;
   line-height: 1.3em;
   margin-bottom: 15px;
 }
-.nation-news p.more-link-wrapper {
+.nation-news span.more-link-wrapper, .nation-news p.more-link-wrapper {
   display: block;
   margin-left: 118px;
 }
-.nation-news p.more-link-wrapper a.fsa-more-link {
+.nation-news span.more-link-wrapper a.fsa-more-link, .nation-news p.more-link-wrapper a.fsa-more-link {
   font-weight: bold;
   padding-left: 11px;
 }
@@ -5674,7 +5674,7 @@ h1.nation-wales {
   .nation-news h3 {
     margin: 0;
   }
-  .nation-news p.more-link-wrapper {
+  .nation-news span.more-link-wrapper, .nation-news p.more-link-wrapper {
     display: none;
   }
   .nation-news p {
