@@ -852,44 +852,9 @@
     min-width: 0;
   }
 }
-.layout--site-frontend-campaign-content-page {
-  @-moz-document url-prefix() {
-    .textWrapper {
-      border: ridge;
-      border-color: #9f218b;
-    }
-}
-
-}
-.layout--site-frontend-campaign-content-page h1, .layout--site-frontend-campaign-content-page h2, .layout--site-frontend-campaign-content-page h3, .layout--site-frontend-campaign-content-page h4, .layout--site-frontend-campaign-content-page h5 {
-  color: #49176e;
-}
-.layout--site-frontend-campaign-content-page h1 {
-  font-weight: bold;
-}
-.layout--site-frontend-campaign-content-page h2 {
-  font-size: 19px !important;
-  line-height: 1.5;
-  margin-bottom: 4px;
-}
-.layout--site-frontend-campaign-content-page h3 {
-  font-size: 17px !important;
-}
-.layout--site-frontend-campaign-content-page h4 {
-  font-size: 14px !important;
-}
 .layout--site-frontend-campaign-content-page .page-section-heading {
   background-color: transparent;
   padding: 0;
-}
-.layout--site-frontend-campaign-content-page .page-section-heading h2 {
-  font-size: 19px !important;
-}
-.layout--site-frontend-campaign-content-page .page-section-heading h3 {
-  font-size: 17px !important;
-}
-.layout--site-frontend-campaign-content-page .page-section-heading h4 {
-  font-size: 14px !important;
 }
 .layout--site-frontend-campaign-content-page .l-content {
   width: 75%;
@@ -914,103 +879,4 @@
 .layout--site-frontend-campaign-content-page .sidebar-menu .menu-block-wrapper li a.active {
   background-color: #49176e;
   color: #fff;
-}
-.layout--site-frontend-campaign-content-page .content a {
-  color: #4a1170;
-}
-.layout--site-frontend-campaign-content-page h3 {
-  font-size: 1.1em;
-}
-.layout--site-frontend-campaign-content-page p {
-  font-size: 1.4em;
-}
-.layout--site-frontend-campaign-content-page ul.cccc {
-  font-size: 1.15em;
-}
-.layout--site-frontend-campaign-content-page .sec-head {
-  color: #49176e;
-  font-weight: bold;
-  font-size: 1.9em;
-  margin-bottom: 0.2em;
-}
-.layout--site-frontend-campaign-content-page .cccc-head {
-  margin-bottom: 4px;
-  margin-left: 85px;
-  font-size: 1.4em;
-}
-.layout--site-frontend-campaign-content-page .standfirst {
-  color: #49176e;
-  font-size: 1.6em;
-}
-.layout--site-frontend-campaign-content-page .videoWrapper {
-  position: relative;
-  padding-bottom: 56.25%;
-  /* 16:9 */
-  padding-top: 25px;
-  height: 0;
-}
-.layout--site-frontend-campaign-content-page .videoWrapper iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-.layout--site-frontend-campaign-content-page .col, .layout--site-frontend-campaign-content-page .col * {
-  box-sizing: border-box;
-}
-.layout--site-frontend-campaign-content-page .col {
-  padding: 1% 0;
-}
-@media (min-width: 481px) {
-  .layout--site-frontend-campaign-content-page {
-    /* #### - > 560px (560 / 16 = 35) - 16px being default browser font-size - #### */
-  }
-  .layout--site-frontend-campaign-content-page .col {
-    width: 49%;
-  }
-  .layout--site-frontend-campaign-content-page .col-1 {
-    float: left;
-  }
-  .layout--site-frontend-campaign-content-page .col-2 {
-    float: right;
-  }
-}
-.layout--site-frontend-campaign-content-page .textWrapper {
-  position: relative;
-  padding-bottom: 0.25%;
-  /* 16:9 */
-  padding-top: 10px;
-  min-height: 162px;
-  border: dotted;
-  border-color: #9f218b;
-  border-radius: 10px;
-}
-@media (max-width: 480px) {
-  .layout--site-frontend-campaign-content-page .textWrapper {
-    min-height: auto;
-  }
-}
-.layout--site-frontend-campaign-content-page .textWrapper ul {
-  width: 100%;
-  height: 100%;
-  padding-left: 9em;
-  padding-right: 1em;
-}
-.layout--site-frontend-campaign-content-page .textWrapper img {
-  margin: 5px 10px 10px 6px;
-  padding-left: 2px;
-}
-.layout--site-frontend-campaign-content-page .pic {
-  float: right;
-  margin-left: 10px;
-}
-@media (max-width: 480px) {
-  .layout--site-frontend-campaign-content-page .pic {
-    display: none;
-  }
-}
-.layout--site-frontend-campaign-content-page .l-region.l-region--campaign-header h2 {
-  font-size: 23px !important;
-  margin-bottom: 0.867em;
 }
