@@ -315,7 +315,7 @@
 
 .views-row {
 
-  .node--alert--search-result {
+  .node--alert--search-result, .node--news--search-results-2 {
     border-bottom: 1px solid #5d9711;
     padding: 12px 0 17px 0;
     margin-bottom: 0.4em;
@@ -325,6 +325,29 @@
 
       .date-display-single {
         font-size: 83%;
+      }
+
+    }
+
+    .field--name-field-updated {
+      margin-bottom: 0.6em;
+    }
+
+    // This field appears on alert lists. We give it some top padding to ensure
+    // that the spacing between the alert type and the date is the same as
+    // before. This is required as the bottom margin of field-updated is now
+    // smaller than previously.
+    .field--name-field-alert-alert-type {
+      padding-top: 5px;
+    }
+
+    .field--name-field-summary {
+      color: #333;
+      margin-bottom: 0;
+
+      .field__item {
+        font-size: 12px;
+        line-height: 18px;
       }
 
     }
