@@ -15,11 +15,8 @@
  *   calling format_date() with the desired parameters on the $created variable.
  * - $name: Themed username of node author output from theme_username().
  * - $node_url: Direct url of the current node.
- * - $job_link: Link array used to build the link to either the job page on the
- *     current site, or to an external URL. This array has the following
- *     elements:
- *     - 'url': The actual URL for the link
- *     - 'attributes': an array of attributes such as 'target' etc.
+ * - $title_link: Render array used to build the link to either the job page on
+ *   the current site, or to an external URL.
  * - $display_submitted: Whether submission information should be displayed.
  * - $submitted: Submission information created from $name and $date during
  *   template_preprocess_node().
@@ -81,6 +78,8 @@
  * @see template_preprocess()
  * @see template_preprocess_node()
  * @see template_process()
+ * @see site_frontend_preprocess_node()
+ * @see site_frontend_preprocess_node__job()
  */
 
 ?>
@@ -89,7 +88,7 @@
     <header>
       <?php print render($title_prefix); ?>
       <?php if (!$page): ?>
-        <h3<?php print $title_attributes; ?>><a href="<?php print $job_link['url'] ?>" <?php print drupal_attributes($job_link['attributes']); ?>><?php print $title; ?></a></h3>
+        <h3<?php print $title_attributes; ?>><?php print render($title_link); ?></h3>
       <?php endif; ?>
       <?php print render($title_suffix); ?>
     </header>
@@ -104,22 +103,18 @@
 
   <div<?php print $content_attributes; ?>>
     <?php
-
       // We hide the comments and links now so that we can render them later.
       hide($content['comments']);
       hide($content['links']);
     ?>
     <?php if ($page):
       // On jobs pages, we need to include RDFa for aggregation.
-      ?>
+    ?>
       <!-- RDFa content  -->
-
-
     <?php endif; ?>
     <?php
       // render the rest of the content as normal
       print render($content);
-
     ?>
 
   </div>
