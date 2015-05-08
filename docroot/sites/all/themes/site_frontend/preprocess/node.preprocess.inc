@@ -76,13 +76,6 @@ function site_frontend_preprocess_node__job(&$variables, $node = NULL) {
     return;
   }
 
-  // Create the job_link variable. By default, this will be the node's full URL,
-  // but if the URL field is populated, we use that instead.
-  $variables['job_link'] = array(
-    'url' => drupal_get_path_alias(url('node/' . $node->nid)),
-    'attributes' => array(),
-  );
-
   // If we're on a view mode other than page, unset the URL field as we won't
   // want to display it. However, we do want it on the full-page version, as
   // it's used as a redirect in that context.
@@ -90,15 +83,40 @@ function site_frontend_preprocess_node__job(&$variables, $node = NULL) {
     unset($variables['content']['field_url']);
   }
 
+  // Create a render array for the title link. By default, we'll use the
+  // full-page version, but we'll amend this later if an external link
+  // has been provided via the field_url.
+  $variables['title_link'] = array(
+    '#theme' => 'link',
+    '#text' => $variables['title'],
+    '#path' => drupal_get_path_alias('node/' . $node->nid),
+    '#options' => array(
+      'attributes' => array(),
+      'html' => FALSE,
+     ),
+  );
+
   // Create an entity_metadata_wrapper for our node object.
   $wrapper = entity_metadata_wrapper('node', $node);
 
   // Get the value of the URL field from the metadata wrapper.
   $external_link = $wrapper->field_url->value();
 
-  // If we have an external link, use this as the job link.
+  // If the field_url field is populated, amend the render array for the title
+  // link accordingly.
   if (!empty($external_link)) {
-    $variables['job_link'] = $external_link;
+    // Parse the URL to separate the query string from the path.
+    $external_link_parsed = drupal_parse_url($external_link['url']);
+    // Substitute the external link path for the page path.
+    if (!empty($external_link_parsed['path'])) {
+      $variables['title_link']['#path'] = $external_link_parsed['path'];
+    }
+    // If we have a query string, add it to the render array.
+    if (!empty($external_link_parsed['query'])) {
+      $variables['title_link']['#options']['query'] = $external_link_parsed['query'];
+    }
+    // Force external links to open in a new window/tab.
+    $variables['title_link']['#options']['attributes']['target'] = '_blank';
   }
 
 }
