@@ -87,6 +87,15 @@ function fsa_feedback_variable_info($options) {
     'localize' => TRUE,
     'group' => FSA_FEEDBACK_VARIABLE_GROUP_NAME,
   );
+  $variables['fsa_feedback_submit_button_label'] = array(
+    'type' => 'string',
+    'title' => t('Feedback form submit button label', array(), $options),
+    'default' => t('Send feedback', array(), $options),
+    'description' => t('Text to be displayed on the submit button for the feedback form', array(), $options),
+    'required' => FALSE,
+    'localize' => TRUE,
+    'group' => FSA_FEEDBACK_VARIABLE_GROUP_NAME,
+  );
 
   return $variables;
 }
