@@ -32,3 +32,8 @@
 .feedback-messages table td {
   vertical-align: baseline;
 }
+
+#feedback-submit {
+  font-size: 120%;
+  padding: 8px;
+}
