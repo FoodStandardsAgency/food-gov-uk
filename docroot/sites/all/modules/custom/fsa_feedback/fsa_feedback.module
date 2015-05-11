@@ -57,7 +57,7 @@ function fsa_feedback_page_build(&$page) {
   }
 
   // Add the custom CSS file and make sure it comes after the contrib one.
-  $page[FSA_FEEDBACK_REGION]['feedback']['#attached']['css'][drupal_get_path('module', 'fsa_feedback') . '/fsa-feedback.css'] = array(
+  $page[FSA_FEEDBACK_REGION]['feedback']['#attached']['css'][drupal_get_path('module', 'fsa_feedback') . '/css/fsa-feedback.css'] = array(
     'group' => 'theme',
     'weight' => 100,
   );
