@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FSA Feedback\n"
 "POT-Creation-Date: 2015-04-29 09:58+0100\n"
-"PO-Revision-Date: 2015-04-29 14:58-0000\n"
+"PO-Revision-Date: 2015-05-12 10:29-0000\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team:  <EMAIL@ADDRESS>\n"
 "Language: cy_GB\n"
@@ -43,7 +43,7 @@ msgstr ""
 
 #: fsa_feedback.module:50;137
 msgid "Help us improve food.gov.uk"
-msgstr "Helpwch ni i wella'n food.gov.uk"
+msgstr "Gallwch ein helpu i wella food.gov.uk"
 
 #: fsa_feedback.module:51
 msgid "Heading for the site feedback form."
@@ -63,7 +63,7 @@ msgstr ""
 
 #: fsa_feedback.module:64;162;491
 msgid "What you were doing"
-msgstr "Yr hyn yr ydych yn ei wneud"
+msgstr "Beth oeddech yn ei wneud?"
 
 #: fsa_feedback.module:65
 msgid "Label for the first field on the site feedback form."
@@ -75,7 +75,7 @@ msgstr ""
 
 #: fsa_feedback.module:71;172;500
 msgid "What went wrong"
-msgstr "Beth aeth o'i le\t"
+msgstr "Beth aeth o’i le"
 
 #: fsa_feedback.module:72
 msgid "Label for the second field on the site feedback form."
@@ -253,7 +253,7 @@ msgid "Is there anything wrong with this page?"
 msgstr "A oes unrhyw beth o'i le ar y dudalen hon?"
 
 msgid "Send feedback"
-msgstr "Anfon adborth"
+msgstr "Anfon eich adborth"
 
 msgid "Thanks for your feedback!"
 msgstr "Diolch am eich adborth!"
