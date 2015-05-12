@@ -722,9 +722,16 @@ function template_preprocess_fsa_feedback_email(&$variables) {
     $variables[$field] .= "\r\n";
   }
 
+  // An array of options for the action links that appear at the foot of the
+  // feedback email.
+  $link_options = array(
+    'absolute' => TRUE,
+    'https' => TRUE,
+  );
+
   // Set up the links for the bottom of the email
-  $variables['view_link'] = url('admin/reports/feedback/' . $variables['message_id'], array('absolute' => TRUE));
-  $variables['processed_link'] = url("admin/reports/feedback/" . $variables['message_id'] . "/process", array('absolute' => TRUE));
+  $variables['view_link'] = url('admin/reports/feedback/' . $variables['message_id'], $link_options);
+  $variables['processed_link'] = url("admin/reports/feedback/" . $variables['message_id'] . "/process", $link_options);
 
 }
 
