@@ -549,6 +549,18 @@ function fsa_feedback_menu() {
 }
 
 /**
+ * Implements hook_menu_alter().
+ *
+ * @param array $items
+ *   Menu items.
+ */
+function fsa_feedback_menu_alter(&$items) {
+  // Substitute our admin form for the one from the contrib Feedback module.
+  $items['admin/reports/feedback']['page arguments'] = array('fsa_feedback_admin_view_form');
+  $items['admin/reports/feedback']['file'] = drupal_get_path('module', 'fsa_feedback.module');
+}
+
+/**
  * Title callback for the process feedback menu item.
  * @param object $entry
  *   The feedback entity object
@@ -1020,4 +1032,118 @@ function _fsa_feedback_variable_setup($langcode = 'cy') {
       }
     }
   }
+}
+
+
+/**
+ * Build a (sortable) form containing a checkbox for each feedback entry.
+ *
+ * This is a copy of the function provided by the contrib Feedback module.
+ *
+ * In the original, the table sorting did not work properly, and this has
+ * been rectified here byadding `orderByHeader($form['#feedback_header'])`
+ * to the query that selects the messages.
+ *
+ * We also specify sort order by timestamp descending.
+ *
+ * Finally, we set the `#theme` element of the form so that Drupal knows how
+ * to display the feedback elements.
+ *
+ * @see feedback_admin_view_form().
+ *
+ */
+function fsa_feedback_admin_view_form($form, &$form_state) {
+  $form['#attached']['js'][] = drupal_get_path('module', 'feedback') . '/feedback.admin.js';
+
+  $status_headings = array(
+    FEEDBACK_OPEN => t('Open feedback messages'),
+    FEEDBACK_PROCESSED => t('Processed feedback messages'),
+  );
+  $form['#feedback_header'] = array(
+    array(),
+    array('data' => t('Location'), 'field' => 'f.location_masked'),
+    array('data' => t('Date'), 'field' => 'f.timestamp', 'sort' => 'desc'),
+    array('data' => t('User'), 'field' => 'u.name'),
+    t('Message'),
+    t('Operations'),
+  );
+  // Hack to prevent pager_query() from issuing PHP notices.
+  if (!isset($_GET['page'])) {
+    $_GET['page'] = '';
+  }
+  if (count(explode(',', $_GET['page'])) < 2) {
+    $_GET['page'] .= ',0';
+  }
+
+  $form['feedback-messages'] = array('#tree' => TRUE);
+  $query = db_select('feedback', 'f')->extend('PagerDefault')->extend('TableSort');
+  $query->join('users', 'u', 'f.uid = u.uid');
+  $query->fields('f')
+    ->limit(50);
+  foreach (array(FEEDBACK_OPEN, FEEDBACK_PROCESSED) as $status) {
+    $status_query = clone $query;
+    $fids = $status_query
+      ->element($status)
+      ->condition('f.status', $status)
+      ->orderByHeader($form['#feedback_header'])
+      ->execute()->fetchCol();
+    $form['feedback-messages'][$status] = array(
+      '#type' => 'fieldset',
+      '#title' => $status_headings[$status],
+      '#collapsible' => TRUE,
+      '#collapsed' => $status,
+      '#attributes' => array('class' => array('feedback-messages')),
+    );
+    if (!empty($fids)) {
+      $entries = feedback_load_multiple($fids);
+      foreach ($entries as $fid => $entry) {
+        $form['feedback-messages'][$status][$fid] = array(
+          '#type' => 'checkbox',
+          '#return_value' => FEEDBACK_PROCESSED,
+          '#default_value' => FALSE,
+        );
+        $form['feedback-messages'][$status][$fid]['location'] = array(
+          '#markup' => l(truncate_utf8($entry->location, 32, FALSE, TRUE), $entry->url),
+        );
+        $form['feedback-messages'][$status][$fid]['date'] = array(
+          '#markup' => format_date($entry->timestamp, 'small'),
+        );
+        $form['feedback-messages'][$status][$fid]['user'] = array(
+          '#markup' => check_plain(format_username($entry)),
+        );
+
+        module_load_include('inc', 'feedback', 'feedback.admin');
+
+        feedback_build_content($entry, 'teaser');
+        $form['feedback-messages'][$status][$fid]['message'] = $entry->content;
+        unset($entry->content);
+
+        $form['feedback-messages'][$status][$fid]['operations'] = array(
+          '#theme' => 'links',
+          '#links' => array(
+            'edit' => array(
+              'title' => t('edit'),
+              'href' => "admin/reports/feedback/$fid/edit"
+            ),
+            'delete' => array(
+              'title' => t('delete'),
+              'href' => "admin/reports/feedback/$fid/delete"
+            ),
+          ),
+          '#attributes' => array(),
+        );
+      }
+    }
+  }
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Update'),
+    // Hide the submit button, if there are no entries at all.
+    '#access' => !empty($entries),
+  );
+
+  // Set the form's theme function to be that from the contrib Feedback module.
+  $form ['#theme'][] = 'feedback_admin_view_form';
+
+  return $form;
 }
