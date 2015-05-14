@@ -4,13 +4,6 @@
  * Module file for accessibility_links.
  */
 
-/**
- * Implements hook init
- */
-function accessibility_links_init(){
-	drupal_add_css(drupal_get_path('module', 'accessibility_links') . '/accessibility_links.css');
-	drupal_add_js(drupal_get_path('module', 'accessibility_links') . '/accessibility_links.js');
-}
 
 /**
  * Implements hook_theme().
@@ -18,7 +11,10 @@ function accessibility_links_init(){
 function accessibility_links_theme() {
   $theme = array(
     'accessibility_links_block' => array(
-      'render element' => 'accessibility_links_block'
+      'variables' => array(
+        'accessibility_page_url' => 'about-us/data-and-policies/aboutsite/accessibility',
+      ),
+      'template' => 'theme/accessibility-links',
     )
   );
   return $theme;
@@ -45,21 +41,37 @@ function accessibility_links_block_view($delta = '') {
   switch ($delta) {
     case 'accessibility_links':
       $block['subject'] = NULL;
-      $block['content'] = array('#theme' => 'accessibility_links_block');
+      $block['content'] = array(
+        '#theme' => 'accessibility_links_block',
+        '#attached' => array(
+          'css' => array(
+            drupal_get_path('module', 'accessibility_links') . '/accessibility_links.css',
+          ),
+          'js' => array(
+            drupal_get_path('module', 'accessibility_links') . '/accessibility_links.js',
+          ),
+        ),
+      );
       break;
   }
   return $block;
 }
 
-function theme_accessibility_links_block() {
-  // get the current site
-  //$site = 'www.food.gov.uk';
-  $site = $_SERVER['HTTP_HOST'];
-  $output = '<div id="accessTools">
-                <ul>
-	                <li class="first"><a href="/about-us/data-and-policies/aboutsite/accessibility/">Accessibility</a></li>
-	                <li id="fontScale"><a id="fontScale0" class="fontScalePlus0" href="#" title="Set font size to default">A</a> <a id="fontScale1" class="fontScalePlus1" href="#" title="Set font size to +1">A</a> <a id="fontScale2" class="fontScalePlus2" href="#" title="Set font size to +2">A</a></li>
-	            </ul>
-	        </div>';
-  return $output;
+/**
+ * Preprocess function for accessibility links template.
+ *
+ * @param array $variables
+ *   Template variables - passed by reference.
+ *
+ * @see accessibility-links.tpl.php
+ * @see local_site_get_domain()
+ * @see local_url_outbound_alter()
+ */
+function template_preprocess_accessibility_links_block(&$variables) {
+  // We pass the accessibility page URL through the url() function, which in
+  // turn calls local_url_outbound_alter(). This works out whether we're on a
+  // committee site using one of the committee subdomains and substitutes an
+  // absolute URL based on the domain defined in local_site_get_domain().
+  // This fixes issue #1030 - broken accessibility link on committee pages
+  $variables['accessibility_page_url'] = url($variables['accessibility_page_url']);
 }
