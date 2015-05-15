@@ -4,6 +4,11 @@
  * Module file for accessibility_links.
  */
 
+/**
+ * Set the number of font scales to show. This is output as a Drupal setting
+ * for use with client-side JavaScript.
+ */
+define('ACCESSIBILITY_LINKS_FONT_SCALES', 3);
 
 /**
  * Implements hook_theme().
@@ -48,7 +53,18 @@ function accessibility_links_block_view($delta = '') {
             drupal_get_path('module', 'accessibility_links') . '/accessibility_links.css',
           ),
           'js' => array(
-            drupal_get_path('module', 'accessibility_links') . '/accessibility_links.js',
+            array(
+              'data' => drupal_get_path('module', 'accessibility_links') . '/accessibility_links.js',
+              'type' => 'file',
+            ),
+            array(
+              'type' => 'setting',
+              'data' => array(
+                'accessibilityLinks' => array(
+                  'fontScales' => ACCESSIBILITY_LINKS_FONT_SCALES,
+                ),
+              ),
+            ),
           ),
         ),
       );
