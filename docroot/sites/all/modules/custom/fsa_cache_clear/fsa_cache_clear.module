@@ -180,7 +180,7 @@ function _fsa_cache_clear_cloudflare_purge($paths = array(), $object_type = NULL
     "/^node\/[0-9]+$/",
     "/^node\/[0-9]+\/edit$/",
     "/^the-website-of-the-food-standards-agency$/",
-    "/^system/temporary.*$/",
+    "/^system\/temporary.*$/",
   );
 
   // Remove paths to be ignored.
