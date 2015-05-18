@@ -19,7 +19,7 @@ define('REWRITE_COMMITTEE_URLS', TRUE);
  * @return string
  */
 function local_get_site_domain(){
-  return "http://www.food.gov.uk";
+  return "//www.food.gov.uk";
 }
 /**
  * Implements hook url inbound alter
