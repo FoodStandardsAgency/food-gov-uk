@@ -323,3 +323,43 @@ function local_field_group_pre_render_alter(&$element, $group, & $form) {
   // around the classes.
   $element['#prefix'] = '<div class="' . $group->classes . '">';
 }
+
+
+/**
+ * Returns an array of committee site domains and paths
+ *
+ * @return array
+ *   List of committee site domains mapped to their paths.
+ */
+function local_committee_site_domains() {
+  $path_domains = array(
+    'cot.food.gov.uk' => 'committee/committee-on-toxicity',
+    'cot.staging.food.gov.uk' => 'committee/committee-on-toxicity',
+    'acmsf.food.gov.uk' => 'committee/acmsf',
+    'acnfp.food.gov.uk'=> 'committee/acnfp',
+    'acaf.food.gov.uk' => 'committee/acaf',
+    'acaf.staging.food.gov.uk' => 'committee/acaf',
+    'gacs.food.gov.uk'=> 'committee/gacs',
+    'ssrc.food.gov.uk'=> 'committee/social-science-research-committee-ssrc',
+  );
+  return $path_domains;
+}
+
+
+/**
+ * Determines whether the given URL is a committee domain.
+ *
+ * @param string $domain
+ *   (optional) The domain to check. If not supplied, $_SERVER['HTTP_HOST'] will
+ *   be used as default.
+ *
+ * @return boolean
+ *   TRUE if the domain is recognised as a committee site, FALSE otherwise.
+ */
+function local_domain_is_committee($domain = NULL) {
+  $domain = !empty($domain) ? $domain : $_SERVER['HTTP_HOST'];
+  if (empty($domain)) {
+    return FALSE;
+  }
+  return array_key_exists($domain, local_committee_site_domains());
+}
