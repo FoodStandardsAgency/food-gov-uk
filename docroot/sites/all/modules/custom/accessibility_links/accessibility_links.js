@@ -61,7 +61,7 @@ function accessibilityLinksApplyFontSize(fs, $) {
   }
 
   // Set a cookie to remember the user's font size selection.
-  $.cookie('Drupal.accessibilityLinks.fontSize', fs, { 'path' : '/', 'expires' : 7 });
+  $.cookie('Drupal.accessibilityLinks.fontSize', fs, { 'path' : '/', 'expires' : 7, 'domain' : '.food.gov.uk' });
 
   // If this function was called from a user event, eg a click on a link,
   // disable the link's default action
