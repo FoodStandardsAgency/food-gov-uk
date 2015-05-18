@@ -10,8 +10,20 @@
 
 /**
  * Determines whether to queue CloudFlare cache purges
+ * @todo Provide this as an administrator option via the UI?
  */
 define('FSA_CACHE_CLEAR_QUEUE_CLOUDFLARE', TRUE);
+
+/**
+ * Sets the name of the cloudflare cache queue
+ */
+define('FSA_CACHE_CLEAR_CLOUDFLARE_QUEUE_NAME', 'fsa_cache_clear_cloudflare_urls');
+
+
+/**
+ * Determines how much time is available for cache clearing at cron runs.
+ */
+define('FSA_CACHE_CLEAR_CLOUDFLARE_CRON_TIME', 180);
 
 /**
  * Implementation of hook_menu().
@@ -166,7 +178,6 @@ function _fsa_cache_clear_cloudflare_purge($paths = array(), $object_type = NULL
   foreach ($paths as $path) {
     if ($counter <= $limit && !empty($path)) {
       if (FSA_CACHE_CLEAR_QUEUE_CLOUDFLARE) {
-        dpm($path);
         _fsa_cache_clear_cloudflare_queue_url($path, $object_type);
       }
       else {
@@ -334,7 +345,7 @@ function _fsa_cache_clear_cloudflare_queue_url($path = NULL, $object_type = NULL
   }
 
   // Create or open the queue.
-  $queue = DrupalQueue::get('fsa_cache_clear_cloudflare_urls');
+  $queue = DrupalQueue::get(FSA_CACHE_CLEAR_CLOUDFLARE_QUEUE_NAME);
 
   // Add each URL to the queue
   foreach ($urls as $url) {
@@ -356,9 +367,9 @@ function _fsa_cache_clear_cloudflare_queue_url($path = NULL, $object_type = NULL
  */
 function fsa_cache_clear_cron_queue_info() {
   $queues = array();
-  $queues['fsa_cache_clear_cloudflare_urls'] = array(
+  $queues[FSA_CACHE_CLEAR_CLOUDFLARE_QUEUE_NAME] = array(
     'worker callback' => '_fsa_cache_clear_cloudflare_purge_individual_url',
-    'time' => 60,
+    'time' => FSA_CACHE_CLEAR_CLOUDFLARE_CRON_TIME,
   );
   return $queues;
 }
