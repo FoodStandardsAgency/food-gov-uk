@@ -9,8 +9,8 @@
  */
 
 /**
- * Determines whether to queue CloudFlare cache purges
- * @todo Provide this as an administrator option via the UI?
+ * Default value for whether to queue CloudFlare cache purges
+ * This can be overridden via the admin user interface.
  */
 define('FSA_CACHE_CLEAR_QUEUE_CLOUDFLARE', TRUE);
 
@@ -194,7 +194,7 @@ function _fsa_cache_clear_cloudflare_purge($paths = array(), $object_type = NULL
 
   foreach ($paths as $path) {
     if ($counter <= $limit && !empty($path)) {
-      if (FSA_CACHE_CLEAR_QUEUE_CLOUDFLARE) {
+      if (_fsa_cache_clear_settings('queue_cloudflare', FSA_CACHE_CLEAR_QUEUE_CLOUDFLARE)) {
         _fsa_cache_clear_cloudflare_queue_url($path, $object_type);
       }
       else {
@@ -239,7 +239,7 @@ function _fsa_cache_clear_settings($setting = NULL, $default = NULL) {
 
   // Check that we have some settings, that a setting was specified to be
   // retrieved and that the specified setting exists in the array.
-  if (!empty($settings) && !empty($setting) && !empty($settings[$setting])) {
+  if (!empty($settings) && !empty($setting) && isset($settings[$setting])) {
 
     switch ($setting) {
       case 'varnish_domains':
