@@ -335,6 +335,10 @@ function _fsa_cache_clear_cloudflare_queue_url($path = NULL, $object_type = NULL
   // If we're purging a file object, we need to make sure we purge it from all
   // of the committee subdomains as well as any configured by the users.
   if ($object_type == 'file') {
+    // Don't clear the homepage for files.
+    if ($path == '<front>') {
+      return;
+    }
     $domains = array_merge($domains, array_keys($committee_domains));
   }
 
