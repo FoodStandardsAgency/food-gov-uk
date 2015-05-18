@@ -52,6 +52,9 @@ function accessibility_links_block_view($delta = '') {
           'css' => array(
             drupal_get_path('module', 'accessibility_links') . '/accessibility_links.css',
           ),
+          'library' => array(
+            array('system', 'jquery.cookie'),
+          ),
           'js' => array(
             array(
               'data' => drupal_get_path('module', 'accessibility_links') . '/accessibility_links.js',
