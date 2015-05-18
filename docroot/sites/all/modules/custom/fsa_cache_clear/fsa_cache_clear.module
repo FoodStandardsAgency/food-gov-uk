@@ -467,11 +467,19 @@ function _fsa_cache_clear_cloudflare_purge_individual_url($url = NULL) {
 /**
  * Provides customisable message logging for cache clearing events.
  *
- * @param type $type
- * @param type $message
- * @param type $variables
- * @param type $level
- * @return type
+ * @param string $type
+ *   Type of action.
+ *
+ * @param string $message
+ *   The message to log
+ *
+ * @param array $variables
+ *   Any variables to be substituted into the message.
+ *
+ * @param int $level
+ *   The severity of the message. (Uses Watchdog levels)
+ *
+ * @return NULL
  */
 function _fsa_cache_clear_log_message($type = NULL, $message = '', $variables = array(), $level = WATCHDOG_INFO) {
 
@@ -513,12 +521,31 @@ function _fsa_cache_clear_log_message($type = NULL, $message = '', $variables = 
     watchdog('FSA Cache Clear', $message, $variables, $level);
   }
   if ($log_message) {
+
+    switch ($level) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+        $message_type = 'error';
+        break;
+      case 4:
+      case 5:
+        $message_type = 'warning';
+        break;
+      case 6:
+      case 7:
+        $message_type = 'status';
+        break;
+      default:
+        $message_type = 'status';
+        break;
+    }
+
     $message = format_string($message, $variables);
-    drupal_set_message($message);
+    drupal_set_message($message, $message_type);
   }
 }
-
-
 
 
 /**
