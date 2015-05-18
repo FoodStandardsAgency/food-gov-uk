@@ -38,6 +38,7 @@
   color: #333;
   font-size: 1.1em;
   line-height: 1.1em;
+  padding-right: 2px;
 }
 #accessTools li a:hover {
 	text-decoration: underline;
@@ -84,11 +85,29 @@
 #accessTools a#fontScale2 {
   font-size: 1.5em;
 }
+#accessTools a#fontScale3 {
+  font-size: 1.7em;
+}
+#accessTools a#fontScale4 {
+  font-size: 1.9em;
+}
 
-/* set these font sizes in your theme */
-body {}
-body.font-plus-1 {}
-body.font-plus-2 {}
+/* Override these font sizes in your theme */
+body {
+  font-size: 62.5%;
+}
+body.font-plus-1 {
+  font-size: 68%;
+}
+body.font-plus-2 {
+  font-size: 73%;
+}
+body.font-plus-3 {
+  font-size: 78%;
+}
+body.font-plus-4 {
+  font-size: 83%;
+}
 
 /* prevent external links module from inserting icons within the links */
 #accessTools span.ext[style] {
