@@ -158,9 +158,25 @@ function _fsa_cache_clear_cloudflare_purge($paths = array(), $object_type = NULL
   $limit = !empty($limit) ? $limit : 10;
   $counter = 1;
 
+  // An array of path patterns to substitute
+  $substitute_patterns = array(
+    "/^the-website-of-the-food-standards-agency$/" => "<front>",
+  );
+
+  // Substitute paths
+  foreach ($paths as $index => $path) {
+    foreach ($substitute_patterns as $find => $replace) {
+      if (preg_match($find, $path)) {
+        $paths[$index] = preg_replace($find, $replace, $path);
+      }
+    }
+  }
+
   // An array of patterns not to purge from CloudFlare
   $ignore_patterns = array(
+    "/^file\/add$/",
     "/^file\/[0-9]+.*$/",
+    "/^node\/add.*$/",
     "/^node\/[0-9]+$/",
     "/^node\/[0-9]+\/edit$/",
     "/^the-website-of-the-food-standards-agency$/",
@@ -349,6 +365,10 @@ function _fsa_cache_clear_cloudflare_queue_url($path = NULL, $object_type = NULL
 
   // Add each URL to the queue
   foreach ($urls as $url) {
+    // Identify the homepage and remove the <front> part
+    if (strpos($url, '/<front>')) {
+      $url = str_replace('/<front>', '', $url);
+    }
     $queue->createItem($url);
   }
 
