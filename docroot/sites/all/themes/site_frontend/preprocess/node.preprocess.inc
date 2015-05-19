@@ -194,3 +194,27 @@ function site_frontend_preprocess_node__general_block(&$variables, $node) {
     $variables['link'] = !empty($link['url']) ? $link['url'] : '';
   }
 }
+
+
+/**
+ * Preprocess function for consultation nodes
+ *
+ * @param array $variables
+ *   Template variables, passed by reference
+ *
+ * @param object $node
+ *   The node object
+ *
+ * @see site_frontend_preprocess_node()
+ */
+function site_frontend_preprocess_node__consultation($variables, $node) {
+
+  // For consultations, we don't want back to top links for field collection
+  // sections, so we turn them off here. Field collections take this setting
+  // from their parent node.
+  // @see field-collection-item--field_fc_page_section.tpl.php
+  if (!empty($node->field_setting_backtotop) && !empty($node->field_setting_backtotop[LANGUAGE_NONE])) {
+    $node->field_setting_backtotop[LANGUAGE_NONE][0] = 0;
+  }
+
+}
