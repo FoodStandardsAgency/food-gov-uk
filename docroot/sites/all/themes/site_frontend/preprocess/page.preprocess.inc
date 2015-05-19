@@ -3,10 +3,10 @@
 /**
  * Implements hook_preprocess_page().
  */
- 
- 
-function site_frontend_preprocess_page(&$variables) {  
-  // Add current username to the page footer so that we can detect it with Behat tests 
+
+
+function site_frontend_preprocess_page(&$variables) {
+  // Add current username to the page footer so that we can detect it with Behat tests
   if (user_is_logged_in()) {
     $variables['page']['footer']['username'] = array(
       '#prefix' => '<div class="username"><!--',
@@ -29,4 +29,66 @@ function site_frontend_preprocess_page(&$variables) {
       $variables['book_section_title'] = $book_section[0]['value'];
     }
   }
+
+  // If we're on a node page, get the node object from the $variables array.
+  $node = !empty($variables['node']) ? $variables['node'] : NULL;
+
+  // Call a node-type page preprocess function for the given node type if it
+  // exists
+  if (!empty($node) && !empty($node->type) && !empty($node->nid)) {
+    $function_name = '_site_frontend_preprocess_page__node_' . $node->type;
+    if (function_exists($function_name)) {
+      $function_name($variables, $node);
+    }
+  }
+
+}
+
+/**
+ * Preprocess function for consultation node pages.
+ *
+ * We use this function primarily to move elements of the page around as
+ * required by FSA. Because we need to intersperse elements of node content
+ * with additional elements supplied by context, we can't easily do this via
+ * the admin interface, so we have to do it programmatically.
+ *
+ * @param array $variables
+ *   Template variables passed from site_frontend_preprocess_page()
+ *
+ * @param type $node
+ *   The node object
+ *
+ * @see site_frontend_preprocess_page().
+ * @see Issue #2015020910000031 in OTRS
+ */
+function _site_frontend_preprocess_page__node_consultation(&$variables, $node) {
+
+  // Get the language code. We'll use this later.
+  $lang = !empty($variables['language']) ? $variables['language'] : NULL;
+  $lang_code = !empty($lang) && !empty($lang->language) ? $lang->language : 'en';
+
+  // Get the nid
+  $nid = $node->nid;
+
+  // Get the contact details group
+  $contact_group = $variables['page']['content']['system_main']['nodes'][$nid]['#groups']['group_contact'];
+
+  // ID of the nodeblock that contains the content for the Publication of
+  // response summary content. Note that we need a Welsh and an English version.
+  $pub_response_summary = array(
+    'en' => 'nodeblock_309',
+    'cy' => 'nodeblock_572',
+  );
+
+  // If the Publication response summary exists, we assign it the same weight
+  // as the Contact details group, which means it'll appear immediately after
+  // it, as requested by FSA.
+  if (!empty($variables['page']['content'][$pub_response_summary[$lang_code]])) {
+    $variables['page']['content'][$pub_response_summary[$lang_code]]['#weight'] = $contact_group->weight;
+    // Now add the publication response summary to the main content area.
+    $variables['page']['content']['system_main']['nodes'][$nid][$pub_response_summary[$lang_code]] = $variables['page']['content'][$pub_response_summary[$lang_code]];
+    // Now remove it from its original position
+    unset($variables['page']['content'][$pub_response_summary[$lang_code]]);
+  }
+
 }
