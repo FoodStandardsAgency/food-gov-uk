@@ -96,6 +96,14 @@ function fsa_feedback_variable_info($options) {
     'localize' => TRUE,
     'group' => FSA_FEEDBACK_VARIABLE_GROUP_NAME,
   );
-
+  $variables['fsa_feedback_thankyou_message'] = array(
+    'type' => 'string',
+    'title' => t('Feedback form thankyou text', array(), $options),
+    'default' => t('Thank you for your feedback.', array(), $options),
+    'description' => t('Text to be displayed to the user when the feedback form is submitted', array(), $options),
+    'required' => FALSE,
+    'localize' => TRUE,
+    'group' => FSA_FEEDBACK_VARIABLE_GROUP_NAME,
+  );
   return $variables;
 }
