@@ -128,6 +128,14 @@ function fsa_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
     '#wysiwyg' => FALSE,
   );
 
+  // Set the value of the thankyou message displayed when the form is submitted.
+  // We set this value here because it is a multilingual variable, and this gets
+  // messed up by the ajax callback if we get the value in the submit function.
+  $form['thankyou_message'] = array(
+    '#type' => 'value',
+    '#value' => variable_get('fsa_feedback_thankyou_message', t('Thank you for your feedback.')),
+  );
+
   // Allow editors to amend the text displayed on the submit button.
   if (!empty($form['actions']['submit'])) {
     $form['actions']['submit']['#value'] = variable_get('fsa_feedback_submit_button_label', t('Submit feedback!'));
@@ -178,9 +186,15 @@ function fsa_feedback_form_submit($form, &$form_state) {
   $entry->location = $form_state['values']['location'];
   feedback_save($entry);
 
-  // Set the thankyou message for the user.
-  // @todo Enable administrators to amend this message via the admin UI
-  drupal_set_message(variable_get('fsa_feedback_thankyou_message', t('Thanks for your feedback.')));
+  // Set the thankyou message for the user. The message is passed from the form,
+  // where it is stored as a value. We use this approach to maintain the
+  // language of the calling page.
+  if (!empty($form_state['values']['thankyou_message'])) {
+    drupal_set_message($form_state['values']['thankyou_message']);
+  }
+  else {
+    drupal_set_message(t('Thank you for your feedback.'));
+  }
 
 }
 
