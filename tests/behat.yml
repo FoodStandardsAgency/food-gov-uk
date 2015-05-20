@@ -11,7 +11,7 @@ default:
     junit: true
   extensions:
     Behat\MinkExtension:
-      base_url: http://www.food.gov.uk
+      base_url: http://staging.food.gov.uk
       selenium2: ~
       goutte: ~
     Drupal\DrupalExtension:
