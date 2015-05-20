@@ -133,8 +133,11 @@ function fsa_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
     $form['actions']['submit']['#value'] = variable_get('fsa_feedback_submit_button_label', t('Submit feedback!'));
   }
 
-  // Add our submit function before the existing one.
-  array_unshift($form['#submit'], 'fsa_feedback_form_submit');
+  // Replace the existing submit function from the contrib Feedback module with
+  // our submit function. Our function contains all the code from the existing
+  // function, but adds some extra functionality.
+  // @see feedback_form_submit()
+  $form['#submit'] = array('fsa_feedback_form_submit');
 
 }
 
@@ -166,9 +169,18 @@ function fsa_feedback_form_submit($form, &$form_state) {
   // Set the `message` element that will be saved to the database.
   $form_state['values']['message'] = $message;
 
-  //if (!empty($form['#id']) && $form['#id'] == 'feedback-form') {
-  //  fsa_feedback_mail_send($message);
-  //}
+  // The following is copied from `feedback_form_submit()`, which is part of the
+  // contrib Feedback module. We copy it here so that we can alter the message
+  // that's displayed to users when they've submitted the form.
+  $entry = new stdClass();
+  entity_form_submit_build_entity('feedback', $entry, $form, $form_state);
+  $entry->message = $form_state['values']['message'];
+  $entry->location = $form_state['values']['location'];
+  feedback_save($entry);
+
+  // Set the thankyou message for the user.
+  // @todo Enable administrators to amend this message via the admin UI
+  drupal_set_message(t('Thanks for your feedback.'));
 
 }
 
