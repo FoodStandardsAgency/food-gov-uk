@@ -128,13 +128,24 @@ function fsa_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
     '#wysiwyg' => FALSE,
   );
 
+  // Set the value of the thankyou message displayed when the form is submitted.
+  // We set this value here because it is a multilingual variable, and this gets
+  // messed up by the ajax callback if we get the value in the submit function.
+  $form['thankyou_message'] = array(
+    '#type' => 'value',
+    '#value' => variable_get('fsa_feedback_thankyou_message', t('Thank you for your feedback.')),
+  );
+
   // Allow editors to amend the text displayed on the submit button.
   if (!empty($form['actions']['submit'])) {
     $form['actions']['submit']['#value'] = variable_get('fsa_feedback_submit_button_label', t('Submit feedback!'));
   }
 
-  // Add our submit function before the existing one.
-  array_unshift($form['#submit'], 'fsa_feedback_form_submit');
+  // Replace the existing submit function from the contrib Feedback module with
+  // our submit function. Our function contains all the code from the existing
+  // function, but adds some extra functionality.
+  // @see feedback_form_submit()
+  $form['#submit'] = array('fsa_feedback_form_submit');
 
 }
 
@@ -166,9 +177,24 @@ function fsa_feedback_form_submit($form, &$form_state) {
   // Set the `message` element that will be saved to the database.
   $form_state['values']['message'] = $message;
 
-  //if (!empty($form['#id']) && $form['#id'] == 'feedback-form') {
-  //  fsa_feedback_mail_send($message);
-  //}
+  // The following is copied from `feedback_form_submit()`, which is part of the
+  // contrib Feedback module. We copy it here so that we can alter the message
+  // that's displayed to users when they've submitted the form.
+  $entry = new stdClass();
+  entity_form_submit_build_entity('feedback', $entry, $form, $form_state);
+  $entry->message = $form_state['values']['message'];
+  $entry->location = $form_state['values']['location'];
+  feedback_save($entry);
+
+  // Set the thankyou message for the user. The message is passed from the form,
+  // where it is stored as a value. We use this approach to maintain the
+  // language of the calling page.
+  if (!empty($form_state['values']['thankyou_message'])) {
+    drupal_set_message($form_state['values']['thankyou_message']);
+  }
+  else {
+    drupal_set_message(t('Thank you for your feedback.'));
+  }
 
 }
 
@@ -277,6 +303,16 @@ function fsa_feedback_form_feedback_admin_settings_form_alter(&$form, &$form_sta
     '#maxlength' => 128,
     '#default_value' => variable_get('fsa_feedback_form_help'),
     '#description' => t("Specify the text that will appear at the top of the feedback form."),
+  );
+
+  // Text to display to the user when the feedback form is submitted.
+  $form['fsa_feedback_thankyou_message'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Thankyou message'),
+    '#size' => 80,
+    '#maxlength' => 128,
+    '#default_value' => variable_get('fsa_feedback_thankyou_message', t('Thanks for your feedback')),
+    '#description' => t("Specify text to be displayed when the user submits the feedback form"),
   );
 }
 
