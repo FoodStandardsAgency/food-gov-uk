@@ -180,7 +180,7 @@ function fsa_feedback_form_submit($form, &$form_state) {
 
   // Set the thankyou message for the user.
   // @todo Enable administrators to amend this message via the admin UI
-  drupal_set_message(t('Thanks for your feedback.'));
+  drupal_set_message(variable_get('fsa_feedback_thankyou_message', t('Thanks for your feedback.')));
 
 }
 
