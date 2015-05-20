@@ -258,3 +258,6 @@ msgstr ""
 
 msgid "Thanks for your feedback!"
 msgstr ""
+
+msgid "Thank you for your feedback."
+msgstr ""
