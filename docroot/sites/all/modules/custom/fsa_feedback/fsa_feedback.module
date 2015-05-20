@@ -290,6 +290,16 @@ function fsa_feedback_form_feedback_admin_settings_form_alter(&$form, &$form_sta
     '#default_value' => variable_get('fsa_feedback_form_help'),
     '#description' => t("Specify the text that will appear at the top of the feedback form."),
   );
+
+  // Text to display to the user when the feedback form is submitted.
+  $form['fsa_feedback_thankyou_message'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Thankyou message'),
+    '#size' => 80,
+    '#maxlength' => 128,
+    '#default_value' => variable_get('fsa_feedback_thankyou_message', t('Thanks for your feedback')),
+    '#description' => t("Specify text to be displayed when the user submits the feedback form"),
+  );
 }
 
 function fsa_feedback_feedback_view($entry, $view_mode, $langcode) {
