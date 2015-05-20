@@ -91,4 +91,16 @@ function _site_frontend_preprocess_page__node_consultation(&$variables, $node) {
     unset($variables['page']['content'][$pub_response_summary[$lang_code]]);
   }
 
+  // If the consultation pack exists, we move it into the 'audience' group,
+  // which has now been renamed 'About this consultation'. In order to do this,
+  // we first have to move it into the main node content section.
+  $consultation_pack = 'views_consultations__files-block_1';
+  if (!empty($variables['page']['content'][$consultation_pack])) {
+    // Add the consultation pack element to the main content area of the page
+    $variables['page']['content']['system_main']['nodes'][$nid][$consultation_pack] = $variables['page']['content'][$consultation_pack];
+    // Move the consultation pack element into the audience group
+    $variables['page']['content']['system_main']['nodes'][$nid]['#group_children'][$consultation_pack] = 'group_audience';
+    // Now remove it from its original position
+    unset($variables['page']['content'][$consultation_pack]);
+  }
 }
