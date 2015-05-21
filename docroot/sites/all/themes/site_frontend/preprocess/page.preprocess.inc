@@ -92,6 +92,8 @@ function _site_frontend_preprocess_page__node_consultation(&$variables, $node) {
     // responses section.
     $summary_of_responses = 'views_consultations__files-block';
     if (!empty($variables['page']['content'][$summary_of_responses])) {
+      // Weight the summary of responses so that it will appear at the end.
+      $variables['page']['content'][$summary_of_responses]['#weight'] = 10;
       $variables['page']['content']['system_main']['nodes'][$nid][$pub_response_summary[$lang_code]][$summary_of_responses] = $variables['page']['content'][$summary_of_responses];
       unset($variables['page']['content'][$summary_of_responses]);
     }
@@ -103,6 +105,9 @@ function _site_frontend_preprocess_page__node_consultation(&$variables, $node) {
   // we first have to move it into the main node content section.
   $consultation_pack = 'views_consultations__files-block_1';
   if (!empty($variables['page']['content'][$consultation_pack])) {
+    // Give the consultation pack element a high weight so it will appear at
+    // the end of the group into which we're going to move it.
+    $variables['page']['content'][$consultation_pack]['#weight'] = 10;
     // Add the consultation pack element to the main content area of the page
     $variables['page']['content']['system_main']['nodes'][$nid][$consultation_pack] = $variables['page']['content'][$consultation_pack];
     // Move the consultation pack element into the audience group
