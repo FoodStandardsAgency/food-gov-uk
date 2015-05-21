@@ -102,8 +102,6 @@ function fsa_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
     unset($form['help']);
   }
 
-
-
   // Unset the default 'message' element.
   unset($form['message']);
 
@@ -112,9 +110,9 @@ function fsa_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
     '#type' => 'textarea',
     '#attributes' => array('class' => array('feedback-message')),
     '#cols' => 20,
-    //'#title' => t('What you were doing'),
     '#title' => variable_get('fsa_feedback_message_field1_label', t('What you were doing')),
     '#required' => TRUE,
+    '#required_error_message' => t('Please enter details of what you were doing.'),
     '#wysiwyg' => FALSE,
   );
 
@@ -125,6 +123,7 @@ function fsa_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
     '#cols' => 20,
     '#title' => variable_get('fsa_feedback_message_field2_label', t('What went wrong')),
     '#required' => TRUE,
+    '#required_error_message' => t('Please enter details of what went wrong.'),
     '#wysiwyg' => FALSE,
   );
 
@@ -136,17 +135,36 @@ function fsa_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
     '#value' => variable_get('fsa_feedback_thankyou_message', t('Thank you for your feedback.')),
   );
 
-  // Allow editors to amend the text displayed on the submit button.
+  // Modify the submit button
   if (!empty($form['actions']['submit'])) {
+    // Allow editors to amend the text displayed on the submit button.
     $form['actions']['submit']['#value'] = variable_get('fsa_feedback_submit_button_label', t('Submit feedback!'));
+
+    // We have a custom validation handler, which we'll use for checking that
+    // required fields are populated. In order to prevent the built-in
+    // validation function from running, we tell Drupal to limit validation
+    // errors to an empty array. This means that our validation function is
+    // responsible for all validation. This is fine as it's a simple form.
+    // @see feedback_form_validate()
+    $form['actions']['submit']['#limit_validation_errors'] = array();
+
+    // In order for the `#limit_validation_errors` to work, the submit button
+    // must have its `#submit` element populated. However, if it's set to an
+    // empty array, it causes AJAX errors. To get around this, we move our
+    // custom submit function for the form here. The custom submit function
+    // contains all the code from the existing function, but adds some extra
+    // functionality.
+    // Note that moving the submit handler to this form element impacts on the
+    // `$form_state` array that gets passed to our submit handler. Extra
+    // processing is required to handle this. This is fully documented in the
+    // submit handler itself.
+    // @see fsa_feedback_form_submit()
+    // @see feedback_form_submit()
+    $form['actions']['submit']['#submit'][] = 'fsa_feedback_form_submit';
+
+    // Unset the existing submit function.
+    unset($form['#submit']);
   }
-
-  // Replace the existing submit function from the contrib Feedback module with
-  // our submit function. Our function contains all the code from the existing
-  // function, but adds some extra functionality.
-  // @see feedback_form_submit()
-  $form['#submit'] = array('fsa_feedback_form_submit');
-
 }
 
 
@@ -166,9 +184,33 @@ function fsa_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
  * @see fsa_feedback_form_feedback_form_alter().
  */
 function fsa_feedback_form_submit($form, &$form_state) {
+
+  // In order to add custom validation, it was necessary to move the submit
+  // handler to the submit button. However, this means that the values of all
+  // of the form fields are no longer accessible via the `$form_state['values']`
+  // element. However, they can still be accessed via the `complete form`
+  // element, so we'll use this to repopulate the values we need.
+
+  // Get the complete form.
+  $complete_form = $form_state['complete form'];
+
+  // Specify the fields we want to 'restore'.
+  $fields = array('doing', 'wrong', 'location');
+
+  // 'Restore' the values.
+  foreach ($fields as $field) {
+    if ($form_state['values'][$field] = !empty($complete_form[$field]['#value']) ? $complete_form[$field]['#value'] : '');
+  }
+
+  // Make sure we're using the alias of the page URL, not the internal path.
+  if (!empty($form_state['values']['location'])) {
+    $form_state['values']['location'] = drupal_get_path_alias($form_state['values']['location']);
+  }
+
   // Build the message from the `doing` and `wrong` field values.
   $doing = !empty($form_state['values']['doing']) ? $form_state['values']['doing'] : NULL;
   $wrong = !empty($form_state['values']['wrong']) ? $form_state['values']['wrong'] : NULL;
+
   $message = !empty($doing) ? $doing : '';
   if (!empty($message) && !empty($wrong)) {
     $message .= FSA_FEEDBACK_MESSAGE_SEPARATOR;
@@ -189,11 +231,13 @@ function fsa_feedback_form_submit($form, &$form_state) {
   // Set the thankyou message for the user. The message is passed from the form,
   // where it is stored as a value. We use this approach to maintain the
   // language of the calling page.
-  if (!empty($form_state['values']['thankyou_message'])) {
-    drupal_set_message($form_state['values']['thankyou_message']);
-  }
-  else {
-    drupal_set_message(t('Thank you for your feedback.'));
+  if (!empty($form['#form_id']) && $form['#form_id'] == 'feedback_form') {
+    if (!empty($form_state['values']['thankyou_message'])) {
+      drupal_set_message($form_state['values']['thankyou_message']);
+    }
+    else {
+      drupal_set_message(t('Thank you for your feedback.'));
+    }
   }
 
 }
@@ -1182,4 +1226,53 @@ function fsa_feedback_admin_view_form($form, &$form_state) {
   $form ['#theme'][] = 'feedback_admin_view_form';
 
   return $form;
+}
+
+
+
+/**
+ * Custom validation function for the feedback form.
+ *
+ * We use this function to set custom validation messages for the required
+ * fields: 'doing' and 'wrong'.
+ *
+ * In order for this validation to be triggered, we had to tell Drupal not to
+ * carry out its default validation for required fields, which takes place
+ * before custom validation functions. We do this in the alter function for the
+ * feedback form by setting the `limit_validation_errors` property of the form's
+ * submit button.
+ *
+ * To provide custom validation messages for required fields, we add a new
+ * array element to the FAPI array for each field called
+ * `#required_error_message`. If this is not populated, a default message is
+ * used instead.
+ *
+ * @see fsa_feedback_form_feedback_form_alter().
+ *
+ */
+function feedback_form_validate($form, &$form_state) {
+
+  // Create an empty array of required fields.
+  $required_fields = array();
+
+  // Find the required fields and see if they have a custom error message set.
+  // If not, build a standard error message similar to the one that Drupal core
+  // creates in form.inc. Add each required field, together with the error
+  // message to the `$required_fields` array.
+  foreach ($form as $element => $properties) {
+    if (strpos($element, '#') !== 0 && !empty($properties['#required'])) {
+      $required_message = !empty($properties['#required_error_message']) ? $properties['#required_error_message'] : t('!fieldname field is required and cannot be left blank', array('!fieldname' => !empty($properties['#title']) ? $properties['#title'] : ucfirst($element)));
+      $required_fields[$element] = $required_message;
+    }
+  }
+
+  // Validate the required fields. Note that we use `empty()` to
+  // determine whether the fields are populated. It's important to realise that
+  // this precludes values such as 0 from being submitted. However, these values
+  // would not be appropriate for these fields anyway.
+  foreach ($required_fields as $field_name => $message) {
+    if (empty($form_state['values'][$field_name])) {
+      form_set_error($field_name, $message, array(array($field_name)));
+    }
+  }
 }
