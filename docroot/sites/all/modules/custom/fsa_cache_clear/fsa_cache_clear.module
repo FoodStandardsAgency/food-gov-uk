@@ -9,6 +9,23 @@
  */
 
 /**
+ * Default value for whether to queue CloudFlare cache purges
+ * This can be overridden via the admin user interface.
+ */
+define('FSA_CACHE_CLEAR_QUEUE_CLOUDFLARE', TRUE);
+
+/**
+ * Sets the name of the cloudflare cache queue
+ */
+define('FSA_CACHE_CLEAR_CLOUDFLARE_QUEUE_NAME', 'fsa_cache_clear_cloudflare_urls');
+
+
+/**
+ * Determines how much time is available for cache clearing at cron runs.
+ */
+define('FSA_CACHE_CLEAR_CLOUDFLARE_CRON_TIME', 180);
+
+/**
  * Implementation of hook_menu().
  */
 function fsa_cache_clear_menu() {
@@ -79,12 +96,12 @@ function _fsa_cache_clear_varnish_purge($paths) {
   if (!function_exists('varnish_purge')) {
     return;
   }
-  
+
   // We need $paths to be an array. If it's not, make it one now.
   if (!is_array($paths)) {
     $paths = array($paths);
   }
-  
+
   // Get the base_path.
   $base = base_path();
 
@@ -113,6 +130,7 @@ function _fsa_cache_clear_varnish_purge($paths) {
     $purge = implode('$|^' . $base, $paths);
     $purge = '^'. $base . $purge .'$';
     varnish_purge($host, $purge);
+    _fsa_cache_clear_log_message('varnish_purge', 'Successfully purged @purge for host @host from the Varnish cache.', array('@purge' => $purge, '@host' => $host));
   }
 }
 
@@ -127,7 +145,7 @@ function _fsa_cache_clear_cloudflare_purge($paths = array(), $object_type = NULL
   $object_types = array_filter(_fsa_cache_clear_settings('cloudflare_object_types'));
 
   // If we don't have a path specified, or we don't have an object type, or
-  // the object type is one that we want to clear the CloudFlare cache for,
+  // the object type is not one that we want to clear the CloudFlare cache for,
   // then exit now.
   if (empty($paths) || empty($object_type) || !in_array($object_type, $object_types)) {
     return;
@@ -139,9 +157,49 @@ function _fsa_cache_clear_cloudflare_purge($paths = array(), $object_type = NULL
   // Assume a default limit of 10 items.
   $limit = !empty($limit) ? $limit : 10;
   $counter = 1;
+
+  // An array of path patterns to substitute
+  $substitute_patterns = array(
+    "/^the-website-of-the-food-standards-agency$/" => "<front>",
+  );
+
+  // Substitute paths
+  foreach ($paths as $index => $path) {
+    foreach ($substitute_patterns as $find => $replace) {
+      if (preg_match($find, $path)) {
+        $paths[$index] = preg_replace($find, $replace, $path);
+      }
+    }
+  }
+
+  // An array of patterns not to purge from CloudFlare
+  $ignore_patterns = array(
+    "/^file\/add$/",
+    "/^file\/[0-9]+.*$/",
+    "/^node\/add.*$/",
+    "/^node\/[0-9]+$/",
+    "/^node\/[0-9]+\/edit$/",
+    "/^the-website-of-the-food-standards-agency$/",
+    "/^system\/temporary.*$/",
+  );
+
+  // Remove paths to be ignored.
+  foreach ($paths as $index => $path) {
+    foreach ($ignore_patterns as $pattern) {
+      if (preg_match($pattern, $path)) {
+        unset($paths[$index]);
+      }
+    }
+  }
+
   foreach ($paths as $path) {
     if ($counter <= $limit && !empty($path)) {
-      _fsa_cache_clear_cloudflare_purge_url($path);
+      if (_fsa_cache_clear_settings('queue_cloudflare', FSA_CACHE_CLEAR_QUEUE_CLOUDFLARE)) {
+        _fsa_cache_clear_cloudflare_queue_url($path, $object_type);
+      }
+      else {
+        _fsa_cache_clear_cloudflare_purge_url($path);
+      }
       $counter ++;
     }
   }
@@ -181,7 +239,7 @@ function _fsa_cache_clear_settings($setting = NULL, $default = NULL) {
 
   // Check that we have some settings, that a setting was specified to be
   // retrieved and that the specified setting exists in the array.
-  if (!empty($settings) && !empty($setting) && !empty($settings[$setting])) {
+  if (!empty($settings) && !empty($setting) && isset($settings[$setting])) {
 
     switch ($setting) {
       case 'varnish_domains':
@@ -219,6 +277,7 @@ function _fsa_cache_clear_settings($setting = NULL, $default = NULL) {
  *   sites/default/files/test.doc
  *
  * @see https://www.cloudflare.com/docs/client-api.html
+ * @see _fsa_cache_clear_cloudflare_purge_individual_url().
  */
 function _fsa_cache_clear_cloudflare_purge_url($path = NULL) {
 
@@ -227,10 +286,6 @@ function _fsa_cache_clear_cloudflare_purge_url($path = NULL) {
     drupal_set_message('No path supplied', 'error');
     return;
   }
-
-  // Get the CloudFlare endpoint. We specify a default in case it's not set,
-  // but this can be overridden via the configuration UI for this module.
-  $endpoint = _fsa_cache_clear_settings('cloudflare_endpoint', 'https://www.cloudflare.com/api_json.html');
 
   // An array to hold the URLs to be purged from CloudFlare
   $urls = array();
@@ -244,52 +299,269 @@ function _fsa_cache_clear_cloudflare_purge_url($path = NULL) {
     $urls[] = "https://$domain/$path";
   }
 
+  // Clear each URL from the CloudFlare cache.
   foreach ($urls as $url) {
+    _fsa_cache_clear_cloudflare_purge_individual_url($url);
+  }
 
-    // Settings for the CloudFlare API
-    // @see https://www.cloudflare.com/docs/client-api.html#s4.5
-    $data = array(
-      'a' => 'zone_file_purge',
-      'tkn' => _fsa_cache_clear_settings('cloudflare_api_key'),
-      'email' => _fsa_cache_clear_settings('cloudflare_email'),
-      'z' => 'food.gov.uk',
-      'url' => $url,
-    );
+}
 
-    // Turn the settings into a string of the form a=b&c=d.
-    $data = http_build_query($data);
 
-    // Array of headers to be passed with the request to CloudFlare endpoint.
-    $headers = array(
-      "Content-type: application/x-www-form-urlencoded",
-      "Content-Length: " . strlen($data),
-      "Connection: close",
-    );
 
-    // Set stream context options.
-    $context_options = array (
-      'http' => array (
-        'method' => 'POST',
-        'header' => implode("\r\n", $headers) . "\r\n",
-        'content' => $data,
-      ),
-    );
+/**
+ * Add URLs to be purged from CloudFlare to a queue to be executed later.
+ *
+ * @param string $path
+ *   The path to be cleared from the CloudFlare cache
+ * @return type
+ */
+function _fsa_cache_clear_cloudflare_queue_url($path = NULL, $object_type = NULL) {
+
+  // If we have no URL, return now.
+  if (empty($path)) {
+    drupal_set_message('No path supplied', 'error');
+    return;
+  }
+
+  // An array to hold the URLs to be purged from CloudFlare
+  $urls = array();
+
+  // Get the domains set for the CloudFlare cache.
+  $domains = _fsa_cache_clear_settings('cloudflare_domains');
+
+  // Get committee domains.
+  $committee_domains = _fsa_cache_clear_committee_domains();
+
+  // If we're purging a file object, we need to make sure we purge it from all
+  // of the committee subdomains as well as any configured by the users.
+  if ($object_type == 'file') {
+    // Don't clear the homepage for files.
+    if ($path == '<front>') {
+      return;
+    }
+    $domains = array_merge($domains, array_keys($committee_domains));
+  }
+
+  // If we're not purging a file object, check whether the path matches a
+  // committee site, and if so, construct additional URLs based on the committee
+  // subdomain. We need to clear for both HTTP and HTTPS versions of the URL.
+  else {
+    foreach ($committee_domains as $subdomain => $committee_path) {
+      if (strpos($path, $committee_path) === 0) {
+        $url = $subdomain . '/' . str_replace($committee_path, '', $path);
+        $url = str_replace('//', '/', $url);
+        $urls[] = "http://$url";
+        $urls[] = "https://$url";
+      }
+    }
+  }
+
+  // According to the CloudFlare API documentation, we need to clear both HTTP
+  // and HTTPS versions of a URL separately
+  // @see https://www.cloudflare.com/docs/client-api.html#s4.5
+  // We also need to clear the cache for each of the defined domains.
+  foreach ($domains as $domain) {
+    $urls[] = "http://$domain/$path";
+    $urls[] = "https://$domain/$path";
+  }
+
+  // Create or open the queue.
+  $queue = DrupalQueue::get(FSA_CACHE_CLEAR_CLOUDFLARE_QUEUE_NAME);
+
+  // Add each URL to the queue
+  foreach ($urls as $url) {
+    // Identify the homepage and remove the <front> part
+    if (strpos($url, '/<front>')) {
+      $url = str_replace('/<front>', '', $url);
+    }
+    $queue->createItem($url);
+  }
+
+}
+
+/**
+ * Implements hook_cron_queue_info().
+ *
+ * This hook is called when cron is run and is used to purge URLs from the
+ * CloudFlare cache.
+ *
+ * @return array
+ *   Queues to be executed on Cron.
+ *
+ * @see _fsa_cache_clear_cloudflare_purge_individual_url()
+ */
+function fsa_cache_clear_cron_queue_info() {
+  $queues = array();
+  $queues[FSA_CACHE_CLEAR_CLOUDFLARE_QUEUE_NAME] = array(
+    'worker callback' => '_fsa_cache_clear_cloudflare_purge_individual_url',
+    'time' => FSA_CACHE_CLEAR_CLOUDFLARE_CRON_TIME,
+  );
+  return $queues;
+}
+
+
+/**
+ * Purges an individual URL from the CloudFlare cache.
+ *
+ * @param string $url
+ *   The full URL - inculding protocol and domain - to be purged from CloudFlare
+ * @return type
+ */
+function _fsa_cache_clear_cloudflare_purge_individual_url($url = NULL) {
+
+  // If we don't have a URL, exit now.
+  if (empty($url)) {
+    return;
+  }
+
+  // Get the CloudFlare endpoint. We specify a default in case it's not set,
+  // but this can be overridden via the configuration UI for this module.
+  $endpoint = _fsa_cache_clear_settings('cloudflare_endpoint', 'https://www.cloudflare.com/api_json.html');
+
+  // Settings for the CloudFlare API
+  // @see https://www.cloudflare.com/docs/client-api.html#s4.5
+  $data = array(
+    'a' => 'zone_file_purge',
+    'tkn' => _fsa_cache_clear_settings('cloudflare_api_key'),
+    'email' => _fsa_cache_clear_settings('cloudflare_email'),
+    'z' => 'food.gov.uk',
+    'url' => $url,
+  );
+
+  // Turn the settings into a string of the form a=b&c=d.
+  $data = http_build_query($data);
+
+  // Array of headers to be passed with the request to CloudFlare endpoint.
+  $headers = array(
+    "Content-type: application/x-www-form-urlencoded",
+    "Content-Length: " . strlen($data),
+    "Connection: close",
+  );
+
+  // Set stream context options.
+  $context_options = array (
+    'http' => array (
+      'method' => 'POST',
+      'header' => implode("\r\n", $headers) . "\r\n",
+      'content' => $data,
+    ),
+  );
 
     // Create the stream context.
     $context = stream_context_create($context_options);
 
     // Make the request.
     $fp = file_get_contents($endpoint, false, $context);
-    
+
     // Decode the results.
     $result_object = json_decode($fp);
     if (is_object($result_object) && !empty($result_object->result) && $result_object->result == 'success') {
-      //drupal_set_message('Successfully purged ' . $url . ' from the CloudFlare zone cache.');
+      _fsa_cache_clear_log_message('cloudflare_purge', 'Successfully purged @url from the CloudFlare cache.', array('@url' => $url));
     }
     else {
-      drupal_set_message('An error occurred purging ' . $url . ' from the CloudFlare zone cache', 'error');
+      _fsa_cache_clear_log_message('cloudflare_purge', 'An error occurred purging @url from the CloudFlare cache.', array('@url' => $url), WATCHDOG_ERROR);
     }
 
+}
+
+/**
+ * Provides customisable message logging for cache clearing events.
+ *
+ * @param string $type
+ *   Type of action.
+ *
+ * @param string $message
+ *   The message to log
+ *
+ * @param array $variables
+ *   Any variables to be substituted into the message.
+ *
+ * @param int $level
+ *   The severity of the message. (Uses Watchdog levels)
+ *
+ * @return NULL
+ */
+function _fsa_cache_clear_log_message($type = NULL, $message = '', $variables = array(), $level = WATCHDOG_INFO) {
+
+  // If $type or $message are empty, exit now.
+  if (empty($type) || empty($message)) {
+    return;
   }
 
+  // Array of settings for logging.
+  $log_settings = array(
+
+    'cloudflare_purge' => array(
+      WATCHDOG_ERROR => array(
+        'watchdog' => TRUE,
+        'message' => FALSE,
+      ),
+
+      WATCHDOG_INFO => array(
+        'watchdog' => FALSE,
+        'message' => FALSE,
+      ),
+    ),
+
+    'varnish_purge' => array(
+      WATCHDOG_INFO => array(
+        'watchdog' => FALSE,
+        'message' => FALSE,
+      ),
+    ),
+  );
+
+  // Determines whether to log to watchdog.
+  $log_watchdog = !empty($log_settings[$type]) && !empty($log_settings[$type][$level]) ? $log_settings[$type][$level]['watchdog'] : FALSE;
+  // Determines whether to log a Drupal message.
+  $log_message = !empty($log_settings[$type]) && !empty($log_settings[$type][$level]) ? $log_settings[$type][$level]['message'] : FALSE;
+
+  // Log message as required.
+  if ($log_watchdog) {
+    watchdog('FSA Cache Clear', $message, $variables, $level);
+  }
+  if ($log_message) {
+
+    switch ($level) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+        $message_type = 'error';
+        break;
+      case 4:
+      case 5:
+        $message_type = 'warning';
+        break;
+      case 6:
+      case 7:
+        $message_type = 'status';
+        break;
+      default:
+        $message_type = 'status';
+        break;
+    }
+
+    $message = format_string($message, $variables);
+    drupal_set_message($message, $message_type);
+  }
+}
+
+
+/**
+ * Returns an array of committee domains and their associated paths.
+ *
+ * @return array
+ *   Array of committee domains and their associated paths.
+ */
+function _fsa_cache_clear_committee_domains() {
+  $committee_domains = array(
+    'cot.food.gov.uk' => 'committee/committee-on-toxicity',
+    'acmsf.food.gov.uk' => 'committee/acmsf',
+    'acnfp.food.gov.uk'=> 'committee/acnfp',
+    'acaf.food.gov.uk' => 'committee/acaf',
+    'gacs.food.gov.uk'=> 'committee/gacs',
+    'ssrc.food.gov.uk'=> 'committee/social-science-research-committee-ssrc',
+  );
+  return $committee_domains;
 }

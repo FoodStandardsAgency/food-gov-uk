@@ -58,6 +58,15 @@ function fsa_cache_clear_admin_settings_form($form, &$form_state) {
     '#default_value' => !empty($settings['clear_cloudflare']) ? $settings['clear_cloudflare'] : 0,
   );
 
+  // Checkbox to determine whether to queue requests to purge the CloudFlare
+  // cache.
+  $form['cloudflare_settings']['queue_cloudflare'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Clear CloudFlare cache on cron (recommended)'),
+    '#description' => t('Tick this box if you want items to be cleared from the CloudFlare cache when Cron runs (typically every five minutes). This will improve performance when saving or updating pages and files.'),
+    '#default_value' => isset($settings['queue_cloudflare']) ? $settings['queue_cloudflare'] : FSA_CACHE_CLEAR_QUEUE_CLOUDFLARE,
+  );
+
   // Textbox to hold the CloudFlare endpoint URL.
   $form['cloudflare_settings']['cloudflare_endpoint'] = array(
     '#type' => 'textfield',
@@ -149,6 +158,7 @@ function fsa_cache_clear_admin_settings_form_submit($form, &$form_state) {
   $setting_keys = array(
     'varnish_domains',
     'clear_cloudflare',
+    'queue_cloudflare',
     'cloudflare_object_types',
     'cloudflare_max_items',
     'cloudflare_api_key',
