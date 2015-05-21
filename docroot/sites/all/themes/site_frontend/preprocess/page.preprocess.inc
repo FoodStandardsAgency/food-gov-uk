@@ -88,6 +88,13 @@ function _site_frontend_preprocess_page__node_consultation(&$variables, $node) {
     // Now add the publication response summary to the main content area.
     $variables['page']['content']['system_main']['nodes'][$nid][$pub_response_summary[$lang_code]] = $variables['page']['content'][$pub_response_summary[$lang_code]];
     // Now remove it from its original position
+    // If the summary of responses exists, we move it into the summary of
+    // responses section.
+    $summary_of_responses = 'views_consultations__files-block';
+    if (!empty($variables['page']['content'][$summary_of_responses])) {
+      $variables['page']['content']['system_main']['nodes'][$nid][$pub_response_summary[$lang_code]][$summary_of_responses] = $variables['page']['content'][$summary_of_responses];
+      unset($variables['page']['content'][$summary_of_responses]);
+    }
     unset($variables['page']['content'][$pub_response_summary[$lang_code]]);
   }
 
@@ -104,13 +111,5 @@ function _site_frontend_preprocess_page__node_consultation(&$variables, $node) {
     unset($variables['page']['content'][$consultation_pack]);
   }
 
-  // If the summary of responses exists, we move it into the summary of
-  // responses section.
-  // @todo Move this up to where we move the pub_response_summary
-  $summary_of_responses = 'views_consultations__files-block';
-  if (!empty($variables['page']['content'][$summary_of_responses])) {
-    $variables['page']['content']['system_main']['nodes'][$nid][$pub_response_summary[$lang_code]][$summary_of_responses] = $variables['page']['content'][$summary_of_responses];
-    unset($variables['page']['content'][$summary_of_responses]);
-  }
 
 }
