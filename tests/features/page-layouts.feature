@@ -1,11 +1,11 @@
 Feature: Page layouts
-  I would like to manage page display settings 
+  I would like to manage page display settings
   As an editor
   So that I can change the way a page is rendered
-  
+
   @javascript
   Scenario: One column (no sidebars)
-  Given I log in as an existing "editor" 
+  Given I log in as an existing "editor"
   When I go to "/node/add/document-page"
   And I should see "Create General Page" in the "Page Title" region
   And I fill in "edit-title" with "test"
@@ -20,11 +20,11 @@ Feature: Page layouts
   And the response should not contain "l-sidebar-second"
   And the response should contain "header-wrapper"
   And the response should contain "footer-wrapper"
-  And I logout
-  
+
+
   @javascript
   Scenario: Three columns
-  Given I log in as an existing "editor" 
+  Given I log in as an existing "editor"
   When I go to "/node/add/document-page"
   And I should see "Create General Page" in the "Page Title" region
   And I fill in "edit-title" with "test"
@@ -39,11 +39,11 @@ Feature: Page layouts
   And the response should contain "l-sidebar-second"
   And the response should contain "header-wrapper"
   And the response should contain "footer-wrapper"
-  And I logout
-  
+
+
   @javascript
   Scenario: Two columns
-  Given I log in as an existing "editor" 
+  Given I log in as an existing "editor"
   When I go to "/node/add/document-page"
   And I should see "Create General Page" in the "Page Title" region
   And I fill in "edit-title" with "test"
@@ -58,11 +58,11 @@ Feature: Page layouts
   And the response should contain "l-sidebar-second"
   And the response should contain "header-wrapper"
   And the response should contain "footer-wrapper"
-  And I logout
-  
+
+
   @javascript
   Scenario: One column blank (no sidebars, header or footer)
-  Given I log in as an existing "editor" 
+  Given I log in as an existing "editor"
   When I go to "/node/add/document-page"
   And I should see "Create General Page" in the "Page Title" region
   And I fill in "edit-title" with "test"
@@ -77,4 +77,3 @@ Feature: Page layouts
   And the response should not contain "l-sidebar-second"
   And the response should not contain "header-wrapper"
   And the response should not contain "footer-wrapper"
-  And I logout

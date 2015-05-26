@@ -2,18 +2,18 @@ default:
   suites:
     default:
       contexts:
-        - FeatureContext
+        - FeatureContext:
+            drupal_users:
+              editor: 'Tharg/V@&GJRxRQt#N7B5'
+              admin: 'Tharg/V@&GJRxRQt#N7B5'
         - Drupal\DrupalExtension\Context\DrupalContext
         - Drupal\DrupalExtension\Context\MinkContext
         - Drupal\DrupalExtension\Context\MessageContext
         - Drupal\DrupalExtension\Context\DrushContext
-  formatters:
-    junit: true
   extensions:
     Behat\MinkExtension:
-      base_url: http://staging.food.gov.uk
+      base_url: http://dev.food.gov.uk
       selenium2: ~
-      goutte: ~
     Drupal\DrupalExtension:
       blackbox: ~
       region_map:

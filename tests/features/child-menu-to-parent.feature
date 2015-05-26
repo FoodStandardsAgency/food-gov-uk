@@ -1,7 +1,7 @@
-Feature: Automatically set child menu to parent 
+Feature: Automatically set child menu to parent
   I want to be able to Automatically set child menu to parent
   As an editor user
-  So I can make sure a new child page inherits the navigation menu location from the parent node 
+  So I can make sure a new child page inherits the navigation menu location from the parent node
 
    @javascript
    Scenario: Automatically set child menu to parent
@@ -25,9 +25,9 @@ Feature: Automatically set child menu to parent
     And I click "Page sections"
     And I click "Child pages"
     And I click "edit-field-fc-page-section-und-0-field-child-page-und-add-more"
-    
+
     #need to find a way to add child page
-    
+
     And I click "Menu settings"
 	And I check the box "Provide a menu link"
 	And I fill in "edit-menu-link-title" with "test parent"
@@ -40,4 +40,3 @@ Feature: Automatically set child menu to parent
     And I should see "test child" in the "Left Sidebar" region
 	And I click "test child"
 	And I should see "test child" in the "Page Title" region
-    And I logout

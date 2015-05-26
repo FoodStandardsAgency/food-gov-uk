@@ -2,10 +2,10 @@ Feature: Table of content
    I should be able to view a table of content
    As a user
    So I can navigate content easily
-  
+
    @javascript
   Scenario: Toc - numbers
-  Given I log in as an existing "editor" 
+  Given I log in as an existing "editor"
   When I go to "/node/add/document-page"
   And I should see "Create General Page" in the "Page Title" region
   And I fill in "edit-title" with "test"
@@ -19,11 +19,11 @@ Feature: Table of content
   Then I should see "General Page test has been created."
   And I should see an "#table-of-contents-links" element
   And I should see an ".toc-node-numbers" element
-  And I logout
-  
+
+
    @javascript
-  Scenario: Toc - bullets  
-  Given I log in as an existing "editor" 
+  Scenario: Toc - bullets
+  Given I log in as an existing "editor"
   When I go to "/node/add/document-page"
   And I should see "Create General Page" in the "Page Title" region
   And I fill in "edit-title" with "test"
@@ -37,4 +37,3 @@ Feature: Table of content
   Then I should see "General Page test has been created."
   And I should see an "#table-of-contents-links" element
   And I should see an ".toc-node-bullets" element
-  And I logout
