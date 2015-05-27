@@ -19,8 +19,35 @@ define('REWRITE_COMMITTEE_URLS', TRUE);
  * @return string
  */
 function local_get_site_domain(){
-  return "http://www.food.gov.uk";
+
+  // Get a local development site domain if it's populated.
+  // This will typically be set in settings.local.php, but could also be
+  // set via drush in a Drupal variable.
+  $local_dev_domain = variable_get('local_dev_domain');
+
+  // If we have a local development domain, return it now.
+  if (!empty($local_dev_domain)) {
+    return $local_dev_domain;
+  }
+
+  // Are we on a local development site?
+  $local_dev = variable_get('local_dev');
+  // If so, use 'local' as the environment, otherwise use the environment set in
+  // the Apache config file for the site.
+  $environment = !empty($local_dev) ? 'local' : getenv('AH_SITE_ENVIRONMENT');
+  // An array of available environments
+  $environments = array(
+    'local' => '//local.food.gov.uk',
+    'development' => '//dev.food.gov.uk',
+    'staging' => '//staging.food.gov.uk',
+    'production' => '//www.food.gov.uk',
+  );
+
+  // Return the domain for the selected environment. If none is set, we return
+  // www.food.gov.uk as default.
+  return !empty($environment) && !empty($environments[$environment]) ? $environments[$environment] : '//www.food.gov.uk';
 }
+
 /**
  * Implements hook url inbound alter
  * @param $path
