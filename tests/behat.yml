@@ -13,7 +13,8 @@ default:
   extensions:
     Behat\MinkExtension:
       base_url: http://dev.food.gov.uk
-      selenium2: ~
+      selenium2:
+        wd_host: http://fsaenaa12.miniserver.com:4444/wd/hub
     Drupal\DrupalExtension:
       blackbox: ~
       region_map:
