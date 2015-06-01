@@ -138,7 +138,7 @@ function fsa_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
   // Modify the submit button
   if (!empty($form['actions']['submit'])) {
     // Allow editors to amend the text displayed on the submit button.
-    $form['actions']['submit']['#value'] = variable_get('fsa_feedback_submit_button_label', t('Submit feedback!'));
+    $form['actions']['submit']['#value'] = variable_get('fsa_feedback_submit_button_label', t('Send feedback'));
 
     // We have a custom validation handler, which we'll use for checking that
     // required fields are populated. In order to prevent the built-in
