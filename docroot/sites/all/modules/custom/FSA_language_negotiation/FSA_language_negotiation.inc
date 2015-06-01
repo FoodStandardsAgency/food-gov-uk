@@ -13,12 +13,14 @@
  */
 function FSA_language_negotiation_wales($languages) {
   $language = 'en';
-
+  
+  
   // force all pages within the Cymru to be in Welsh
   // specify all the paths that could denote the welsh section
   $paths = array(
       'wales/about-fsa-wales/cymru',
       'wales/cymru',
+      //'cymraeg-translation-test-page',
   );
 
   foreach ($paths as $path) {
@@ -27,5 +29,14 @@ function FSA_language_negotiation_wales($languages) {
     }
   }
 
+  $path = $_GET['q'];
+  
+  $language_paths = variable_get('fsa_language_paths', array());
+  
+  if (!empty($language_paths[$path])) {
+    $language = !empty($language_paths[$path]['language']) ? $language_paths[$path]['language'] : 'en';
+  }
+  
+  
   return $language;
 }
