@@ -81,6 +81,51 @@ function feedback_entity_info() {
 }
 
 /**
+ * Implements hook_entity_property_info().
+ */
+function feedback_entity_property_info() {
+  $info = array();
+  $properties = &$info['feedback']['properties'];
+
+  $properties['fid'] = array(
+    'label' => t('Feedback ID'),
+    'type' => 'integer',
+    'description' => t('The Feedback ID'),
+    'schema field' => 'fid',
+  );
+  $properties['status'] = array(
+    'label' => t("Status"),
+    'type' => 'integer',
+    'description' => t("0 for new, 1 for processed"),
+    'schema field' => 'status',
+  );
+  $properties['author'] = array(
+    'label' => t("Author"),
+    'type' => 'user',
+    'description' => t("The author of the feedback."),
+    'setter callback' => 'entity_property_verbatim_set',
+    'required' => TRUE,
+    'schema field' => 'uid',
+  );
+  $properties['message'] = array(
+    'label' => t("Title"),
+    'description' => t("The feedback message."),
+    'setter callback' => 'entity_property_verbatim_set',
+    'schema field' => 'message',
+    'required' => TRUE,
+  );
+  $properties['timestamp'] = array(
+    'label' => t("Date created"),
+    'type' => 'date',
+    'schema field' => 'timestamp',
+    'description' => t("The date the feedback was created."),
+  );
+
+  return $info;
+}
+
+
+/**
  * Implements hook_field_extra_fields().
  */
 function feedback_field_extra_fields() {
@@ -601,4 +646,24 @@ function feedback_views_api() {
     'api' => 3.0,
     'path' => drupal_get_path('module', 'feedback') . '/views',
   );
+}
+
+/**
+ * Implements hook_feedback_insert().
+ */
+function feedback_feedback_insert($entry) {
+  // Trigger rule if Rules is enabled
+  if (module_exists('rules')) {
+    rules_invoke_event('feedback_insert', $entry);
+  }
+}
+
+/**
+ * Implements hook_feedback_update().
+ */
+function feedback_feedback_update($entry) {
+  // Trigger rule if Rules is enabled
+  if (module_exists('rules')) {
+    rules_invoke_event('feedback_update', $entry);
+  }
 }
