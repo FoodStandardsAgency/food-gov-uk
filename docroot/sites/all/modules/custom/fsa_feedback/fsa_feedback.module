@@ -272,7 +272,7 @@ function fsa_feedback_form_feedback_admin_settings_form_alter(&$form, &$form_sta
     '#title' => t('Email recipient address'),
     '#size' => 80,
     '#maxlength' => 128,
-    '#default_value' => variable_get('fsa_feedback_email_recipient', variable_get('site_mail', 'digital.communications@foodstandards.gsi.gov.uk')),
+    '#default_value' => variable_get('fsa_feedback_email_recipient', 'digital.communications@foodstandards.gsi.gov.uk'),
     '#description' => t("This is the email address to which feedback emails will be sent. Muliptle addresses can be added, separated by commas."),
   );
 
