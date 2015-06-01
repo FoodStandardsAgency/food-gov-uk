@@ -130,10 +130,7 @@ function fsa_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
   // Set the value of the thankyou message displayed when the form is submitted.
   // We set this value here because it is a multilingual variable, and this gets
   // messed up by the ajax callback if we get the value in the submit function.
-  $form['thankyou_message'] = array(
-    '#type' => 'value',
-    '#value' => variable_get('fsa_feedback_thankyou_message', t('Thank you for your feedback.')),
-  );
+  $form['#fsa_feedback_thankyou_message'] = variable_get('fsa_feedback_thankyou_message', t('Thank you for your feedback.'));
 
   // Modify the submit button
   if (!empty($form['actions']['submit'])) {
@@ -232,8 +229,8 @@ function fsa_feedback_form_submit($form, &$form_state) {
   // where it is stored as a value. We use this approach to maintain the
   // language of the calling page.
   if (!empty($form['#form_id']) && $form['#form_id'] == 'feedback_form') {
-    if (!empty($form_state['values']['thankyou_message'])) {
-      drupal_set_message($form_state['values']['thankyou_message']);
+    if (!empty($form['#fsa_feedback_thankyou_message'])) {
+      drupal_set_message($form['#fsa_feedback_thankyou_message']);
     }
     else {
       drupal_set_message(t('Thank you for your feedback.'));
