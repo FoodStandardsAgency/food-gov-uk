@@ -37,7 +37,7 @@ function fsa_feedback_variable_info($options) {
   $variables['fsa_feedback_email_recipient'] = array(
     'type' => 'string',
     'title' => t('Feedback email recipient', array(), $options),
-    'default' => variable_get('site_mail', 'content@food.gov.uk'),
+    'default' => 'digital.communications@foodstandards.gsi.gov.uk',
     'description' => t('Email address(es) to which feedback emails will be sent.', array(), $options),
     'required' => FALSE,
     'group' => FSA_FEEDBACK_VARIABLE_GROUP_NAME,
