@@ -25,56 +25,10 @@ define('FSA_FEEDBACK_DEFAULT_FEEDBACK_TITLE', 'Is there anything wrong with this
  */
 define('FSA_FEEDBACK_SHOW_MESSAGES_ON_FEEDBACK_FORM', FALSE);
 
-
 /**
- * Implements hook_variable_info().
+ * Group name for this module's variables
  */
-function fsa_feedback_variable_info($options) {
-  $variables['fsa_feedback_email_recipient'] = array(
-    'type' => 'string',
-    'title' => t('Feedback email recipient', array(), $options),
-    'default' => variable_get('site_mail', 'content@food.gov.uk'),
-    'description' => t('Email address(es) to which feedback emails will be sent.', array(), $options),
-    'required' => FALSE,
-  );
-  $variables['fsa_feedback_email_subject'] = array(
-    'type' => 'string',
-    'title' => t('Feedback email subject', array(), $options),
-    'default callback' => '_fsa_feedback_email_subject',
-    'description' => t('Subject line for feeback emails.', array(), $options),
-    'required' => FALSE,
-  );
-  $variables['fsa_feedback_form_heading'] = array(
-    'type' => 'string',
-    'title' => t('Feedback form heading', array(), $options),
-    'default' => t('Help us improve food.gov.uk', array(), $options),
-    'description' => t('Heading for the site feedback form.', array(), $options),
-    'required' => FALSE,
-  );
-  $variables['fsa_feedback_form_help'] = array(
-    'type' => 'string',
-    'title' => t('Feedback form help text', array(), $options),
-    'default' => '',
-    'description' => t('Additional help text to appear on the site feedback form.', array(), $options),
-    'required' => FALSE,
-  );
-  $variables['fsa_feedback_message_field1_label'] = array(
-    'type' => 'string',
-    'title' => t('Feedback form message label 1', array(), $options),
-    'default' => t('What you were doing', array(), $options),
-    'description' => t('Label for the first field on the site feedback form.', array(), $options),
-    'required' => FALSE,
-  );
-  $variables['fsa_feedback_message_field2_label'] = array(
-    'type' => 'string',
-    'title' => t('Feedback form message label 2', array(), $options),
-    'default' => t('What went wrong', array(), $options),
-    'description' => t('Label for the second field on the site feedback form.', array(), $options),
-    'required' => FALSE,
-  );
-
-  return $variables;
-}
+define('FSA_FEEDBACK_VARIABLE_GROUP_NAME', 'fsa_feedback');
 
 
 /**
@@ -103,7 +57,7 @@ function fsa_feedback_page_build(&$page) {
   }
 
   // Add the custom CSS file and make sure it comes after the contrib one.
-  $page[FSA_FEEDBACK_REGION]['feedback']['#attached']['css'][drupal_get_path('module', 'fsa_feedback') . '/fsa-feedback.css'] = array(
+  $page[FSA_FEEDBACK_REGION]['feedback']['#attached']['css'][drupal_get_path('module', 'fsa_feedback') . '/css/fsa-feedback.css'] = array(
     'group' => 'theme',
     'weight' => 100,
   );
@@ -148,8 +102,6 @@ function fsa_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
     unset($form['help']);
   }
 
-
-
   // Unset the default 'message' element.
   unset($form['message']);
 
@@ -158,9 +110,9 @@ function fsa_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
     '#type' => 'textarea',
     '#attributes' => array('class' => array('feedback-message')),
     '#cols' => 20,
-    //'#title' => t('What you were doing'),
     '#title' => variable_get('fsa_feedback_message_field1_label', t('What you were doing')),
     '#required' => TRUE,
+    '#required_error_message' => t('Please enter details of what you were doing.'),
     '#wysiwyg' => FALSE,
   );
 
@@ -171,12 +123,48 @@ function fsa_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
     '#cols' => 20,
     '#title' => variable_get('fsa_feedback_message_field2_label', t('What went wrong')),
     '#required' => TRUE,
+    '#required_error_message' => t('Please enter details of what went wrong.'),
     '#wysiwyg' => FALSE,
   );
 
-  // Add our submit function before the existing one.
-  array_unshift($form['#submit'], 'fsa_feedback_form_submit');
+  // Set the value of the thankyou message displayed when the form is submitted.
+  // We set this value here because it is a multilingual variable, and this gets
+  // messed up by the ajax callback if we get the value in the submit function.
+  $form['thankyou_message'] = array(
+    '#type' => 'value',
+    '#value' => variable_get('fsa_feedback_thankyou_message', t('Thank you for your feedback.')),
+  );
 
+  // Modify the submit button
+  if (!empty($form['actions']['submit'])) {
+    // Allow editors to amend the text displayed on the submit button.
+    $form['actions']['submit']['#value'] = variable_get('fsa_feedback_submit_button_label', t('Submit feedback!'));
+
+    // We have a custom validation handler, which we'll use for checking that
+    // required fields are populated. In order to prevent the built-in
+    // validation function from running, we tell Drupal to limit validation
+    // errors to an empty array. This means that our validation function is
+    // responsible for all validation. This is fine as it's a simple form.
+    // @see feedback_form_validate()
+    $form['actions']['submit']['#limit_validation_errors'] = array();
+
+    // In order for the `#limit_validation_errors` to work, the submit button
+    // must have its `#submit` element populated. However, if it's set to an
+    // empty array, it causes AJAX errors. To get around this, we move our
+    // custom submit function for the form here. The custom submit function
+    // contains all the code from the existing function, but adds some extra
+    // functionality.
+    // Note that moving the submit handler to this form element impacts on the
+    // `$form_state` array that gets passed to our submit handler. Extra
+    // processing is required to handle this. This is fully documented in the
+    // submit handler itself.
+    // @see fsa_feedback_form_submit()
+    // @see feedback_form_submit()
+    $form['actions']['submit']['#submit'][] = 'fsa_feedback_form_submit';
+
+    // Unset the existing submit function.
+    unset($form['#submit']);
+  }
 }
 
 
@@ -196,9 +184,33 @@ function fsa_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
  * @see fsa_feedback_form_feedback_form_alter().
  */
 function fsa_feedback_form_submit($form, &$form_state) {
+
+  // In order to add custom validation, it was necessary to move the submit
+  // handler to the submit button. However, this means that the values of all
+  // of the form fields are no longer accessible via the `$form_state['values']`
+  // element. However, they can still be accessed via the `complete form`
+  // element, so we'll use this to repopulate the values we need.
+
+  // Get the complete form.
+  $complete_form = $form_state['complete form'];
+
+  // Specify the fields we want to 'restore'.
+  $fields = array('doing', 'wrong', 'location');
+
+  // 'Restore' the values.
+  foreach ($fields as $field) {
+    if ($form_state['values'][$field] = !empty($complete_form[$field]['#value']) ? $complete_form[$field]['#value'] : '');
+  }
+
+  // Make sure we're using the alias of the page URL, not the internal path.
+  if (!empty($form_state['values']['location'])) {
+    $form_state['values']['location'] = drupal_get_path_alias($form_state['values']['location']);
+  }
+
   // Build the message from the `doing` and `wrong` field values.
   $doing = !empty($form_state['values']['doing']) ? $form_state['values']['doing'] : NULL;
   $wrong = !empty($form_state['values']['wrong']) ? $form_state['values']['wrong'] : NULL;
+
   $message = !empty($doing) ? $doing : '';
   if (!empty($message) && !empty($wrong)) {
     $message .= FSA_FEEDBACK_MESSAGE_SEPARATOR;
@@ -207,9 +219,26 @@ function fsa_feedback_form_submit($form, &$form_state) {
   // Set the `message` element that will be saved to the database.
   $form_state['values']['message'] = $message;
 
-  //if (!empty($form['#id']) && $form['#id'] == 'feedback-form') {
-  //  fsa_feedback_mail_send($message);
-  //}
+  // The following is copied from `feedback_form_submit()`, which is part of the
+  // contrib Feedback module. We copy it here so that we can alter the message
+  // that's displayed to users when they've submitted the form.
+  $entry = new stdClass();
+  entity_form_submit_build_entity('feedback', $entry, $form, $form_state);
+  $entry->message = $form_state['values']['message'];
+  $entry->location = $form_state['values']['location'];
+  feedback_save($entry);
+
+  // Set the thankyou message for the user. The message is passed from the form,
+  // where it is stored as a value. We use this approach to maintain the
+  // language of the calling page.
+  if (!empty($form['#form_id']) && $form['#form_id'] == 'feedback_form') {
+    if (!empty($form_state['values']['thankyou_message'])) {
+      drupal_set_message($form_state['values']['thankyou_message']);
+    }
+    else {
+      drupal_set_message(t('Thank you for your feedback.'));
+    }
+  }
 
 }
 
@@ -229,7 +258,7 @@ function fsa_feedback_preprocess_feedback_form_display(&$variables) {
     unset($variables['content']['messages']);
   }
   // Change the title displayed above the feedback form.
-  $variables['title'] = variable_get('feedback_title', FSA_FEEDBACK_DEFAULT_FEEDBACK_TITLE);
+  $variables['title'] = variable_get('fsa_feedback_title', FSA_FEEDBACK_DEFAULT_FEEDBACK_TITLE);
   // Override standard feedback form display template.
   $variables['theme_hook_suggestions'][] = 'fsa_feedback_form_display';
 }
@@ -261,12 +290,12 @@ function fsa_feedback_form_feedback_admin_settings_form_alter(&$form, &$form_sta
   );
 
 // Text for the feedback form link
-  $form['feedback_title'] = array(
+  $form['fsa_feedback_title'] = array(
     '#type' => 'textfield',
     '#title' => t('Feedback link'),
     '#size' => 40,
     '#maxlength' => 128,
-    '#default_value' => variable_get('feedback_title', FSA_FEEDBACK_DEFAULT_FEEDBACK_TITLE),
+    '#default_value' => variable_get('fsa_feedback_title', FSA_FEEDBACK_DEFAULT_FEEDBACK_TITLE),
     '#description' => t("Specify the title that will appear on the feedback form. Defaults to %feedback_title", array('%feedback_title' => FSA_FEEDBACK_DEFAULT_FEEDBACK_TITLE)),
   );
 
@@ -300,6 +329,16 @@ function fsa_feedback_form_feedback_admin_settings_form_alter(&$form, &$form_sta
     '#description' => t("Specify the second label that will appear on the feedback form. Defaults to 'What went wrong'"),
   );
 
+  // Text to display on the submit button of the feedback form.
+  $form['fsa_feedback_submit_button_label'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Submit button text'),
+    '#size' => 40,
+    '#maxlength' => 128,
+    '#default_value' => variable_get('fsa_feedback_submit_button_label', t('Submit feedback')),
+    '#description' => t("Specify text to be displayed on the submit button for the feedback form"),
+  );
+
   // Help text to appear at the top of the feedback form.
   $form['fsa_feedback_form_help'] = array(
     '#type' => 'textfield',
@@ -308,6 +347,16 @@ function fsa_feedback_form_feedback_admin_settings_form_alter(&$form, &$form_sta
     '#maxlength' => 128,
     '#default_value' => variable_get('fsa_feedback_form_help'),
     '#description' => t("Specify the text that will appear at the top of the feedback form."),
+  );
+
+  // Text to display to the user when the feedback form is submitted.
+  $form['fsa_feedback_thankyou_message'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Thankyou message'),
+    '#size' => 80,
+    '#maxlength' => 128,
+    '#default_value' => variable_get('fsa_feedback_thankyou_message', t('Thanks for your feedback')),
+    '#description' => t("Specify text to be displayed when the user submits the feedback form"),
   );
 }
 
@@ -344,6 +393,17 @@ function fsa_feedback_theme() {
         'title' => NULL,
         'content' => NULL,
       ),
+    ),
+    'fsa_feedback_email' => array(
+      'template' => 'theme/feedback-email',
+      'variables' => array(
+        'doing' => NULL,
+        'wrong' => NULL,
+        'date' => NULL,
+        'page' => NULL,
+        'browser' => NULL,
+        'message_id' => NULL,
+      )
     ),
   );
 }
@@ -386,7 +446,7 @@ function template_preprocess_feedback_message(&$variables) {
 /**
  * Implements hook_form_FORMID_alter()
  */
-function fsa_feedback_form_feedback_admin_view_form_alter(&$form, &$form_state, $form_id) {
+function fsa_feedback_form_fsa_feedback_admin_view_form_alter(&$form, &$form_state, $form_id) {
 
   $form['#attached']['css'][drupal_get_path('module', 'fsa_feedback') . '/fsa-feedback.css'] = array(
     'group' => 'theme',
@@ -569,6 +629,18 @@ function fsa_feedback_menu() {
 }
 
 /**
+ * Implements hook_menu_alter().
+ *
+ * @param array $items
+ *   Menu items.
+ */
+function fsa_feedback_menu_alter(&$items) {
+  // Substitute our admin form for the one from the contrib Feedback module.
+  $items['admin/reports/feedback']['page arguments'] = array('fsa_feedback_admin_view_form');
+  $items['admin/reports/feedback']['file'] = drupal_get_path('module', 'fsa_feedback.module');
+}
+
+/**
  * Title callback for the process feedback menu item.
  * @param object $entry
  *   The feedback entity object
@@ -699,30 +771,19 @@ function fsa_feedback_mail($key, &$message, $params) {
 
       $message['subject'] = _fsa_feedback_email_subject();
 
-      if (!empty($doing)) {
-        $message['body'][] = _fsa_feedback_email_section_heading('What you were doing') . check_plain($doing);
-      }
+      // Build a render array for the message body.
+      $message_body = array(
+        '#theme' => 'fsa_feedback_email',
+        '#doing' => $doing,
+        '#wrong' => $wrong,
+        '#browser' => check_plain($params['browser']),
+        '#page' => check_plain($params['url']),
+        '#date' => check_plain($params['date']),
+        '#message_id' => check_plain($params['id']),
+      );
 
-      if (!empty($wrong)) {
-        $message['body'][] = _fsa_feedback_email_section_heading('What went wrong') . check_plain($wrong);
-      }
-
-      if (!empty($params['date'])) {
-        $message['body'][] = _fsa_feedback_email_section_heading('Date') . check_plain($params['date']);
-      }
-
-      if (!empty($params['url'])) {
-        $message['body'][] = _fsa_feedback_email_section_heading('Page') . check_plain($params['url']);
-      }
-
-      if (!empty($params['browser'])) {
-        $message['body'][] = _fsa_feedback_email_section_heading('Browser') . check_plain($params['browser']);
-      }
-
-      if (!empty($params['id'])) {
-        $message['body'][] = 'View this message in Drupal: ' . url('admin/reports/feedback/' . $params['id'], array('absolute' => TRUE));
-        $message['body'][] = 'Mark this message as processed: ' . url("admin/reports/feedback/" . $params['id'] . "/process", array('absolute' => TRUE));
-      }
+      // Render the message body and add it to the actual email message body.
+      $message['body'][] = drupal_render($message_body);
 
       break;
 
@@ -733,6 +794,37 @@ function fsa_feedback_mail($key, &$message, $params) {
 
       break;
   }
+}
+
+
+/**
+ * Preprocess function for feedback email messages.
+ *
+ * @param array $variables
+ *   Template variables passed by reference
+ */
+function template_preprocess_fsa_feedback_email(&$variables) {
+
+  // An array of text fields to output in the email.
+  $text_fields = array('doing', 'wrong', 'browser', 'date', 'page');
+
+  foreach ($text_fields as $field) {
+    // Add an extra line break to the end of each text field to ensure that it
+    // displays properly in the emails.
+    $variables[$field] .= "\r\n";
+  }
+
+  // An array of options for the action links that appear at the foot of the
+  // feedback email.
+  $link_options = array(
+    'absolute' => TRUE,
+    'https' => TRUE,
+  );
+
+  // Set up the links for the bottom of the email
+  $variables['view_link'] = url('admin/reports/feedback/' . $variables['message_id'], $link_options);
+  $variables['processed_link'] = url("admin/reports/feedback/" . $variables['message_id'] . "/process", $link_options);
+
 }
 
 
@@ -936,4 +1028,251 @@ function _fsa_feedback_email_subject() {
   }
   $subject = variable_get('fsa_feedback_email_subject', t('Feedback message from @site-name', array('@site-name' => variable_get('site_name', 'food.gov.uk'))));
   return $subject;
+}
+
+
+
+/**
+ * Imports the translation file(s) included with this module.
+ *
+ * @param string $langcode
+ *   The language code for the file being imported. Defaults to Welsh 'cy'
+ *
+ * @return boolean
+ *   TRUE : success
+ *   FALSE : failure
+ */
+function _fsa_feedback_import_translations($langcode = 'cy') {
+
+  // Default the language code to Welsh, but allow overrides.
+  $language_code = !empty($langcode) ? $langcode : 'cy';
+
+  // Set the file path for the translation .po file
+  $filepath = drupal_get_path('module', 'fsa_feedback') . "/translations/fsa_feedback.$language_code.po";
+
+  // Check that the file exists
+  if (!file_exists($filepath)) {
+    return FALSE;
+  }
+
+  // Import the file
+  if (file_exists($filepath) && function_exists('_locale_import_read_po')) {
+    $file = (object) array('filename' => drupal_basename($filepath), 'uri' => $filepath);
+    $result = _locale_import_read_po('db-store', $file, LOCALE_IMPORT_KEEP, $language_code);
+    return TRUE;
+  }
+}
+
+
+/**
+ * Sets up initial variables for the FSA Feedback module.
+ *
+ * @global object $language
+ *   The language object.
+ */
+function _fsa_feedback_variable_setup($langcode = 'cy') {
+  // Get the current language settings so we can pass them to
+  // hook_variable_info.
+  global $language;
+  $options = array(
+    'language' => $language,
+    'langcode' => $language->language,
+  );
+
+  // Get the current variable_realm_list_language settings.
+  $variable_realm_list_language = variable_get('variable_realm_list_language', array());
+  $translate_vars = array();
+
+  // Get this module's localizable variables and add them to the list.
+  $variables = module_invoke('fsa_feedback', 'variable_info', $options);
+  foreach ($variables as $variable_name => $variable_info) {
+    if (!empty($variable_info['localize']) && $variable_info['localize']) {
+      $translate_vars[] = $variable_name;
+      if (!in_array($variable_name, $variable_realm_list_language)) {
+        $variable_realm_list_language[] = $variable_name;
+      }
+    }
+  }
+
+  // Set the list of localizable variables.
+  if (count($variable_realm_list_language) > 0) {
+    variable_set('variable_realm_list_language', $variable_realm_list_language);
+  }
+
+  // Translate the variables
+  if (function_exists('i18n_variable_set')) {
+    foreach ($translate_vars as $var) {
+
+      $var_value = $variables[$var]['default'];
+      $var_value_translated = locale($variables[$var]['default'], NULL, $langcode);
+
+      if ($var_value != $var_value_translated) {
+        i18n_variable_set($var, $var_value, 'en');
+        i18n_variable_set($var, $var_value_translated, $langcode);
+      }
+    }
+  }
+}
+
+
+/**
+ * Build a (sortable) form containing a checkbox for each feedback entry.
+ *
+ * This is a copy of the function provided by the contrib Feedback module.
+ *
+ * In the original, the table sorting did not work properly, and this has
+ * been rectified here byadding `orderByHeader($form['#feedback_header'])`
+ * to the query that selects the messages.
+ *
+ * We also specify sort order by timestamp descending.
+ *
+ * Finally, we set the `#theme` element of the form so that Drupal knows how
+ * to display the feedback elements.
+ *
+ * @see feedback_admin_view_form().
+ *
+ */
+function fsa_feedback_admin_view_form($form, &$form_state) {
+  $form['#attached']['js'][] = drupal_get_path('module', 'feedback') . '/feedback.admin.js';
+
+  $status_headings = array(
+    FEEDBACK_OPEN => t('Open feedback messages'),
+    FEEDBACK_PROCESSED => t('Processed feedback messages'),
+  );
+  $form['#feedback_header'] = array(
+    array(),
+    array('data' => t('Location'), 'field' => 'f.location_masked'),
+    array('data' => t('Date'), 'field' => 'f.timestamp', 'sort' => 'desc'),
+    array('data' => t('User'), 'field' => 'u.name'),
+    t('Message'),
+    t('Operations'),
+  );
+  // Hack to prevent pager_query() from issuing PHP notices.
+  if (!isset($_GET['page'])) {
+    $_GET['page'] = '';
+  }
+  if (count(explode(',', $_GET['page'])) < 2) {
+    $_GET['page'] .= ',0';
+  }
+
+  $form['feedback-messages'] = array('#tree' => TRUE);
+  $query = db_select('feedback', 'f')->extend('PagerDefault')->extend('TableSort');
+  $query->join('users', 'u', 'f.uid = u.uid');
+  $query->fields('f')
+    ->limit(50);
+  foreach (array(FEEDBACK_OPEN, FEEDBACK_PROCESSED) as $status) {
+    $status_query = clone $query;
+    $fids = $status_query
+      ->element($status)
+      ->condition('f.status', $status)
+      ->orderByHeader($form['#feedback_header'])
+      ->execute()->fetchCol();
+    $form['feedback-messages'][$status] = array(
+      '#type' => 'fieldset',
+      '#title' => $status_headings[$status],
+      '#collapsible' => TRUE,
+      '#collapsed' => $status,
+      '#attributes' => array('class' => array('feedback-messages')),
+    );
+    if (!empty($fids)) {
+      $entries = feedback_load_multiple($fids);
+      foreach ($entries as $fid => $entry) {
+        $form['feedback-messages'][$status][$fid] = array(
+          '#type' => 'checkbox',
+          '#return_value' => FEEDBACK_PROCESSED,
+          '#default_value' => FALSE,
+        );
+        $form['feedback-messages'][$status][$fid]['location'] = array(
+          '#markup' => l(truncate_utf8($entry->location, 32, FALSE, TRUE), $entry->url),
+        );
+        $form['feedback-messages'][$status][$fid]['date'] = array(
+          '#markup' => format_date($entry->timestamp, 'small'),
+        );
+        $form['feedback-messages'][$status][$fid]['user'] = array(
+          '#markup' => check_plain(format_username($entry)),
+        );
+
+        module_load_include('inc', 'feedback', 'feedback.admin');
+
+        feedback_build_content($entry, 'teaser');
+        $form['feedback-messages'][$status][$fid]['message'] = $entry->content;
+        unset($entry->content);
+
+        $form['feedback-messages'][$status][$fid]['operations'] = array(
+          '#theme' => 'links',
+          '#links' => array(
+            'edit' => array(
+              'title' => t('edit'),
+              'href' => "admin/reports/feedback/$fid/edit"
+            ),
+            'delete' => array(
+              'title' => t('delete'),
+              'href' => "admin/reports/feedback/$fid/delete"
+            ),
+          ),
+          '#attributes' => array(),
+        );
+      }
+    }
+  }
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Update'),
+    // Hide the submit button, if there are no entries at all.
+    '#access' => !empty($entries),
+  );
+
+  // Set the form's theme function to be that from the contrib Feedback module.
+  $form ['#theme'][] = 'feedback_admin_view_form';
+
+  return $form;
+}
+
+
+
+/**
+ * Custom validation function for the feedback form.
+ *
+ * We use this function to set custom validation messages for the required
+ * fields: 'doing' and 'wrong'.
+ *
+ * In order for this validation to be triggered, we had to tell Drupal not to
+ * carry out its default validation for required fields, which takes place
+ * before custom validation functions. We do this in the alter function for the
+ * feedback form by setting the `limit_validation_errors` property of the form's
+ * submit button.
+ *
+ * To provide custom validation messages for required fields, we add a new
+ * array element to the FAPI array for each field called
+ * `#required_error_message`. If this is not populated, a default message is
+ * used instead.
+ *
+ * @see fsa_feedback_form_feedback_form_alter().
+ *
+ */
+function feedback_form_validate($form, &$form_state) {
+
+  // Create an empty array of required fields.
+  $required_fields = array();
+
+  // Find the required fields and see if they have a custom error message set.
+  // If not, build a standard error message similar to the one that Drupal core
+  // creates in form.inc. Add each required field, together with the error
+  // message to the `$required_fields` array.
+  foreach ($form as $element => $properties) {
+    if (strpos($element, '#') !== 0 && !empty($properties['#required'])) {
+      $required_message = !empty($properties['#required_error_message']) ? $properties['#required_error_message'] : t('!fieldname field is required and cannot be left blank', array('!fieldname' => !empty($properties['#title']) ? $properties['#title'] : ucfirst($element)));
+      $required_fields[$element] = $required_message;
+    }
+  }
+
+  // Validate the required fields. Note that we use `empty()` to
+  // determine whether the fields are populated. It's important to realise that
+  // this precludes values such as 0 from being submitted. However, these values
+  // would not be appropriate for these fields anyway.
+  foreach ($required_fields as $field_name => $message) {
+    if (empty($form_state['values'][$field_name])) {
+      form_set_error($field_name, $message, array(array($field_name)));
+    }
+  }
 }

@@ -1,0 +1,263 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  fsa_feedback.module: n/a
+#  fsa_feedback.info: n/a
+#  theme/feedback-entry.tpl.php: n/a
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: FSA Feedback\n"
+"POT-Creation-Date: 2015-04-29 09:58+0100\n"
+"PO-Revision-Date: 2015-04-29 10:00-0000\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != 11) ? 2 : 3;\n"
+"Language: cy_GB\n"
+"X-Generator: Poedit 1.7.6\n"
+
+#: fsa_feedback.module:35
+msgid "Feedback email recipient"
+msgstr ""
+
+#: fsa_feedback.module:37
+msgid "Email address(es) to which feedback emails will be sent."
+msgstr ""
+
+#: fsa_feedback.module:42
+msgid "Feedback email subject"
+msgstr ""
+
+#: fsa_feedback.module:44
+msgid "Subject line for feeback emails."
+msgstr ""
+
+#: fsa_feedback.module:49;276
+msgid "Feedback form heading"
+msgstr ""
+
+#: fsa_feedback.module:50;137
+msgid "Help us improve food.gov.uk"
+msgstr ""
+
+#: fsa_feedback.module:51
+msgid "Heading for the site feedback form."
+msgstr ""
+
+#: fsa_feedback.module:56
+msgid "Feedback form help text"
+msgstr ""
+
+#: fsa_feedback.module:58
+msgid "Additional help text to appear on the site feedback form."
+msgstr ""
+
+#: fsa_feedback.module:63
+msgid "Feedback form message label 1"
+msgstr ""
+
+#: fsa_feedback.module:64;162;491
+msgid "What you were doing"
+msgstr ""
+
+#: fsa_feedback.module:65
+msgid "Label for the first field on the site feedback form."
+msgstr ""
+
+#: fsa_feedback.module:70
+msgid "Feedback form message label 2"
+msgstr ""
+
+#: fsa_feedback.module:71;172;500
+msgid "What went wrong"
+msgstr ""
+
+#: fsa_feedback.module:72
+msgid "Label for the second field on the site feedback form."
+msgstr ""
+
+#: fsa_feedback.module:246
+msgid "Email recipient address"
+msgstr ""
+
+#: fsa_feedback.module:250
+msgid "This is the email address to which feedback emails will be sent. Muliptle addresses can be added, separated by commas."
+msgstr ""
+
+#: fsa_feedback.module:256
+msgid "Email subject line"
+msgstr ""
+
+#: fsa_feedback.module:260
+msgid "This is the subject line of the feedback emails."
+msgstr ""
+
+#: fsa_feedback.module:266
+msgid "Feedback link"
+msgstr ""
+
+#: fsa_feedback.module:270
+msgid "Specify the title that will appear on the feedback form. Defaults to %feedback_title"
+msgstr ""
+
+#: fsa_feedback.module:280
+msgid "Specify a heading to appear at the top of the feedback form."
+msgstr ""
+
+#: fsa_feedback.module:286
+msgid "Message Label"
+msgstr ""
+
+#: fsa_feedback.module:290
+msgid "Specify the label that will appear on the feedback form. Defaults to 'What you were doing'"
+msgstr ""
+
+#: fsa_feedback.module:296
+msgid "Second Message Label"
+msgstr ""
+
+#: fsa_feedback.module:300
+msgid "Specify the second label that will appear on the feedback form. Defaults to 'What went wrong'"
+msgstr ""
+
+#: fsa_feedback.module:306
+msgid "Intro text"
+msgstr ""
+
+#: fsa_feedback.module:310
+msgid "Specify the text that will appear at the top of the feedback form."
+msgstr ""
+
+#: fsa_feedback.module:417
+msgid "view"
+msgstr ""
+
+#: fsa_feedback.module:421
+msgid "mark as unprocessed"
+msgstr ""
+
+#: fsa_feedback.module:421
+msgid "mark as processed"
+msgstr ""
+
+#: fsa_feedback.module:426
+msgid "forward by email"
+msgstr ""
+
+#: fsa_feedback.module:457
+msgid "Processed"
+msgstr ""
+
+#: fsa_feedback.module:457
+msgid "Unprocessed"
+msgstr ""
+
+#: fsa_feedback.module:593
+msgid "Mark as processed"
+msgstr ""
+
+#: fsa_feedback.module:594
+msgid "Mark as unprocessed"
+msgstr ""
+
+#: fsa_feedback.module:595;597
+msgid "Update status"
+msgstr ""
+
+#: fsa_feedback.module:616
+msgid "Sorry, an error occurred updating the feedback item status."
+msgstr ""
+
+#: fsa_feedback.module:648
+msgid "New feedback item created."
+msgstr ""
+
+#: fsa_feedback.module:651
+msgid "Feedback item processed."
+msgstr ""
+
+#: fsa_feedback.module:859
+msgid "Recipient email address(es)"
+msgstr ""
+
+#: fsa_feedback.module:860
+msgid "Enter the email addresses of the recipient(s). Separate multiple addresses with commas."
+msgstr ""
+
+#: fsa_feedback.module:868
+msgid "From email address"
+msgstr ""
+
+#: fsa_feedback.module:869
+msgid "The email address that you'd like this email to come from"
+msgstr ""
+
+#: fsa_feedback.module:878
+msgid "Email subject"
+msgstr ""
+
+#: fsa_feedback.module:879
+msgid "Enter the subject line for the email."
+msgstr ""
+
+#: fsa_feedback.module:888
+msgid "Message"
+msgstr ""
+
+#: fsa_feedback.module:898;899
+msgid "Send email"
+msgstr ""
+
+#: fsa_feedback.module:961
+msgid "Feedback message from @site-name"
+msgstr ""
+
+#: fsa_feedback.module:571
+msgid "Forward by email"
+msgstr ""
+
+#: fsa_feedback.module:572
+msgid "Forward feedback message by email"
+msgstr ""
+
+#: fsa_feedback.info:0
+msgid "FSA Feedback"
+msgstr ""
+
+#: fsa_feedback.info:0
+msgid "Enhanced feedback module for the FSA website. Provides additional functionality and formatting for the contrib Feedback module."
+msgstr ""
+
+#: fsa_feedback.info:0
+msgid "Development"
+msgstr ""
+
+#: theme/feedback-entry.tpl.php:14
+msgid "Location"
+msgstr ""
+
+#: theme/feedback-entry.tpl.php:18
+msgid "Date"
+msgstr ""
+
+#: theme/feedback-entry.tpl.php:23
+msgid "User"
+msgstr ""
+
+
+msgid "Is there anything wrong with this page?"
+msgstr ""
+
+msgid "Send feedback"
+msgstr ""
+
+msgid "Thanks for your feedback!"
+msgstr ""
+
+msgid "Thank you for your feedback."
+msgstr ""
