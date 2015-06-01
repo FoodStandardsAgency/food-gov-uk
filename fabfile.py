@@ -91,11 +91,23 @@ def post_deploy():
     """Perform post-deployment tasks.
 
     Runs "updatedb" and "cc all" via drush from the docroot.
+    Deletes installation files.
     """
     with cd(env.docroot):
+	run('rm CHANGELOG.txt')
+        run('rm INSTALL.mysql.txt')
+	run('rm INSTALL.pgsql.txt')
+	run('rm INSTALL.sqlite.txt')
+	run('rm INSTALL.txt')
+	run('rm LICENSE.txt')
+	run('rm MAINTAINERS.txt')
+	run('rm UPGRADE.txt')
+	run('rm update.php')
+	run('rm install.php')
+	run('rm COPYRIGHT.txt')
+	run('rm README.txt')
         run('drush updatedb --y')
         run('drush cc all')
-
 
 @task
 @hosts('fsaenaa14.miniserver.com')
