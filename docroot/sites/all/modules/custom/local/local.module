@@ -41,7 +41,7 @@ function local_get_site_domain($admin = FALSE){
   if ($admin) {
     $environments = array(
       'local' => '//localadmin.food.gov.uk',
-      'development' => '//dev.food.gov.uk',
+      'development' => '//devadmin.food.gov.uk',
       'staging' => '//stagingadmin.food.gov.uk',
       'production' => '//admin.food.gov.uk',
     );
