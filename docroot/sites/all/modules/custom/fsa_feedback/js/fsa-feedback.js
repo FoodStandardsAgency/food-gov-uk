@@ -21,17 +21,11 @@
    * Collapse or uncollapse the feedback form block.
    */
   Drupal.fsaFeedbackFormToggle = function ($block, enable) {
-    //$block.find('form').slideToggle('medium');
-    
     var $formContainer = $block.find('.grey-container-block');
-    
     if (enable) {
-      //$('#feedback-form-toggle', $block).html('[ + ]');
       $formContainer.addClass('no-border');
     }
     else {
-      //$('#feedback-form-toggle', $block).html('[ &minus; ]');
-      console.log(enable);
       $formContainer.removeClass('no-border');
     }
   };
