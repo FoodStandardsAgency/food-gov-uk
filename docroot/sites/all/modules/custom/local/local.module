@@ -16,9 +16,13 @@ define('REWRITE_COMMITTEE_URLS', TRUE);
 
 /**
  * Returns the main site domain for rewriting non committee urls
+ *
+ * @param boolean $admin
+ *   Determines whether to return an admin domain or front-end domain.
+ *
  * @return string
  */
-function local_get_site_domain(){
+function local_get_site_domain($admin = FALSE){
 
   // Get a local development site domain if it's populated.
   // This will typically be set in settings.local.php, but could also be
@@ -30,22 +34,59 @@ function local_get_site_domain(){
     return $local_dev_domain;
   }
 
+  // Get the environment.
+  $environment = local_get_environment();
+
+  // An array of available environments
+  if ($admin) {
+    $environments = array(
+      'local' => '//localadmin.food.gov.uk',
+      'development' => '//dev.food.gov.uk',
+      'staging' => '//stagingadmin.food.gov.uk',
+      'production' => '//admin.food.gov.uk',
+    );
+  }
+  else {
+    $environments = array(
+      'local' => '//local.food.gov.uk',
+      'development' => '//dev.food.gov.uk',
+      'staging' => '//staging.food.gov.uk',
+      'production' => '//www.food.gov.uk',
+    );
+  }
+
+  // Return the domain for the selected environment. If none is set, we return
+  // www.food.gov.uk as default.
+  return !empty($environment) && !empty($environments[$environment]) ? $environments[$environment] : '//www.food.gov.uk';
+}
+
+/**
+ * Returns the name of the current environment.
+ *
+ * @return string
+ *   The name of the current environment. Possible values are:
+ *   - 'local' : a local development environment
+ *   - 'development' : The FSA development environment
+ *   - 'staging' : The FSA staging environment
+ *   - 'production' : The FSA production environment
+ *
+ * By default, this function uses the environment variable
+ * 'AH_SITE_ENVIRONMENT', but this can be overridden in a local settings file.
+ */
+function local_get_environment() {
+  // Get a local development site domain if it's populated.
+  $local_dev_domain = variable_get('local_dev_domain');
+  // If we have a local development domain, we're on the local environment.
+  if (!empty($local_dev_domain)) {
+    return 'local';
+  }
   // Are we on a local development site?
   $local_dev = variable_get('local_dev');
   // If so, use 'local' as the environment, otherwise use the environment set in
   // the Apache config file for the site.
   $environment = !empty($local_dev) ? 'local' : getenv('AH_SITE_ENVIRONMENT');
-  // An array of available environments
-  $environments = array(
-    'local' => '//local.food.gov.uk',
-    'development' => '//dev.food.gov.uk',
-    'staging' => '//staging.food.gov.uk',
-    'production' => '//www.food.gov.uk',
-  );
-
-  // Return the domain for the selected environment. If none is set, we return
-  // www.food.gov.uk as default.
-  return !empty($environment) && !empty($environments[$environment]) ? $environments[$environment] : '//www.food.gov.uk';
+  // Return the environment name.
+  return $environment;
 }
 
 /**
