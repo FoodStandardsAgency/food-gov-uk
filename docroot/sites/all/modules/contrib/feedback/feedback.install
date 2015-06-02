@@ -114,9 +114,3 @@ function feedback_update_6101() {
     ->execute();
 }
 
-function your_module_name_install() {
-  db_update('system')
-    ->fields(array('weight' => -50))
-    ->condition('name', 'feedback', '=')
-    ->execute();
-}
