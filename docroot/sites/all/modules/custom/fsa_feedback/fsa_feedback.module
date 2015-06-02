@@ -811,16 +811,24 @@ function template_preprocess_fsa_feedback_email(&$variables) {
     $variables[$field] .= "\r\n";
   }
 
+  // Get the local site domain - admin version.
+  $link_base = function_exists('local_get_site_domain') ? 'https:' . local_get_site_domain(TRUE) . '/' : '';
+
+
   // An array of options for the action links that appear at the foot of the
   // feedback email.
   $link_options = array(
     'absolute' => TRUE,
     'https' => TRUE,
+    'external' => !empty($link_base) ? TRUE : FALSE,
   );
 
+  // Add the path for the link base.
+  $link_base .= 'admin/reports/feedback/';
+
   // Set up the links for the bottom of the email
-  $variables['view_link'] = url('admin/reports/feedback/' . $variables['message_id'], $link_options);
-  $variables['processed_link'] = url("admin/reports/feedback/" . $variables['message_id'] . "/process", $link_options);
+  $variables['view_link'] = url($link_base . $variables['message_id'], $link_options);
+  $variables['processed_link'] = url($link_base . $variables['message_id'] . "/process", $link_options);
 
 }
 
