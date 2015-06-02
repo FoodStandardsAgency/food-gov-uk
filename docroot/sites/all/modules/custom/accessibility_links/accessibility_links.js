@@ -7,15 +7,20 @@
   Drupal.behaviors.accessibilityLinks = {
     attach: function(context) {
 
+      // Get the fontScale element.
+      $fontScale = $('#fontScale');
+
+      // If the fontScale element has already been processed, exit now.
+      if ($fontScale.hasClass('processed-fontclass')) {
+        return;
+      }
+
       // If we have a font size cookie set, use this to set the initial font
       // size. We pass the cookie value, along with the jQuery object to the
       // accessibilityLinksApplyFontSize() function.
       if (defaultFontSize = $.cookie('Drupal.accessibilityLinks.fontSize')) {
         accessibilityLinksApplyFontSize(defaultFontSize, $);
       }
-
-      // Get the fontScale element.
-      $fontScale = $('#fontScale');
 
       // Create font size links - number to be displayed is determined by
       // a Drupal setting: Drupal.settings.accessibilityLinks.fontScales
@@ -31,8 +36,9 @@
           accessibilityLinksApplyFontSize($(this).attr('data-font-scale'), $, e);
         });
       }
+    $fontScale.addClass('processed-fontclass');
     }
-  }
+  };
 })(jQuery);
 
 /**
