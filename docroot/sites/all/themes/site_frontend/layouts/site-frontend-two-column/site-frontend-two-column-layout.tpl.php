@@ -9,7 +9,7 @@
 
 <div class="l-page">
 
-  <div class="header-wrapper">	
+  <div class="header-wrapper">
     <div class="header-wrapper-inner">
       <header class="l-header" role="banner">
         <div class="header-inner">
@@ -176,7 +176,7 @@
                 <?php print render($page['footer_copyright']); ?>
               </div> <!-- end l-footer-copyright -->
             </div> <!-- end footer-copyright-inner -->
-          </div> <!-- end footer-top -->        
+          </div> <!-- end footer-top -->
 
           <div class="footer-bottom">
             <div class="l-footer-menu">
@@ -189,7 +189,7 @@
               <div class="footer-buttons-inner">
                 <?php print render($page['footer_buttons']); ?>
               </div> <!-- end l-footer-buttons -->
-            </div> <!-- end footer-buttons-inner -->      
+            </div> <!-- end footer-buttons-inner -->
           </div> <!-- end footer-bottom -->
 
         </div> <!-- end footer-inner -->
