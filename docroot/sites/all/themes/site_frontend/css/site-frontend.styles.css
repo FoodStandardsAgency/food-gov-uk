@@ -3696,6 +3696,37 @@ span.copyright {
   color: #333;
 }
 
+/**
+ * @file
+ * SASS styles for the social media footer
+ */
+.footer-social-media-wrapper {
+  background: #2a8641;
+  background: -moz-linear-gradient(top, #2a8641 0, #016c4e 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #2a8641), color-stop(100%, #016c4e));
+  background: -webkit-linear-gradient(top, #2a8641 0, #016c4e 100%);
+  background: -o-linear-gradient(top, #2a8641 0, #016c4e 100%);
+  background: -ms-linear-gradient(top, #2a8641 0, #016c4e 100%);
+  background: linear-gradient(to top, #2a8641 0%, #016c4e 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#2a8641',endColorstr='#016c4e',GradientType=0);
+}
+@media (min-width: 481px) {
+  .footer-social-media-wrapper {
+    display: none;
+  }
+}
+.footer-social-media-wrapper .social-media-icons {
+  margin: 0 auto;
+  max-width: 250px;
+  padding: 20px 6px;
+  top: initial;
+}
+@media print {
+  .footer-social-media-wrapper {
+    display: none;
+  }
+}
+
 /* FSA in the nations block on home page
  * depends on custom html in the block
  * requires bock class: fsa-in-the-nations
