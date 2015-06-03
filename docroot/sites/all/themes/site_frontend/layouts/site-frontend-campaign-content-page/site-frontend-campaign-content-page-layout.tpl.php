@@ -188,6 +188,11 @@
     </div> <!-- end bottom-menu-wrapper-inner -->
   </div> <!-- end bottom-menu-wrapper -->
 
+  <div class="footer-social-media-wrapper">
+    <div class="footer-social-media-wrapper-inner">
+      <?php print render($page['footer_social_media']); ?>
+    </div>
+  </div>
 
   <div class="footer-wrapper">
     <div class="footer-wrapper-inner">
