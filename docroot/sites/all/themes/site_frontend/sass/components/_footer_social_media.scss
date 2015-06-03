@@ -1,0 +1,38 @@
+/**
+ * @file
+ * SASS styles for the social media footer
+ */
+
+// The social media footer displays only on small screens. For larger viewports,
+// the social media icons appear in the header.
+// Note that the same block is used in Drupal for both header and footer, but
+// different contexts are used to apply the block to different regions.
+.footer-social-media-wrapper {
+
+  // Don't show the social media footer above the fullscreen breakpoint.
+  @include breakpoint($fullscreen) {
+    display: none;
+  }
+
+  background: #2a8641;
+  background: -moz-linear-gradient(top,#2a8641 0,#016c4e 100%);
+  background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#2a8641),color-stop(100%,#016c4e));
+  background: -webkit-linear-gradient(top,#2a8641 0,#016c4e 100%);
+  background: -o-linear-gradient(top,#2a8641 0,#016c4e 100%);
+  background: -ms-linear-gradient(top,#2a8641 0,#016c4e 100%);
+  background: linear-gradient(to top,#2a8641 0,#016c4e 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#2a8641',endColorstr='#016c4e',GradientType=0);
+
+  .social-media-icons {
+    margin: 0 auto;
+    max-width: 250px;
+    padding: 20px 6px;
+    top: initial;
+  }
+
+  // Don't display it in print mode
+  @media print {
+    display: none;
+  }
+
+}
