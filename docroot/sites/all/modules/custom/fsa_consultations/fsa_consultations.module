@@ -1,0 +1,48 @@
+<?php
+/**
+ * @file
+ * Module file for the FSA consultations module.
+ */
+
+/**
+ * Implements hook_form_FORMID_alter().
+ *
+ * We use this to hide the deprecated consultation details field, as requested
+ * by FSA. If this field is already populated, we show it, but if we're on a new
+ * node or if the field is empty, we hide it.
+ *
+ * @param array $form
+ *   The form render array. Passed by reference.
+ * @param array $form_state
+ *   The form state, including node object. Passed by reference.
+ *
+ * @return NULL
+ *
+ * @see #2015020910000031 - consultation template
+ *
+ */
+function fsa_consultations_form_node_form_alter(&$form, &$form_state) {
+
+  // Get the node object or set it as an empty object of type stdClass.
+  $node = !empty($form_state['node']) ? $form_state['node'] : new stdClass();
+
+  // Act only on consultation node types.
+  if (empty($node->type) || $node->type != 'consultation') {
+    return;
+  }
+
+  // Create an entity metadata wrapper to access field values.
+  $node_wrapper = entity_metadata_wrapper('node', $node);
+
+  // Get the value of the consultation details field.
+  $field_consultation_details = $node_wrapper->field_consultation_details->value();
+
+  // If there's no nid, we're creating a new node, so hide the consultation
+  // details field. Similarly, if the consultation details field is empty, we
+  // don't need to show it.
+  if (empty($node->nid) || empty($field_consultation_details)) {
+    // To hide the field, we set it's #access element to FALSE.
+    $form['field_consultation_details']['#access'] = FALSE;
+  }
+
+}

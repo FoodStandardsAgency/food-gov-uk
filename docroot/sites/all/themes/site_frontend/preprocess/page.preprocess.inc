@@ -70,8 +70,11 @@ function _site_frontend_preprocess_page__node_consultation(&$variables, $node) {
   // Get the nid
   $nid = $node->nid;
 
-  // Get the contact details group
-  $contact_group = $variables['page']['content']['system_main']['nodes'][$nid]['#groups']['group_contact'];
+  // Get the groups
+  $groups = $variables['page']['content']['system_main']['nodes'][$nid]['#groups'];
+
+  // Get the consultation details group
+  $group_details = $groups['group_details'];
 
   // ID of the nodeblock that contains the content for the Publication of
   // response summary content. Note that we need a Welsh and an English version.
@@ -80,11 +83,11 @@ function _site_frontend_preprocess_page__node_consultation(&$variables, $node) {
     'cy' => 'nodeblock_572',
   );
 
-  // If the Publication response summary exists, we assign it the same weight
-  // as the Contact details group, which means it'll appear immediately after
-  // it, as requested by FSA.
+  // If the Publication response summary exists, we assign it a weight higher
+  // than the Consultation details group, which means it'll appear immediately
+  // after it, as requested by FSA.
   if (!empty($variables['page']['content'][$pub_response_summary[$lang_code]])) {
-    $variables['page']['content'][$pub_response_summary[$lang_code]]['#weight'] = $contact_group->weight;
+    $variables['page']['content'][$pub_response_summary[$lang_code]]['#weight'] = !empty($group_details->weight) ? $group_details->weight + 1 : 3;
     // Now add the publication response summary to the main content area.
     $variables['page']['content']['system_main']['nodes'][$nid][$pub_response_summary[$lang_code]] = $variables['page']['content'][$pub_response_summary[$lang_code]];
     // Now remove it from its original position
@@ -115,6 +118,4 @@ function _site_frontend_preprocess_page__node_consultation(&$variables, $node) {
     // Now remove it from its original position
     unset($variables['page']['content'][$consultation_pack]);
   }
-
-
 }
