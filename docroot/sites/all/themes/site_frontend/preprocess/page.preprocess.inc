@@ -118,4 +118,16 @@ function _site_frontend_preprocess_page__node_consultation(&$variables, $node) {
     // Now remove it from its original position
     unset($variables['page']['content'][$consultation_pack]);
   }
+
+  // ID of the nodeblock that contains the content for the Further information
+  // section of the content. Note that we need a Welsh and an English version.
+  $further_information = array(
+    'en' => 'nodeblock_307',
+    'cy' => 'nodeblock_571',
+  );
+
+  // Push the Further information section to the bottom of the page
+  if (!empty($variables['page']['content'][$further_information[$lang_code]])) {
+    $variables['page']['content'][$further_information[$lang_code]]['#weight'] = isset($variables['page']['content']['system_main']['#weight']) ? $variables['page']['content']['system_main']['#weight'] + 1 : 10;
+  }
 }
