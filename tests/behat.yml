@@ -8,11 +8,9 @@ default:
               admin: 'Tharg/V@&GJRxRQt#N7B5'
         - Drupal\DrupalExtension\Context\DrupalContext
         - Drupal\DrupalExtension\Context\MinkContext
-        - Drupal\DrupalExtension\Context\MessageContext
-        - Drupal\DrupalExtension\Context\DrushContext
   extensions:
     Behat\MinkExtension:
-      base_url: http://dev.food.gov.uk
+      base_url: https://dev.food.gov.uk
       selenium2:
         wd_host: http://fsaenaa12.miniserver.com:4444/wd/hub
     Drupal\DrupalExtension:
