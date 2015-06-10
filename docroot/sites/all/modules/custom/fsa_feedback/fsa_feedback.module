@@ -132,6 +132,21 @@ function fsa_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
   // messed up by the ajax callback if we get the value in the submit function.
   $form['#fsa_feedback_thankyou_message'] = variable_get('fsa_feedback_thankyou_message', t('Thank you for your feedback.'));
 
+  // Implement the honeypot spam filtering function.
+  if (_fsa_feedback_honeypot_setting('honeypot_enabled')) {
+
+    // Determine which honeypot validations to use.
+    // At present we don't support the time_restriction validation due to our
+    // custom validation functions. In order to support this, we will have to
+    // implement our own version of the time restriction validation.
+    $honeypot_validate = _fsa_feedback_honeypot_setting('validate');
+
+    // Add honeypot protection to the form.
+    honeypot_add_form_protection($form, $form_state, $honeypot_validate);
+
+  }
+
+
   // Modify the submit button
   if (!empty($form['actions']['submit'])) {
     // Allow editors to amend the text displayed on the submit button.
@@ -193,6 +208,17 @@ function fsa_feedback_form_submit($form, &$form_state) {
 
   // Specify the fields we want to 'restore'.
   $fields = array('doing', 'wrong', 'location');
+
+  // If the honeypot module exists, add its honeypot element to the fields.
+  if (_fsa_feedback_honeypot_setting('honeypot_enabled') && _fsa_feedback_honeypot_setting('honeypot_validate')) {
+    $fields[] = _fsa_feedback_honeypot_setting('honeypot_element');
+  }
+
+  // If the honeypot module exists and we're using time restriction, add this
+  // element to the fields array.
+  if (_fsa_feedback_honeypot_setting('honeypot_enabled') && _fsa_feedback_honeypot_setting('time_restriction_validate')) {
+    $fields[] = 'honeypot_time';
+  }
 
   // 'Restore' the values.
   foreach ($fields as $field) {
@@ -1253,6 +1279,7 @@ function fsa_feedback_admin_view_form($form, &$form_state) {
  * used instead.
  *
  * @see fsa_feedback_form_feedback_form_alter().
+ * @see _fsa_feedback_honeypot_honeypot_validate().
  *
  */
 function feedback_form_validate($form, &$form_state) {
@@ -1280,4 +1307,108 @@ function feedback_form_validate($form, &$form_state) {
       form_set_error($field_name, $message, array(array($field_name)));
     }
   }
+
+  // Validate the honeypot field - if enabled.
+  if (_fsa_feedback_honeypot_setting('honeypot_enabled')) {
+    $honeypot_element = _fsa_feedback_honeypot_setting('honeypot_element');
+    $element = isset($form[$honeypot_element]) ? $form[$honeypot_element] : NULL;
+    if (!empty($element)) {
+      _fsa_feedback_honeypot_honeypot_validate($element, $form_state);
+    }
+  }
+
+}
+
+/**
+ * Validate honeypot field.
+ *
+ * This is a copy of the function `_honeypot_honeypot_validate()`, which can
+ * be found in the Honeypot module. We use our own implementation due to issues
+ * caused by our custom validation.
+ *
+ * The key difference is that we specify the form element in our call to the
+ * `form_set_error()` function. Without this, the error is not registered.
+ *
+ * @see _honeypot_honeypot_validate()
+ * @see feedback_form_validate()
+ * @see fsa_feedback_form_submit()
+ * @see fsa_feedback_form_feedback_form_alter()
+ *
+ */
+function _fsa_feedback_honeypot_honeypot_validate($element, &$form_state) {
+  // Get the honeypot field value.
+  $honeypot_value = $element['#value'];
+  // Make sure it's empty.
+  if (!empty($honeypot_value)) {
+    if (function_exists('_honeypot_log')) {
+      _honeypot_log($form_state['values']['form_id'], 'honeypot');
+    }
+    // Get the honeypot element
+    $honeypot_element = _fsa_feedback_honeypot_setting('honeypot_element');
+    // Set an error
+    form_set_error($honeypot_element, t('There was a problem with your form submission. Please refresh the page and try again.'), array(array($honeypot_element)));
+  }
+}
+
+
+/**
+ * Returns settings array for the Honeypot module.
+ *
+ * @return array
+ *   Associative array of settings for the Honeypot module.
+ */
+function _fsa_feedback_honeypot_settings() {
+  return array(
+    'honeypot_enabled' => function_exists('honeypot_add_form_protection'),
+    'validate' => array('honeypot'),
+    'honeypot_element' => variable_get('honeypot_element_name', 'url'),
+  );
+}
+
+/**
+ * Returns an individual Honeypot setting
+ *
+ * @param string $setting
+ *   The name of the setting to return. Note that some settings are derived from
+ *   the values set in `_fsa_feedback_honeypot_settings()`. For instance, the
+ *   value of the setting `honeypot_validate` is derived from the `validate`
+ *   array. This avoids the need to store the same value twice.
+ *
+ * @return boolean|NULL|string|array
+ *   The value of the requested setting. If the setting does not exist, or is
+ *   empty, NULL is returned.
+ *
+ * @see _fsa_feedback_honeypot_settings().
+ *
+ */
+function _fsa_feedback_honeypot_setting($setting = NULL) {
+
+  // Get the Honeypot settings
+  $honeypot_settings = _fsa_feedback_honeypot_settings();
+
+  // If the requested setting is NULL or empty, return NULL now.
+  if (empty($setting)) {
+    return NULL;
+  }
+
+  // If the requested setting is of the form `xxxx_validate`, then look for a
+  // corresponding element in the `validate` setting. For example, if the
+  // specified `$setting` is `honeypot_validate` and there is a `honeypot`
+  // element in the `validate` setting array, we return TRUE, otherwise FALSE.
+  if (strpos($setting, '_validate') !== FALSE) {
+    if (in_array(str_replace('_validate', '', $setting), $honeypot_settings['validate'])) {
+      return TRUE;
+    }
+    else {
+      return FALSE;
+    }
+  }
+
+  // If the setting exists, return it now.
+  if (array_key_exists($setting, $honeypot_settings)) {
+    return $honeypot_settings[$setting];
+  }
+
+  // If we get this far, return NULL - our setting doesn't exist.
+  return NULL;
 }
