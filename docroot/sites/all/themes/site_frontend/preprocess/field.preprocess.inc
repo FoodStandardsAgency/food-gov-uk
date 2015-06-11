@@ -2,10 +2,16 @@
 
 /**
  * Implements hook_preprocess_field().
+ *
+ * @see field.tpl.php
+ * @see template_preprocess_field()
  */
 function site_frontend_preprocess_field(&$variables, $hook) {
 
+  // Get the field element
   $element = $variables['element'];
+
+  // Add classes based on field type
   if (isset($element['#field_name'])) {
     switch ($element['#field_name']) {
       case 'field_fc_section_heading':
@@ -39,5 +45,7 @@ function site_frontend_preprocess_field(&$variables, $hook) {
   }
 
   // Make field labels translatable - pass them through the `locale()` function.
+  // The same could be achieved by activating the i18n_field module, but this
+  // is not required at this time.
   $variables['label'] = $variables['label_hidden'] ? NULL : locale(check_plain($element['#title']));
 }
