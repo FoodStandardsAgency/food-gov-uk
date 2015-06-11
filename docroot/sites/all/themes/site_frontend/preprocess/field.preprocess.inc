@@ -36,4 +36,8 @@ function site_frontend_preprocess_field(&$variables, $hook) {
 			break;	
 	    }
 	}
+
+  // Make field labels translatable - pass them through the `locale()` function.
+  $variables['label'] = $variables['label_hidden'] ? NULL : locale(check_plain($element['#title']));
+
 }
