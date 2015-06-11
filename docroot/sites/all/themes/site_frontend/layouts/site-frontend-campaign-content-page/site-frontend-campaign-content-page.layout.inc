@@ -19,6 +19,7 @@ regions[content] = Content
 regions[sidebar_first] = First Sidebar
 regions[sidebar_second] = Second Sidebar
 regions[bottom_menu] = Bottom Menu
+regions[footer_social_media] = Footer Social Media
 regions[footer_copyright] = Footer Copyright
 regions[footer_menu] = Footer Menu
 regions[footer_buttons] = Footer Buttons
