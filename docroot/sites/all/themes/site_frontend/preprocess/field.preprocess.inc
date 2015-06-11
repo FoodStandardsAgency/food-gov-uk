@@ -48,4 +48,51 @@ function site_frontend_preprocess_field(&$variables, $hook) {
   // The same could be achieved by activating the i18n_field module, but this
   // is not required at this time.
   $variables['label'] = $variables['label_hidden'] ? NULL : locale(check_plain($element['#title']));
+
+  // Call a preprocess function for an individual field - if it exists
+  $field_name = !empty($element['#field_name']) ? $element['#field_name'] : '';
+  $preprocess_function = __FUNCTION__ . '__' . $field_name;
+  if (function_exists($preprocess_function)) {
+    $preprocess_function($variables, $hook);
+  }
+
+}
+
+
+/**
+ * Preprocess function for the field_consultation_dates field.
+ *
+ * @param array $variables
+ *   Theming variables, passed by reference.
+ *
+ * @param string $hook
+ *   The theme hook being called.
+ *
+ * @return NULL
+ *
+ * @see omega_field()
+ * @see site_frontend_preprocess_field()
+ */
+function site_frontend_preprocess_field__field_consultation_dates(&$variables, $hook) {
+
+  // Get the element
+  $element = !empty($variables['element']) ? $variables['element'] : array();
+
+  // We need some items. If we don't have any, exit now.
+  if (empty($element['#items'])) {
+    return;
+  }
+
+  // Translate the prefix - if present - and wrap some markup around it.
+  foreach ($element['#items'] as $delta => $item) {
+    if (!empty($element[$delta])) {
+      if (!empty($element[$delta]['#prefix'])) {
+        // We translate the prefix, wrap it in <strong> tags and add a colon.
+        $prefix = '<strong>' . locale($element[$delta]['#prefix']) . ': </strong>';
+        $variables['element'][$delta]['#prefix'] = $prefix;
+        $variables['items'][$delta]['#prefix'] = $prefix;
+      }
+    }
+  }
+
 }
