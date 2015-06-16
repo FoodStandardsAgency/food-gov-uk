@@ -25,15 +25,24 @@
 
   .social-media-icons {
     margin: 0 auto;
-    max-width: 275px;
+    max-width: 320px;
     padding: 20px 6px;
     top: auto;
     .block__content {
       li {
         margin-right: 10px;
+        
+        &:last-child, &.last {
+          margin-right: 0;
+        }
+        
+        img {
+          height: auto;
+          width: auto;
+        }
       }
       .right-label {
-        margin-left: 118px;
+        margin-left: 142px;
       }
       .label-wrapper {
         font-size: 1.2em;

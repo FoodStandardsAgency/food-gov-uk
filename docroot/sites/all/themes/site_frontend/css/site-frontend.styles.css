@@ -3717,15 +3717,22 @@ span.copyright {
 }
 .footer-social-media-wrapper .social-media-icons {
   margin: 0 auto;
-  max-width: 275px;
+  max-width: 320px;
   padding: 20px 6px;
   top: auto;
 }
 .footer-social-media-wrapper .social-media-icons .block__content li {
   margin-right: 10px;
 }
+.footer-social-media-wrapper .social-media-icons .block__content li:last-child, .footer-social-media-wrapper .social-media-icons .block__content li.last {
+  margin-right: 0;
+}
+.footer-social-media-wrapper .social-media-icons .block__content li img {
+  height: auto;
+  width: auto;
+}
 .footer-social-media-wrapper .social-media-icons .block__content .right-label {
-  margin-left: 118px;
+  margin-left: 142px;
 }
 .footer-social-media-wrapper .social-media-icons .block__content .label-wrapper {
   font-size: 1.2em;
