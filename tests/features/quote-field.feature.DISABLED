@@ -1,11 +1,11 @@
 Feature: Quotes
- I want to add a quote to a page section 
+ I want to add a quote to a page section
  As a Content Editor
  So I can make text more interesting to read
 
  @javascript
  Scenario: Quote field
-  Given I log in as an existing "editor" 
+  Given I log in as an existing "editor"
   When I go to "/node/add/document-page"
   And I should see "Create General Page" in the "Page Title" region
   And I fill in "edit-title" with "test"
@@ -17,4 +17,3 @@ Feature: Quotes
   And I press "edit-submit" in the "Submit" region
   Then I should see "General Page test has been created."
   And I should see "test" in the "Quote" region
-  And I logout

@@ -1,0 +1,15 @@
+Feature: Behat custom module
+  I need to know the Behat custom module is in place
+  As a tester
+  So I can create working tests
+
+  Background:
+    Given I log in as an existing "admin"
+
+  Scenario: Behat custom module enabled
+    Given I am on "/admin/modules"
+    Then the "edit-modules-local-behat-custom-enable" checkbox should be checked
+
+  Scenario: Behat source code
+    Given I am on the homepage
+    Then the response should contain "<!-- Behat testing info --><!-- drupal username:Tharg  --><!-- drupal nid:1  -->"
