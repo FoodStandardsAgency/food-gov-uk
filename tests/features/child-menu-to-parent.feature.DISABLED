@@ -3,18 +3,15 @@ Feature: Automatically set child menu to parent
   As an editor user
   So I can make sure a new child page inherits the navigation menu location from the parent node
 
-   @javascript
-   Scenario: Automatically set child menu to parent
-    #Logging in
+  Background:
 	Given I log in as an existing "editor"
-    #Creating child node
-    And I go to "/node/add/document-page"
-	And I should see "Create General Page" in the "Page Title" region
+
+  Scenario: Automatically set child menu to parent
+    And I am on "/node/add/document-page"
     When I fill in "edit-title" with "test child"
     And I fill in "edit-field-title-short-und-0-value" with "test"
     And I check the box "N/A" in "edit-field-site-section-und"
     And I press "edit-submit" in the "Submit" region
-    #Verifying child node
     Then I should see "General page test child has been created"
     #Creating parent node
     And I go to "/node/add/document-page"
