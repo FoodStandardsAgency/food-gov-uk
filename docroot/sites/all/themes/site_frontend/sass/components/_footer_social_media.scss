@@ -25,9 +25,21 @@
 
   .social-media-icons {
     margin: 0 auto;
-    max-width: 250px;
+    max-width: 275px;
     padding: 20px 6px;
     top: auto;
+    .block__content {
+      li {
+        margin-right: 10px;
+      }
+      .right-label {
+        margin-left: 118px;
+      }
+      .label-wrapper {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+      }
+    }
   }
 
   // Don't display it in print mode
