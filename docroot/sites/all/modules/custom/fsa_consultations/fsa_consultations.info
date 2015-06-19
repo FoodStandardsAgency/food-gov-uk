@@ -1,0 +1,4 @@
+name = FSA Consultations
+description = Provides functionality to support consultation content items
+core = 7.x
+package = FSA

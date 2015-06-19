@@ -1,0 +1,125 @@
+<?php
+/**
+ * @file
+ * Module file for the FSA consultations module.
+ */
+
+/**
+ * Implements hook_form_FORMID_alter().
+ *
+ * We use this to hide the deprecated consultation details field, as requested
+ * by FSA. If this field is already populated, we show it, but if we're on a new
+ * node or if the field is empty, we hide it.
+ *
+ * @param array $form
+ *   The form render array. Passed by reference.
+ * @param array $form_state
+ *   The form state, including node object. Passed by reference.
+ *
+ * @return NULL
+ *
+ * @see #2015020910000031 - consultation template
+ *
+ */
+function fsa_consultations_form_node_form_alter(&$form, &$form_state) {
+
+  // Get the node object or set it as an empty object of type stdClass.
+  $node = !empty($form_state['node']) ? $form_state['node'] : new stdClass();
+
+  // Act only on consultation node types.
+  if (empty($node->type) || $node->type != 'consultation') {
+    return;
+  }
+
+  // Create an entity metadata wrapper to access field values.
+  $node_wrapper = entity_metadata_wrapper('node', $node);
+
+  // Get the value of the consultation details field.
+  $field_consultation_details = $node_wrapper->field_consultation_details->value();
+
+  // If there's no nid, we're creating a new node, so hide the consultation
+  // details field. Similarly, if the consultation details field is empty, we
+  // don't need to show it.
+  if (empty($node->nid) || empty($field_consultation_details)) {
+    // To hide the field, we set it's #access element to FALSE.
+    $form['field_consultation_details']['#access'] = FALSE;
+  }
+
+}
+
+/**
+ * Implements hook_field_group_pre_render().
+ *
+ * We use this hook to fix a code formatting bug in
+ * field_group_pre_render_div(), which causes HTML validation errors. Because
+ * it's too late to do anything clean, we have to use str_replace() to fix the
+ * invalid code. It's dirty, but it works.
+ *
+ * In order to work properly, this hook must be executed after
+ * field_group_pre_render_div(), so we use an implementation of
+ * hook_module_implements_alter() to move it to the end of the list.
+ *
+ * @param array $element
+ *   The render element.
+ *
+ * @param object $group
+ *   The group object
+ *
+ * @param array $form
+ *   The form array
+ *
+ * @return NULL
+ *
+ * @see field_group_pre_render()
+ * @see field_group_field_group_pre_render()
+ * @see field_group_pre_render_div()
+ *
+ */
+function fsa_consultations_field_group_pre_render(&$element, &$group, & $form) {
+
+  // Get the #prefix element.
+  $prefix = !empty($element['#prefix']) ? $element['#prefix'] : '';
+
+  // If there is no #prefix, return now. We need do no more.
+  if (empty($prefix)) {
+    return;
+  }
+
+  // The bug in the field_group_pre_render_div() function causes invalid markup
+  // to be output in the HTML class attribute. There's no space before it, and
+  // there's a space either side of the =. We look for this pattern and replace
+  // it with proper, valid HTML5 code.
+  // Doubtless this bug will be fixed in the field_group module at some point in
+  // the near future, and if so, we can remove this function. However, this
+  // function won't affect anything if the code is correct at source.
+  $prefix = str_replace('"class = "', '" class="', $prefix);
+  $element['#prefix'] = $prefix;
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ *
+ * We use this to move our implementation of hook_field_group_pre_render() to
+ * the end of the list so that we can ensure that it is run after
+ * field_group_pre_render_div(), which is the function that introduces some
+ * broken markup, which we then fix.
+ *
+ * @param array $implementations
+ *   An array keyed by the module's name. The value of each item corresponds to
+ *   a $group, which is usually FALSE, unless the implementation is in a file
+ *   named $module.$group.inc.
+ *
+ * @param string $hook
+ *   The name of the module hook being implemented.
+ */
+function fsa_consultations_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'field_group_pre_render') {
+    // Move field_group_pre_render() to the end of the list. module_implements()
+    // iterates through $implementations with a foreach loop which PHP iterates
+    // in the order that the items were added, so to move an item to the end of
+    // the array, we remove it and then add it.
+    $group = $implementations ['fsa_consultations'];
+    unset($implementations ['fsa_consultations']);
+    $implementations ['fsa_consultations'] = $group;
+  }
+}
