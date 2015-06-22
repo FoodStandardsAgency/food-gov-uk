@@ -8015,8 +8015,8 @@ ul.pager li.pager__item--last a:hover {
   }
 }
 .maintenance-page.in-maintenance .social-media-icons {
-  margin-bottom: -50px;
-  top: -70px;
+  margin-bottom: 0;
+  top: 20px;
 }
 
 /**
