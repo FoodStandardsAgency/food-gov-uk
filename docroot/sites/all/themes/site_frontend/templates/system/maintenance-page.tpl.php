@@ -2,8 +2,7 @@
 
 /**
  * @file
- * Default theme implementation to display the basic html structure of a single
- * Drupal page.
+ * Theme implementation for the FSA site maintenance page
  *
  * Variables:
  * - $css: An array of CSS files for the current page.
@@ -79,13 +78,7 @@
   <a href="#main-content" class="element-invisible element-focusable" accesskey="S"><?php print t('Skip to main content'); ?></a>
   <?php print $page_top; ?>
   <?php
-/**
- * @file
- * Site frontend two column layout
- */
 ?>
-
-<!-- begin site-frontend-two-column-layout.tpl.php -->
 
 <div class="l-page">
 
@@ -115,26 +108,7 @@
               </div> <!-- end header-branding-inner -->
             </div> <!-- end l-header-branding -->
 
-            <div class="l-header-top-menu" role="navigation">
-              <div class ="header-top-menu-inner">
-                <?php print render($page['header_top_menu']); ?>
-              </div> <!-- end header-top-menu-inner -->
-            </div> <!-- end l-header-top-menu -->
-
-            <div id="search" class="l-header-search">
-              <div class="header-search-inner">
-                <?php print render($page['header_search']); ?>
-              </div> <!-- end header-search-inner -->
-            </div> <!-- end l-header-search -->
-          </div> <!-- end header-top -->
-
           <div class="header-bottom">
-            <div id="main-menu" class="l-header-main-menu" role="navigation">
-              <div class="header-main-menu-inner">
-                <?php print render($page['header_main_menu']); ?>
-              </div> <!-- end header-main-menu-inner -->
-            </div> <!-- end l-header-main-menu -->
-
             <div class="l-header-social-media">
               <div class="header-social-media-inner">
                 <?php print render($page['header_social_media']); ?>
@@ -147,41 +121,12 @@
     </div> <!-- end header-wrapper-inner -->
   </div> <!-- end header-wrapper -->
 
-
   <div class="breadcrumb-accessibility-wrapper">
     <div class="l-breadcrumb-accessibility">
       <div class="breadcrumb-accessibility-inner">
-
-        <div class="l-breadcrumb">
-          <div class="breadcrumb-inner">
-            <?php print $breadcrumb; ?>
-            <?php print render($page['breadcrumb']); ?>
-          </div> <!-- end breadcrumb-inner -->
-        </div> <!-- end l-breadcrumb -->
-
-        <div class="l-accessibility">
-          <div class="accessibility-inner">
-            <?php print render($page['accessibility']); ?>
-          </div> <!-- end accessibility-inner -->
-        </div> <!-- end l-accessibility -->
-
       </div> <!-- end breadcrumb-accessibility-inner -->
     </div> <!-- end l-breadcrumb-accessibility -->
   </div> <!-- end breadcrumb-accessibility-wrapper -->
-
-
-  <?php if ($page['preface']): ?>
-    <div class="preface-wrapper">
-      <div class="preface-wrapper-inner">
-        <div class="l-preface">
-          <div class="preface-inner">
-            <?php print render($page['preface']); ?>
-          </div> <!-- end preface-inner -->
-        </div> <!-- end l-preface -->
-      </div> <!-- end preface-wrapper-inner -->
-    </div> <!-- end preface-wrapper -->
-  <?php endif; ?>
-
 
   <div class="main-wrapper">
     <div class="l-main">
@@ -189,8 +134,6 @@
 
         <div id="main-content" class="l-content" role="main">
           <div class="main-content-inner">
-
-            <?php print render($page['highlighted']); ?>
 
             <?php if ($page['content_top']): ?>
               <div class="content-top-wrapper">
@@ -222,11 +165,6 @@
           </div> <!-- end main-content-inner -->
         </div> <!-- end l-content -->
 
-        <div class="l-sidebar-second">
-          <div class="sidebar-second-inner">
-            <?php print render($page['sidebar_second']); ?>
-          </div> <!-- end sidebar-second-inner -->
-        </div> <!-- end l-sidebar-second -->
 
       </div> <!-- end main-inner -->
     </div> <!-- end main -->
@@ -282,9 +220,6 @@
   </div>  <!-- end footer-wrapper -->
 
 </div> <!-- end l-page -->
-
-<!-- end site-frontend-two-column-layout.tpl.php -->
-
 
   <?php print $page_bottom; ?>
 </body>
