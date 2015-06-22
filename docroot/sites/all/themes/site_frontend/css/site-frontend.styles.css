@@ -8014,6 +8014,11 @@ ul.pager li.pager__item--last a:hover {
     display: none;
   }
 }
+.maintenance-page.in-maintenance .social-media-icons {
+  margin-bottom: -50px;
+  top: -70px;
+}
+
 /**
  * Table of contents
  * We use toc_node module to add a toc, and we override the css here
