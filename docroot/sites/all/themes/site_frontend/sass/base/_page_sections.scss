@@ -49,7 +49,7 @@
 	li {
 		font-size: 1.2em;
 		line-height: 1.3em;
-		margin-bottom: 0.3em; // increasing separation between bullet point content.
+    margin-bottom: 1em; // Was 0.3em, but increased as per #2014090310000022
 	}
 	td li {
 		font-size: 1em;	// to avoid nested em's
