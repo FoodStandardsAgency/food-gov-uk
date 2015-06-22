@@ -12,8 +12,8 @@
  */
 function site_frontend_preprocess_maintenance_page(&$variables) {
 
-  // Add some CSS
-  drupal_add_css(drupal_get_path('theme', 'site_frontend') . '/css/layouts/site-frontend-two-column/site-frontend-two-column.layout.css');
+  // Add some specific CSS
+  drupal_add_css(drupal_get_path('theme', 'site_frontend') . '/css/maintenance-page.css');
 
   // Generate the social media icons block.
   $social_media_icons = block_load('block', 1);
