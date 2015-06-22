@@ -213,7 +213,7 @@
             <?php if ($action_links): ?>
               <ul class="action-links"><?php print render($action_links); ?></ul>
             <?php endif; ?>
-              <p><?php print render($content); ?></p>
+              <?php print render($content); ?>
             <?php if (!empty($page['node_inline'])): ?>
               <?php print render($page['node_inline']); ?>
             <?php endif; ?>

@@ -11,6 +11,8 @@
  *   Template variables - passed by reference
  */
 function site_frontend_preprocess_maintenance_page(&$variables) {
+
+  // Add some CSS
   drupal_add_css(drupal_get_path('theme', 'site_frontend') . '/css/layouts/site-frontend-two-column/site-frontend-two-column.layout.css');
 
   // Generate the social media icons block.
@@ -20,23 +22,50 @@ function site_frontend_preprocess_maintenance_page(&$variables) {
   $social_media_icons['#region'] = 'header_social_media';
   $variables['page']['header_social_media'] = $social_media_icons;
 
-  $variables['content'] = array(
-    'message' => array(
-      '#markup' => $variables['content'],
-    ),
-  );
+  // Get the contact details block
+  $contact_details = array('content' => '');
+  if (function_exists('fe_block_get_bid')) {
+    $contact_details_bid = fe_block_get_bid('contact_details_general');
+    $contact_details = module_invoke('block', 'block_view', $contact_details_bid);
+  }
+  $contact_details = !empty($contact_details['content']) ? $contact_details['content'] : '';
 
-  $variables['content']['contact_heading'] = array(
-    '#markup' => '<h2>Contact us</h2>',
-  );
 
-  $variables['content']['contact_content'] = array(
-    '#markup' => 'If you are unsure who you need to speak to you can contact our helpline:
+  // If we have some contact details, add them to the content variable now.
+  if (!empty($contact_details)) {
 
-tel: 020 7276 8829
-email: helpline@foodstandards.gsi.gov.uk
-Nutrition advice in England and Wales
-The FSA is not responsible for nutrition policy in England and Wales. Please call the Department of Health customer service centre: 020 7210 4850'
-  );
+    // Make the content variable into an array so we can add to it.
+    $variables['content'] = array(
+      'message' => array(
+        '#type' => 'html_tag',
+        '#value' => $variables['content'],
+        '#tag' => 'p',
+        '#attributes' => array(
+          'class' => array(
+            'views-field-field-summary'
+          ),
+        ),
+      ),
+    );
+
+    // Add a heading for contact details.
+    $variables['content']['contact_heading'] = array(
+      '#theme' => 'html_tag',
+      '#tag' => 'h2',
+      '#value' => t('Contact us'),
+    );
+
+    // Add an intro paragraph
+    $variables['content']['contact_intro'] = array(
+      '#theme' => 'html_tag',
+      '#tag' => 'p',
+      '#value' => t('In the meantime, if you need to contact us, you may find the following details useful.'),
+    );
+
+    // Add the content from the block
+    $variables['content']['contact_content'] = array(
+      '#markup' => $contact_details,
+    );
+  }
 
 }
