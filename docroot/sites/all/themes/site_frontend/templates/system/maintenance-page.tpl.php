@@ -55,7 +55,8 @@
 <head>
   <title><?php print $head_title; ?></title>
   <?php print $head; ?>
-  <?php print $styles; ?>
+  <?php //print $styles; ?>
+  <link rel="stylesheet" media="screen" href='/sites/all/themes/site_frontend/css/maintenance-page.css'>
 <!--[if IE 9]>
   <link type="text/css" rel="stylesheet" media="all" href="/sites/all/themes/site_frontend/css/ie/ie9.css" />
 <![endif]-->
