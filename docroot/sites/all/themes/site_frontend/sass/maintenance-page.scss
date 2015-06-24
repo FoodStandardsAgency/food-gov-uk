@@ -1,9 +1,31 @@
+@import "compass";
 @import "breakpoint";
 @import "singularitygs";
+@import "toolkit-no-css";
 
 // Globbing from within sub-folders only works with relative paths.
 @import "variables/**/*";
+@import "abstractions/**/*";
+@import "base/**/*";
+@import "components/**/*";
 
+// Generate normalize.css.
+@import "normalize";
+
+// Use 'border-box' for the box model.
+@import "toolkit/border-box";
+
+body {
+  margin: 0 auto;
+}
+
+.element-invisible {
+  position: absolute !important;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  overflow: hidden;
+  height: 1px;
+}
 
 .header-top {
 	overflow: hidden;
@@ -18,14 +40,14 @@
 	overflow: hidden;
 }
 .bottom-menu-wrapper-inner {
-  overflow: hidden;	
+  overflow: hidden;
 }
 .l-footer {
 	overflow: hidden;
 }
 .footer-top {
 	overflow: hidden;
-} 
+}
 .footer-bottom {
 	overflow: hidden;
 }
@@ -78,7 +100,7 @@
 	.l-main,
 	.bottom-menu-wrapper-inner,
 	.l-footer {
-		width: 100%;		// we are using border box plugin so padding will not increase the width of the box 
+		width: 100%;		// we are using border box plugin so padding will not increase the width of the box
 		padding-left: 6px;
 		padding-right: 6px;
 		margin: 0;
@@ -160,7 +182,7 @@
 		@include grid-span(12,1);
 		clear: both;
 		float: none;
-	}	
+	}
 	.header-wrapper,
 	.breadcrumb-accessibility-wrapper,
 	.main-wrapper,
