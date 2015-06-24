@@ -1,0 +1,5 @@
+name = FSA ShareThis enhancements
+description = Provides accessibility enhancements to the contrib ShareThis module
+core = 7.x
+package = Sharing
+dependencies[] = sharethis

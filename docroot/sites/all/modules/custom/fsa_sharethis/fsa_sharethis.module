@@ -1,0 +1,131 @@
+<?php
+/**
+ * @file
+ * Module code for the FSA ShareThis module
+ */
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function fsa_sharethis_theme_registry_alter(&$theme_registry) {
+  if (!empty($theme_registry['sharethis'])) {
+    // Override the theme function that ships with the ShareThis module.
+    $theme_registry['sharethis']['function'] = 'fsa_sharethis_theme_sharethis';
+  }
+}
+
+
+/**
+ * Theme function for ShareThis code based on settings.
+ * 
+ * This is an override function for the `theme_sharethis()` function provided
+ * by the ShareThis module.
+ * 
+ * @see theme_sharethis()
+ */
+function fsa_sharethis_theme_sharethis($variables) {
+  $data_options = $variables['data_options'];
+  $m_path = $variables['m_path'];
+  $m_title = $variables['m_title'];
+
+  // Inject the extra services.
+  foreach ($data_options['option_extras'] as $service) {
+    $data_options['services'] .= ',"' . $service . '"';
+  }
+
+  // The share buttons are simply spans of the form class='st_SERVICE_BUTTONTYPE' -- "st" stands for ShareThis.
+  $type = drupal_substr($data_options['buttons'], 4);
+  $type = $type == "_" ? "" : check_plain($type);
+  $service_array = explode(",", $data_options['services']);
+  $st_spans = "";
+  foreach ($service_array as $service_full) {
+    // Strip the quotes from the element in the array (They are there for javascript)
+    $service = explode(":", $service_full);
+
+    // Service names are expected to be parsed by Name:machine_name. If only one
+    // element in the array is given, it's an invalid service.
+    if (count($service) < 2) {
+      continue;
+    }
+
+    // Find the service code name.
+    $serviceCodeName = drupal_substr($service[1], 0, -1);
+
+    // Switch the title on a per-service basis if required.
+    $title = $m_title;
+    switch ($serviceCodeName) {
+      case 'twitter':
+        $title = empty($data_options['twitter_suffix']) ? $title : check_plain($title) . ' ' . check_plain($data_options['twitter_suffix']);
+        break;
+    }
+
+    // Sanitize the service code for display.
+    $display = check_plain($serviceCodeName);
+
+    // Put together the span attributes.
+    $attributes = array(
+      'st_url' => $m_path,
+      'st_title' => $title,
+      'class' => 'st_' . $display . $type,
+    );
+    if ($serviceCodeName == 'twitter') {
+      if (!empty($data_options['twitter_handle'])) {
+        $attributes['st_via'] = $data_options['twitter_handle'];
+        $attributes['st_username'] = $data_options['twitter_recommends'];
+      }
+    }
+    // Only show the display text if the type is set.
+    if (!empty($type)) {
+      $attributes['displayText'] = check_plain($display);
+    }
+    
+    $attributes['role'] = 'button';
+    
+    // Render the span tag.
+    $st_spans .= theme('html_tag', array(
+      'element' => array(
+        '#tag' => 'button',
+        '#attributes' => $attributes,
+        '#value' => '',
+      ),
+    ));
+  }
+
+  // Output the embedded JavaScript.
+  sharethis_include_js();
+  return '<div class="sharethis-wrapper">' . $st_spans . '</div>';
+}
+
+
+/**
+ * Implements hook_block_view_MODULE_DELTA_alter().
+ * 
+ * We use this to reconstruct the ShareThis block in order to add our own
+ * JavaScript and CSS files.
+ */
+function fsa_sharethis_block_view_sharethis_sharethis_block_alter(&$data, $block) {
+  if (!empty($data['content'])) {
+    // Store the existing content in a variable.
+    $content = $data['content'];
+
+    // Remove the existing content element
+    unset($data['content']);
+    
+    // Create a structured content array
+    $data['content'] = array(
+      'buttons' => array(
+        '#markup' => $content
+      ),
+    );
+    
+    // Attach our JavaScript and CSS files
+    $data['content']['#attached'] = array(
+      'js' => array(
+        drupal_get_path('module', 'fsa_sharethis') . '/js/fsa-sharethis.js',
+      ),
+      'css' => array(
+        drupal_get_path('module', 'fsa_sharethis') . '/css/fsa-sharethis.css',
+      ),
+    );
+  }
+}
