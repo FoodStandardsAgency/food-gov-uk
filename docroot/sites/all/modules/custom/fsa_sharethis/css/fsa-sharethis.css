@@ -1,9 +1,12 @@
 .sharethis-wrapper {
   margin-bottom: 10px;
+  overflow: hidden;
 }
 
 .sharethis-wrapper button {
   background-color: transparent;
   border: none;
+  display: block;
+  float: left;
   padding: 0;
 }
