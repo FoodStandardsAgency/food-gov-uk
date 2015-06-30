@@ -191,3 +191,12 @@ body {
 		min-width: 0;	// note min-width: none has no effect (not valid), must be 0;
 	}
 }
+
+.maintenance-page.in-maintenance {
+  .l-header-social-media {
+    width: 14%;
+    .label {
+      padding-left: 2px;
+    }
+  }
+}

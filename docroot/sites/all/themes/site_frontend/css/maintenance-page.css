@@ -9046,3 +9046,9 @@ body {
     min-width: 0;
   }
 }
+.maintenance-page.in-maintenance .l-header-social-media {
+  width: 14%;
+}
+.maintenance-page.in-maintenance .l-header-social-media .label {
+  padding-left: 2px;
+}
