@@ -57,17 +57,6 @@
   <?php print $head; ?>
   <?php //print $styles; ?>
   <?php print render($css_file); ?>
-  <!-- <link rel="stylesheet" media="screen" href='/sites/all/themes/site_frontend/css/maintenance-page.css'> -->
-<!--[if IE 9]>
-  <link type="text/css" rel="stylesheet" media="all" href="/sites/all/themes/site_frontend/css/ie/ie9.css" />
-<![endif]-->
-<!--[if IE 8]>
-  <link type="text/css" rel="stylesheet" media="all" href="/sites/all/themes/site_frontend/css/ie/ie8.css" />
-<![endif]-->
-<!--[if IE 7]>
-  <link type="text/css" rel="stylesheet" media="all" href="/sites/all/themes/site_frontend/css/ie/ie7.css" />
-<![endif]-->
-  <?php print $scripts; ?>
 </head>
 <body<?php print $attributes;?>>
 <!-- Tag Manager -->
