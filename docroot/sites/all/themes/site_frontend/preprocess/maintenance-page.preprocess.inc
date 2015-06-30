@@ -20,7 +20,7 @@ function site_frontend_preprocess_maintenance_page(&$variables) {
   $social_media_icons = _block_get_renderable_array(_block_render_blocks(array($social_media_icons)));
   $social_media_icons['#theme_wrappers'][] = 'region';
   $social_media_icons['#region'] = 'header_social_media';
-  $variables['page']['header_social_media'] = $social_media_icons;
+  //$variables['page']['header_social_media'] = $social_media_icons;
 
   // Get the contact details block
   $contact_details = array('content' => '');
@@ -60,6 +60,41 @@ function site_frontend_preprocess_maintenance_page(&$variables) {
       '#theme' => 'html_tag',
       '#tag' => 'p',
       '#value' => t('In the meantime, if you need to contact us, you may find the following details useful.'),
+    );
+
+
+    $icon_path = drupal_get_path('module', 'fsa_maintenance_page') . '/img/';
+    if(!empty($variables['external'])) {
+      $icon_path = '/';
+    }
+
+
+
+    $variables['page']['header_social_media'] = array(
+      '#theme' => 'social_media_icons',
+      '#title' => t('Keep connected'),
+      '#links' => array(
+        array(
+          '#theme' => 'image_link',
+          '#src' => "${icon_path}facebook.png",
+          '#path' => 'http://www.facebook.com/FoodStandardsAgency',
+        ),
+        array(
+          '#theme' => 'image_link',
+          '#src' => "${icon_path}twitter.png",
+          '#path' => 'http://www.twitter.com/foodgov',
+        ),
+        array(
+          '#theme' => 'image_link',
+          '#src' => "${icon_path}youtube.png",
+          '#path' => 'http://www.youtube.com/user/FoodStandardsAgency',
+        ),
+        array(
+          '#theme' => 'image_link',
+          '#src' => "${icon_path}pinterest.png",
+          '#path' => 'http://www.pinterest.com/foodgov/',
+        ),
+      ),
     );
 
     // Add the content from the block
