@@ -54,3 +54,12 @@
 		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#eaeaea',GradientType=0);
 	}
 }
+
+// Fix a bug with field collections whereby tables don't display properly in
+// older versions of Internet Explorer
+// @see #10131 Print friendly screen bug
+@media print {
+  .field-collection-view .entity-field-collection-item {
+    float: none;
+  }
+}

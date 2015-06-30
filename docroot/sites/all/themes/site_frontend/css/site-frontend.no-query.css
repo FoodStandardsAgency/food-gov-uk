@@ -501,6 +501,11 @@ html.js .l-region--accessibility .contextual-links-active .contextual-links {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff',endColorstr='#eaeaea',GradientType=0);
 }
 
+@media print {
+  .field-collection-view .entity-field-collection-item {
+    float: none;
+  }
+}
 /* fields that need site-wide styling */
 /* research programme fields */
 .field--name-field-contact-name,
