@@ -9046,6 +9046,9 @@ body {
     min-width: 0;
   }
 }
+.maintenance-page.in-maintenance h1 {
+  font-size: 2.8em;
+}
 .maintenance-page.in-maintenance .l-header-social-media {
   width: 14%;
 }

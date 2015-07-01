@@ -193,6 +193,11 @@ body {
 }
 
 .maintenance-page.in-maintenance {
+  
+  h1 {
+    font-size: 2.8em;
+  }
+  
   .l-header-social-media {
     width: 14%;
     .label {
