@@ -43,33 +43,25 @@
  */
 ?><!DOCTYPE html>
 <?php if (omega_extension_enabled('compatibility') && omega_theme_get_setting('omega_conditional_classes_html', TRUE)): ?>
-<!--[if !IE]><!--><html class="no-js" lang="<?php print $language->language; ?>" dir="<?php print $language->dir; ?>"<?php print $rdf_namespaces; ?>><!--<![endif]-->
+<!--[if !IE]><!--><html class="no-js" lang="<?php print $language->language; ?>" dir="<?php print $language->dir; ?>"><!--<![endif]-->
   <!--[if IEMobile 7]><html class="no-js ie iem7" lang="<?php print $language->language; ?>" dir="<?php print $language->dir; ?>"><![endif]-->
   <!--[if lte IE 6]><html class="no-js ie lt-ie9 lt-ie8 lt-ie7" lang="<?php print $language->language; ?>" dir="<?php print $language->dir; ?>"><![endif]-->
   <!--[if (IE 7)&(!IEMobile)]><html class="no-js ie lt-ie9 lt-ie8" lang="<?php print $language->language; ?>" dir="<?php print $language->dir; ?>"><![endif]-->
   <!--[if IE 8]><html class="no-js ie lt-ie9" lang="<?php print $language->language; ?>" dir="<?php print $language->dir; ?>"><![endif]-->
-  <!--[if (gte IE 9)|(gt IEMobile 7)]><html class="no-js ie" lang="<?php print $language->language; ?>" dir="<?php print $language->dir; ?>"<?php print $rdf_namespaces; ?>><![endif]-->
+  <!--[if (gte IE 9)|(gt IEMobile 7)]><html class="no-js ie" lang="<?php print $language->language; ?>" dir="<?php print $language->dir; ?>"><![endif]-->
 <?php else: ?>
   <html class="no-js" lang="<?php print $language->language; ?>" dir="<?php print $language->dir; ?>"<?php print $rdf_namespaces; ?>>
 <?php endif; ?>
 <head>
   <title><?php print $head_title; ?></title>
   <?php print $head; ?>
-  <?php //print $styles; ?>
   <?php print render($css_file); ?>
 </head>
 <body<?php print $attributes;?>>
-<!-- Tag Manager -->
-  <?php
-  // Insert Google tag manager
-  if (function_exists('google_tag_manager_get_id')) {
-    print theme('google_tag_manager_embed', array('gtm_id' => google_tag_manager_get_id()));
-  }
-  ?>
   <a href="#main-content" class="element-invisible element-focusable" accesskey="S"><?php print t('Skip to main content'); ?></a>
-  <?php print $page_top; ?>
-  <?php
-?>
+  <?php if (!empty($page_top)): ?>
+    <?php print $page_top; ?>
+  <?php endif; ?>
 
 <div class="l-page">
 
@@ -126,7 +118,7 @@
         <div id="main-content" class="l-content" role="main">
           <div class="main-content-inner">
 
-            <?php if ($page['content_top']): ?>
+            <?php if (!empty($page['content_top'])): ?>
               <div class="content-top-wrapper">
                 <div class="content-top-wrapper-inner">
                   <div class="content-top">
@@ -144,7 +136,7 @@
             <?php print $messages; ?>
             <?php print render($tabs); ?>
             <?php print render($page['help']); ?>
-            <?php if ($action_links): ?>
+            <?php if (!empty($action_links)): ?>
               <ul class="action-links"><?php print render($action_links); ?></ul>
             <?php endif; ?>
               <?php print render($content); ?>
