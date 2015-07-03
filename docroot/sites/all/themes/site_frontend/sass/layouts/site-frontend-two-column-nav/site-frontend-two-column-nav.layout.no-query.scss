@@ -1,0 +1,5 @@
+$breakpoint-no-queries: true;
+$breakpoint-no-query-fallbacks: true;
+
+// Re import everything from site-frontend-three-column.layout.scss but without media queries.
+@import "site-frontend-two-column-nav.layout";
