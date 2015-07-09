@@ -3,3 +3,37 @@
  * @file
  * Module file for the FSA Report a problem module.
  */
+
+
+/**
+ * Implements hook_block_info().
+ */
+function fsa_report_problem_block_info() {
+  $blocks = array();
+
+  $blocks['report_form'] = array(
+    'info' => t('Report a problem form'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+
+  return $blocks;
+
+}
+
+
+/**
+ * Implements hook_block_view().
+ */
+function fsa_report_problem_block_view($delta = '') {
+  $block = array();
+
+  switch($delta) {
+    case 'report_form':
+      module_load_include('inc', 'fsa_report_problem', 'includes/form');
+      $block['subject'] = '';
+      $block['content'] = drupal_get_form('fsa_report_problem_report_form');
+      break;
+  }
+
+  return $block;
+}
