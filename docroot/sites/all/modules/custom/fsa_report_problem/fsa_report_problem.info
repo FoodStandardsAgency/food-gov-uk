@@ -3,3 +3,4 @@ description = "Enables members of the public to report a problem with a food est
 core = 7.x
 package = FSA Custom
 files[] = includes/form.inc
+dependencies[] = fhrs_api

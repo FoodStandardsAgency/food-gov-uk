@@ -3,3 +3,147 @@
  * @file
  * Install, update and uninstall functions for the FSA Report a problem module
  */
+
+
+/**
+ * Implements hook_schema().
+ */
+function fsa_report_problem_schema() {
+  
+  // Array to hold the new database schema
+  $schema = array();
+  
+  $schema['problem_reports'] = array(
+    'description' => 'The base table for food problem report entities.',
+    'fields' => array(
+      'rid' => array(
+        'description' => 'The primary identifier for a report entity',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'description' => 'User ID of the report creator.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'status' => array(
+        'description' => 'Report status (0 = new, 1 = processed).',
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'fhrsid' => array(
+        'description' => 'The FHRS ID of the establishment',
+        'type' => 'int',
+        'length' => 10,
+        'not null' => FALSE,
+      ),
+      'business_name' => array(
+        'description' => 'The name of the business about which the report is being made.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+      ),
+      'business_location' => array(
+        'description' => 'The location of the busineess about which the report is being made.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+      ),
+      'reporter_name' => array(
+        'description' => 'The name of the person reporting the problem.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => FALSE,
+      ),
+      'reporter_email' => array(
+        'description' => 'The email address of the person reporting the problem.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => FALSE,
+      ),
+      'problem_date' => array(
+        'description' => 'The date when the problem happened - as reported by the reporter.',
+        'type' => int,
+        'not null' => FALSE,
+        'default' => 0,
+      ),
+      'problem_time' => array(
+        'description' => 'The time at which the problem occurred - as reported by the reporter.',
+        'type' => 'int',
+        'not null' => FALSE,
+        'default' => 0,
+      ),
+      'problem_details' => array(
+        'description' => 'A description of the food problem.',
+        'type' => 'text',
+        'size' => 'big',
+        'not null' => FALSE,
+        'default' => NULL,
+      ),
+      'local_authority_name' => array(
+        'description' => 'The name of the relevant local authority',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => FALSE,
+      ),
+      'local_authority_email' => array(
+        'description' => 'The email address for the relevant local authority',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => FALSE,
+      ),
+      'business_details' => array(
+        'description' => 'Full business details returned by the ratings API.',
+        'type' => 'blob',
+        'not null' => FALSE,
+        'size' => 'big',
+      ),
+      'created' => array(
+        'description' => 'The UNIX timestamp when the problem was reported',
+        'type' => int,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'changed' => array(
+        'description' => 'The UNIX timestamp when the problem was most recently changed',
+        'type' => int,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('rid'),
+  );
+  
+  
+  $schema['local_authority_areas']  = array(
+    'description' => 'Table to match local authority areas as returned by MapIt to those held in the FHRS API',
+    'fields' => array(
+      'area_id' => array(
+        'description' => 'The area ID as returned by MapIt',
+        'type' => int,
+        'not null' => FALSE,
+        'default' => 0,
+      ),
+      'local_authority_id' => array(
+        'description' => 'The local authority ID as returned by the FHRS API',
+        'type' => int,
+        'not null' => FALSE,
+        'default' => 0,
+      ),
+    ),
+  );
+  
+  
+  return $schema;
+  
+  
+}
+
+
+

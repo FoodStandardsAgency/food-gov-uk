@@ -1,0 +1,43 @@
+.fsa-report-problem-form {
+  margin-bottom: 2em;
+}
+
+.food-establishment-wrapper {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 17px;
+}
+
+
+.food-establishment h3 {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.food-establishment p {
+  margin-bottom: 8px;
+}
+
+
+.food-establishment-wrapper input[type="submit"] {
+  background-color: #eaeaea;
+  border: 1px solid #ccc;
+  font-size: 11px;
+  padding: 5px 10px;
+}
+
+
+.fsa-report-problem-form .field-wrapper {
+  background-color: #fafafa;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 2em;
+}
+
+
+.fsa-report-problem-form input[type="submit"] {
+  background-color: #eaeaea;
+  border: 1px solid #ccc;
+  font-size: 11px;
+  padding: 5px 10px;
+  margin-right: 10px;
+}

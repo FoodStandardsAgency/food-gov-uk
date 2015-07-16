@@ -1,0 +1,11 @@
+#fsa-report-problem-authorities-import-form .form-item {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 8px;
+}
+
+#fsa-report-problem-authorities-import-form .form-item label {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: normal;
+  width: 20%;
+}

@@ -6,14 +6,88 @@
 
 
 /**
+ * Implements hook_permission().
+ */
+function fsa_report_problem_permission() {
+  
+  $permissions = array();
+  
+  $permissions['view food problem reports'] = array(
+    'title' => t('View food problem reports'),
+    'description' => t('View reports of problems with food premises'),
+  );
+  
+  $permissions['administer food problem reporting'] = array(
+    'title' => t('Administer food problem reporting'),
+    'description' => t('Perform administration functions relating to the food problem reporting system'),
+  );
+  
+  return $permissions;
+  
+}
+
+/**
+ * Implements hook_menu().
+ */
+function fsa_report_problem_menu() {
+  $items = array();
+  
+  $items['admin/reports/food-problems'] = array(
+    'title' => t('Food problem reports'),
+    'description' => t('View reports of problems with food premises'),
+    'access arguments' => array('view food problem reports'),
+    'page callback' => 'fsa_report_problem_view_reports',
+    'file' => 'fsa_report_problem.admin.inc',
+  );
+  
+  $items['admin/reports/food-problems/%'] = array(
+    'title' => t('Food problem report'),
+    'page callback' => 'problem_report_view',
+    'page arguments' => array(3),
+    'access arguments' => array('view food problem reports'),
+    'file' => 'fsa_report_problem.admin.inc',
+  );
+  
+  
+  $items['admin/config/food-problems/authorities'] = array(
+    'title' => t('Local authority data'),
+    'page callback' => 'fsa_report_problem_local_authorities',
+    'access arguments' => array('administer food problem reporting'),
+    'file' => 'fsa_report_problem.admin.inc',
+  );
+  
+  $items['admin/config/food-problems/authorities/import'] = array(
+    'title' => t('Import local authority data'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_report_problem_authorities_import_form'),
+    'access arguments' => array('administer food problem reporting'),
+    'file' => 'fsa_report_problem.admin.inc',
+  );
+  
+  return $items;
+}
+
+
+/**
  * Implements hook_block_info().
  */
 function fsa_report_problem_block_info() {
   $blocks = array();
 
+  $blocks['search_form'] = array(
+    'info' => t('Search for an establishment form'),
+    //'cache' => DRUPAL_CACHE_GLOBAL,
+    'cache' => DRUPAL_NO_CACHE,
+  );
+  
+  $blocks['search_results'] = array(
+    'info' => t('Search for an establishment - results'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+  
   $blocks['report_form'] = array(
-    'info' => t('Report a problem form'),
-    'cache' => DRUPAL_CACHE_GLOBAL,
+    'info' => t('Report an establishment'),
+    'cache' => DRUPAL_NO_CACHE,
   );
 
   return $blocks;
@@ -25,15 +99,416 @@ function fsa_report_problem_block_info() {
  * Implements hook_block_view().
  */
 function fsa_report_problem_block_view($delta = '') {
+  
+  // Array to hold the block.
   $block = array();
 
   switch($delta) {
+    
+    
+    // Search for an establishment form
+    case 'search_form':
+      module_load_include('inc', 'fsa_report_problem', 'includes/form');
+      //$block['subject'] = '';
+      //$block['content'] = fsa_report_problem_show_establishment_search_form();
+      $block['content'] = drupal_get_form('fsa_report_problem_form');
+      break;
+    
+    // Search results
+    case 'search_results':
+      $block['subject'] = '';
+      $block['content'] = fsa_report_problem_get_results();
+      break;
+    
+    // Report a problem form
     case 'report_form':
       module_load_include('inc', 'fsa_report_problem', 'includes/form');
       $block['subject'] = '';
-      $block['content'] = drupal_get_form('fsa_report_problem_report_form');
+      $block['content'] = fsa_report_problem_show_report_form();
       break;
   }
 
   return $block;
+}
+
+
+/**
+ * Returns the results of a search for premises.
+ */
+function fsa_report_problem_get_results($name, $address) {
+  //$params = _fsa_report_problem_get_params();
+  
+  //$name = !empty($params['business_name']) ? $params['business_name'] : '';
+  //$address = !empty($params['business_location']) ? $params['business_location'] : '';
+  
+  if (empty($name) || empty($address)) {
+    return '';
+  }
+      
+  $endpoint = 'Establishments';
+  $args = array();
+  $params = array(
+    'name' => $name,
+    'address' => $address,
+  );
+      
+  $request = fhrs_api_make_request($endpoint, $args, $params);
+  
+  if (!empty($request)) {
+    $data = drupal_json_decode($request);
+    return $data;
+    
+    // Get results meta data
+    $meta = !empty($data['meta']) ? $data['meta'] : array();
+    $total_count = !empty($meta['totalCount']) ? $meta['totalCount'] : 0;
+    
+    if ($total_count === 0) {
+      return array(
+        '#prefix' => '<p>',
+        '#markup' => t('Sorry, we couldn\'t find any matching establishments.'),
+        '#suffix' => '</p>',
+      );
+    }
+    
+    if (!empty($data['meta']['totalCount'])) {
+      $establishments[] = array(
+        '#markup' => format_plural($data['meta']['totalCount'], 'Your search for "%name" in "%address" brought up 1 result.', 'Your search for "%name" in "%address" brought up @count results.', array('%name' => $name, '%address' => $address)),
+      );
+    }
+    if (!empty($data['establishments'])) {
+      foreach ($data['establishments'] as $establishment) {
+        $tester = array(
+          '#type' => 'food_establishment',
+          'establishment_details' => $establishment,
+        );
+        $establishments[] = $tester;
+      }
+    }
+  }
+  
+  return $establishments;
+}
+
+
+
+/**
+ * Get the parameters supplied - either in query string or POST
+ */
+function _fsa_report_problem_get_params() {
+  $params = $_SERVER['REQUEST_METHOD'] == 'POST' ? $_POST : $_GET;
+  return array_merge($_GET, $_POST);
+  return $params;
+}
+
+
+
+/**
+ * Implements hook_element_info().
+ */
+function fsa_report_problem_element_info() {
+  $types['food_establishment'] = array(
+    '#theme' => 'food_establishment',
+    '#pre_render' => array('fsa_report_problem_pre_render_food_establishment'),
+  );
+  return $types;
+}
+
+
+
+/**
+ * Implements hook_theme().
+ */
+function fsa_report_problem_theme($existing, $type, $theme, $path) {
+  return array(
+    'food_establishment' => array(
+      'render element' => 'elements',
+      'template' => 'theme/food-establishment',
+    ),
+    'problem_report' => array(
+      'template' => 'theme/problem-report',
+      'variables' => array(
+        'report' => NULL,
+      ),
+    ),
+  );
+}
+
+
+/**
+ * Preprocess function for food establishment elements
+ * @param array $variables
+ *   Template variables - passed by reference
+ *
+ * @see food-establishment.tpl.php
+ */
+function template_preprocess_food_establishment(&$variables) {
+  //dpm($variables);
+  
+//  $establishment = $variables['elements'];
+//  $variables['name'] = $establishment['name'];
+//  $variables['address_array'] = $establishment['address'];
+//  $variables['postcode'] = $establishment['postcode'];
+//  $variables['local_authority_name'] = $establishment['local_authority_name'];
+//  $variables['report_link'] = array(
+//    '#theme' => 'link',
+//    '#text' => t('Report this business'),
+//    '#path' => request_path(),
+//    '#options' => array(
+//      'attributes' => array(),
+//      'html' => FALSE,
+//      'query' => array(
+//        'fhrsid' => $establishment['FHRSID'],
+//      ),
+//    ),
+//  );
+  
+  $establishment = $variables['elements'];
+  
+  
+  //dpm($establishment);
+  
+  $variables['id'] = $establishment['#establishment_details']['test_id'];
+  $variables['name'] = $establishment['name'];
+  $variables['address'] = $establishment['address'];
+  $variables['classes_array'][] = 'food-establishment-' . $establishment['id'];
+  
+//  $variables['submit_button'] = array(
+//    '#type' => 'submit',
+//    '#value' => $variables['name'],
+//    '#value' => t('Report this business'),
+//    '#name' => 'op' . $variables['id'],
+//    '#submit' => array('fsa_report_problem_form_submit'),
+//    '#attributes' => array(
+//      'data-business-id' => $variables['id'],
+//      'id' => 'edit-' . $variables['id'],
+//    ),
+//  );
+  
+}
+
+/**
+ * Process function for food establishment elements
+ */
+function template_process_food_establishment(&$variables) {
+  // Make the address into a string for rendering.
+  //$variables['address'] = !empty($variables['address_array']) ? implode(', ', $variables['address_array']) : '';
+}
+
+
+/**
+ * Pre-render function for food establishments.
+ */
+function fsa_report_problem_pre_render_food_establishment($element) {
+  //dpm($establishment);
+  
+  //dpm($element);
+  
+
+//  // Get the establishment details
+//  $establishment_details = !empty($element['establishment_details']) ? $element['establishment_details'] : array();
+//  
+//  // Get the establishment name
+//  $element['name'] = !empty($establishment_details['BusinessName']) ? $establishment_details['BusinessName'] : '';
+//  
+//  // Get the FHRSID
+//  $element['FHRSID'] = !empty($establishment_details['FHRSID']) ? $establishment_details['FHRSID'] : '';
+//  
+//  // Get the address
+//  $element['address'] = array();
+//  for ($i = 0; $i < 5; $i++) {
+//    if (!empty($establishment_details["AddressLine$i"])) {
+//      $address[] = $establishment_details["AddressLine$i"];
+//    }
+//  }
+//  
+//  $element['postcode'] = !empty($establishment_details['PostCode']) ? $establishment_details['PostCode'] : '';
+//  
+//  $element['address'] = $address;
+//  
+//  $element['local_authority_name'] = !empty($establishment_details['LocalAuthorityName']) ? $establishment_details['LocalAuthorityName'] : '';
+//  //$element['postcode'] = $postcode;
+//  
+//  //dpm($element);
+  
+  
+  $establishment_details = !empty($element['#establishment_details']) ? $element['#establishment_details'] : array();
+  $element['id'] = $establishment_details['id'];
+  $element['name'] = $establishment_details['name'];
+  $element['address'] = $establishment_details['formatted_address'];
+  $element['lat'] = !empty($establishment_details['geometry']['location']['lat']) ? $establishment_details['geometry']['location']['lat'] : 0;
+  $element['lng'] = !empty($establishment_details['geometry']['location']['lng']) ? $establishment_details['geometry']['location']['lng'] : 0;
+  return $element;
+}
+
+
+
+
+function fsa_report_problem_show_report_form() {
+  
+  $params = _fsa_report_problem_get_params();
+  if (empty($params['fhrsid'])) {
+    //dpm('No ID');
+    return '';
+  }
+  
+  $establishment = fsa_report_problem_get_establishment_details($params['fhrsid']);
+  
+  return drupal_get_form('fsa_report_problem_report_form', $establishment);
+  
+  
+  
+  
+}
+
+
+function fsa_report_problem_get_establishment_details($fhrsid = NULL) {
+  
+  if (empty($fhrsid)) {
+    return NULL;
+  }
+  
+  $endpoint = 'Establishments';
+  $args = array($fhrsid);
+  $params = array();
+  
+  $establishment_details = fhrs_api_make_request($endpoint, $args, $params);
+  
+  return drupal_json_decode($establishment_details);
+  
+  
+}
+
+
+
+function fsa_report_problem_show_establishment_search_form() {
+  
+  $params = _fsa_report_problem_get_params();
+  if (!empty($params['fhrsid'])) {
+    return '';
+  }
+  
+  
+  
+  return drupal_get_form('fsa_report_problem_establishment_search_form');
+}
+
+
+
+/**
+ * Implements hook_entity_info().
+ */
+function fsa_report_problem_entity_info() {
+  
+  // An array to hold the entity information.
+  $info = array();
+  
+  $info['problem_report'] = array(
+    'label' => t('Problem report'),
+    'base table' => 'problem_reports',
+    'entity keys' => array(
+      'id' => 'rid',
+    ),
+    'entity class' => 'Entity',
+    'controller class' => 'ProblemReportEntityController',
+    'uri callback' => 'problem_report_uri',
+    'module' => 'fsa_report_problem',
+    'fieldable' => TRUE,
+    'bundles' => array(),
+  );
+  
+  return $info;
+}
+
+
+
+/**
+ * Extending the EntityAPIController for the Project entity.
+ */
+class ProblemReportEntityController extends EntityAPIController {
+
+  public function buildContent($entity, $view_mode = 'full', $langcode = NULL, $content = array()) {
+    $build = parent::buildContent($entity, $view_mode, $langcode, $content);
+
+    
+    $build['#report'] = $entity;
+    $build['test'] = array(
+      '#markup' => 'hello world',
+    );
+    
+    return $build;
+  }
+  
+}
+
+
+
+/**
+ * Entity uri callback.
+ */
+function problem_report_uri($report) {
+  return array(
+    'path' => 'admin/reports/food-problems/' . $report->rid,
+  );
+}
+
+
+
+/**
+ * Preprocess function for problem_reports.
+ */
+function template_preprocess_problem_report(&$variables) {
+  $report = !empty($variables['report']) ? $variables['report'] : NULL;
+  $tester = (array) $report;
+  //dpm($tester);
+  //$variables['local_authority_name'] = !empty($report->local_authority_name) ? $report->local_authority_name : '';
+  $variables = array_merge($variables, $tester);
+  $variables['local_authority_email'] = !empty($report->local_authority_email) ? l($report->local_authority_email, 'mailto:' . $report->local_authority_email, array('absolute' => TRUE)) : '';
+}
+
+
+
+
+
+function fsa_report_problem_get_google_results($name, $location) {
+  $endpoint = 'https://maps.googleapis.com/maps/api/place/textsearch/json';
+  $api_key = 'AIzaSyBKglgVV8ILtw8Y6zPwCA9t9CNi4Ymdm_I';
+  $query = "$name $location";
+  $url = url($endpoint, array('query' => array('key' => $api_key, 'query' => $query)));
+  $places = drupal_http_request($url);
+  if (empty($places->code) || $places->code != '200' || empty($places->data)) {
+    return array();
+  }
+  $results = drupal_json_decode($places->data);
+  if (!empty($results['results'])) {
+    return $results['results'];
+  }
+  else {
+    return array();
+  }
+}
+
+
+function fsa_report_problem_get_local_authority($lng, $lat){
+  $endpoint = 'http://mapit.mysociety.org/point/4236';
+  $url = url("$endpoint/$lng,$lat", array('query' => array('type' => 'DIS,UTA,LBO')));
+  $area_data = drupal_http_request($url);
+  //dpm($area_data);
+  return current(drupal_json_decode($area_data->data));
+}
+
+
+function fsa_report_problem_get_mapit_areas($types = array()) {
+  $endpoint = 'http://mapit.mysociety.org/areas';
+  $url = "$endpoint/" . implode(',', $types);
+  $areas = drupal_http_request($url);
+  return drupal_json_decode($areas->data);
+}
+
+
+function fsa_report_problem_get_fhrs_authorities() {
+  $endpoint = 'Authorities';
+  $args = array();
+  $params = array();
+  $request = fhrs_api_make_request($endpoint, $args, $params);
+  return json_decode($request)->authorities;
 }
