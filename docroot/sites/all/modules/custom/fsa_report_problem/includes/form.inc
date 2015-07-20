@@ -90,7 +90,7 @@ function fsa_report_problem_report_form($form, &$form_state, $establishment = ar
     '#date_year_range' => '-3:+3',
   );
   
-  $form['issue_details'] = array(
+  $form['problem_details'] = array(
     '#type' => 'textarea',
     '#title' => t('Details of the food issue'),
     '#cols' => 20,
@@ -146,6 +146,9 @@ function fsa_report_problem_form($form, &$form_state) {
     case 'make_report':
       $the_form = fsa_report_problem_make_report_form($form, $form_state);
       break;
+    case 'report_complete':
+      $the_form = fsa_report_problem_report_complete_form($form, $form_state);
+      break;
     default:
       $the_form = fsa_report_problem_find_business_form($form, $form_state);
       break;
@@ -161,6 +164,20 @@ function fsa_report_problem_form($form, &$form_state) {
 
 function fsa_report_problem_find_business_form() {
 
+  $form['lat'] = array(
+    '#type' => 'hidden',
+    '#attributes' => array(
+      'id' => 'lat',
+    ),
+  );
+  
+  $form['lng'] = array(
+    '#type' => 'hidden',
+    '#attributes' => array(
+      'id' => 'lng',
+    ),
+  );
+  
   $form['intro-wrapper'] = array(
     '#type' => 'container',
     '#attributes' => array(
@@ -187,6 +204,10 @@ function fsa_report_problem_find_business_form() {
     ),
   );
   
+  $form['field_wrapper']['location_field'] = array(
+    '#type' => 'container',
+  );  
+  
   // Field for business name
   $form['field_wrapper']['business_name'] = array(
     '#type' => 'textfield',
@@ -203,7 +224,14 @@ function fsa_report_problem_find_business_form() {
   $form['field_wrapper']['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Find business'),
-  );  
+  );
+  
+  $form['#attached'] = array(
+    'js' => array(
+      'https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places',
+      drupal_get_path('module', 'fsa_report_problem') . '/js/report-problem.js',
+    ),
+  );
   
   return $form;
 }
@@ -302,21 +330,22 @@ function fsa_report_problem_make_report_form($form, &$form_state) {
   
   $business = $form_state['selected_business'];
   
-//  $form['business_name'] = array(
-//    '#type' => 'html_tag',
-//    '#value' => $business['name'],
-//    '#tag' => 'h2',
-//  );
+  dpm($form_state);
+
   $form['business_name'] = array(
     '#type' => 'textfield',
     '#title' => t('Name of the business'),
     '#default_value' => !empty($business['name']) ? $business['name'] : '',
   );  
   
+  $business_address = !empty($business['formatted_address']) ? $business['formatted_address'] : '';
+  $business_address = !empty($form_state['values']['business_location']) ? $form_state['values']['business_location'] : $business_address;
+  
   $form['business_address'] = array(
     '#type' => 'textarea',
     '#title' => t('Business address'),
-    '#default_value' => !empty($business['formatted_address']) ? $business['formatted_address'] : '',
+    '#default_value' => $business_address,
+    '#rows' => 2,
   );
   
   $form['local_authority'] = array(
@@ -374,6 +403,7 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
     'find_business',
     'show_results',
     'make_report',
+    'report_complete',
   );
   
   // Get the current stage
@@ -389,8 +419,26 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
   switch($current_stage) {
     
     case 'find_business':
+
+      // Get lat, long, name and address
+      $lat = !empty($form_state['values']['lat']) ? $form_state['values']['lat'] : '';
+      $lng = !empty($form_state['values']['lng']) ? $form_state['values']['lng'] : '';
       $name = !empty($form_state['values']['business_name']) ? $form_state['values']['business_name'] : '';
       $address = !empty($form_state['values']['business_location']) ? $form_state['values']['business_location'] : '';      
+      
+      // If we already have name, address, lat and long, then presumably we've
+      // come from the Google Places autocomplete, so we can bypass the stage
+      // where users would select a business. Instead, we go straight to the
+      // report stage.
+      if (!empty($lat) && !empty($lng) && !empty($name) && !empty($address)) {
+        $local_authority = fsa_report_problem_get_local_authority($lng, $lat);
+        $form_state['local_authority'] = $local_authority;
+        $form_state['coords'] = "$lat,$lng";
+        $next_stage = 'make_report';
+        break;
+      }
+      
+      // Get business listings from the Google Places API.
       $businesses = fsa_report_problem_get_google_results($name, $address);
       $form_state['businesses'] = $businesses;
       break;
@@ -412,6 +460,41 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
       $form_state['selected_business'] = $business;
       $form_state['local_authority'] = $local_authority;
       break;
+      
+      
+    case 'make_report':
+      
+      // Try to get the local authority email address.
+      $local_authority_email = fsa_report_problem_get_local_authority_email_address($form_state['local_authority']['id']);
+      
+      // Create a problem_report entity to hold the data, and populate it from
+      // the form values.
+      $entity = entity_create('problem_report', array());
+      $entity->business_name = $form_state['values']['business_name'];
+      $entity->created = REQUEST_TIME;
+      $entity->changed = REQUEST_TIME;
+      $entity->reporter_name = $form_state['values']['reporter_name'];
+      $entity->reporter_email = $form_state['values']['reporter_email'];
+      $entity->business_location = $form_state['values']['business_address'];
+      $entity->coordinates = $form_state['coords'];
+      $entity->problem_details = $form_state['values']['problem_details'];
+      $entity->local_authority_name = $form_state['local_authority_name']['name'];
+      $entity->local_authority_email = $local_authority_email;
+      $entity->save();
+      
+      // Attempt to send an email to the local authority - if we have an email
+      // address on record.
+      $mail_sent = !empty($entity->local_authority_email) ? fsa_report_problem_mail_send($entity) : array('result' => FALSE);
+      
+      // If the email send was successful, set the email_sent property of the
+      // report entity to 1 to indicate that an email was sent. Then re-save
+      // the entity.
+      if (!empty($mail_sent['result'])) {
+        $entity->email_sent = 1;
+        $entity->save();
+      }
+      
+      break;
   }
   
   // Set the next stage
@@ -420,3 +503,18 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
   $form_state['rebuild'] = TRUE;
   
 }
+
+
+function fsa_report_problem_report_complete_form($form, &$form_state) {
+  
+  dpm($form_state);
+  
+  $form['thank_you'] = array(
+    '#markup' => 'Thank you!'
+  );
+  
+  return $form;
+}
+
+
+

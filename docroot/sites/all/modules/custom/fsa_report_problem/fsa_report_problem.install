@@ -37,12 +37,6 @@ function fsa_report_problem_schema() {
         'not null' => TRUE,
         'default' => 0,
       ),
-      'fhrsid' => array(
-        'description' => 'The FHRS ID of the establishment',
-        'type' => 'int',
-        'length' => 10,
-        'not null' => FALSE,
-      ),
       'business_name' => array(
         'description' => 'The name of the business about which the report is being made.',
         'type' => 'varchar',
@@ -51,6 +45,12 @@ function fsa_report_problem_schema() {
       ),
       'business_location' => array(
         'description' => 'The location of the busineess about which the report is being made.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+      ),
+      'coordinates' => array(
+        'description' => 'The latitude and longitude of the business',
         'type' => 'varchar',
         'length' => 255,
         'not null' => FALSE,
@@ -104,6 +104,12 @@ function fsa_report_problem_schema() {
         'not null' => FALSE,
         'size' => 'big',
       ),
+      'email_sent' => array(
+        'description' => 'Shows whether an email has been sent to the local authority.',
+        'type' => 'int',
+        'not null' => FALSE,
+        'default' => 0,
+      ),
       'created' => array(
         'description' => 'The UNIX timestamp when the problem was reported',
         'type' => int,
@@ -112,7 +118,7 @@ function fsa_report_problem_schema() {
       ),
       'changed' => array(
         'description' => 'The UNIX timestamp when the problem was most recently changed',
-        'type' => int,
+        'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
       ),

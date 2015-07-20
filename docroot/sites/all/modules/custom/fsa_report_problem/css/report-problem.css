@@ -27,17 +27,55 @@
 
 
 .fsa-report-problem-form .field-wrapper {
-  background-color: #fafafa;
+  /*background-color: #fafafa;
   border: 1px solid #ccc;
   padding: 10px;
+  */
   margin-bottom: 2em;
 }
 
 
 .fsa-report-problem-form input[type="submit"] {
-  background-color: #eaeaea;
-  border: 1px solid #ccc;
-  font-size: 11px;
-  padding: 5px 10px;
+  background-color: #fafafa;
+  border: 2px solid #ccc;
+  font-size: 1.5em;
+  padding: 8px 10px;
   margin-right: 10px;
+  width: auto;
 }
+
+
+.fsa-report-problem-form .form-item {
+  font-size: 1.5em;
+  margin-bottom: 1.2em;
+}
+
+/*.fsa-report-problem-form #places-lookup {*/
+.fsa-report-problem-form input,
+.fsa-report-problem-form textarea {
+  border: 2px solid #ccc;
+  /*font-size: 1.5em;*/
+  /*margin-bottom: 1em;*/
+  padding: 8px;
+  width: 100%;
+}
+
+.fsa-report-problem-form textarea {
+  margin-bottom: 0;
+}
+
+.fsa-report-problem-form input:focus,
+.fsa-report-problem-form textarea:focus {
+  margin-left: 1px;
+  outline-color: #02684a;
+  padding-left: 7px;
+  width: 99.7%;
+}
+
+.fsa-report-problem-form label {
+  /*font-size: 1.5em;*/
+  font-size: 1em;
+  margin-bottom: 5px;
+}
+
+

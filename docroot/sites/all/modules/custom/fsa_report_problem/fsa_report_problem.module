@@ -230,6 +230,12 @@ function fsa_report_problem_theme($existing, $type, $theme, $path) {
         'report' => NULL,
       ),
     ),
+    'problem_report_email' => array(
+      'template' => 'theme/problem-report-email',
+      'variables' => array(
+        'report' => NULL,
+      ),
+    )
   );
 }
 
@@ -496,6 +502,62 @@ function fsa_report_problem_get_local_authority($lng, $lat){
   return current(drupal_json_decode($area_data->data));
 }
 
+/**
+ * Returns an email address for a local authority, based on the MapIt area ID
+ *
+ * Local authority email addresses are provided by the FHRS API via its
+ * Authorities endpoint. In order to get the correct ID to query the FHRS API,
+ * we have to map the MapIt area ID to the corresponding FHRS local authority
+ * ID. We do this through the `local_authority_areas` table. If we find no
+ * match, then we return an empty string.
+ *  
+ * @param int $id
+ *   The MapIt area ID
+ *
+ * @return string
+ *   If a corresponding local authority is returned by the FHRS API, then we
+ *   return the email address associated with it.
+ *   If no email address is found, or if something else goes wrong, we return
+ *   a zero-length string.
+ * 
+ * @see fsa_report_problem_get_fhrs_authorities().
+ */
+function fsa_report_problem_get_local_authority_email_address($id) {
+
+  // If we don't have an ID or it's not a number, return an empty string now.
+  if (empty($id) || !is_numeric($id)) {
+    return '';
+  }
+
+  // Query the local_authority_areas table to find a corresponding ID for use in
+  // the FHRS API. Return the results as an associative array keyed on the ID.
+  $results = db_select('local_authority_areas', 'l')
+    ->fields('l')
+    ->condition('area_id', $id)
+    ->execute()
+    ->fetchAllAssoc('area_id');
+  
+  // If we don't have a corresponding FHRS ID, return an empty string.
+  if (empty($results[$id]) || empty($results[$id]->local_authority_id)) {
+    return '';
+  }
+  
+  // Query the FHRS API, passing the local authority ID to see if we can get any
+  // results.
+  $local_authority = fsa_report_problem_get_fhrs_authorities($results[$id]->local_authority_id);
+  
+  // The returned value should be an object, and its Email property should
+  // contain the local authority's email address. If not, return an empty
+  // string.
+  if (!is_object($local_authority) || empty($local_authority->Email)) {
+    return '';
+  }
+
+  // Return the email address.
+  return $local_authority->Email;
+  
+}
+
 
 function fsa_report_problem_get_mapit_areas($types = array()) {
   $endpoint = 'http://mapit.mysociety.org/areas';
@@ -505,10 +567,95 @@ function fsa_report_problem_get_mapit_areas($types = array()) {
 }
 
 
-function fsa_report_problem_get_fhrs_authorities() {
+function fsa_report_problem_get_fhrs_authorities($id = NULL) {
   $endpoint = 'Authorities';
-  $args = array();
+  $args = !empty($id) ? array($id) : array();
   $params = array();
   $request = fhrs_api_make_request($endpoint, $args, $params);
-  return json_decode($request)->authorities;
+  if (empty($id)) {
+    return json_decode($request)->authorities;
+  }
+  else {
+    return json_decode($request);
+  }
+}
+
+
+
+/**
+ * Implements hook_mail().
+ *
+ * @param type $key
+ * @param type $message
+ * @param type $params
+ */
+function fsa_report_problem_mail($key, &$message, $params) {
+  
+  $options = array(
+    'langcode' => $message['language']->language,
+  );
+  
+  switch ($key) {
+    case 'problem_report':
+      
+      $message_body = array(
+        '#theme' => 'problem_report_email',
+        '#report' => $params['report'],
+      );
+      
+      $message['subject'] = t('Food Problem report');
+      $message['subject'] .= !empty($params['report']->business_name) ? ' - ' . $params['report']->business_name : '';
+      $message['body'][] = drupal_render($message_body);
+  }
+}
+
+
+function fsa_report_problem_mail_send($report = NULL) {
+
+  //$message = !empty($entry) && !empty($entry->message) ? $entry->message : '';
+
+  $module = 'fsa_report_problem';
+  $key = 'problem_report';
+
+  $to = 'farrow.matt@gmail.com';
+  $from = variable_get('site_mail', 'content@food.gov.uk');
+
+  $language = language_default();
+
+  $send = TRUE;
+  
+  //$message = 'This is a test message.';
+  $message = $report->business_name;
+
+  $params = array(
+    'message' => $message,
+    'subject' => 'Food problem report - test',
+    'report' => $report,
+  );
+  $result = drupal_mail($module, $key, $to, $language, $params, $from, $send);
+  return $result;
+}
+
+
+function template_preprocess_problem_report_email(&$variables) {
+  
+  // Get the report object
+  $report = !empty($variables['report']) ? $variables['report'] : new stdClass();
+  
+  $rep = serialize($report);
+  drupal_set_message($rep);
+  
+  $output_vars = array(
+    'business_name',
+    'business_location',
+  );
+  
+  $variables['business_name'] = $report->business_name;
+  $variables['business_location'] = $report->business_location;
+  
+  
+  foreach ($output_vars as $var) {
+    $variables[$var] .= !empty($variables[$var]) ? "\r\n" : '';
+  }
+  
 }
