@@ -330,7 +330,7 @@ function fsa_report_problem_make_report_form($form, &$form_state) {
   
   $business = $form_state['selected_business'];
   
-  dpm($form_state);
+  //dpm($form_state);
 
   $form['business_name'] = array(
     '#type' => 'textfield',
@@ -370,11 +370,11 @@ function fsa_report_problem_make_report_form($form, &$form_state) {
     '#type' => 'date_popup',
     '#title' => t('Date and approximate time the food issue happened'),
     '#default_value' => $today,
-    '#date_type' => DATE_DATETIME,
+    '#date_type' => DATE_UNIX,
     '#date_timezone' => date_default_timezone(),
     '#date_format' => 'd/m/Y h:i a',
     '#date_increment' => 1,
-    '#date_year_range' => '-3:+3',
+    '#date_year_range' => '-1:+1',
   );
   
   $form['issue_details'] = array(
@@ -467,6 +467,10 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
       // Try to get the local authority email address.
       $local_authority_email = fsa_report_problem_get_local_authority_email_address($form_state['local_authority']['id']);
       
+      //drupal_set_message($form_state['values']['issue_date']);
+      //drupal_set_message(strtotime($form_state['values']['issue_date']));
+      //drupal_set_message(date_default_timezone());
+      
       // Create a problem_report entity to hold the data, and populate it from
       // the form values.
       $entity = entity_create('problem_report', array());
@@ -477,21 +481,29 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
       $entity->reporter_email = $form_state['values']['reporter_email'];
       $entity->business_location = $form_state['values']['business_address'];
       $entity->coordinates = $form_state['coords'];
-      $entity->problem_details = $form_state['values']['problem_details'];
+      $entity->problem_details = $form_state['values']['issue_details'];
       $entity->local_authority_name = $form_state['local_authority_name']['name'];
       $entity->local_authority_email = $local_authority_email;
+      $entity->problem_date = strtotime($form_state['values']['issue_date']);
       $entity->save();
       
       // Attempt to send an email to the local authority - if we have an email
       // address on record.
-      $mail_sent = !empty($entity->local_authority_email) ? fsa_report_problem_mail_send($entity) : array('result' => FALSE);
+      $mail_sent = fsa_report_problem_mail_send($entity);
       
-      // If the email send was successful, set the email_sent property of the
-      // report entity to 1 to indicate that an email was sent. Then re-save
-      // the entity.
-      if (!empty($mail_sent['result'])) {
+      // If there is a local authority email and the email send was successful,
+      // set the email_sent property of the report entity to 1 to indicate that
+      // an email was sent. Then re-save the entity. We don't do this if there
+      // is no local authority email - even if the email send is successful.
+      if (!empty($mail_sent['result']) && !empty($entity->local_authority_email)) {
         $entity->email_sent = 1;
         $entity->save();
+      }
+      
+      // Send an acknowledgement to the reporter - if an email address was
+      // given.
+      if (!empty($entity->reporter_email)) {
+        fsa_report_problem_acknowledgement_send($entity);
       }
       
       break;
