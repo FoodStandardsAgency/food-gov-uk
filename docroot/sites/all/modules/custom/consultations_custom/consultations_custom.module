@@ -35,7 +35,7 @@ function consultations_custom_search_form($form_state) {
 
   $nation_options = consultations_custom_top_level_terms('nation');
 
-  $year_options = array_combine(range(2009, date("Y")), range(2009, date("Y")));
+  $year_options = array_combine(range(2013, date("Y")), range(2013, date("Y")));
   
   $status_options = array(
 	'Closed' => t('Closed'),
