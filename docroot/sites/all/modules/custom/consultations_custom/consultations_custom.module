@@ -35,8 +35,22 @@ function consultations_custom_search_form($form_state) {
 
   $nation_options = consultations_custom_top_level_terms('nation');
 
-  $year_options = array_combine(range(2009, date("Y")), range(2009, date("Y")));
-  
+  // Get the start year for the consutation date search range.
+  // We do this by querying the consultation dates table joined with the node
+  // table so that we can find only published consultations. We sort the results
+  // by the start year (which is the one used in the Solr search) and we take
+  // the first result.
+  $query = db_select('node', 'n');
+  $query->leftJoin('field_data_field_consultation_dates', 'd', 'n.nid = d.entity_id');
+  $query->addExpression("DATE_FORMAT(d.field_consultation_dates_value, '%Y')", 'CD');
+  $query->condition('n.status', 1); // We want only published consultations
+  $query->isNotNull('d.field_consultation_dates_value'); // Exclude NULL dates
+  $query->orderBy('d.field_consultation_dates_value'); // Earliest date first
+  $query->range(0, 1); // Return only one result
+  $results = $query->execute()->fetchCol(0);
+  $start_year = !empty($results) ? $results[0] : 2012;
+  $year_options = array_combine(range($start_year, date("Y")), range($start_year, date("Y")));
+
   $status_options = array(
 	'Closed' => t('Closed'),
 	'Open' => t('Open'),
