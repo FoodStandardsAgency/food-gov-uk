@@ -15,7 +15,7 @@
         }).focus(function(){
           reportProblem.geolocate();
         }).change(function() {
-          reportProblem.showHideSubmit();
+          reportProblem.showHideSubmit(this);
         }).appendTo('#edit-location-field');
         autocomplete = new google.maps.places.Autocomplete($placesLookup.get(0));
         google.maps.event.addListener(autocomplete, 'place_changed', function() {
@@ -34,9 +34,11 @@
     },
     
     // Show/hide submit button
-    showHideSubmit: function() {
-      //console.log($placesLookup);
-      if ($placesLookup.attr('value') != '') {
+    showHideSubmit: function(element) {
+      if (element && element.value == '') {
+        delete this.place;
+      }
+      if (this.place) {
         $('#edit-submit').removeClass('element-invisible');
       }
       else {
@@ -47,17 +49,14 @@
     // Complete the name address fields based on the autocomplete lookup result
     fillInAddress: function(autocomplete) {
       // Get the place details from the autocomplete object.
-      var place = autocomplete.getPlace();
-      $('#edit-business-name').attr('value', place.name);
-      $('#edit-business-location').attr('value', place.formatted_address);
-      //document.getElementById('name').value = place.name;
-      //document.getElementById('serialised-business').value = JSON.stringify(place);
-      //document.getElementById('address').value = place.formatted_address;
-      document.getElementById('lat').value = place.geometry.location.A;
-      document.getElementById('lng').value = place.geometry.location.F;
+      this.place = autocomplete.getPlace();
+      $('#edit-business-name').attr('value', this.place.name);
+      $('#edit-business-location').attr('value', this.place.formatted_address);
+      document.getElementById('lat').value = this.place.geometry.location.A;
+      document.getElementById('lng').value = this.place.geometry.location.F;
     },
     
-    // Use geolocation data to assist the autocomplete places look
+    // Use geolocation data to assist the autocomplete places lookup
     geolocate: function() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -71,10 +70,6 @@
         });
       }      
     },
-    
-    sayHello: function() {
-      alert('Guten tag!');
-    }
     
   };
 })(jQuery, google);

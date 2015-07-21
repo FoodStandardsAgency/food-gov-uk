@@ -1,81 +1,55 @@
 .fsa-report-problem-form {
-  margin-bottom: 2em;
-}
+  margin-bottom: 4em; }
+  .fsa-report-problem-form p {
+    font-size: 1.4em; }
+  .fsa-report-problem-form .form-intro {
+    color: #006f51; }
+    .fsa-report-problem-form .form-intro p {
+      font-size: 1.7em;
+      line-height: 1.3; }
+  .fsa-report-problem-form .form-item, .fsa-report-problem-form #edit-location-field {
+    margin-bottom: 2em; }
+  .fsa-report-problem-form label {
+    font-size: 1.5em;
+    margin-bottom: 4px; }
+  .fsa-report-problem-form textarea,
+  .fsa-report-problem-form input[type="text"] {
+    border: 1px solid #ccc;
+    font-size: 1.5em;
+    padding: 8px;
+    width: 100%; }
+  .fsa-report-problem-form .form-type-item {
+    font-size: 1.5em; }
+    .fsa-report-problem-form .form-type-item label {
+      font-size: 1em; }
+  .fsa-report-problem-form input[type="submit"] {
+    background-color: #ededed;
+    border: 1px solid #ccc;
+    font-size: 1.5em;
+    margin-right: 10px;
+    padding: 8px 14px; }
+  .fsa-report-problem-form .container-inline-date .date-padding {
+    float: none;
+    padding: 0; }
+    .fsa-report-problem-form .container-inline-date .date-padding .form-item {
+      display: inline-block;
+      float: none; }
+      .fsa-report-problem-form .container-inline-date .date-padding .form-item:first-child {
+        margin-right: 1em; }
+      .fsa-report-problem-form .container-inline-date .date-padding .form-item label {
+        font-size: 1.3em;
+        margin-top: 0.5em; }
+      .fsa-report-problem-form .container-inline-date .date-padding .form-item .description {
+        font-size: 1.1em;
+        margin-top: 5px; }
+  .fsa-report-problem-form .food-establishment-wrapper {
+    border-bottom: 1px solid #dadada;
+    margin-bottom: 2em;
+    padding-bottom: 2em; }
+    .fsa-report-problem-form .food-establishment-wrapper h3 {
+      font-size: 1.5em; }
+    .fsa-report-problem-form .food-establishment-wrapper input[type="submit"] {
+      font-size: 1.3em;
+      padding: 6px 10px; }
 
-.food-establishment-wrapper {
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 17px;
-}
-
-
-.food-establishment h3 {
-  margin-top: 10px;
-  margin-bottom: 5px;
-}
-
-.food-establishment p {
-  margin-bottom: 8px;
-}
-
-
-.food-establishment-wrapper input[type="submit"] {
-  background-color: #eaeaea;
-  border: 1px solid #ccc;
-  font-size: 11px;
-  padding: 5px 10px;
-}
-
-
-.fsa-report-problem-form .field-wrapper {
-  /*background-color: #fafafa;
-  border: 1px solid #ccc;
-  padding: 10px;
-  */
-  margin-bottom: 2em;
-}
-
-
-.fsa-report-problem-form input[type="submit"] {
-  background-color: #fafafa;
-  border: 2px solid #ccc;
-  font-size: 1.5em;
-  padding: 8px 10px;
-  margin-right: 10px;
-  width: auto;
-}
-
-
-.fsa-report-problem-form .form-item {
-  font-size: 1.5em;
-  margin-bottom: 1.2em;
-}
-
-/*.fsa-report-problem-form #places-lookup {*/
-.fsa-report-problem-form input,
-.fsa-report-problem-form textarea {
-  border: 2px solid #ccc;
-  /*font-size: 1.5em;*/
-  /*margin-bottom: 1em;*/
-  padding: 8px;
-  width: 100%;
-}
-
-.fsa-report-problem-form textarea {
-  margin-bottom: 0;
-}
-
-.fsa-report-problem-form input:focus,
-.fsa-report-problem-form textarea:focus {
-  margin-left: 1px;
-  outline-color: #02684a;
-  padding-left: 7px;
-  width: 99.7%;
-}
-
-.fsa-report-problem-form label {
-  /*font-size: 1.5em;*/
-  font-size: 1em;
-  margin-bottom: 5px;
-}
-
-
+/*# sourceMappingURL=report-problem.css.map */

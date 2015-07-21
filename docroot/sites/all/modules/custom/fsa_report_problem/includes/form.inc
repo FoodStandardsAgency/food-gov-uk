@@ -134,6 +134,12 @@ function fsa_report_problem_report_form_submit($form, &$form_state) {
 
 function fsa_report_problem_form($form, &$form_state) {
   
+  $params = drupal_get_query_parameters();
+  
+  if (!empty($params['complete'])) {
+    $form_state['stage'] = 'report_complete';
+  }
+  
   if (!isset($form_state['stage'])) $form_state['stage'] = 'find_business';
   
   switch ($form_state['stage']) {
@@ -147,6 +153,8 @@ function fsa_report_problem_form($form, &$form_state) {
       $the_form = fsa_report_problem_make_report_form($form, $form_state);
       break;
     case 'report_complete':
+      $form_state['rebuild'] = FALSE;
+      $form_state['redirect'] = 'node/1';
       $the_form = fsa_report_problem_report_complete_form($form, $form_state);
       break;
     default:
@@ -157,6 +165,7 @@ function fsa_report_problem_form($form, &$form_state) {
   $the_form['#attached']['css'] = array(
     drupal_get_path('module', 'fsa_report_problem') . '/css/report-problem.css',
   );
+  
   
   return $the_form;
   
@@ -178,22 +187,14 @@ function fsa_report_problem_find_business_form() {
     ),
   );
   
-  $form['intro-wrapper'] = array(
-    '#type' => 'container',
-    '#attributes' => array(
-      'class' => array('views-field-field-summary'),
-    ),
-  );
-  
-  $form['intro-wrapper']['intro'] = array(
-    '#prefix' => '<p>',
-    '#markup' => 'If you have noticed a problem with a food establisment, you can use this form to report it. An investigation will then be carried out by the establishment\'s local authority. You can make an anonymous report or include your contact details as you wish.',
-    '#suffix' => '</p>',
+  $form['intro'] = array(
+    '#type' => 'form_intro',
+    '#text' => t('If you have noticed a problem with a food establisment, you can use this form to report it. An investigation will then be carried out by the establishment\'s local authority. You can make an anonymous report or include your contact details as you wish.'),
   );
   
   $form['step1'] = array(
     '#prefix' => '<p>',
-    '#markup' => 'Step 1 is to tell us about the business. Please use the form below to enter all or part of the business\'s name and a location such as a town, area or postcode.',
+    '#markup' => 'Please use the form below to enter all or part of the business\'s name and a location such as a town, area or postcode.',
     '#suffix' => '</p>',
   );
   
@@ -242,9 +243,8 @@ function fsa_report_problem_results_form($form, &$form_state) {
   // If the search returned no results, tell the user.
   if (count($form_state['businesses']) === 0) {
     $form['no_results_message'] = array(
-      '#prefix' => '<p>',
-      '#markup' => t('Sorry, we could not find any matching businesses. You can either try again or enter the business details manually.'),
-      '#suffix' => '</p>',
+      '#type' => 'form_intro',
+      '#text' => t('Sorry, we could not find any matching businesses. You can either try again or enter the business details manually.'),
     );
     
     $form['try_again'] = array(
@@ -260,8 +260,12 @@ function fsa_report_problem_results_form($form, &$form_state) {
     
     
   }
-  
-  
+  else {
+    $form['intro'] = array(
+      '#type' => 'form_intro',
+      '#text' => t('Please choose from one of the businesses below.'),
+    );
+  }
   
   foreach($form_state['businesses'] as $id => $business) {
     
@@ -327,11 +331,19 @@ function fsa_report_problem_results_form($form, &$form_state) {
 }
 
 function fsa_report_problem_make_report_form($form, &$form_state) {
-  
+  //$form_state['redirect'] = 'node/1';
+  //$form_state['rebuild'] = FALSE;
   $business = $form_state['selected_business'];
-  
   //dpm($form_state);
-
+  
+  
+  $form['intro'] = array(
+    '#type' => 'form_intro',
+    '#text' => array(
+      t('Please complete the form below, including as much detail as possible about the food problem you have seen. You may leave out your name and address if you wish to remain anonymous.'),
+    ),
+  );
+  
   $form['business_name'] = array(
     '#type' => 'textfield',
     '#title' => t('Name of the business'),
@@ -386,7 +398,7 @@ function fsa_report_problem_make_report_form($form, &$form_state) {
   
   $form['submit'] = array(
     '#type' => 'submit',
-    '#value' => t('Submit'),
+    '#value' => t('Submit report'),
   );
   
   
@@ -482,7 +494,7 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
       $entity->business_location = $form_state['values']['business_address'];
       $entity->coordinates = $form_state['coords'];
       $entity->problem_details = $form_state['values']['issue_details'];
-      $entity->local_authority_name = $form_state['local_authority_name']['name'];
+      $entity->local_authority_name = $form_state['local_authority']['name'];
       $entity->local_authority_email = $local_authority_email;
       $entity->problem_date = strtotime($form_state['values']['issue_date']);
       $entity->save();
@@ -509,21 +521,53 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
       break;
   }
   
+  // Rebuild the form - unless we're on the last stage, in which case we
+  // redirect. This is to avoid issues with refreshing the final stage and
+  // duplicating reports.
+  if ($form_state['stage'] != 'make_report') {
+    $form_state['rebuild'] = TRUE;
+  }
+  else {
+    $entity_id = !empty($entity->rid) ? $entity->rid : 0;
+    $form_state['redirect'] = array(
+      current_path(),
+      array(
+        'query' => array(
+          'complete' => true,
+          'report_id' => $entity_id,
+        ),
+      ),
+    );
+  }
+  
   // Set the next stage
   $form_state['stage'] = $next_stage;
   // Rebuild the form
-  $form_state['rebuild'] = TRUE;
+  
+  //if ($next_stage != 'report_complete') {
+    //$form_state['rebuild'] = TRUE;
+  //  $form_state['redirect'] = 'node/1';
+  //}
+  
+  
+  //dpm($form_state);
   
 }
 
 
 function fsa_report_problem_report_complete_form($form, &$form_state) {
   
-  dpm($form_state);
-  
   $form['thank_you'] = array(
-    '#markup' => 'Thank you!'
+    '#type' => 'form_intro',
+    '#text' => t('Thank you for your report.'),
   );
+  
+  $params = drupal_get_query_parameters();
+  
+  $reports = !empty($params['report_id']) ? entity_load('problem_report', array($params['report_id'])) : NULL;
+  $report = !empty($reports) && !empty($reports[$params['report_id']]) ? $reports[$params['report_id']] : NULL;
+  
+  dpm($report);
   
   return $form;
 }
