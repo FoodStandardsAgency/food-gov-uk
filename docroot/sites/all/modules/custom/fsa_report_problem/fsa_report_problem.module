@@ -22,7 +22,7 @@ define('FSA_REPORT_PROBLEM_STATUS_PRODUCTION', 0);
 /**
  * Status
  */
-define('FSA_REPORT_PROBLEM_STATUS', FSA_REPORT_PROBLEM_STATUS_ALPHA);
+define('FSA_REPORT_PROBLEM_STATUS', variable_get('fsa_report_problem_service_status', FSA_REPORT_PROBLEM_STATUS_PRODUCTION));
 
 
 /**
@@ -56,7 +56,9 @@ function fsa_report_problem_menu() {
     'title' => t('Food problem reports'),
     'description' => t('View reports of problems with food premises'),
     'access arguments' => array('view food problem reports'),
-    'page callback' => 'fsa_report_problem_view_reports',
+    //'page callback' => 'fsa_report_problem_view_reports',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_report_problem_view_reports'),
     'file' => 'fsa_report_problem.admin.inc',
   );
   
@@ -68,20 +70,38 @@ function fsa_report_problem_menu() {
     'file' => 'fsa_report_problem.admin.inc',
   );
   
+  $items['admin/config/foodproblems'] = array(
+    'title' => t('Food problem reporting'),
+    'page callback' => 'drupal_get_form',
+    'access arguments' => array('administer food problem reporting'),
+    'page arguments' => array('fsa_food_report_admin_form'),
+    'file' => 'fsa_report_problem.admin.inc',
+  );
   
-  $items['admin/config/food-problems/authorities'] = array(
+  $items['admin/config/foodproblems/config'] = array(
+    'title' => t('Configuration'),
+    'page callback' => 'drupal_get_form',
+    'access arguments' => array('administer food problem reporting'),
+    'page arguments' => array('fsa_food_report_admin_form'),
+    'file' => 'fsa_report_problem.admin.inc',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+  );
+  
+  $items['admin/config/foodproblems/authorities'] = array(
     'title' => t('Local authority data'),
     'page callback' => 'fsa_report_problem_local_authorities',
     'access arguments' => array('administer food problem reporting'),
     'file' => 'fsa_report_problem.admin.inc',
+    'type' => MENU_LOCAL_TASK,
   );
   
-  $items['admin/config/food-problems/authorities/import'] = array(
+  $items['admin/config/foodproblems/authorities/import'] = array(
     'title' => t('Import local authority data'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('fsa_report_problem_authorities_import_form'),
     'access arguments' => array('administer food problem reporting'),
     'file' => 'fsa_report_problem.admin.inc',
+    'type' => MENU_LOCAL_TASK,
   );
   
   return $items;
@@ -125,13 +145,15 @@ function fsa_report_problem_block_view($delta = '') {
 
   switch($delta) {
     
-    
     // Search for an establishment form
     case 'search_form':
       module_load_include('inc', 'fsa_report_problem', 'includes/form');
       //$block['subject'] = '';
       //$block['content'] = fsa_report_problem_show_establishment_search_form();
       $block['content'] = drupal_get_form('fsa_report_problem_form');
+      if (FSA_REPORT_PROBLEM_STATUS != FSA_REPORT_PROBLEM_STATUS_PRODUCTION) {
+        drupal_set_title(drupal_get_title() . ' (' . _fsa_report_problem_status_description(FSA_REPORT_PROBLEM_STATUS) . ')');
+      }
       break;
     
     // Search results
@@ -250,7 +272,7 @@ function fsa_report_problem_theme($existing, $type, $theme, $path) {
     ),
     'problem_report' => array(
       'template' => 'theme/problem-report',
-      'preprocess functions' => array('_fsa_report_problem_preprocess_problem_report'),
+      //'preprocess functions' => array('_fsa_report_problem_preprocess_problem_report'),
       'variables' => array(
         'report' => NULL,
       ),
@@ -264,7 +286,7 @@ function fsa_report_problem_theme($existing, $type, $theme, $path) {
     ),
     'report_acknowledgement_email' => array(
       'template' => 'theme/report-acknowledgement-email',
-      'preprocess functions' => array('_fsa_report_problem_preprocess_problem_report'),
+      //'preprocess functions' => array('_fsa_report_problem_preprocess_problem_report'),
       'variables' => array(
         'report' => NULL,
       ),
@@ -524,12 +546,43 @@ function problem_report_uri($report) {
  * Preprocess function for problem_reports.
  */
 function template_preprocess_problem_report(&$variables) {
+  
   $report = !empty($variables['report']) ? $variables['report'] : NULL;
-  $tester = (array) $report;
-  //dpm($tester);
-  //$variables['local_authority_name'] = !empty($report->local_authority_name) ? $report->local_authority_name : '';
-  $variables = array_merge($variables, $tester);
-  $variables['local_authority_email'] = !empty($report->local_authority_email) ? l($report->local_authority_email, 'mailto:' . $report->local_authority_email, array('absolute' => TRUE)) : '';
+
+  
+  $variables['unsent_warning'] = empty($report->email_sent) ? t('Please note, this report has not yet been forwarded to the relevant local authority') : '';
+  if (empty($report->email_sent)) {
+  }
+  
+  
+  
+  $variables['local_authority_email'] = !empty($variables['local_authority_email']) ? l($variables['local_authority_email'], 'mailto:' . $variables['local_authority_email']) : '';
+  
+  $variables['local_authority'] = array(
+    '#type' => 'item',
+    '#markup' => $variables['local_authority_name'] . (!empty($variables['local_authority_email']) ? ', ' . $variables['local_authority_email'] : ''),
+    '#title' => t('Local authority'),
+  );
+  
+  
+  $variables['reporter_name'] = array(
+    '#type' => 'item',
+    '#markup' => $variables['reporter_name'] . (!empty($variables['reporter_email']) ? ', ' . l($variables['reporter_email'], 'mailto:' . $variables['reporter_email']) : ''),
+    '#title' => t('Reported by'),
+  );
+  
+  $variables['problem_date'] = array(
+    '#type' => 'item',
+    '#title' => t('Date the problem occurred'),
+    '#markup' => format_date($report->problem_date, 'medium'),
+  );
+  
+  $variables['problem_details'] = array(
+    '#type' => 'item',
+    '#title' => t('Problem details'),
+    '#markup' => check_markup($variables['problem_details'], 'full_html'),
+  );
+  
 }
 
 
@@ -812,10 +865,12 @@ function _fsa_report_problem_preprocess_problem_report(&$variables) {
   // Populate variables from the report object
   $vars = array(
     'reporter_name',
+    'reporter_email',
     'business_name',
     'business_location',
     'local_authority_name',
     'local_authority_email',
+    'problem_details',
   );
   
   foreach ($vars as $var) {
@@ -838,4 +893,24 @@ function template_preprocess_form_intro(&$variables) {
   $text = !empty($element['#text']) ? $element['#text'] : array();
   $text = !is_array($text) ? array($text) : $text;
   $variables['text'] = $text;
+}
+
+
+
+function _fsa_report_problem_status_description($status = FSA_REPORT_PROBLEM_STATUS_PRODUCTION) {
+  $status_descriptions = array(
+    FSA_REPORT_PROBLEM_STATUS_ALPHA => t('Alpha'),
+    FSA_REPORT_PROBLEM_STATUS_BETA => t('Beta'),
+    FSA_REPORT_PROBLEM_STATUS_PRODUCTION => t('Production'),
+  );
+  return $status_descriptions[$status];
+}
+
+
+function _fsa_report_problem_status_message($status = FSA_REPORT_PROBLEM_STATUS_PRODUCTION) {
+  $messages = array(
+    FSA_REPORT_PROBLEM_STATUS_ALPHA => t('This service is currently in alpha, which means there may be bugs. Please report any issues to test@test.com'),
+    FSA_REPORT_PROBLEM_STATUS_BETA => t('This service is currently in beta. If you notice any problems, please contact us.'),
+  );
+  return !empty($messages[$status]) ? $messages[$status] : '';
 }

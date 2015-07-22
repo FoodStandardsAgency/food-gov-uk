@@ -187,6 +187,14 @@ function fsa_report_problem_find_business_form() {
     ),
   );
   
+  if (variable_get('fsa_report_problem_service_status_message') !== "") {
+    $form['status_message'] = array(
+      '#type' => 'html_tag',
+      '#tag' => 'p',
+      '#value' => variable_get('fsa_report_problem_service_status_message', _fsa_report_problem_status_message(FSA_REPORT_PROBLEM_STATUS)),
+    );
+  }
+  
   $form['intro'] = array(
     '#type' => 'form_intro',
     '#text' => t('If you have noticed a problem with a food establisment, you can use this form to report it. An investigation will then be carried out by the establishment\'s local authority. You can make an anonymous report or include your contact details as you wish.'),
@@ -340,7 +348,7 @@ function fsa_report_problem_make_report_form($form, &$form_state) {
   $form['intro'] = array(
     '#type' => 'form_intro',
     '#text' => array(
-      t('Please complete the form below, including as much detail as possible about the food problem you have seen. You may leave out your name and address if you wish to remain anonymous.'),
+      t('Please complete the form below, including as much detail as possible about the food problem you have seen. You may leave out your name and address if you wish to remain anonymous. When you submit your report, it will be sent to @local_authority_name, who will investigate the problem.', array('@local_authority_name' => $form_state['local_authority']['name'])),
     ),
   );
   
@@ -559,7 +567,7 @@ function fsa_report_problem_report_complete_form($form, &$form_state) {
   
   $form['thank_you'] = array(
     '#type' => 'form_intro',
-    '#text' => t('Thank you for your report.'),
+    '#text' => t('Thank you for your report. With your help we can make food safer.'),
   );
   
   $params = drupal_get_query_parameters();
@@ -570,12 +578,30 @@ function fsa_report_problem_report_complete_form($form, &$form_state) {
   if (empty($report)) {
     return $form;
   }
+  
+  $local_authority_email = !empty($report->local_authority_email) ? $report->local_authority_email : '';
 
   $form['report_details'] = array(
     '#prefix' => '<p>',
     '#markup' => t('The problem you have reported with @business_name will be forwarded to @local_authority_name.', array('@business_name' => $report->business_name, '@local_authority_name' => $report->local_authority_name)),
     '#suffix' => '</p>',
   );
+  
+  if (!empty($local_authority_email)) {
+    $form['report_contact'] = array(
+      '#type' => 'html_tag',
+      '#tag' => 'p',
+      '#value' => t('If you need to contact @local_authority_name about your report, you can do so at <a href="mailto:@local_authority_email">@local_authority_email</a>.', array('@local_authority_name' => $report->local_authority_name, '@local_authority_email' => $local_authority_email)),
+    );
+  }
+  
+  if (!empty($report->reporter_email)) {
+    $form['report_receipt'] = array(
+      '#type' => 'html_tag',
+      '#tag' => 'p',
+      '#value' => t('A confirmation email has been sent to @reporter_email.', array('@reporter_email' => $report->reporter_email)),
+    );
+  }
   
   return $form;
 }

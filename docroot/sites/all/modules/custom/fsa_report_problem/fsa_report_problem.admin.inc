@@ -4,52 +4,112 @@
  * Admin functions for the FSA Report a problem module.
  */
 
-function fsa_report_problem_view_reports() {
+function fsa_report_problem_view_reports($form, &$form_state) {
   
-  $reports = entity_load('problem_report');
-  //$query = new EntityFieldQuery();
-  //$query->entityCondition('entity_type', 'problem_report');
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'problem_report');
+    //->propertyCondition('email_sent', 0);
   
-  //$reports = $query->execute();
-  //$reports = $reports['problem_report'];
+  $results = $query->execute();
   
-  //dpm($reports);
+  $rids = !empty($results['problem_report']) ? array_keys($results['problem_report']) : array();
+  
+  
+  // Load all of the problem reports
+  $reports = entity_load('problem_report', $rids);
 
+  // Create the table header row.
   $header = array(
     array(
-      'data' => t('FHRSID'),
-      'field' => 'fhrsid',
-      'sort' => 'asc',
+      'data' => t('ID'),
+      'field' => 'rid',
     ),
     array(
       'data' => t('Business name'),
       'field' => 'business_name',
     ),
     array(
+      'data' => t('Report date'),
+      'field' => 'report_date',
+    ),
+    array(
       'data' => t('Local authority'),
       'field' => 'local_authority_name',
     ),
+    array(
+      'data' => t('Local authority email'),
+      'field' => 'local_authority_email',
+    ),
   );
   
-  
-  $rows = array();
+  // Display the report data
+  //$rows = array();
+  $report_list = array('unsent' => array(), 'sent' => array());
   foreach ($reports as $report) {
     $uri = entity_uri('problem_report', $report);
-    $rows[] = array(
-      l($report->fhrsid, $uri['path']),
+    $status = empty($report->email_sent) ? 'unsent' : 'sent';
+    $report_list[$status][] = array(
+      l($report->rid, $uri['path']),
       $report->business_name,
+      !empty($report->problem_date) ? format_date($report->problem_date, 'medium') : '',
       $report->local_authority_name,
+      $report->local_authority_email,
     );
   }
   
-  return array(
+  $form['unsent_reports'] = array(
+    '#type' => 'fieldset',
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+    '#title' => t('Unsent reports'),
+  );
+  
+  $form['unsent_reports']['intro'] = array(
+    '#type' => 'html_tag',
+    '#tag' => 'p',
+    '#value' => t('The following reports have not yet been sent to the relevant local authority. This typically means that there is no email address on record for that authority.'),
+  );
+  
+  $form['unsent_reports']['reports'] = array(
     '#theme' => 'table',
     '#header' => $header,
-    '#rows' => $rows,
+    '#rows' => $report_list['unsent'], 
+    '#empty' => t('No unsent reports found'),
+  );
+  
+  $form['sent_reports'] = array(
+    '#type' => 'fieldset',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#title' => t('Sent reports'),
+    '#empty' => t('No sent reports found'),
+  );
+  
+  $form['sent_reports']['intro'] = array(
+    '#type' => 'html_tag',
+    '#tag' => 'p',
+    '#value' => t('The following reports have been forwarded to the relevant local authority.'),
+  );
+  
+  $form['sent_reports']['reports'] = array(
+    '#theme' => 'table',
+    '#header' => $header,
+    '#rows' => $report_list['sent'],    
   );
   
   
-  return 'This is where the list of reports will go.';
+  return $form;
+  
+  
+  
+  // Return the render array for the table
+  //return array(
+  //  '#theme' => 'table',
+  //  '#header' => $header,
+  //  '#rows' => $rows,
+    //'#theme_wrappers' => array('fieldset'),
+    //'#wrapper_attributes' => array('#collapsible' => TRUE, '#collapsed' => TRUE),
+  //);
   
 }
 
@@ -59,12 +119,15 @@ function problem_report_view($rid) {
   $report = $reports[$rid];
   $output = entity_view('problem_report', array($report));
   $output = $output['problem_report'][$rid];
-  //dpm($output);
-  
   
   $build = array(
     '#theme' => 'problem_report',
     '#report' => $output['#report'],
+    '#attached' => array(
+      'css' => array(
+        drupal_get_path('module', 'fsa_report_problem') . '/css/report-problem.admin.css',
+      ),
+    ),
   );
   
   return $build;  
@@ -274,4 +337,40 @@ function fsa_report_problem_local_authorities() {
   
   $output[] = $table;
   return $output;
+}
+
+
+
+
+
+
+function fsa_food_report_admin_form($form, &$form_state) {
+
+  $form['service_status'] = array(
+    '#type' => 'fieldset',
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+    '#title' => t('Service status'),
+  );
+  
+  $form['service_status']['fsa_report_problem_service_status'] = array(
+    '#type' => 'select',
+    '#title' => t('Service status'),
+    '#options' => array(
+      FSA_REPORT_PROBLEM_STATUS_ALPHA => _fsa_report_problem_status_description(FSA_REPORT_PROBLEM_STATUS_ALPHA),
+      FSA_REPORT_PROBLEM_STATUS_BETA => _fsa_report_problem_status_description(FSA_REPORT_PROBLEM_STATUS_BETA),
+      FSA_REPORT_PROBLEM_STATUS_PRODUCTION => _fsa_report_problem_status_description(FSA_REPORT_PROBLEM_STATUS_PRODUCTION),
+    ),
+    '#default_value' => variable_get('fsa_report_problem_service_status', FSA_REPORT_PROBLEM_STATUS_PRODUCTION),
+    '#description' => t('What is the status of the food problem reporting service?'),
+  );
+  
+  $form['service_status']['fsa_report_problem_service_status_message'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Service status message'),
+    '#description' => t('You can include a message to display on the page while the service is in alpha or beta status.'),
+    '#default_value' => variable_get('fsa_report_problem_service_status_message', _fsa_report_problem_status_message(FSA_REPORT_PROBLEM_STATUS)),
+  );
+  
+  return system_settings_form($form);
 }
