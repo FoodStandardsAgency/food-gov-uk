@@ -567,7 +567,15 @@ function fsa_report_problem_report_complete_form($form, &$form_state) {
   $reports = !empty($params['report_id']) ? entity_load('problem_report', array($params['report_id'])) : NULL;
   $report = !empty($reports) && !empty($reports[$params['report_id']]) ? $reports[$params['report_id']] : NULL;
   
-  dpm($report);
+  if (empty($report)) {
+    return $form;
+  }
+
+  $form['report_details'] = array(
+    '#prefix' => '<p>',
+    '#markup' => t('The problem you have reported with @business_name will be forwarded to @local_authority_name.', array('@business_name' => $report->business_name, '@local_authority_name' => $report->local_authority_name)),
+    '#suffix' => '</p>',
+  );
   
   return $form;
 }
