@@ -349,7 +349,7 @@ function fsa_food_report_admin_form($form, &$form_state) {
   $form['service_status'] = array(
     '#type' => 'fieldset',
     '#collapsible' => TRUE,
-    '#collapsed' => FALSE,
+    '#collapsed' => TRUE,
     '#title' => t('Service status'),
   );
   
@@ -360,6 +360,7 @@ function fsa_food_report_admin_form($form, &$form_state) {
       FSA_REPORT_PROBLEM_STATUS_ALPHA => _fsa_report_problem_status_description(FSA_REPORT_PROBLEM_STATUS_ALPHA),
       FSA_REPORT_PROBLEM_STATUS_BETA => _fsa_report_problem_status_description(FSA_REPORT_PROBLEM_STATUS_BETA),
       FSA_REPORT_PROBLEM_STATUS_PRODUCTION => _fsa_report_problem_status_description(FSA_REPORT_PROBLEM_STATUS_PRODUCTION),
+      FSA_REPORT_PROBLEM_STATUS_OFFLINE => _fsa_report_problem_status_description(FSA_REPORT_PROBLEM_STATUS_OFFLINE),
     ),
     '#default_value' => variable_get('fsa_report_problem_service_status', FSA_REPORT_PROBLEM_STATUS_PRODUCTION),
     '#description' => t('What is the status of the food problem reporting service?'),
@@ -368,9 +369,50 @@ function fsa_food_report_admin_form($form, &$form_state) {
   $form['service_status']['fsa_report_problem_service_status_message'] = array(
     '#type' => 'textarea',
     '#title' => t('Service status message'),
-    '#description' => t('You can include a message to display on the page while the service is in alpha or beta status.'),
+    '#description' => t('You can include a message to display on the page while the service is in alpha or beta status. Leave the field blank to display no message.'),
     '#default_value' => variable_get('fsa_report_problem_service_status_message', _fsa_report_problem_status_message(FSA_REPORT_PROBLEM_STATUS)),
   );
+  
+
+  $form['email_addresses'] = array(
+    '#type' => 'fieldset',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#title' => t('Email addresses'),
+  );
+  
+  $form['text_title'] = array(
+    '#type' => 'item',
+    '#title' => t('Text'),
+  );  
+  
+  
+  $form['text'] = array(
+    '#type' => 'vertical_tabs',
+    '#title' => t('Text'),
+  );
+  
+  $text = _fsa_report_problem_text();
+  
+  foreach ($text as $key => $item) {
+    $form['text']["fsa_report_problem_text_${key}_container"] = array(
+      '#type' => 'fieldset',
+      '#title' => $item['description'],
+    );
+    
+    $text_format = !empty($text[$key]['format']) ? $text[$key]['format'] : 'full_html';
+    $text_content = variable_get("fsa_report_problem_text_${key}");
+    
+    $text[$key]['content'] = !empty($text_content['value']) ? $text_content['value'] : (!empty($text[$key]['default']) ? $text[$key]['default'] : '');
+    $text[$key]['format'] = $text_format;
+    
+    $form['text']["fsa_report_problem_text_${key}_container"]["fsa_report_problem_text_${key}"] = array(
+     '#type' => 'text_format',
+      '#default_value' => $text[$key]['content'],
+      '#format' => $text[$key]['format'],
+    );
+  }
+  
   
   return system_settings_form($form);
 }

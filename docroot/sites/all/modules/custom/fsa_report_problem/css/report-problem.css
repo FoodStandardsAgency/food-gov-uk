@@ -2,6 +2,10 @@
   margin-bottom: 4em; }
   .fsa-report-problem-form p {
     font-size: 1.4em; }
+    .fsa-report-problem-form p.service-status-message {
+      background-color: #cc0000;
+      padding: 5px 8px;
+      color: #fff; }
   .fsa-report-problem-form .form-intro {
     color: #006f51; }
     .fsa-report-problem-form .form-intro p {

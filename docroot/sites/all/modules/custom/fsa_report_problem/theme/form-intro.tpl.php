@@ -6,6 +6,6 @@
 ?>
 <div <?php print $attributes; ?>>
   <?php foreach ($text as $t): ?>
-    <p><?php print render($t); ?></p>
+    <?php print render($t); ?>
   <?php endforeach; ?>
 </div>
