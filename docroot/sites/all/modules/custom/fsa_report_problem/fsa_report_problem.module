@@ -29,6 +29,10 @@ define('FSA_REPORT_PROBLEM_STATUS_OFFLINE', 3);
  */
 define('FSA_REPORT_PROBLEM_STATUS', variable_get('fsa_report_problem_service_status', FSA_REPORT_PROBLEM_STATUS_PRODUCTION));
 
+/**
+ * Group name for this module's variables
+ */
+define('FSA_REPORT_PROBLEM_VARIABLE_GROUP_NAME', 'fsa_report_problem');
 
 /**
  * Implements hook_permission().
@@ -951,14 +955,17 @@ function _fsa_report_problem_text($key = NULL, $data = array()) {
   
   $text = array(
     'find_business_intro' => array(
-      'description' => t('Intro text for the business search form'),
+      'title' => t('Business search form intro'),
+      'description' => t('This is the text that appears at the top of the business lookup form.'),
       'default' => t('Hello, this is the first stage. This is a test.'),
     ),
     'make_report_intro' => array(
+      'title' => t('Report page intro'),
       'description' => t('Intro text for the main report page'),
       'default' => t('Please complete the form below, including as much detail as possible about the food problem you have seen. You may leave out your name and address if you wish to remain anonymous. When you submit your report, it will be sent to Tendring District Council, who will investigate the problem.'),
     ),
     'report_complete' => array(
+      'title' => t('Report complete text'),
       'description' => t('Report complete text'),
       'default' => t('Thank you for your report'),
     ),
@@ -1047,4 +1054,16 @@ function fsa_report_problem_tokens($type, $tokens, array $data = array(), array 
     }
   }
   return $replacements;
+}
+
+
+
+
+function _fsa_report_problem_service_statuses() {
+  return array(
+    FSA_REPORT_PROBLEM_STATUS_ALPHA => _fsa_report_problem_status_description(FSA_REPORT_PROBLEM_STATUS_ALPHA),
+    FSA_REPORT_PROBLEM_STATUS_BETA => _fsa_report_problem_status_description(FSA_REPORT_PROBLEM_STATUS_BETA),
+    FSA_REPORT_PROBLEM_STATUS_PRODUCTION => _fsa_report_problem_status_description(FSA_REPORT_PROBLEM_STATUS_PRODUCTION),
+    FSA_REPORT_PROBLEM_STATUS_OFFLINE => _fsa_report_problem_status_description(FSA_REPORT_PROBLEM_STATUS_OFFLINE),
+  );
 }
