@@ -570,10 +570,12 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
 
 function fsa_report_problem_report_complete_form($form, &$form_state) {
   
+  /*
   $form['thank_you'] = array(
     '#type' => 'form_intro',
     '#text' => t('Thank you for your report. With your help we can make food safer.'),
   );
+  */
   
   $params = drupal_get_query_parameters();
   
@@ -590,13 +592,15 @@ function fsa_report_problem_report_complete_form($form, &$form_state) {
   );
   
   $local_authority_email = !empty($report->local_authority_email) ? $report->local_authority_email : '';
-
+  
+  /*
   $form['report_details'] = array(
     '#prefix' => '<p>',
     '#markup' => t('The problem you have reported with @business_name will be forwarded to @local_authority_name.', array('@business_name' => $report->business_name, '@local_authority_name' => $report->local_authority_name)),
     '#suffix' => '</p>',
   );
-  
+  */
+    
   if (!empty($local_authority_email)) {
     $form['report_contact'] = array(
       '#type' => 'html_tag',
