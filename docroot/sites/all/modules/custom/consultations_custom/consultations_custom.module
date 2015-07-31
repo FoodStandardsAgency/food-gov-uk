@@ -35,27 +35,31 @@ function consultations_custom_search_form($form_state) {
 
   $nation_options = consultations_custom_top_level_terms('nation');
 
-  // Get the start year for the consutation date search range.
-  // We do this by querying the consultation dates table joined with the node
-  // table so that we can find only published consultations. We sort the results
-  // by the start year (which is the one used in the Solr search) and we take
-  // the first result.
+  // Get the consultation start date options for the dropdown.
+  // We do this by querying the database to find all published consultation
+  // nodes whose assigned language is not Welsh, and then we make
+  // the query distinct so that it returns just the years for which there are
+  // matching consultations. This is better than using a range starting with the
+  // earliest year for which we have consultations as it will not return years
+  // in the middle of the range for which there are no consultations.
   $query = db_select('node', 'n');
-  $query->leftJoin('field_data_field_consultation_dates', 'd', 'n.nid = d.entity_id');
-  $query->addExpression("DATE_FORMAT(d.field_consultation_dates_value, '%Y')", 'CD');
+  $query->leftJoin('field_data_field_consultation_dates', 'd', 'n.nid = d.entity_id'); // Join with the consultation date table
+  $query->addExpression("DATE_FORMAT(d.field_consultation_dates_value, '%Y')", 'CD');  // Get the consultation date in the right format, eg 2014
   $query->condition('n.status', 1); // We want only published consultations
+  $query->condition('n.language', 'cy', '!='); // Exclude Welsh-language consultations.
   $query->isNotNull('d.field_consultation_dates_value'); // Exclude NULL dates
   $query->orderBy('d.field_consultation_dates_value'); // Earliest date first
-  $query->range(0, 1); // Return only one result
+  $query->distinct(); // Make the query distinct
+  // Execute the query and get the first (and only) column as an array. This
+  // will give us an array of the years for which consultations exist.
   $results = $query->execute()->fetchCol(0);
-  $start_year = !empty($results) ? $results[0] : 2012;
-  $year_options = array_combine(range($start_year, date("Y")), range($start_year, date("Y")));
+  // Create the array for the select box of year options based on $results.
+  $year_options = array_combine($results, $results);
 
   $status_options = array(
 	'Closed' => t('Closed'),
 	'Open' => t('Open'),
   );
-
 
   $form['nation'] = array(
     '#type'          => 'select',
