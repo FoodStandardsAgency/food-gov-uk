@@ -482,6 +482,7 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
       // Get the businesses
       $business = $form_state['businesses'][$form_state['triggering_element']['#attributes']['data-business-id']];
       $local_authority = fsa_report_problem_get_local_authority($business['geometry']['location']['lng'], $business['geometry']['location']['lat']);
+      dpm($local_authority);
       $form_state['selected_business'] = $business;
       $form_state['local_authority'] = $local_authority;
       break;
@@ -592,21 +593,13 @@ function fsa_report_problem_report_complete_form($form, &$form_state) {
   );
   
   $local_authority_email = !empty($report->local_authority_email) ? $report->local_authority_email : '';
-  
-  /*
-  $form['report_details'] = array(
-    '#prefix' => '<p>',
-    '#markup' => t('The problem you have reported with @business_name will be forwarded to @local_authority_name.', array('@business_name' => $report->business_name, '@local_authority_name' => $report->local_authority_name)),
-    '#suffix' => '</p>',
-  );
-  */
     
   if (!empty($local_authority_email)) {
     $form['report_contact'] = array(
-      '#type' => 'html_tag',
-      '#tag' => 'p',
-      '#value' => t('If you need to contact @local_authority_name about your report, you can do so at <a href="mailto:@local_authority_email">@local_authority_email</a>.', array('@local_authority_name' => $report->local_authority_name, '@local_authority_email' => $local_authority_email)),
+      '#type' => 'form_intro',
+      '#text' => _fsa_report_problem_text('contact_local_authority', array('report' => $report)),
     );
+
   }
   
   if (!empty($report->reporter_email)) {

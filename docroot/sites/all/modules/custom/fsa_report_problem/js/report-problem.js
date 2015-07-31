@@ -50,10 +50,13 @@
     fillInAddress: function(autocomplete) {
       // Get the place details from the autocomplete object.
       this.place = autocomplete.getPlace();
+      console.log(this.place);
       $('#edit-business-name').attr('value', this.place.name);
       $('#edit-business-location').attr('value', this.place.formatted_address);
-      document.getElementById('lat').value = this.place.geometry.location.A;
-      document.getElementById('lng').value = this.place.geometry.location.F;
+      //document.getElementById('lat').value = this.place.geometry.location.A;
+      //document.getElementById('lng').value = this.place.geometry.location.F;
+      document.getElementById('lat').value = this.place.geometry.location.G;
+      document.getElementById('lng').value = this.place.geometry.location.K;
     },
     
     // Use geolocation data to assist the autocomplete places lookup

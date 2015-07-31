@@ -390,25 +390,117 @@ function fsa_food_report_admin_form($form, &$form_state) {
   $text = _fsa_report_problem_text();
   
   foreach ($text as $key => $item) {
-    $form['text']["fsa_report_problem_text_${key}_container"] = array(
-      '#type' => 'fieldset',
-      '#title' => $item['title'],
-      '#description' => $item['description'],
-    );
     
-    $text_format = !empty($text[$key]['format']) ? $text[$key]['format'] : 'full_html';
-    $text_content = variable_get("fsa_report_problem_text_${key}");
+    $item['type'] = !empty($item['type']) ? $item['type'] : array('page');
     
-    $text[$key]['content'] = !empty($text_content['value']) ? $text_content['value'] : (!empty($text[$key]['default']) ? $text[$key]['default'] : '');
-    $text[$key]['format'] = $text_format;
+    if (in_array('page', $item['type'])) {
     
-    $form['text']["fsa_report_problem_text_${key}_container"]["fsa_report_problem_text_${key}"] = array(
-     '#type' => 'text_format',
-      '#default_value' => $text[$key]['content'],
-      '#format' => $text[$key]['format'],
-    );
+      $form['text']["fsa_report_problem_text_${key}_container"] = array(
+        '#type' => 'fieldset',
+        '#title' => $item['title'],
+        '#description' => $item['description'],
+      );
+
+      $text_format = !empty($text[$key]['format']) ? $text[$key]['format'] : 'full_html';
+      $text_content = variable_get("fsa_report_problem_text_${key}");
+
+      $text[$key]['content'] = !empty($text_content['value']) ? $text_content['value'] : (!empty($text[$key]['default']) ? $text[$key]['default'] : '');
+      $text[$key]['format'] = $text_format;
+      $text[$key]['field_type'] = !empty($text[$key]['field_type']) ? $text[$key]['field_type'] : 'text_format';
+
+      $form['text']["fsa_report_problem_text_${key}_container"]["fsa_report_problem_text_${key}"] = array(
+        '#type' => $text[$key]['field_type'],
+        '#default_value' => $text[$key]['content'],
+        '#format' => $text[$key]['format'],
+      );
+
+      $form['text']["fsa_report_problem_text_${key}_container"]["fsa_report_problem_text_${key}_tokens"] = array(
+        '#theme' => 'token_tree_link',
+        '#token_types' => array('local_authority', 'food_report'),
+        '#global_types' => FALSE,
+        '#click_insert' => FALSE,
+        '#text' => t('Available tokens'),
+      );
+    }
+    
   }
   
+    $form['email_text_title'] = array(
+    '#type' => 'item',
+    '#title' => t('Emails'),
+  ); 
+  
+  
+  $form['email_text'] = array(
+    '#type' => 'vertical_tabs',
+    '#title' => t('Emails'),
+  );
+  
+  $emails = _fsa_report_problem_email();
+  
+  foreach ($emails as $key => $item) {
+    
+    $form['email_text']["fsa_report_problem_email_${key}_container"] = array(
+      '#type' => 'fieldset',
+      '#title' => $item['title'],
+      '#description' => !empty($item['description']) ? $item['description'] : '',
+    );
+    
+    $item['subject'] = variable_get("fsa_report_problem_email_${key}_subject", $emails[$key]['subject']);
+    
+    if (!empty($item['subject'])) {
+      $form['email_text']["fsa_report_problem_email_${key}_container"]["fsa_report_problem_email_${key}_subject"] = array(
+        '#type' => 'textfield',
+        '#default_value' => $item['subject'],
+        '#title' => t('Subject'),
+      );
+    }
+    
+    
+    $item['recipient'] = variable_get("fsa_report_problem_email_${key}_recipient", $emails[$key]['recipient']);
+    
+    if (!empty($item['recipient'])) {
+      $form['email_text']["fsa_report_problem_email_${key}_container"]["fsa_report_problem_email_${key}_recipient"] = array(
+        '#type' => 'textfield',
+        '#default_value' => $item['recipient'],
+        '#title' => t('Recipient email address'),
+      );      
+    }
+    
+    $item['default_recipient'] = variable_get("fsa_report_problem_email_${key}_default_recipient", $emails[$key]['default_recipient']);
+    
+    if (!empty($item['default_recipient'])) {
+      $form['email_text']["fsa_report_problem_email_${key}_container"]["fsa_report_problem_email_${key}_default_recipient"] = array(
+        '#type' => 'textfield',
+        '#default_value' => $item['default_recipient'],
+        '#title' => t('Default recipient email address'),
+        '#description' => t('This email address is used as a fallback if the dynamic email recipient is not present.'),
+      );      
+    }
+    
+    $item['sender_email'] = variable_get("fsa_report_problem_email_${key}_sender_email", $emails[$key]['sender_email']);
+
+    if (!empty($item['sender_email'])) {
+      $form['email_text']["fsa_report_problem_email_${key}_container"]["fsa_report_problem_email_${key}_sender_email"] = array(
+        '#type' => 'textfield',
+        '#default_value' => $item['sender_email'],
+        '#title' => t('Sender email address'),
+      );      
+    }
+    
+    $item['message'] = variable_get("fsa_report_problem_email_${key}_message", $emails[$key]['message']);
+
+    if (!empty($item['message'])) {
+      $form['email_text']["fsa_report_problem_email_${key}_container"]["fsa_report_problem_email_${key}_message"] = array(
+        '#type' => 'textarea',
+        '#default_value' => $item['message'],
+        '#title' => t('Message'),
+        '#rows' => 20,
+      );      
+    }
+    
+    
+  }
   
   return system_settings_form($form);
 }
