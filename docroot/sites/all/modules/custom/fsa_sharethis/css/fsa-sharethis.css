@@ -8,5 +8,22 @@
   border: none;
   display: block;
   float: left;
+  line-height: 1;
+  margin: 3px;
   padding: 0;
+}
+
+.sharethis-wrapper button:active,
+.sharethis-wrapper button:focus {
+  border: 2px solid green;
+  border-radius: 6px;
+  margin: 1px;
+  outline: none;
+}
+
+.sharethis-wrapper button .stButton,
+.sharethis-wrapper button .stLarge {
+  display: block !important;
+  line-height: 1;
+  margin: 0 !important;
 }
