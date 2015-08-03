@@ -15,7 +15,7 @@
 
 .sharethis-wrapper button:active,
 .sharethis-wrapper button:focus {
-  border: 2px solid green;
+  border: 2px solid #d34d1a;
   border-radius: 6px;
   margin: 1px;
   outline: none;
