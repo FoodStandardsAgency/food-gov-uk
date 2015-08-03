@@ -1,0 +1,28 @@
+.embed-wrapper {
+  padding: 2% 0; }
+  .embed-wrapper .youtube-embed {
+    height: 0;
+    padding-bottom: 56.25%;
+    /* 16:9 */
+    padding-top: 25px;
+    position: relative; }
+    .embed-wrapper .youtube-embed iframe {
+      border: 0;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%; }
+
+.youtube-embed-multiple h3 {
+  font-size: 14px;
+  margin-top: 15px;
+  margin-bottom: 7px; }
+@media screen and (min-width: 480px) {
+  .youtube-embed-multiple .embed-wrapper {
+    float: left;
+    width: 49%; }
+    .youtube-embed-multiple .embed-wrapper:nth-child(even) {
+      float: right; } }
+
+/*# sourceMappingURL=fsa-media-embed.css.map */

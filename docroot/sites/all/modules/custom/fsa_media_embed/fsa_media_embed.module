@@ -1,0 +1,98 @@
+<?php
+/**
+ * @file
+ * Module code for the FSA media embed module.
+ */
+
+/**
+ * Implements hook_token_info().
+ */
+function fsa_media_embed_token_info() {
+  $type = array(
+    'name' => t('YouTube video embeds'),
+    'description' => t('Allows YouTube videos to be embedded via tokens.'),
+  );
+  $youtube['id'] = array(
+    'name' => t('Video ID'),
+    'description' => t('The ID of the video on YouTube'),
+  );
+  return array(
+    'types' => array('youtube' => $type),
+    'tokens' => array('youtube' => $youtube),
+  );
+}
+
+
+/**
+ * Implements hook_tokens().
+ */
+function fsa_media_embed_tokens($type, $tokens, array $data = array(), array $options = array()) {
+
+  $replacements = array();
+
+  if ($type == 'youtube') {
+    foreach ($tokens as $name => $original) {
+      $video = array(
+        '#theme' => 'youtube_embed',
+        '#youtube_id' => filter_xss($name),
+      );
+      $replacements[$original] = drupal_render($video);
+    }
+  }
+  return $replacements;
+}
+
+/**
+ * Implements hook_theme().
+ * @return array
+ *   Theme hooks defined by this module.
+ */
+function fsa_media_embed_theme() {
+  return array(
+    'youtube_embed' => array(
+      'template' => 'theme/youtube-embed',
+      'variables' => array(
+        'youtube_id' => NULL,
+        'width' => 460,
+        'height' => 259,
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements template_preprocess_html().
+ */
+function fsa_media_embed_preprocess_html(&$variables) {
+  // Don't affect admin paths.
+  if (path_is_admin(current_path())) {
+    return;
+  }
+  // Add our CSS file
+  drupal_add_css(drupal_get_path('module', 'fsa_media_embed') . '/css/fsa-media-embed.css');
+}
+
+/**
+ * Preprocess function for YouTube video embeds.
+ *
+ * @param array $variables
+ *   Template variables, passed by reference. Includes:
+ *   - 'youtube_id' : The ID of the YouTube video to embed
+ *   - 'width' : The width of the embedded video
+ *   - 'height' : The height of the embedded video
+ */
+function template_preprocess_youtube_embed(&$variables) {
+  $variables['iframe_attributes_array']['allowfullscreen'] = 'true';
+  if (!empty($variables['width']) && !empty($variables['height'])) {
+    $variables['iframe_attributes_array']['width'] = $variables['width'];
+    $variables['iframe_attributes_array']['height'] = $variables['height'];
+  }
+}
+
+
+/**
+ * Process function for YouTube video embeds.
+ */
+function template_process_youtube_embed(&$variables) {
+  $variables['iframe_attributes'] = drupal_attributes($variables['iframe_attributes_array']);
+}
