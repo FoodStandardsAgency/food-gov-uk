@@ -19,6 +19,9 @@ function site_frontend_preprocess_file_entity(&$variables) {
 
   // We're only interested in acting on the search_result view mode
   if ($view_mode == 'search_result') {
+ 
+    // Add title attributes
+    $variables['title_attributes_array']['class'][] = 'file__title';
 
     // Create a file icon to add to the heading in search results
     $icon_directory = drupal_get_path('module', 'file') . '/icons';
