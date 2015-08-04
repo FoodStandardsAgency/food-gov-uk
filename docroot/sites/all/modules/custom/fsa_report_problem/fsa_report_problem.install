@@ -112,7 +112,7 @@ function fsa_report_problem_schema() {
       ),
       'created' => array(
         'description' => 'The UNIX timestamp when the problem was reported',
-        'type' => int,
+        'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
       ),
@@ -132,13 +132,13 @@ function fsa_report_problem_schema() {
     'fields' => array(
       'area_id' => array(
         'description' => 'The area ID as returned by MapIt',
-        'type' => int,
+        'type' => 'int',
         'not null' => FALSE,
         'default' => 0,
       ),
       'local_authority_id' => array(
         'description' => 'The local authority ID as returned by the FHRS API',
-        'type' => int,
+        'type' => 'int',
         'not null' => FALSE,
         'default' => 0,
       ),
