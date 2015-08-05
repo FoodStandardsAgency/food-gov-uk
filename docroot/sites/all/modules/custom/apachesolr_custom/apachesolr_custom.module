@@ -338,3 +338,87 @@ function apachesolr_custom_map_values(array $values) {
   }
   return $map;
 }
+
+
+/**
+ * Implements hook_module_implements_alter().
+ *
+ * We use this to put this module's implementation of
+ * `hook_apachesolr_entity_info_alter()` after all the others so that the
+ * apachesolr_file module has a chance to add its entity information.
+ *
+ * @param array $implementations
+ * @param string $hook
+ */
+function apachesolr_custom_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'apachesolr_entity_info_alter') {
+    $group = $implementations['apachesolr_custom'];
+    unset($implementations['apachesolr_custom']);
+    $implementations['apachesolr_custom'] = $group;
+  }
+}
+
+
+
+/**
+ * Implements hook_apachesolr_entity_info_alter().
+ *
+ * @param array $entity_info
+ *   Entity information array.
+ */
+function apachesolr_custom_apachesolr_entity_info_alter(&$entity_info) {
+  // If we have a file entry, change its callback to our custom callback.
+  if (!empty($entity_info['file'])) {
+    $entity_info['file']['reindex callback'] = 'apachesolr_custom_solr_reindex';
+  }
+}
+
+
+/**
+ * Reindexes file entities.
+ *
+ * This replaces the standard reindex function supplied by the apachesolr_file
+ * module. It differs only in that it indexes files only if they have the
+ * show in search results field ticked.
+ *
+ * @return boolean
+ */
+function apachesolr_custom_solr_reindex() {
+  $indexer_table = apachesolr_get_indexer_table('file');
+  $transaction = db_transaction();
+  $env_id = apachesolr_default_environment();
+  try {
+    db_delete($indexer_table)
+      ->condition('entity_type', 'file')
+      ->execute();
+
+    if (apachesolr_get_index_bundles($env_id, 'file')) {
+      $select = db_select('file_managed', 'f');
+      $select->addExpression("'file'", 'entity_type');
+      $select->addField('f', 'fid', 'entity_id');
+      $select->addField('f', 'type', 'bundle');
+      $select->addField('f', 'status', 'status');
+      $select->addExpression(REQUEST_TIME, 'changed');
+      $select->condition('f.type', apachesolr_get_index_bundles($env_id, 'file'), 'IN');
+      // If the 'show in search results field table exists, use it to determine
+      // which files to add to the Solr index.
+      if (db_table_exists('field_data_field_show_in_search_results')) {
+        $select->leftJoin('field_data_field_show_in_search_results', 's', 's.entity_id = f.fid'); // Left join with the show in search results field table
+        $select->condition('s.field_show_in_search_results_value', 1); // Reindex only if the show in search results field is set to 1
+      }
+
+      $insert = db_insert($indexer_table)
+        ->fields(array('entity_id', 'bundle', 'status', 'entity_type', 'changed'))
+        ->from($select)
+        ->execute();
+    }
+  }
+  catch (Exception $e) {
+    $transaction->rollback();
+    drupal_set_message($e->getMessage(), 'error');
+    watchdog_exception('Apache Solr', $e);
+    return FALSE;
+  }
+
+  return TRUE;
+}
