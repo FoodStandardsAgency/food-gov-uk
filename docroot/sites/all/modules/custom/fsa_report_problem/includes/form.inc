@@ -343,11 +343,10 @@ function fsa_report_problem_results_form($form, &$form_state) {
 }
 
 function fsa_report_problem_make_report_form($form, &$form_state) {
-  //$form_state['redirect'] = 'node/1';
-  //$form_state['rebuild'] = FALSE;
-  $business = $form_state['selected_business'];
-  //dpm($form_state);
-  
+
+  if (!empty($form_state['selected_business'])) {
+    $business = $form_state['selected_business'];
+  }
   
   $form['intro'] = array(
     '#type' => 'form_intro',
