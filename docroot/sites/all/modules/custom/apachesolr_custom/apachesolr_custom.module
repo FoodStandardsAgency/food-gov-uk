@@ -370,6 +370,7 @@ function apachesolr_custom_apachesolr_entity_info_alter(&$entity_info) {
   // If we have a file entry, change its callback to our custom callback.
   if (!empty($entity_info['file'])) {
     $entity_info['file']['reindex callback'] = 'apachesolr_custom_solr_reindex';
+    $entity_info['file']['status callback'][] = '_apache_solr_custom_apachesolr_file_status_callback';
   }
 }
 
@@ -421,4 +422,30 @@ function apachesolr_custom_solr_reindex() {
   }
 
   return TRUE;
+}
+
+/**
+ * Determines whether to index a file entity based on the search checkbox.
+ *
+ * @param int $entity_id
+ *   The ID of the entity
+ * @param string $entity_type
+ *   The entity type
+ * @return boolean
+ */
+function _apache_solr_custom_apachesolr_file_status_callback($entity_id, $entity_type) {
+  // Does the file exist? If not return FALSE.
+  if (!$file = file_load($entity_id)) {
+    return FALSE;
+  }
+  // Create an entity_metadata_wrapper to get field values.
+  $entity = entity_metadata_wrapper('file', $file);
+  // If field_show_in_search_results is not set, return FALSE.
+  if (empty($entity->field_show_in_search_results)) {
+    return FALSE;
+  }
+  // Return the value of field_show_in_search_results.
+  else {
+    return (boolean) $entity->field_show_in_search_results->value();
+  }
 }
