@@ -1,0 +1,1246 @@
+<?php
+/**
+ * @file
+ * Module file for the FSA Report a problem module.
+ */
+
+/**
+ * Alpha status
+ */
+define('FSA_REPORT_PROBLEM_STATUS_ALPHA', 1);
+
+/**
+ * Beta status
+ */
+define('FSA_REPORT_PROBLEM_STATUS_BETA', 2);
+
+/**
+ * Production status
+ */
+define('FSA_REPORT_PROBLEM_STATUS_PRODUCTION', 0);
+
+/**
+ * Offline status
+ */
+define('FSA_REPORT_PROBLEM_STATUS_OFFLINE', 3);
+
+/**
+ * Status
+ */
+define('FSA_REPORT_PROBLEM_STATUS', variable_get('fsa_report_problem_service_status', FSA_REPORT_PROBLEM_STATUS_PRODUCTION));
+
+/**
+ * Group name for this module's variables
+ */
+define('FSA_REPORT_PROBLEM_VARIABLE_GROUP_NAME', 'fsa_report_problem');
+
+/**
+ * Implements hook_permission().
+ */
+function fsa_report_problem_permission() {
+
+  $permissions = array();
+
+  $permissions['view food problem reports'] = array(
+    'title' => t('View food problem reports'),
+    'description' => t('View reports of problems with food premises'),
+  );
+
+  $permissions['administer food problem reporting'] = array(
+    'title' => t('Administer food problem reporting'),
+    'description' => t('Perform administration functions relating to the food problem reporting system'),
+  );
+
+  return $permissions;
+
+}
+
+/**
+ * Implements hook_menu().
+ */
+function fsa_report_problem_menu() {
+  $items = array();
+
+  $items['admin/reports/food-problems'] = array(
+    'title' => t('Food problem reports'),
+    'description' => t('View reports of problems with food premises'),
+    'access arguments' => array('view food problem reports'),
+    //'page callback' => 'fsa_report_problem_view_reports',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_report_problem_view_reports'),
+    'file' => 'fsa_report_problem.admin.inc',
+  );
+
+  $items['admin/reports/food-problems/%'] = array(
+    'title' => t('Food problem report'),
+    'page callback' => 'problem_report_view',
+    'page arguments' => array(3),
+    'access arguments' => array('view food problem reports'),
+    'file' => 'fsa_report_problem.admin.inc',
+  );
+
+  $items['admin/config/foodproblems'] = array(
+    'title' => t('Food problem reporting'),
+    'page callback' => 'drupal_get_form',
+    'access arguments' => array('administer food problem reporting'),
+    'page arguments' => array('fsa_food_report_admin_form'),
+    'file' => 'fsa_report_problem.admin.inc',
+  );
+
+  $items['admin/config/foodproblems/config'] = array(
+    'title' => t('Configuration'),
+    'page callback' => 'drupal_get_form',
+    'access arguments' => array('administer food problem reporting'),
+    'page arguments' => array('fsa_food_report_admin_form'),
+    'file' => 'fsa_report_problem.admin.inc',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => 0,
+  );
+
+  $items['admin/config/foodproblems/text'] = array(
+    'title' => t('Text'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_food_report_text_form'),
+    'access arguments' => array('administer food problem reporting'),
+    'file' => 'fsa_report_problem.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 10,
+  );
+
+  $items['admin/config/foodproblems/emails'] = array(
+    'title' => t('Emails'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_food_report_email_form'),
+    'access arguments' => array('administer food problem reporting'),
+    'file' => 'fsa_report_problem.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 20,
+  );
+
+  $items['admin/config/foodproblems/authorities'] = array(
+    'title' => t('Local authority data'),
+    'page callback' => 'fsa_report_problem_local_authorities',
+    'access arguments' => array('administer food problem reporting'),
+    'file' => 'fsa_report_problem.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 30,
+  );
+
+  $items['admin/config/foodproblems/authorities/import'] = array(
+    'title' => t('Import local authority data'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_report_problem_authorities_import_form'),
+    'access arguments' => array('administer food problem reporting'),
+    'file' => 'fsa_report_problem.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+
+  return $items;
+}
+
+
+/**
+ * Implements hook_block_info().
+ */
+function fsa_report_problem_block_info() {
+  $blocks = array();
+
+  $blocks['search_form'] = array(
+    'info' => t('Search for an establishment form'),
+    //'cache' => DRUPAL_CACHE_GLOBAL,
+    'cache' => DRUPAL_NO_CACHE,
+  );
+
+  $blocks['search_results'] = array(
+    'info' => t('Search for an establishment - results'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+
+  $blocks['report_form'] = array(
+    'info' => t('Report an establishment'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+
+  return $blocks;
+
+}
+
+
+/**
+ * Implements hook_block_view().
+ */
+function fsa_report_problem_block_view($delta = '') {
+
+  // Array to hold the block.
+  $block = array();
+
+  switch($delta) {
+
+    // Search for an establishment form
+    case 'search_form':
+      if (FSA_REPORT_PROBLEM_STATUS != FSA_REPORT_PROBLEM_STATUS_PRODUCTION) {
+        drupal_set_title(drupal_get_title() . ' (' . _fsa_report_problem_status_description(FSA_REPORT_PROBLEM_STATUS) . ')');
+      }
+      if (FSA_REPORT_PROBLEM_STATUS == FSA_REPORT_PROBLEM_STATUS_OFFLINE) {
+        $block['content'] = array(
+          '#type' => 'html_tag',
+          '#tag' => 'p',
+          '#value' => variable_get('fsa_report_problem_service_status_message', _fsa_report_problem_status_message(FSA_REPORT_PROBLEM_STATUS_OFFLINE)),
+        );
+        break;
+      }
+      module_load_include('inc', 'fsa_report_problem', 'includes/form');
+      //$block['subject'] = '';
+      //$block['content'] = fsa_report_problem_show_establishment_search_form();
+      $block['content'] = drupal_get_form('fsa_report_problem_form');
+      break;
+
+    // Search results
+    case 'search_results':
+      $block['subject'] = '';
+      $block['content'] = fsa_report_problem_get_results();
+      break;
+
+    // Report a problem form
+    case 'report_form':
+      module_load_include('inc', 'fsa_report_problem', 'includes/form');
+      $block['subject'] = '';
+      $block['content'] = fsa_report_problem_show_report_form();
+      break;
+  }
+
+  return $block;
+}
+
+
+/**
+ * Returns the results of a search for premises.
+ */
+function fsa_report_problem_get_results($name, $address) {
+  //$params = _fsa_report_problem_get_params();
+
+  //$name = !empty($params['business_name']) ? $params['business_name'] : '';
+  //$address = !empty($params['business_location']) ? $params['business_location'] : '';
+
+  if (empty($name) || empty($address)) {
+    return '';
+  }
+
+  $endpoint = 'Establishments';
+  $args = array();
+  $params = array(
+    'name' => $name,
+    'address' => $address,
+  );
+
+  $request = fhrs_api_make_request($endpoint, $args, $params);
+
+  if (!empty($request)) {
+    $data = drupal_json_decode($request);
+    return $data;
+
+    // Get results meta data
+    $meta = !empty($data['meta']) ? $data['meta'] : array();
+    $total_count = !empty($meta['totalCount']) ? $meta['totalCount'] : 0;
+
+    if ($total_count === 0) {
+      return array(
+        '#prefix' => '<p>',
+        '#markup' => t('Sorry, we couldn\'t find any matching establishments.'),
+        '#suffix' => '</p>',
+      );
+    }
+
+    if (!empty($data['meta']['totalCount'])) {
+      $establishments[] = array(
+        '#markup' => format_plural($data['meta']['totalCount'], 'Your search for "%name" in "%address" brought up 1 result.', 'Your search for "%name" in "%address" brought up @count results.', array('%name' => $name, '%address' => $address)),
+      );
+    }
+    if (!empty($data['establishments'])) {
+      foreach ($data['establishments'] as $establishment) {
+        $tester = array(
+          '#type' => 'food_establishment',
+          'establishment_details' => $establishment,
+        );
+        $establishments[] = $tester;
+      }
+    }
+  }
+
+  return $establishments;
+}
+
+
+
+/**
+ * Get the parameters supplied - either in query string or POST
+ */
+function _fsa_report_problem_get_params() {
+  $params = $_SERVER['REQUEST_METHOD'] == 'POST' ? $_POST : $_GET;
+  return array_merge($_GET, $_POST);
+  return $params;
+}
+
+
+
+/**
+ * Implements hook_element_info().
+ */
+function fsa_report_problem_element_info() {
+  $types['food_establishment'] = array(
+    '#theme' => 'food_establishment',
+    '#pre_render' => array('fsa_report_problem_pre_render_food_establishment'),
+  );
+  $types['form_intro'] = array(
+    '#input' => FALSE,
+    '#theme' => 'form_intro',
+  );
+  return $types;
+}
+
+
+
+/**
+ * Implements hook_theme().
+ */
+function fsa_report_problem_theme($existing, $type, $theme, $path) {
+  return array(
+    'food_establishment' => array(
+      'render element' => 'elements',
+      'template' => 'theme/food-establishment',
+    ),
+    'problem_report' => array(
+      'template' => 'theme/problem-report',
+      //'preprocess functions' => array('_fsa_report_problem_preprocess_problem_report'),
+      'variables' => array(
+        'report' => NULL,
+      ),
+    ),
+    'problem_report_email' => array(
+      'template' => 'theme/problem-report-email',
+      //'preprocess functions' => array('_fsa_report_problem_preprocess_problem_report'),
+      'variables' => array(
+        'report' => NULL,
+      ),
+    ),
+    'report_acknowledgement_email' => array(
+      'template' => 'theme/report-acknowledgement-email',
+      //'preprocess functions' => array('_fsa_report_problem_preprocess_problem_report'),
+      'variables' => array(
+        'report' => NULL,
+      ),
+    ),
+    'form_intro' => array(
+      'template' => 'theme/form-intro',
+      'render element' => 'element',
+    ),
+  );
+}
+
+
+/**
+ * Implements hook_theme_registry_alter().
+ *
+ * We use this hook to add the generic preprocess function to every relevant
+ * hook.
+ */
+function fsa_report_problem_theme_registry_alter(&$theme_registry) {
+  // List of relevant theme hooks.
+  $hooks = array(
+    'problem_report',
+    'problem_report_email',
+    'report_acknowledgement_email',
+  );
+  // Add the generic preprocess function to the start of the array for each of
+  // the relevant hooks.
+  foreach ($hooks as $hook) {
+    if (!empty($theme_registry[$hook])) {
+      array_unshift($theme_registry[$hook]['preprocess functions'], '_fsa_report_problem_preprocess_problem_report');
+    }
+  }
+}
+
+
+
+/**
+ * Preprocess function for food establishment elements
+ * @param array $variables
+ *   Template variables - passed by reference
+ *
+ * @see food-establishment.tpl.php
+ */
+function template_preprocess_food_establishment(&$variables) {
+  //dpm($variables);
+
+//  $establishment = $variables['elements'];
+//  $variables['name'] = $establishment['name'];
+//  $variables['address_array'] = $establishment['address'];
+//  $variables['postcode'] = $establishment['postcode'];
+//  $variables['local_authority_name'] = $establishment['local_authority_name'];
+//  $variables['report_link'] = array(
+//    '#theme' => 'link',
+//    '#text' => t('Report this business'),
+//    '#path' => request_path(),
+//    '#options' => array(
+//      'attributes' => array(),
+//      'html' => FALSE,
+//      'query' => array(
+//        'fhrsid' => $establishment['FHRSID'],
+//      ),
+//    ),
+//  );
+
+  $establishment = $variables['elements'];
+
+
+  //dpm($establishment);
+
+  $variables['id'] = $establishment['#establishment_details']['test_id'];
+  $variables['name'] = $establishment['name'];
+  $variables['address'] = $establishment['address'];
+  $variables['classes_array'][] = 'food-establishment-' . $establishment['id'];
+
+//  $variables['submit_button'] = array(
+//    '#type' => 'submit',
+//    '#value' => $variables['name'],
+//    '#value' => t('Report this business'),
+//    '#name' => 'op' . $variables['id'],
+//    '#submit' => array('fsa_report_problem_form_submit'),
+//    '#attributes' => array(
+//      'data-business-id' => $variables['id'],
+//      'id' => 'edit-' . $variables['id'],
+//    ),
+//  );
+
+}
+
+/**
+ * Process function for food establishment elements
+ */
+function template_process_food_establishment(&$variables) {
+  // Make the address into a string for rendering.
+  //$variables['address'] = !empty($variables['address_array']) ? implode(', ', $variables['address_array']) : '';
+}
+
+
+/**
+ * Pre-render function for food establishments.
+ */
+function fsa_report_problem_pre_render_food_establishment($element) {
+  //dpm($establishment);
+
+  //dpm($element);
+
+
+//  // Get the establishment details
+//  $establishment_details = !empty($element['establishment_details']) ? $element['establishment_details'] : array();
+//
+//  // Get the establishment name
+//  $element['name'] = !empty($establishment_details['BusinessName']) ? $establishment_details['BusinessName'] : '';
+//
+//  // Get the FHRSID
+//  $element['FHRSID'] = !empty($establishment_details['FHRSID']) ? $establishment_details['FHRSID'] : '';
+//
+//  // Get the address
+//  $element['address'] = array();
+//  for ($i = 0; $i < 5; $i++) {
+//    if (!empty($establishment_details["AddressLine$i"])) {
+//      $address[] = $establishment_details["AddressLine$i"];
+//    }
+//  }
+//
+//  $element['postcode'] = !empty($establishment_details['PostCode']) ? $establishment_details['PostCode'] : '';
+//
+//  $element['address'] = $address;
+//
+//  $element['local_authority_name'] = !empty($establishment_details['LocalAuthorityName']) ? $establishment_details['LocalAuthorityName'] : '';
+//  //$element['postcode'] = $postcode;
+//
+//  //dpm($element);
+
+
+  $establishment_details = !empty($element['#establishment_details']) ? $element['#establishment_details'] : array();
+  $element['id'] = $establishment_details['id'];
+  $element['name'] = $establishment_details['name'];
+  $element['address'] = $establishment_details['formatted_address'];
+  $element['lat'] = !empty($establishment_details['geometry']['location']['lat']) ? $establishment_details['geometry']['location']['lat'] : 0;
+  $element['lng'] = !empty($establishment_details['geometry']['location']['lng']) ? $establishment_details['geometry']['location']['lng'] : 0;
+  return $element;
+}
+
+
+
+
+function fsa_report_problem_show_report_form() {
+
+  $params = _fsa_report_problem_get_params();
+  if (empty($params['fhrsid'])) {
+    //dpm('No ID');
+    return '';
+  }
+
+  $establishment = fsa_report_problem_get_establishment_details($params['fhrsid']);
+
+  return drupal_get_form('fsa_report_problem_report_form', $establishment);
+
+
+
+
+}
+
+
+function fsa_report_problem_get_establishment_details($fhrsid = NULL) {
+
+  if (empty($fhrsid)) {
+    return NULL;
+  }
+
+  $endpoint = 'Establishments';
+  $args = array($fhrsid);
+  $params = array();
+
+  $establishment_details = fhrs_api_make_request($endpoint, $args, $params);
+
+  return drupal_json_decode($establishment_details);
+
+
+}
+
+
+
+function fsa_report_problem_show_establishment_search_form() {
+
+  $params = _fsa_report_problem_get_params();
+  if (!empty($params['fhrsid'])) {
+    return '';
+  }
+
+
+
+  return drupal_get_form('fsa_report_problem_establishment_search_form');
+}
+
+
+
+/**
+ * Implements hook_entity_info().
+ */
+function fsa_report_problem_entity_info() {
+
+  // An array to hold the entity information.
+  $info = array();
+
+  $info['problem_report'] = array(
+    'label' => t('Problem report'),
+    'base table' => 'problem_reports',
+    'entity keys' => array(
+      'id' => 'rid',
+    ),
+    'entity class' => 'Entity',
+    'controller class' => 'ProblemReportEntityController',
+    'uri callback' => 'problem_report_uri',
+    'module' => 'fsa_report_problem',
+    'fieldable' => TRUE,
+    'bundles' => array(),
+  );
+
+  return $info;
+}
+
+
+
+/**
+ * Extending the EntityAPIController for the Project entity.
+ */
+class ProblemReportEntityController extends EntityAPIController {
+
+  public function buildContent($entity, $view_mode = 'full', $langcode = NULL, $content = array()) {
+    $build = parent::buildContent($entity, $view_mode, $langcode, $content);
+
+
+    $build['#report'] = $entity;
+    $build['test'] = array(
+      '#markup' => 'hello world',
+    );
+
+    return $build;
+  }
+
+}
+
+
+
+/**
+ * Entity uri callback.
+ */
+function problem_report_uri($report) {
+  return array(
+    'path' => 'admin/reports/food-problems/' . $report->rid,
+  );
+}
+
+
+
+/**
+ * Preprocess function for problem_reports.
+ */
+function template_preprocess_problem_report(&$variables) {
+
+  $report = !empty($variables['report']) ? $variables['report'] : NULL;
+
+
+  $variables['unsent_warning'] = empty($report->email_sent) ? t('Please note, this report has not yet been forwarded to the relevant local authority') : '';
+  if (empty($report->email_sent)) {
+  }
+
+
+
+  $variables['local_authority_email'] = !empty($variables['local_authority_email']) ? l($variables['local_authority_email'], 'mailto:' . $variables['local_authority_email']) : '';
+
+  $variables['local_authority'] = array(
+    '#type' => 'item',
+    '#markup' => $variables['local_authority_name'] . (!empty($variables['local_authority_email']) ? ', ' . $variables['local_authority_email'] : ''),
+    '#title' => t('Local authority'),
+  );
+
+
+  $variables['reporter_name'] = array(
+    '#type' => 'item',
+    '#markup' => $variables['reporter_name'] . (!empty($variables['reporter_email']) ? ', ' . l($variables['reporter_email'], 'mailto:' . $variables['reporter_email']) : ''),
+    '#title' => t('Reported by'),
+  );
+
+  $variables['problem_date'] = array(
+    '#type' => 'item',
+    '#title' => t('Date the problem occurred'),
+    '#markup' => format_date($report->problem_date, 'medium'),
+  );
+
+  $variables['problem_details'] = array(
+    '#type' => 'item',
+    '#title' => t('Problem details'),
+    '#markup' => check_markup($variables['problem_details'], 'full_html'),
+  );
+
+}
+
+
+
+
+
+function fsa_report_problem_get_google_results($name, $location) {
+  $endpoint = 'https://maps.googleapis.com/maps/api/place/textsearch/json';
+  $api_key = 'AIzaSyBKglgVV8ILtw8Y6zPwCA9t9CNi4Ymdm_I';
+  $query = "$name $location";
+  $url = url($endpoint, array('query' => array('key' => $api_key, 'query' => $query)));
+  $places = drupal_http_request($url);
+  if (empty($places->code) || $places->code != '200' || empty($places->data)) {
+    return array();
+  }
+  $results = drupal_json_decode($places->data);
+  if (!empty($results['results'])) {
+    return $results['results'];
+  }
+  else {
+    return array();
+  }
+}
+
+
+function fsa_report_problem_get_local_authority($lng, $lat){
+  $endpoint = 'http://mapit.mysociety.org/point/4236';
+  $url = url("$endpoint/$lng,$lat", array('query' => array('type' => 'DIS,UTA,LBO')));
+  $area_data = drupal_http_request($url);
+  //dpm($area_data);
+  return current(drupal_json_decode($area_data->data));
+}
+
+/**
+ * Returns an email address for a local authority, based on the MapIt area ID
+ *
+ * Local authority email addresses are provided by the FHRS API via its
+ * Authorities endpoint. In order to get the correct ID to query the FHRS API,
+ * we have to map the MapIt area ID to the corresponding FHRS local authority
+ * ID. We do this through the `local_authority_areas` table. If we find no
+ * match, then we return an empty string.
+ *
+ * @param int $id
+ *   The MapIt area ID
+ *
+ * @return string
+ *   If a corresponding local authority is returned by the FHRS API, then we
+ *   return the email address associated with it.
+ *   If no email address is found, or if something else goes wrong, we return
+ *   a zero-length string.
+ *
+ * @see fsa_report_problem_get_fhrs_authorities().
+ */
+function fsa_report_problem_get_local_authority_email_address($id) {
+
+  // If we don't have an ID or it's not a number, return an empty string now.
+  if (empty($id) || !is_numeric($id)) {
+    return '';
+  }
+
+  // Query the local_authority_areas table to find a corresponding ID for use in
+  // the FHRS API. Return the results as an associative array keyed on the ID.
+  $results = db_select('local_authority_areas', 'l')
+    ->fields('l')
+    ->condition('area_id', $id)
+    ->execute()
+    ->fetchAllAssoc('area_id');
+
+  // If we don't have a corresponding FHRS ID, return an empty string.
+  if (empty($results[$id]) || empty($results[$id]->local_authority_id)) {
+    return '';
+  }
+
+  // Query the FHRS API, passing the local authority ID to see if we can get any
+  // results.
+  $local_authority = fsa_report_problem_get_fhrs_authorities($results[$id]->local_authority_id);
+
+  // The returned value should be an object, and its Email property should
+  // contain the local authority's email address. If not, return an empty
+  // string.
+  if (!is_object($local_authority) || empty($local_authority->Email)) {
+    return '';
+  }
+
+  // Return the email address.
+  return $local_authority->Email;
+
+}
+
+
+function fsa_report_problem_get_mapit_areas($types = array()) {
+  $endpoint = 'http://mapit.mysociety.org/areas';
+  $url = "$endpoint/" . implode(',', $types);
+  $areas = drupal_http_request($url);
+  return drupal_json_decode($areas->data);
+}
+
+
+function fsa_report_problem_get_fhrs_authorities($id = NULL) {
+  $endpoint = 'Authorities';
+  $args = !empty($id) ? array($id) : array();
+  $params = array();
+  $request = fhrs_api_make_request($endpoint, $args, $params);
+  if (empty($id)) {
+    return json_decode($request)->authorities;
+  }
+  else {
+    return json_decode($request);
+  }
+}
+
+
+
+/**
+ * Implements hook_mail().
+ *
+ * @param type $key
+ * @param type $message
+ * @param type $params
+ */
+function fsa_report_problem_mail($key, &$message, $params) {
+  //  dpm($message, 'Message');
+  //  dpm($params, 'Params');
+
+  $options = array(
+    'langcode' => $message['language']->language,
+  );
+
+  switch ($key) {
+    case 'problem_report':
+
+      $report = $params['report'];
+
+      $message_details = _fsa_report_problem_email('problem_report');
+      $message_body = !empty($message_details['message']) ? $message_details['message'] : '';
+
+      // If we have no local authority email, set priority to high as someone
+      // will need to forward it on. Many email clients will take no notice of
+      // this, but some may treat these messages differently.
+      if (empty($report->local_authority_email)) {
+        $message['headers']['X-Priority'] = "1 (Highest)";
+      }
+
+      $message['to'] = !empty($report->local_authority_email) ? $report->local_authority_email : $message_details['default_recipient'];
+
+      $message['from'] = !empty($message_details['sender_email']) ? $message_details['sender_email'] : $message['from'];
+      $message['headers']['From'] = $message['from'];
+
+      $message['subject'] = FSA_REPORT_PROBLEM_STATUS > FSA_REPORT_PROBLEM_STATUS_PRODUCTION ? 'TEST :: ' : '';
+      $message['subject'] .= empty($report->local_authority_email) ? t('ACTION REQUIRED: ') : '';
+
+      $message['subject'] .= token_replace($message_details['subject'], array('report' => $params['report']));
+      //$message['subject'] .= t('Food Problem report');
+      //$message['subject'] .= !empty($params['report']->business_name) ? ' - ' . $params['report']->business_name : '';
+      //$message['body'][] = drupal_render($message_body);
+
+      if (FSA_REPORT_PROBLEM_STATUS > FSA_REPORT_PROBLEM_STATUS_PRODUCTION) {
+        $status_message = _fsa_report_problem_text(email_development_notice);
+        if (!empty($status_message['value'])) {
+          $message['body'][] = $status_message['value'];
+        }
+      }
+
+      $message['body'][] = token_replace($message_body, array('report' => $params['report']));
+      break;
+
+    case 'acknowledgement':
+      $report = $params['report'];
+      $message_body = array(
+        '#theme' => 'report_acknowledgement_email',
+        '#report' => $report,
+      );
+      $message['subject'] = t('Thank you for submitting a report');
+      $message['body'][] = drupal_render($message_body);
+      break;
+  }
+}
+
+
+function fsa_report_problem_mail_send($report = NULL) {
+
+  //$message = !empty($entry) && !empty($entry->message) ? $entry->message : '';
+
+
+  //dpm($report->local_authority_email);
+
+  $module = 'fsa_report_problem';
+  $key = 'problem_report';
+
+  $to = !empty($report->local_authority_email) ? $report->local_authority_email : 'farrow.matt@gmail.com';
+  $from = variable_get('site_mail', 'content@food.gov.uk');
+
+  $language = language_default();
+
+  $send = TRUE;
+
+  //$message = 'This is a test message.';
+  $message = $report->business_name;
+
+  $params = array(
+    'message' => $message,
+    'subject' => 'Food problem report - test',
+    'report' => $report,
+  );
+  $result = drupal_mail($module, $key, $to, $language, $params, $from, $send);
+  return $result;
+}
+
+function fsa_report_problem_acknowledgement_send($report = NULL) {
+  $module = 'fsa_report_problem';
+  $key = 'acknowledgement';
+  $to = $report->reporter_email;
+  $from = variable_get('site_mail', 'content@food.gov.uk');
+  $send = TRUE;
+  $params = array(
+    'report' => $report,
+  );
+  $result = drupal_mail($module, $key, $to, $language, $params, $from, $send);
+  return $result;
+}
+
+
+function template_preprocess_problem_report_email(&$variables) {
+
+  // Get the report object
+  $report = !empty($variables['report']) ? $variables['report'] : new stdClass();
+
+  // Set the status message for while the module is under development
+  $variables['status_message'] = FSA_REPORT_PROBLEM_STATUS > FSA_REPORT_PROBLEM_STATUS_PRODUCTION ? t('This is a test message generated by a system that is currently under development. Please ignore and delete it.') : '';
+
+  // Set a message if the local authority email is not set
+  $variables['no_email_message'] = empty($report->local_authority_email) ? t('Action required: No email address was available for the relevant local authority. Please forward this message.') : '';
+
+  $output_vars = array(
+    'business_name',
+    'business_location',
+    'reporter',
+    'report_date',
+    'problem_details',
+    'no_email_message',
+  );
+
+  // Get a link to the Google map with coordinates
+    $variables['business_location'] .= !empty($report->coordinates) ? "\r\nhttp://www.google.co.uk/maps?q=" . $report->coordinates : '';
+
+  // Get the details of the person reporting the issue - if set.
+  $reporter = array();
+  foreach(array('reporter_name', 'reporter_email') as $var) {
+    if (!empty($report->$var)) {
+      $reporter[] = $report->$var;
+    }
+  }
+  $variables['reporter'] = implode(', ', $reporter);
+
+  // Get the details of the problem
+  $variables['problem_details'] = !empty($report->problem_details) ? $report->problem_details : '';
+
+  // Get the report date
+  $variables['report_date'] = !empty($report->problem_date) ? format_date($report->problem_date, 'medium') : '';
+
+  // Get the report ID
+  $variables['report_id'] = !empty($report->rid) ? $report->rid : 0;
+
+
+  // Add a line break to the end of each 'field' to enable proper formatting of
+  // the email.
+  foreach ($output_vars as $var) {
+    $variables[$var] .= !empty($variables[$var]) ? "\r\n" : '';
+  }
+
+}
+
+
+function template_preprocess_report_acknowledgement_email(&$variables) {
+
+}
+
+/**
+ * General preprocess function for problem reports.
+ *
+ * @param array $variables
+ *   Template variables - passed by reference
+ *
+ * @see report-acknowledgement-email.tpl.php
+ * @see problem-report-email.tpl.php
+ * @see problem-report.tpl.php
+ */
+function _fsa_report_problem_preprocess_problem_report(&$variables) {
+  // Get the report object
+  $report = !empty($variables['report']) ? $variables['report'] : NULL;
+  // If we don't have a report object, return now.
+  if (empty($report)) {
+    return;
+  }
+
+  // Populate variables from the report object
+  $vars = array(
+    'reporter_name',
+    'reporter_email',
+    'business_name',
+    'business_location',
+    'local_authority_name',
+    'local_authority_email',
+    'problem_details',
+  );
+
+  foreach ($vars as $var) {
+    $variables[$var] = !empty($report->$var) ? $report->$var : '';
+  }
+
+}
+
+/**
+ * Preprocess function for form intro text
+ *
+ * @param array $variables
+ *   Template variables - passed by reference.
+ */
+function template_preprocess_form_intro(&$variables) {
+  // Get the render element
+  $element = !empty($variables['element']) ? $variables['element'] : NULL;
+  // Get the text. We want it to be an array, so if it's a string - ie a single
+  // paragraph, turn it into an array instead.
+  $text = !empty($element['#text']) ? $element['#text'] : array();
+
+  if (is_array($text)) {
+    if (array_key_exists('value', $text)) {
+      $format = array_key_exists('format', $text) ? $text['format'] : 'plain_text';
+      if ($format != 'plain_text') {
+        $text = array($text['value']);
+      }
+    }
+    else {
+      foreach($text as $index => $t) {
+        $text[$index] = "<p>$t</p>";
+      }
+    }
+  }
+  else {
+    $text = array("<p>$text</p>");
+  }
+
+  $variables['text'] = $text;
+}
+
+
+
+function _fsa_report_problem_status_description($status = FSA_REPORT_PROBLEM_STATUS_PRODUCTION) {
+  $status_descriptions = array(
+    FSA_REPORT_PROBLEM_STATUS_ALPHA => t('Alpha'),
+    FSA_REPORT_PROBLEM_STATUS_BETA => t('Beta'),
+    FSA_REPORT_PROBLEM_STATUS_PRODUCTION => t('Production'),
+    FSA_REPORT_PROBLEM_STATUS_OFFLINE => t('Offline')
+  );
+  return $status_descriptions[$status];
+}
+
+
+function _fsa_report_problem_status_message($status = FSA_REPORT_PROBLEM_STATUS_PRODUCTION) {
+  $messages = array(
+    FSA_REPORT_PROBLEM_STATUS_ALPHA => t('This service is currently in alpha, which means there may be bugs. Please report any issues to test@test.com'),
+    FSA_REPORT_PROBLEM_STATUS_BETA => t('This service is currently in beta. If you notice any problems, please contact us.'),
+    FSA_REPORT_PROBLEM_STATUS_OFFLINE => t('This service is currently offline. We apologise for any inconvenience.'),
+  );
+  return !empty($messages[$status]) ? $messages[$status] : '';
+}
+
+function _fsa_report_problem_text($key = NULL, $data = array()) {
+
+  $text = array(
+    'find_business_intro' => array(
+      'title' => t('Business search form intro'),
+      'description' => t('This is the text that appears at the top of the business lookup form.'),
+      'default' => t('Hello, this is the first stage. This is a test.'),
+    ),
+    'make_report_intro' => array(
+      'title' => t('Report page intro'),
+      'description' => t('Intro text for the main report page'),
+      'default' => t('Please complete the form below, including as much detail as possible about the food problem you have seen. You may leave out your name and address if you wish to remain anonymous. When you submit your report, it will be sent to Tendring District Council, who will investigate the problem.'),
+    ),
+    'report_complete' => array(
+      'title' => t('Report complete text'),
+      'description' => t('Report complete text'),
+      'default' => t('Thank you for your report'),
+    ),
+    'contact_local_authority' => array(
+      'title' => t('Contact your local authority'),
+      'description' => t('Contact details for the local authority - if available'),
+      'default' => 'If you need to contact [local_authority:name] about your report, you can do so at <a href="mailto:[local_authority:email]">[local_authority:email]</a>.',
+      'type' => array('email', 'page'),
+    ),
+    'email_development_notice' => array(
+      'title' => t('Under development notice - email'),
+      'description' => t('This notice will appear at the top of emails to local authorities when the system is under development.'),
+      'default' => '** IMPORTANT: This is a test message generated by a system that is currently
+under development. Please ignore and delete it. ** ',
+      'format' => 'plain_text',
+    ),
+  );
+
+  if (empty($key)) {
+    return $text;
+  }
+
+  if (array_key_exists($key, $text)) {
+    $variable_name = "fsa_report_problem_text_${key}";
+    $text_content = variable_get("fsa_report_problem_text_${key}");
+    return array(
+      'value' => token_replace(!empty($text_content['value']) ? $text_content['value'] : (!empty($text[$key]['default']) ? $text[$key]['default'] : ''), $data),
+      'format' => !empty($text[$key]['format']) ? $text[$key]['format'] : 'full_html',
+    );
+  }
+  else {
+    return '';
+  }
+
+
+}
+
+
+
+
+/**
+ * Implements hook_token_info().
+ */
+function fsa_report_problem_token_info() {
+  $types = array(
+    'local_authority' => array(
+      'name' => t('Local authority'),
+      'description' => t('Local authority information as used in the report a problem module'),
+      'needs-data' => 'local_authority',
+    ),
+    'food_report' => array(
+      'name' => t('Food problem report'),
+      'description' => t('Food problem report properties'),
+      'needs-data' => 'problem_report',
+    ),
+  );
+
+  $local_authority['name'] = array(
+    'name' => t('Local authority name'),
+    'description' => t('The name of the local authority'),
+  );
+
+  $local_authority['email'] = array(
+    'name' => t('Local authority email address'),
+    'description' => t('The email address of the local authority as held on the FHRS database'),
+  );
+
+  $food_report['id'] = array(
+    'name' => t('Report ID'),
+    'description' => t('The unique ID of the report as stored on the system'),
+  );
+
+  return array(
+    'types' => $types,
+    'tokens' => array(
+      'local_authority' => $local_authority,
+      'food_report' => $food_report,
+    )
+  );
+
+
+}
+
+/**
+ * Implements hook_tokens().
+ *
+ * @param type $type
+ * @param type $tokens
+ * @param array $data
+ * @param array $options
+ */
+function fsa_report_problem_tokens($type, $tokens, array $data = array(), array $options = array()) {
+
+  $replacements = array();
+  foreach ($tokens as $name => $original) {
+
+    if (!empty($data['local_authority'])) {
+      $local_authority = $data['local_authority'];
+    }
+    elseif (!empty($data['report'])) {
+      $report = $data['report'];
+      $local_authority = new stdClass();
+      $local_authority->name = !empty($report->local_authority_name) ? $report->local_authority_name : '';
+      $local_authority->email = !empty($report->local_authority_email) ? $report->local_authority_email : '';
+    }
+
+
+    if ($type == 'local_authority' && !empty($local_authority)) {
+      switch ($name) {
+        case 'name':
+          if (!empty($local_authority->name)) {
+            $replacements[$original] = $local_authority->name;
+          }
+          break;
+        case 'email':
+          if (!empty($local_authority->email)) {
+            $replacements[$original] = $local_authority->email;
+          }
+          break;
+      }
+    }
+
+    if (!empty($data['report'])) {
+      $report = $data['report'];
+    }
+
+    if ($type == 'food_report' && !empty($report)) {
+      //dpm($report);
+      switch ($name) {
+        case 'id':
+          if (!empty($report->rid)) {
+            $replacements[$original] = $report->rid;
+          }
+          break;
+        case 'business_name':
+          if (!empty($report->business_name)) {
+            $replacements[$original] = $report->business_name;
+          }
+          break;
+        case 'business_address':
+          if (!empty($report->business_location)) {
+            $replacements[$original] = $report->business_location;
+          }
+          break;
+        case 'business_map_link':
+          if (!empty($report->coordinates)) {
+            $map_link = "http://www.google.co.uk/maps?q=" . $report->coordinates;
+          }
+          else {
+            $map_link = '';
+          }
+          $replacements[$original] = $map_link;
+          break;
+        case 'report_date':
+          if (!empty($report->problem_date)) {
+            $replacements[$original] = format_date($report->problem_date, 'medium');
+          }
+          break;
+        case 'problem_details':
+          if (!empty($report->problem_details)) {
+            $replacements[$original] = $report->problem_details;
+          }
+          break;
+        case 'reporter':
+          if (empty($report->reporter_name) && empty($report->reporter_email)) {
+            $replacements[$original] = t('The reporter withheld his/her details.');
+          }
+          else {
+            $reporter = array();
+            if (!empty($report->reporter_name)) {
+              $reporter[] = $report->reporter_name;
+            }
+            if (!empty($report->reporter_email)) {
+              $reporter[] = $report->reporter_email;
+            }
+            $replacements[$original] = implode(', ', $reporter);
+          }
+          break;
+      }
+    }
+
+  }
+
+  return $replacements;
+}
+
+
+
+
+function _fsa_report_problem_service_statuses() {
+  return array(
+    FSA_REPORT_PROBLEM_STATUS_ALPHA => _fsa_report_problem_status_description(FSA_REPORT_PROBLEM_STATUS_ALPHA),
+    FSA_REPORT_PROBLEM_STATUS_BETA => _fsa_report_problem_status_description(FSA_REPORT_PROBLEM_STATUS_BETA),
+    FSA_REPORT_PROBLEM_STATUS_PRODUCTION => _fsa_report_problem_status_description(FSA_REPORT_PROBLEM_STATUS_PRODUCTION),
+    FSA_REPORT_PROBLEM_STATUS_OFFLINE => _fsa_report_problem_status_description(FSA_REPORT_PROBLEM_STATUS_OFFLINE),
+  );
+}
+
+
+
+
+function _fsa_report_problem_email($key = NULL) {
+
+  $emails = array();
+
+  $emails['problem_report'] = array(
+    'subject' => t('This is the subject'),
+    'message' => t('This is the message'),
+    'default_recipient' => 'test@test.com',
+    'title' => t('Problem report email'),
+    'sender_email' => 'reports@food.gov.uk',
+    'description' => t('This is the email that will be sent to the local authority to notify them of a problem. If no email address is available for the local authority, then an email will be sent instead to the default recipient email address.'),
+  );
+
+  $emails['acknowledgement'] = array(
+    'subject' => t('Thank you for your report'),
+    'message' => t('Thanks dude!'),
+    'recipient' => '',
+    'title' => t('Acknowledgement email'),
+  );
+
+  if (empty($key)) {
+    return $emails;
+  }
+
+  if (array_key_exists($key, $emails)) {
+    $email = $emails[$key];
+    $variable_name = "fsa_report_problem_email_${key}";
+    $email['message'] = variable_get("${variable_name}_message", $email['message']);
+    $email['subject'] = variable_get("${variable_name}_subject", $email['subject']);
+    $email['recipient'] = variable_get("${variable_name}_recipient", $email['recipient']);
+    $email['sender_email'] = variable_get("${variable_name}_sender_email", $email['sender_email']);
+    $email['default_recipient'] = variable_get("${variable_name}_default_recipient", $email['default_recipient']);
+    return $email;
+  }
+  else {
+    return array();
+  }
+
+}
