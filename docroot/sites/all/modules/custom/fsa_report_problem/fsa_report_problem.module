@@ -145,21 +145,21 @@ function fsa_report_problem_menu() {
 function fsa_report_problem_block_info() {
   $blocks = array();
 
-  $blocks['search_form'] = array(
-    'info' => t('Search for an establishment form'),
+  $blocks['report_problem_form'] = array(
+    'info' => t('Report a food problem form'),
     //'cache' => DRUPAL_CACHE_GLOBAL,
     'cache' => DRUPAL_NO_CACHE,
   );
 
-  $blocks['search_results'] = array(
-    'info' => t('Search for an establishment - results'),
-    'cache' => DRUPAL_NO_CACHE,
-  );
-
-  $blocks['report_form'] = array(
-    'info' => t('Report an establishment'),
-    'cache' => DRUPAL_NO_CACHE,
-  );
+  //  $blocks['search_results'] = array(
+  //    'info' => t('Search for an establishment - results'),
+  //    'cache' => DRUPAL_NO_CACHE,
+  //  );
+  //
+  //  $blocks['report_form'] = array(
+  //    'info' => t('Report an establishment'),
+  //    'cache' => DRUPAL_NO_CACHE,
+  //  );
 
   return $blocks;
 
@@ -177,7 +177,7 @@ function fsa_report_problem_block_view($delta = '') {
   switch($delta) {
 
     // Search for an establishment form
-    case 'search_form':
+    case 'report_problem_form':
       if (FSA_REPORT_PROBLEM_STATUS != FSA_REPORT_PROBLEM_STATUS_PRODUCTION) {
         drupal_set_title(drupal_get_title() . ' (' . _fsa_report_problem_status_description(FSA_REPORT_PROBLEM_STATUS) . ')');
       }
@@ -196,17 +196,17 @@ function fsa_report_problem_block_view($delta = '') {
       break;
 
     // Search results
-    case 'search_results':
-      $block['subject'] = '';
-      $block['content'] = fsa_report_problem_get_results();
-      break;
-
-    // Report a problem form
-    case 'report_form':
-      module_load_include('inc', 'fsa_report_problem', 'includes/form');
-      $block['subject'] = '';
-      $block['content'] = fsa_report_problem_show_report_form();
-      break;
+    //    case 'search_results':
+    //      $block['subject'] = '';
+    //      $block['content'] = fsa_report_problem_get_results();
+    //      break;
+    //
+    //    // Report a problem form
+    //    case 'report_form':
+    //      module_load_include('inc', 'fsa_report_problem', 'includes/form');
+    //      $block['subject'] = '';
+    //      $block['content'] = fsa_report_problem_show_report_form();
+    //      break;
   }
 
   return $block;
