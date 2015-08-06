@@ -505,7 +505,7 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
       $entity->reporter_name = $form_state['values']['reporter_name'];
       $entity->reporter_email = $form_state['values']['reporter_email'];
       $entity->business_location = $form_state['values']['business_address'];
-      $entity->coordinates = $form_state['coords'];
+      $entity->coordinates = !empty($form_state['coords']) ? $form_state['coords'] : NULL;
       $entity->problem_details = $form_state['values']['issue_details'];
       $entity->local_authority_name = $form_state['local_authority']['name'];
       $entity->local_authority_email = $local_authority_email;

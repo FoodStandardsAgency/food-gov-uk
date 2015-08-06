@@ -69,7 +69,7 @@ function fsa_report_problem_schema() {
       ),
       'problem_date' => array(
         'description' => 'The date when the problem happened - as reported by the reporter.',
-        'type' => int,
+        'type' => 'int',
         'not null' => FALSE,
         'default' => 0,
       ),
