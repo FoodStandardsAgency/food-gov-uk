@@ -743,8 +743,6 @@ function fsa_report_problem_get_fhrs_authorities($id = NULL) {
  * @param type $params
  */
 function fsa_report_problem_mail($key, &$message, $params) {
-  //  dpm($message, 'Message');
-  //  dpm($params, 'Params');
 
   $options = array(
     'langcode' => $message['language']->language,
@@ -779,7 +777,7 @@ function fsa_report_problem_mail($key, &$message, $params) {
       //$message['body'][] = drupal_render($message_body);
 
       if (FSA_REPORT_PROBLEM_STATUS > FSA_REPORT_PROBLEM_STATUS_PRODUCTION) {
-        $status_message = _fsa_report_problem_text(email_development_notice);
+        $status_message = _fsa_report_problem_text('email_development_notice');
         if (!empty($status_message['value'])) {
           $message['body'][] = $status_message['value'];
         }
@@ -839,6 +837,7 @@ function fsa_report_problem_acknowledgement_send($report = NULL) {
   $params = array(
     'report' => $report,
   );
+  $language = language_default();
   $result = drupal_mail($module, $key, $to, $language, $params, $from, $send);
   return $result;
 }
@@ -1231,6 +1230,7 @@ function _fsa_report_problem_email($key = NULL) {
 
   if (array_key_exists($key, $emails)) {
     $email = $emails[$key];
+    $email['recipient'] = !empty($email['recipient']) ? $email['recipient'] : NULL;
     $variable_name = "fsa_report_problem_email_${key}";
     $email['message'] = variable_get("${variable_name}_message", $email['message']);
     $email['subject'] = variable_get("${variable_name}_subject", $email['subject']);
