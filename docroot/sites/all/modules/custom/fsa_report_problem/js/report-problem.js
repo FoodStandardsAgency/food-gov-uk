@@ -3,7 +3,7 @@
     attach: function (context) {
       this.initialiseAutocomplete();
     },
-    
+
     // Initialise the autocomplete function for Google Places
     initialiseAutocomplete: function() {
       var reportProblem = this;
@@ -23,16 +23,32 @@
           reportProblem.showHideSubmit();
         });
         reportProblem.hideFields();
+        reportProblem.addManualLink();
       }
     },
-    
+
+    addManualLink : function() {
+
+      $manualLinkParagraph = $('<p>', {
+        'text' : 'If you can\'t find the business using the search above, you can ',
+        'style' : 'margin-top: 20px;'
+      });
+
+      $manualLink = $('<a>', {
+        'href' : '?manual=1',
+        'text' : 'enter the details manually'
+      }).appendTo($manualLinkParagraph);
+
+      $manualLinkParagraph.appendTo($('#edit-field-wrapper'));
+    },
+
     // Hide the fields not needed if autcomplete is enabled.
     hideFields: function() {
       $('.form-item-business-name').addClass('element-invisible');
       $('.form-item-business-location').addClass('element-invisible');
       $('#edit-submit').attr('value', 'Report this business').addClass('element-invisible');
     },
-    
+
     // Show/hide submit button
     showHideSubmit: function(element) {
       if (element && element.value == '') {
@@ -45,7 +61,7 @@
         $('#edit-submit').addClass('element-invisible');
       }
     },
-    
+
     // Complete the name address fields based on the autocomplete lookup result
     fillInAddress: function(autocomplete) {
       // Get the place details from the autocomplete object.
@@ -58,7 +74,7 @@
       document.getElementById('lat').value = this.place.geometry.location.G;
       document.getElementById('lng').value = this.place.geometry.location.K;
     },
-    
+
     // Use geolocation data to assist the autocomplete places lookup
     geolocate: function() {
       if (navigator.geolocation) {
@@ -71,8 +87,8 @@
           });
           autocomplete.setBounds(circle.getBounds());
         });
-      }      
+      }
     },
-    
+
   };
 })(jQuery, google);
