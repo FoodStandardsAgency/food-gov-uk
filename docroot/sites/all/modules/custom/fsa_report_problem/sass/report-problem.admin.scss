@@ -42,3 +42,13 @@
   }
   
 }
+
+.email-override {
+  font-weight: bold;
+  
+  &:after {
+    color: red;
+    content: ' [ overridden ]';
+  }
+  
+}

@@ -21,4 +21,10 @@
 .problem-report .form-type-item p {
   margin: 0 0 1.2em 0; }
 
+.email-override {
+  font-weight: bold; }
+  .email-override:after {
+    color: red;
+    content: ' [ overridden ]'; }
+
 /*# sourceMappingURL=report-problem.admin.css.map */
