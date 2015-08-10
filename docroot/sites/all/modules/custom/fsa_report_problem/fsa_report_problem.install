@@ -146,10 +146,47 @@ function fsa_report_problem_schema() {
   );
   
   
+  $schema['local_authority_details'] = array(
+    'description' => 'Table to hold contact details for local authorities where they don\'t exist in FHRS',
+    'fields' => array(
+      'local_authority_id' => array(
+        'description' => 'The local authority ID as stored in the FHRS system',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'email' => array(
+        'description' => 'Email address for the local authority',
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => FALSE,
+      ),
+    ),
+  );
   return $schema;
-  
-  
 }
 
 
-
+/**
+ * Creates a table for local authority details.
+ */
+function fsa_report_problem_update_7002() {
+  $schema['local_authority_details'] = array(
+    'description' => 'Table to hold contact details for local authorities where they don\'t exist in FHRS',
+    'fields' => array(
+      'local_authority_id' => array(
+        'description' => 'The local authority ID as stored in the FHRS system',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'email' => array(
+        'description' => 'Email address for the local authority',
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => FALSE,
+      ),
+    ),
+  );
+  db_create_table('local_authority_details', $schema['local_authority_details']);
+}
