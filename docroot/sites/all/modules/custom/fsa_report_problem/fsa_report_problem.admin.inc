@@ -522,3 +522,31 @@ function fsa_food_report_email_form($form, &$form_state) {
   }
   return system_settings_form($form);
 }
+
+
+
+
+function fsa_report_problem_report_forward_form($form, &$form_state, $report_id = 0) {
+
+  $reports = !empty($report_id) ? entity_load('problem_report', array($report_id)) : array();
+  $report = !empty($reports[$report_id]) ? $reports[$report_id] : NULL;
+  dpm($report);
+
+  $form['address_details'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Address details'),
+  );
+
+  $form['address_details']['to'] = array(
+    '#type' => 'textfield',
+    '#title' => t('To'),
+  );
+
+  $form['address_details']['from'] = array(
+    '#type' => 'textfield',
+    '#title' => t('From'),
+  );
+
+  return $form;
+
+}
