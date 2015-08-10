@@ -372,7 +372,7 @@ function fsa_report_problem_make_report_form($form, &$form_state) {
     //'#text' => array(
     //  t('Please complete the form below, including as much detail as possible about the food problem you have seen. You may leave out your name and address if you wish to remain anonymous. When you submit your report, it will be sent to @local_authority_name, who will investigate the problem.', array('@local_authority_name' => $form_state['local_authority']['name'])),
     //),
-    '#text' => _fsa_report_problem_text('make_report_intro', array('local_authority' => (object) $form_state['local_authority'] )),
+    '#text' => !empty($form_state['manual_entry']) ? _fsa_report_problem_text('make_report_intro_manual') : _fsa_report_problem_text('make_report_intro', array('local_authority' => (object) $form_state['local_authority'] )),
   );
 
   $form['business_name'] = array(
