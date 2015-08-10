@@ -261,28 +261,42 @@ function fsa_report_problem_results_form($form, &$form_state) {
   if (count($form_state['businesses']) === 0) {
     $form['no_results_message'] = array(
       '#type' => 'form_intro',
-      '#text' => t('Sorry, we could not find any matching businesses. You can either try again or enter the business details manually.'),
+      //'#text' => t('Sorry, we could not find any matching businesses. You can either try again or enter the business details manually.'),
+      '#text' => _fsa_report_problem_text('no_matching_business'),
     );
 
-    $form['try_again'] = array(
-      '#type' => 'submit',
-      '#value' => t('Try again'),
-    );
-
-    $form['manual_entry'] = array(
-      '#type' => 'submit',
-      '#value' => t('Enter business details manually'),
-    );
-
-
+    //    $form['try_again'] = array(
+    //      '#type' => 'submit',
+    //      '#value' => t('Try again'),
+    //    );
+    //
+    //    $form['manual_entry'] = array(
+    //      '#type' => 'submit',
+    //      '#value' => t('Enter business details manually'),
+    //    );
 
   }
   else {
     $form['intro'] = array(
       '#type' => 'form_intro',
-      '#text' => t('Please choose from one of the businesses below.'),
+      //'#text' => t('Please choose from one of the businesses below.'),
+      '#text' => _fsa_report_problem_text('choose_business_intro'),
     );
   }
+  
+  //  $form['alternative_actions'] = array(
+  //    '#type' => 'fieldset',
+  //  );
+  //  
+  //  $form['alternative_actions']['try_again'] = array(
+  //    '#type' => 'submit',
+  //    '#value' => t('Try again'),
+  //  );
+  //
+  //  $form['alternative_actions']['manual_entry'] = array(
+  //    '#type' => 'submit',
+  //    '#value' => t('Enter business details manually'),
+  //  );
 
   foreach($form_state['businesses'] as $id => $business) {
 
