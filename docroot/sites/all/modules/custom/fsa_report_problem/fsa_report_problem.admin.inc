@@ -148,8 +148,6 @@ function fsa_report_problem_authorities_import_form($form, &$form_state) {
     $authority_options[$authority->LocalAuthorityId] = $authority->Name;
   }
 
-  //dpm($authorities);
-
   $areas_table = array();
   $areas_table['#theme'] = 'table';
   $areas_table['#header'] = array(
@@ -283,11 +281,17 @@ function fsa_report_problem_local_authorities() {
     '#prefix' => '<p>',
     '#markup' => t('This page shows the mapping of local authority areas provided by MapIt to local authorities held in the FHRS database. Only the IDs are held within Drupal.'),
     '#suffix' => '</p>',
+    '#attached' => array(
+      'css' => array(
+        drupal_get_path('module', 'fsa_report_problem') . '/css/report-problem.admin.css',
+      ),
+    ),
   );
 
 
   // Get the area data from MapIt
   $areas = fsa_report_problem_get_mapit_areas(array('DIS', 'UTA', 'LBO'));
+
   // Get the authority data from FHRS API
   $fhrs_authorities = fsa_report_problem_get_fhrs_authorities();
   $authorities = array();
@@ -296,14 +300,12 @@ function fsa_report_problem_local_authorities() {
     $authorities[$authority->LocalAuthorityId] = $authority;
   }
 
-
-
-
   // Get the local authority mappings from the database.
-  $result = db_select('local_authority_areas', 'l')
-    ->fields('l')
-    ->execute();
-
+  $query = db_select('local_authority_areas', 'l');
+  $query->fields('l');
+  $query->fields('d', array('email'));
+  $query->leftJoin('local_authority_details', 'd', 'l.local_authority_id = d.local_authority_id');
+  $result = $query->execute();
 
   $table = array(
     '#theme' => 'table',
@@ -322,16 +324,19 @@ function fsa_report_problem_local_authorities() {
   while($record = $result->fetchAssoc()) {
     $area_id = $record['area_id'];
     $local_authority_id = $record['local_authority_id'];
-
     $area = $areas[$area_id];
     $local_authority = !empty($local_authority_id) && !empty($authorities[$local_authority_id]) ? $authorities[$local_authority_id] : (object) array('Name' => 'Not yet matched', 'Email' => 'Not set');
+    $local_authority->Email = !empty($record['email']) ? $record['email'] : $local_authority->Email;
 
     $table['#rows'][] = array(
       array('data' => $area_id),
       array('data' => $area['name']),
-      array('data' => $local_authority_id),
+      array('data' => l($local_authority_id, current_path() . '/edit/' . $local_authority_id)),
       array('data' => $local_authority->Name),
-      array('data' => $local_authority->Email),
+      array(
+        'data' => $local_authority->Email,
+        'class' => !empty($record['email']) ? array('email-override') : array(),
+      ),
     );
   }
 
@@ -530,7 +535,6 @@ function fsa_report_problem_report_forward_form($form, &$form_state, $report_id 
 
   $reports = !empty($report_id) ? entity_load('problem_report', array($report_id)) : array();
   $report = !empty($reports[$report_id]) ? $reports[$report_id] : NULL;
-  dpm($report);
 
   $form['address_details'] = array(
     '#type' => 'fieldset',
@@ -549,4 +553,98 @@ function fsa_report_problem_report_forward_form($form, &$form_state, $report_id 
 
   return $form;
 
+}
+
+
+
+function fsa_report_problem_authority_edit_form($form, &$form_state, $local_authority_id = 0) {
+  
+  $form_state['local_authority_id'] = $local_authority_id;
+  $local_authority = NULL;
+  $local_authority_email = FALSE;
+  
+  if (!empty($local_authority_id)) {
+    $local_authority = fsa_report_problem_get_fhrs_authorities($local_authority_id);
+    
+    $form['intro'] = array(
+      '#markup' => t('Use this form to add a custom email address for a local authority. This will be used in place of the address stored in FHRS. To remove a custom email address, simply clear the value from the email field and submit the form.'),
+    );
+    
+    $form['local_authority_name'] = array(
+      '#type' => 'item',
+      '#title' => t('Name'),
+      '#markup' => $local_authority->Name,
+    );
+    
+    $form['fhrs_email'] = array(
+      '#type' => 'item',
+      '#title' => t('FHRS email address'),
+      '#markup' => !empty($local_authority->Email) ? $local_authority->Email : t('No email address on record in FHRS'),
+    );
+    
+    $query = db_select('local_authority_details', 'l');
+    $query->fields('l', array('email'));
+    $query->condition('local_authority_id', $local_authority_id, '=');
+    $local_authority_email = $query->execute()->fetchField();
+  }
+  
+  $form_state['operation'] = !empty($local_authority_email) ? 'update' : 'insert';
+  
+  $form['email'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Custom email address'),
+    '#description' => t('Email address for the local authority. This will be used in place of the email address stored in FHRS. An empty value will remove the custom email address.'),
+    '#default_value' => !empty($local_authority_email) ? $local_authority_email : NULL,
+  );
+  
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save configuration'),
+  );
+  
+  return $form;
+  
+}
+
+
+function fsa_report_problem_authority_edit_form_submit(&$form, &$form_state) {
+  
+  $form_state['redirect'] = 'admin/config/foodproblems/authorities';
+  $local_authority_id = !empty($form_state['local_authority_id']) && is_numeric($form_state['local_authority_id']) ? $form_state['local_authority_id'] : NULL;
+  $email = !empty($form_state['values']['email']) ? $form_state['values']['email'] : NULL;
+  
+  if (empty($local_authority_id)) {
+    drupal_set_message(t('Error saving local authority data'), 'error');
+    return;
+  }
+  
+  $operation = empty($email) ? 'delete' : $form_state['operation'];
+  $table = 'local_authority_details';
+  
+  switch($operation) {
+    case 'delete':
+      $local_authority = db_delete($table)
+        ->condition('local_authority_id', $local_authority_id)
+        ->execute();
+      break;
+    
+    case 'update':
+      $local_authority = db_update($table)
+        ->fields(array(
+          'email' => $email,
+        ))->condition('local_authority_id', $local_authority_id, '=')
+        ->execute();
+      break;
+    
+    case 'insert':
+      $local_authority = db_insert($table)
+        ->fields(array(
+          'local_authority_id' => $local_authority_id,
+          'email' => $email,
+        ))
+        ->execute();
+      break;
+  }
+  
+  drupal_set_message(t('Local authority updated'));
 }

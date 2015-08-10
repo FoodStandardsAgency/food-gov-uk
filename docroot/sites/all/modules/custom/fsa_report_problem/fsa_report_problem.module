@@ -134,6 +134,14 @@ function fsa_report_problem_menu() {
     'weight' => 30,
   );
 
+  $items['admin/config/foodproblems/authorities/edit/%'] = array(
+    'title' => t('Edit Local authority data'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_report_problem_authority_edit_form', 5),
+    'access arguments' => array('administer food problem reporting'),
+    'file' => 'fsa_report_problem.admin.inc',
+  );
+
   $items['admin/config/foodproblems/authorities/import'] = array(
     'title' => t('Import local authority data'),
     'page callback' => 'drupal_get_form',
@@ -692,10 +700,12 @@ function fsa_report_problem_get_local_authority_email_address($id) {
 
   // Query the local_authority_areas table to find a corresponding ID for use in
   // the FHRS API. Return the results as an associative array keyed on the ID.
-  $results = db_select('local_authority_areas', 'l')
-    ->fields('l')
-    ->condition('area_id', $id)
-    ->execute()
+  $query = db_select('local_authority_areas', 'l');
+  $query->fields('l');
+  $query->fields('d', array('email'));
+  $query->leftJoin('local_authority_details', 'd', 'l.local_authority_id = d.local_authority_id');
+  $query->condition('area_id', $id);
+  $results = $query->execute()
     ->fetchAllAssoc('area_id');
 
   // If we don't have a corresponding FHRS ID, return an empty string.
@@ -703,9 +713,10 @@ function fsa_report_problem_get_local_authority_email_address($id) {
     return '';
   }
 
-  // Query the FHRS API, passing the local authority ID to see if we can get any
-  // results.
-  $local_authority = fsa_report_problem_get_fhrs_authorities($results[$id]->local_authority_id);
+  // If we already have an email address in our override table, use that.
+  // Otherwise, Query the FHRS API, passing the local authority ID to see if we
+  // can get any results.
+  $local_authority = !empty($results[$id]->email) ? (object) array('Email' => $results[$id]->email) : fsa_report_problem_get_fhrs_authorities($results[$id]->local_authority_id);
 
   // The returned value should be an object, and its Email property should
   // contain the local authority's email address. If not, return an empty
