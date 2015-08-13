@@ -79,12 +79,28 @@ function fsa_report_problem_menu() {
     'file' => 'fsa_report_problem.admin.inc',
   );
   
+  $items['admin/reports/food-problems/%/view'] = array(
+    'title' => 'View',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );  
+  
   $items['admin/reports/food-problems/%/forward'] = array(
-    'title' => t('Forward a food problem report'),
+    'title' => t('Forward'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('fsa_report_problem_report_forward_form', 3),
     'access arguments' => array('view food problem reports'),
     'file' => 'fsa_report_problem.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+  
+  $items['admin/reports/food-problems/%/authority'] = array(
+    'title' => t('Set local authority'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_report_problem_report_local_authority_form', 3),
+    'access arguments' => array('view food problem reports'),
+    'file' => 'fsa_report_problem.admin.inc',
+    'type' => MENU_LOCAL_TASK,
   );  
 
   $items['admin/config/foodproblems'] = array(
@@ -127,25 +143,60 @@ function fsa_report_problem_menu() {
 
   $items['admin/config/foodproblems/authorities'] = array(
     'title' => t('Local authority data'),
-    'page callback' => 'fsa_report_problem_local_authorities',
+    'page callback' => 'fsa_report_problem_local_authorities_new',
     'access arguments' => array('administer food problem reporting'),
     'file' => 'fsa_report_problem.admin.inc',
     'type' => MENU_LOCAL_TASK,
     'weight' => 30,
   );
 
-  $items['admin/config/foodproblems/authorities/edit/%'] = array(
+  $items['admin/config/foodproblems/authorities/%'] = array(
+    'title' => t('View Local authority data'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_report_problem_authority_view_form', 4),
+    'access arguments' => array('administer food problem reporting'),
+    'file' => 'fsa_report_problem.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+  
+  $items['admin/config/foodproblems/authorities/%/view'] = array(
+    'title' => 'View',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );   
+  
+  $items['admin/config/foodproblems/authorities/%/edit'] = array(
     'title' => t('Edit Local authority data'),
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('fsa_report_problem_authority_edit_form', 5),
+    'page arguments' => array('fsa_report_problem_authority_edit_form', 4),
+    'access arguments' => array('administer food problem reporting'),
+    'file' => 'fsa_report_problem.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+  
+  $items['admin/config/foodproblems/authorities/add'] = array(
+    'title' => t('Add new local authority'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_report_problem_authority_edit_form'),
+    'access arguments' => array('administer food problem reporting'),
+    'file' => 'fsa_report_problem.admin.inc',
+  );  
+  
+  
+  $items['admin/config/foodproblems/authorities/add/%'] = array(
+    'title' => t('Edit Local authority data'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_report_problem_authority_edit_form', '0', 5),
     'access arguments' => array('administer food problem reporting'),
     'file' => 'fsa_report_problem.admin.inc',
   );
 
+
+
   $items['admin/config/foodproblems/authorities/import'] = array(
     'title' => t('Import local authority data'),
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('fsa_report_problem_authorities_import_form'),
+    'page arguments' => array('fsa_report_problem_authorities_import_form_new'),
     'access arguments' => array('administer food problem reporting'),
     'file' => 'fsa_report_problem.admin.inc',
     'type' => MENU_LOCAL_TASK,
@@ -560,15 +611,68 @@ function fsa_report_problem_entity_info() {
     'bundles' => array(),
   );
 
+  $info['local_authority'] = array(
+    'label' => t('Local authority'),
+    'base table' => 'local_authority_details',
+    'entity keys' => array(
+      'id' => 'aid',
+    ),
+    'entity class' => 'Entity',
+    'controller class' => 'LocalAuthorityEntityController',
+    'uri callback' => 'local_authority_uri',
+    'module' => 'fsa_report_problem',
+    'fieldable' => TRUE,
+    'bundles' => array(),
+  );
+
   return $info;
 }
 
+/**
+ * Implements hook_entity_property_info().
+ */
+function fsa_report_problem_entity_property_info() {
+  $entity_property_info = array();
+  
+  $entity_property_info['local_authority'] = array(
+    'properties' => array(
+      'local_authority_id' => array(
+        'label' => t('FHRS ID'),
+        'type' => 'integer',
+        'description' => t('Local authority ID from FHRS'),
+        'schema field' => 'local_authority_id',
+      ),
+    ),
+  );
+  
+  
+  return $entity_property_info;
+}
 
 
 /**
  * Extending the EntityAPIController for the Project entity.
  */
 class ProblemReportEntityController extends EntityAPIController {
+
+  public function buildContent($entity, $view_mode = 'full', $langcode = NULL, $content = array()) {
+    $build = parent::buildContent($entity, $view_mode, $langcode, $content);
+
+
+    $build['#report'] = $entity;
+    $build['test'] = array(
+      '#markup' => 'hello world',
+    );
+
+    return $build;
+  }
+
+}
+
+/**
+ * Extending the EntityAPIController for the Project entity.
+ */
+class LocalAuthorityEntityController extends EntityAPIController {
 
   public function buildContent($entity, $view_mode = 'full', $langcode = NULL, $content = array()) {
     $build = parent::buildContent($entity, $view_mode, $langcode, $content);
@@ -592,6 +696,15 @@ class ProblemReportEntityController extends EntityAPIController {
 function problem_report_uri($report) {
   return array(
     'path' => 'admin/reports/food-problems/' . $report->rid,
+  );
+}
+
+/**
+ * Entity uri callback.
+ */
+function local_authority_uri($local_authority) {
+  return array(
+    'path' => 'admin/config/foodproblems/authorities/' . $local_authority->aid,
   );
 }
 
@@ -665,10 +778,32 @@ function fsa_report_problem_get_google_results($name, $location) {
 
 function fsa_report_problem_get_local_authority($lng, $lat){
   $endpoint = 'http://mapit.mysociety.org/point/4236';
-  $url = url("$endpoint/$lng,$lat", array('query' => array('type' => 'DIS,UTA,LBO')));
+  $url = url("$endpoint/$lng,$lat", array('query' => array('type' => 'DIS,UTA,LBO,LGD')));
   $area_data = drupal_http_request($url);
   //dpm($area_data);
   return current(drupal_json_decode($area_data->data));
+}
+
+
+function fsa_report_problem_get_local_authority_by_postcode($postcode = NULL) {
+  
+  if (empty($postcode)) {
+    return array();
+  }
+  $postcode = urlencode($postcode);
+  $endpoint = 'http://mapit.mysociety.org/postcode';
+  $url = url("$endpoint/$postcode");
+  $area_data = drupal_http_request($url);
+  $data = drupal_json_decode($area_data->data);
+  $areas = !empty($data['areas']) ? $data['areas'] : array();
+  $area_types = array('DIS', 'UTA', 'LBO', 'LGD');
+  $selected_area = array();
+  foreach ($areas as $id => $area) {
+    if (!empty($area['type']) && in_array($area['type'], $area_types)) {
+      $selected_area = $area;
+    }
+  }
+  return $selected_area;
 }
 
 /**
@@ -698,6 +833,7 @@ function fsa_report_problem_get_local_authority_email_address($id) {
     return '';
   }
 
+  
   // Query the local_authority_areas table to find a corresponding ID for use in
   // the FHRS API. Return the results as an associative array keyed on the ID.
   $query = db_select('local_authority_areas', 'l');
@@ -730,12 +866,91 @@ function fsa_report_problem_get_local_authority_email_address($id) {
 
 }
 
+/**
+ * Gets the local authority ID from FHRS, based on MapIt area ID.
+ *
+ * @param int $id
+ *   Area ID from MapIt
+ *
+ * @return int
+ *   ID of the local authority in the FHRS system. 0 if none found.
+ */
+function fsa_report_problem_get_local_authority_id($id) {
+  // If we don't have an ID or it's not a number, return 0.
+  if (empty($id) || !is_numeric($id)) {
+    return 0;
+  }
+  
+  // First query the locally-stored local authority data to see if we have a
+  // match.
+  // @todo Use EntityFieldQuery here instead. Need to expose area id first.
+  $query = db_select('local_authority_details', l);
+  $query->fields('l');
+  $query->condition('area_id', $id);
+  $results = $query->execute()
+    ->fetchAllAssoc('area_id');
+  
+  //dpm($results);
+  
+  // Query the local_authority_areas table to find a corresponding ID for use in
+  // the FHRS API. Return the results as an associative array keyed on the ID.
+  $query = db_select('local_authority_areas', 'l'); 
+  $query->fields('l');
+  $query->condition('area_id', $id);
+  $results = $query->execute()
+    ->fetchAllAssoc('area_id');
 
-function fsa_report_problem_get_mapit_areas($types = array()) {
+  // If we don't have a corresponding FHRS ID, return an empty string.
+  if (empty($results[$id]) || empty($results[$id]->local_authority_id)) {
+    return 0;
+  }
+
+  return $results[$id]->local_authority_id;
+}
+
+
+
+function fsa_report_problem_get_mapit_areas($types = array('DIS', 'UTA', 'LBO', 'LGD')) {
   $endpoint = 'http://mapit.mysociety.org/areas';
   $url = "$endpoint/" . implode(',', $types);
   $areas = drupal_http_request($url);
   return drupal_json_decode($areas->data);
+}
+
+/**
+ * Returns a MapIt area based on FHRS ID
+ * @param int $id
+ *   The FHRS ID of the local authority region.
+ */
+function fsa_report_problem_get_mapit_area_by_fhrs_id($id) {
+  if (empty($id)) {
+    return 0;
+  }
+  
+  $query = db_select('local_authority_areas', 'l');
+  $query->condition('local_authority_id', $id, '=');
+  $query->fields('l', array('area_id'));
+  $result = $query->execute()->fetchCol(0);
+  return !empty($result[0]) ? $result[0] : 0;
+}
+
+
+/**
+ * Returns a local authority object based on MapIt area ID
+ * @param type $area_id
+ */
+function fsa_report_problem_get_local_authority_by_area_id($area_id = 0) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'local_authority')
+    ->propertyCondition('area_id', $area_id);
+  $result = $query->execute();
+  $authorities = entity_load('local_authority', array_keys($result['local_authority']));
+  if (empty($authorities)) {
+    return FALSE;
+  }
+  else {
+    return current($authorities);
+  }
 }
 
 
@@ -744,6 +959,7 @@ function fsa_report_problem_get_fhrs_authorities($id = NULL) {
   $args = !empty($id) ? array($id) : array();
   $params = array();
   $request = fhrs_api_make_request($endpoint, $args, $params);
+  dpm($request);
   if (empty($id)) {
     return json_decode($request)->authorities;
   }
@@ -804,6 +1020,11 @@ function fsa_report_problem_mail($key, &$message, $params) {
 
       $message['body'][] = token_replace($message_body, array('report' => $params['report']));
       break;
+      
+    case 'report_forward':
+      $message['body'][] = $params['message'];
+      $message['subject'] = $params['subject'];
+      break;
 
     case 'acknowledgement':
       $report = $params['report'];
@@ -841,6 +1062,27 @@ function fsa_report_problem_mail_send($report = NULL) {
   $params = array(
     'message' => $message,
     'subject' => 'Food problem report - test',
+    'report' => $report,
+  );
+  $result = drupal_mail($module, $key, $to, $language, $params, $from, $send);
+  return $result;
+}
+
+function fsa_report_problem_mail_forward($report = NULL, $to = NULL, $from = NULL, $subject = NULL, $message = NULL) {
+
+  $module = 'fsa_report_problem';
+  $key = 'report_forward';
+
+  $to = !empty($to) ? $to : $report->local_authority_email;
+  $from = !empty($from) ? $from : variable_get('site_mail', 'content@food.gov.uk');
+
+  $language = language_default();
+
+  $send = TRUE;
+
+  $params = array(
+    'message' => $message,
+    'subject' => $subject,
     'report' => $report,
   );
   $result = drupal_mail($module, $key, $to, $language, $params, $from, $send);
@@ -941,6 +1183,7 @@ function _fsa_report_problem_preprocess_problem_report(&$variables) {
     'reporter_email',
     'business_name',
     'business_location',
+    'business_postcode',
     'local_authority_name',
     'local_authority_email',
     'problem_details',
@@ -1276,4 +1519,108 @@ function _fsa_report_problem_email($key = NULL) {
     return array();
   }
 
+}
+
+
+/**
+ * Formats a UK postcode
+ *
+ * @param string $postcode
+ *   A string containing a UK postcode.
+ *
+ * @return string
+ *   Either a properly formatted postcode or the original string if not suitable
+ * 
+ */
+function _fsa_report_problem_format_postcode($postcode) {
+  
+  $original = $postcode;
+  
+  // First, get rid of spaces and reverse the string
+  $postcode = strrev(str_replace(' ', '', $postcode));
+  
+  // UK postcodes are between 6 and 8 characters in length including the space.
+  // If it's longer or shorter than this, there's not much we can do with it, so
+  // we just return what we're given
+  if (strlen($postcode) < 5 || strlen($postcode) > 7) {
+    return $original;
+  }
+  
+  // UK postcodes are divided into two parts - inward and outward. The inward
+  // part is the last three characters (after the space). To get both parts, we
+  // reverse the string and use the first three characters as the inward part
+  // and the following characters as the outward part.
+  $inward = strrev(substr($postcode, 0, 3));
+  $outward = strrev(substr($postcode, 3));
+  
+  // Convrert it to uppercase and add a space for syntactic correctness.
+  $postcode = strtoupper("$outward $inward");
+  
+  // Return the result.
+  return $postcode;
+}
+
+
+
+/**
+ * Updates local authority data held in Drupal from the FHRS API.
+ */
+function _fsa_report_problem_update_fhrs_data() {
+  // Get the local authority data from FHRS.
+  $fhrs_authorities = array();
+  
+  $test = fsa_report_problem_get_fhrs_authorities();
+ 
+  foreach (fsa_report_problem_get_fhrs_authorities() as $fhrs_authority) {
+    $fhrs_authorities[$fhrs_authority->LocalAuthorityId] = $fhrs_authority;
+  }
+  
+  // Load up all of the local authority entities from Drupal
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'local_authority');
+  $result = $query->execute(); 
+  $aids = array_keys($result['local_authority']);
+  $authorities = entity_load('local_authority', $aids);  
+  
+  foreach ($authorities as $authority) {
+    
+    $email_override = !empty($authority->email) && !empty($authority->fhrs_email) && $authority->email != $authority->fhrs_email ? TRUE : FALSE;
+    
+    $fhrs_auth = $fhrs_authorities[$authority->local_authority_id];
+    
+    if (!empty($fhrs_auth)) {
+      $authority->fhrs_name = $fhrs_auth->Name;
+      $authority->fhrs_email = $fhrs_auth->Email;
+      if (!empty($authority->fhrs_email) && (empty($authority->email) || !$email_override)) {
+        $authority->email = $authority->fhrs_email;
+      }
+      $authority->save();
+    }
+    
+  }
+  
+}
+
+
+
+/**
+ * Implements hook_cron().
+ */
+function fsa_report_problem_cron() {
+
+  // Get the last time the FHRS data was updated
+  $last_import = variable_get('fsa_report_problem_fhrs_last_import', 0);
+
+  // If the data has already been updated today, exit now. There should be no
+  // need to run this job more than once a day, but there will be a manual
+  // override within the GUI and a Drush command to force an update.
+  if (date('dmY', REQUEST_TIME) == date('dmY', $last_import)) {
+    watchdog('Food report', t('FHRS authority update already run today. Exiting.'));
+    return;
+  }
+
+  // Update the FHRS data.
+  _fsa_report_problem_update_fhrs_data();
+  variable_set('fsa_report_problem_fhrs_last_import', REQUEST_TIME);
+  watchdog('Food report', t('FHRS authority data updated.'));
 }

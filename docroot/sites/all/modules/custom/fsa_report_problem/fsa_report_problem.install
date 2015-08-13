@@ -49,6 +49,12 @@ function fsa_report_problem_schema() {
         'length' => 255,
         'not null' => FALSE,
       ),
+      'business_postcode' => array(
+        'description' => 'The postcode of the business about which the report is being made',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => FALSE,
+      ),
       'coordinates' => array(
         'description' => 'The latitude and longitude of the business',
         'type' => 'varchar',
@@ -86,6 +92,12 @@ function fsa_report_problem_schema() {
         'not null' => FALSE,
         'default' => NULL,
       ),
+      'area_id' => array(
+        'description' => 'The area ID from MapIt',
+        'type' => 'int',
+        'not null' => FALSE,
+        'default' => 0,
+      ),
       'local_authority_name' => array(
         'description' => 'The name of the relevant local authority',
         'type' => 'varchar',
@@ -97,6 +109,12 @@ function fsa_report_problem_schema() {
         'type' => 'varchar',
         'length' => 128,
         'not null' => FALSE,
+      ),
+      'local_authority_id' => array(
+        'description' => 'ID of the local authority from the FHRS system',
+        'type' => 'int',
+        'not null' => FALSE,
+        'default' => 0,
       ),
       'business_details' => array(
         'description' => 'Full business details returned by the ratings API.',
@@ -149,11 +167,29 @@ function fsa_report_problem_schema() {
   $schema['local_authority_details'] = array(
     'description' => 'Table to hold contact details for local authorities where they don\'t exist in FHRS',
     'fields' => array(
+      'aid' => array(
+        'description' => 'The primary identifier for a local authority',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
       'local_authority_id' => array(
         'description' => 'The local authority ID as stored in the FHRS system',
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
+      ),
+      'area_id' => array(
+        'description' => 'The area ID provide by MapIt',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'name' => array(
+        'description' => 'The name of the local authority',
+        'type' => 'varchar',
+        'not null' => FALSE,
+        'length' => 512,
       ),
       'email' => array(
         'description' => 'Email address for the local authority',
@@ -161,7 +197,38 @@ function fsa_report_problem_schema() {
         'length' => 256,
         'not null' => FALSE,
       ),
+      'fhrs_name' => array(
+        'description' => 'The name of the local authority from FHRS',
+        'type' => 'varchar',
+        'not null' => FALSE,
+        'length' => 512,
+      ),      
+      'fhrs_email' => array(
+        'description' => 'Email address for the local authority from FHRS',
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => FALSE,
+      ),
+      'manual' => array(
+        'description' => 'Indicates whether this local authority has been entered manually via the admin GUI or imported',
+        'type' => 'int',
+        'not null' => FALSE,
+        'default' => 0,
+      ),
+      'created' => array(
+        'description' => 'The UNIX timestamp when the local authority was reported',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'changed' => array(
+        'description' => 'The UNIX timestamp when the local authority was most recently changed',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
     ),
+    'primary key' => array('aid'),
   );
   return $schema;
 }
@@ -171,6 +238,11 @@ function fsa_report_problem_schema() {
  * Creates a table for local authority details.
  */
 function fsa_report_problem_update_7002() {
+  
+  if (db_table_exists('local_authority_details')) {
+    return;
+  }
+  
   $schema['local_authority_details'] = array(
     'description' => 'Table to hold contact details for local authorities where they don\'t exist in FHRS',
     'fields' => array(
@@ -189,4 +261,153 @@ function fsa_report_problem_update_7002() {
     ),
   );
   db_create_table('local_authority_details', $schema['local_authority_details']);
+}
+
+/**
+ * Adds an area ID field to the problem reports table
+ */
+function fsa_report_problem_update_7003() {
+  // If the field already exists, return now.
+  if (db_field_exists('problem_reports', 'area_id')) {
+    return;
+  }
+  $spec = array(
+    'description' => 'The area ID from MapIt',
+    'type' => 'int',
+    'not null' => FALSE,
+    'default' => 0,
+  ); 
+  db_add_field( 'problem_reports', 'area_id', $spec);  
+}
+
+/**
+ * Adds a local authority ID field to the problem reports table
+ */
+function fsa_report_problem_update_7004() {
+  
+  // If the field already exists, return now.
+  if (db_field_exists('problem_reports', 'local_authority_id')) {
+    return;
+  }
+  
+  $spec = array(
+    'description' => 'ID of the local authority from the FHRS system',
+    'type' => 'int',
+    'not null' => FALSE,
+    'default' => 0,
+  );
+  db_add_field('problem_reports', 'local_authority_id', $spec);
+}
+
+/**
+ * Adds a business postcode field to the problem reports table
+ */
+function fsa_report_problem_update_7005() {
+  
+  // If the field already exists, return now.
+  if (db_field_exists('problem_reports', 'business_postcode')) {
+    return;
+  }
+  
+  $spec = array(
+    'description' => 'The postcode of the business about which the report is being made',
+    'type' => 'varchar',
+    'length' => 128,
+    'not null' => FALSE,
+  );
+  
+  db_add_field('problem_reports', 'business_postcode', $spec);
+}
+
+/**
+ * Adds fields to the local authorities table
+ */
+function fsa_report_problem_update_7006() {
+  
+  $table = 'local_authority_details';
+  
+  $fields = array(
+    'aid' => array(
+      'description' => 'The primary identifier for a local authority',
+      'type' => 'serial',
+      'unsigned' => TRUE,
+      'not null' => TRUE,
+      'primary key' => TRUE,
+    ),
+    'area_id' => array(
+      'description' => 'The area ID provide by MapIt',
+      'type' => 'int',
+      'not null' => TRUE,
+      'default' => 0,
+    ),
+    'name' => array(
+      'description' => 'The name of the local authority',
+      'type' => 'varchar',
+      'not null' => FALSE,
+      'length' => 512,
+    ),
+  );
+  
+  foreach ($fields as $field_name => $spec) {
+    if (!db_field_exists($table, $field_name)) {
+      if (!empty($spec['primary key'])) {
+        $keys = array('primary key' => array($field_name));
+        unset($spec['primary key']);
+      }
+      else {
+        $keys = array();
+      }
+      
+      db_add_field($table, $field_name, $spec, $keys);
+    }
+  }
+  
+}
+
+/**
+ * Adds additional columns to the local authorities data table.
+ */
+function fsa_report_problem_update_7007() {
+  $table = 'local_authority_details';
+  
+  $fields = array(
+   'fhrs_name' => array(
+      'description' => 'The name of the local authority from FHRS',
+      'type' => 'varchar',
+      'not null' => FALSE,
+      'length' => 512,
+    ),      
+    'fhrs_email' => array(
+      'description' => 'Email address for the local authority from FHRS',
+      'type' => 'varchar',
+      'length' => 256,
+      'not null' => FALSE,
+    ),
+    'manual' => array(
+      'description' => 'Indicates whether this local authority has been entered manually via the admin GUI or imported',
+      'type' => 'int',
+      'not null' => FALSE,
+      'default' => 0,
+    ),
+    'created' => array(
+      'description' => 'The UNIX timestamp when the local authority was reported',
+      'type' => 'int',
+      'not null' => TRUE,
+      'default' => 0,
+    ),
+    'changed' => array(
+      'description' => 'The UNIX timestamp when the local authority was most recently changed',
+      'type' => 'int',
+      'not null' => TRUE,
+      'default' => 0,
+    ),    
+  );
+  
+  foreach ($fields as $field_name => $spec) {
+    if (!db_field_exists($table, $field_name)) {
+      db_add_field($table, $field_name, $spec);
+    }
+  }
+  
+  
 }

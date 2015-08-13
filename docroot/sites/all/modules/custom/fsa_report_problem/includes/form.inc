@@ -390,6 +390,14 @@ function fsa_report_problem_make_report_form($form, &$form_state) {
     '#default_value' => $business_address,
     '#rows' => 2,
   );
+  
+  if (!empty($form_state['manual_entry'])) {
+    $form['business_postcode'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Postcode'),
+      '#size' => 10,
+    );
+  }
 
   if (empty($form_state['manual_entry'])) {
 
@@ -504,20 +512,20 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
       // Get the businesses
       $business = $form_state['businesses'][$form_state['triggering_element']['#attributes']['data-business-id']];
       $local_authority = fsa_report_problem_get_local_authority($business['geometry']['location']['lng'], $business['geometry']['location']['lat']);
-      dpm($local_authority);
       $form_state['selected_business'] = $business;
       $form_state['local_authority'] = $local_authority;
       break;
 
 
     case 'make_report':
-
       // Try to get the local authority email address.
-      $local_authority_email = fsa_report_problem_get_local_authority_email_address($form_state['local_authority']['id']);
-
-      //drupal_set_message($form_state['values']['issue_date']);
-      //drupal_set_message(strtotime($form_state['values']['issue_date']));
-      //drupal_set_message(date_default_timezone());
+      //$local_authority_email = fsa_report_problem_get_local_authority_email_address($form_state['local_authority']['id']);
+      $area_id = !empty($form_state['local_authority']['id']) ? $form_state['local_authority']['id'] : 0;
+      
+      //$local_authority_id = fsa_report_problem_get_local_authority_id($area_id);
+      
+      // Get a local authority entity based on the area ID from MapIt
+      $la = fsa_report_problem_get_local_authority_by_area_id($area_id);
 
       // Create a problem_report entity to hold the data, and populate it from
       // the form values.
@@ -528,10 +536,22 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
       $entity->reporter_name = $form_state['values']['reporter_name'];
       $entity->reporter_email = $form_state['values']['reporter_email'];
       $entity->business_location = $form_state['values']['business_address'];
+      $entity->business_postcode = !empty($form_state['values']['business_postcode']) ? $form_state['values']['business_postcode'] : NULL;
       $entity->coordinates = !empty($form_state['coords']) ? $form_state['coords'] : NULL;
       $entity->problem_details = $form_state['values']['issue_details'];
-      $entity->local_authority_name = $form_state['local_authority']['name'];
-      $entity->local_authority_email = $local_authority_email;
+      
+      //      $entity->local_authority_name = $form_state['local_authority']['name'];
+      //      $entity->local_authority_email = $local_authority_email;
+      //      $entity->local_authority_id = $local_authority_id;
+      //      $entity->area_id = $area_id;
+      
+      if ($la) {
+        $entity->local_authority_name = $la->name;
+        $entity->local_authority_email = $la->email;
+        $entity->local_authority_id = $la->local_authority_id;
+        $entity->area_id = $la->area_id;
+      }
+      
       $entity->problem_date = strtotime($form_state['values']['issue_date']);
       $entity->save();
 
