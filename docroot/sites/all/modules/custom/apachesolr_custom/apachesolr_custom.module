@@ -156,7 +156,10 @@ function apachesolr_custom_apachesolr_index_document_build_node(ApacheSolrDocume
  *
  */
 function apachesolr_custom_apachesolr_index_document_build_file(ApacheSolrDocument $document, $entity, $env_id) {
-  print $entity->field_file_title;
+  $wrapper = entity_metadata_wrapper('file', $entity);
+  if (!empty($wrapper->field_file_title)) {
+    print $wrapper->field_file_title->raw();
+  }
 }
 
 /**
