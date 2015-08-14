@@ -68,6 +68,10 @@
     font-size: 1.5em;
     padding: 8px;
     width: 100%;
+    
+    &.error {
+      border-color: red;
+    }
   }
   
   .form-type-item {

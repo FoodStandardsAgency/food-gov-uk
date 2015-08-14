@@ -38,6 +38,9 @@
     font-size: 1.5em;
     padding: 8px;
     width: 100%; }
+    .fsa-report-problem-form textarea.error,
+    .fsa-report-problem-form input[type="text"].error {
+      border-color: red; }
   .fsa-report-problem-form .form-type-item {
     font-size: 1.5em; }
     .fsa-report-problem-form .form-type-item label {
