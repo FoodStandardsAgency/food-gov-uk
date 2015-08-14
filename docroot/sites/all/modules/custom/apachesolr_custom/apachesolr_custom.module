@@ -156,10 +156,12 @@ function apachesolr_custom_apachesolr_index_document_build_node(ApacheSolrDocume
  *
  */
 function apachesolr_custom_apachesolr_index_document_build_file(ApacheSolrDocument $document, $entity, $env_id) {
+  $title = '';
   $wrapper = entity_metadata_wrapper('file', $entity);
   if (!empty($wrapper->field_file_title)) {
-    print $wrapper->field_file_title->raw();
+    $title = apachesolr_clean_text($wrapper->field_file_title->raw());
   }
+  $document->content = $title . $document->content;
 }
 
 /**
