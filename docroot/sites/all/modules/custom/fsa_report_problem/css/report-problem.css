@@ -65,12 +65,31 @@
   .fsa-report-problem-form .food-establishment-wrapper {
     border-bottom: 1px solid #dadada;
     margin-bottom: 2em;
+    overflow: hidden;
     padding-bottom: 2em; }
+    @media (min-width: 600px) {
+      .fsa-report-problem-form .food-establishment-wrapper {
+        padding-bottom: 0; } }
+    @media (min-width: 600px) {
+      .fsa-report-problem-form .food-establishment-wrapper .food-establishment {
+        float: left;
+        width: 50%; } }
+    @media (min-width: 880px) {
+      .fsa-report-problem-form .food-establishment-wrapper .food-establishment {
+        width: auto; } }
     .fsa-report-problem-form .food-establishment-wrapper h3 {
-      font-size: 1.5em; }
+      font-size: 1.5em;
+      margin-bottom: 5px; }
     .fsa-report-problem-form .food-establishment-wrapper input[type="submit"] {
       font-size: 1.3em;
       padding: 6px 10px; }
+      @media (min-width: 600px) {
+        .fsa-report-problem-form .food-establishment-wrapper input[type="submit"] {
+          float: left;
+          margin-top: 10px; } }
+      @media (min-width: 880px) {
+        .fsa-report-problem-form .food-establishment-wrapper input[type="submit"] {
+          float: right; } }
 
 .messages {
   font-size: 1.2em;

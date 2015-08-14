@@ -113,15 +113,46 @@
   .food-establishment-wrapper {
     border-bottom: 1px solid #dadada;
     margin-bottom: 2em;
+    overflow: hidden;
     padding-bottom: 2em;
+    
+    @media (min-width: 600px) {
+      padding-bottom: 0;
+    }
+    
+    .food-establishment {
+      
+      @media (min-width: 600px) {
+        float: left;
+        width: 50%;
+      }
+      
+      @media (min-width: 880px) {
+        width: auto;
+      }
+      
+      
+    }
+    
     
     h3 {
       font-size: 1.5em;
+      margin-bottom: 5px;
     }
     
     input[type="submit"] {
       font-size: 1.3em;
       padding: 6px 10px;
+      
+      @media (min-width: 600px) {
+        float: left;
+        margin-top: 10px;
+      }
+      
+      @media (min-width: 880px) {
+        float: right;
+      }
+      
     }
     
   }
