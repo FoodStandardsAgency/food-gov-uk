@@ -354,6 +354,11 @@ function fsa_report_problem_results_form($form, &$form_state) {
 
   }
 
+  $form['powered_by_google'] = array(
+    '#theme' => 'image',
+    '#path' => drupal_get_path('module', 'fsa_report_problem') . "/img/powered-by-google-on-white.png",
+    '#alt' => t('Powered by Google'),
+  );
 
 
   return $form;
