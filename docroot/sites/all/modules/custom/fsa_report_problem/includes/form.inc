@@ -680,27 +680,34 @@ function fsa_report_problem_report_complete_form($form, &$form_state) {
   if (empty($report)) {
     return $form;
   }
-
-  $form['thank_you_test'] = array(
-    '#type' => 'form_intro',
-    '#text' => _fsa_report_problem_text('report_complete', array('report' => $report)),
-  );
-
+  
+  $local_authority_name = !empty($report->local_authority_name) ? $report->local_authority_name : '';
   $local_authority_email = !empty($report->local_authority_email) ? $report->local_authority_email : '';
+
+  if (empty($local_authority_name)) {
+    $form['thank_you_text'] = array(
+      '#type' => 'form_intro',
+      '#text' => _fsa_report_problem_text('report_complete_manual', array('report' => $report)),
+    );
+  }
+  else {
+    $form['thank_you_text'] = array(
+      '#type' => 'form_intro',
+      '#text' => _fsa_report_problem_text('report_complete', array('report' => $report)),
+    );
+  }
 
   if (!empty($local_authority_email)) {
     $form['report_contact'] = array(
       '#type' => 'form_intro',
       '#text' => _fsa_report_problem_text('contact_local_authority', array('report' => $report)),
     );
-
   }
 
   if (!empty($report->reporter_email)) {
     $form['report_receipt'] = array(
-      '#type' => 'html_tag',
-      '#tag' => 'p',
-      '#value' => t('A confirmation email has been sent to @reporter_email.', array('@reporter_email' => $report->reporter_email)),
+      '#type' => 'form_intro',
+      '#text' => t('A confirmation email has been sent to @reporter_email.', array('@reporter_email' => $report->reporter_email)),
     );
   }
 

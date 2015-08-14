@@ -1312,7 +1312,12 @@ function _fsa_report_problem_text($key = NULL, $data = array()) {
     'report_complete' => array(
       'title' => t('Report complete text'),
       'description' => t('Report complete text'),
-      'default' => t('Thank you for your report'),
+      'default' => t('Thank you for your report, which will be forwarded to [local_authority:name] for investigation.'),
+    ),
+    'report_complete_manual' => array(
+      'title' => t('Report complete text - manual entry'),
+      'description' => t('Report complete text - manual entry'),
+      'default' => t('Thank you for your report. It will be forwarded to the relevant local authority for investigation.'),
     ),
     'contact_local_authority' => array(
       'title' => t('Contact your local authority'),
