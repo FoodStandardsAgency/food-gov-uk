@@ -776,7 +776,6 @@ function fsa_report_problem_get_google_results($name, $location) {
     return array();
   }
   $results = drupal_json_decode($places->data);
-  dpm($results);
   if (!empty($results['results'])) {
     return $results['results'];
   }
@@ -1235,6 +1234,7 @@ function _fsa_report_problem_preprocess_problem_report(&$variables) {
 function template_preprocess_form_intro(&$variables) {
   // Get the render element
   $element = !empty($variables['element']) ? $variables['element'] : NULL;
+  
   // Get the text. We want it to be an array, so if it's a string - ie a single
   // paragraph, turn it into an array instead.
   $text = !empty($element['#text']) ? $element['#text'] : array();
