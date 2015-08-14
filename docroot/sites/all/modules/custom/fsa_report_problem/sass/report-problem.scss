@@ -5,6 +5,10 @@
   p {
     font-size: 1.4em;
     
+    &.error {
+      color: red;
+    }
+
     &.service-status-message {
       background-color: #cc0000;
       padding: 5px 8px;
