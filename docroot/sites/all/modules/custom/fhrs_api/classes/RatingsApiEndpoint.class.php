@@ -44,7 +44,8 @@ abstract class RatingsApiEndpoint {
     
     // Only allow known endpoints
     if (!in_array($this->endpointName, $this->allowed_endpoints)) {
-      return 'Unknown endpoint';
+      return new RatingsApiResponse((object) array('error' => t('Unknown FHRS API endpoint'), 'code' => 404));
+      //return 'Unknown endpoint';
     }
     
     $url = $this->endpoint;
@@ -56,7 +57,6 @@ abstract class RatingsApiEndpoint {
   }
   
   public function makeRequest($url, $params = array(), $headers = array(), $format = 'json') {
-    
     $headers['x-api-version'] = $this->api_version;
     $headers['content-type'] = "application/$format";
     $headers['accept'] = "application/$format";
@@ -82,8 +82,11 @@ abstract class RatingsApiEndpoint {
       'headers' => $headers,
     );
     
+    //$url = 'http://api.ratings.food.gov.uk/Authorities/sadfasdf';
+
     $request = drupal_http_request($url, $options);
-    $data = !empty($request->data) ? $request->data : t('Sorry, an error has occurred');
+    
+    //$data = !empty($request->data) ? $request->data : t('Sorry, an error has occurred');
     
     //dpm($request);
     
@@ -99,7 +102,11 @@ abstract class RatingsApiEndpoint {
 //    $info = curl_getinfo($ch);
 //    $sent = curl_getinfo($ch, CURLINFO_HEADER_OUT);
 //    curl_close($ch);
-    return $data;
+    
+    $response = new RatingsApiResponse($request, $this->endpointName);
+    return $response;
+    
+    //return $data;
   }
   
   
