@@ -379,6 +379,7 @@ function fsa_report_problem_make_report_form($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Name of the business'),
     '#default_value' => !empty($business['name']) ? $business['name'] : '',
+    '#required' => TRUE,
   );
 
   $business_address = !empty($business['formatted_address']) ? $business['formatted_address'] : '';
@@ -389,12 +390,14 @@ function fsa_report_problem_make_report_form($form, &$form_state) {
     '#title' => t('Business address'),
     '#default_value' => $business_address,
     '#rows' => 2,
+    '#required' => TRUE,
   );
   
   if (!empty($form_state['manual_entry'])) {
     $form['business_postcode'] = array(
       '#type' => 'textfield',
       '#title' => t('Postcode'),
+      '#description' => t('Please provide the postcode of the business if you know it. This will help us to identify the relevant local authority to investigate the problem.'),
       '#size' => 10,
     );
   }
@@ -437,6 +440,7 @@ function fsa_report_problem_make_report_form($form, &$form_state) {
     '#title' => t('Details of the food issue'),
     '#cols' => 20,
     '#rows' => 10,
+    '#required' => TRUE,
   );
 
   $form['submit'] = array(
@@ -487,6 +491,10 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
       // report stage.
       if (!empty($lat) && !empty($lng) && !empty($name) && !empty($address)) {
         $local_authority = fsa_report_problem_get_local_authority($lng, $lat);
+        // @todo Add some validation here to check whether an authority is
+        // returned for these coordinates. 
+        //dpm("$lng,$lat");
+        //dpm($local_authority);
         $form_state['local_authority'] = $local_authority;
         $form_state['coords'] = "$lat,$lng";
         $next_stage = 'make_report';

@@ -626,7 +626,15 @@ function fsa_report_problem_report_forward_form($form, &$form_state, $report_id 
   $report = entity_load_single('problem_report', $report_id);
   $email = _fsa_report_problem_email('problem_report');
   $form_state['report'] = $report;
-
+  
+  if (!empty($report->email_sent)) {
+    drupal_set_message('This report has already been sent. Are you sure you want to forward it?', 'warning');
+  }
+  
+  if (empty($report->local_authority_email)) {
+    drupal_set_message(t('There is currently no local authority email associated with this report. You can try to find one by clicking on the Set local authority tab.'), 'warning');
+  }
+  
   $form['address_details'] = array(
     '#type' => 'fieldset',
     '#title' => t('Address details'),
@@ -866,7 +874,7 @@ function fsa_report_problem_report_local_authority_form($form, &$form_state, $ri
     
     if (!empty($local_authority->name)) {
       $form['local_authority']['intro'] = array(
-        '#markup' => t('We have found the following local authority. If you would like to use this authority, please click the button below.'),
+        '#markup' => t('Based on the postcode !postcode, we have found the following local authority. If you would like to use this authority, please click the button below.', array('!postcode' => $form_state['postcode'])),
       );
 
       $form['local_authority']['name'] = array(
@@ -900,8 +908,7 @@ function fsa_report_problem_report_local_authority_form($form, &$form_state, $ri
   
   
   
-  
-  if ($report->local_authority_id > 0) {
+  if ($report->local_authority_id > 0 && empty($form_state['confirm_local_authority'])) {
     
     $form['local_authority'] = array(
       '#type' => 'fieldset',
@@ -909,7 +916,7 @@ function fsa_report_problem_report_local_authority_form($form, &$form_state, $ri
     );
     
     $form['local_authority']['intro'] = array(
-      '#markup' => t('This report already has the following local authority assigned to it.'),
+      '#markup' => t('This report already has the following local authority assigned to it. You can change it by searching for another authority by poscode below.'),
     );
     
     $form['local_authority']['local_authority_name'] = array(
@@ -924,7 +931,7 @@ function fsa_report_problem_report_local_authority_form($form, &$form_state, $ri
       '#markup' => !empty($report->local_authority_email) ? $report->local_authority_email : t('No email address found'),
     );
     
-    return $form;
+    //return $form;
     
   }
   
@@ -961,7 +968,7 @@ function fsa_report_problem_report_local_authority_form($form, &$form_state, $ri
     '#type' => 'fieldset',
     '#title' => t('Postcode'),
     '#collapsible' => TRUE,
-    '#collapsed' => !empty($local_authority->name) ? TRUE : FALSE,
+    '#collapsed' => !empty($local_authority->name) || !empty($report->local_authority_id)  ? TRUE : FALSE,
   );
   
   $form['postcode_container']['intro'] = array(
@@ -998,20 +1005,26 @@ function fsa_report_problem_report_local_authority_form_submit(&$form, &$form_st
       $postcode = !empty($form_state['values']['postcode']) ? $form_state['values']['postcode'] : '';
       $la = fsa_report_problem_get_local_authority_by_postcode($postcode);
       $area_id = $la['id'];
-      $query = new EntityFieldQuery();
-      $query->entityCondition('entity_type', 'local_authority')
-        ->propertyCondition('area_id', $area_id);
-      $result = $query->execute();
-      $authorities = entity_load('local_authority', array_keys($result['local_authority']));
-      $local_authority = current($authorities);
+      //$query = new EntityFieldQuery();
+      //$query->entityCondition('entity_type', 'local_authority')
+      //  ->propertyCondition('area_id', $area_id);
+      //$result = $query->execute();
+      //$authorities = entity_load('local_authority', array_keys($result['local_authority']));
+      //$local_authority = current($authorities);
+      
       
       //$local_authority['email'] = !empty($local_authority['id']) ? fsa_report_problem_get_local_authority_email_address($local_authority['id']) : '';
       //$local_authority['fhrs_id'] = fsa_report_problem_get_local_authority_id($local_authority['id']);
-      
+      $local_authority = fsa_report_problem_get_local_authority_by_area_id($area_id);
       if (!empty($local_authority)) {
         $form_state['local_authority'] = $local_authority;
         $form_state['rebuild'] = TRUE;
         $form_state['postcode'] = _fsa_report_problem_format_postcode($postcode);
+        $form_state['confirm_local_authority'] = TRUE;
+      }
+      else {
+        drupal_set_message(t('Sorry, we could not find a local authority for that postcode'), 'error');
+        
       }
       break;
     

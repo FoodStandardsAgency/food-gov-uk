@@ -8,7 +8,8 @@
     initialiseAutocomplete: function() {
       var reportProblem = this;
       var autocompleteOptions = {
-        'types': ['establishment']
+        'types': ['establishment'],
+        'componentRestrictions': {country: 'gb'}
       };
       if (google) {
         $placesLookup = $('<input>', {

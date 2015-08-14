@@ -761,12 +761,22 @@ function fsa_report_problem_get_google_results($name, $location) {
   $endpoint = 'https://maps.googleapis.com/maps/api/place/textsearch/json';
   $api_key = 'AIzaSyBKglgVV8ILtw8Y6zPwCA9t9CNi4Ymdm_I';
   $query = "$name $location";
-  $url = url($endpoint, array('query' => array('key' => $api_key, 'query' => $query)));
+  $options = array(
+    'query' => array(
+      'key' => $api_key,
+      'query' => $query,
+      'types' => 'establishment',
+    ),
+  );
+  $url = url($endpoint, $options);
+  
+  //$url = url($endpoint, array('query' => array('key' => $api_key, 'query' => $query)));
   $places = drupal_http_request($url);
   if (empty($places->code) || $places->code != '200' || empty($places->data)) {
     return array();
   }
   $results = drupal_json_decode($places->data);
+  dpm($results);
   if (!empty($results['results'])) {
     return $results['results'];
   }
@@ -777,10 +787,9 @@ function fsa_report_problem_get_google_results($name, $location) {
 
 
 function fsa_report_problem_get_local_authority($lng, $lat){
-  $endpoint = 'http://mapit.mysociety.org/point/4236';
+  $endpoint = 'http://mapit.mysociety.org/point/4326';
   $url = url("$endpoint/$lng,$lat", array('query' => array('type' => 'DIS,UTA,LBO,LGD')));
   $area_data = drupal_http_request($url);
-  //dpm($area_data);
   return current(drupal_json_decode($area_data->data));
 }
 
@@ -959,7 +968,29 @@ function fsa_report_problem_get_fhrs_authorities($id = NULL) {
   $args = !empty($id) ? array($id) : array();
   $params = array();
   $request = fhrs_api_make_request($endpoint, $args, $params);
-  dpm($request);
+  
+  if (empty($request->success) || empty($request->data)) {
+    return array();
+  }
+  
+  if (!is_array($request->data)) {
+    return $request->data;
+  }
+  
+  $fhrs_authorities = array();
+  
+  foreach ($request->data as $fhrs_authority) {
+    $fhrs_authorities[$fhrs_authority->LocalAuthorityId] = $fhrs_authority;
+  }
+  
+  return $fhrs_authorities;
+  
+  //return !empty($request->success) && !empty($request->data) ? $request->data : array();
+  
+  
+  return $request->data;
+  
+  
   if (empty($id)) {
     return json_decode($request)->authorities;
   }
@@ -1566,14 +1597,23 @@ function _fsa_report_problem_format_postcode($postcode) {
  * Updates local authority data held in Drupal from the FHRS API.
  */
 function _fsa_report_problem_update_fhrs_data() {
-  // Get the local authority data from FHRS.
-  $fhrs_authorities = array();
+  //$fhrs_authorities = array();
   
-  $test = fsa_report_problem_get_fhrs_authorities();
  
-  foreach (fsa_report_problem_get_fhrs_authorities() as $fhrs_authority) {
-    $fhrs_authorities[$fhrs_authority->LocalAuthorityId] = $fhrs_authority;
+  //$fhrsa = fsa_report_problem_get_fhrs_authorities();
+  //dpm($fhrsa);
+  
+  // Get the local authority data from FHRS.
+  $fhrs_authorities = fsa_report_problem_get_fhrs_authorities();
+  
+  // If we have no FHRS authorities, return FALSE now.
+  if (empty($fhrs_authorities)) {
+    return FALSE;
   }
+  
+  //foreach ($fhrsa as $fhrs_authority) {
+  //  $fhrs_authorities[$fhrs_authority->LocalAuthorityId] = $fhrs_authority;
+  //}
   
   // Load up all of the local authority entities from Drupal
   $query = new EntityFieldQuery();
@@ -1598,6 +1638,8 @@ function _fsa_report_problem_update_fhrs_data() {
     }
     
   }
+  // If we've got this far, assume everything has been successful.
+  return TRUE;
   
 }
 
@@ -1619,8 +1661,15 @@ function fsa_report_problem_cron() {
     return;
   }
 
-  // Update the FHRS data.
-  _fsa_report_problem_update_fhrs_data();
-  variable_set('fsa_report_problem_fhrs_last_import', REQUEST_TIME);
-  watchdog('Food report', t('FHRS authority data updated.'));
+  // Update the FHRS data. If we're successful, set a variable to stop this
+  // from happening again today.
+  if (_fsa_report_problem_update_fhrs_data()) {
+    variable_set('fsa_report_problem_fhrs_last_import', REQUEST_TIME);
+    watchdog('Food report', t('FHRS authority data updated.'));
+  }
+  // Looks like the update failed for some reason. Let Watchdog know and don't
+  // set the variable, so it'll try on the next Cron run.
+  else {
+    watchdog('Food report', t('An error occurred updating the FHRS data. Will try again on next Cron run.'), array(), WATCHDOG_NOTICE);
+  }
 }
