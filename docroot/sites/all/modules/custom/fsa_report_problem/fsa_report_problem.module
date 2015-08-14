@@ -1062,8 +1062,24 @@ function fsa_report_problem_mail($key, &$message, $params) {
         '#theme' => 'report_acknowledgement_email',
         '#report' => $report,
       );
-      $message['subject'] = t('Thank you for submitting a report');
-      $message['body'][] = drupal_render($message_body);
+      //$message['subject'] = t('Thank you for submitting a report');
+      //$message['body'][] = drupal_render($message_body);
+      $message_details = _fsa_report_problem_email('acknowledgement');
+      $message['subject'] .= token_replace($message_details['subject'], array('report' => $params['report']));
+      
+      if (!empty($params['report']->reporter_name)) {
+        $message['body'][] = t('Dear @reporter_name', array('@reporter_name' => $params['report']->reporter_name));
+      }
+      else {
+        $message['body'][] = t('Dear Sir or Madam');
+      }
+      
+      $message['body'][] = token_replace($message_details['message'], array('report' => $params['report']));
+      
+      if (!empty($params['report']->local_authority_email)) {
+        $contact = _fsa_report_problem_text('contact_local_authority', array('report' => $params['report']));
+        $message['body'][] = "\r\n\r\n" . $contact['value'];
+      }
       break;
   }
 }
