@@ -176,7 +176,16 @@ function fsa_report_problem_form($form, &$form_state) {
 
 }
 
-function fsa_report_problem_find_business_form() {
+function fsa_report_problem_find_business_form($form, &$form_state) {
+
+  // Field for location
+  
+  $form['business_location'] = array(
+    '#type' => 'hidden',
+    '#attributes' => array(
+      'id' => 'business-location',
+    ),
+  );
 
   $form['lat'] = array(
     '#type' => 'hidden',
@@ -209,11 +218,20 @@ function fsa_report_problem_find_business_form() {
     '#text' => _fsa_report_problem_text('find_business_intro'),
   );
 
+  if (!empty($form_state['no_businesses_found'])) {
+    $form['no_results_message'] = array(
+      '#type' => 'form_intro',
+      '#text' => _fsa_report_problem_text('no_matching_business'),
+    );
+  }
+
+  /*
   $form['step1'] = array(
     '#prefix' => '<p>',
     '#markup' => 'Please use the form below to enter all or part of the business\'s name and a location such as a town, area or postcode.',
     '#suffix' => '</p>',
   );
+   */
 
   $form['field_wrapper'] = array(
     '#type' => 'container',
@@ -226,17 +244,28 @@ function fsa_report_problem_find_business_form() {
     '#type' => 'container',
   );
 
+  
+  
+  
+  
   // Field for business name
+  /*
   $form['field_wrapper']['business_name'] = array(
     '#type' => 'textfield',
     '#title' => t('Business name'),
   );
-
-  // Field for location
-  $form['field_wrapper']['business_location'] = array(
+  */
+  
+  $form['field_wrapper']['business_name'] = array(
     '#type' => 'textfield',
-    '#title' => t('Street, borough, or town/city'),
+    //'#title' => t('Business name and location'),
+    '#description' => t('Please enter the name and location of the business that you wish to report'),
+    '#required' => TRUE,
+    '#attributes' => array(
+      'placeholder' => t('Enter the business name and address'),
+    ),
   );
+  
 
   // Submit button
   $form['field_wrapper']['submit'] = array(
@@ -487,10 +516,11 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
       // Get lat, long, name and address
       $lat = !empty($form_state['values']['lat']) ? $form_state['values']['lat'] : '';
       $lng = !empty($form_state['values']['lng']) ? $form_state['values']['lng'] : '';
+      //$name = !empty($form_state['values']['business_name']) ? $form_state['values']['business_name'] : '';
       $name = !empty($form_state['values']['business_name']) ? $form_state['values']['business_name'] : '';
       $address = !empty($form_state['values']['business_location']) ? $form_state['values']['business_location'] : '';
-
-      // If we already have name, address, lat and long, then presumably we've
+      
+      // If we already have name, lat and long, then presumably we've
       // come from the Google Places autocomplete, so we can bypass the stage
       // where users would select a business. Instead, we go straight to the
       // report stage.
@@ -508,7 +538,16 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
 
       // Get business listings from the Google Places API.
       $businesses = fsa_report_problem_get_google_results($name, $address);
-      $form_state['businesses'] = $businesses;
+      if (count($businesses) == 0) {
+        $next_stage = 'find_business';
+        $form_state['no_businesses_found'] = TRUE;
+        drupal_set_message('Sorry, we could not find any matching businesses.', 'error');
+        $form_state['rebuild'] = TRUE;
+      }
+      else {
+        $form_state['businesses'] = $businesses;
+      }
+      
       break;
 
     case 'show_results':
