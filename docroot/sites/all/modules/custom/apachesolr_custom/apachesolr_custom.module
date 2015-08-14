@@ -154,6 +154,9 @@ function apachesolr_custom_apachesolr_index_document_build_node(ApacheSolrDocume
 /**
  * Implementation of hook_apachesolr_index_document_build_ENTITY_TYPE()
  *
+ * We use this to add the title field of files to the searchable content
+ * field in Solr.
+ *
  */
 function apachesolr_custom_apachesolr_index_document_build_file(ApacheSolrDocument $document, $entity, $env_id) {
   $title = '';
@@ -161,6 +164,7 @@ function apachesolr_custom_apachesolr_index_document_build_file(ApacheSolrDocume
   if (!empty($wrapper->field_file_title)) {
     $title = apachesolr_clean_text($wrapper->field_file_title->raw());
   }
+  // Add the title field to the content
   $document->content = $title . $document->content;
 }
 
