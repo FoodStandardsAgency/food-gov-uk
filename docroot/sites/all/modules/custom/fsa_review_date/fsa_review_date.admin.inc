@@ -9,7 +9,8 @@
  */
 function fsa_review_date_list_content() {
   $output[] = _fsa_review_date_content_table(t('Content for review today'));
-  $output[] = _fsa_review_date_content_table(t('Content for review in the future'), FALSE);
+  //$output[] = _fsa_review_date_content_table(t('Content for review in the next @days days', array('@days' => variable_get('fsa_review_date_time_period', FSA_REVIEW_DATE_TIME_PERIOD))), FALSE);
+  $output[] = _fsa_review_date_content_table(format_plural(variable_get('fsa_review_date_time_period', FSA_REVIEW_DATE_TIME_PERIOD), 'Content for review in the next day', 'Content for review in the next @count days'), FALSE);
   return $output;
 }
 
@@ -43,10 +44,12 @@ function _fsa_review_date_content_table($heading = 'For review today', $today = 
   $query->fields('r');
   $operator = $today ? '=' : '>';
   $query->condition('r.review_date', mktime(0,0,0), $operator);
+  if (!$today) {
+    $query->condition('r.review_date', mktime(0,0,0) + (variable_get('fsa_review_date_time_period', FSA_REVIEW_DATE_TIME_PERIOD) * 60 * 60 * 24), '<=');
+  }
   $query->extend('PagerDefault');
   $query->extend('TableSort')->orderByHeader($header);
   $results = $query->execute();
-
   $rows = array();
   foreach ($results as $row) {
     $rows[] = array(
@@ -67,11 +70,134 @@ function _fsa_review_date_content_table($heading = 'For review today', $today = 
     '#theme' => 'table',
     '#header' => $header,
     '#rows' => $rows,
-    '#empty' => t('No content found'),
+    '#empty' => t('No content items found.'),
+    '#attributes' => array(
+      'class' => array('review-list-table'),
+    ),
   );
 
   # add the pager
   //$output .= theme('pager');
 
   return $output;
+}
+
+
+
+/**
+ * Form builder for the review date admin settings form
+ */
+function fsa_review_date_admin_form($form, &$form_state) {
+
+  $form['email_settings'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Email settings'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+
+  $form['email_settings']['fsa_review_date_email_to'] = array(
+    '#type' => 'textfield',
+    '#title' => t('To address'),
+    '#description' => t('The recpient(s) of the reminder emails'),
+    '#default_value' => variable_get('fsa_review_date_email_to', FSA_REVIEW_DATE_EMAIL_TO),
+  );
+
+  $form['email_settings']['fsa_review_date_email_from'] = array(
+    '#type' => 'textfield',
+    '#title' => t('From address'),
+    '#description' => t('The email address from which the reminder emails will be sent'),
+    '#default_value' => variable_get('fsa_review_date_email_from', FSA_REVIEW_DATE_EMAIL_FROM),
+  );
+
+  $form['email_settings']['fsa_review_date_email_subject'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Email subject'),
+    '#description' => t('The subject line of the reminder email'),
+    '#default_value' => variable_get('fsa_review_date_email_subject', FSA_REVIEW_DATE_EMAIL_SUBJECT),
+  );
+
+  $form['email_settings']['email_test'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Test email'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#description' => t('Send a test reminder email now'),
+  );
+
+  $form['email_settings']['email_test']['test_send'] = array(
+    '#type' => 'submit',
+    '#value' => t('Send now'),
+  );
+
+  $form['report_settings'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Report settings'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  $form['report_settings']['fsa_review_date_time_period'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Number of days to include in upcoming review'),
+    '#size' => 3,
+    '#default_value' => variable_get('fsa_review_date_time_period', FSA_REVIEW_DATE_TIME_PERIOD),
+  );
+
+  $form['content_types_container'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Content type settings'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  $form['content_types_container']['content_types_enabled'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Review date enabled'),
+    '#options' => array(),
+    '#default_value' => array(),
+  );
+
+  $form['content_types_container']['content_types_comment_enabled'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Review date comments enabled'),
+    '#options' => array(),
+    '#default_value' => array(),
+  );
+
+  foreach (node_type_get_types() as $type) {
+    //dpm($type->type);
+    //dpm(variable_get("fsa_review_date_comment_enable_" . $type->type));
+    $form['content_types_container']['content_types_enabled']['#options']["fsa_review_date_enable_" . $type->type] = $type->name;
+    $form['content_types_container']['content_types_comment_enabled']['#options']["fsa_review_date_comment_enable_" . $type->type] = $type->name;
+    if (variable_get("fsa_review_date_enable_" . $type->type) != 0) {
+      $form['content_types_container']['content_types_enabled']['#default_value'][] = "fsa_review_date_enable_" . $type->type;
+    }
+    if (variable_get("fsa_review_date_comment_enable_" . $type->type) != 0) {
+      $form['content_types_container']['content_types_comment_enabled']['#default_value'][] = "fsa_review_date_comment_enable_" . $type->type;
+    }
+  }
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save configuration'),
+  );
+
+
+  return $form;
+}
+
+
+function fsa_review_date_admin_form_submit(&$form, &$form_state) {
+  if ($form_state['triggering_element']['#id'] == 'edit-test-send') {
+    _fsa_review_date_send_email();
+    drupal_set_message('Test email sent');
+  }
+  else {
+    foreach ($form_state['values']['content_types_enabled'] as $ct => $value) {
+      $form_state['values'][$ct] = !empty($value) ? 1 : 0;
+    }
+    system_settings_form_submit($form, $form_state);
+  }
+
 }
