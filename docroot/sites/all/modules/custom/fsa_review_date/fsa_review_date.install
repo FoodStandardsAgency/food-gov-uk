@@ -1,0 +1,57 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the FSA Review Dates module
+ */
+
+
+/**
+ * Implements hook_schema().
+ */
+function fsa_review_date_schema() {
+  return array(
+    'fsa_review_date' => array(
+      'description' => 'Holds review dates and comments for nodes.',
+      'fields' => array(
+        'nid' => array(
+          'description' => 'The foreign key to node.nid',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ),
+        'vid' => array(
+          'description' => 'The foreign key to node.vid',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ),
+        'review_date' => array(
+          'description' => 'The date when the content should be reviewed',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+        ),
+        'review_comment' => array(
+          'description' => 'Any comment associated with the review date',
+          'type' => 'text',
+          'size' => 'medium',
+          'not null' => FALSE,
+        ),
+      ),
+      'indexes' => array(
+        'nid' => array('nid'),
+      ),
+      'primary key' => array('vid'),
+    ),
+  );
+}
+
+
+
+/**
+ * Implements hook_uninstall().
+ */
+function fsa_review_date_uninstall() {
+  // Delete variables
+  db_query("DELETE FROM {variable} WHERE name LIKE 'fsa_review_date_%'");
+}
