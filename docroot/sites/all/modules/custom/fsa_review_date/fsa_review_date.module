@@ -1,0 +1,453 @@
+<?php
+/**
+ * @file
+ * Module file for the FSA Review Date module
+ */
+
+/**
+ * Number of days in the future to show review dates
+ */
+define('FSA_REVIEW_DATE_TIME_PERIOD', 30);
+
+/**
+ * Default email sender address
+ */
+define('FSA_REVIEW_DATE_EMAIL_FROM', variable_get('site_mail', ini_get('sendmail_from')));
+
+/**
+ * Default email to address
+ */
+define('FSA_REVIEW_DATE_EMAIL_TO', 'webteam@foodstandards.gsi.gov.uk');
+
+/**
+ * Default email subject
+ */
+define('FSA_REVIEW_DATE_EMAIL_SUBJECT', t('Content needing review'));
+
+/**
+ * Implements hook_permission().
+ */
+function fsa_review_date_permission() {
+  return array(
+    'set review dates' => array(
+      'title' => t('Set review dates for content'),
+      'description' => t('Allows users to set review dates for content items.'),
+    ),
+    'administer review dates' => array(
+      'title' => t('Administer review date settings'),
+      'description' => t('Allows users to view and modify configuration settings relating to content review dates.'),
+    ),
+  );
+}
+
+
+/**
+ * Implements hook_menu().
+ */
+function fsa_review_date_menu() {
+  $items = array();
+
+  $items['admin/reports/review'] = array(
+    'title' => t('Content requiring review'),
+    'description' => t('View a list of content items that require review.'),
+    'page callback' => 'fsa_review_date_list_content',
+    'access arguments' => array('administer content'),
+    'file' => 'fsa_review_date.admin.inc',
+  );
+
+  $items['admin/config/content/review'] = array(
+    'title' => t('Review date settings'),
+    'description' => t('Amend configuration settings for the review date functionality'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_review_date_admin_form'),
+    'access arguments' => array('administer review dates'),
+    'file' => 'fsa_review_date.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_form_node_type_form_alter().
+ *
+ * We use this hook to add a new vertical tab to the content type edit form to
+ * enable site administrators to determine whether content types have review
+ * dates and review comments.
+ */
+function fsa_review_date_form_node_type_form_alter(&$form, $form_state) {
+
+  // Add a vertical tab for review date settings.
+  $form['review_date_settings'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Review date settings'),
+    '#description' => t('Review date settings'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#weight' => 35,
+    '#group' => 'additional_settings',
+  );
+
+  // Add a checkbox to determine whether the content type has review dates
+  // enabled.
+  $form['review_date_settings']['fsa_review_date_enable'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable review dates for this content type'),
+    '#default_value' => variable_get('fsa_review_date_enable_' .  $form['#node_type']->type, FALSE)
+  );
+
+  // Add a checkbox to determine whether the content type has review comments
+  // enabled.
+  $form['review_date_settings']['fsa_review_date_comment_enable'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable review comments for this content type'),
+    '#default_value' => variable_get('fsa_review_date_comment_enable_' .  $form['#node_type']->type, FALSE)
+  );
+
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function fsa_review_date_form_node_form_alter(&$form, &$form_state) {
+  global $user;
+
+  // Get the node object from the form.
+  $node = !empty($form['#node']) ? $form['#node'] : new stdClass();
+
+  // Get the node type.
+  $node_type = !empty($form['type']['#value']) ? $form['type']['#value'] : '';
+
+  // Hide the previous reveiw_date [sic] field if present. Our new field
+  // replaces it.
+  // @todo Delete all instances of this field once we're happy with this
+  if (!empty($form['field_reveiw_date'])) {
+    $form['field_reveiw_date']['#access'] = FALSE;
+  }
+
+  // Is review date enabled for this node type?
+  $review_date_enabled = variable_get("fsa_review_date_enable_${node_type}", FALSE);
+
+  // If we don't have a node type or review dates are not enabled, exit now.
+  if (!$review_date_enabled || empty($node_type)) {
+    return;
+  }
+
+  // Are review comments enabled for this node type?
+  $review_comments_enabled = variable_get("fsa_review_date_comment_enable_${node_type}", FALSE);
+
+  // Add a vertical tab for review date.
+  $form['review_date_settings'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Review date'),
+    '#description' => user_access('set review dates', $user) ? t('Set a date for when this content should be reviewed.') : NULL,
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#weight' => 100,
+    '#group' => 'additional_settings',
+    '#attached' => array(
+      'js' => array(drupal_get_path('module', 'fsa_review_date') . '/js/fsa-review-date.js'),
+      'css' => array(drupal_get_path('module', 'fsa_review_date') . '/css/fsa-review-date.css'),
+    ),
+  );
+
+  if (user_access('set review dates', $user)) {
+    $form['review_date_settings']['review_date'] = array(
+      '#type' => 'date_popup',
+      '#date_type' => DATE_DATETIME,
+      '#date_format' => 'd F Y',
+      '#date_year_range' => '0:+3',
+      '#default_value' => !empty($node->review_date) ? format_date($node->review_date, 'custom', 'Y-m-d') : NULL,
+    );
+  }
+  else {
+    $form['review_date_settings']['review_date'] = array(
+      '#title' => t('Date'),
+      '#type' => 'textfield',
+      //'#prefix' => '<div id="test-test-test">',
+      //'#markup' => !empty($node->review_date) ? format_date($node->review_date, 'custom', 'd F Y') : NULL,
+      //'#suffix' => '</div>',
+      '#default_value' => !empty($node->review_date) ? format_date($node->review_date, 'custom', 'd F Y') : NULL,
+      '#attributes' => array(
+        'disabled' => 'disabled',
+      ),
+    );
+  }
+
+
+  if ($review_comments_enabled) {
+    $form['review_date_settings']['review_comment'] = array(
+      '#type' => 'textarea',
+      '#title' => t('Review comment'),
+      '#description' => user_access('set review dates') ? t('Add an optional comment or reminder for when the review date is reached.') : NULL,
+      '#default_value' => !empty($node->review_comment) ? $node->review_comment : NULL,
+    );
+
+    if (!user_access('set review dates', $user)) {
+      $form['review_date_settings']['review_comment']['#attributes']['disabled'] = 'disabled';
+    }
+
+  }
+
+}
+
+
+/**
+ * Implements hook_node_insert().
+ */
+function fsa_review_date_node_insert($node) {
+
+  // If review date is not set or is empty, return now.
+  if (empty($node->review_date)) {
+    return;
+  }
+
+  // Insert review data.
+  db_insert('fsa_review_date')
+    ->fields(array(
+      'nid' => $node->nid,
+      'vid' => $node->vid,
+      'node_type' => $node->type,
+      'review_date' => strtotime($node->review_date),
+      'review_comment' => !empty($node->review_comment) ? $node->review_comment : NULL,
+    ))
+    ->execute();
+}
+
+
+/**
+ * Implements hook_node_update().
+ */
+function fsa_review_date_node_update($node) {
+
+  if (!$node->is_new && !empty($node->revision) && $node->vid) {
+    fsa_review_date_node_insert($node);
+  }
+  else if (!empty($node->review_date)) {
+    db_merge('fsa_review_date')
+      ->key(array('vid' => $node->vid))
+      ->fields(array(
+          'nid' => $node->nid,
+          'node_type' => $node->type,
+          'review_date' => strtotime($node->review_date),
+          'review_comment' => !empty($node->review_comment) ? $node->review_comment : NULL,
+        ))
+      ->execute();
+  }
+  else {
+    fsa_review_date_node_revision_delete($node);
+  }
+}
+
+/**
+ * Implements hook_node_delete().
+ */
+function fsa_review_date_node_delete($node) {
+  db_delete('fsa_review_date')
+    ->condition('nid', $node->nid)
+    ->execute();
+}
+
+/**
+ * Implements hook_node_revision_delete().
+ */
+function fsa_review_date_node_revision_delete($node) {
+  db_delete('fsa_review_date')
+    ->condition('vid', $node->vid)
+    ->execute();
+}
+
+
+/**
+ * Implements hook_node_load().
+ */
+function fsa_review_date_node_load($nodes, $types) {
+  $vids = array();
+  foreach ($nodes as $node) {
+    $vids[$node->vid] = $node->vid;
+  }
+  $result = db_query('SELECT nid, review_date, review_comment FROM {fsa_review_date} WHERE vid IN(:vids)', array(':vids' => array_keys($vids)));
+  foreach ($result as $record) {
+    $nodes[$record->nid]->review_date = $record->review_date;
+    $nodes[$record->nid]->review_comment = $record->review_comment;
+  }
+}
+
+
+/**
+ * Implements hook_cron().
+ */
+function fsa_review_date_cron() {
+
+  $last_run = variable_get('fsa_review_date_last_cron_run', 0);
+  $today = mktime(0,0,0);
+
+  // If the email has already been sent today, exit now.
+  if ($last_run == $today) {
+    watchdog('fsa_review_date', 'Content review email already sent today.');
+    return;
+  }
+
+  // Send the email - but only if there are items due today.
+  $count = count(_fsa_review_date_get_items()->fetchCol());
+  if ($count > 0) {
+    // @todo Check the return value and log accordingly
+    _fsa_review_date_send_email();
+    // Log that the email has been sent.
+    watchdog('fsa_review_date', 'Content review email sent');
+  }
+  else {
+    // Log that there are no content items due for review today.
+    watchdog('fsa_review_date', 'No content due for review today');
+  }
+
+  // Set variable so that we don't run this process again today.
+  variable_set('fsa_review_date_last_cron_run', $today);
+
+}
+
+
+/**
+ * Sends an email with a list of content items requiring review
+ * @global type $language
+ */
+function _fsa_review_date_send_email() {
+
+  global $language;
+  $to = variable_get('fsa_review_date_email_to', FSA_REVIEW_DATE_EMAIL_TO);
+  $params = array();
+  $send = TRUE;
+  $module_name = 'fsa_review_date';
+  $key = 'review_reminder';
+
+  drupal_mail($module_name, $key, $to, $language, $params, $send);
+}
+
+
+/**
+ * Implements hook_mail().
+ *
+ * @param type $key
+ * @param type $message
+ * @param type $params
+ */
+function fsa_review_date_mail($key, &$message, $params) {
+  switch ($key) {
+    case 'review_reminder':
+      $message['subject'] = variable_get('fsa_review_date_email_subject', FSA_REVIEW_DATE_EMAIL_SUBJECT);
+      $message['from'] = variable_get('fsa_review_date_email_from', FSA_REVIEW_DATE_EMAIL_FROM);
+      $message['headers']['From'] = variable_get('fsa_review_date_email_from', FSA_REVIEW_DATE_EMAIL_FROM);
+      $view_link = t('View these online at @url', array('@url' => url('admin/reports/review', array('absolute' => TRUE, 'alias' => TRUE))));
+      $message['body'][] = _fsa_review_date_content_list(t('The following content items are due for review today'));
+      $message['body'][] = $view_link;
+      $message['body'][] = '';
+      $message['body'][] = _fsa_review_date_content_list(format_plural(variable_get('fsa_review_date_time_period', FSA_REVIEW_DATE_TIME_PERIOD), 'The following content items are due for review in the next day', 'The following content items are due for review in the next @count days'), FALSE);
+      $message['body'][] = $view_link;
+      break;
+  }
+}
+
+
+/**
+ * Returns a list of content requiring review for use in email messages
+ */
+function _fsa_review_date_content_list($heading = 'For review today', $today = TRUE) {
+  $output = '';
+  $query = db_select('node', 'n');
+  $query->fields('n');
+  $query->innerJoin('fsa_review_date', 'r', 'n.nid = r.nid and r.vid = n.vid');
+  $query->fields('r');
+  $operator = $today ? '=' : '>';
+  $query->condition('r.review_date', mktime(0,0,0), $operator);
+  $types = array_keys(_fsa_review_date_enabled_content_types());
+  $query->condition('node_type', $types);
+  if (!$today) {
+    $query->condition('r.review_date', mktime(0,0,0) + (variable_get('fsa_review_date_time_period', FSA_REVIEW_DATE_TIME_PERIOD) * 60 * 60 * 24), '<=');
+  }
+  $results = $query->execute();
+  $output .= $heading . PHP_EOL;
+  foreach ($results as $row) {
+    $output .= PHP_EOL;
+    $output .= '* ';
+    $output .= $row->title;
+    if (!$today) {
+      $output .= ' (';
+      $output .= format_date($row->review_date, 'custom', 'd F Y');
+      $output .= ')';
+    }
+    if (!empty($row->review_comment)) {
+      $output .= ' : ';
+      $output .= $row->review_comment;
+    }
+  }
+  return $output;
+}
+
+
+/**
+ * Implements hook_init().
+ *
+ * Used for testing purposes only. Remove before going live.
+ */
+function fsa_review_date_init() {
+
+}
+
+
+/**
+ * Returns a result set of content items due for review
+ *
+ * @todo add parameters for date range
+ * @todo add parameters for headers and other sorting factors
+ * @todo Use this function whenever querying for review items
+ *
+ * @return type
+ */
+function _fsa_review_date_get_items($today = TRUE) {
+  $query = db_select('node', 'n');
+  $query->fields('n');
+  $query->innerJoin('fsa_review_date', 'r', 'n.nid = r.nid and r.vid = n.vid');
+  $query->fields('r');
+  $operator = $today ? '=' : '>';
+  $query->condition('r.review_date', mktime(0,0,0), $operator);
+  $results = $query->execute();
+  return $results;
+}
+
+
+/**
+ * Returns an array of enabled content types
+ */
+function _fsa_review_date_enabled_content_types() {
+  $types = &drupal_static(__FUNCTION__);
+  if (isset($types)) {
+    return $types;
+  }
+  foreach (node_type_get_names() as $type => $name) {
+    $var_name = "fsa_review_date_enable_$type";
+    $var_value = variable_get($var_name);
+    if (!empty($var_value)) {
+      $types[$type] = $name;
+    }
+  }
+  return $types;
+}
+
+
+/**
+ * Updates node types in the fsa_review_date table
+ *
+ * @see fsa_review_date_update_7002()
+ */
+function _fsa_review_date_set_node_types() {
+  $query = db_select('fsa_review_date', 'r');
+  $query->fields('r');
+  $query->condition('node_type', NULL);
+  $results = $query->execute();
+  foreach ($results as $result) {
+    $node = node_load($result->nid);
+    $update_query = db_update('fsa_review_date');
+    $update_query->fields(array('node_type' => $node->type));
+    $update_query->condition('nid', $result->nid);
+    $update_query->execute();
+  }
+}
