@@ -25,6 +25,12 @@ function fsa_review_date_schema() {
           'unsigned' => TRUE,
           'not null' => TRUE,
         ),
+        'node_type' => array(
+          'description' => 'The content type of the node',
+          'type' => 'varchar',
+          'length' => 32,
+          'not null' => FALSE,
+        ),
         'review_date' => array(
           'description' => 'The date when the content should be reviewed',
           'type' => 'int',
@@ -46,6 +52,31 @@ function fsa_review_date_schema() {
   );
 }
 
+
+/**
+ * Adds node_type field to the fsa_review_date table
+ */
+function fsa_review_date_update_7001() {
+  $table = 'fsa_review_date';
+  $field = 'node_type';
+  $spec = array(
+    'description' => 'The content type of the node',
+    'type' => 'varchar',
+    'length' => 32,
+    'not null' => FALSE,
+  );
+  if (!db_field_exists($table, $field)) {
+    db_add_field($table, $field, $spec);
+  }
+}
+
+
+/**
+ * Sets value of the node_type field where it is NULL
+ */
+function fsa_review_date_update_7002() {
+  _fsa_review_date_set_node_types();
+}
 
 
 /**

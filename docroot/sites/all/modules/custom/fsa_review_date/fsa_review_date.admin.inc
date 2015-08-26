@@ -23,20 +23,33 @@ function _fsa_review_date_content_table($heading = 'For review today', $today = 
     array(
       'data' => t('Title'),
       'field' => 'n.title',
-      'sort' => 'ASC'
+    ),
+
+    array(
+      'data' => t('Content type'),
+      'field' => 'n.type',
+    ),
+
+    array(
+      'data' => t('User name'),
+      'field' => 'n.uid',
     ),
 
     array(
       'data' => t('Review date'),
-      'field' => 'r.review_date',
-      'sort' => 'ASC'
+      'field' => 'review_date',
     ),
 
-    array('data' => t('Review comment'),
+    array(
+      'data' => t('Review comment'),
       'field' => 'r.comment',
-      'sort' => 'ASC'
     ),
   );
+
+  if (!$today) {
+    unset($header[0]['sort']);
+    $header[3]['sort'] = 'asc';
+  }
 
   $query = db_select('node', 'n');
   $query->fields('n');
@@ -47,18 +60,22 @@ function _fsa_review_date_content_table($heading = 'For review today', $today = 
   if (!$today) {
     $query->condition('r.review_date', mktime(0,0,0) + (variable_get('fsa_review_date_time_period', FSA_REVIEW_DATE_TIME_PERIOD) * 60 * 60 * 24), '<=');
   }
+  $types = array_keys(_fsa_review_date_enabled_content_types());
+  $query->condition('node_type', $types);
   $query->extend('PagerDefault');
   $query->extend('TableSort')->orderByHeader($header);
   $results = $query->execute();
   $rows = array();
+  $node_types = node_type_get_names();
   foreach ($results as $row) {
     $rows[] = array(
       l($row->title, 'node/' . $row->nid),
+      !empty($node_types[$row->type]) ? $node_types[$row->type] : $row->type,
+      empty($row->uid) ? 'Anonymous' : user_load($row->uid)->name,
       format_date($row->review_date, 'custom', 'd F Y'),
       $row->review_comment,
     );
   }
-
 
   $output[] = array(
     '#type' => 'html_tag',
@@ -73,6 +90,9 @@ function _fsa_review_date_content_table($heading = 'For review today', $today = 
     '#empty' => t('No content items found.'),
     '#attributes' => array(
       'class' => array('review-list-table'),
+    ),
+    '#attached' => array(
+      'css' => array(drupal_get_path('module', 'fsa_review_date') . '/css/fsa-review-date.css'),
     ),
   );
 
@@ -140,6 +160,7 @@ function fsa_review_date_admin_form($form, &$form_state) {
   $form['report_settings']['fsa_review_date_time_period'] = array(
     '#type' => 'textfield',
     '#title' => t('Number of days to include in upcoming review'),
+    '#description' => t('Content items due for review within this number of days will be included in reminder emails and on the report page'),
     '#size' => 3,
     '#default_value' => variable_get('fsa_review_date_time_period', FSA_REVIEW_DATE_TIME_PERIOD),
   );
@@ -151,11 +172,19 @@ function fsa_review_date_admin_form($form, &$form_state) {
     '#collapsed' => TRUE,
   );
 
+  $form['content_types_container']['content_types_enabled_intro'] = array(
+    '#markup' => t('Use the checkboxes below to determine the content types for which the review date functionality is active. You can also set these from the content type edit forms.'),
+  );
+
   $form['content_types_container']['content_types_enabled'] = array(
     '#type' => 'checkboxes',
     '#title' => t('Review date enabled'),
     '#options' => array(),
     '#default_value' => array(),
+  );
+
+  $form['content_types_container']['content_types_comment_enabled_intro'] = array(
+    '#markup' => t('Use the checkboxes below to determine the content types for which review comments are enabled. Note that if you enable review comments, the review date functionality will automatically be enabled for the given content type. You can also set these from the content type edit forms.'),
   );
 
   $form['content_types_container']['content_types_comment_enabled'] = array(
@@ -166,8 +195,6 @@ function fsa_review_date_admin_form($form, &$form_state) {
   );
 
   foreach (node_type_get_types() as $type) {
-    //dpm($type->type);
-    //dpm(variable_get("fsa_review_date_comment_enable_" . $type->type));
     $form['content_types_container']['content_types_enabled']['#options']["fsa_review_date_enable_" . $type->type] = $type->name;
     $form['content_types_container']['content_types_comment_enabled']['#options']["fsa_review_date_comment_enable_" . $type->type] = $type->name;
     if (variable_get("fsa_review_date_enable_" . $type->type) != 0) {
@@ -183,17 +210,27 @@ function fsa_review_date_admin_form($form, &$form_state) {
     '#value' => t('Save configuration'),
   );
 
-
   return $form;
 }
 
-
+/**
+ * Submit handler for the admin settings form
+ *
+ * @param type $form
+ * @param type $form_state
+ */
 function fsa_review_date_admin_form_submit(&$form, &$form_state) {
   if ($form_state['triggering_element']['#id'] == 'edit-test-send') {
     _fsa_review_date_send_email();
     drupal_set_message('Test email sent');
   }
   else {
+    foreach ($form_state['values']['content_types_comment_enabled'] as $ct => $value) {
+      $form_state['values'][$ct] = !empty($value) ? 1 : 0;
+      if (!empty($value)) {
+        $form_state['values']['content_types_enabled'][str_replace('_comment_', '_', $ct)] = str_replace('_comment_', '_', $ct);
+      }
+    }
     foreach ($form_state['values']['content_types_enabled'] as $ct => $value) {
       $form_state['values'][$ct] = !empty($value) ? 1 : 0;
     }

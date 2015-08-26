@@ -1,0 +1,22 @@
+// Formatting for the node edit form review date tab
+#edit-review-date-settings {
+  #edit-review-date {
+    label {
+      display: none;
+    }
+    &.date-padding {
+      padding: 0;
+    }
+  }
+}
+
+
+// A bit of bottom margin for the tables on the list of content for review page
+.review-list-table {
+  border-bottom: 1px solid #E1E2DC;
+  margin-bottom: 3em;
+
+  tr.odd {
+    background-color: #f9f9f9;
+  }
+}

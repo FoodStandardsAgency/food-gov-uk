@@ -1,0 +1,12 @@
+#edit-review-date-settings #edit-review-date label {
+  display: none; }
+#edit-review-date-settings #edit-review-date.date-padding {
+  padding: 0; }
+
+.review-list-table {
+  border-bottom: 1px solid #E1E2DC;
+  margin-bottom: 3em; }
+  .review-list-table tr.odd {
+    background-color: #f9f9f9; }
+
+/*# sourceMappingURL=fsa-review-date.css.map */
