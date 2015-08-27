@@ -409,6 +409,8 @@ function _fsa_review_date_get_items($today = TRUE) {
   $query->fields('r');
   $operator = $today ? '=' : '>';
   $query->condition('r.review_date', mktime(0,0,0), $operator);
+  $types = array_keys(_fsa_review_date_enabled_content_types());
+  $query->condition('node_type', $types);
   $results = $query->execute();
   return $results;
 }
