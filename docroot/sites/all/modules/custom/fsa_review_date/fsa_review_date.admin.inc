@@ -46,6 +46,7 @@ function _fsa_review_date_content_table($heading = 'For review today', $today = 
     ),
   );
 
+  // If the table is not for items due today, sort it by review date.
   if (!$today) {
     unset($header[0]['sort']);
     $header[3]['sort'] = 'asc';
@@ -216,15 +217,20 @@ function fsa_review_date_admin_form($form, &$form_state) {
 /**
  * Submit handler for the admin settings form
  *
- * @param type $form
- * @param type $form_state
+ * @see system_settings_form_submit()
+ *
  */
 function fsa_review_date_admin_form_submit(&$form, &$form_state) {
+
+  // Respond to the test email function
   if ($form_state['triggering_element']['#id'] == 'edit-test-send') {
     _fsa_review_date_send_email();
     drupal_set_message('Test email sent');
   }
+
+  // Save the configuration settings
   else {
+    // Populate the $form_state['values'] array based on checkboxes
     foreach ($form_state['values']['content_types_comment_enabled'] as $ct => $value) {
       $form_state['values'][$ct] = !empty($value) ? 1 : 0;
       if (!empty($value)) {
@@ -234,6 +240,8 @@ function fsa_review_date_admin_form_submit(&$form, &$form_state) {
     foreach ($form_state['values']['content_types_enabled'] as $ct => $value) {
       $form_state['values'][$ct] = !empty($value) ? 1 : 0;
     }
+
+    // Call system_settings_form_submit() to save the data.
     system_settings_form_submit($form, $form_state);
   }
 

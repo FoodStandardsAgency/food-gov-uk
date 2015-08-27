@@ -4,25 +4,28 @@
  * Module file for the FSA Review Date module
  */
 
+
 /**
- * Number of days in the future to show review dates
+ * Number of days in the future to show review dates. This can be overridden via
+ * the admin interface.
  */
 define('FSA_REVIEW_DATE_TIME_PERIOD', 30);
 
 /**
- * Default email sender address
+ * Default email sender address. This can be overridden via the admin interface.
  */
 define('FSA_REVIEW_DATE_EMAIL_FROM', variable_get('site_mail', ini_get('sendmail_from')));
 
 /**
- * Default email to address
+ * Default email to address. This can be overridden via the admin interface.
  */
 define('FSA_REVIEW_DATE_EMAIL_TO', 'webteam@foodstandards.gsi.gov.uk');
 
 /**
- * Default email subject
+ * Default email subject. This can be overridden via the admin interface.
  */
 define('FSA_REVIEW_DATE_EMAIL_SUBJECT', t('Content needing review'));
+
 
 /**
  * Implements hook_permission().
@@ -47,6 +50,7 @@ function fsa_review_date_permission() {
 function fsa_review_date_menu() {
   $items = array();
 
+  // Report page
   $items['admin/reports/review'] = array(
     'title' => t('Content requiring review'),
     'description' => t('View a list of content items that require review.'),
@@ -55,6 +59,7 @@ function fsa_review_date_menu() {
     'file' => 'fsa_review_date.admin.inc',
   );
 
+  // Admin configuration form
   $items['admin/config/content/review'] = array(
     'title' => t('Review date settings'),
     'description' => t('Amend configuration settings for the review date functionality'),
@@ -67,12 +72,15 @@ function fsa_review_date_menu() {
   return $items;
 }
 
+
 /**
  * Implements hook_form_node_type_form_alter().
  *
  * We use this hook to add a new vertical tab to the content type edit form to
  * enable site administrators to determine whether content types have review
  * dates and review comments.
+ *
+ * @todo Add functionality to set the summary for the tab.
  */
 function fsa_review_date_form_node_type_form_alter(&$form, $form_state) {
 
@@ -105,10 +113,17 @@ function fsa_review_date_form_node_type_form_alter(&$form, $form_state) {
 
 }
 
+
 /**
  * Implements hook_form_FORM_ID_alter().
+ *
+ * Adds a vertical tab and fields for review date to the node edit form.
+ *
  */
 function fsa_review_date_form_node_form_alter(&$form, &$form_state) {
+
+  // Get the global user object - we'll use it to see if the user has permission
+  // to set review dates and comments.
   global $user;
 
   // Get the node object from the form.
@@ -150,6 +165,8 @@ function fsa_review_date_form_node_form_alter(&$form, &$form_state) {
     ),
   );
 
+  // If the user has permission to set review dates, present a date picker for
+  // review date.
   if (user_access('set review dates', $user)) {
     $form['review_date_settings']['review_date'] = array(
       '#type' => 'date_popup',
@@ -159,13 +176,13 @@ function fsa_review_date_form_node_form_alter(&$form, &$form_state) {
       '#default_value' => !empty($node->review_date) ? format_date($node->review_date, 'custom', 'Y-m-d') : NULL,
     );
   }
+
+  // The user doesn't have permission to set review dates, so show a read-only
+  // field containing the review date.
   else {
     $form['review_date_settings']['review_date'] = array(
       '#title' => t('Date'),
       '#type' => 'textfield',
-      //'#prefix' => '<div id="test-test-test">',
-      //'#markup' => !empty($node->review_date) ? format_date($node->review_date, 'custom', 'd F Y') : NULL,
-      //'#suffix' => '</div>',
       '#default_value' => !empty($node->review_date) ? format_date($node->review_date, 'custom', 'd F Y') : NULL,
       '#attributes' => array(
         'disabled' => 'disabled',
@@ -173,7 +190,7 @@ function fsa_review_date_form_node_form_alter(&$form, &$form_state) {
     );
   }
 
-
+  // If review comments are enabled, show the review comments field.
   if ($review_comments_enabled) {
     $form['review_date_settings']['review_comment'] = array(
       '#type' => 'textarea',
@@ -181,7 +198,7 @@ function fsa_review_date_form_node_form_alter(&$form, &$form_state) {
       '#description' => user_access('set review dates') ? t('Add an optional comment or reminder for when the review date is reached.') : NULL,
       '#default_value' => !empty($node->review_comment) ? $node->review_comment : NULL,
     );
-
+    // If the user doesn't have access to set review dates, disable the field.
     if (!user_access('set review dates', $user)) {
       $form['review_date_settings']['review_comment']['#attributes']['disabled'] = 'disabled';
     }
@@ -275,6 +292,9 @@ function fsa_review_date_node_load($nodes, $types) {
 
 /**
  * Implements hook_cron().
+ *
+ * We use this hook to send a daily email of content items needing review to the
+ * designated email address set via the admin form.
  */
 function fsa_review_date_cron() {
 
@@ -308,7 +328,7 @@ function fsa_review_date_cron() {
 
 /**
  * Sends an email with a list of content items requiring review
- * @global type $language
+ * @global object $language
  */
 function _fsa_review_date_send_email() {
 
@@ -326,9 +346,14 @@ function _fsa_review_date_send_email() {
 /**
  * Implements hook_mail().
  *
- * @param type $key
- * @param type $message
- * @param type $params
+ * @param string $key
+ *   The key for the email address.
+ *
+ * @param array $message
+ *   Associative array for the email message
+ *
+ * @param array $params
+ *   Additional parameters used to build the email
  */
 function fsa_review_date_mail($key, &$message, $params) {
   switch ($key) {
@@ -349,6 +374,8 @@ function fsa_review_date_mail($key, &$message, $params) {
 
 /**
  * Returns a list of content requiring review for use in email messages
+ *
+ * @todo Use _fsa_review_date_get_items() to get the items
  */
 function _fsa_review_date_content_list($heading = 'For review today', $today = TRUE) {
   $output = '';
