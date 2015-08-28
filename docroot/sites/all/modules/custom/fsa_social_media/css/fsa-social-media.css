@@ -1,0 +1,7 @@
+@media screen and (min-width: 480px) {
+  .l-header-search, .l-header-social-media {
+    width: 28% !important; } }
+.social-media-icons .icons-wrapper li:last-child, .social-media-icons .icons-wrapper li.last-item {
+  margin-right: 0 !important; }
+
+/*# sourceMappingURL=fsa-social-media.css.map */

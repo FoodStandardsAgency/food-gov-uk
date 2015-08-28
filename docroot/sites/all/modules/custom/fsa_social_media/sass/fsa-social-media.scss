@@ -1,0 +1,18 @@
+// @file SASS/SCSS file for the FSA Social Media module
+
+// Due to the addition of the LinkedIn icon, we need to make the containers
+// for the social media icons and the site search slightly wider. This overrides
+// the grid-based setting in the main SCSS files.
+//@media screen and (min-width: 480px) {
+  .l-header-search, .l-header-social-media {
+    width: 28% !important;
+  }
+//}
+
+// Remove the right-hand padding from the last social media icon
+.social-media-icons .icons-wrapper li {
+  &:last-child,
+  &.last-item {
+    margin-right: 0 !important;
+  }
+}

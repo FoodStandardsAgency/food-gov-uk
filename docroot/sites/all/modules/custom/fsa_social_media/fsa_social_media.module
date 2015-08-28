@@ -1,0 +1,120 @@
+<?php
+/**
+ * @file
+ * Module file for the FSA Social Media module
+ */
+
+
+/**
+ * Implements hook_block_info().
+ */
+function fsa_social_media_block_info() {
+
+  $blocks['social_media_icons'] = array(
+    'info' => t('Social media icons'),
+  );
+
+  return $blocks;
+}
+
+
+/**
+ * Implements hook_block_view().
+ */
+function fsa_social_media_block_view($delta = '') {
+
+  $block = array();
+
+  switch($delta) {
+    case 'social_media_icons':
+      $block['subject'] = '';
+      // An array of social media icons
+      $block['items'] = array(
+        array(
+          'title' => t('Find us on Facebook'),
+          'icon' => '/sites/all/themes/site_frontend/images/icons/34x34/facebook.png',
+          'url' => 'http://www.facebook.com/FoodStandardsAgency'
+        ),
+        array(
+          'title' => t('Follow us on Twitter'),
+          'icon' => '/sites/all/themes/site_frontend/images/icons/34x34/twitter.png',
+          'url' => 'http://www.twitter.com/foodgov'
+        ),
+        array(
+          'title' => t('Find us on LinkedIn'),
+          'icon' => '/sites/all/themes/site_frontend/images/icons/linkedin.png',
+          'url' => 'https://www.linkedin.com/company/food-standards-agency',
+        ),
+        array(
+          'title' => t('Watch our videos on YouTube'),
+          'icon' => '/sites/all/themes/site_frontend/images/icons/34x34/youtube.png',
+          'url' => 'http://www.youtube.com/user/FoodStandardsAgency',
+        ),
+        array(
+          'title' => t('View our content on Pinterest'),
+          'icon' => '/sites/all/themes/site_frontend/images/icons/34x34/pinterest.png',
+          'url' => 'http://www.pinterest.com/foodgov/',
+        ),
+      );
+      $block['content'] = array(
+        // Add CSS with overrides
+        '#attached' => array(
+          'css' => array(
+            drupal_get_path('module', 'fsa_social_media') . "/css/fsa-social-media.css" => array(
+              'group' => 200,
+              'weight' => 200,
+            ),
+          ),
+        ),
+      );
+
+      break;
+  }
+
+  return $block;
+
+}
+
+
+/**
+ * Implements hook_theme().
+ */
+function fsa_social_media_theme($existing, $type, $theme, $path) {
+  return array(
+    'block__fsa_social_media__social_media_icons' => array(
+      'render element' => 'elements',
+      'template' => 'theme/block--fsa_social_media--social-media-icons',
+    )
+  );
+}
+
+
+/**
+ * Implements template_preprocess_block().
+ *
+ * @see block--fsa_social_media--social-media-icons.tpl
+ */
+function fsa_social_media_preprocess_block(&$variables) {
+  // Get the block object
+  $block = !empty($variables['block']) ? $variables['block'] : new stdClass();
+  // Get the block delta
+  $delta = !empty($block->delta) ? $block->delta : '';
+  // We want to operate only on the block with delta 'social_media_icons'.
+  if ($delta != 'social_media_icons') {
+    return;
+  }
+  // Preprocess the items
+  $variables['items'] = !empty($block->items) ? $block->items : array();
+  $last_item = count($variables['items']) > 0 ? count($variables['items']) - 1 : 0;
+  foreach ($variables['items'] as $key => $item) {
+    $item['alt'] = empty($item['alt']) ? $item['title'] : $item['alt'];
+    $variables['items'][$key]['url'] = url($item['url']);
+    $variables['items'][$key]['icon'] = array(
+      '#theme' => 'image',
+      '#path' => $item['icon'],
+      '#alt' => $item['alt'],
+    );
+    $variables['items'][$key]['classes'] = $key == $last_item ? 'last-item' : '';
+  }
+  $variables['classes_array'][] = 'social-media-icons';
+}
