@@ -10,7 +10,7 @@
 //}
 
 // Remove the right-hand padding from the last social media icon
-.social-media-icons .icons-wrapper li {
+.social-media-icons .block__content li {
   &:last-child,
   &.last-item {
     margin-right: 0 !important;
