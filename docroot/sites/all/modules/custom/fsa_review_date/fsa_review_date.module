@@ -12,6 +12,21 @@
 define('FSA_REVIEW_DATE_TIME_PERIOD', 30);
 
 /**
+ * Retrieve content items due for review today
+ */
+define('FSA_REVIEW_DATE_REVIEW_TODAY', 1);
+
+/**
+ * Retrieve content items due in the future
+ */
+define('FSA_REVIEW_DATE_REVIEW_FUTURE', 2);
+
+/**
+ * Retrieve content items that have passed their review date
+ */
+define('FSA_REVIEW_DATE_REVIEW_PAST', 3);
+
+/**
  * Default email sender address. This can be overridden via the admin interface.
  */
 define('FSA_REVIEW_DATE_EMAIL_FROM', variable_get('site_mail', ini_get('sendmail_from')));
@@ -40,6 +55,10 @@ function fsa_review_date_permission() {
       'title' => t('Administer review date settings'),
       'description' => t('Allows users to view and modify configuration settings relating to content review dates.'),
     ),
+    'view review date reports' => array(
+      'title' => t('View review date reports'),
+      'description' => t('Allows users to view review date reports'),
+    ),
   );
 }
 
@@ -55,7 +74,7 @@ function fsa_review_date_menu() {
     'title' => t('Content requiring review'),
     'description' => t('View a list of content items that require review.'),
     'page callback' => 'fsa_review_date_list_content',
-    'access arguments' => array('administer content'),
+    'access arguments' => array('view review date reports'),
     'file' => 'fsa_review_date.admin.inc',
   );
 
@@ -365,7 +384,10 @@ function fsa_review_date_mail($key, &$message, $params) {
       $message['body'][] = _fsa_review_date_content_list(t('The following content items are due for review today'));
       $message['body'][] = $view_link;
       $message['body'][] = '';
-      $message['body'][] = _fsa_review_date_content_list(format_plural(variable_get('fsa_review_date_time_period', FSA_REVIEW_DATE_TIME_PERIOD), 'The following content items are due for review in the next day', 'The following content items are due for review in the next @count days'), FALSE);
+      $message['body'][] = _fsa_review_date_content_list(t('The following content items have passed their review date'), FSA_REVIEW_DATE_REVIEW_PAST);
+      $message['body'][] = $view_link;
+      $message['body'][] = '';
+      $message['body'][] = _fsa_review_date_content_list(format_plural(variable_get('fsa_review_date_time_period', FSA_REVIEW_DATE_TIME_PERIOD), 'The following content items are due for review in the next day', 'The following content items are due for review in the next @count days'), FSA_REVIEW_DATE_REVIEW_FUTURE);
       $message['body'][] = $view_link;
       break;
   }
@@ -377,26 +399,15 @@ function fsa_review_date_mail($key, &$message, $params) {
  *
  * @todo Use _fsa_review_date_get_items() to get the items
  */
-function _fsa_review_date_content_list($heading = 'For review today', $today = TRUE) {
+function _fsa_review_date_content_list($heading = 'For review today', $date_range = FSA_REVIEW_DATE_REVIEW_TODAY) {
   $output = '';
-  $query = db_select('node', 'n');
-  $query->fields('n');
-  $query->innerJoin('fsa_review_date', 'r', 'n.nid = r.nid and r.vid = n.vid');
-  $query->fields('r');
-  $operator = $today ? '=' : '>';
-  $query->condition('r.review_date', mktime(0,0,0), $operator);
-  $types = array_keys(_fsa_review_date_enabled_content_types());
-  $query->condition('node_type', $types);
-  if (!$today) {
-    $query->condition('r.review_date', mktime(0,0,0) + (variable_get('fsa_review_date_time_period', FSA_REVIEW_DATE_TIME_PERIOD) * 60 * 60 * 24), '<=');
-  }
-  $results = $query->execute();
+  $results = _fsa_review_date_get_items(array('date_selector' => $date_range));
   $output .= $heading . PHP_EOL;
   foreach ($results as $row) {
     $output .= PHP_EOL;
     $output .= '* ';
     $output .= $row->title;
-    if (!$today) {
+    if ($date_range > 1) {
       $output .= ' (';
       $output .= format_date($row->review_date, 'custom', 'd F Y');
       $output .= ')';
@@ -427,14 +438,24 @@ function fsa_review_date_init() {
  * @todo add parameters for headers and other sorting factors
  * @todo Use this function whenever querying for review items
  *
- * @return type
+ * @return DatabaseStatementBase
  */
-function _fsa_review_date_get_items($today = TRUE) {
+function _fsa_review_date_get_items($options = array('date_selector' => FSA_REVIEW_DATE_REVIEW_TODAY)) {
   $query = db_select('node', 'n');
   $query->fields('n');
   $query->innerJoin('fsa_review_date', 'r', 'n.nid = r.nid and r.vid = n.vid');
   $query->fields('r');
-  $operator = $today ? '=' : '>';
+  switch ($options['date_selector']) {
+    case 1:
+      $operator = '=';
+      break;
+    case 2:
+      $operator = '>';
+      break;
+    case 3:
+      $operator = '<';
+      break;
+  }
   $query->condition('r.review_date', mktime(0,0,0), $operator);
   $types = array_keys(_fsa_review_date_enabled_content_types());
   $query->condition('node_type', $types);
