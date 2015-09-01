@@ -4,6 +4,23 @@
  * Module file for the FSA Social Media module
  */
 
+/**
+ * Defines the separator for use in converting arrays to strings
+ */
+define('FSA_SOCIAL_MEDIA_STRING_SEPARATOR', '|');
+
+
+/**
+ * Determines the width of icons in the header
+ */
+define('FSA_SOCIAL_MEDIA_ICON_SIZE_HEADER', 26);
+
+
+/**
+ * Determines the width of icons in the footer
+ */
+define('FSA_SOCIAL_MEDIA_ICON_SIZE_FOOTER', 34);
+
 
 /**
  * Implements hook_block_info().
@@ -29,33 +46,15 @@ function fsa_social_media_block_view($delta = '') {
     case 'social_media_icons':
       $block['subject'] = '';
       // An array of social media icons
-      $block['items'] = array(
-        array(
-          'title' => t('Find us on Facebook'),
-          'icon' => '/sites/all/themes/site_frontend/images/icons/34x34/facebook.png',
-          'url' => 'http://www.facebook.com/FoodStandardsAgency'
-        ),
-        array(
-          'title' => t('Follow us on Twitter'),
-          'icon' => '/sites/all/themes/site_frontend/images/icons/34x34/twitter.png',
-          'url' => 'http://www.twitter.com/foodgov'
-        ),
-        array(
-          'title' => t('Find us on LinkedIn'),
-          'icon' => '/sites/all/themes/site_frontend/images/icons/linkedin.png',
-          'url' => 'https://www.linkedin.com/company/food-standards-agency',
-        ),
-        array(
-          'title' => t('Watch our videos on YouTube'),
-          'icon' => '/sites/all/themes/site_frontend/images/icons/34x34/youtube.png',
-          'url' => 'http://www.youtube.com/user/FoodStandardsAgency',
-        ),
-        array(
-          'title' => t('View our content on Pinterest'),
-          'icon' => '/sites/all/themes/site_frontend/images/icons/34x34/pinterest.png',
-          'url' => 'http://www.pinterest.com/foodgov/',
-        ),
-      );
+      $block['items'] = _fsa_social_media_get_icons();
+
+      // Calculate widths of icon containers based on number of icons.
+      // We use this to set the widths of the containers for the social media
+      // icons so that they expand to fit the number of items.
+      $icon_count = count($block['items']) + 3;
+      $header_width = ($icon_count * FSA_SOCIAL_MEDIA_ICON_SIZE_HEADER) + (($icon_count -1) * 4) + 18 + 12;
+      $footer_width = ($icon_count * FSA_SOCIAL_MEDIA_ICON_SIZE_FOOTER) + (($icon_count -1) * 10) + 18 + 12;
+
       $block['content'] = array(
         // Add CSS with overrides
         '#attached' => array(
@@ -63,6 +62,16 @@ function fsa_social_media_block_view($delta = '') {
             drupal_get_path('module', 'fsa_social_media') . "/css/fsa-social-media.css" => array(
               'group' => 200,
               'weight' => 200,
+            ),
+            '.l-header-search, .l-header-social-media {min-width: ' . $header_width . 'px;}' => array(
+                'type' => 'inline',
+                'group' => 300,
+                'weight' => 200,
+            ),
+            '.footer-social-media-wrapper .social-media-icons {max-width: ' . $footer_width . 'px;}' => array(
+                'type' => 'inline',
+                'group' => 300,
+                'weight' => 200,
             ),
           ),
         ),
@@ -73,6 +82,25 @@ function fsa_social_media_block_view($delta = '') {
 
   return $block;
 
+}
+
+
+/**
+ * Implements hook_menu()
+ */
+function fsa_social_media_menu() {
+  $items = array();
+
+  $items['admin/config/user-interface/social-media'] = array(
+    'title' => t('Social media settings'),
+    'description' => t('Configure settings relating to social media, including social media icons.'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_social_media_admin_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'fsa_social_media.admin.inc',
+  );
+
+  return $items;
 }
 
 
@@ -106,15 +134,131 @@ function fsa_social_media_preprocess_block(&$variables) {
   // Preprocess the items
   $variables['items'] = !empty($block->items) ? $block->items : array();
   $last_item = count($variables['items']) > 0 ? count($variables['items']) - 1 : 0;
+
   foreach ($variables['items'] as $key => $item) {
     $item['alt'] = empty($item['alt']) ? $item['title'] : $item['alt'];
-    $variables['items'][$key]['url'] = url($item['url']);
-    $variables['items'][$key]['icon'] = array(
-      '#theme' => 'image',
-      '#path' => $item['icon'],
-      '#alt' => $item['alt'],
-    );
+    $variables['items'][$key]['url'] = url(trim($item['url']));
+
+    // If icon is numeric, we assume that it is a file ID, so we try to generate
+    // an image URL based on that. Otherwise, we assume it's a URL.
+    if (is_numeric(trim($item['icon']))) {
+      $file = file_load(trim($item['icon']));
+      if (!empty($file)) {
+        $item['icon'] = file_create_url($file->uri);
+        if (!empty($file->alt)) {
+          $item['alt'] = $file->alt;
+        }
+      }
+      else {
+        $item['icon'] = '';
+      }
+    }
+
+
+    if (!empty($item['icon'])) {
+      $variables['items'][$key]['icon'] = array(
+        '#theme' => 'image',
+        '#path' => trim($item['icon']),
+        '#alt' => trim($item['alt']),
+      );
+    }
+
     $variables['items'][$key]['classes'] = $key == $last_item ? 'last-item' : '';
+
+    if (empty($item['icon']) || empty($item['url'])) {
+      unset($variables['items'][$key]);
+    }
+
   }
   $variables['classes_array'][] = 'social-media-icons';
+}
+
+
+function fsa_social_media_init() {
+}
+
+
+/**
+ * Returns an array of social media icons
+ *
+ * @return array
+ */
+function _fsa_social_media_get_icons() {
+
+  // The default icon set - returned if none specified by an administrator
+  $default_icons = array(
+    array(
+      'icon' => '/sites/all/themes/site_frontend/images/icons/34x34/facebook.png',
+      'url' => 'http://www.facebook.com/FoodStandardsAgency',
+      'title' => t('Find us on Facebook'),
+    ),
+    array(
+      'icon' => '/sites/all/themes/site_frontend/images/icons/34x34/twitter.png',
+      'url' => 'http://www.twitter.com/foodgov',
+      'title' => t('Follow us on Twitter'),
+    ),
+    array(
+      'icon' => '/sites/all/themes/site_frontend/images/icons/linkedin.png',
+      'url' => 'https://www.linkedin.com/company/food-standards-agency',
+      'title' => t('Find us on LinkedIn'),
+    ),
+    array(
+      'icon' => '/sites/all/themes/site_frontend/images/icons/34x34/youtube.png',
+      'url' => 'http://www.youtube.com/user/FoodStandardsAgency',
+      'title' => t('Watch our videos on YouTube'),
+    ),
+    array(
+      'icon' => '/sites/all/themes/site_frontend/images/icons/34x34/pinterest.png',
+      'url' => 'http://www.pinterest.com/foodgov/',
+      'title' => t('View our content on Pinterest'),
+    ),
+  );
+
+  $variable_value = variable_get(fsa_social_media_icons);
+
+  if (empty($variable_value)) {
+    return $default_icons;
+  }
+
+  $social_media_items = array();
+  $socs = explode(PHP_EOL, $variable_value);
+
+  $keys = array('icon', 'url', 'title', 'alt');
+
+  foreach ($socs as $soc) {
+    $soc = trim($soc);
+    if (!empty($soc)) {
+      $soc_array = explode(FSA_SOCIAL_MEDIA_STRING_SEPARATOR, $soc);
+
+      $soc_item = array();
+
+      foreach ($keys as $key => $label) {
+        if (!empty($soc_array[$key])) {
+          $soc_item[$label] = $soc_array[$key];
+        }
+      }
+      $social_media_items[] = $soc_item;
+    }
+  }
+
+  return $social_media_items;
+
+}
+
+
+/**
+ * Converts an array of social media icons to a string
+ */
+function _fsa_social_media_icons_to_string($icons = array()) {
+  $icon_string = '';
+  if (empty($icons)) {
+    return '';
+  }
+
+  foreach ($icons as $icon) {
+    $icon = implode(FSA_SOCIAL_MEDIA_STRING_SEPARATOR, array_values($icon)) . PHP_EOL;
+    $icon_string .= $icon;
+  }
+
+  return $icon_string;
 }
