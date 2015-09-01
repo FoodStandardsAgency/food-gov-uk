@@ -88,6 +88,16 @@ function fsa_review_date_menu() {
     'file' => 'fsa_review_date.admin.inc',
   );
 
+  // Clear review date information
+  $items['admin/reports/review/%/clear'] = array(
+    'title' => 'Clear review date information',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_review_date_clear_data_form', 3),
+    'access arguments' => array('administer review dates'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'fsa_review_date.admin.inc',
+  );
+
   return $items;
 }
 

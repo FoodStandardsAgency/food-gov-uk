@@ -44,6 +44,9 @@ function _fsa_review_date_content_table($heading = 'For review today', $date_ran
       'data' => t('Review comment'),
       'field' => 'r.comment',
     ),
+    array(
+      'data' => t('Operations'),
+    )
   );
 
   // If the table is not for items due today, sort it by review date.
@@ -61,6 +64,7 @@ function _fsa_review_date_content_table($heading = 'For review today', $date_ran
       empty($row->uid) ? 'Anonymous' : user_load($row->uid)->name,
       format_date($row->review_date, 'custom', 'd F Y'),
       $row->review_comment,
+      l(t('Edit'), 'node/' . $row->nid . '/edit', array('attributes' => array('title' => t('Edit this node.')))) . ' &nbsp; ' . l(t('Clear'), 'admin/reports/review/' . $row->nid . '/clear', array('attributes' => array('title' => t('Clear review data from this node.')))),
     );
   }
 
@@ -231,4 +235,62 @@ function fsa_review_date_admin_form_submit(&$form, &$form_state) {
     system_settings_form_submit($form, $form_state);
   }
 
+}
+
+
+/**
+ * Form builder for the clear review data confirmation form.
+ */
+function fsa_review_date_clear_data_form($form, &$form_state, $nid) {
+
+  $question = t('Are you sure you want to clear review date information?');
+  $path = 'admin/reports/review';
+  $description = t('Once cleared, you will not be able to get the data back.');
+  $yes = t('Clear review data');
+  $node = !empty($nid) ? node_load($nid) : NULL;
+
+  if (!empty($node)) {
+    $form_state['nid'] = $nid;
+
+    $form['node_title'] = array(
+      '#type' => 'item',
+      '#title' => t('Page title'),
+      '#markup' => $node->title,
+    );
+
+    $form['review_date'] = array(
+      '#type' => 'item',
+      '#title' => t('Review date'),
+      '#markup' => format_date($node->review_date, 'custom', 'd F Y'),
+    );
+
+    if (!empty($node->review_comment)) {
+      $form['review_comment'] = array(
+        '#type' => 'item',
+        '#title' => t('Review comment'),
+        '#markup' => $node->review_comment,
+      );
+    }
+
+    $form['hr'] = array(
+      '#markup' => '<hr><br>',
+    );
+
+  }
+
+  return confirm_form($form, $question, $path, $description, $yes);
+}
+
+
+/**
+ * Submit handler for the clear review data confirmation form
+ */
+function fsa_review_date_clear_data_form_submit(&$form, &$form_state) {
+  $form_state['redirect'] = 'admin/reports/review';
+  $nid = !empty($form_state['nid']) ? $form_state['nid'] : NULL;
+  $node = !empty($nid) ? node_load($nid) : NULL;
+  if (!empty($node)) {
+    fsa_review_date_node_delete($node);
+    drupal_set_message('Review data cleared for node ' . $nid . ' - ' . $node->title);
+  }
 }
