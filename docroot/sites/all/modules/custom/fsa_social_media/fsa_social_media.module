@@ -54,6 +54,7 @@ function fsa_social_media_block_view($delta = '') {
       $icon_count = count($block['items']) + 3;
       $header_width = ($icon_count * FSA_SOCIAL_MEDIA_ICON_SIZE_HEADER) + (($icon_count -1) * 4) + 18 + 12;
       $footer_width = ($icon_count * FSA_SOCIAL_MEDIA_ICON_SIZE_FOOTER) + (($icon_count -1) * 10) + 18 + 12;
+      $search_box_width = $header_width - 67;
 
       $block['content'] = array(
         // Add CSS with overrides
@@ -63,7 +64,7 @@ function fsa_social_media_block_view($delta = '') {
               'group' => 200,
               'weight' => 200,
             ),
-            '.l-header-search, .l-header-social-media {min-width: ' . $header_width . 'px;}' => array(
+            '.l-header-search, .l-header-social-media {min-width: ' . $header_width . 'px;} #edit-search-block-form--2 {min-width: ' . $search_box_width . 'px;}' => array(
                 'type' => 'inline',
                 'group' => 300,
                 'weight' => 200,
