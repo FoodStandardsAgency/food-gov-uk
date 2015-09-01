@@ -9,8 +9,8 @@
  */
 function fsa_review_date_list_content() {
   $output[] = _fsa_review_date_content_table(t('Content for review today'));
-  //$output[] = _fsa_review_date_content_table(t('Content for review in the next @days days', array('@days' => variable_get('fsa_review_date_time_period', FSA_REVIEW_DATE_TIME_PERIOD))), FALSE);
-  $output[] = _fsa_review_date_content_table(format_plural(variable_get('fsa_review_date_time_period', FSA_REVIEW_DATE_TIME_PERIOD), 'Content for review in the next day', 'Content for review in the next @count days'), FALSE);
+  $output[] = _fsa_review_date_content_table(format_plural(variable_get('fsa_review_date_time_period', FSA_REVIEW_DATE_TIME_PERIOD), 'Content for review in the next day', 'Content for review in the next @count days'), FSA_REVIEW_DATE_REVIEW_FUTURE);
+  $output[] = _fsa_review_date_content_table(t('Content that has passed its review date'), FSA_REVIEW_DATE_REVIEW_PAST);
   return $output;
 }
 
@@ -18,7 +18,7 @@ function fsa_review_date_list_content() {
 /**
  * Returns a table of content for review
  */
-function _fsa_review_date_content_table($heading = 'For review today', $today = TRUE) {
+function _fsa_review_date_content_table($heading = 'For review today', $date_range = FSA_REVIEW_DATE_REVIEW_TODAY) {
   $header = array(
     array(
       'data' => t('Title'),
@@ -47,25 +47,11 @@ function _fsa_review_date_content_table($heading = 'For review today', $today = 
   );
 
   // If the table is not for items due today, sort it by review date.
-  if (!$today) {
+  if ($date_range > FSA_REVIEW_DATE_REVIEW_TODAY) {
     unset($header[0]['sort']);
     $header[3]['sort'] = 'asc';
   }
-
-  $query = db_select('node', 'n');
-  $query->fields('n');
-  $query->innerJoin('fsa_review_date', 'r', 'n.nid = r.nid and r.vid = n.vid');
-  $query->fields('r');
-  $operator = $today ? '=' : '>';
-  $query->condition('r.review_date', mktime(0,0,0), $operator);
-  if (!$today) {
-    $query->condition('r.review_date', mktime(0,0,0) + (variable_get('fsa_review_date_time_period', FSA_REVIEW_DATE_TIME_PERIOD) * 60 * 60 * 24), '<=');
-  }
-  $types = array_keys(_fsa_review_date_enabled_content_types());
-  $query->condition('node_type', $types);
-  $query->extend('PagerDefault');
-  $query->extend('TableSort')->orderByHeader($header);
-  $results = $query->execute();
+  $results = _fsa_review_date_get_items(array('date_selector' => $date_range, 'header' => $header, 'pager' => ''));
   $rows = array();
   $node_types = node_type_get_names();
   foreach ($results as $row) {
