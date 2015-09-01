@@ -384,10 +384,10 @@ function fsa_review_date_mail($key, &$message, $params) {
       $message['body'][] = _fsa_review_date_content_list(t('The following content items are due for review today'));
       $message['body'][] = $view_link;
       $message['body'][] = '';
-      $message['body'][] = _fsa_review_date_content_list(t('The following content items have passed their review date'), FSA_REVIEW_DATE_REVIEW_PAST);
+      $message['body'][] = _fsa_review_date_content_list(format_plural(variable_get('fsa_review_date_time_period', FSA_REVIEW_DATE_TIME_PERIOD), 'The following content items are due for review in the next day', 'The following content items are due for review in the next @count days'), FSA_REVIEW_DATE_REVIEW_FUTURE);
       $message['body'][] = $view_link;
       $message['body'][] = '';
-      $message['body'][] = _fsa_review_date_content_list(format_plural(variable_get('fsa_review_date_time_period', FSA_REVIEW_DATE_TIME_PERIOD), 'The following content items are due for review in the next day', 'The following content items are due for review in the next @count days'), FSA_REVIEW_DATE_REVIEW_FUTURE);
+      $message['body'][] = _fsa_review_date_content_list(t('The following content items have passed their review date'), FSA_REVIEW_DATE_REVIEW_PAST);
       $message['body'][] = $view_link;
       break;
   }
@@ -440,7 +440,16 @@ function fsa_review_date_init() {
  *
  * @return DatabaseStatementBase
  */
-function _fsa_review_date_get_items($options = array('date_selector' => FSA_REVIEW_DATE_REVIEW_TODAY)) {
+function _fsa_review_date_get_items($options) {
+
+  $default_options = array(
+    'date_selector' => FSA_REVIEW_DATE_REVIEW_TODAY,
+    'header' => array(),
+    'pager' => '',
+  );
+
+  $options += $default_options;
+
   $query = db_select('node', 'n');
   $query->fields('n');
   $query->innerJoin('fsa_review_date', 'r', 'n.nid = r.nid and r.vid = n.vid');
@@ -459,6 +468,9 @@ function _fsa_review_date_get_items($options = array('date_selector' => FSA_REVI
   $query->condition('r.review_date', mktime(0,0,0), $operator);
   $types = array_keys(_fsa_review_date_enabled_content_types());
   $query->condition('node_type', $types);
+  if (!empty($options['header'])) {
+    $query->extend('TableSort')->orderByHeader($options['header']);
+  }
   $results = $query->execute();
   return $results;
 }
