@@ -7,22 +7,6 @@
  *
 **/
 
-$databases = array (
-  'default' =>
-    array (
-      'default' =>
-        array (
-          'database' => 'food',
-          'username' => 'drupal',
-          'password' => 'F8q9WCZJtp',
-          'host' => 'localhost',
-          'port' => '',
-          'driver' => 'mysql',
-          'prefix' => '',
-        ),
-    ),
-);
-
 $update_free_access = FALSE;
 
 $drupal_hash_salt = 'Lqn-efzYTXp7qrA-R9bFPO1Sju8WRI72spTAo61xW0A';
