@@ -1,0 +1,5 @@
+name = FSA Social Media
+description = Provides blocks for social media icons
+core = 7.x
+package = FSA Custom
+configure = admin/config/user-interface/social-media
