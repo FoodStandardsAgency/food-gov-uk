@@ -450,7 +450,7 @@ function fsa_review_date_init() {
  *
  * @return DatabaseStatementBase
  */
-function _fsa_review_date_get_items($options) {
+function _fsa_review_date_get_items($options = array()) {
 
   $default_options = array(
     'date_selector' => FSA_REVIEW_DATE_REVIEW_TODAY,
