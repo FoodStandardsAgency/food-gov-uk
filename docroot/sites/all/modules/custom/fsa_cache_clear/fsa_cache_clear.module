@@ -313,7 +313,11 @@ function _fsa_cache_clear_cloudflare_purge_url($path = NULL) {
  *
  * @param string $path
  *   The path to be cleared from the CloudFlare cache
- * @return type
+ * 
+ * @return NULL
+ *
+ * @see fsa_cache_clear_file_entity_edit_submit()
+ * @see _fsa_cache_clear_cloudflare_queue_add_items()
  */
 function _fsa_cache_clear_cloudflare_queue_url($path = NULL, $object_type = NULL) {
 
@@ -335,6 +339,11 @@ function _fsa_cache_clear_cloudflare_queue_url($path = NULL, $object_type = NULL
   // If we're purging a file object, we need to make sure we purge it from all
   // of the committee subdomains as well as any configured by the users.
   if ($object_type == 'file') {
+    // Purging of files is now handled by the custom submit function:
+    // fsa_cache_clear_file_entity_edit_submit(). This function handles image
+    // derivative files, which can't easily be handled here. We therefore return
+    // early if the object is a file.
+    return;
     // Don't clear the homepage for files.
     if ($path == '<front>') {
       return;
@@ -365,6 +374,29 @@ function _fsa_cache_clear_cloudflare_queue_url($path = NULL, $object_type = NULL
     $urls[] = "https://$domain/$path";
   }
 
+  // Add the URLs to the queue to be cleared.
+  _fsa_cache_clear_cloudflare_queue_add_items($urls);
+
+}
+
+/**
+ * Adds URLs to be purged from CloudFlare to the queue.
+ *
+ * @param array $urls
+ *   An array of fully-qualified URLs to be purged from the CloudFlare cache
+ *
+ * @return NULL
+ *
+ * @see _fsa_cache_clear_cloudflare_queue_url()
+ * @see fsa_cache_clear_file_entity_edit_submit()
+ */
+function _fsa_cache_clear_cloudflare_queue_add_items($urls = array()) {
+
+  // If there are no items to queue, exit now.
+  if (empty($urls)) {
+    return;
+  }
+
   // Create or open the queue.
   $queue = DrupalQueue::get(FSA_CACHE_CLEAR_CLOUDFLARE_QUEUE_NAME);
 
@@ -376,7 +408,6 @@ function _fsa_cache_clear_cloudflare_queue_url($path = NULL, $object_type = NULL
     }
     $queue->createItem($url);
   }
-
 }
 
 /**
@@ -405,7 +436,7 @@ function fsa_cache_clear_cron_queue_info() {
  *
  * @param string $url
  *   The full URL - inculding protocol and domain - to be purged from CloudFlare
- * @return type
+ * @return NULL
  */
 function _fsa_cache_clear_cloudflare_purge_individual_url($url = NULL) {
 
@@ -564,4 +595,65 @@ function _fsa_cache_clear_committee_domains() {
     'ssrc.food.gov.uk'=> 'committee/social-science-research-committee-ssrc',
   );
   return $committee_domains;
+}
+
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * @see fsa_cache_clear_file_entity_edit_submit()
+ */
+function fsa_cache_clear_form_file_entity_edit_alter(&$form, &$form_state, $form_id) {
+  if (!empty($form['actions']['submit']['#submit'])) {
+    // Add our submit handler to the file_entity edit form.
+    array_unshift($form['actions']['submit']['#submit'], 'fsa_cache_clear_file_entity_edit_submit');
+  }
+}
+
+
+/**
+ * Additional submit handler for the file entity edit form.
+ *
+ * We use this to determine which derived image files exist before they are
+ * deleted. We can then purge these derived files from CloudFlare.
+ */
+function fsa_cache_clear_file_entity_edit_submit($form, &$form_state) {
+  // Get the file object
+  $file = !empty($form_state['file']) ? $form_state['file'] : NULL;
+  // Get the replacement file object
+  $replace_file = !empty($form_state['values']['replace_upload']) ? TRUE : FALSE;
+  // If we have no file object or replacement file object, return now.
+  if (empty($file) || empty($replace_file)) {
+    return;
+  }
+  // An array to hold URLs for clearing.
+  $urls = array();
+  // Filename for the file to be replaced
+  $filename = file_uri_target($file->uri);
+  // Get the path for public files.
+  $public_path = variable_get('file_public_path');
+  // Add the filename to the URLs for clearing
+  $urls[] =  "$public_path/$filename";
+  // If the file is an image, we need to check whether it has any existing
+  // style derivatives, as these will need to be cleared from CloudFlare too.
+  if ($file->type == 'image') {
+    $image_styles = image_styles();
+    foreach ($image_styles as $style_name => $style_properties) {
+      if (file_exists(image_style_path($style_name, $filename))) {
+        $urls[] = $public_path . '/' . file_uri_target(image_style_path($style_name, $filename));
+      }
+    }
+  }
+  // Get the list of domains from which this file needs to be cleared.
+  $domains = array_merge(_fsa_cache_clear_settings('cloudflare_domains'), array_keys(_fsa_cache_clear_committee_domains()));
+  $clear_urls = array();
+  foreach ($domains as $domain) {
+    foreach ($urls as $url) {
+      // We need to clear both http and https versions.
+      $clear_urls[] = "http://$domain/$url";
+      $clear_urls[] = "https://$domain/$url";
+    }
+  }
+  // Add the items to the CloudFlare queue to be cleared on cron.
+  _fsa_cache_clear_cloudflare_queue_add_items($clear_urls);
 }
