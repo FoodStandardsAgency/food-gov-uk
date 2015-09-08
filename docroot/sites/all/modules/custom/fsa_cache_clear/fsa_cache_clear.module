@@ -140,8 +140,6 @@ function _fsa_cache_clear_varnish_purge($paths) {
     //$purge = '^'. $base . $purge;
     $purge = '^'. $base . $purge . $varnish_wildcard;
     varnish_purge($host, $purge);
-    watchdog('FSA cache clear', "Host: $host");
-    watchdog('FSA cache clear', "Purge: $purge");
     _fsa_cache_clear_log_message('varnish_purge', 'Successfully purged @purge for host @host from the Varnish cache.', array('@purge' => $purge, '@host' => $host));
   }
 }
@@ -692,11 +690,13 @@ function fsa_cache_clear_file_entity_edit_submit($form, &$form_state) {
     foreach ($image_styles as $style_name => $style_properties) {
       if (file_exists(image_style_path($style_name, $filename))) {
         // Clear the Varnish cache for the derived images.
-        //dpm("Clearing from Varnish: $public_path" . '/' . file_uri_target(image_style_path($style_name, $filename)));
         _fsa_cache_clear_varnish_purge($public_path . '/' . file_uri_target(image_style_path($style_name, $filename)));
+        // Get the image style token to add to the URL for CloudFlare
+        $image_style_path_token = image_style_path_token($style_name,  "public://$filename");
         // Add the path to be cleared from the Varnish cache to the queue
         _fsa_cache_clear_varnish_queue_add_items(array($public_path . '/' . file_uri_target(image_style_path($style_name, $filename))));
-        $urls[] = $public_path . '/' . file_uri_target(image_style_path($style_name, $filename));
+        //$urls[] = $public_path . '/' . file_uri_target(image_style_path($style_name, $filename));
+        $urls[] = $public_path . '/' . file_uri_target(image_style_path($style_name, $filename)) . "?" . IMAGE_DERIVATIVE_TOKEN . "=$image_style_path_token";
       }
     }
   }
