@@ -258,12 +258,12 @@ function fsa_cache_clear_purge_form_submit($form, &$form_state) {
   
   if (!empty($caches_to_clear['varnish'])) {
     _fsa_cache_clear_varnish_purge($url);
-    drupal_set_message('Varnish cache cleared for @url', array('@url' => $url));
+    drupal_set_message(t('Varnish cache cleared for @url', array('@url' => $url)));
   }
   
   if (!empty($caches_to_clear['cloudflare'])) {
     _fsa_cache_clear_cloudflare_purge_url($url);
-    drupal_set_message('CloudFlare cache cleared for @url', array('@url' => $url));
+    drupal_set_message(t('CloudFlare cache cleared for @url', array('@url' => $url)));
   }
   
 }
