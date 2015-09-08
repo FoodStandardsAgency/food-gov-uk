@@ -135,8 +135,6 @@ function _fsa_cache_clear_varnish_purge($paths) {
     $purge = implode('$|^' . $base, $paths);
     $purge = '^'. $base . $purge .'$';
     varnish_purge($host, $purge);
-    print "Host: $host";
-    print "Purge: $purge";
     _fsa_cache_clear_log_message('varnish_purge', 'Successfully purged @purge for host @host from the Varnish cache.', array('@purge' => $purge, '@host' => $host));
   }
 }
@@ -463,12 +461,12 @@ function _fsa_cache_clear_varnish_queue_add_items($urls = array()) {
  */
 function fsa_cache_clear_cron_queue_info() {
   $queues = array();
-  $queues[FSA_CACHE_CLEAR_CLOUDFLARE_QUEUE_NAME] = array(
-    'worker callback' => '_fsa_cache_clear_cloudflare_purge_individual_url',
-    'time' => FSA_CACHE_CLEAR_CLOUDFLARE_CRON_TIME,
-  );
   $queues[FSA_CACHE_CLEAR_VARNISH_QUEUE_NAME] = array(
     'worker callback' => '_fsa_cache_clear_varnish_purge',
+    'time' => FSA_CACHE_CLEAR_CLOUDFLARE_CRON_TIME,
+  );
+  $queues[FSA_CACHE_CLEAR_CLOUDFLARE_QUEUE_NAME] = array(
+    'worker callback' => '_fsa_cache_clear_cloudflare_purge_individual_url',
     'time' => FSA_CACHE_CLEAR_CLOUDFLARE_CRON_TIME,
   );
   return $queues;
