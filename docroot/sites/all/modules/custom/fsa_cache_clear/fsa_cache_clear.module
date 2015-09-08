@@ -122,7 +122,7 @@ function _fsa_cache_clear_varnish_purge($paths) {
   // clear the cache for that domain a second time.
   $host = function_exists('_varnish_get_host') ? _varnish_get_host() : '';
   // Remove $host from the array of domains - if present.
-  $domains = array_diff($domains, array(trim($host)));
+  //$domains = array_diff($domains, array(trim($host)));
 
   // Make sure we still have some domains. If not, return now.
   if (empty($domains)) {
