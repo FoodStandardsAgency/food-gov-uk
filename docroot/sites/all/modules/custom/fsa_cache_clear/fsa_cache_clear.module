@@ -19,6 +19,11 @@ define('FSA_CACHE_CLEAR_QUEUE_CLOUDFLARE', TRUE);
  */
 define('FSA_CACHE_CLEAR_CLOUDFLARE_QUEUE_NAME', 'fsa_cache_clear_cloudflare_urls');
 
+/**
+ * Sets the name of the Varnish cache queue
+ */
+define('FSA_CACHE_CLEAR_VARNISH_QUEUE_NAME', 'fsa_cache_clear_varnish_urls');
+
 
 /**
  * Determines how much time is available for cache clearing at cron runs.
@@ -410,6 +415,39 @@ function _fsa_cache_clear_cloudflare_queue_add_items($urls = array()) {
   }
 }
 
+
+/**
+ * Adds URLs to be purged from CloudFlare to the queue.
+ *
+ * @param array $urls
+ *   An array of fully-qualified URLs to be purged from the CloudFlare cache
+ *
+ * @return NULL
+ *
+ * @see _fsa_cache_clear_cloudflare_queue_url()
+ * @see fsa_cache_clear_file_entity_edit_submit()
+ */
+function _fsa_cache_clear_varnish_queue_add_items($urls = array()) {
+
+  // If there are no items to queue, exit now.
+  if (empty($urls)) {
+    return;
+  }
+
+  // Create or open the queue.
+  $queue = DrupalQueue::get(FSA_CACHE_CLEAR_VARNISH_QUEUE_NAME);
+
+  // Add each URL to the queue
+  foreach ($urls as $url) {
+    // Identify the homepage and remove the <front> part
+    if (strpos($url, '/<front>')) {
+      $url = str_replace('/<front>', '', $url);
+    }
+    $queue->createItem($url);
+  }
+}
+
+
 /**
  * Implements hook_cron_queue_info().
  *
@@ -425,6 +463,10 @@ function fsa_cache_clear_cron_queue_info() {
   $queues = array();
   $queues[FSA_CACHE_CLEAR_CLOUDFLARE_QUEUE_NAME] = array(
     'worker callback' => '_fsa_cache_clear_cloudflare_purge_individual_url',
+    'time' => FSA_CACHE_CLEAR_CLOUDFLARE_CRON_TIME,
+  );
+  $queues[FSA_CACHE_CLEAR_VARNISH_QUEUE_NAME] = array(
+    'worker callback' => '_fsa_cache_clear_varnish_purge',
     'time' => FSA_CACHE_CLEAR_CLOUDFLARE_CRON_TIME,
   );
   return $queues;
@@ -643,8 +685,10 @@ function fsa_cache_clear_file_entity_edit_submit($form, &$form_state) {
     foreach ($image_styles as $style_name => $style_properties) {
       if (file_exists(image_style_path($style_name, $filename))) {
         // Clear the Varnish cache for the derived images.
-        dpm("Clearing from Varnish: $public_path" . '/' . file_uri_target(image_style_path($style_name, $filename)));
+        //dpm("Clearing from Varnish: $public_path" . '/' . file_uri_target(image_style_path($style_name, $filename)));
         _fsa_cache_clear_varnish_purge($public_path . '/' . file_uri_target(image_style_path($style_name, $filename)));
+        // Add the path to be cleared from the Varnish cache to the queue
+        _fsa_cache_clear_varnish_queue_add_items(array($public_path . '/' . file_uri_target(image_style_path($style_name, $filename))));
         $urls[] = $public_path . '/' . file_uri_target(image_style_path($style_name, $filename));
       }
     }
