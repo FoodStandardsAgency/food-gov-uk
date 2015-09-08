@@ -643,6 +643,7 @@ function fsa_cache_clear_file_entity_edit_submit($form, &$form_state) {
     foreach ($image_styles as $style_name => $style_properties) {
       if (file_exists(image_style_path($style_name, $filename))) {
         // Clear the Varnish cache for the derived images.
+        dpm("Clearing from Varnish: $public_path" . '/' . file_uri_target(image_style_path($style_name, $filename)));
         _fsa_cache_clear_varnish_purge($public_path . '/' . file_uri_target(image_style_path($style_name, $filename)));
         $urls[] = $public_path . '/' . file_uri_target(image_style_path($style_name, $filename));
       }
