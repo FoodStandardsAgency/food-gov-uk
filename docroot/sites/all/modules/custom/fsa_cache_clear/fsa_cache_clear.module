@@ -131,7 +131,7 @@ function _fsa_cache_clear_varnish_purge($paths) {
 
   // For each additional domain, clear the relevant paths from Varnish.
   // @see varnish_expire_cache()
-  $varnish_wildcard = "(\?itok=[a-z|0-9]*)?$";
+  $varnish_wildcard = "(\\\?itok=.*)?$";
   foreach ($domains as $host) {
     //$purge = implode('$|^' . $base, $paths);
     //$purge = implode('|^' . $base, $paths);
