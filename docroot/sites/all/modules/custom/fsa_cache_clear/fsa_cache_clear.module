@@ -313,7 +313,7 @@ function _fsa_cache_clear_cloudflare_purge_url($path = NULL) {
  *
  * @param string $path
  *   The path to be cleared from the CloudFlare cache
- * 
+ *
  * @return NULL
  *
  * @see fsa_cache_clear_file_entity_edit_submit()
@@ -634,12 +634,16 @@ function fsa_cache_clear_file_entity_edit_submit($form, &$form_state) {
   $public_path = variable_get('file_public_path');
   // Add the filename to the URLs for clearing
   $urls[] =  "$public_path/$filename";
+  // Clear the Varnish cache for the URL
+  _fsa_cache_clear_varnish_purge("$public_path/$filename");
   // If the file is an image, we need to check whether it has any existing
   // style derivatives, as these will need to be cleared from CloudFlare too.
   if ($file->type == 'image') {
     $image_styles = image_styles();
     foreach ($image_styles as $style_name => $style_properties) {
       if (file_exists(image_style_path($style_name, $filename))) {
+        // Clear the Varnish cache for the derived images.
+        _fsa_cache_clear_varnish_purge($public_path . '/' . file_uri_target(image_style_path($style_name, $filename)));
         $urls[] = $public_path . '/' . file_uri_target(image_style_path($style_name, $filename));
       }
     }
