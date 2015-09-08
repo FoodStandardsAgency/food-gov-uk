@@ -135,6 +135,8 @@ function _fsa_cache_clear_varnish_purge($paths) {
     $purge = implode('$|^' . $base, $paths);
     $purge = '^'. $base . $purge .'$';
     varnish_purge($host, $purge);
+    watchdog('FSA cache clear', "Host: $host");
+    watchdog('FSA cache clear', "Purge: $purge");
     _fsa_cache_clear_log_message('varnish_purge', 'Successfully purged @purge for host @host from the Varnish cache.', array('@purge' => $purge, '@host' => $host));
   }
 }
