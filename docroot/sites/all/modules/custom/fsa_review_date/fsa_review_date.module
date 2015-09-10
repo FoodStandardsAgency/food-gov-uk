@@ -34,7 +34,7 @@ define('FSA_REVIEW_DATE_EMAIL_FROM', variable_get('site_mail', ini_get('sendmail
 /**
  * Default email to address. This can be overridden via the admin interface.
  */
-define('FSA_REVIEW_DATE_EMAIL_TO', 'webteam@foodstandards.gsi.gov.uk');
+define('FSA_REVIEW_DATE_EMAIL_TO', 'digital.communications@foodstandards.gsi.gov.uk');
 
 /**
  * Default email subject. This can be overridden via the admin interface.
