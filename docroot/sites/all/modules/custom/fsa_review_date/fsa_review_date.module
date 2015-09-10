@@ -423,7 +423,7 @@ function _fsa_review_date_content_list($heading = 'For review today', $date_rang
       $output .= ')';
     }
     if (!empty($row->review_comment)) {
-      $output .= ' : ';
+      $output .= ': ';
       $output .= $row->review_comment;
     }
   }
