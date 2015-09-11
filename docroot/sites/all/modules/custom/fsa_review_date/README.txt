@@ -4,6 +4,7 @@ FSA Review date module
 
 Introduction
 ------------
+
 This module provides review date functionality for nodes on the food.org.uk
 website.
 
@@ -32,6 +33,7 @@ Functionality provided includes:
 
 Limitations
 -----------
+
 At present, the functionality provided by this module is available only to
 nodes. Other page types, such as views pages, cannot currently make use of this
 functionality. If necessary, this could be added in the future, but it would
@@ -41,6 +43,7 @@ it exists in a separate table, keyed on node ID and revision ID.
 
 Requirements
 ------------
+
 This module requires the following modules:
 
 * Date (https://www.drupal.org/project/date)
@@ -50,6 +53,7 @@ The dependency on Date is for the date picker used to set the review dates.
 
 Installation
 ------------
+
 * Install as you would normally install a contributed Drupal module. See:
   https://drupal.org/documentation/install/modules-themes/modules-7
   for further information.
@@ -57,6 +61,7 @@ Installation
 
 Permissions
 -----------
+
 This module defines the following permissions:
 
 * Set review dates for content: allows users to set and amend review dates
@@ -69,6 +74,7 @@ This module defines the following permissions:
 
 Configuration
 -------------
+
 * Permissions can be configured at: Admin > People > Permissions
 
 * Module settings can be configured at:
@@ -104,6 +110,7 @@ Configuration
 
 Usage
 -----
+
 * Users who have permission to set review dates can enter a review date via a
   date picker on enabled content types.
   
@@ -119,6 +126,7 @@ Usage
 
 Technical details
 -----------------
+
 * Review date information is stored in a new database table `fsa_review_date`.
 
 * Review date information is related to the specific revision of a node, so a
@@ -137,6 +145,7 @@ Technical details
 
 Maintainers
 -----------
+
 * Matt Farrow (mattfarrow) - https://www.drupal.org/u/mattfarrow
 
 This module was created for the UK Food Standards Agency (FSA) - www.food.gov.uk
