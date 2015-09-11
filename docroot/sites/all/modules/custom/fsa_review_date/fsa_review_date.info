@@ -1,0 +1,7 @@
+name = FSA Review Date
+description = Enables review date functionality for content items on the FSA website
+core = 7.x
+package = FSA Custom
+dependencies[] = date
+configure = admin/config/content/review
+version = 7.x-1.1
