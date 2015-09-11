@@ -209,7 +209,7 @@ function fsa_cache_clear_purge_form($form, &$form_state) {
   $form['url'] = array(
     '#type' => 'textfield',
     '#title' => t('Path to purge'),
-    '#description' => t('Enter the path you want to purge from the cache(s). Do not include the domain, protocol or forward slash.'),
+    '#description' => t('Enter the path you want to purge from the cache(s). Do not include the domain, protocol or forward slash. However, if the path includes a query string, eg ?itok=abc123, you will need to include it here.'),
     '#size' => 80,
     '#required' => TRUE,
     '#element_validate' => array('_fsa_cache_clear_validate_drupal_path'),
@@ -258,10 +258,12 @@ function fsa_cache_clear_purge_form_submit($form, &$form_state) {
   
   if (!empty($caches_to_clear['varnish'])) {
     _fsa_cache_clear_varnish_purge($url);
+    drupal_set_message(t('Varnish cache cleared for @url', array('@url' => $url)));
   }
   
   if (!empty($caches_to_clear['cloudflare'])) {
-    _fsa_cache_clear_cloudflare_purge_url($url);
+    _fsa_cache_clear_cloudflare_queue_url($url, _fsa_cache_clear_get_object_type_from_path($url), FALSE);
+    drupal_set_message(t('CloudFlare cache cleared for @url', array('@url' => $url)));
   }
   
 }
