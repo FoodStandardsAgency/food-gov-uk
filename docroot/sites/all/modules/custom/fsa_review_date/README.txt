@@ -139,7 +139,7 @@ Technical details
 
 * All variables are deleted when the module is uninstalled
 
-* To prevent accidental data loss, the data table is not current dropped when
+* To prevent accidental data loss, the data table is not currently dropped when
   the module is uninstalled
   
 
