@@ -246,7 +246,7 @@ function fsa_report_problem_block_view($delta = '') {
     // Search for an establishment form
     case 'report_problem_form':
       if (FSA_REPORT_PROBLEM_STATUS != FSA_REPORT_PROBLEM_STATUS_PRODUCTION) {
-        drupal_set_title(drupal_get_title() . ' (' . _fsa_report_problem_status_description(FSA_REPORT_PROBLEM_STATUS) . ')');
+        drupal_set_title(drupal_get_title() . '  (' . _fsa_report_problem_status_description(FSA_REPORT_PROBLEM_STATUS) . ')');
       }
       if (FSA_REPORT_PROBLEM_STATUS == FSA_REPORT_PROBLEM_STATUS_OFFLINE) {
         $block['content'] = array(
@@ -257,23 +257,8 @@ function fsa_report_problem_block_view($delta = '') {
         break;
       }
       module_load_include('inc', 'fsa_report_problem', 'includes/form');
-      //$block['subject'] = '';
-      //$block['content'] = fsa_report_problem_show_establishment_search_form();
       $block['content'] = drupal_get_form('fsa_report_problem_form');
       break;
-
-    // Search results
-    //    case 'search_results':
-    //      $block['subject'] = '';
-    //      $block['content'] = fsa_report_problem_get_results();
-    //      break;
-    //
-    //    // Report a problem form
-    //    case 'report_form':
-    //      module_load_include('inc', 'fsa_report_problem', 'includes/form');
-    //      $block['subject'] = '';
-    //      $block['content'] = fsa_report_problem_show_report_form();
-    //      break;
   }
 
   return $block;
@@ -284,11 +269,6 @@ function fsa_report_problem_block_view($delta = '') {
  * Returns the results of a search for premises.
  */
 function fsa_report_problem_get_results($name, $address) {
-  //$params = _fsa_report_problem_get_params();
-
-  //$name = !empty($params['business_name']) ? $params['business_name'] : '';
-  //$address = !empty($params['business_location']) ? $params['business_location'] : '';
-
   if (empty($name) || empty($address)) {
     return '';
   }
