@@ -211,25 +211,11 @@ function fsa_report_problem_menu() {
  */
 function fsa_report_problem_block_info() {
   $blocks = array();
-
   $blocks['report_problem_form'] = array(
     'info' => t('Report a food problem form'),
-    //'cache' => DRUPAL_CACHE_GLOBAL,
     'cache' => DRUPAL_NO_CACHE,
   );
-
-  //  $blocks['search_results'] = array(
-  //    'info' => t('Search for an establishment - results'),
-  //    'cache' => DRUPAL_NO_CACHE,
-  //  );
-  //
-  //  $blocks['report_form'] = array(
-  //    'info' => t('Report an establishment'),
-  //    'cache' => DRUPAL_NO_CACHE,
-  //  );
-
   return $blocks;
-
 }
 
 
