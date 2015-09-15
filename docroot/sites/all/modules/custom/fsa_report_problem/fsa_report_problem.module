@@ -231,9 +231,6 @@ function fsa_report_problem_block_view($delta = '') {
 
     // Search for an establishment form
     case 'report_problem_form':
-      if (FSA_REPORT_PROBLEM_STATUS != FSA_REPORT_PROBLEM_STATUS_PRODUCTION) {
-        drupal_set_title(drupal_get_title() . '  (' . _fsa_report_problem_status_description(FSA_REPORT_PROBLEM_STATUS) . ')');
-      }
       if (FSA_REPORT_PROBLEM_STATUS == FSA_REPORT_PROBLEM_STATUS_OFFLINE) {
         $block['content'] = array(
           '#type' => 'html_tag',
