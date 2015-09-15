@@ -232,10 +232,29 @@ function fsa_report_problem_block_view($delta = '') {
     // Search for an establishment form
     case 'report_problem_form':
       if (FSA_REPORT_PROBLEM_STATUS == FSA_REPORT_PROBLEM_STATUS_OFFLINE) {
+        $service_offline_message = variable_get('fsa_report_problem_service_status_message', _fsa_report_problem_status_message(FSA_REPORT_PROBLEM_STATUS_OFFLINE));
         $block['content'] = array(
-          '#type' => 'html_tag',
-          '#tag' => 'p',
-          '#value' => variable_get('fsa_report_problem_service_status_message', _fsa_report_problem_status_message(FSA_REPORT_PROBLEM_STATUS_OFFLINE)),
+          'heading' => array(
+            '#type' => 'html_tag',
+            '#tag' => 'h2',
+            '#value' => t('Service currently unavailable'),
+            '#attributes' => array(
+              'class' => array('service-offline'),
+            ),
+          ),
+          'message' => array(
+            '#type' => 'html_tag',
+            '#tag' => 'p',
+            '#value' => !empty($service_offline_message) ? $service_offline_message : t('We\'re sorry, but this service is currently unavailable. We are making every effort to restore it, so please check back soon. Please accept our apologies for any inconvenience.'),
+            '#attributes' => array(
+              'class' => array('service-offline'),
+            ),
+          ),
+          '#attached' => array(
+            'css' => array(
+              drupal_get_path('module', 'fsa_report_problem') . '/css/report-problem.css',
+            ),
+          ),
         );
         break;
       }

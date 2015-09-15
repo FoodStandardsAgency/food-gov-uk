@@ -110,4 +110,11 @@
   .not-listed p {
     margin-bottom: 10px; }
 
+h2.service-offline {
+  font-size: 1.8em;
+  margin-bottom: 0.3em; }
+
+p.service-offline {
+  font-size: 1.8em; }
+
 /*# sourceMappingURL=report-problem.css.map */
