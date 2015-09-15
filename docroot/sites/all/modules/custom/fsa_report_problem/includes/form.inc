@@ -389,6 +389,15 @@ function fsa_report_problem_results_form($form, &$form_state) {
     '#alt' => t('Powered by Google'),
   );
 
+  $bottom_text = _fsa_report_problem_text('choose_business_bottom');
+  $form['botom_text'] = array(
+    '#prefix' => '<div class="not-listed">',
+    '#markup' => !empty($bottom_text['value']) ? $bottom_text['value'] : '',
+    '#suffix' => '</div>',
+  );
+
+
+
 
   return $form;
 

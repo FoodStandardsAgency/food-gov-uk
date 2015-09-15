@@ -1279,6 +1279,11 @@ function _fsa_report_problem_text($key = NULL, $data = array()) {
       'description' => t('This text appears at the top of the business search results when no matching business is found.'),
       'default' => t('Sorry, we could not find any matching businesses.'),
     ),
+    'choose_business_bottom' => array(
+      'title' => t('Text beneath business choice'),
+      'description' => t('This text appears beneath the list of businesses.'),
+      'default' => '<h3>' . t('Business not listed?') . '</h3><p>' . t('Couldn\'t find the business you were looking for? <a href="@try_again">Try again</a> or <a href="@manual_entry">enter the details manually</a>.', array('@try_again' => '', '@manual_entry' => '?manual=true')) . '</p>',
+    ),
     'make_report_intro' => array(
       'title' => t('Report page intro'),
       'description' => t('Intro text for the main report page'),

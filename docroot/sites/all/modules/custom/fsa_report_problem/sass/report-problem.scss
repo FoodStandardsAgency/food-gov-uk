@@ -173,3 +173,20 @@
   font-size: 1.2em;
   margin-bottom: 2em;
 }
+
+
+// Business not listed text at bottom of choose a business page
+.not-listed {
+  border: 1px solid #2a8641;
+  margin-top: 3em;
+  padding: 10px 10px 0 10px;
+
+  h3 {
+    font-size: 1.5em;
+    margin-bottom: 2px;
+  }
+
+  p {
+    margin-bottom: 10px;
+  }
+}
