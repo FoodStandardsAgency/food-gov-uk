@@ -344,6 +344,13 @@ function fsa_report_problem_results_form($form, &$form_state) {
   //    '#value' => t('Enter business details manually'),
   //  );
 
+  $form['result_header'] = array(
+    '#prefix' => '<div><p>',
+    '#markup' => t('Your search for %search_term found @result_count businesses.', array('%search_term' => $form_state['values']['business_name'], '@result_count' => count($form_state['businesses']))),
+    '#suffix' => '</p></div>',
+  );
+  
+  
   foreach($form_state['businesses'] as $id => $business) {
 
     /*
