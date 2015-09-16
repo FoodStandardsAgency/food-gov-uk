@@ -738,29 +738,81 @@ function template_preprocess_problem_report(&$variables) {
 
 
 
-
-function fsa_report_problem_get_google_results($name, $location) {
+/**
+ * Get results from the Google Places API via text search.
+ *
+ * @param string $name
+ *   The name of the business
+ *
+ * @param string $location
+ *   The location of the business
+ *
+ * @param integer $max_results
+ *   The maximum number of results to return
+ *
+ * @return array
+ *   An array of Google Places results
+ */
+function fsa_report_problem_get_google_results($name, $location, $user_location = NULL, $max_results = 60) {
   $endpoint = 'https://maps.googleapis.com/maps/api/place/textsearch/json';
-  //$api_key = 'AIzaSyBKglgVV8ILtw8Y6zPwCA9t9CNi4Ymdm_I'; // MF account
-  $api_key = 'AIzaSyA3EzfGM0KCsRjrmbNuEVOfDs4Nm4di1sk'; // FSA account
+  $api_key = 'AIzaSyBKglgVV8ILtw8Y6zPwCA9t9CNi4Ymdm_I'; // MF account
+  //$api_key = 'AIzaSyA3EzfGM0KCsRjrmbNuEVOfDs4Nm4di1sk'; // FSA account
+
+  // Number of results returned per request. This is set by Google.
+  $results_per_request = 20;
+
   $query = "$name $location";
   $options = array(
     'query' => array(
       'key' => $api_key,
       'query' => $query,
       'types' => 'establishment',
+      'components' => 'country:GB', // This doesn't actually appear to work
     ),
   );
-  $url = url($endpoint, $options);
   
-  //$url = url($endpoint, array('query' => array('key' => $api_key, 'query' => $query)));
-  $places = drupal_http_request($url);
-  if (empty($places->code) || $places->code != '200' || empty($places->data)) {
-    return array();
+  $use_location = FALSE;
+  if ($use_location) {
+    $client_ip = !empty($_SERVER['HTTP_X_REAL_IP']) ? $_SERVER['HTTP_X_REAL_IP'] : '';
+    $location = !empty($user_location) ? $user_location : _fsa_report_problem_get_location_by_ip($client_ip);
+    if (!empty($location)) {
+      $options['query']['location'] = $location;
+      $options['query']['radius'] = 50000;
+    }
   }
-  $results = drupal_json_decode($places->data);
-  if (!empty($results['results'])) {
-    return $results['results'];
+
+  $results = array();
+  $next_page_token = '';
+  $request_count = 0;
+
+  // Set the minimum number of results
+  $result_threshold = 10;
+  do {
+    if ($request_count > 0) {
+      sleep(1);
+    }
+    if (!empty($next_page_token)) {
+      $options['query']['pagetoken'] = $next_page_token;
+    }
+    $url = url($endpoint, $options);
+    $places = drupal_http_request($url);
+    $request_count++;
+    if (!empty($places->data)) {
+      $data = drupal_json_decode($places->data);
+      $next_page_token = $data['next_page_token'];
+      if (!empty($data['results'])) {
+        foreach ($data['results'] as $key => $result) {
+          if (strpos($result['formatted_address'], 'United Kingdom') !== FALSE || strpos($result['formatted_address'], 'UK') !== FALSE) {
+            $results[] = $result;
+          }
+        }
+      }
+    }
+  }
+  while($request_count < $max_results/$results_per_request && count($results) < $result_threshold);
+
+  if (!empty($results)) {
+    return $results;
   }
   else {
     return array();
@@ -1733,4 +1785,38 @@ function fsa_report_problem_context_default_contexts() {
 
   $export[$context->name] = $context;
   return $export;
+}
+
+
+/**
+ * Gets location (latitude and longitude) based on IP address.
+ *
+ * @param string $ip
+ *   (optional) The IP address to look up. If no IP address is supplied, we use
+ *   the client's IP address.
+ *
+ * @return string
+ *   The location in the form of latitude,longitude. If no location is found, we
+ *   return an empty string.
+ */
+function _fsa_report_problem_get_location_by_ip($ip = NULL) {
+  $client_ip = !empty($ip) ? $ip : $_SERVER['HTTP_X_REAL_IP'];
+  $endpoint = 'http://www.geoplugin.net/php.gp';
+  $options = array(
+    'query' => array(
+      'ip' => $client_ip,
+    ),
+  );
+  $result = drupal_http_request($endpoint, $options);
+  if ($result->code != '200') {
+    return '';
+  }
+
+  $data = unserialize($result->data);
+  if (!empty($data['geoplugin_latitude']) && !empty($data['geoplugin_longitude'])) {
+    return $data['geoplugin_latitude'] . ',' . $data['geoplugin_longitude'];
+  }
+  else {
+    return '';
+  }
 }
