@@ -171,7 +171,17 @@ function fsa_report_problem_form($form, &$form_state) {
     drupal_get_path('module', 'fsa_report_problem') . '/css/report-problem.css',
   );
 
-
+  // Add a status message if the system is in alpha or beta
+  if (FSA_REPORT_PROBLEM_STATUS > FSA_REPORT_PROBLEM_STATUS_PRODUCTION) {
+    $the_form['status_message'] = array(
+      '#prefix' => '<div class="phase-banner"><p>',
+      '#markup' => '<strong class="phase-tag ' . strtolower(_fsa_report_problem_status_description(FSA_REPORT_PROBLEM_STATUS)) . '">' . _fsa_report_problem_status_description(FSA_REPORT_PROBLEM_STATUS) . '</strong></span>' . _fsa_report_problem_status_message(FSA_REPORT_PROBLEM_STATUS) . '</span>',
+      '#suffix' => '</p></div>',
+      '#weight' => -10,
+    );
+  }
+  
+  
   return $the_form;
 
 }

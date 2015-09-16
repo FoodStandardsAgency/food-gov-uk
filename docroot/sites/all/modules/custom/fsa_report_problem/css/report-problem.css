@@ -117,4 +117,32 @@ h2.service-offline {
 p.service-offline {
   font-size: 1.8em; }
 
+.phase-banner {
+  padding: 10px 0 8px 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #bfc1c3;
+  margin-bottom: 2em; }
+  .phase-banner p {
+    margin: 0;
+    color: #000; }
+  .phase-banner .phase-tag {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 8px 0 0;
+    padding: 2px 5px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    color: #fff; }
+    .phase-banner .phase-tag.alpha {
+      background-color: #d53880; }
+    .phase-banner .phase-tag.beta {
+      background-color: #f47738; }
+  .phase-banner span {
+    display: inline-block;
+    width: 75%;
+    vertical-align: top;
+    width: auto;
+    vertical-align: baseline; }
+
 /*# sourceMappingURL=report-problem.css.map */

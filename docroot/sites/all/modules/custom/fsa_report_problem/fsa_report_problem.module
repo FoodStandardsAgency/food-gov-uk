@@ -1273,7 +1273,7 @@ function _fsa_report_problem_status_description($status = FSA_REPORT_PROBLEM_STA
 
 function _fsa_report_problem_status_message($status = FSA_REPORT_PROBLEM_STATUS_PRODUCTION) {
   $messages = array(
-    FSA_REPORT_PROBLEM_STATUS_ALPHA => t('This service is currently in alpha, which means there may be bugs. Please report any issues to test@test.com'),
+    FSA_REPORT_PROBLEM_STATUS_ALPHA => t('This is a prototype service – your <a href="@feedback_link">feedback</a> will help us to improve it. No information you share here will leave this test system.', array('@feedback_link' => 'mailto:digital.communications@foodstandards.gsi.gov.uk?subject=Feedback%20on%20Report%20a%20food%20problem%20service%20[ALPHA%20phase]&amp;body=Hello%2C%20%0A%0AYou%20asked%20for%20my%20feedback.%20Here%20it is:')),
     FSA_REPORT_PROBLEM_STATUS_BETA => t('This service is currently in beta. If you notice any problems, please contact us.'),
     FSA_REPORT_PROBLEM_STATUS_OFFLINE => t('This service is currently offline. We apologise for any inconvenience.'),
   );
