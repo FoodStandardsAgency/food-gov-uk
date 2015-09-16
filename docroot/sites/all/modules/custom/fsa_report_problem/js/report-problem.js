@@ -108,6 +108,8 @@
             center: geolocation,
             radius: position.coords.accuracy
           });
+          // Store the user's location in the user-location hidden field.
+          document.getElementById('user-location').value = position.coords.latitude + ',' + position.coords.longitude;
           autocomplete.setBounds(circle.getBounds());
         });
       }

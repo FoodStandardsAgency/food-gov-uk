@@ -210,6 +210,13 @@ function fsa_report_problem_find_business_form($form, &$form_state) {
       'id' => 'lng',
     ),
   );
+  
+  $form['user_location'] = array(
+    '#type' => 'hidden',
+    '#attributes' => array(
+      'id' => 'user-location',
+    ),
+  );
 
   if (variable_get('fsa_report_problem_service_status_message') !== "") {
     $form['status_message'] = array(
@@ -538,6 +545,7 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
       //$name = !empty($form_state['values']['business_name']) ? $form_state['values']['business_name'] : '';
       $name = !empty($form_state['values']['business_name']) ? $form_state['values']['business_name'] : '';
       $address = !empty($form_state['values']['business_location']) ? $form_state['values']['business_location'] : '';
+      $user_location = !empty($form_state['values']['user_location']) ? $form_state['values']['user_location'] : '';
       
       // If we already have name, lat and long, then presumably we've
       // come from the Google Places autocomplete, so we can bypass the stage
@@ -556,7 +564,7 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
       }
 
       // Get business listings from the Google Places API.
-      $businesses = fsa_report_problem_get_google_results($name, $address);
+      $businesses = fsa_report_problem_get_google_results($name, $address, $user_location);
       if (count($businesses) == 0) {
         $next_stage = 'find_business';
         $form_state['no_businesses_found'] = TRUE;
