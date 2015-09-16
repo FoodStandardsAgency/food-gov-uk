@@ -35,6 +35,12 @@ define('FSA_REPORT_PROBLEM_STATUS', variable_get('fsa_report_problem_service_sta
 define('FSA_REPORT_PROBLEM_VARIABLE_GROUP_NAME', 'fsa_report_problem');
 
 /**
+ * URL for the report a food problem service
+ */
+define('FSA_REPORT_PROBLEM_PATH', 'enforcement/report-problem');
+
+
+/**
  * Implements hook_permission().
  */
 function fsa_report_problem_permission() {
@@ -1761,7 +1767,7 @@ function fsa_report_problem_context_default_contexts() {
   $context->conditions = array(
     'path' => array(
       'values' => array(
-        'enforcement/report-problem' => 'enforcement/report-problem',
+        FSA_REPORT_PROBLEM_PATH . '*' => FSA_REPORT_PROBLEM_PATH . '*',
       ),
     ),
   );
