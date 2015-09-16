@@ -1826,3 +1826,54 @@ function _fsa_report_problem_get_location_by_ip($ip = NULL) {
     return '';
   }
 }
+
+
+/**
+ * Implements hook_init().
+ *
+ * We use this to handle non-existent paths that set $_GET parameters used
+ * within the report a food problem service.
+ */
+function fsa_report_problem_init() {
+
+  $request_path = request_path();
+  $path = FSA_REPORT_PROBLEM_PATH;
+
+  // Make sure that the path for the report a problem service is the first part
+  // of the current path. If not, exit now.
+  if (strpos($request_path, $path) !== 0) {
+    return;
+  }
+
+  $path_suffix = str_replace("$path/", '', $request_path);
+
+  // Define a set of path suffixes and the $_GET keys and values associated
+  // with them
+  $path_mappings = array(
+    // Allows us to turn off autcomplete.
+    'na' => array(
+      'ac' => 0,
+    ),
+    // Manual entry of business details
+    'manual' => array(
+      'manual' => 1,
+    ),
+    // Process complete
+    'complete' => array(
+      'complete' => 1,
+    ),
+  );
+
+  // Check to see if anything after the path is in our array of $path_mappings.
+  // If so, set the $_GET['q'] parameter to our standard path and add $_GET
+  // elements for each of the items in the array within $path_mappings.
+  if (array_key_exists($path_suffix, $path_mappings)) {
+    $_GET['q'] = drupal_get_normal_path($path);
+    if (is_array($path_mappings[$path_suffix])) {
+      foreach ($path_mappings[$path_suffix] as $param => $value) {
+        $_GET[$param] = $value;
+      }
+    }
+  }
+
+}
