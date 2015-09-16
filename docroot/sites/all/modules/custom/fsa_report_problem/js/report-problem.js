@@ -83,8 +83,8 @@
       }
 
       if (this.place.geometry && this.place.geometry.location) {
-        this.latField.value = this.place.geometry.location.G;
-        this.lngField.value = this.place.geometry.location.K;
+        this.latField.value = this.place.geometry.location.lat();
+        this.lngField.value = this.place.geometry.location.lng();
       }
       else {
         this.latField.value = '';
