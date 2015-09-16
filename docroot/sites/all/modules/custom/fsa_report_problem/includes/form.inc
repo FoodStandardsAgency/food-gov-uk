@@ -145,22 +145,49 @@ function fsa_report_problem_form($form, &$form_state) {
     $form_state['manual_entry'] = TRUE;
   }
 
+  $steps = array(
+    t('Find a business'),
+    array(
+      'label' => t('Choose a business'),
+      'disabled' => TRUE,
+    ),
+    t('Tell us what you saw'),
+    t('Report complete'),
+  );
+
   if (!isset($form_state['stage'])) $form_state['stage'] = 'find_business';
 
   switch ($form_state['stage']) {
     case 'find_business':
       $the_form = fsa_report_problem_find_business_form($form, $form_state);
+      $step = 0;
       break;
     case 'show_results':
       $the_form = fsa_report_problem_results_form($form, $form_state);
+      $step = 1;
+      $steps[1]['disabled'] = FALSE;
+      $form_state['non_autocomplete'] = TRUE;
       break;
     case 'make_report':
       $the_form = fsa_report_problem_make_report_form($form, $form_state);
+      if (!empty($form_state['non_autocomplete'])) {
+        $steps[1]['disabled'] = FALSE;
+        $form_state['non_autocomplete'] = TRUE;
+        $the_form['non_autocomplete'] = array(
+          '#type' => 'hidden',
+          '#value' => TRUE,
+        );
+      }
+      $step = 2;
       break;
     case 'report_complete':
       $form_state['rebuild'] = FALSE;
       $form_state['redirect'] = 'node/1';
       $the_form = fsa_report_problem_report_complete_form($form, $form_state);
+      $step = 3;
+      if (!empty($params['na'])) {
+        $steps[1]['disabled'] = FALSE;
+      }
       break;
     default:
       $the_form = fsa_report_problem_find_business_form($form, $form_state);
@@ -180,7 +207,32 @@ function fsa_report_problem_form($form, &$form_state) {
       '#weight' => -10,
     );
   }
+
+  $steps = array_filter($steps, '_fsa_report_problem_step_filter');
+  $step_count = 1;
+  $current_step = 0;
+  foreach ($steps as $step_key => $step_value) {
+    if ($step_key == $step) {
+      $current_step = $step_count;
+    }
+    $step_count++;
+  }
   
+  $the_form['step_indicator'] = array(
+    '#prefix' => '<div class="step-indicator">',
+    '#suffix' => '</div>',
+    'test1' => array(
+      '#type' => 'html_tag',
+      '#tag' => 'p',
+      '#value' => t('Step @step of @steps', array('@step' => $current_step, '@steps' => count($steps))),
+    ),
+    'tester' => array(
+      '#type' => 'html_tag',
+      '#tag' => 'h2',
+      '#value' => is_array($steps[$step]) ? $steps[$step]['label'] : $steps[$step],
+    ),
+    '#weight' => -8,
+  );
   
   return $the_form;
 
@@ -304,7 +356,7 @@ function fsa_report_problem_find_business_form($form, &$form_state) {
 
 
 function fsa_report_problem_results_form($form, &$form_state) {
-
+  $form_state['non_autocomplete'] = TRUE;
   // If the search returned no results, tell the user.
   if (count($form_state['businesses']) === 0) {
     $form['no_results_message'] = array(
@@ -678,6 +730,7 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
       array(
         'query' => array(
           'report_id' => $entity_id,
+          'na' => $form_state['non_autocomplete'],
         ),
       ),
     );
@@ -748,4 +801,19 @@ function fsa_report_problem_report_complete_form($form, &$form_state) {
 }
 
 
-
+/**
+ * Array filter helper function - removes disabled steps from step counter
+ * @param string|array $var
+ *   The step to be tested
+ * @return boolean
+ *   True if enabled; False if disabled
+ */
+function _fsa_report_problem_step_filter($var) {
+  if (!is_array(($var))) {
+    return TRUE;
+  }
+  if (!empty($var['disabled'])) {
+    return FALSE;
+  }
+  return TRUE;
+}

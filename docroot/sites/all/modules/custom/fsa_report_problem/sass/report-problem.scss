@@ -266,3 +266,21 @@ $border-colour: $grey-2;
     //}
   }
 }
+
+// Step indicator
+.step-indicator {
+  margin-bottom: 2em;
+
+  p {
+    color: $grey-1;
+    font-size: 1.4em;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  h2 {
+    font-size: 2em;
+    margin: 0;
+  }
+
+}

@@ -145,4 +145,15 @@ p.service-offline {
     width: auto;
     vertical-align: baseline; }
 
+.step-indicator {
+  margin-bottom: 2em; }
+  .step-indicator p {
+    color: #6f777b;
+    font-size: 1.4em;
+    font-weight: bold;
+    margin: 0; }
+  .step-indicator h2 {
+    font-size: 2em;
+    margin: 0; }
+
 /*# sourceMappingURL=report-problem.css.map */
