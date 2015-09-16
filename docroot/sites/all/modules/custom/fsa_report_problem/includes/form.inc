@@ -700,13 +700,6 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
 
 function fsa_report_problem_report_complete_form($form, &$form_state) {
 
-  /*
-  $form['thank_you'] = array(
-    '#type' => 'form_intro',
-    '#text' => t('Thank you for your report. With your help we can make food safer.'),
-  );
-  */
-
   $params = drupal_get_query_parameters();
 
   $reports = !empty($params['report_id']) ? entity_load('problem_report', array($params['report_id'])) : NULL;
@@ -738,6 +731,11 @@ function fsa_report_problem_report_complete_form($form, &$form_state) {
       '#text' => _fsa_report_problem_text('contact_local_authority', array('report' => $report)),
     );
   }
+
+  $form['report_id'] = array(
+    '#type' => 'form_intro',
+    '#text' => t('Please quote reference !reference in all correspondence.', array('!reference' => $params['report_id'])),
+  );
 
   if (!empty($report->reporter_email)) {
     $form['report_receipt'] = array(
