@@ -451,7 +451,7 @@ function fsa_food_report_admin_form($form, &$form_state) {
     '#title' => t('Service status'),
     '#options' => _fsa_report_problem_service_statuses(),
     '#default_value' => variable_get('fsa_report_problem_service_status', FSA_REPORT_PROBLEM_STATUS_PRODUCTION),
-    '#description' => t('What is the status of the food problem reporting service?'),
+    '#description' => t('What is the status of the food problem reporting service? Status text can be set via the <a href="@text_url">Edit text interface.</a>', array('@text_url' => url('admin/config/foodproblems/text'))),
   );
 
   //$form['service_status']['fsa_report_problem_service_status_message'] = array(
