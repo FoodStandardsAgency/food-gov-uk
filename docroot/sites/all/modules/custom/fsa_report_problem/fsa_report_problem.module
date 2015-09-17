@@ -1884,3 +1884,19 @@ function fsa_report_problem_init() {
   }
 
 }
+
+
+/**
+ * Implements hook_block_configure().
+ */
+function fsa_report_problem_block_configure($delta = '') {
+  // Make sure we're on our block.
+  if ($delta != 'report_problem_form') {
+    return;
+  }
+  // Include the configuration form for the module
+  module_load_include('inc', 'fsa_report_problem', 'fsa_report_problem.admin');
+  $form_state = array();
+  $form = fsa_food_report_admin_form(array(), $form_state);
+  return $form;
+}
