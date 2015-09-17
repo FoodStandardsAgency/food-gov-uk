@@ -1406,6 +1406,7 @@ function _fsa_report_problem_text($key = NULL, $data = array()) {
       'title' => t('Service status - Alpha'),
       'description' => t('Description of service status when in Alpha'),
       'default' => t('This is a prototype service - your <a href="@feedback_url"><strong>feedback</strong></a> will help us to improve it. No information you share here will leave this test system.', array('@feedback_url' => "mailto:digital.communications@foodstandards.gsi.gov.uk?subject=Feedback%20on%20'Report%20a%20food%20problem'%20service%20[ALPHA%20phase]&amp;body=Hello%2C%20%0A%0AYou%20asked%20for%20my%20feedback.%20Here%20it is:")),
+      'format' => 'plain_text',
     ),
     'service_status_beta' => array(
       'title' => t('Service status - Beta'),
