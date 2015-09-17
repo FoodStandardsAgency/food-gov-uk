@@ -271,8 +271,10 @@ function fsa_report_problem_block_view($delta = '') {
         array($block->module),
       );
 
-      $block['content']['#contextual_links']['fsa_report_problem'] = $contextual_links;
       break;
+  }
+  if (!empty($block['content'])) {
+    $block['content']['#contextual_links']['fsa_report_problem'] = $contextual_links;
   }
 
   return $block;
