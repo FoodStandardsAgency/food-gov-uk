@@ -128,12 +128,13 @@ function fsa_report_problem_menu() {
   );
 
   $items['admin/config/foodproblems/text'] = array(
-    'title' => t('Text'),
+    'title' => t('Edit text'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('fsa_food_report_text_form'),
     'access arguments' => array('administer food problem reporting'),
     'file' => 'fsa_report_problem.admin.inc',
     'type' => MENU_LOCAL_TASK,
+    'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
     'weight' => 10,
   );
 
@@ -266,6 +267,12 @@ function fsa_report_problem_block_view($delta = '') {
       }
       module_load_include('inc', 'fsa_report_problem', 'includes/form');
       $block['content'] = drupal_get_form('fsa_report_problem_form');
+      $contextual_links = array(
+        'admin/config/foodproblems/text',
+        array($block->module),
+      );
+
+      $block['content']['#contextual_links']['fsa_report_problem'] = $contextual_links;
       break;
   }
 
