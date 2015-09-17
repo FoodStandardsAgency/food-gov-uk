@@ -799,7 +799,7 @@ function fsa_report_problem_get_google_results($name, $location, $user_location 
   $request_count = 0;
 
   // Set the minimum number of results
-  $result_threshold = 10;
+  $result_threshold = 5;
   do {
     if ($request_count > 0) {
       sleep(1);
