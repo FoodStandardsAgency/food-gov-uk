@@ -461,14 +461,6 @@ function fsa_food_report_admin_form($form, &$form_state) {
     '#default_value' => variable_get('fsa_report_problem_service_status_message', _fsa_report_problem_status_message(FSA_REPORT_PROBLEM_STATUS)),
   );
 
-
-  $form['email_addresses'] = array(
-    '#type' => 'fieldset',
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
-    '#title' => t('Email addresses'),
-  );
-
   return system_settings_form($form);
 }
 
