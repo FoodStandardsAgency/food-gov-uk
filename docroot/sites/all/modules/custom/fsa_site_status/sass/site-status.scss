@@ -1,0 +1,39 @@
+$message-height: 35px;
+$admin-menu-height: 39px;
+$message-line-height: 20px;
+
+.site-status-message {
+  background-color: #565656;
+  color: #ffffff;
+  height: $message-height;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10000;
+  
+  p {
+    font-size: 1.4em;
+    padding: ($message-height - $message-line-height) / 2;
+  }
+  
+  a {
+    color: #fff;
+    text-decoration: underline;
+  }
+}
+
+.l-page {
+  padding-top: $message-height;
+}
+
+body {
+  &.admin-menu {
+    padding-top: 10px;
+    
+    .site-status-message {
+      top: $admin-menu-height;
+    }
+    
+  }
+}

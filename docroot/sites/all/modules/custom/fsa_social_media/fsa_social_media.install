@@ -1,0 +1,13 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the FSA Social Media module.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function fsa_social_media_uninstall() {
+  // Remove variables.
+  variable_del('fsa_social_media_icons');
+}

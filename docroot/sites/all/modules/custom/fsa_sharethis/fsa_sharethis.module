@@ -17,10 +17,10 @@ function fsa_sharethis_theme_registry_alter(&$theme_registry) {
 
 /**
  * Theme function for ShareThis code based on settings.
- * 
+ *
  * This is an override function for the `theme_sharethis()` function provided
  * by the ShareThis module.
- * 
+ *
  * @see theme_sharethis()
  */
 function fsa_sharethis_theme_sharethis($variables) {
@@ -77,10 +77,11 @@ function fsa_sharethis_theme_sharethis($variables) {
     // Only show the display text if the type is set.
     if (!empty($type)) {
       $attributes['displayText'] = check_plain($display);
+      $attributes['title'] = check_plain(_fsa_sharethis_title_text($service));
     }
-    
+
     $attributes['role'] = 'button';
-    
+
     // Render the span tag.
     $st_spans .= theme('html_tag', array(
       'element' => array(
@@ -99,7 +100,7 @@ function fsa_sharethis_theme_sharethis($variables) {
 
 /**
  * Implements hook_block_view_MODULE_DELTA_alter().
- * 
+ *
  * We use this to reconstruct the ShareThis block in order to add our own
  * JavaScript and CSS files.
  */
@@ -110,14 +111,14 @@ function fsa_sharethis_block_view_sharethis_sharethis_block_alter(&$data, $block
 
     // Remove the existing content element
     unset($data['content']);
-    
+
     // Create a structured content array
     $data['content'] = array(
       'buttons' => array(
         '#markup' => $content
       ),
     );
-    
+
     // Attach our JavaScript and CSS files
     $data['content']['#attached'] = array(
       'js' => array(
@@ -128,4 +129,48 @@ function fsa_sharethis_block_view_sharethis_sharethis_block_alter(&$data, $block
       ),
     );
   }
+}
+
+/**
+ * Provides human-readable title text for the ShareThis butons
+ *
+ * By default, this will provide title text of the form:
+ * "Share this page via ServiceName" where 'ServiceName' is the human-readable
+ * name of the service as provided by ShareThis.
+ *
+ * Custom title text can be provided using the `$service_titles` array, keyed on
+ * the service machine name.
+ *
+ * @param array $service
+ *   The service array as provided by ShareThis. This should be an array with
+ *   two elements - the first being the human-readable name for the service,
+ *   while the second is the machine name. The human-readable name begins with
+ *   an opening double-quote, and the machine name ends with an opening double-
+ *   quote, so these need to be removed in the function.
+ *
+ * @return string
+ *   The title text to be used with the button. If the $service parameter is not
+ *   what the function expects, a zero-length string is returned.
+ */
+function _fsa_sharethis_title_text($service) {
+
+  // If $service is empty, is not an array or does not contain two elements,
+  // return an empty string.
+  if (empty($service) || !is_array($service) || count($service) != 2) {
+    return '';
+  }
+
+  // Get the service machine name
+  $service_machine_name = substr($service[1], 0, -1);
+  // Get the human-readable service name
+  $service_name = substr($service[0], 1);
+
+  // An array of custom title text, keyed on the service machine name.
+  $service_titles = array(
+    'twitter' => t('Share this page with your Twitter followers'),
+    'facebook' => t('Share this page on Facebook'),
+  );
+
+  // Return the custom title text or fall back to the standard formula.
+  return !empty($service_titles[$service_machine_name]) ? $service_titles[$service_machine_name] : t('Share this page via @service_name', array('@service_name' => $service_name));
 }
