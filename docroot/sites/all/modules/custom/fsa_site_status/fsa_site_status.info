@@ -1,0 +1,4 @@
+name = FSA site status
+description = "Displays a banner to warn users that the current site is not the live FSA website."
+core = 7.x
+package = FSA Custom

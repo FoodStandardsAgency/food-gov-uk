@@ -1,0 +1,38 @@
+<?php
+/**
+ * @file
+ * Module file for the FSA site status module
+ */
+function fsa_site_status_page_build(&$page) {
+
+  // Don't show message if we're not supposed to
+  $show_messasge = variable_get('fsa_site_status_show_message', FALSE);
+  if (!$show_messasge) {
+    return;
+  }
+  
+  // Don't show message on admin paths.
+  if (path_is_admin(current_path())) {
+    return;
+  }
+
+  $page['content']['site_status_message'] = array(
+    '#prefix' => '<div class="site-status-message"><p>',
+    '#markup' => _fsa_site_status_text(),
+    '#suffix' => '</p></div>',
+    '#attached' => array(
+      'css' => array(
+        drupal_get_path('module', 'fsa_site_status') . '/css/site-status.css',
+      ),
+    ),
+  );
+}
+
+
+/**
+ * Provides site status text
+ */
+function _fsa_site_status_text() {
+  $default = t('This is a test environment. See live and up to date information at <a href="@live_link">www.food.gov.uk</a>', array('@live_link' => 'http://www.food.gov.uk'));
+  return variable_get('fsa_site_status_text', $default);
+}
