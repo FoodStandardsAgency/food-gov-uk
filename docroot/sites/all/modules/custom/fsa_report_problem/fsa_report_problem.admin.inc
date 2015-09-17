@@ -454,12 +454,12 @@ function fsa_food_report_admin_form($form, &$form_state) {
     '#description' => t('What is the status of the food problem reporting service?'),
   );
 
-  $form['service_status']['fsa_report_problem_service_status_message'] = array(
-    '#type' => 'textarea',
-    '#title' => t('Service status message'),
-    '#description' => t('You can include a message to display on the page while the service is in alpha or beta status. Leave the field blank to display no message.'),
-    '#default_value' => variable_get('fsa_report_problem_service_status_message', _fsa_report_problem_status_message(FSA_REPORT_PROBLEM_STATUS)),
-  );
+  //$form['service_status']['fsa_report_problem_service_status_message'] = array(
+  //  '#type' => 'textarea',
+  //  '#title' => t('Service status message'),
+  //  '#description' => t('You can include a message to display on the page while the service is in alpha or beta status. Leave the field blank to display no message.'),
+  //  '#default_value' => variable_get('fsa_report_problem_service_status_message', _fsa_report_problem_status_message(FSA_REPORT_PROBLEM_STATUS)),
+  //);
 
   return system_settings_form($form);
 }
