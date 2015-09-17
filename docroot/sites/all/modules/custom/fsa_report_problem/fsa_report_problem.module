@@ -1900,3 +1900,23 @@ function fsa_report_problem_block_configure($delta = '') {
   $form = fsa_food_report_admin_form(array(), $form_state);
   return $form;
 }
+
+
+/**
+ * Implements hook_block_save().
+ */
+function fsa_report_problem_block_save($delta = '', $edit = array()) {
+  // Make sure we're on our block.
+  if ($delta != 'report_problem_form') {
+    return;
+  }
+
+  if (isset($edit['fsa_report_problem_service_status'])) {
+    variable_set('fsa_report_problem_service_status', $edit['fsa_report_problem_service_status']);
+  }
+
+  if (isset($edit['fsa_report_problem_service_status_message'])) {
+    variable_set('fsa_report_problem_service_status_message', $edit['fsa_report_problem_service_status_message']);
+  }
+
+}
