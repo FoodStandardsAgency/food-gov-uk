@@ -1918,6 +1918,11 @@ function fsa_report_problem_block_configure($delta = '') {
   module_load_include('inc', 'fsa_report_problem', 'fsa_report_problem.admin');
   $form_state = array();
   $form = fsa_food_report_admin_form(array(), $form_state);
+  $form['config_interface_link'] = array(
+    '#type' => 'item',
+    '#title' => t('More configuration options'),
+    '#markup' => t('Full configuration options for the Report a Food Problem service can be found at <a href="@config_link">Admin > Configuration > Food problem reporting</a>.', array('@config_link' => url('admin/config/foodproblems'))),
+  );
   return $form;
 }
 
