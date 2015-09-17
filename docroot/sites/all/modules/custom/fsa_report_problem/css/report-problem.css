@@ -38,8 +38,7 @@
   .fsa-report-problem-form input[type="text"] {
     border: 1px solid #ccc;
     font-size: 1.5em;
-    padding: 8px;
-    width: 100%; }
+    padding: 8px; }
     .fsa-report-problem-form textarea.error,
     .fsa-report-problem-form input[type="text"].error {
       border-color: red; }
