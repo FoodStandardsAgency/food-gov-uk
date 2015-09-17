@@ -442,7 +442,7 @@ function fsa_food_report_admin_form($form, &$form_state) {
   $form['service_status'] = array(
     '#type' => 'fieldset',
     '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
+    '#collapsed' => FALSE,
     '#title' => t('Service status'),
   );
 
