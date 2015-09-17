@@ -1923,6 +1923,8 @@ function fsa_report_problem_block_configure($delta = '') {
     '#title' => t('More configuration options'),
     '#markup' => t('Full configuration options for the Report a Food Problem service can be found at <a href="@config_link">Admin > Configuration > Food problem reporting</a>.', array('@config_link' => url('admin/config/foodproblems'))),
   );
+  // Remove the submit button from the included form. It will cause duplication.
+  unset($form['actions']);
   return $form;
 }
 
