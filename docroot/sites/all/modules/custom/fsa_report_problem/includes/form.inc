@@ -151,7 +151,7 @@ function fsa_report_problem_form($form, &$form_state) {
       'label' => t('Choose a business'),
       'disabled' => TRUE,
     ),
-    t('Tell us what you saw'),
+    t('Tell us about the food problem'),
     t('Report complete'),
   );
 
