@@ -536,11 +536,13 @@ function fsa_report_problem_make_report_form($form, &$form_state) {
   $form['reporter_name'] = array(
     '#type' => 'textfield',
     '#title' => t('Your name (optional)'),
+    '#description' => t('The local authority would only this use when contacting you about your issue. Your issue is more likely to be processed if you give a name.'),
   );
 
   $form['reporter_email'] = array(
     '#type' => 'textfield',
     '#title' => t('Your email address (optional)'),
+    '#description' => t('This would only be used by the local authority to contact you about your issue.'),
   );
 
   $today = date("Y-m-d H:i:s");
@@ -559,6 +561,7 @@ function fsa_report_problem_make_report_form($form, &$form_state) {
   $form['issue_details'] = array(
     '#type' => 'textarea',
     '#title' => t('Details of the food issue'),
+    '#description' => t('If you want to remain anonymous, make sure you don’t include anything that could identify you or any people you were with.'),
     '#cols' => 20,
     '#rows' => 10,
     '#required' => TRUE,
