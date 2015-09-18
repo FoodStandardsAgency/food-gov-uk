@@ -14,19 +14,42 @@
             }
           );
       });
+      // Enable links within the page to the feedback form. The form will be
+      // opened and the page will scroll smoothly down. @see #10229
+      // Any link with the href attribute `#feedback-form` will be given this
+      // treatment. If JavaScript is not enabled, the form is displayed by
+      // default, and the link will just go to that bookmark.
+      $("[href='#feedback-form']", context).once('fsafeedback', function(){
+        $(this).click(function(e){
+          $block = $('#block-feedback-form');
+          $form = $block.find('form');
+          // If the feedback form is currently hidden, show it.
+          if ($form.is(':hidden')) {
+            $form.show();
+            Drupal.fsaFeedbackFormToggle($block, true);
+          }
+          e.preventDefault();
+          // Scroll down to the feedback form
+          $('html, body').animate({
+            scrollTop: $form.offset().top - 10
+          }, 800);
+        });
+      });
     }
   };
 
   /**
    * Collapse or uncollapse the feedback form block.
+   *
+   * @see Drupal.feedbackFormToggle()
    */
   Drupal.fsaFeedbackFormToggle = function ($block, enable) {
     var $formContainer = $block.find('.grey-container-block');
-    if (enable) {
-      $formContainer.addClass('no-border');
+    if ($formContainer.hasClass('no-border')) {
+      $formContainer.removeClass('no-border');
     }
     else {
-      $formContainer.removeClass('no-border');
+      $formContainer.addClass('no-border');
     }
   };
 
