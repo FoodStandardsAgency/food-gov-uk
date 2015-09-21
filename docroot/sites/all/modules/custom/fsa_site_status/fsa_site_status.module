@@ -1,4 +1,30 @@
 <?php
+
+/**
+ * @file
+ * Module file for the FSA site status module
+ */
+
+
+/**
+ * Implements hook_menu()
+ */
+function fsa_site_status_menu() {
+  $items = array();
+
+  $items['admin/config/development/site-status'] = array(
+    'title' => t('Site status message'),
+    'description' => t('Enable or disable the the site status message and set the text'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('site_status_admin_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'fsa_site_status.admin.inc',
+  );
+
+  return $items;
+}
+
+
 /**
  * @file
  * Module file for the FSA site status module
@@ -10,19 +36,24 @@ function fsa_site_status_page_build(&$page) {
   if (!$show_messasge) {
     return;
   }
-  
+
   // Don't show message on admin paths.
   if (path_is_admin(current_path())) {
     return;
   }
 
-  $page['content']['site_status_message'] = array(
-    '#prefix' => '<div class="site-status-message"><p>',
+  // Create a render array and add it to the 'page_top' element of the $page
+  // array.
+  $page['page_top']['site_status_message'] = array(
+    '#prefix' => '<div id="site-status-message"><p>',
     '#markup' => _fsa_site_status_text(),
     '#suffix' => '</p></div>',
     '#attached' => array(
       'css' => array(
         drupal_get_path('module', 'fsa_site_status') . '/css/site-status.css',
+      ),
+      'js' => array(
+        drupal_get_path('module', 'fsa_site_status') . '/js/site-status.js',
       ),
     ),
   );

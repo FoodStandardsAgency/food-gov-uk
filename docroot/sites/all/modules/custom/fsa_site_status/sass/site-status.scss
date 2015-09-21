@@ -1,20 +1,17 @@
-$message-height: 35px;
-$admin-menu-height: 39px;
-$message-line-height: 20px;
-
-.site-status-message {
+#site-status-message {
   background-color: #565656;
   color: #ffffff;
-  height: $message-height;
-  left: 0;
-  position: fixed;
-  top: 0;
   width: 100%;
-  z-index: 10000;
+  z-index: 10;
+  
+  &.fixed-banner {
+    position: fixed;
+  }
   
   p {
     font-size: 1.4em;
-    padding: ($message-height - $message-line-height) / 2;
+    margin: 0;
+    padding: 8px;
   }
   
   a {
@@ -23,17 +20,10 @@ $message-line-height: 20px;
   }
 }
 
-.l-page {
-  padding-top: $message-height;
-}
-
 body {
   &.admin-menu {
-    padding-top: 10px;
-    
-    .site-status-message {
-      top: $admin-menu-height;
-    }
-    
+    // This gets around the problem that the offset provided by the admin menu
+    // module is insufficient. If we ever fix that, this can be removed.
+    padding-top: 9px;
   }
 }

@@ -1,25 +1,19 @@
-.site-status-message {
+#site-status-message {
   background-color: #565656;
   color: #ffffff;
-  height: 35px;
-  left: 0;
-  position: fixed;
-  top: 0;
   width: 100%;
-  z-index: 10000; }
-  .site-status-message p {
+  z-index: 10; }
+  #site-status-message.fixed-banner {
+    position: fixed; }
+  #site-status-message p {
     font-size: 1.4em;
-    padding: 7.5px; }
-  .site-status-message a {
+    margin: 0;
+    padding: 8px; }
+  #site-status-message a {
     color: #fff;
     text-decoration: underline; }
 
-.l-page {
-  padding-top: 35px; }
-
 body.admin-menu {
-  padding-top: 10px; }
-  body.admin-menu .site-status-message {
-    top: 39px; }
+  padding-top: 9px; }
 
 /*# sourceMappingURL=site-status.css.map */
