@@ -2,7 +2,7 @@
   background-color: #565656;
   color: #ffffff;
   width: 100%;
-  z-index: 10; }
+  z-index: 500; }
   #site-status-message.fixed-banner {
     position: fixed; }
   #site-status-message p {
