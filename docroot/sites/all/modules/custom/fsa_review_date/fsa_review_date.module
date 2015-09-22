@@ -405,7 +405,7 @@ function fsa_review_date_mail($key, &$message, $params) {
       $message['subject'] = variable_get('fsa_review_date_email_subject', FSA_REVIEW_DATE_EMAIL_SUBJECT);
       $message['from'] = variable_get('fsa_review_date_email_from', FSA_REVIEW_DATE_EMAIL_FROM);
       $message['headers']['From'] = variable_get('fsa_review_date_email_from', FSA_REVIEW_DATE_EMAIL_FROM);
-      $view_link = t('View these online at @url', array('@url' => url('admin/reports/review', array('absolute' => TRUE, 'alias' => TRUE))));
+      $view_link = t('View these online at @url', array('@url' => url(local_get_site_domain(TRUE, 'https') . '/admin/reports/review', array('absolute' => TRUE, 'alias' => TRUE))));
       $message['body'][] = _fsa_review_date_content_list(t('The following content items are due for review today'));
       $message['body'][] = $view_link;
       $message['body'][] = '';
