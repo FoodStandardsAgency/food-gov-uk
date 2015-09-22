@@ -18,11 +18,17 @@ define('REWRITE_COMMITTEE_URLS', TRUE);
  * Returns the main site domain for rewriting non committee urls
  *
  * @param boolean $admin
- *   Determines whether to return an admin domain or front-end domain.
+ *   (optional) Determines whether to return an admin domain or front-end domain.
+ *
+ * @param string $protocol
+ *   (optional) The protocol to use with the domain. If none is specified,
+ *   protocol-relative URLs will be returned. If a protocol is supplied, it
+ *   should not contain the colon or the //, eg 'http', 'https'
  *
  * @return string
+ *   The domain for the local site
  */
-function local_get_site_domain($admin = FALSE){
+function local_get_site_domain($admin = FALSE, $protocol = ''){
 
   // Get a local development site domain if it's populated.
   // This will typically be set in settings.local.php, but could also be
@@ -57,7 +63,8 @@ function local_get_site_domain($admin = FALSE){
 
   // Return the domain for the selected environment. If none is set, we return
   // www.food.gov.uk as default.
-  return !empty($environment) && !empty($environments[$environment]) ? $environments[$environment] : '//www.food.gov.uk';
+  $protocol = !empty($protocol) ? "$protocol:" : '';
+  return !empty($environment) && !empty($environments[$environment]) ? $protocol . $environments[$environment] : "$protocol//www.food.gov.uk";
 }
 
 /**
