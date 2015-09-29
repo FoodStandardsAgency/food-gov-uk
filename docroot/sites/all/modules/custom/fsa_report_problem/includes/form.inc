@@ -791,6 +791,7 @@ function fsa_report_problem_report_complete_form($form, &$form_state) {
   $form['report_id'] = array(
     '#type' => 'form_intro',
     '#text' => t('Please quote reference !reference in all correspondence.', array('!reference' => $params['report_id'])),
+    '#access' => FALSE, // Hide this for now.
   );
 
   if (!empty($report->reporter_email)) {
