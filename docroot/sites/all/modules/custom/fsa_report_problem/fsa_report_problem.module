@@ -1357,6 +1357,10 @@ function _fsa_report_problem_text($key = NULL, $data = array()) {
       'description' => t('This is the text that appears at the top of the business lookup form.'),
       'default' => t('Hello, this is the first stage. This is a test.'),
     ),
+    'find_business_extra' => array(
+      'title' => t('Business search additional info'),
+      'description' => t('This text displays beneath the form on the introductory page.'),
+    ),
     'choose_business_intro' => array(
       'title' => t('Business choice form intro'),
       'description' => t('This text appears at the top of the screen where users can select a business'),
