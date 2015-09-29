@@ -342,6 +342,16 @@ function fsa_report_problem_find_business_form($form, &$form_state) {
     '#value' => t('Find business'),
   );
 
+
+  $additional_text = _fsa_report_problem_text('find_business_extra');
+  if (!empty($additional_text['value'])) {
+    $form['additional_info'] = array(
+      '#prefix' => '<div class="form-intro find-business-extra">',
+      '#markup' => $additional_text['value'],
+      '#suffix' => '</div>',
+    );
+  }
+
   if (!isset($_GET['ac']) || !empty($_GET['ac'])) {
     $form['#attached'] = array(
       'js' => array(
