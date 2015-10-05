@@ -56,7 +56,7 @@ function crazyegg_page_alter(&$page) {
     $account_path = substr($account_path, 0, 4) . '/' . substr($account_path, 4, 8);
     $account_path = "pages/scripts/" . $account_path . ".js";
 
-    $script_host = "dnn506yrbagrg.cloudfront.net";
+    $script_host = "script.crazyegg.com";
 
     $script = '
       setTimeout(function(){var a=document.createElement("script");
