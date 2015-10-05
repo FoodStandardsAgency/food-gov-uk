@@ -1,0 +1,42 @@
+From 463c576b6d50cb2f2d1808d497442701b7721e43 Mon Sep 17 00:00:00 2001
+From: Matt Farrow <matt.farrow@siriusopensource.com>
+Date: Mon, 5 Oct 2015 15:47:18 +0100
+Subject: [PATCH] Update script host for CrazyEgg
+
+Modified the script host for the CrazyEgg module.
+
+Updated from:
+
+dnn506yrbagrg.cloudfront.net
+
+to
+
+script.crazyegg.com
+
+This is essentially the same change as in this patch:
+
+https://www.drupal.org/files/issues/crazyegg-update-tracking-code-2403503-1.patch
+
+but it would not apply cleanly so I had to recreate it.
+
+[ Partial fix for #10248 ]
+---
+ docroot/sites/all/modules/contrib/crazyegg/crazyegg.module | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/docroot/sites/all/modules/contrib/crazyegg/crazyegg.module b/docroot/sites/all/modules/contrib/crazyegg/crazyegg.module
+index 0bd84b7..2dfe64d 100644
+--- a/docroot/sites/all/modules/contrib/crazyegg/crazyegg.module
++++ b/docroot/sites/all/modules/contrib/crazyegg/crazyegg.module
+@@ -56,7 +56,7 @@ function crazyegg_page_alter(&$page) {
+     $account_path = substr($account_path, 0, 4) . '/' . substr($account_path, 4, 8);
+     $account_path = "pages/scripts/" . $account_path . ".js";
+ 
+-    $script_host = "dnn506yrbagrg.cloudfront.net";
++    $script_host = "script.crazyegg.com";
+ 
+     $script = '
+       setTimeout(function(){var a=document.createElement("script");
+-- 
+2.3.8 (Apple Git-58)
+

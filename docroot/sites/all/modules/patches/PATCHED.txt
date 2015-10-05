@@ -134,5 +134,18 @@ Changed from external JS to including JS with the module, so that we could chang
 
 Patch: FSA-981-iframe-is-missing-a-description.patch
 
+=============================================
 
+CrazyEgg
 
+Add cache-breaking code: FSA-10248-crazyegg-add-cache-breaker.patch
+See: https://www.drupal.org/files/issues/1332142_crazyegg_js.patch
+This patch is almost identical to the drupal.org patch, but this one wouldn't
+apply cleanly.
+See: #10248
+
+Update script host: FSA-10248-crazyegg-update-javascript-host
+See: https://www.drupal.org/files/issues/crazyegg-update-tracking-code-2403503-1.patch
+This patch is almost identical to the drupal.org patch, but this one wouldn't
+apply cleanly.
+See: #10248
