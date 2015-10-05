@@ -149,3 +149,10 @@ See: https://www.drupal.org/files/issues/crazyegg-update-tracking-code-2403503-1
 This patch is almost identical to the drupal.org patch, but this one wouldn't
 apply cleanly.
 See: #10248
+
+Enable choice of where code is rendered: FSA-10248-enable-choice-of-code-rendering.patch
+Provides a user selectable choice of rendering the script in the header or the footer.
+Footer is default.
+See #10248
+
+
