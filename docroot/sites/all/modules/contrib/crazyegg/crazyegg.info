@@ -4,7 +4,7 @@ core = 7.x
 version = 7.x-1.0
 configure = admin/config/system/crazyegg
 ; Information added by drupal.org packaging script on 2011-09-21
-version = "7.x-1.0"
+version = "7.x-1.0-PATCHED"
 core = "7.x"
 project = "crazyegg"
 datestamp = "1316636202"
