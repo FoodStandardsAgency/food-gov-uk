@@ -1,0 +1,36 @@
+From 52df653f2e131d9ae513ff1fb192cf3c1f99ec27 Mon Sep 17 00:00:00 2001
+From: Matt Farrow <matt.farrow@siriusopensource.com>
+Date: Mon, 5 Oct 2015 15:41:45 +0100
+Subject: [PATCH] Add cache breaker to end of JS tag
+
+In crazyegg.module, added a timestamp to the end of the JS code to
+prevent client-side caching.
+
+This is effectively the same change as found here:
+
+https://www.drupal.org/files/issues/1332142_crazyegg_js.patch
+
+but it could not be cleanly applied to the current release of the
+module as other changes have been made.
+
+[ Partial fix for #10248 ]
+---
+ docroot/sites/all/modules/contrib/crazyegg/crazyegg.module | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/docroot/sites/all/modules/contrib/crazyegg/crazyegg.module b/docroot/sites/all/modules/contrib/crazyegg/crazyegg.module
+index 4e44726..0bd84b7 100644
+--- a/docroot/sites/all/modules/contrib/crazyegg/crazyegg.module
++++ b/docroot/sites/all/modules/contrib/crazyegg/crazyegg.module
+@@ -61,7 +61,7 @@ function crazyegg_page_alter(&$page) {
+     $script = '
+       setTimeout(function(){var a=document.createElement("script");
+       var b=document.getElementsByTagName(\'script\')[0];
+-      a.src=document.location.protocol+"//' . $script_host . '/' . $account_path . '";
++      a.src=document.location.protocol+"//' . $script_host . '/' . $account_path . '?"+Math.floor(new Date().getTime()/3600000);
+       a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+       ';
+ 
+-- 
+2.3.8 (Apple Git-58)
+
