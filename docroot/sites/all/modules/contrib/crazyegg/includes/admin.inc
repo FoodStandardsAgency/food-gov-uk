@@ -13,6 +13,17 @@ function crazyegg_admin_settings_form() {
       '#default_value' => variable_get('crazyegg_enabled', TRUE),
   );
 
+  $form['crazyegg_code_placement'] = array(
+    '#type' => 'radios',
+    '#title' => t('Code location'),
+    '#description' => t('Where would you like the tracking code to be rendered?'),
+    '#options' => array(
+      'footer' => t('In the site footer'),
+      'header' => t('In the site header'),
+    ),
+    '#default_value' => variable_get('crazyegg_code_placement', 'footer'),
+  );
+
   $form['crazyegg_account_id'] = array(
       '#type' => 'textfield',
       '#title' => t('Crazy Egg Account ID'),

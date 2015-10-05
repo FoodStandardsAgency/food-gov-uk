@@ -50,7 +50,8 @@ function crazyegg_page_alter(&$page) {
 
   if ($account_id && $crazyegg_enabled) {
 
-    $scope = 'footer';
+    $scope = variable_get('crazyegg_code_placement', 'footer');
+    $group = $scope == 'header' ? JS_THEME : JS_DEFAULT;
     
     $account_path = str_pad($account_id, 8, "0", STR_PAD_LEFT);
     $account_path = substr($account_path, 0, 4) . '/' . substr($account_path, 4, 8);
@@ -65,6 +66,6 @@ function crazyegg_page_alter(&$page) {
       a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
       ';
 
-    drupal_add_js($script, array('scope' => $scope, 'type' => 'inline'));
+    drupal_add_js($script, array('scope' => $scope, 'type' => 'inline', 'group' => $group));
   }
 }
