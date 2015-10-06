@@ -11,10 +11,7 @@
 # Ignored: http://example.com/site/robots.txt
 #
 # For more information about the robots.txt standard, see:
-# http://www.robotstxt.org/wc/robots.html
-#
-# For syntax checking, see:
-# http://www.sxw.org.uk/computing/robots/check.html
+# http://www.robotstxt.org/robotstxt.html
 
 User-agent: *
 Crawl-delay: 10
@@ -48,10 +45,6 @@ Disallow: /user/register/
 Disallow: /user/password/
 Disallow: /user/login/
 Disallow: /user/logout/
-Disallow: /multimedia/continuity
-Disallow: /multimedia/food-safety-week-2015-la-toolkit
-Disallow: /multimedia/food-safety-week-2015-partners
-Disallow: /multimedia/dbw-2015-pecyn-cyfathrebu
 # Paths (no clean URLs)
 Disallow: /?q=admin/
 Disallow: /?q=comment/reply/
@@ -62,3 +55,9 @@ Disallow: /?q=user/password/
 Disallow: /?q=user/register/
 Disallow: /?q=user/login/
 Disallow: /?q=user/logout/
+# FSA-specific URLs
+Disallow: /multimedia/continuity
+Disallow: /multimedia/food-safety-week-2015-la-toolkit
+Disallow: /multimedia/food-safety-week-2015-partners
+Disallow: /multimedia/dbw-2015-pecyn-cyfathrebu
+

@@ -1,0 +1,67 @@
+From 78dfae9a8d5d42e4ca3b6c12dfc200d323339677 Mon Sep 17 00:00:00 2001
+From: Matt Farrow <matt.farrow@siriusopensource.com>
+Date: Mon, 5 Oct 2015 16:18:54 +0100
+Subject: [PATCH] Allow choice of placement for CrazyEgg JS
+
+Added an option to the CrazyEgg admin form to enable administrators
+to change the location of the script tag.
+
+By default, the module outputs it in the footer region, but according
+to the recommendations from CrazyEgg, it should go in the <head>.
+
+@see http://support.crazyegg.com/where-do-i-install-the-crazy-egg-tracking-script
+
+[ Partial fix for #10248 ]
+---
+ docroot/sites/all/modules/contrib/crazyegg/crazyegg.module    |  5 +++--
+ docroot/sites/all/modules/contrib/crazyegg/includes/admin.inc | 11 +++++++++++
+ 2 files changed, 14 insertions(+), 2 deletions(-)
+
+diff --git a/docroot/sites/all/modules/contrib/crazyegg/crazyegg.module b/docroot/sites/all/modules/contrib/crazyegg/crazyegg.module
+index 2dfe64d..0fd5d62 100644
+--- a/docroot/sites/all/modules/contrib/crazyegg/crazyegg.module
++++ b/docroot/sites/all/modules/contrib/crazyegg/crazyegg.module
+@@ -50,7 +50,8 @@ function crazyegg_page_alter(&$page) {
+ 
+   if ($account_id && $crazyegg_enabled) {
+ 
+-    $scope = 'footer';
++    $scope = variable_get('crazyegg_code_placement', 'footer');
++    $group = $scope == 'header' ? JS_THEME : JS_DEFAULT;
+     
+     $account_path = str_pad($account_id, 8, "0", STR_PAD_LEFT);
+     $account_path = substr($account_path, 0, 4) . '/' . substr($account_path, 4, 8);
+@@ -65,6 +66,6 @@ function crazyegg_page_alter(&$page) {
+       a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+       ';
+ 
+-    drupal_add_js($script, array('scope' => $scope, 'type' => 'inline'));
++    drupal_add_js($script, array('scope' => $scope, 'type' => 'inline', 'group' => $group));
+   }
+ }
+\ No newline at end of file
+diff --git a/docroot/sites/all/modules/contrib/crazyegg/includes/admin.inc b/docroot/sites/all/modules/contrib/crazyegg/includes/admin.inc
+index 07d877d..f28016a 100644
+--- a/docroot/sites/all/modules/contrib/crazyegg/includes/admin.inc
++++ b/docroot/sites/all/modules/contrib/crazyegg/includes/admin.inc
+@@ -13,6 +13,17 @@ function crazyegg_admin_settings_form() {
+       '#default_value' => variable_get('crazyegg_enabled', TRUE),
+   );
+ 
++  $form['crazyegg_code_placement'] = array(
++    '#type' => 'radios',
++    '#title' => t('Code location'),
++    '#description' => t('Where would you like the tracking code to be rendered?'),
++    '#options' => array(
++      'footer' => t('In the site footer'),
++      'header' => t('In the site header'),
++    ),
++    '#default_value' => variable_get('crazyegg_code_placement', 'footer'),
++  );
++
+   $form['crazyegg_account_id'] = array(
+       '#type' => 'textfield',
+       '#title' => t('Crazy Egg Account ID'),
+-- 
+2.3.8 (Apple Git-58)
+
