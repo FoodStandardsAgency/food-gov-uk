@@ -546,7 +546,7 @@ function fsa_report_problem_make_report_form($form, &$form_state) {
   $form['reporter_name'] = array(
     '#type' => 'textfield',
     '#title' => t('Your name (optional)'),
-    '#description' => t('The local authority would only use this when contacting you about your issue. Your issue is more likely to be processed if you give a name.'),
+    '#description' => t('The local authority would only use this when contacting you about your issue.'),
   );
 
   $form['reporter_email'] = array(
