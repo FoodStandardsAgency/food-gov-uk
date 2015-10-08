@@ -4,6 +4,21 @@
  * Forms used by the FSA Report a problem module
  */
 
+/**
+ * Form builder: Master form for report a food problem
+ * 
+ * This is a multi-stage form that pulls in the following child forms at the
+ * appropriate point in the process:
+ * 
+ * Step 1: Find a business: fsa_report_problem_find_business_form()
+ * Step 2: Business results: fsa_report_problem_results_form()
+ * Step 3: Make the report: fsa_report_problem_make_report_form()
+ * Step 4: Report complete: fsa_report_problem_report_complete_form()
+ * 
+ * Step 2 is displayed only if the user does not use the Google Places
+ * autocomplete to select their business.
+ * 
+ */
 function fsa_report_problem_form($form, &$form_state) {
 
   $params = drupal_get_query_parameters();
@@ -12,11 +27,17 @@ function fsa_report_problem_form($form, &$form_state) {
     $form_state['stage'] = 'report_complete';
   }
 
+  // Is this the manual entry form? If so, go straight to the make report step.
   if (!empty($params['manual'])) {
     $form_state['stage'] = 'make_report';
     $form_state['manual_entry'] = TRUE;
   }
 
+  // Define the steps of the process as an array. Each step can be either a
+  // string containing the human-readable name of the step or an array with
+  // elements for the label and whether the step is disabled. The second step
+  // is disabled by default, but will be enabled if the user does not use the
+  // Google Places autocomplete.
   $steps = array(
     t('Find a business'),
     array(
@@ -27,6 +48,7 @@ function fsa_report_problem_form($form, &$form_state) {
     t('Report complete'),
   );
 
+  // Get the right stage - default to the first one.
   if (!isset($form_state['stage'])) $form_state['stage'] = 'find_business';
 
   switch ($form_state['stage']) {
@@ -90,6 +112,7 @@ function fsa_report_problem_form($form, &$form_state) {
     $step_count++;
   }
   
+  // Add the step indicator
   $the_form['step_indicator'] = array(
     '#prefix' => '<div class="step-indicator">',
     '#suffix' => '</div>',
@@ -110,10 +133,12 @@ function fsa_report_problem_form($form, &$form_state) {
 
 }
 
+/**
+ * Form builder: Step 1 - Find a business subform
+ */
 function fsa_report_problem_find_business_form($form, &$form_state) {
 
-  // Field for location
-  
+  // Hidden field for location
   $form['business_location'] = array(
     '#type' => 'hidden',
     '#attributes' => array(
@@ -121,6 +146,7 @@ function fsa_report_problem_find_business_form($form, &$form_state) {
     ),
   );
 
+  // Hidden field for latitude
   $form['lat'] = array(
     '#type' => 'hidden',
     '#attributes' => array(
@@ -128,6 +154,7 @@ function fsa_report_problem_find_business_form($form, &$form_state) {
     ),
   );
 
+  // Hidden field for longitude
   $form['lng'] = array(
     '#type' => 'hidden',
     '#attributes' => array(
@@ -135,6 +162,7 @@ function fsa_report_problem_find_business_form($form, &$form_state) {
     ),
   );
   
+  // Hidden field for user location - not currently used
   $form['user_location'] = array(
     '#type' => 'hidden',
     '#attributes' => array(
@@ -196,6 +224,7 @@ function fsa_report_problem_find_business_form($form, &$form_state) {
   );
 
 
+  // Additional text - appears beneath the form on the first page.
   $additional_text = _fsa_report_problem_text('find_business_extra');
   if (!empty($additional_text['value'])) {
     $form['additional_info'] = array(
@@ -205,6 +234,8 @@ function fsa_report_problem_find_business_form($form, &$form_state) {
     );
   }
 
+  // Include the JavaScript for the Google Places autocomplete - unless the
+  // $_GET parameter 'ac' is set to TRUE or 1.
   if (!isset($_GET['ac']) || !empty($_GET['ac'])) {
     $form['#attached'] = array(
       'js' => array(
@@ -218,6 +249,13 @@ function fsa_report_problem_find_business_form($form, &$form_state) {
 }
 
 
+/**
+ * Form builder: Step 2 - business search results
+ * 
+ * This form lists business found via the server-side Google Places lookup.
+ * It is displayed only if the user does not use the client-side JavaScript
+ * auto-complete - or if autocomplete is turned off via the URL.
+ */
 function fsa_report_problem_results_form($form, &$form_state) {
   $form_state['non_autocomplete'] = TRUE;
   // If the search returned no results, tell the user.
@@ -284,14 +322,14 @@ function fsa_report_problem_results_form($form, &$form_state) {
     '#suffix' => '</div>',
   );
 
-
-
-
   return $form;
-
 
 }
 
+
+/**
+ * Form builder: Step 3 - Make the report
+ */
 function fsa_report_problem_make_report_form($form, &$form_state) {
 
   if (!empty($form_state['selected_business'])) {
@@ -352,8 +390,9 @@ function fsa_report_problem_make_report_form($form, &$form_state) {
     '#description' => t('This would only be used by the local authority to contact you about your issue.'),
   );
 
+  // @todo Change this to a single date field and add a free-text field for the
+  // time as some users find the time selector confusing
   $today = date("Y-m-d H:i:s");
-
   $form['issue_date'] = array(
     '#type' => 'date_popup',
     '#title' => t('Date and approximate time the food issue happened'),
@@ -382,10 +421,12 @@ function fsa_report_problem_make_report_form($form, &$form_state) {
 
   return $form;
 
-
 }
 
 
+/**
+ * Submit handler for the main report a problem form
+ */
 function fsa_report_problem_form_submit(&$form, &$form_state) {
 
   // These are the stages
@@ -547,6 +588,9 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
 }
 
 
+/**
+ * Form builder: Step 4 - Report complete
+ */
 function fsa_report_problem_report_complete_form($form, &$form_state) {
 
   $params = drupal_get_query_parameters();
@@ -600,6 +644,7 @@ function fsa_report_problem_report_complete_form($form, &$form_state) {
 
 /**
  * Array filter helper function - removes disabled steps from step counter
+ *
  * @param string|array $var
  *   The step to be tested
  * @return boolean
