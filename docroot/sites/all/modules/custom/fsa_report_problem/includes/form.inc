@@ -743,7 +743,7 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
       array(
         'query' => array(
           'report_id' => $entity_id,
-          'na' => $form_state['non_autocomplete'],
+          'na' => !empty($form_state['non_autocomplete']) ? $form_state['non_autocomplete'] : NULL,
         ),
       ),
     );
