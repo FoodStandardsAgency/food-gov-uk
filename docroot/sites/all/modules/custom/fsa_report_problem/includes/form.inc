@@ -306,7 +306,8 @@ function fsa_report_problem_find_business_form($form, &$form_state) {
   
   $form['field_wrapper']['business_name'] = array(
     '#type' => 'textfield',
-    //'#title' => t('Business name and location'),
+    '#title' => t('Business name and location'),
+    '#title_display' => 'invisible',
     '#description' => t('Please enter the name and location of the business that you wish to report'),
     '#required' => TRUE,
     '#attributes' => array(
