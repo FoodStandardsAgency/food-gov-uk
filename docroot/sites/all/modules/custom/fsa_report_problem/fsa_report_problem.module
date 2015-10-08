@@ -674,7 +674,9 @@ function template_preprocess_problem_report(&$variables) {
  *   The location of the business
  *
  * @param integer $max_results
- *   The maximum number of results to return
+ *   The maximum number of results to return. Note that this currently has no
+ *   effect since the maximum number of results per request is limited by
+ *   Google.
  *
  * @return array
  *   An array of Google Places results
@@ -684,8 +686,16 @@ function fsa_report_problem_get_google_results($name, $location, $user_location 
   $api_key = 'AIzaSyBKglgVV8ILtw8Y6zPwCA9t9CNi4Ymdm_I'; // MF account
   //$api_key = 'AIzaSyA3EzfGM0KCsRjrmbNuEVOfDs4Nm4di1sk'; // FSA account
 
+
   // Number of results returned per request. This is set by Google.
   $results_per_request = 20;
+
+  // Set the minimum number of results. We'll re-query Google Places until we
+  // either get this number or run out of pages.
+  $result_threshold = 5;
+
+  // Number of seconds to wait before re-querying Google Places
+  $time_between_requests = 2;
 
   $query = "$name $location";
   $options = array(
@@ -711,11 +721,9 @@ function fsa_report_problem_get_google_results($name, $location, $user_location 
   $next_page_token = '';
   $request_count = 0;
 
-  // Set the minimum number of results
-  $result_threshold = 5;
   do {
     if ($request_count > 0) {
-      sleep(2);
+      sleep($time_between_requests);
     }
     if (!empty($next_page_token) && $next_page_token != 'not-set') {
       $options['query']['pagetoken'] = $next_page_token;
