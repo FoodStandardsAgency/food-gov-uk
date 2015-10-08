@@ -71,7 +71,6 @@ function fsa_report_problem_menu() {
     'title' => t('Food problem reports'),
     'description' => t('View reports of problems with food premises'),
     'access arguments' => array('view food problem reports'),
-    //'page callback' => 'fsa_report_problem_view_reports',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('fsa_report_problem_view_reports'),
     'file' => 'fsa_report_problem.admin.inc',
@@ -139,12 +138,13 @@ function fsa_report_problem_menu() {
   );
 
   $items['admin/config/foodproblems/emails'] = array(
-    'title' => t('Emails'),
+    'title' => t('Manage emails'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('fsa_food_report_email_form'),
     'access arguments' => array('administer food problem reporting'),
     'file' => 'fsa_report_problem.admin.inc',
     'type' => MENU_LOCAL_TASK,
+    'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
     'weight' => 20,
   );
 
@@ -163,12 +163,10 @@ function fsa_report_problem_menu() {
     'page arguments' => array('fsa_report_problem_authority_view_form', 4),
     'access arguments' => array('administer food problem reporting'),
     'file' => 'fsa_report_problem.admin.inc',
-    'type' => MENU_LOCAL_TASK,
   );
   
   $items['admin/config/foodproblems/authorities/%/view'] = array(
     'title' => 'View',
-    'type' => MENU_DEFAULT_LOCAL_TASK,
     'weight' => -10,
   );   
   
@@ -178,7 +176,6 @@ function fsa_report_problem_menu() {
     'page arguments' => array('fsa_report_problem_authority_edit_form', 4),
     'access arguments' => array('administer food problem reporting'),
     'file' => 'fsa_report_problem.admin.inc',
-    'type' => MENU_LOCAL_TASK,
   );
   
   $items['admin/config/foodproblems/authorities/add'] = array(
@@ -206,7 +203,6 @@ function fsa_report_problem_menu() {
     'page arguments' => array('fsa_report_problem_authorities_import_form_new'),
     'access arguments' => array('administer food problem reporting'),
     'file' => 'fsa_report_problem.admin.inc',
-    'type' => MENU_LOCAL_TASK,
   );
 
   return $items;
