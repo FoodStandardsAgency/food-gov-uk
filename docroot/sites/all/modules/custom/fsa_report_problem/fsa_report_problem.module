@@ -725,7 +725,7 @@ function fsa_report_problem_get_google_results($name, $location, $user_location 
     $request_count++;
     if (!empty($places->data)) {
       $data = drupal_json_decode($places->data);
-      $next_page_token = $data['next_page_token'];
+      $next_page_token = !empty($data['next_page_token'] ? $data['next_page_token'] : 'not-set';
       if (!empty($data['results'])) {
         foreach ($data['results'] as $key => $result) {
           if (strpos($result['formatted_address'], 'United Kingdom') !== FALSE || strpos($result['formatted_address'], 'UK') !== FALSE) {
@@ -735,7 +735,7 @@ function fsa_report_problem_get_google_results($name, $location, $user_location 
       }
     }
   }
-  while($request_count < $max_results/$results_per_request && count($results) < $result_threshold);
+  while($request_count < $max_results/$results_per_request && count($results) < $result_threshold && $next_page_token != 'not-set');
 
   if (!empty($results)) {
     return $results;
