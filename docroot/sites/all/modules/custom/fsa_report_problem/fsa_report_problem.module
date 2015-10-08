@@ -702,7 +702,7 @@ function fsa_report_problem_get_google_results($name, $location, $user_location 
 
   // Set the minimum number of results. We'll re-query Google Places until we
   // either get this number or run out of pages.
-  $result_threshold = 5;
+  $result_threshold = variable_get('fsa_report_problem_google_places_min_results', 5);
 
   // Number of seconds to wait before re-querying Google Places
   $time_between_requests = variable_get('fsa_report_problem_google_places_delay', 2);

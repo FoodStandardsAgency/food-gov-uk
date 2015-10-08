@@ -1426,5 +1426,13 @@ function fsa_report_problem_api_admin_form($form, &$form_state) {
     '#default_value' => variable_get('fsa_report_problem_google_places_delay', 2),
   );
 
+  $form['google_places_settings']['fsa_report_problem_google_places_min_results'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Minimum result threshold'),
+    '#size' => 2,
+    '#description' => t('Set the ideal minimum number of results to return from Google Places. If fewer results are retrieved on the first request, another request will be made up to a maximum of three.'),
+    '#default_value' => variable_get('fsa_report_problem_google_places_min_results', 5),
+  );
+
   return system_settings_form($form);
 }
