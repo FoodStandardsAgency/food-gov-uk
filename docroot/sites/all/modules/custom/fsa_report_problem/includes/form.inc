@@ -4,48 +4,6 @@
  * Forms used by the FSA Report a problem module
  */
 
-function fsa_report_problem_establishment_search_form($form, &$form_state) {
-
-  // Field for business name
-  $form['business_name'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Business name'),
-  );
-
-  // Field for location
-  $form['business_location'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Street, borough, or town/city'),
-  );
-
-  // Submit button
-  $form['submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Find'),
-  );
-
-  return $form;
-
-}
-
-function fsa_report_problem_establishment_search_form_submit(&$form, &$form_state) {
-  $fields = array('business_name', 'business_location');
-  $query = array();
-  foreach ($fields as $field) {
-    if (!empty($form_state['input'][$field])) {
-      $query[$field] = $form_state['input'][$field];
-    }
-  }
-
-  $form_state['redirect'] = array(
-    request_path(),
-    array('query' => $query),
-  );
-}
-
-
-
-
 function fsa_report_problem_report_form($form, &$form_state, $establishment = array()) {
 
   $form['#fhrsid'] = $establishment['FHRSID'];
