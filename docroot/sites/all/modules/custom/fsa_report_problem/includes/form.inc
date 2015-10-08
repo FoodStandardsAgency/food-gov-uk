@@ -282,7 +282,6 @@ function fsa_report_problem_find_business_form($form, &$form_state) {
 
   $form['intro'] = array(
     '#type' => 'form_intro',
-    //'#text' => t('If you have noticed a problem with a food establisment, you can use this form to report it. An investigation will then be carried out by the establishment\'s local authority. You can make an anonymous report or include your contact details as you wish.'),
     '#text' => _fsa_report_problem_text('find_business_intro'),
   );
 
