@@ -1395,3 +1395,22 @@ function fsa_report_problem_authority_edit_form_submit(&$form, &$form_state) {
   $authority_uri = entity_uri('local_authority', $authority);
   $form_state['redirect'] = $authority_uri['path'];
 }
+
+
+/**
+ * Form builder: Admin API form
+ */
+function fsa_report_problem_api_admin_form($form, &$form_state) {
+  $form['google_places_settings'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Google Places API settings'),
+  );
+
+  $form['google_places_settings']['fsa_report_problem_google_places_api_key'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Google Places API key'),
+    '#default_value' => variable_get('fsa_report_problem_google_places_api_key'),
+  );
+
+  return system_settings_form($form);
+}
