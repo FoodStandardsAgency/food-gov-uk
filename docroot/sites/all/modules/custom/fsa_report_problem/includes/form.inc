@@ -39,7 +39,6 @@ function fsa_report_problem_establishment_search_form_submit(&$form, &$form_stat
 
   $form_state['redirect'] = array(
     request_path(),
-    //array('query' => $form_state['input']),
     array('query' => $query),
   );
 }
@@ -294,14 +293,6 @@ function fsa_report_problem_find_business_form($form, &$form_state) {
     );
   }
 
-  /*
-  $form['step1'] = array(
-    '#prefix' => '<p>',
-    '#markup' => 'Please use the form below to enter all or part of the business\'s name and a location such as a town, area or postcode.',
-    '#suffix' => '</p>',
-  );
-   */
-
   $form['field_wrapper'] = array(
     '#type' => 'container',
     '#attributes' => array(
@@ -313,17 +304,6 @@ function fsa_report_problem_find_business_form($form, &$form_state) {
     '#type' => 'container',
   );
 
-  
-  
-  
-  
-  // Field for business name
-  /*
-  $form['field_wrapper']['business_name'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Business name'),
-  );
-  */
   
   $form['field_wrapper']['business_name'] = array(
     '#type' => 'textfield',
@@ -374,17 +354,6 @@ function fsa_report_problem_results_form($form, &$form_state) {
       //'#text' => t('Sorry, we could not find any matching businesses. You can either try again or enter the business details manually.'),
       '#text' => _fsa_report_problem_text('no_matching_business'),
     );
-
-    //    $form['try_again'] = array(
-    //      '#type' => 'submit',
-    //      '#value' => t('Try again'),
-    //    );
-    //
-    //    $form['manual_entry'] = array(
-    //      '#type' => 'submit',
-    //      '#value' => t('Enter business details manually'),
-    //    );
-
   }
   else {
     $form['intro'] = array(
@@ -393,20 +362,6 @@ function fsa_report_problem_results_form($form, &$form_state) {
       '#text' => _fsa_report_problem_text('choose_business_intro'),
     );
   }
-  
-  //  $form['alternative_actions'] = array(
-  //    '#type' => 'fieldset',
-  //  );
-  //  
-  //  $form['alternative_actions']['try_again'] = array(
-  //    '#type' => 'submit',
-  //    '#value' => t('Try again'),
-  //  );
-  //
-  //  $form['alternative_actions']['manual_entry'] = array(
-  //    '#type' => 'submit',
-  //    '#value' => t('Enter business details manually'),
-  //  );
 
   $form['result_header'] = array(
     '#prefix' => '<div><p>',
@@ -417,33 +372,7 @@ function fsa_report_problem_results_form($form, &$form_state) {
   
   foreach($form_state['businesses'] as $id => $business) {
 
-    /*
-    $form['business_name_' . $id] = array(
-      '#prefix' => '<h3>',
-      '#markup' => $business['name'],
-      '#suffix' => '</h3>',
-    );
-
-    $form['business_addrress_' . $id] = array(
-      '#prefix' => '<p>',
-      '#markup' => $business['formatted_address'],
-      '#suffix' => '</p>',
-    );
-
-    $form[$id] = array(
-      '#type' => 'submit',
-      '#value' => $business['name'],
-      '#value' => t('Report this business'),
-      '#name' => 'op' . $id,
-      '#attributes' => array(
-        'data-business-id' => $id,
-      ),
-    );
-    */
-
     $business['test_id'] = $id;
-
-    //dpm($business);
 
     $form['business_wrapper_' . $id] = array(
       '#type' => 'container',
@@ -466,8 +395,6 @@ function fsa_report_problem_results_form($form, &$form_state) {
         'data-business-id' => $id,
       ),
     );
-
-
 
   }
 
@@ -500,9 +427,6 @@ function fsa_report_problem_make_report_form($form, &$form_state) {
 
   $form['intro'] = array(
     '#type' => 'form_intro',
-    //'#text' => array(
-    //  t('Please complete the form below, including as much detail as possible about the food problem you have seen. You may leave out your name and address if you wish to remain anonymous. When you submit your report, it will be sent to @local_authority_name, who will investigate the problem.', array('@local_authority_name' => $form_state['local_authority']['name'])),
-    //),
     '#text' => !empty($form_state['manual_entry']) ? _fsa_report_problem_text('make_report_intro_manual') : _fsa_report_problem_text('make_report_intro', array('local_authority' => (object) $form_state['local_authority'] )),
   );
 
@@ -693,11 +617,6 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
       $entity->coordinates = !empty($form_state['coords']) ? $form_state['coords'] : NULL;
       $entity->problem_details = $form_state['values']['issue_details'];
       
-      //      $entity->local_authority_name = $form_state['local_authority']['name'];
-      //      $entity->local_authority_email = $local_authority_email;
-      //      $entity->local_authority_id = $local_authority_id;
-      //      $entity->area_id = $area_id;
-      
       if ($la) {
         $entity->local_authority_name = $la->name;
         $entity->local_authority_email = $la->email;
@@ -751,15 +670,6 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
 
   // Set the next stage
   $form_state['stage'] = $next_stage;
-  // Rebuild the form
-
-  //if ($next_stage != 'report_complete') {
-    //$form_state['rebuild'] = TRUE;
-  //  $form_state['redirect'] = 'node/1';
-  //}
-
-
-  //dpm($form_state);
 
 }
 
