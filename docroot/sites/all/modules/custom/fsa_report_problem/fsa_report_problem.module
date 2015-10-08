@@ -715,9 +715,9 @@ function fsa_report_problem_get_google_results($name, $location, $user_location 
   $result_threshold = 5;
   do {
     if ($request_count > 0) {
-      sleep(1);
+      sleep(2);
     }
-    if (!empty($next_page_token)) {
+    if (!empty($next_page_token) && $next_page_token != 'not-set') {
       $options['query']['pagetoken'] = $next_page_token;
     }
     $url = url($endpoint, $options);
