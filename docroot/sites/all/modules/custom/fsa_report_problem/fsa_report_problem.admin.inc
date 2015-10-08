@@ -1406,6 +1406,12 @@ function fsa_report_problem_api_admin_form($form, &$form_state) {
     '#title' => t('Google Places API settings'),
   );
 
+  $form['google_places_settings']['fsa_report_problem_google_places_api_endpoint'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Google Places API endpoint'),
+    '#default_value' => variable_get('fsa_report_problem_google_places_api_endpoint', 'https://maps.googleapis.com/maps/api/place/textsearch/json'),
+  );
+
   $form['google_places_settings']['fsa_report_problem_google_places_api_key'] = array(
     '#type' => 'textfield',
     '#title' => t('Google Places API key'),
