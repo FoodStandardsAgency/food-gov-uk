@@ -415,48 +415,11 @@ function fsa_report_problem_theme_registry_alter(&$theme_registry) {
  * @see food-establishment.tpl.php
  */
 function template_preprocess_food_establishment(&$variables) {
-  //dpm($variables);
-
-//  $establishment = $variables['elements'];
-//  $variables['name'] = $establishment['name'];
-//  $variables['address_array'] = $establishment['address'];
-//  $variables['postcode'] = $establishment['postcode'];
-//  $variables['local_authority_name'] = $establishment['local_authority_name'];
-//  $variables['report_link'] = array(
-//    '#theme' => 'link',
-//    '#text' => t('Report this business'),
-//    '#path' => request_path(),
-//    '#options' => array(
-//      'attributes' => array(),
-//      'html' => FALSE,
-//      'query' => array(
-//        'fhrsid' => $establishment['FHRSID'],
-//      ),
-//    ),
-//  );
-
   $establishment = $variables['elements'];
-
-
-  //dpm($establishment);
-
   $variables['id'] = $establishment['#establishment_details']['test_id'];
   $variables['name'] = $establishment['name'];
   $variables['address'] = $establishment['address'];
   $variables['classes_array'][] = 'food-establishment-' . $establishment['id'];
-
-//  $variables['submit_button'] = array(
-//    '#type' => 'submit',
-//    '#value' => $variables['name'],
-//    '#value' => t('Report this business'),
-//    '#name' => 'op' . $variables['id'],
-//    '#submit' => array('fsa_report_problem_form_submit'),
-//    '#attributes' => array(
-//      'data-business-id' => $variables['id'],
-//      'id' => 'edit-' . $variables['id'],
-//    ),
-//  );
-
 }
 
 /**
@@ -472,38 +435,6 @@ function template_process_food_establishment(&$variables) {
  * Pre-render function for food establishments.
  */
 function fsa_report_problem_pre_render_food_establishment($element) {
-  //dpm($establishment);
-
-  //dpm($element);
-
-
-//  // Get the establishment details
-//  $establishment_details = !empty($element['establishment_details']) ? $element['establishment_details'] : array();
-//
-//  // Get the establishment name
-//  $element['name'] = !empty($establishment_details['BusinessName']) ? $establishment_details['BusinessName'] : '';
-//
-//  // Get the FHRSID
-//  $element['FHRSID'] = !empty($establishment_details['FHRSID']) ? $establishment_details['FHRSID'] : '';
-//
-//  // Get the address
-//  $element['address'] = array();
-//  for ($i = 0; $i < 5; $i++) {
-//    if (!empty($establishment_details["AddressLine$i"])) {
-//      $address[] = $establishment_details["AddressLine$i"];
-//    }
-//  }
-//
-//  $element['postcode'] = !empty($establishment_details['PostCode']) ? $establishment_details['PostCode'] : '';
-//
-//  $element['address'] = $address;
-//
-//  $element['local_authority_name'] = !empty($establishment_details['LocalAuthorityName']) ? $establishment_details['LocalAuthorityName'] : '';
-//  //$element['postcode'] = $postcode;
-//
-//  //dpm($element);
-
-
   $establishment_details = !empty($element['#establishment_details']) ? $element['#establishment_details'] : array();
   $element['id'] = $establishment_details['id'];
   $element['name'] = $establishment_details['name'];
@@ -520,7 +451,6 @@ function fsa_report_problem_show_report_form() {
 
   $params = _fsa_report_problem_get_params();
   if (empty($params['fhrsid'])) {
-    //dpm('No ID');
     return '';
   }
 
