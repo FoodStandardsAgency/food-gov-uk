@@ -1418,5 +1418,13 @@ function fsa_report_problem_api_admin_form($form, &$form_state) {
     '#default_value' => variable_get('fsa_report_problem_google_places_api_key'),
   );
 
+  $form['google_places_settings']['fsa_report_problem_google_places_delay'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Time between requests'),
+    '#size' => 2,
+    '#description' => t('Set the time in seconds between successive requests to the Google Places API'),
+    '#default_value' => variable_get('fsa_report_problem_google_places_delay', 2),
+  );
+
   return system_settings_form($form);
 }

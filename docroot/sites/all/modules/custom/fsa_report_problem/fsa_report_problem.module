@@ -705,7 +705,7 @@ function fsa_report_problem_get_google_results($name, $location, $user_location 
   $result_threshold = 5;
 
   // Number of seconds to wait before re-querying Google Places
-  $time_between_requests = 2;
+  $time_between_requests = variable_get('fsa_report_problem_google_places_delay', 2);
 
   $query = "$name $location";
   $options = array(
