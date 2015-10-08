@@ -693,9 +693,8 @@ function template_preprocess_problem_report(&$variables) {
  */
 function fsa_report_problem_get_google_results($name, $location, $user_location = NULL, $max_results = 60) {
   $endpoint = 'https://maps.googleapis.com/maps/api/place/textsearch/json';
-  $api_key = 'AIzaSyBKglgVV8ILtw8Y6zPwCA9t9CNi4Ymdm_I'; // MF account
-  //$api_key = 'AIzaSyA3EzfGM0KCsRjrmbNuEVOfDs4Nm4di1sk'; // FSA account
 
+  $api_key = variable_get('fsa_report_problem_google_places_api_key');
 
   // Number of results returned per request. This is set by Google.
   $results_per_request = 20;
