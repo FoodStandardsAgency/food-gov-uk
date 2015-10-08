@@ -148,6 +148,16 @@ function fsa_report_problem_menu() {
     'weight' => 20,
   );
 
+  $items['admin/config/foodproblems/api'] = array(
+    'title' => t('API settings'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_report_problem_api_admin_form'),
+    'access arguments' => array('administer food problem reporting'),
+    'file' => 'fsa_report_problem.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 40,
+  );
+
   $items['admin/config/foodproblems/authorities'] = array(
     'title' => t('Local authority data'),
     'page callback' => 'fsa_report_problem_local_authorities_new',
