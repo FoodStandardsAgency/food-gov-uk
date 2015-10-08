@@ -277,6 +277,11 @@ function fsa_report_problem_block_view($delta = '') {
 
 /**
  * Returns the results of a search for premises.
+ *
+ * This function is not currently used as it has been superseded by the
+ * Google Places search.
+ *
+ * @deprecated Use Google Places instead
  */
 function fsa_report_problem_get_results($name, $address) {
   if (empty($name) || empty($address)) {
