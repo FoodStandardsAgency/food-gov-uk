@@ -1,0 +1,6 @@
+name = National Archives
+description = "Provides functionality for integrating with the National Archives"
+core = 7.x
+package = Archiving
+dependencies[] = redirect
+configure = admin/config/search/nationalarchives/settings

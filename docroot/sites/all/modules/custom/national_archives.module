@@ -1,0 +1,484 @@
+<?php
+/**
+ * @file
+ * Module file for the National Archives module
+ */
+
+
+/**
+ * The default base URL for National Archives versions of pages
+ */
+define('NATIONAL_ARCHIVES_DEFAULT_BASE_URL', 'http://webarchive.nationalarchives.gov.uk/+/');
+
+/**
+ * A pseudo-protocol for National Archive links. We use this to avoid storing
+ * the full National Archives URL in the redirect table. We then replace this
+ * using an implementation of hook_redirect_alter(). That way, if the NA base
+ * URL ever changes, we won't have to go through and update all our redirects.
+ * Additionally, it makes it easier to select all of the National Archives
+ * redirects if requried.
+ */
+define('NATIONAL_ARCHIVES_PSEUDO_PROTOCOL', 'nationalarchives://');
+
+/**
+ * Indicates that a page has (likely) been deleted
+ */
+define('NATIONAL_ARCHIVES_PAGE_DELETED', 1);
+
+/**
+ * Indicates that a page has been unpublished
+ */
+define('NATIONAL_ARCHIVES_PAGE_UNPUBLISHED', 2);
+
+/**
+ * Indicates that a page exists and is published.
+ */
+define('NATIONAL_ARCHIVES_PAGE_PUBLISHED', 3);
+
+/**
+ * Implements hook_permission().
+ */
+function national_archives_permission() {
+  return array(
+    'administer national archives settings' => array(
+      'title' => t('Administer National Archives settings'),
+      'description' => t('Configure settings for the National Archives module'),
+    ),
+    'view national archive redirect pages' => array(
+      'title' => t('View pages that have been archived'),
+      'description' => t('Allows users to view pages that have been redirected to the National Archives.'),
+    ),
+  );
+}
+
+
+/**
+ * Implements hook_menu().
+ */
+function national_archives_menu() {
+  $items = array();
+  // List of National Archives redirects
+  $items['admin/config/search/nationalarchives'] = array(
+    'title' => t('National Archives'),
+    'description' => t('Settings and configuration options for the National Archives module'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('national_archives_redirect_list_form'),
+    'access arguments' => array('administer national archives settings'),
+    'file' => 'national_archives.admin.inc',
+  );
+  // Default tab - redirect list
+  $items['admin/config/search/nationalarchives/list'] = array(
+    'title' => t('National Archives Redirects'),
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );
+  // Create a new National Archives redirect
+  $items['admin/config/search/nationalarchives/list/create'] = array(
+    'title' => t('Create redirect'),
+    'description' => t('Create a new National Archives redirect'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('national_archives_create_redirect_form'),
+    'access arguments' => array('administer national archives settings'),
+    'file' => 'national_archives.admin.inc',
+    'type' => MENU_LOCAL_ACTION,
+  );
+  // Admin interface for the module
+  $items['admin/config/search/nationalarchives/settings'] = array(
+    'title' => t('Settings'),
+    'description' => t('Configure settings for the National Archives module'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('national_archives_admin_form'),
+    'access arguments' => array('administer national archives settings'),
+    'file' => 'national_archives.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+  // Special National Archives 404 handler.
+  $items['ukgwacnf.html'] = array(
+    'title' => t('Page not found'),
+    'page callback' => '_national_archives_page_not_found',
+    'delivery callback' => 'national_archives_deliver_404_page',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+
+/**
+ * Implements hook_node_update().
+ *
+ * We use this hook to act on a node when it is either published or unpublished.
+ * If a previously published node is unpublished, we either create a new
+ * redirect to the National Archives or, if a redirect already exists, we re-
+ * enable it. If an unpublished node is published, we check for any redirects
+ * and disable them.
+ *
+ * @param Object $node
+ *   The node object
+ */
+function national_archives_node_update($node) {
+
+  // Get the node language
+  $language = !empty($node->language) ? $node->language : LANGUAGE_NONE;
+
+  // Get the new and previous statuses
+  $status = $node->status;
+  $previous_status = $node->original->status;
+
+  // Create the path
+  $path = 'node/' . $node->nid;
+
+  // If the node was published and is now unpublished, create or re-enable a
+  // redirect to the National Archives
+  if ($status == 0 && $previous_status == 1) {
+    _national_archives_create_redirect($path, $language, $node, 'Unpublish');
+  }
+  // If the node was previously unpublished, but is now being published, check
+  // for any National Archives redirects and disable them
+  elseif ($status == 1 && $previous_status == 0) {
+    _national_archives_disable_redirect($path, $language, $node, 'Publish');
+  }
+}
+
+
+/**
+ * Implements hook_node_delete().
+ */
+function national_archives_node_delete($node) {
+
+  // Get the node language
+  $language = !empty($node->language) ? $node->language : LANGUAGE_NONE;
+
+  // Create the path. Note that when a node is being deleted rather than
+  // unpublished, we use the aliased path, rather than the internal path.
+  $path = drupal_get_path_alias('node/' . $node->nid);
+
+  // Create or re-enable a redirect to National Archives
+  _national_archives_create_redirect($path, $language);
+}
+
+
+/**
+ * Helper function - generates a NA redirect for a given path
+ */
+function _national_archives_create_redirect($path = NULL, $language = LANGUAGE_NONE, $entity = NULL, $action = NULL) {
+
+  // Generate the National Archives redirect URL.
+  $national_archives_url = _national_archives_generate_url($path);
+
+  // First check to see if the redirect already exists
+  $redirect = redirect_load_by_source($path, $language, array(), FALSE);
+
+  // Get the internal Drupal path.
+  $internal_path = drupal_get_normal_path($path);
+
+  if ($internal_path != $path && empty($redirect)) {
+    $redirect = redirect_load_by_source($internal_path, $language, array(), FALSE);
+  }
+
+  // If a redirect already exists for this path, make sure it's enabled.
+  if (!empty($redirect)) {
+
+    // Check that it's a NA URl - we don't want to affect any other redirects.
+    // If it is, return now.
+    if ($redirect->redirect != $national_archives_url) {
+      return;
+    }
+
+    // Set the redirect to enabled if it isn't already.
+    if ($redirect->status != 1) {
+      $redirect->status = 1;
+      redirect_save($redirect);
+      watchdog('national_archives', 'Redirect re-enabled for %path. Action: %action', array('%path' => $path, '%action' => !empty($action) ? $action : t('Not specified')));
+    }
+    return;
+  }
+
+  // Create a new redirect to the National Archives URL
+  $redirect = new stdClass();
+  redirect_object_prepare($redirect);
+  $redirect->source = $path;
+  $redirect->redirect = $national_archives_url;
+  redirect_save($redirect);
+  watchdog('national_archives', 'Redirect created for %path. Action: %action', array('%path' => $path, '%action' => !empty($action) ? $action : t('Not specified')));
+
+}
+
+
+/**
+ * Helper function - disables a NA redirect for the given path
+ */
+function _national_archives_disable_redirect($path, $language = LANGUAGE_NONE, $entity = NULL, $action = NULL) {
+  redirect_disable_by_path($path, $language);
+  watchdog('national_archives', 'Redirect disabled for %path. Action: %action', array('%path' => $path, '%action' => !empty($action) ? $action : t('Not specified')));
+}
+
+
+/**
+ * Helper function - generates a National Archives URL based on a path
+ */
+function _national_archives_generate_url($path) {
+  $path = drupal_get_path_alias($path);
+  //return variable_get('national_archives_base_url') . variable_get('national_archives_site_url') . '/' . $path;
+  return NATIONAL_ARCHIVES_PSEUDO_PROTOCOL . $path;
+}
+
+
+/**
+ * Helper function - 'expands' stored National Archives URL to a real one
+ */
+function _national_archives_expand_url($url) {
+  $url = str_replace('nationalarchives://', variable_get('national_archives_base_url') . variable_get('national_archives_site_url') . '/', $url);
+  return $url;
+}
+
+
+/**
+ * Implements hook_redirect_alter().
+ */
+function national_archives_redirect_alter($redirect) {
+  // Check for the National Archives pseudo protocol. If not found, exit now.
+  if (strpos($redirect->redirect, NATIONAL_ARCHIVES_PSEUDO_PROTOCOL) !== 0) {
+    return;
+  }
+  // Expand the pseudo protocol URL into a real URL for redirecting.
+  $redirect->redirect = _national_archives_expand_url($redirect->redirect);
+
+  // If user has the permission to view the page, don't redirect, but show a
+  // warning message.
+  if (user_access('view national archive redirect pages')) {
+    drupal_set_message(t('This page has been unpublished and a redirect put in place to the <a href="!national_archives_url">National Archives</a>. However, because you are an administrator, you have permission to see it.', array('!national_archives_url' => $redirect->redirect)), 'warning');
+    $redirect->redirect = FALSE;
+  }
+
+}
+
+
+/**
+ * Delivery callback for special National Archives 404 page
+ *
+ * Used in place of drupal_deliver_html_page() for the special case of a
+ * redirect from the National Archives. Logs the correct URL to Watchdog.
+ *
+ * In most respects it is a copy of the portion of drupal_deliver_html_page()
+ * that is responsible for handling 404s. The key difference is that the URL
+ * logged is the one passed back from National Archives, not the URL of the page
+ * itself. This will be more useful in analysing requests.
+ *
+ * @see drupal_deliver_html_page().
+ */
+function national_archives_deliver_404_page($page_callback_result) {
+
+  // This should be used only for handling 404s. If the response is any other,
+  // call the standard Drupal page delivery handler. This also means we won't
+  // need any of the logic later to serve different results based on the
+  // $page_callback_result argument.
+  if ($page_callback_result != MENU_NOT_FOUND) {
+    drupal_deliver_html_page($page_callback_result);
+  }
+
+  // Emit the correct charset HTTP header, but not if the page callback
+  // result is NULL, since that likely indicates that it printed something
+  // in which case, no further headers may be sent, and not if code running
+  // for this page request has already set the content type header.
+  if (isset($page_callback_result) && is_null(drupal_get_http_header('Content-Type'))) {
+    drupal_add_http_header('Content-Type', 'text/html; charset=utf-8');
+  }
+
+  // Send appropriate HTTP-Header for browsers and search engines.
+  global $language;
+  drupal_add_http_header('Content-Language', $language->language);
+
+  // Print a 404 page.
+  drupal_add_http_header('Status', '404 Not Found');
+
+  watchdog('page not found', check_plain($_GET['q']), NULL, WATCHDOG_WARNING);
+
+  // Check for and return a fast 404 page if configured.
+  drupal_fast_404();
+
+  // Keep old path for reference, and to allow forms to redirect to it.
+  if (!isset($_GET['destination'])) {
+    // Make sure that the current path is not interpreted as external URL.
+    if (!url_is_external($_GET['q'])) {
+      $_GET['destination'] = $_GET['q'];
+    }
+  }
+
+  $path = drupal_get_normal_path(variable_get('site_404', ''));
+  if ($path && $path != $_GET['q']) {
+    // Custom 404 handler. Set the active item in case there are tabs to
+    // display, or other dependencies on the path.
+    menu_set_active_item($path);
+    $return = menu_execute_active_handler($path, FALSE);
+  }
+
+  if (empty($return) || $return == MENU_NOT_FOUND || $return == MENU_ACCESS_DENIED) {
+    // Standard 404 handler.
+    drupal_set_title(t('Page not found'));
+    $return = t('The requested page "@path" could not be found.', array('@path' => $_GET['q']));
+  }
+
+  drupal_set_page_content($return);
+  $page = element_info('page');
+  print drupal_render_page($page);
+
+  drupal_page_footer();
+}
+
+
+
+/**
+ * Page callback for the special National Archives 404 page
+ *
+ * @see national_archives_deliver_404_page()
+ */
+function _national_archives_page_not_found() {
+  // When the National Archives return a 404 result, they include the original
+  // URL in a 'url' query string parameter. We extract this and then set the
+  // 'q' query string parameter to this value so we can use it to log the 404.
+  if (!empty($_GET['url'])) {
+    $_GET['q'] = str_replace(variable_get('national_archives_site_url') . '/', '', $_GET['url']);
+  }
+  return MENU_NOT_FOUND;
+}
+
+
+/**
+ * Implements hook_url_outbound_alter().
+ *
+ * We use this to convert links using the National Archives pseudo protocol into
+ * actual proper links to the National Archives version of a page.
+ */
+function national_archives_url_outbound_alter(&$path, &$options, $original_path) {
+  // If $path doesn't contain the pseudo protocol, exit immediately.
+  if (strpos($path, NATIONAL_ARCHIVES_PSEUDO_PROTOCOL) !== 0) {
+    return;
+  }
+  // Expand the path into the full URL
+  $path = _national_archives_expand_url($path);
+  // Make the URL external so the link is generated properly
+  $options['external'] = TRUE;
+}
+
+
+/**
+ * Implements hook_node_operations().
+ */
+function national_archives_node_operations() {
+  $operations = array(
+    'national_archives_add_redirect' => array(
+      'label' => t('Create National Archives redirect'),
+      'callback' => 'national_archives_mass_update',
+      'callback arguments' => array('entity_type' => 'node', 'operation' => 'create'),
+    ),
+    'national_archives_remove_redirect' => array(
+      'label' => t('Remove National Archives redirect'),
+      'callback' => 'national_archives_mass_update',
+      'callback arguments' => array('entity_type' => 'node', 'operation' => 'remove'),
+    ),
+  );
+  return $operations;
+}
+
+
+/**
+ * Callback function for mass node operations
+ */
+function national_archives_mass_update($ids, $entity_type = 'node', $operation = 'create') {
+  // We use batch processing to prevent timeout when updating a large number
+  // of nodes.
+  if (count($ids) > 10) {
+    $batch = array(
+      'operations' => array(
+        array('_national_archives_mass_update_batch_process', array($ids, $entity_type, $operation))
+      ),
+      'finished' => '_national_archives_mass_update_batch_finished',
+      'title' => t('Processing'),
+      // We use a single multi-pass operation, so the default
+      // 'Remaining x of y operations' message will be confusing here.
+      'progress_message' => '',
+      'error_message' => t('The update has encountered an error.'),
+      // The operations do not live in the .module file, so we need to
+      // tell the batch engine which file to load before calling them.
+      //'file' => drupal_get_path('module', 'node') . '/node.admin.inc',
+    );
+    batch_set($batch);
+  }
+
+  else {
+    $entities = entity_load($entity_type, $ids);
+    foreach ($entities as $entity_id => $entity) {
+      $entity_path = entity_uri($entity_type, $entity);
+      if (!empty($entity_path['path'])) {
+        $path = $entity_path['path'];
+        $language = !empty($entity->language) ? $entity->language : LANGUAGE_NONE;
+        switch ($operation) {
+          case 'create':
+            $redirect = _national_archives_create_redirect($path, $language, $entity, 'Bulk create redirect');
+            break;
+          case 'remove':
+            $redirect = _national_archives_disable_redirect($path, $language, $entity, 'Bulk remove redirect');
+            break;
+        }
+      }
+    }
+    drupal_set_message('National Archives settings updated.');
+  }
+}
+
+
+/**
+ * Batch operation callback.
+ */
+function _national_archives_mass_update_batch_process($ids, $entity_type, $operation, &$context) {
+  if (!isset($context['sandbox']['progress'])) {
+    $context['sandbox']['progress'] = 0;
+    $context['sandbox']['max'] = count($ids);
+    $context['sandbox']['current'] = 0;
+    $context['sandbox']['ids'] = $ids;
+    $context['sandbox']['entity_type'] = $entity_type;
+    $context['sandbox']['operation'] = $operation;
+  }
+  $count = min(5, count($context['sandbox']['ids']));
+  for ($i=0; $i < $count; $i++) {
+    $entity_id = array_shift($context['sandbox']['ids']);
+
+    $entities = entity_load($context['sandbox']['entity_type'], array($entity_id));
+    $entity = $entities[$entity_id];
+    $entity_path = entity_uri($context['sandbox']['entity_type'], $entity);
+    $path = !empty($entity_path['path']) ? $entity_path['path'] : NULL;
+    $language = !empty($entity->language) ? $entity->language : LANGUAGE_NONE;
+    switch ($context['sandbox']['operation']) {
+      case 'create':
+        $redirect = _national_archives_create_redirect($path, $language, $entity, t('Batch create redirect'));
+        break;
+      case 'remove':
+        $redirect = _national_archives_disable_redirect($path, $language, $entity, t('Batch remove redirect'));
+        break;
+    }
+    $context['sandbox']['progress']++;
+  }
+
+  // Inform the batch engine that we are not finished,
+  // and provide an estimation of the completion level we reached.
+  if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
+    $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
+  }
+}
+
+
+/**
+ * Batch operation finished
+ */
+function _national_archives_mass_update_batch_finished($success, $results, $operation) {
+  if ($success) {
+    drupal_set_message(t('National Archives settings updated.'));
+  }
+  else {
+    drupal_set_message(t('An error occurred and processing did not complete.'), 'error');
+    $message = format_plural(count($results), '1 item successfully processed:', '@count items successfully processed:');
+    $message .= theme('item_list', array('items' => $results));
+    drupal_set_message($message);
+  }
+}
