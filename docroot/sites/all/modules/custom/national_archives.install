@@ -1,0 +1,23 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the National Archives module
+ */
+
+/**
+ * Implements hook_install().
+ */
+function national_archives_install() {
+  // Set the default base URL.
+  variable_set('national_archives_base_url', NATIONAL_ARCHIVES_DEFAULT_BASE_URL);
+}
+
+
+/**
+ * Implements hook_uninstall().
+ */
+function national_archives_uninstall() {
+  // Delete variables
+  variable_del('national_archives_base_url');
+  variable_del('national_archives_site_url');
+}
