@@ -289,7 +289,7 @@ function fsa_review_date_node_update($node) {
       ->fields(array(
           'nid' => $node->nid,
           'node_type' => $node->type,
-          'review_date' => strtotime($node->review_date),
+          'review_date' => !is_numeric($node->review_date) ? strtotime($node->review_date) : $node->review_date,
           'review_comment' => !empty($node->review_comment) ? $node->review_comment : NULL,
         ))
       ->execute();
