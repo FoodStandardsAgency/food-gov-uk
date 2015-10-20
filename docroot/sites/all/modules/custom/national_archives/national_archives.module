@@ -189,6 +189,7 @@ function _national_archives_create_redirect($path = NULL, $language = LANGUAGE_N
     if ($redirect->status != 1) {
       $redirect->status = 1;
       redirect_save($redirect);
+      _national_archives_clear_page_cache();
       watchdog('national_archives', 'Redirect re-enabled for %path. Action: %action', array('%path' => $path, '%action' => !empty($action) ? $action : t('Not specified')));
     }
     return;
@@ -200,6 +201,7 @@ function _national_archives_create_redirect($path = NULL, $language = LANGUAGE_N
   $redirect->source = $path;
   $redirect->redirect = $national_archives_url;
   redirect_save($redirect);
+  _national_archives_clear_page_cache();
   watchdog('national_archives', 'Redirect created for %path. Action: %action', array('%path' => $path, '%action' => !empty($action) ? $action : t('Not specified')));
 
 }
@@ -548,3 +550,11 @@ function national_archives_create_redirect_action($entity, $context) {
      _national_archives_disable_redirect($path['path'], $language, $entity, $action);
    }
  }
+
+
+ /**
+  * Helper function: clears that page following a redirect creation
+  */
+function _national_archives_clear_page_cache() {
+  cache_clear_all('*', 'cache_page', TRUE);
+}
