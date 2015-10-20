@@ -497,3 +497,28 @@ function _national_archives_mass_update_batch_finished($success, $results, $oper
     drupal_set_message($message);
   }
 }
+
+
+/**
+ * Implements hook_action_info().
+ */
+function national_archives_action_info() {
+  return array(
+    'national_archives_create_redirect_action' => array(
+      'type' => 'node',
+      'label' => t('Create National Archives redirect'),
+      'configurable' => FALSE,
+      'behavior' => array('changes_property'),
+      'vbo_configurable' => FALSE,
+      'triggers' => array('any'),
+    ),
+    'national_archives_remove_redirect_action' => array(
+      'type' => 'node',
+      'label' => t('Remove National Archives redirect'),
+      'configurable' => FALSE,
+      'behavior' => array('changes_property'),
+      'vbo_configurable' => FALSE,
+      'triggers' => array('any'),
+    ),
+  );
+}
