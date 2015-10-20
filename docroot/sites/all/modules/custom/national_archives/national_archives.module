@@ -209,7 +209,7 @@ function _national_archives_create_redirect($path = NULL, $language = LANGUAGE_N
  * Helper function - disables a NA redirect for the given path
  */
 function _national_archives_disable_redirect($path, $language = LANGUAGE_NONE, $entity = NULL, $action = NULL) {
-  if (function_exists(redirect_disable_by_path)) {
+  if (function_exists('redirect_disable_by_path')) {
     redirect_disable_by_path($path, $language);
   }
   else {
@@ -496,4 +496,29 @@ function _national_archives_mass_update_batch_finished($success, $results, $oper
     $message .= theme('item_list', array('items' => $results));
     drupal_set_message($message);
   }
+}
+
+
+/**
+ * Implements hook_action_info().
+ */
+function national_archives_action_info() {
+  return array(
+    'national_archives_create_redirect_action' => array(
+      'type' => 'node',
+      'label' => t('Create National Archives redirect'),
+      'configurable' => FALSE,
+      'behavior' => array('changes_property'),
+      'vbo_configurable' => FALSE,
+      'triggers' => array('any'),
+    ),
+    'national_archives_remove_redirect_action' => array(
+      'type' => 'node',
+      'label' => t('Remove National Archives redirect'),
+      'configurable' => FALSE,
+      'behavior' => array('changes_property'),
+      'vbo_configurable' => FALSE,
+      'triggers' => array('any'),
+    ),
+  );
 }
