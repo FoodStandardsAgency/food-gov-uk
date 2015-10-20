@@ -209,7 +209,7 @@ function _national_archives_create_redirect($path = NULL, $language = LANGUAGE_N
  * Helper function - disables a NA redirect for the given path
  */
 function _national_archives_disable_redirect($path, $language = LANGUAGE_NONE, $entity = NULL, $action = NULL) {
-  if (function_exists(redirect_disable_by_path)) {
+  if (function_exists('redirect_disable_by_path')) {
     redirect_disable_by_path($path, $language);
   }
   else {
