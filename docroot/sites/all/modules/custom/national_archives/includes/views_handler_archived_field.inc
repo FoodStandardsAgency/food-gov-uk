@@ -73,6 +73,7 @@ class views_handler_archived_field extends views_handler_field {
     $query->entityCondition('entity_type', 'redirect');
     $query->propertyCondition('redirect', NATIONAL_ARCHIVES_PSEUDO_PROTOCOL . '%', 'like');
     $query->propertyCondition('source', $uri, '=');
+    $query->propertyCondition('status', 1);
     $redirects = $query->execute();
     if (empty($redirects)) {
       return $default_return;
