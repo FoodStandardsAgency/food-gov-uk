@@ -528,8 +528,23 @@ function national_archives_action_info() {
  * Action callback for creating a National Archives redirect
  */
 function national_archives_create_redirect_action($entity, $context) {
-  $path = entity_uri('node', $entity);
-  $language = !empty($entity->language) ? $entity->language : LANGUAGE_NONE;
-  $action = t('VBO create redirect');
-  _national_archives_create_redirect($path, $language, $entity, $action);
-}
+   $path = entity_uri('node', $entity);
+   if (!empty($path['path'])) {
+     $language = !empty($entity->language) ? $entity->language : LANGUAGE_NONE;
+     $action = t('VBO create redirect');
+     _national_archives_create_redirect($path['path'], $language, $entity, $action);
+   }
+ }
+
+
+ /**
+  * Action callback for disabling a National Archives redirect
+  */
+ function national_archives_remove_redirect_action($entity, $context) {
+    $path = entity_uri('node', $entity);
+   if (!empty($path['path'])) {
+     $language = !empty($entity->language) ? $entity->language : LANGUAGE_NONE;
+     $action = t('VBO create redirect');
+     _national_archives_disable_redirect($path['path'], $language, $entity, $action);
+   }
+ }
