@@ -4,3 +4,4 @@ core = 7.x
 package = Archiving
 dependencies[] = redirect (>=7.x-1.0-rc3)
 configure = admin/config/search/nationalarchives/settings
+files[] = includes/views_handler_archived_field.inc
