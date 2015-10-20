@@ -558,3 +558,14 @@ function national_archives_create_redirect_action($entity, $context) {
 function _national_archives_clear_page_cache() {
   cache_clear_all('*', 'cache_page', TRUE);
 }
+
+
+
+/**
+ * Implements hook_views_api().
+ */
+function national_archives_views_api() {
+  return array(
+    'api' => 3,
+  );
+}
