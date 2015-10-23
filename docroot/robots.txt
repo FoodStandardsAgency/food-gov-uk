@@ -55,6 +55,7 @@ Disallow: /?q=user/password/
 Disallow: /?q=user/register/
 Disallow: /?q=user/login/
 Disallow: /?q=user/logout/
+
 # FSA-specific URLs
 Disallow: /multimedia/continuity
 Disallow: /multimedia/food-safety-week-2015-la-toolkit
