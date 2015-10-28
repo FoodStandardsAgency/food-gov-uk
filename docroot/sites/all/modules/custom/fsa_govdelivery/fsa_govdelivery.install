@@ -1,0 +1,67 @@
+<?php
+/**
+ * @file
+ * Install, uninstall and update functions for the FSA GovDelivery module
+ */
+
+
+/**
+ * Implements hook_schema().
+ */
+function fsa_govdelivery_schema() {
+  $schema['govdelivery_mapping'] = array(
+    'description' => 'Table for mapping Drupal entities onto GovDelivery items such as categories and topics',
+    'fields' => array(
+      'gid' => array(
+        'description' => 'The primary identifier for this row in the table',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'entity_id' => array(
+        'description' => 'The ID of the Drupal entity',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'entity_type' => array(
+        'description' => 'The type of Drupal entity being referenced',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'govdelivery_type' => array(
+        'description' => 'The type of GovDelivery item being referenced',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'govdelivery_code' => array(
+        'description' => 'The code for the GovDelivery item being referenced',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'options' => array(
+        'description' => 'A serialized array of options to be used in the mapping.',
+        'type' => 'blob',
+        'not null' => FALSE,
+        'translatable' => TRUE,
+      ),
+    ),
+    'primary key' => array('gid'),
+  );
+  return $schema;
+}
+
+
+/**
+ * Adds a record in the Govdelivery mapping table for Guidance notes nodes
+ */
+function fsa_govdelivery_update_7001() {
+  _fsa_govdelivery_create_node_mappings();
+}
