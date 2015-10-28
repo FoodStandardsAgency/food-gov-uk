@@ -1,0 +1,6 @@
+name = FSA GovDelivery integration
+description = "Provides integration between the FSA website and GovDelivery"
+core = 7.x
+dependencies[] = entity
+dependencies[] = govdelivery_api
+package = GovDelivery
