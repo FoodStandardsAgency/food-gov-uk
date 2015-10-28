@@ -1,0 +1,10 @@
+name = GovDelivery API
+description = "Provides a wrapper for the GovDelivery API methods"
+core = 7.x
+package = GovDelivery
+
+files[] = libraries/GovDeliveryException.class.php
+files[] = libraries/GovDeliveryEndpoint.class.php
+files[] = libraries/GovDeliveryResult.class.php
+files[] = libraries/GovDeliveryCategories.class.php
+files[] = libraries/GovDeliveryTopics.class.php

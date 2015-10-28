@@ -1,0 +1,8 @@
+.category-details dt {
+  font-weight: bold;
+}
+
+.category-details dd {
+  margin-left: 0;
+  margin-bottom: 20px;
+}

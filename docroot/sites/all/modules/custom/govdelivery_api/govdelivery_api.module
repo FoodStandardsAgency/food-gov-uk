@@ -1,0 +1,507 @@
+<?php
+/**
+ * @file
+ * Module file for the GovDelivery API wrapper module
+ */
+
+/**
+ * Implements hook_permission().
+ */
+function govdelivery_api_permission() {
+  return array(
+    'administer govdelivery api' => array(
+      'title' => t('Administer the GovDelivery API'),
+      'description' => t('Carry out administration functions via the GovDelivery API'),
+    ),
+    'create govdelivery categories' => array(
+      'title' => t('Create GovDelivery categories'),
+      'description' => t('Create new categories via the GovDelivery API'),
+    ),
+    'view govdelivery categories' => array(
+      'title' => t('View GovDelivery categories'),
+      'description' => t('View categories from GovDelivery'),
+    ),
+    'edit govdelivery categories' => array(
+      'title' => t('Edit GovDelivery categories'),
+      'description' => t('Edit categories via the GovDelivery API'),
+    ),
+    'delete govdelivery categories' => array(
+      'title' => t('Delete GovDelivery categories'),
+      'description' => t('Delete categories via the GovDelivery API'),
+    ),
+    'view govdelivery topics' => array(
+      'title' => t('View GovDelivery topics'),
+      'description' => t('View topics from GovDelivery'),
+    ),  
+    'edit govdelivery topics' => array(
+      'title' => t('Edit GovDelivery topics'),
+      'description' => t('Edit topics from GovDelivery'),
+    ),  
+  );
+}
+
+
+/**
+ * Implements hook_menu().
+ */
+function govdelivery_api_menu() {
+  $items = array();
+
+  $items['admin/config/services/govdelivery-api'] = array(
+    'title' => t('GovDelivery API'),
+    'description' => 'Configure display formats for date and time.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('govdelivery_api_settings_form'),
+    'access arguments' => array('administer govdelivery api'),
+    'weight' => -15,
+    'file' => 'govdelivery_api.admin.inc',
+  );
+  $items['admin/config/services/govdelivery-api/settings'] = array(
+    'title' => t('Settings'),
+    'description' => 'Configure display formats for date and time.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('govdelivery_api_settings_form'),
+    'access arguments' => array('administer govdelivery api'),
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+    'file' => 'govdelivery_api.admin.inc',
+  );
+  $items['admin/config/services/govdelivery-api/settings/password'] = array(
+    'title' => t('Change password'),
+    'description' => 'Configure display formats for date and time.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('govdelivery_api_password_form'),
+    'access arguments' => array('administer govdelivery api'),
+    'type' => MENU_LOCAL_ACTION,
+    'weight' => -10,
+    'file' => 'govdelivery_api.admin.inc',
+  );
+  $items['admin/config/services/govdelivery-api/categories'] = array(
+    'title' => t('Categories'),
+    'description' => 'Configure display format strings for date and time.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('govdelivery_api_categories_form'),
+    'access arguments' => array('view govdelivery categories'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => -9,
+    'file' => 'govdelivery_api.categories.admin.inc',
+  );
+  $items['admin/config/services/govdelivery-api/categories/create'] = array(
+    'title' => t('Create category'),
+    'description' => t('Create a new category using the GovDelivery API.'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('govdelivery_api_category_create_form'),
+    'access arguments' => array('create govdelivery categories'),
+    'type' => MENU_LOCAL_ACTION,
+    'weight' => -9,
+    'file' => 'govdelivery_api.categories.admin.inc',
+  );
+  $items['admin/config/services/govdelivery-api/categories/%'] = array(
+    'title' => t('View category'),
+    'description' => t('View category details.'),
+    'page callback' => '_govdelivery_api_category_view',
+    'page arguments' => array(5),
+    'access arguments' => array('edit govdelivery categories'),
+  );
+  $items['admin/config/services/govdelivery-api/categories/%/view'] = array(
+    'title' => t('View'),
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -20,
+  );
+  $items['admin/config/services/govdelivery-api/categories/%/edit'] = array(
+    'title' => t('Edit'),
+    'description' => t('Edit the category.'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('govdelivery_api_category_edit_form', 5),
+    'access arguments' => array('edit govdelivery categories'),
+    'file' => 'govdelivery_api.categories.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => -10,
+  );  
+  $items['admin/config/services/govdelivery-api/categories/%/delete'] = array(
+    'title' => t('Delete'),
+    'description' => t('Delete the category.'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('govdelivery_api_category_delete_form', 5),
+    'access arguments' => array('delete govdelivery categories'),
+    'file' => 'govdelivery_api.categories.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => -5,
+  );
+  $items['admin/config/services/govdelivery-api/topics'] = array(
+    'title' => t('Topics'),
+    'description' => t('View topics from the GovDelivery API.'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('govdelivery_api_topics_form'),
+    'access arguments' => array('view govdelivery topics'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => -9,
+    'file' => 'govdelivery_api.topics.admin.inc',
+  );  
+  $items['admin/config/services/govdelivery-api/topics/%/edit'] = array(
+    'title' => t('Edit topic'),
+    'description' => t('Edit the topic.'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('govdelivery_api_topic_edit_form', 5),
+    'access arguments' => array('edit govdelivery topics'),
+    'file' => 'govdelivery_api.topics.admin.inc',
+  );  
+
+  return $items;
+}
+
+
+/**
+ * Creates a GovDelivery category
+ */
+function govdelivery_api_create_category($params = array()) {
+  try {
+    $api = new GovDeliveryCategories(_govdelivery_api_account_details());
+    $category = $api->create($params);
+    return $category;
+  }
+  catch (Exception $e) {
+    watchdog('gov_delivery_api', 'An error occurred creating the category. The error message was: %message', array('%message' => $e->getMessage()), WATCHDOG_ERROR);
+    $return_object = new GovDeliveryResult;
+    return $return_object->setErrorMessage(t('An error occurred creating the category. The error message was: %message', array('%message' => $e->getMessage())));
+  }  
+}
+
+
+/**
+ * Gets a list of GovDelivery categories
+ */
+function govdelivery_api_get_categories($category_code = NULL) {
+  // Create a new instance of the GovDeliveryCategories API endpoint
+  try {
+    $api = new GovDeliveryCategories(_govdelivery_api_account_details());
+    $categories = $api->read($category_code);
+    return $categories;
+  }
+  catch (GovDeliveryException $e) {
+    watchdog('gov_delivery_api', 'An error occurred retrieving category data. The error message was: %message', array('%message' => $e->getMessage()), WATCHDOG_ERROR);
+    $return_object = new GovDeliveryResult;
+    $return_object->setErrorMessage(t('An error occurred retrieving category data. The error message was: %message', array('%message' => $e->getMessage())));
+    return $return_object;
+  }
+}
+
+
+/**
+ * Updates a GovDelivery category
+ */
+function govdelivery_api_update_category($params = array()) {
+  try {
+    $api = new GovDeliveryCategories(_govdelivery_api_account_details());
+    $category = $api->update($params);
+    return $category;
+  }
+  catch (Exception $e) {
+    watchdog('gov_delivery_api', 'An error occurred updating the category. The error message was: %message', array('%message' => $e->getMessage()), WATCHDOG_ERROR);
+    $return_object = new GovDeliveryResult;
+    return $return_object->setErrorMessage(t('An error occurred updating the category. The error message was: %message', array('%message' => $e->getMessage())));
+  }    
+}
+
+
+/**
+ * Deletes a GovDelivery category
+ */
+function govdelivery_api_delete_category($category_code = NULL) {
+  try {
+    $api = new GovDeliveryCategories(_govdelivery_api_account_details());
+    $delete = $api->delete($category_code);
+    module_invoke_all('govdelivery_category_delete', $category_code);
+    return $delete;
+  }
+  catch (GovDeliveryException $e) {
+    watchdog('gov_delivery_api', 'An error occurred deleting the category. The error message was: %message', array('%message' => $e->getMessage()), WATCHDOG_ERROR);
+    $return_object = new GovDeliveryResult;
+    $return_object->setErrorMessage(t('An error occurred deleting the category. The error message was: %message', array('%message' => $e->getMessage())));
+    return $return_object;
+  }
+}
+
+
+/**
+ * Helper function to generate the next GovDelivery category code.
+ *
+ * This function attempts to guess the next category code for the GovDelivery
+ * API. It does this by going through the existing category codes and finding
+ * the one with the largest number at the end. It then increments it by 1.
+ *
+ * Category codes are based on the pattern [account-code]_C[integer]. We
+ * therefore remove the first part of the string, leaving just the integer at
+ * the end. We then find the largest and increment by one. It's not very
+ * scientific, but it doesn't have to be, as GovDelivery will ensure that
+ * category codes don't collide when they're created. If a category code already
+ * exists, it will just generate a new one.
+ *
+ * @param GovDeliveryResult $categories
+ *   GovDeliveryResult object containing all existing categories
+ *
+ * @return string
+ *   Suggested new category code based on incrementing the number at the end
+ *   of the latest category code. It's not essential that this is unique; if
+ *   we try to create a category with an existing ID, GovDelivery will
+ *   automatically generate a new one.
+ */
+function _govdelivery_api_next_category_code($categories) {
+  $prefix = variable_get('govdelivery_api_account_code') . '_C';
+  $latest = 1;
+  foreach ($categories as $category) {
+    $cat_id = intval(str_replace($prefix, '', $category->code));
+    if ($cat_id >= $latest) {
+      $latest = $cat_id + 1;
+    }
+  }
+  return "$prefix$latest";
+}
+
+
+/**
+ * Implements hook_govdelivery_category_operations().
+ */
+function govdelivery_api_govdelivery_category_operations() {
+  return array(
+    'test' => t('Test'),
+  );
+}
+
+
+/**
+ * Utility function - returns an array of GovDelivery account details
+ */
+function _govdelivery_api_account_details() {
+
+  // Use `drupal_static()` to avoid having to check the variables more than
+  // once per request.
+  $account_details = &drupal_static(__FUNCTION__);
+  
+  if (!isset($account_details)) {
+    // Regex to determine whether the password has been encrypted in the database.
+    // When passwords are encrypted, they are stored as a serialized array, which
+    // is itself serialized in the database. In order to check whether we're using
+    // an encrypted password, we can't just use `unserialize()` as this throws a
+    // notice if the subject is just a string. We therefore test to see if the
+    // stored password matches a regex that looks like a serialized array. If so,
+    // we assume it's encrypted and decrypt it.
+    // @todo Check for the existence of the Encrypt module when installing,
+    // using `hook_requirements()` and encourage users to install it to keep
+    // the password safe.
+    $password_pattern = "/^a:[0-9]+:{.*}/";
+
+    // Get the password
+    $password = variable_get('govdelivery_api_password');
+
+    // Create the account details array
+    $account_details = array(
+      'user_name' => variable_get('govdelivery_api_username'),
+      'password' => (function_exists('decrypt') && preg_match($password_pattern, $password)) ? decrypt($password) : $password,
+      'account_code' => variable_get('govdelivery_api_account_code'),
+      'dev' => variable_get('govdelivery_api_dev_status', 'FALSE'),
+      'base_url' => variable_get('govdelivery_api_dev_status', 'FALSE') ? variable_get('govdelivery_api_base_url_staging') : variable_get('govdelivery_api_base_url'),
+    );
+  }
+  return $account_details;
+}
+
+
+/**
+ * Gets a list of GovDelivery topics
+ */
+function govdelivery_api_get_topics($topic_code = NULL) {
+  // Create a new instance of the GovDeliveryCategories API endpoint
+  try {
+    $api = new GovDeliveryTopics(_govdelivery_api_account_details());
+    $topics = $api->read($topic_code);
+    return $topics;
+  }
+  catch (GovDeliveryException $e) {
+    watchdog('gov_delivery_api', 'An error occurred retrieving topic data. The error message was: %message', array('%message' => $e->getMessage()), WATCHDOG_ERROR);
+    $return_object = new GovDeliveryResult;
+    $return_object->setErrorMessage(t('An error occurred retrieving topic data. The error message was: %message', array('%message' => $e->getMessage())));
+    return $return_object;
+  }
+}
+
+
+/**
+ * Gets a list of topics for a GovDelivery category
+ */
+function govdelivery_api_get_category_topics($category_code = NULL) {
+  // Create a new instance of the GovDeliveryCategories API endpoint
+  try {
+    $api = new GovDeliveryCategories(_govdelivery_api_account_details());
+    $topics = $api->getTopics($category_code);
+    return $topics;
+  }
+  catch (GovDeliveryException $e) {
+    watchdog('gov_delivery_api', 'An error occurred retrieving topic data for the category. The error message was: %message', array('%message' => $e->getMessage()), WATCHDOG_ERROR);
+    $return_object = new GovDeliveryResult;
+    $return_object->setErrorMessage(t('An error occurred retrieving topic data for the category. The error message was: %message', array('%message' => $e->getMessage())));
+    return $return_object;
+  }
+}
+
+
+/**
+ * Creates a GovDelivery topic
+ */
+function govdelivery_api_create_topic($params = array()) {
+  try {
+    $api = new GovDeliveryTopics(_govdelivery_api_account_details());
+    $topic = $api->create($params);
+    return $topic;
+  }
+  catch (Exception $e) {
+    watchdog('gov_delivery_api', 'An error occurred creating the topic. The error message was: %message', array('%message' => $e->getMessage()), WATCHDOG_ERROR);
+    $return_object = new GovDeliveryResult;
+    return $return_object->setErrorMessage(t('An error occurred creating the topic. The error message was: %message', array('%message' => $e->getMessage())));
+  }  
+}
+
+
+/**
+ * Updates a GovDelivery topic
+ */
+function govdelivery_api_update_topic($params = array()) {
+  try {
+    $api = new GovDeliveryTopics(_govdelivery_api_account_details());
+    $topic = $api->update($params);
+    return $topic;
+  }
+  catch (Exception $e) {
+    watchdog('gov_delivery_api', 'An error occurred updating the topic. The error message was: %message', array('%message' => $e->getMessage()), WATCHDOG_ERROR);
+    $return_object = new GovDeliveryResult;
+    return $return_object->setErrorMessage(t('An error occurred updating the topic. The error message was: %message', array('%message' => $e->getMessage())));
+  }    
+}
+
+
+/**
+ * Helper function: provides an array of topic visibility statuses
+ */
+function _govdelivery_api_topic_statuses() {
+  return array(
+    'Listed',
+    'Unlisted',
+    'Restricted',
+  );
+}
+
+
+/**
+ * Helper function: provides an array of page watch types
+ */
+function _govdelivery_api_pagewatch_types() {
+  return array(
+    '1' => t('HTML'),
+    '2' => t('RSS/Atom'),
+    '3' => t('File'),
+    '4' => t('Twitter'),
+  );
+}
+
+
+/**
+ * Implements hook_theme().
+ */
+function govdelivery_api_theme() {
+  return array(
+    'govdelivery_category' => array(
+      'template' => drupal_get_path('module', 'govdelivery_category') . '/theme/govdelivery-category',
+      'variables' => array(
+        'category' => NULL,
+      ),
+    ),
+  );
+}
+
+
+
+/**
+ * View a category
+ */
+function _govdelivery_api_category_view($category_code = NULL) {
+  // First load the category from the GovDelivery API
+  $categories = govdelivery_api_get_categories($category_code);
+  
+  if (empty($categories->result)) {
+    drupal_set_message('No category found', 'error');
+    drupal_goto('admin/config/services/govdelivery-api/categories');
+  }
+  
+  else {
+    $category = $categories->getResult();
+  }  
+
+  // Create a render array
+  $build = array(
+    '#theme' => 'govdelivery_category',
+    '#category' => $category,
+    '#attached' => array(
+      'css' => array(
+        drupal_get_path('module', 'govdelivery_api') . '/css/govdelivery-api.css',
+      ),
+    ),
+  );
+  
+  drupal_set_title($category->name . ' (' . $category->code . ')');
+  
+  return $build;
+  
+}
+
+
+/**
+ * Preprocess function for govdelivery categories
+ */
+function template_preprocess_govdelivery_category(&$variables) {
+  // Get the category object
+  $category = !empty($variables['category']) ? $variables['category'] : NULL;
+  
+  
+  // Set up some variables
+  $variables['name'] = !empty($category->name) ? $category->name : '';
+  $variables['category_code'] = !empty($category->code) ? $category->code : '';
+  $variables['short_name'] = !empty($category->{'short-name'}) ? $category->{'short-name'} : '';
+  $variables['description'] = !empty($category->description) && !is_object($category->description) ? $category->description : t('None');
+  $variables['allow_subscriptions'] = !empty($category->{'allow-subscriptions'}) ? t('Yes') : t('No');
+  $variables['default_open'] = !empty($category->{'default-open'}) ? t('Yes') : t('No');
+
+  // Get the parent category (if present)
+  $parent_category_code = !empty($category->parent) ? $category->parent->code : NULL;
+  $parent_category = !empty($parent_category_code) ? govdelivery_api_get_categories($parent_category_code)->result : NULL;
+  $parent_category_name = !empty($parent_category->name) ? $parent_category->name : NULL;
+  if (!empty($parent_category_name)) {
+    $variables['parent_category'] = array(
+      '#type' => 'link',
+      '#title' => $parent_category_name,
+      '#href' => "admin/config/services/govdelivery-api/categories/$parent_category_code",
+    );
+  }
+  else {
+    $variables['parent_category'] = NULL;
+  }
+  
+  // Get related topics - if there are any
+  $topic_results = govdelivery_api_get_category_topics($category->code)->result;
+  $topics = !empty($topic_results->topic) ? $topic_results->topic : array();
+  if (!is_array($topics)) {
+    $topics = array($topics);
+  }
+  $variables['topics'] = array();
+  foreach ($topics as $topic) {
+    //dpm($topic);
+    $variables['topics'][] = array(
+      '#type' => 'link',
+      '#title' => $topic->name,
+      // @todo Change this to the view URL when one exists
+      '#href' => "admin/config/services/govdelivery-api/topics/" . $topic->code . '/edit',
+    );
+  }
+  
+  
+  
+}
