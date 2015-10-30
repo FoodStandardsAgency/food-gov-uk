@@ -239,8 +239,8 @@ function fsa_report_problem_find_business_form($form, &$form_state) {
   if (!isset($_GET['ac']) || !empty($_GET['ac'])) {
     $form['#attached'] = array(
       'js' => array(
-        'https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places',
-        drupal_get_path('module', 'fsa_report_problem') . '/js/report-problem.js',
+        'https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places' => array('preprocess' => FALSE),
+        drupal_get_path('module', 'fsa_report_problem') . '/js/report-problem.js' => array('preprocess' => FALSE),
       ),
     );
   }
