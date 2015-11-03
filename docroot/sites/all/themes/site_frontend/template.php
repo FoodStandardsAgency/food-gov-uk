@@ -228,3 +228,35 @@ function site_frontend_css_alter(&$css) {
   }
 
 }
+
+
+/**
+ * Includes external libraries
+ *
+ * @see site_frontend_preprocess_page().
+ */
+function site_frontend_get_external_libraries() {
+  // Get the path to the theme
+  $theme_path = drupal_get_path('theme', 'site_frontend');
+  // Include the file that contains this theme's external library declarations
+  require_once "$theme_path/includes/external_libraries.inc";
+  // Invoke hook_external_libraries().
+  $libraries = omega_invoke_all('external_libraries');
+  // Set some defaults
+  $library_defaults = array(
+    'type' => 'js',
+    'options' => array(),
+  );
+  // Add each library.
+  foreach ($libraries as $library) {
+    $library += $library_defaults;
+    switch ($library['type']) {
+      case 'js':
+        drupal_add_js($library['url'], $library['options']);
+        break;
+      case 'css':
+        // @todo Flesh this out for adding external CSS libraries.
+        break;
+    }
+  }
+}
