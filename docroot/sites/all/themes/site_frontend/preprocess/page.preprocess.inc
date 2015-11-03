@@ -42,6 +42,12 @@ function site_frontend_preprocess_page(&$variables) {
     }
   }
 
+  // Add the Google Charts JavaScript code
+  // @see https://support.siriusopensource.com/index.pl?Action=AgentTicketZoom;TicketID=779
+  // @todo Provide a better way of doing this. Started working on an Omega
+  //       extension to enable editors to add external libraries such as JS and
+  //       CSS, but this needs more work.
+  drupal_add_js('//www.google.com/jsapi', array('group' => JS_THEME, 'weight' => 20));
 }
 
 /**
