@@ -1,0 +1,362 @@
+<?php
+/**
+ * @file
+ * Module code for the FSA file validation module.
+ *
+ * This module provides an extensible validation engine for filenames of
+ * uploaded files. In addition to the built-in validators, more can be added
+ * through the use of hook_filename_validators().
+ */
+
+
+/**
+ * Implements hook_permission().
+ */
+function fsa_filename_validation_permission() {
+  return array(
+    'administer filename validation' => array(
+      'title' => t('Administer filename validation'),
+      'description' => t('Change settings for filename validation.'),
+    )
+  );
+}
+
+
+/**
+ * Implements hook_menu().
+ */
+function fsa_filename_validation_menu() {
+  $items = array();
+
+  // Default settings if the file_entity module is not avaiable.
+  $file_entity = FALSE;
+  $admin_menu_link = 'admin/config/media/file-validation';
+
+  // Default local task for the existing file_entity admin form. We add this so
+  // that we can provide navigational tabs in the admin UI.
+  if (module_exists('file_entity')) {
+    $items['admin/config/media/file-settings/default'] = array(
+      'type' => MENU_DEFAULT_LOCAL_TASK,
+      'title' => t('File settings'),
+    );
+    // If the file_entity module exists, we change the menu settings.
+    $file_entity = TRUE;
+    $admin_menu_link = 'admin/config/media/file-settings/validation';
+  }
+
+  // Administration menu link. This is where the validators are turned on and
+  // off.
+  $items[$admin_menu_link] = array(
+    'title' => t('Filename validation settings'),
+    'description' => t('Administer filename validation settings'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_filename_validation_configuration_form'),
+    'access arguments' => array('administer filename validation'),
+    'file' => 'fsa_filename_validation.admin.inc',
+    'type' => $file_entity ? MENU_LOCAL_TASK : MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+
+/**
+ * Implements hook_menu_alter().
+ */
+function fsa_filename_validation_menu_alter(&$items) {
+  // If the file_entity module is enabled, add a mention of filename validation
+  // to its description, together with a link to the admin config form.
+  if (!empty($items['admin/config/media/file-settings'])) {
+    $items['admin/config/media/file-settings']['description'] .= ' ' . t('Also configure <a href="@config_link">filename validation</a>.', array('@config_link' => url('admin/config/media/file-settings/validation')));
+  }
+}
+
+
+/**
+ * Implements hook_file_validate().
+ *
+ * This is where the actual filename validation takes place.
+ *
+ */
+function fsa_filename_validation_file_validate($file) {
+
+  // Create an array to hold the errors. This is what we return at the end.
+  $errors = array();
+
+  // Invoke hook_filename_validators().
+  $validators = module_invoke_all('filename_validators');
+
+  // Set the default validator type.
+  $validator_defaults = array(
+    'type' => 'regex',
+  );
+
+  // Call the enabled validators
+  foreach ($validators as $key => $validator) {
+
+    // Is there an error?
+    $error = FALSE;
+
+    // Error message
+    $error_message = '';
+
+    // Determine whether the validator is currently enabled.
+    $enabled = variable_get("filename_validator_${key}_enabled", FALSE);
+
+    // If not enabled, skip to the next one
+    if (!$enabled) {
+      continue;
+    }
+
+    // Add defaults
+    $validator += $validator_defaults;
+
+    switch($validator['type']) {
+
+      // Simple regex match - if the pattern matches, there's an error.
+      case 'regex':
+        if (preg_match($validator['pattern'], $file->filename)) {
+          $error = TRUE;
+        }
+        break;
+
+      // Maximum filename length
+      case 'maxlength':
+        $maxlength = variable_get("filename_validator_${key}_max_length", $validator['maxlength']);
+        if (strlen($file->filename) > $maxlength) {
+          // Set a custom error message to include the maximum characters.
+          $error_message = $validator['error_message'] . t('@maxlength characters.', array('@maxlength' => $maxlength));
+          $error = TRUE;
+        }
+        break;
+
+      // All filenames should be lowercase
+      case 'lowercase':
+        if (!_fsa_filename_validation_lowercase($file->filename)) {
+          $error = TRUE;
+        }
+        break;
+
+      // Custom validation
+      case 'custom':
+        // Get the name of the callback function, if set.
+        $callback = !empty($validator['callback']) ? $validator['callback'] : NULL;
+        // If no callback is specified, skip this validator
+        if (empty($callback) || !function_exists($callback)) {
+          continue;
+        }
+        // Get the arguments - if specified
+        $arguments = !empty($validator['arguments']) ? $validator['arguments'] : array();
+
+        // See if any of the arguments come from a config seting.
+        foreach ($arguments as $index => $argument) {
+          if (strpos($argument, 'settings:') !== FALSE) {
+            $arguments[$index] = variable_get("filename_validator_${key}_" . str_replace('settings:', '', $argument));
+          }
+        }
+
+        // Add the filename as the final argument
+        $arguments[] = $file->filename;
+
+        // Call the callback function
+        if (call_user_func_array($callback, $arguments)) {
+          $error = TRUE;
+        }
+        break;
+    }
+
+    // If we have an error, we need to add an error message.
+    if ($error) {
+      // If we have a custom error message callback, call it now.
+      if (!empty($validator['error_message_callback']) && function_exists($validator['error_message_callback'])) {
+        $arguments = !empty($validator['error_message_arguments']) ? $validator['error_message_arguments'] : array();
+        foreach ($arguments as $index => $argument) {
+          if (strpos($argument, 'settings:') !== FALSE) {
+            $arguments[$index] = variable_get("filename_validator_${key}_" . str_replace('settings:', '', $argument));
+          }
+        }
+        $error_message = call_user_func_array($validator['error_message_callback'], $arguments);
+      }
+
+      // Add the error message to the output
+      $errors[] = !empty($error_message) ? $error_message : $validator['error_message'];
+    }
+
+  }
+
+  // Return the errors
+  return $errors;
+
+}
+
+
+/**
+ * Implements hook_filename_validators().
+ *
+ * Returns an array of validators to be used.
+ *
+ * @return array
+ *   Array of validators. Each element is itself an array with the following
+ *   elements:
+ *   - name: The translated human-readable name of the validator. This is
+ *     displayed on the administration page
+ *   - description: (optional) A description of what the validator does
+ *   - pattern: (optional) A regex pattern to be used against the filename. This
+ *     is mandatory for validators of type 'regex', which is the default.
+ *   - error_message: The translated error message to display to users. This is
+ *     mandatory unless 'error_message_callback' is provided.
+ *   - replacement: Not currently in use
+ *   - type: The type of validator. Currently recognised types are 'regex',
+ *     'maxlength', 'lowercase', 'custom'.
+ *   - autocorrect: Not currently in use
+ *   - settings_form: Used to add a settings form for use in the administration
+ *     interface. This should be a standard Drupal Form API render array.
+ *   - callback: A custom callback function. Should be used only with validators
+ *     of type 'custom'.
+ *   - arguments: An array of arguments to be passed to the callback function.
+ *     These can be standard variables or settings for the validator. To include
+ *     a user-specified setting, prefix it with 'setting:' eg
+ *     'setting:characters'
+ *   - error_message_callback: A function for generating custom error messages
+ *   - error_message_arguments: An array of arguments to be passed to the
+ *     custom error message function
+ */
+function fsa_filename_validation_filename_validators() {
+  $validators = array();
+
+  $validators['no_whitespace'] = array(
+    'name' => t('No whitespace'),
+    'description' => t('Will not allow filenames that contain white space such as spaces, tabs and new lines.'),
+    'pattern' => "/\s/",
+    'error_message' => t('The filename should not contain any spaces.'),
+    'replacement' => '-',
+    'autocorrect' => TRUE,
+  );
+
+  $validators['alphanumeric'] = array(
+    'name' => t('Alphanumeric characters only'),
+    'description' => t('Allows only letters, numbers and the full stop (dot) character. Be aware that this validator will not allow filenames with spaces.'),
+    'pattern' => "/[^a-z|A-Z|0-9|\.]/",
+    'error_message' => t('The filename should contain only alphanumeric characters'),
+  );
+
+  $validators['max_length'] = array(
+    'name' => t('Maximum filename length'),
+    'description' => t('Restricts filenames to a specified maximum length.'),
+    'type' => 'maxlength',
+    'maxlength' => 10,
+    'error_message' => t('The filename should contain no more than '),
+    'settings_form' => array(
+      'max_length' => array(
+        '#type' => 'textfield',
+        '#size' => 3,
+        '#title' => t('Maximum number of characters allowed'),
+        '#default_value' => 10,
+      ),
+    ),
+  );
+
+  $validators['lowercase'] = array(
+    'name' => t('All lowercase'),
+    'description' => t('Allows only lowercase letters in filenames.'),
+    'type' => 'lowercase',
+    'error_message' => t('Filenames should be all lowercase.'),
+  );
+
+  $validators['exclude_characters'] = array(
+    'name' => t('Exclude these characters'),
+    'description' => t('Allows specified characters to be excluded from filenames.'),
+    'type' => 'custom',
+    'callback' => '_fsa_filename_validation_exclude_characters',
+    'arguments' => array("settings:excluded_characters"),
+    'error_message' => t('Sorry, the filename contains invalid characters'),
+    'error_message_callback' => '_fsa_filename_validation_exclude_characters_error',
+    'error_message_arguments' => array("settings:excluded_characters"),
+    'settings_form' => array(
+      'excluded_characters' => array(
+        '#type' => 'textfield',
+        '#title' => t('Characters to be excluded'),
+        '#description' => t('Enter a list of characters to exclude. Leave one space between each character.')
+      ),
+    ),
+  );
+
+  return $validators;
+}
+
+
+/**
+ * Validation callback - exclude specified characters
+ *
+ * @param string $characters
+ *   The set of characters to be excluded from filenames, separated by spaces
+ *
+ * @param string $filename
+ *   The name of the file
+ *
+ * @return boolean
+ *   TRUE if the excluded characters are found in the filename, FALSE otherwise
+ *
+ */
+function _fsa_filename_validation_exclude_characters($characters, $filename) {
+
+  // If we don't have a pattern or a filename, return FALSE now.
+  if (empty($characters) || empty($filename)) {
+    return FALSE;
+  }
+
+  $characters = trim($characters);
+
+  // Define an array of potential delimiters
+  $delimiters = array('/', '@', '#', '~');
+  $delimiter = NULL;
+
+  // Find a delimiter that's not in the set of characters supplied
+  foreach ($delimiters as $d) {
+    if (strpos($characters, $d) === FALSE) {
+      $delimiter = $d;
+      break;
+    }
+  }
+
+  $pattern = '';
+  $character_array = explode(' ', $characters);
+  foreach ($character_array as $character) {
+    $pattern .= ctype_alnum($character) ? $character : '\\' . trim($character);
+  }
+  $pattern = "${delimiter}[" . trim($pattern) . "]${delimiter}";
+  return preg_match($pattern, $filename);
+
+}
+
+
+/**
+ * Error message callback function, excluded characters
+ *
+ * @param string $characters
+ *   The set of excluded characters for this validator
+ *
+ * @return string
+ *   The error message to be displayed to the user
+ *
+ */
+function _fsa_filename_validation_exclude_characters_error($characters) {
+  return t('Sorry, the filename cannot contain any of these characters %characters', array('%characters' => $characters));
+}
+
+
+/**
+ * Validation callback function - all lowercase
+ *
+ * @param string $filename
+ *   The name of the file
+ *
+ * @return boolean
+ *   TRUE if all letters in the filename are lowercase, FALSE otherwise.
+ *
+ * We use this instead of PHP's ctype_lower() function, because we don't want
+ * files that contain non-alpha characters, such as . to fail validation.
+ */
+function _fsa_filename_validation_lowercase($filename) {
+  return $filename == strtolower($filename);
+}
