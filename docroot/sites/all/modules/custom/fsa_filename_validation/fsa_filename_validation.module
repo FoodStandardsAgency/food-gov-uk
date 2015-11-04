@@ -73,6 +73,72 @@ function fsa_filename_validation_menu_alter(&$items) {
 
 
 /**
+ * Implements hook_theme_registry_alter().
+ */
+function fsa_filename_validation_theme_registry_alter(&$theme_registry) {
+  if (empty($theme_registry['file_upload_help'])) {
+    return;
+  }
+ $theme_registry['file_upload_help']['function'] = 'fsa_filename_validation_theme_file_upload_help';
+}
+
+
+/**
+ * Theme function - override for theme_file_upload_help().
+ */
+function fsa_filename_validation_theme_file_upload_help($variables) {
+
+  // Call the default theme implementation to get the standard help text. We'll
+  // add our custom help text after it.
+  $help = theme_file_upload_help($variables);
+
+  // Get the enabled validators
+  $enabled_validators = _fsa_filename_validation_enabled_validators();
+
+  // Now we'll add any custom help text from our validators.
+  $help_messages = array();
+
+  // Set validator defaults
+  $defaults = array('type' => 'regex');
+
+  // Loop through the enabled validators
+  foreach ($enabled_validators as $key => $validator) {
+    $validator += $defaults;
+
+    // Special treatment for some validator types.
+    switch ($validator['type']) {
+      case 'maxlength':
+        $maxlength = variable_get("filename_validator_${key}_max_length", $validator['maxlength']);
+        $validator['help'] = t('Filenames are limited to @maxlength characters.', array('@maxlength' => $maxlength));
+        break;
+    }
+
+    // If we have a help callback, use it.
+    if (!empty($validator['help_callback']) && function_exists($validator['help_callback'])) {
+      $arguments = !empty($validator['help_arguments']) ? $validator['help_arguments'] : array();
+      foreach ($arguments as $index => $argument) {
+        if (strpos($argument, 'settings:') !== FALSE) {
+          $arguments[$index] = variable_get("filename_validator_${key}_" . str_replace('settings:', '', $argument));
+        }
+      }
+      $validator['help'] = call_user_func_array($validator['help_callback'], $arguments);
+    }
+
+    // Add the help message to our message array.
+    if (!empty($validator['help'])) {
+      $help_messages[] = $validator['help'];
+    }
+  }
+
+  // Join the message array with line breaks
+  $help .= '<br>' . implode('<br>', $help_messages);
+
+  // Return the help messages
+  return $help;
+}
+
+
+/**
  * Implements hook_file_validate().
  *
  * This is where the actual filename validation takes place.
@@ -220,6 +286,12 @@ function fsa_filename_validation_file_validate($file) {
  *   - error_message_callback: A function for generating custom error messages
  *   - error_message_arguments: An array of arguments to be passed to the
  *     custom error message function
+ *   - help: Help text to tell users uploading files about the validation
+ *     conditions that apply. Note that this element is not required for
+ *     validators of type 'maxlength' as this is created dynamically.
+ *   - help_callback: A function for generating help text
+ *   - help_arguments: An array of arguments to be passed to the help_callback
+ *     function
  */
 function fsa_filename_validation_filename_validators() {
   $validators = array();
@@ -231,6 +303,7 @@ function fsa_filename_validation_filename_validators() {
     'error_message' => t('The filename should not contain any spaces.'),
     'replacement' => '-',
     'autocorrect' => TRUE,
+    'help' => t('Filenames cannot contain spaces or tabs.'),
   );
 
   $validators['alphanumeric'] = array(
@@ -238,6 +311,7 @@ function fsa_filename_validation_filename_validators() {
     'description' => t('Allows only letters, numbers and the full stop (dot) character. Be aware that this validator will not allow filenames with spaces.'),
     'pattern' => "/[^a-z|A-Z|0-9|\.]/",
     'error_message' => t('The filename should contain only alphanumeric characters'),
+    'help' => t('Filenames can contain only letters, numbers and full stops.'),
   );
 
   $validators['max_length'] = array(
@@ -259,6 +333,7 @@ function fsa_filename_validation_filename_validators() {
   $validators['lowercase'] = array(
     'name' => t('All lowercase'),
     'description' => t('Allows only lowercase letters in filenames.'),
+    'help' => t('Filenames should be all in lower case.'),
     'type' => 'lowercase',
     'error_message' => t('Filenames should be all lowercase.'),
   );
@@ -272,6 +347,8 @@ function fsa_filename_validation_filename_validators() {
     'error_message' => t('Sorry, the filename contains invalid characters'),
     'error_message_callback' => '_fsa_filename_validation_exclude_characters_error',
     'error_message_arguments' => array("settings:excluded_characters"),
+    'help_callback' => '_fsa_filename_validation_exclude_characters_help',
+    'help_arguments' => array("settings:excluded_characters"),
     'settings_form' => array(
       'excluded_characters' => array(
         '#type' => 'textfield',
@@ -344,6 +421,13 @@ function _fsa_filename_validation_exclude_characters_error($characters) {
   return t('Sorry, the filename cannot contain any of these characters %characters', array('%characters' => $characters));
 }
 
+/**
+ * Help text callback for excluded characters validator
+ */
+function _fsa_filename_validation_exclude_characters_help($characters) {
+  return t('Filenames should not contain any of these characters %characters.', array('%characters' => $characters));
+}
+
 
 /**
  * Validation callback function - all lowercase
@@ -359,4 +443,24 @@ function _fsa_filename_validation_exclude_characters_error($characters) {
  */
 function _fsa_filename_validation_lowercase($filename) {
   return $filename == strtolower($filename);
+}
+
+
+/**
+ * Helper function: returns an array of enabled validators
+ */
+function _fsa_filename_validation_enabled_validators() {
+  // An array to hold the enabled validators
+  $enabled_validators = array();
+
+  // Invoke hook_filename_validators().
+  $validators = module_invoke_all('filename_validators');
+
+  foreach ($validators as $key => $validator) {
+    // Determine whether the validator is currently enabled.
+    if ($enabled = variable_get("filename_validator_${key}_enabled", FALSE)) {
+      $enabled_validators[$key] = $validator;
+    }
+  }
+  return $enabled_validators;
 }
