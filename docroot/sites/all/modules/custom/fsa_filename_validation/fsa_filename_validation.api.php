@@ -39,6 +39,11 @@
  *   - error_message_callback: A function for generating custom error messages
  *   - error_message_arguments: An array of arguments to be passed to the
  *     custom error message function
+ *   - help: Help text to tell users uploading files about the validation
+ *     conditions that apply.
+ *   - help_callback: A function for generating help text
+ *   - help_arguments: An array of arguments to be passed to the help_callback
+ *     function
  */
 function hook_filename_validators() {
   $validators = array();
