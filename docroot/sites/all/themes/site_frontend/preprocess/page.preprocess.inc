@@ -42,6 +42,9 @@ function site_frontend_preprocess_page(&$variables) {
     }
   }
 
+  // Add any external libraries - not to be hosted locally within Drupal.
+  site_frontend_get_external_libraries();
+
 }
 
 /**
