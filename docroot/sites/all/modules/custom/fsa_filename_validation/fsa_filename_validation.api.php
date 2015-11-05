@@ -107,3 +107,73 @@ function hook_filename_validators() {
 
   return $validators;
 }
+
+
+/**
+ * Alter the array of validators
+ *
+ * This hook is called by _fsa_filename_validation_get_validators() the first
+ * time it is run during any page request. It is passed the full validators
+ * array, which has already been populated with any settings saved in the
+ * database.
+ *
+ * @param array $validators
+ *   Associative array of filename validators, passed by reference. Validator
+ *   settings have already been retrieved from the database, as have validator
+ *   statuses, so this hook could be used to turn validators on or off if
+ *   required, overriding user settings.
+ *
+ */
+function hook_filename_validators_alter(&$validators) {
+  // Override help text
+  if (!empty($validators['no_whitespace'])) {
+    $validators['no_whitespace']['help'] = t('Filenames cannot contain any whitespace characters.');
+  }
+  // Turn off a validator
+  if (!empty($validators['exclude_characters'])) {
+    $validators['exclude_characters']['enabled'] = FALSE;
+  }
+}
+
+
+/**
+ * Alter the help text for a given validator
+ *
+ * Help text for a validator is displayed beneath the file upload form element.
+ * It explains validation criteria to the user before they attempt to upload a
+ * file.
+ *
+ * Using this hook, you can alter the help text for a specified validator.
+ *
+ * @param string $help_text
+ *   The current help text assigned to the validator (passed by reference).
+ * @param string $key
+ *   The array key of the specified validator. Using
+ *   _fsa_filename_validation_get_validator($key), you can retrieve the full
+ *   validator properties.
+ */
+function hook_filename_validation_help_alter(&$help_text, $key) {
+  // Load the validator details.
+  $validator = _fsa_filename_validation_get_validator($key);
+  switch ($key) {
+    case 'max_length':
+      $maxlength = !empty($validator['settings']['max_length']) ? $validator['settings']['max_length'] : $validator['maxlength'];
+      $help_text = t('Your filename cannot have more than @maxlength characters, including the extension.', array('@maxlength' => $maxlength));
+      break;
+  }
+}
+
+
+/**
+ * Alter error messages displayed when filename validation fails.
+ *
+ * @param string $error_message
+ *   The existing error message after all othe processing has taken place
+ * @param string $key
+ *   The key of the validator that defines the error message
+ */
+function hook_filename_validation_error_alter(&$error_message, $key) {
+  if ($key == 'alphanumeric') {
+    $error_message .= '!';
+  }
+}
