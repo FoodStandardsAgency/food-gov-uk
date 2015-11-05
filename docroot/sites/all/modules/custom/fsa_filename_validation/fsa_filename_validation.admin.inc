@@ -6,9 +6,6 @@
 
 /**
  * Form builder: filename validation configuration form
- * @param type $form
- * @param type $form_state
- * @return type
  */
 function fsa_filename_validation_configuration_form($form, &$form_state) {
 
@@ -18,18 +15,17 @@ function fsa_filename_validation_configuration_form($form, &$form_state) {
     '#suffix' => '</p>',
   );
 
-  $validators = module_invoke_all('filename_validators');
-  $validator_defaults = array(
-    'type' => 'regex',
-  );
+  // Get the validators
+  $validators = _fsa_filename_validation_get_validators();
 
-
+  // Fieldset for enabled validators
   $form['enabled_validators'] = array(
     '#type' => 'fieldset',
     '#title' => t('Enabled validators'),
     '#description' => t('There are no currently active validators.'),
   );
 
+  // Fieldset for disabled validators
   $form['disabled_validators'] = array(
     '#type' => 'fieldset',
     '#title' => t('Disabled validators'),
@@ -40,7 +36,7 @@ function fsa_filename_validation_configuration_form($form, &$form_state) {
 
   foreach ($validators as $key => $validator) {
 
-    $enabled = variable_get("filename_validator_${key}_enabled", FALSE);
+    $enabled = $validator['enabled'];
     $container = $enabled ? 'enabled_validators' : 'disabled_validators';
 
     if ($enabled) {

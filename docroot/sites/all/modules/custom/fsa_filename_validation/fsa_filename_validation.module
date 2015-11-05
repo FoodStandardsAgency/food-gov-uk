@@ -44,8 +44,8 @@ function fsa_filename_validation_menu() {
     $admin_menu_link = 'admin/config/media/file-settings/validation';
   }
 
-  // Administration menu link. This is where the validators are turned on and
-  // off.
+  // Administration menu link. This is where the validators are enabled,
+  // disabled and configured.
   $items[$admin_menu_link] = array(
     'title' => t('Filename validation settings'),
     'description' => t('Administer filename validation settings'),
@@ -79,12 +79,25 @@ function fsa_filename_validation_theme_registry_alter(&$theme_registry) {
   if (empty($theme_registry['file_upload_help'])) {
     return;
   }
- $theme_registry['file_upload_help']['function'] = 'fsa_filename_validation_theme_file_upload_help';
+  // Override the existing theme function for file upload help text.
+  $theme_registry['file_upload_help']['function'] = 'fsa_filename_validation_theme_file_upload_help';
 }
 
 
 /**
  * Theme function - override for theme_file_upload_help().
+ *
+ * This function provides text below the file upload form element, explaining
+ * validation criteria for files. This is an override for the existing theme
+ * function, but we call that function first to get the default text.
+ *
+ * @param array $variables
+ *   Array of theming variables
+ *
+ * @return string
+ *   HTML code for the file upload help text
+ *
+ * @see theme_file_upload_help().
  */
 function fsa_filename_validation_theme_file_upload_help($variables) {
 
@@ -98,12 +111,8 @@ function fsa_filename_validation_theme_file_upload_help($variables) {
   // Now we'll add any custom help text from our validators.
   $help_messages = array();
 
-  // Set validator defaults
-  $defaults = array('type' => 'regex');
-
   // Loop through the enabled validators
   foreach ($enabled_validators as $key => $validator) {
-    $validator += $defaults;
 
     // Special treatment for some validator types.
     switch ($validator['type']) {
@@ -126,6 +135,8 @@ function fsa_filename_validation_theme_file_upload_help($variables) {
 
     // Add the help message to our message array.
     if (!empty($validator['help'])) {
+      // Allow modules to alter the help text
+      drupal_alter('filename_validation_help', $validator['help'], $key);
       $help_messages[] = $validator['help'];
     }
   }
@@ -143,19 +154,23 @@ function fsa_filename_validation_theme_file_upload_help($variables) {
  *
  * This is where the actual filename validation takes place.
  *
+ * @param object $file
+ *   Object corresponding to the file being uploaded
+ *
+ * @return array
+ *   An array of error messages
+ *
+ * @see _fsa_filename_validation_enabled_validators().
+ * @see hook_filename_validators().
+ *
  */
 function fsa_filename_validation_file_validate($file) {
 
   // Create an array to hold the errors. This is what we return at the end.
   $errors = array();
 
-  // Invoke hook_filename_validators().
-  $validators = module_invoke_all('filename_validators');
-
-  // Set the default validator type.
-  $validator_defaults = array(
-    'type' => 'regex',
-  );
+  // Get the enabled validators - invokes hook_filename_validators()
+  $validators = _fsa_filename_validation_enabled_validators();
 
   // Call the enabled validators
   foreach ($validators as $key => $validator) {
@@ -165,17 +180,6 @@ function fsa_filename_validation_file_validate($file) {
 
     // Error message
     $error_message = '';
-
-    // Determine whether the validator is currently enabled.
-    $enabled = variable_get("filename_validator_${key}_enabled", FALSE);
-
-    // If not enabled, skip to the next one
-    if (!$enabled) {
-      continue;
-    }
-
-    // Add defaults
-    $validator += $validator_defaults;
 
     switch($validator['type']) {
 
@@ -188,7 +192,7 @@ function fsa_filename_validation_file_validate($file) {
 
       // Maximum filename length
       case 'maxlength':
-        $maxlength = variable_get("filename_validator_${key}_max_length", $validator['maxlength']);
+        $maxlength = !empty($validator['settings']['max_length']) ? $validator['settings']['max_length'] : $validator['maxlength'];
         if (strlen($file->filename) > $maxlength) {
           // Set a custom error message to include the maximum characters.
           $error_message = $validator['error_message'] . t('@maxlength characters.', array('@maxlength' => $maxlength));
@@ -245,14 +249,16 @@ function fsa_filename_validation_file_validate($file) {
       }
 
       // Add the error message to the output
-      $errors[] = !empty($error_message) ? $error_message : $validator['error_message'];
+      $error_message = !empty($error_message) ? $error_message : $validator['error_message'];
+      // Allow modules to alter the error message
+      drupal_alter('filename_validation_error', $error_message, $key);
+      // Add the error message to the return array.
+      $errors[] = $error_message;
     }
-
   }
 
   // Return the errors
   return $errors;
-
 }
 
 
@@ -310,7 +316,7 @@ function fsa_filename_validation_filename_validators() {
     'name' => t('Alphanumeric characters only'),
     'description' => t('Allows only letters, numbers and the full stop (dot) character. Be aware that this validator will not allow filenames with spaces.'),
     'pattern' => "/[^a-z|A-Z|0-9|\.]/",
-    'error_message' => t('The filename should contain only alphanumeric characters'),
+    'error_message' => t('The filename should contain only alphanumeric characters.'),
     'help' => t('Filenames can contain only letters, numbers and full stops.'),
   );
 
@@ -373,7 +379,6 @@ function fsa_filename_validation_filename_validators() {
  *
  * @return boolean
  *   TRUE if the excluded characters are found in the filename, FALSE otherwise
- *
  */
 function _fsa_filename_validation_exclude_characters($characters, $filename) {
 
@@ -403,7 +408,6 @@ function _fsa_filename_validation_exclude_characters($characters, $filename) {
   }
   $pattern = "${delimiter}[" . trim($pattern) . "]${delimiter}";
   return preg_match($pattern, $filename);
-
 }
 
 
@@ -423,6 +427,12 @@ function _fsa_filename_validation_exclude_characters_error($characters) {
 
 /**
  * Help text callback for excluded characters validator
+ *
+ * @param string $characters
+ *   The set of excluded characters for this validator
+ *
+ * @return string
+ *   The help text to be displayed to the user on the file upload form
  */
 function _fsa_filename_validation_exclude_characters_help($characters) {
   return t('Filenames should not contain any of these characters %characters.', array('%characters' => $characters));
@@ -448,13 +458,20 @@ function _fsa_filename_validation_lowercase($filename) {
 
 /**
  * Helper function: returns an array of enabled validators
+ * 
+ * @return array
+ *   An array of enabled validators, each of which is an associative array
+ * 
+ * @see _fsa_filename_validation_get_validators().
+ * @see hook_filename_validators().
+ * @see hook_filename_validators_alter().
  */
 function _fsa_filename_validation_enabled_validators() {
   // An array to hold the enabled validators
   $enabled_validators = array();
 
   // Invoke hook_filename_validators().
-  $validators = module_invoke_all('filename_validators');
+  $validators = _fsa_filename_validation_get_validators();
 
   foreach ($validators as $key => $validator) {
     // Determine whether the validator is currently enabled.
@@ -463,4 +480,111 @@ function _fsa_filename_validation_enabled_validators() {
     }
   }
   return $enabled_validators;
+}
+
+
+/**
+ * Helper function: provides a list of validators
+ *
+ * Invokes hook_filename_validators() to create a list of all available
+ * validators. Uses drupal_static() to cache the list, so it's generated only
+ * once per page request.
+ * 
+ * @return array
+ *   An array of enabled validators, each of which is an associative array
+ * 
+ * @see hook_filename_validators().
+ * @see hook_filename_validators_alter().
+ */
+function _fsa_filename_validation_get_validators() {
+  // Use drupal_static() to avoid calling all hooks repeatedly.
+  $validators = &drupal_static(__FUNCTION__);
+  if (empty($validators)) {
+    // Default validator settings
+    $validator_defaults = array(
+      'type' => 'regex',
+    );
+    // Invoke hook_filename_validators().
+    // Note that this hook is invoked only once per page request due to the use
+    // of drupal_static().
+    // @todo If there is ever a use case where we might want to call the hook
+    //   more than once per page request, then we may want to include a
+    //   parameter to specify that validators should be reloaded. There is no
+    //   need for this yet though, so leaving as is for now.
+    $validators = module_invoke_all('filename_validators');
+    foreach ($validators as $key => $validator) {
+      // Add any missing default settings
+      $validators[$key] += $validator_defaults;
+      // Add an element for whether the validator is enabled
+      $validators[$key]['enabled'] = _fsa_filename_validation_validator_enabled($key);
+      // Add an element for the key
+      $validators[$key]['key'] = $key;
+      // Get any settings defined for the validator
+      if (!empty($validator['settings_form'])) {
+        $validators[$key]['settings'] = array();
+        foreach ($validator['settings_form'] as $setting => $details) {
+          $validators[$key]['settings'][$setting] = variable_get("filename_validator_${key}_${setting}");
+        }
+      }
+    }
+    // Allow other modules to alter the validators.
+    drupal_alter('filename_validators', $validators);
+  }
+  return $validators;
+}
+
+
+/**
+ * Helper function: provides details of specified validator
+ *
+ * @param string $key
+ *   The key of the validator, eg 'no_whitespace'
+ *
+ * @return array|boolean
+ *   If the $key parameter corresponds to an element in the validators array
+ *   provided by _fsa_filename_validation_get_validators(), then this function
+ *   will return an associative array of properties for the requested validator.
+ *   If the $key parameter is empty or does not match an entry in the validators
+ *   array, then this function will return boolean FALSE.
+ *
+ * @see _fsa_filename_validation_get_validators()
+ */
+function _fsa_filename_validation_get_validator($key = NULL) {
+  // If no key is provided, return FALSE.
+  if (empty($key)) {
+    return FALSE;
+  }
+  // Get all available validators
+  $validators = _fsa_filename_validation_get_validators();
+
+  // If no validators available, return FALSE
+  if (empty($validators) || !is_array($validators)) {
+    return FALSE;
+  }
+
+  // If the key doesn't correspond to a validator, return FALSE
+  if (empty($validators[$key])) {
+    return FALSE;
+  }
+
+  return $validators[$key];
+}
+
+
+/**
+ * Helper function: determines whether a validator is enabled
+ *
+ * @param string $key
+ *   The key of the validator, eg 'no_whitespace'
+ *
+ * @return boolean
+ *   TRUE if the validator is enabled, FALSE otherwise.
+ */
+function _fsa_filename_validation_validator_enabled($key = NULL) {
+
+  if (empty($key)) {
+    return FALSE;
+  }
+
+  return variable_get("filename_validator_${key}_enabled", FALSE);
 }
