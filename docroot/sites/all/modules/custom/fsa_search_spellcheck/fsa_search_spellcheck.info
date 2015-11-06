@@ -1,0 +1,6 @@
+name = FSA Search spellcheck
+description = "Provides spelling suggestions for site search queries"
+core = 7.x
+package = Search
+
+files[] = plugins/facetapi/url_processor_fsa_exposed_facets.inc

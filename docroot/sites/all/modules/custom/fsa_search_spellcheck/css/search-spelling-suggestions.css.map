@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,4BAA6B;EAC3B,SAAS,EAAE,KAAK",
+"sources": ["../sass/search-spelling-suggestions.scss"],
+"names": [],
+"file": "search-spelling-suggestions.css"
+}
