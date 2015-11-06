@@ -114,14 +114,8 @@ function fsa_search_spellcheck_search_form_submit(&$form, &$form_state) {
  */
  function fsa_search_spellcheck_check_spelling($keyword = NULL) {
     try {
-      // Load search query.
-      // Get the Apache Solr "environment id".
-      if (strpos($view->base_table, 'apachesolr__') === 0) {
-        $env_id = substr($view->base_table, 12);
-      }
-      else {
-        $env_id = apachesolr_default_environment();
-      }
+      // Get the default solr environment
+      $env_id = apachesolr_default_environment();
       // Get the solr environment
       $solr = apachesolr_get_solr($env_id);
       // Create a new SolrBaseQuery
