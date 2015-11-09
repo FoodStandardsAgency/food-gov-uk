@@ -398,3 +398,59 @@ function local_field_group_pre_render_alter(&$element, $group, & $form) {
   // around the classes.
   $element['#prefix'] = '<div class="' . $group->classes . '">';
 }
+
+
+/**
+ * Implements hook_national_archives_url_alter()
+ */
+function local_national_archives_url_alter(&$url) {
+}
+
+
+/**
+ * Implements hook_national_archives_site_url_alter().
+ *
+ * We use this to alter the redirects for committee URLs created by the
+ * National Archives module. We alter both the $site_url and the $url itself.
+ *
+ * We could have done this within the National Archives module itself, but the
+ * intention is to keep that module as generic and non-FSA-specific as possible.
+ *
+ * Also, we could have modified the URL as it was saved to the database, but
+ * this feels more future-proof in case committee domains change.
+ *
+ * @see _national_archives_expand_url().
+ */
+function local_national_archives_site_url_alter(&$site_url, &$url) {
+
+  // An array of committee domains mapped to site paths.
+  // @todo As this is used in multiple places in this module, create a helper
+  //   function to return it. That will make management easier in future.
+  $path_domains = array(
+    'cot.food.gov.uk' => 'committee/committee-on-toxicity',
+    'acmsf.food.gov.uk' => 'committee/acmsf',
+    'acnfp.food.gov.uk'=> 'committee/acnfp',
+    'acaf.food.gov.uk' => 'committee/acaf',
+    'gacs.food.gov.uk'=> 'committee/gacs',
+    'ssrc.food.gov.uk'=> 'committee/social-science-research-committee-ssrc',
+  );
+
+  // Flip the committee domains array so that the keys become the values and
+  // vice-versa. We adopt this approach, rather than simply creating the array
+  // the other way around (which would be more convenient), in order to
+  // faciliate using the same helper function to provide the mappings in future.
+  $path_domains = array_flip($path_domains);
+
+  // Create a temporaray variable to hold the URL minus the pseudo protocol
+  $temp_path = str_replace(NATIONAL_ARCHIVES_PSEUDO_PROTOCOL, '', $url);
+
+  // If the path matches one of the committee domains, remove the starting part
+  // of the path and modify the site URL accordingly.
+  foreach ($path_domains as $path => $domain) {
+    if (strpos($temp_path, $path) === 0) {
+      $site_url = "http://$domain";
+      $url = str_replace("$path/", NATIONAL_ARCHIVES_PSEUDO_PROTOCOL, $temp_path);
+    }
+  }
+
+}
