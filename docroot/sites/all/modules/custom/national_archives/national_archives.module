@@ -237,6 +237,8 @@ function _national_archives_disable_redirect($path, $language = LANGUAGE_NONE, $
 function _national_archives_generate_url($path) {
   $path = drupal_get_path_alias($path);
   //return variable_get('national_archives_base_url') . variable_get('national_archives_site_url') . '/' . $path;
+  // Allow other modules to alter the National Archives URL.
+  drupal_alter('national_archives_url', $path);
   return NATIONAL_ARCHIVES_PSEUDO_PROTOCOL . $path;
 }
 
@@ -245,7 +247,14 @@ function _national_archives_generate_url($path) {
  * Helper function - 'expands' stored National Archives URL to a real one
  */
 function _national_archives_expand_url($url) {
-  $url = str_replace('nationalarchives://', variable_get('national_archives_base_url') . variable_get('national_archives_site_url') . '/', $url);
+  global $base_url;
+  $national_archives_base_url = variable_get('national_archives_base_url');
+  // Allow modules to modify the National Archives base URL.
+  drupal_alter('national_archives_base_url', $national_archives_base_url);
+  $national_archives_site_url = variable_get('national_archives_site_url', $base_url);
+  // Allow modules to modify the NA site URL and the actual URL as well.
+  drupal_alter('national_archives_site_url', $national_archives_site_url, $url);
+  $url = str_replace('nationalarchives://', $national_archives_base_url . $national_archives_site_url . '/', $url);
   return $url;
 }
 
