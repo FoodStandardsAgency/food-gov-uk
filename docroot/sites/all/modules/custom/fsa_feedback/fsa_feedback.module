@@ -264,6 +264,13 @@ function fsa_feedback_form_submit($form, &$form_state) {
   entity_form_submit_build_entity('feedback', $entry, $form, $form_state);
   $entry->message = $form_state['values']['message'];
   $entry->location = $form_state['values']['location'];
+
+  // Unset URL if it's blank, otherwise it doesn't get set as part of
+  // feedback_save().
+  if (isset($entry->url) && empty($entry->url)) {
+    unset($entry->url);
+  }
+
   feedback_save($entry);
 
   // Set the thankyou message for the user. The message is passed from the form,
