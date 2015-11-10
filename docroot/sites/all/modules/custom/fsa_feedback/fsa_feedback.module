@@ -77,6 +77,21 @@ function fsa_feedback_page_build(&$page) {
  */
 function fsa_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
 
+  // We want to capture the full originating URL, including any query string
+  // variables. This will help when analysing feedback from pages that
+  // incorporate a query string in their URLs, eg search.
+  // @see #10287 - https://support.siriusopensource.com/index.pl?Action=AgentTicketZoom;TicketID=785
+
+  // First get the current page path
+  $page_path = current_path();
+  // Now get the query string - minus the standard Drupal params
+  $query_string = drupal_get_query_parameters();
+  // Construct a URL using url(), but trim off the initial slash
+  $page_url = ltrim(url($page_path, array('query' => $query_string)), '/');
+  // Amend the values of the page URL in the $form and $form_state arrays.
+  $form_state['inline']['location'] = $page_url;
+  $form['location']['#value'] = $page_url;
+
   // Give the form a class to enable FSA styling to be applied.
   $form['#attributes']['class'][] = 'custom-block-inner';
 
@@ -887,6 +902,38 @@ function _fsa_feedback_email_section_heading($heading = '') {
  *   The feedback item being inserted.
  */
 function fsa_feedback_feedback_insert($entry) {
+
+  // If the feedback entry location contains a query string, we need to modify
+  // the url property of the entry object so that it doesn't get URL encoded.
+  // Because the entry has already been saved, we need to set its url property
+  // and then re-save it in order for the change to take effect. To avoid
+  // unneccessary processing, we do this only if the location property contains
+  // a question mark.
+  // @see #10287 - https://support.siriusopensource.com/index.pl?Action=AgentTicketZoom;TicketID=785
+
+  // Get the location
+  $location = $entry->location;
+
+  // Does it have a query string? If not, we just move on. If so, we need to
+  // do some work on the URL and re-save the entry.
+  if (strpos($location, '?') !== FALSE) {
+    // Split the URL into its constituent parts
+    $path_parts = drupal_parse_url($location);
+    // Get the path part
+    $path = $path_parts['path'];
+    // Create an options array suitable for the url() function
+    $url_options = array(
+      'absolute' => TRUE,
+      'query' => $path_parts['query'],
+    );
+    // Build the URL using url()
+    $url = url($path, $url_options);
+    // Set the entry URL
+    $entry->url = $url;
+    // Re-save the entry
+    feedback_save($entry);
+  }
+
   // When a new feedback entry is created, send an email.
   fsa_feedback_mail_send($entry);
 }
