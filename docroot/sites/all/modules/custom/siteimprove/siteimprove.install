@@ -1,0 +1,23 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the SiteImprove Drupal module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function siteimprove_install() {
+}
+
+
+/**
+ * Implements hook_uninstall().
+ */
+function siteimprove_unintsall() {
+  // Delete variables
+  variable_del('siteimprove_track_admin');
+  variable_del('siteimprove_account_code');
+  variable_del('siteimprove_meta_editing_page');
+  variable_del('siteimprove_meta_pageid');
+}
