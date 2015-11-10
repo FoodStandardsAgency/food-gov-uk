@@ -1,0 +1,5 @@
+name = SiteImprove
+description = "Provides integration with the SiteImprove web quality assurance service."
+core = 7.x
+package = Statistics
+configure = admin/config/services/siteimprove
