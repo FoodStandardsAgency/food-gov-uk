@@ -58,7 +58,7 @@ function siteimprove_theme() {
 
 /**
  * Implements hook_page_alter().
- * 
+ *
  * @see theme/siteimprove-analytics-javascript.tpl.php
  */
 function siteimprove_page_alter(&$page) {
@@ -88,22 +88,25 @@ function siteimprove_page_alter(&$page) {
 
 
 /**
- * Implements hook_node_view().
+ * Implements template_preprocess_page().
  *
  * We use this to add the SiteImprove meta tags that facilitate CMS deeplinking
  *
  * @see http://support.siteimprove.com/hc/en-gb/articles/206343443-What-is-CMS-Deeplinking-and-How-do-I-enable-it-
  */
-function siteimprove_node_view($node, $view_mode, $langcode) {
-
-  // Act only if the node is being viewed in full.
-  if ($view_mode != 'full' || empty($node->nid)) {
+function siteimprove_preprocess_page(&$variables) {
+  // Get the node object from the page variables - if available.
+  $node = !empty($variables['node']) ? $variables['node'] : NULL;
+  // No node object? Exit now.
+  if (empty($node)) {
     return;
   }
-
-  // Get the Node ID (nid).
-  $nid = $node->nid;
-
+  // Get the Nid from the node object
+  $nid = !empty($node->nid) ? $node->nid : NULL;
+  // No Nid? Exit now.
+  if (empty($nid)) {
+    return;
+  }
   // Add the pageID meta tag - if required.
   if (variable_get('siteimprove_meta_pageid', FALSE)) {
     $page_id = array(
