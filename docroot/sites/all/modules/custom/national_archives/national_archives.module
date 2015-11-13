@@ -292,6 +292,13 @@ function _national_archives_expand_url($url) {
 
 /**
  * Implements hook_redirect_alter().
+ *
+ * We use this hook to achieve two things:
+ * 1. Expand the National Archives pseudo-URL into a real one for redirecting
+ * 2. Allow logged-in users with the right permission to see the redirected page
+ *
+ * @param object $redirect
+ *   A redirect entity
  */
 function national_archives_redirect_alter($redirect) {
   // Check for the National Archives pseudo protocol. If not found, exit now.
@@ -301,13 +308,25 @@ function national_archives_redirect_alter($redirect) {
   // Expand the pseudo protocol URL into a real URL for redirecting.
   $redirect->redirect = _national_archives_expand_url($redirect->redirect);
 
+  // For files, if they've been deleted, there will no longer be a page to
+  // display, so we want to execute the redirect immeditately, rather than
+  // giving administrators the ability to see the archived page, as with
+  // standard drupal pages. We identify a file by means of extensions. If the
+  // file_entity module is installed, we use the allowed extensions variable, if
+  // not, we just use a basic default list.
+  $extensions = variable_get('file_entity_default_allowed_extensions', 'csv jpg jpeg gif png txt doc docx xls xlsx pdf ppt pptx pps ppsx odt ods odp mp3 mov mp4 m4a m4v mpeg avi ogg oga ogv weba webp webm wma wmv flv smi zip swf xsd xml');
+  $extensions = implode('|', explode(' ', $extensions));
+  // Construct a regex pattern to match any filename with an allowed extension.
+  $pattern = "@^.*\.(" . $extensions . ")$@";
+  // Is it a file?
+  $is_file = preg_match($pattern, $redirect->source);
+
   // If user has the permission to view the page, don't redirect, but show a
-  // warning message.
-  if (user_access('view national archive redirect pages')) {
-    drupal_set_message(t('This page has been unpublished and a redirect put in place to the <a href="!national_archives_url">National Archives</a>. However, because you are an administrator, you have permission to see it.', array('!national_archives_url' => $redirect->redirect)), 'warning');
+  // warning message - unless the redirect is for a file.
+  if (user_access('view national archive redirect pages') && !$is_file) {
+    drupal_set_message(t('This page has been unpublished and a redirect put in place to the <a href="@national_archives_url">National Archives</a>. However, because you are an administrator, you have permission to see it.', array('@national_archives_url' => $redirect->redirect)), 'warning');
     $redirect->redirect = FALSE;
   }
-
 }
 
 
