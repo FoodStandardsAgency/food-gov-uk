@@ -2,6 +2,6 @@ name = National Archives
 description = "Provides functionality for integrating with the National Archives"
 core = 7.x
 package = Archiving
-dependencies[] = redirect (>=7.x-1.0-rc3)
+dependencies[] = redirect
 configure = admin/config/search/nationalarchives/settings
 files[] = includes/views_handler_archived_field.inc

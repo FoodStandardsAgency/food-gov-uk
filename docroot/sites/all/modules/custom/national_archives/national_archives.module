@@ -92,7 +92,10 @@ function national_archives_menu() {
     'file' => 'national_archives.admin.inc',
     'type' => MENU_LOCAL_TASK,
   );
-  // Special National Archives 404 handler.
+  // Special National Archives 404 handler. This is used when the page doesn't
+  // exist on the National Archives site either, in which case, the National
+  // Archives redirect to this specific URL on the referring site, passing the
+  // requested URL as a URL parameter.
   $items['ukgwacnf.html'] = array(
     'title' => t('Page not found'),
     'page callback' => '_national_archives_page_not_found',
@@ -159,6 +162,43 @@ function national_archives_node_delete($node) {
 
 
 /**
+ * Implements hook_file_insert().
+ *
+ * We use this to remove any redirects already in existence for a given file
+ * URL. This would come into play if a file had been deleted and a redirect
+ * put in place, then a new file had been uploaded with the same filename.
+ * Technically, this is unnecessary, since if a file exists, it will override
+ * a redirect thanks to Drupal's .htaccess file. However, it's tidier to remove
+ * or disable the redirect.
+ */
+function national_archives_file_insert($file) {
+  // If the file has no uri, exit now.
+  if (empty($file->uri)) {
+    return;
+  }
+  // Disable/delete a redirect for this file if one exists.
+  _national_archives_disable_redirect(_national_archives_file_path($file->uri), LANGUAGE_NONE, $file);
+}
+
+
+/**
+ * Implements hook_file_delete().
+ *
+ * Creates a redirect for a file's URL when the file is deleted.
+ */
+function national_archives_file_delete($file) {
+  // If $file or $file->uri are empty, return now.
+  if (empty($file) || empty($file->uri)) {
+    return;
+  }
+  // We assume no language as files typically don't have one
+  $language = LANGUAGE_NONE;
+  // Create a redirect for the file
+  _national_archives_create_redirect(_national_archives_file_path($file->uri), $language, $file);
+}
+
+
+/**
  * Helper function - generates a NA redirect for a given path
  */
 function _national_archives_create_redirect($path = NULL, $language = LANGUAGE_NONE, $entity = NULL, $action = NULL) {
@@ -185,13 +225,19 @@ function _national_archives_create_redirect($path = NULL, $language = LANGUAGE_N
       return;
     }
 
-    // Set the redirect to enabled if it isn't already.
-    if ($redirect->status != 1) {
-      $redirect->status = 1;
-      redirect_save($redirect);
-      _national_archives_clear_page_cache();
-      watchdog('national_archives', 'Redirect re-enabled for %path. Action: %action', array('%path' => $path, '%action' => !empty($action) ? $action : t('Not specified')));
+    // Set the redirect to enabled if it isn't already. Older versions of the
+    // Redirect module didn't have a status property, so if the redirect exists,
+    // it's effectively enabled anyway, so nothing more is required.
+    if (isset($redirect->status)) {
+      if ($redirect->status != 1) {
+        $redirect->status = 1;
+        redirect_save($redirect);
+        _national_archives_clear_page_cache();
+        watchdog('national_archives', 'Redirect re-enabled for %path. Action: %action', array('%path' => $path, '%action' => !empty($action) ? $action : t('Not specified')));
+      }
     }
+    // Clear the page cache
+    _national_archives_clear_page_cache();
     return;
   }
 
@@ -201,9 +247,9 @@ function _national_archives_create_redirect($path = NULL, $language = LANGUAGE_N
   $redirect->source = $path;
   $redirect->redirect = $national_archives_url;
   redirect_save($redirect);
+  // Clear the page cache
   _national_archives_clear_page_cache();
   watchdog('national_archives', 'Redirect created for %path. Action: %action', array('%path' => $path, '%action' => !empty($action) ? $action : t('Not specified')));
-
 }
 
 
@@ -211,9 +257,17 @@ function _national_archives_create_redirect($path = NULL, $language = LANGUAGE_N
  * Helper function - disables a NA redirect for the given path
  */
 function _national_archives_disable_redirect($path, $language = LANGUAGE_NONE, $entity = NULL, $action = NULL) {
+
+  // From version 7.x-1.0-rc2 of the Redirect module, a status property was
+  // added to redirect entities, together with a function for disabling
+  // redirects based on path. If this function exists, use it, rather than
+  // deleting the redirect.
   if (function_exists('redirect_disable_by_path')) {
     redirect_disable_by_path($path, $language);
+    watchdog('national_archives', 'Redirect disabled for %path. Action: %action', array('%path' => $path, '%action' => !empty($action) ? $action : t('Not specified')));
   }
+  // Looks like we're using an older version of the Redirect module, so we have
+  // to delete, rather than disable the redirect(s).
   else {
     $efq = new EntityFieldQuery();
     $efq->entityCondition('entity_type', 'redirect');
@@ -224,19 +278,27 @@ function _national_archives_disable_redirect($path, $language = LANGUAGE_NONE, $
       $redirects = redirect_load_multiple(array_keys($results['redirect']));
     }
     foreach($redirects as $redirect) {
-      $redirect->status = 0;
+      redirect_delete($redirect->rid);
+      watchdog('national_archives', 'Redirect deleted for %path. Action: %action', array('%path' => $path, '%action' => !empty($action) ? $action : t('Not specified')));
     }
   }
-  watchdog('national_archives', 'Redirect disabled for %path. Action: %action', array('%path' => $path, '%action' => !empty($action) ? $action : t('Not specified')));
 }
 
 
 /**
  * Helper function - generates a National Archives URL based on a path
+ * 
+ * @param string $path
+ *   The (internal) Drupal path of the entity for which to generate a URL
+ *
+ * @return string
+ *   A URL of the form nationalarchives://path. This is then 'expanded' to a
+ *   usable URL when the redirect occurs.
+ *
+ * @see _national_archives_expand_url().
  */
 function _national_archives_generate_url($path) {
   $path = drupal_get_path_alias($path);
-  //return variable_get('national_archives_base_url') . variable_get('national_archives_site_url') . '/' . $path;
   // Allow other modules to alter the National Archives URL.
   drupal_alter('national_archives_url', $path);
   return NATIONAL_ARCHIVES_PSEUDO_PROTOCOL . $path;
@@ -245,6 +307,12 @@ function _national_archives_generate_url($path) {
 
 /**
  * Helper function - 'expands' stored National Archives URL to a real one
+ * 
+ * @param string $url
+ *   A pseudo-URL of the form nationalarchives://path
+ *
+ * @return string
+ *   A real URL that can be used to redirect the request
  */
 function _national_archives_expand_url($url) {
   global $base_url;
@@ -261,6 +329,13 @@ function _national_archives_expand_url($url) {
 
 /**
  * Implements hook_redirect_alter().
+ *
+ * We use this hook to achieve two things:
+ * 1. Expand the National Archives pseudo-URL into a real one for redirecting
+ * 2. Allow logged-in users with the right permission to see the redirected page
+ *
+ * @param object $redirect
+ *   A redirect entity
  */
 function national_archives_redirect_alter($redirect) {
   // Check for the National Archives pseudo protocol. If not found, exit now.
@@ -270,13 +345,25 @@ function national_archives_redirect_alter($redirect) {
   // Expand the pseudo protocol URL into a real URL for redirecting.
   $redirect->redirect = _national_archives_expand_url($redirect->redirect);
 
+  // For files, if they've been deleted, there will no longer be a page to
+  // display, so we want to execute the redirect immeditately, rather than
+  // giving administrators the ability to see the archived page, as with
+  // standard drupal pages. We identify a file by means of extensions. If the
+  // file_entity module is installed, we use the allowed extensions variable, if
+  // not, we just use a basic default list.
+  $extensions = variable_get('file_entity_default_allowed_extensions', 'csv jpg jpeg gif png txt doc docx xls xlsx pdf ppt pptx pps ppsx odt ods odp mp3 mov mp4 m4a m4v mpeg avi ogg oga ogv weba webp webm wma wmv flv smi zip swf xsd xml');
+  $extensions = implode('|', explode(' ', $extensions));
+  // Construct a regex pattern to match any filename with an allowed extension.
+  $pattern = "@^.*\.(" . $extensions . ")$@";
+  // Is it a file?
+  $is_file = preg_match($pattern, $redirect->source);
+
   // If user has the permission to view the page, don't redirect, but show a
-  // warning message.
-  if (user_access('view national archive redirect pages')) {
-    drupal_set_message(t('This page has been unpublished and a redirect put in place to the <a href="!national_archives_url">National Archives</a>. However, because you are an administrator, you have permission to see it.', array('!national_archives_url' => $redirect->redirect)), 'warning');
+  // warning message - unless the redirect is for a file.
+  if (user_access('view national archive redirect pages') && !$is_file) {
+    drupal_set_message(t('This page has been unpublished and a redirect put in place to the <a href="@national_archives_url">National Archives</a>. However, because you are an administrator, you have permission to see it.', array('@national_archives_url' => $redirect->redirect)), 'warning');
     $redirect->redirect = FALSE;
   }
-
 }
 
 
@@ -569,7 +656,6 @@ function _national_archives_clear_page_cache() {
 }
 
 
-
 /**
  * Implements hook_views_api().
  */
@@ -577,4 +663,30 @@ function national_archives_views_api() {
   return array(
     'api' => 3,
   );
+}
+
+
+/**
+ * Helper function: returns internal path for a file (not the external URL)
+ *
+ * @param string $uri
+ *   The URI of the file, eg public://testfile.txt
+ *
+ * @return string
+ *   The internal path of the file, eg sites/default/files/testfile.txt
+ */
+function _national_archives_file_path($uri = '') {
+  if (empty($uri)) {
+    return '';
+  }
+  // First get the full (external) URL for the file.
+  $url = file_create_url($uri);
+  // We need to remove the base_url in the external URL to get the internal
+  // URL. We therefore construct a pattern and use a regex to remove it.
+  $pattern = $GLOBALS['base_url'] . '/';
+  $pattern = "@^" . $pattern . "@";
+  $url = preg_replace($pattern, '', $url); 
+  // The URL will be encoded, but we actually want to store it plain, so we
+  // need to use rawurldecode() to decode it.
+  return rawurldecode($url);
 }
