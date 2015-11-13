@@ -162,6 +162,43 @@ function national_archives_node_delete($node) {
 
 
 /**
+ * Implements hook_file_insert().
+ *
+ * We use this to remove any redirects already in existence for a given file
+ * URL. This would come into play if a file had been deleted and a redirect
+ * put in place, then a new file had been uploaded with the same filename.
+ * Technically, this is unnecessary, since if a file exists, it will override
+ * a redirect thanks to Drupal's .htaccess file. However, it's tidier to remove
+ * or disable the redirect.
+ */
+function national_archives_file_insert($file) {
+  // If the file has no uri, exit now.
+  if (empty($file->uri)) {
+    return;
+  }
+  // Disable/delete a redirect for this file if one exists.
+  _national_archives_disable_redirect(_national_archives_file_path($file->uri), LANGUAGE_NONE, $file);
+}
+
+
+/**
+ * Implements hook_file_delete().
+ *
+ * Creates a redirect for a file's URL when the file is deleted.
+ */
+function national_archives_file_delete($file) {
+  // If $file or $file->uri are empty, return now.
+  if (empty($file) || empty($file->uri)) {
+    return;
+  }
+  // We assume no language as files typically don't have one
+  $language = LANGUAGE_NONE;
+  // Create a redirect for the file
+  _national_archives_create_redirect(_national_archives_file_path($file->uri), $language, $file);
+}
+
+
+/**
  * Helper function - generates a NA redirect for a given path
  */
 function _national_archives_create_redirect($path = NULL, $language = LANGUAGE_NONE, $entity = NULL, $action = NULL) {
@@ -619,7 +656,6 @@ function _national_archives_clear_page_cache() {
 }
 
 
-
 /**
  * Implements hook_views_api().
  */
@@ -627,4 +663,30 @@ function national_archives_views_api() {
   return array(
     'api' => 3,
   );
+}
+
+
+/**
+ * Helper function: returns internal path for a file (not the external URL)
+ *
+ * @param string $uri
+ *   The URI of the file, eg public://testfile.txt
+ *
+ * @return string
+ *   The internal path of the file, eg sites/default/files/testfile.txt
+ */
+function _national_archives_file_path($uri = '') {
+  if (empty($uri)) {
+    return '';
+  }
+  // First get the full (external) URL for the file.
+  $url = file_create_url($uri);
+  // We need to remove the base_url in the external URL to get the internal
+  // URL. We therefore construct a pattern and use a regex to remove it.
+  $pattern = $GLOBALS['base_url'] . '/';
+  $pattern = "@^" . $pattern . "@";
+  $url = preg_replace($pattern, '', $url); 
+  // The URL will be encoded, but we actually want to store it plain, so we
+  // need to use rawurldecode() to decode it.
+  return rawurldecode($url);
 }
