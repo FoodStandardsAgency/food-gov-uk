@@ -92,7 +92,10 @@ function national_archives_menu() {
     'file' => 'national_archives.admin.inc',
     'type' => MENU_LOCAL_TASK,
   );
-  // Special National Archives 404 handler.
+  // Special National Archives 404 handler. This is used when the page doesn't
+  // exist on the National Archives site either, in which case, the National
+  // Archives redirect to this specific URL on the referring site, passing the
+  // requested URL as a URL parameter.
   $items['ukgwacnf.html'] = array(
     'title' => t('Page not found'),
     'page callback' => '_national_archives_page_not_found',
