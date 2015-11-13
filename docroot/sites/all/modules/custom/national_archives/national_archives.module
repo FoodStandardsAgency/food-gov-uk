@@ -185,13 +185,19 @@ function _national_archives_create_redirect($path = NULL, $language = LANGUAGE_N
       return;
     }
 
-    // Set the redirect to enabled if it isn't already.
-    if ($redirect->status != 1) {
-      $redirect->status = 1;
-      redirect_save($redirect);
-      _national_archives_clear_page_cache();
-      watchdog('national_archives', 'Redirect re-enabled for %path. Action: %action', array('%path' => $path, '%action' => !empty($action) ? $action : t('Not specified')));
+    // Set the redirect to enabled if it isn't already. Older versions of the
+    // Redirect module didn't have a status property, so if the redirect exists,
+    // it's effectively enabled anyway, so nothing more is required.
+    if (isset($redirect->status)) {
+      if ($redirect->status != 1) {
+        $redirect->status = 1;
+        redirect_save($redirect);
+        _national_archives_clear_page_cache();
+        watchdog('national_archives', 'Redirect re-enabled for %path. Action: %action', array('%path' => $path, '%action' => !empty($action) ? $action : t('Not specified')));
+      }
     }
+    // Clear the page cache
+    _national_archives_clear_page_cache();
     return;
   }
 
@@ -201,9 +207,9 @@ function _national_archives_create_redirect($path = NULL, $language = LANGUAGE_N
   $redirect->source = $path;
   $redirect->redirect = $national_archives_url;
   redirect_save($redirect);
+  // Clear the page cache
   _national_archives_clear_page_cache();
   watchdog('national_archives', 'Redirect created for %path. Action: %action', array('%path' => $path, '%action' => !empty($action) ? $action : t('Not specified')));
-
 }
 
 
@@ -211,9 +217,17 @@ function _national_archives_create_redirect($path = NULL, $language = LANGUAGE_N
  * Helper function - disables a NA redirect for the given path
  */
 function _national_archives_disable_redirect($path, $language = LANGUAGE_NONE, $entity = NULL, $action = NULL) {
+
+  // From version 7.x-1.0-rc2 of the Redirect module, a status property was
+  // added to redirect entities, together with a function for disabling
+  // redirects based on path. If this function exists, use it, rather than
+  // deleting the redirect.
   if (function_exists('redirect_disable_by_path')) {
     redirect_disable_by_path($path, $language);
+    watchdog('national_archives', 'Redirect disabled for %path. Action: %action', array('%path' => $path, '%action' => !empty($action) ? $action : t('Not specified')));
   }
+  // Looks like we're using an older version of the Redirect module, so we have
+  // to delete, rather than disable the redirect(s).
   else {
     $efq = new EntityFieldQuery();
     $efq->entityCondition('entity_type', 'redirect');
@@ -224,19 +238,27 @@ function _national_archives_disable_redirect($path, $language = LANGUAGE_NONE, $
       $redirects = redirect_load_multiple(array_keys($results['redirect']));
     }
     foreach($redirects as $redirect) {
-      $redirect->status = 0;
+      redirect_delete($redirect->rid);
+      watchdog('national_archives', 'Redirect deleted for %path. Action: %action', array('%path' => $path, '%action' => !empty($action) ? $action : t('Not specified')));
     }
   }
-  watchdog('national_archives', 'Redirect disabled for %path. Action: %action', array('%path' => $path, '%action' => !empty($action) ? $action : t('Not specified')));
 }
 
 
 /**
  * Helper function - generates a National Archives URL based on a path
+ * 
+ * @param string $path
+ *   The (internal) Drupal path of the entity for which to generate a URL
+ *
+ * @return string
+ *   A URL of the form nationalarchives://path. This is then 'expanded' to a
+ *   usable URL when the redirect occurs.
+ *
+ * @see _national_archives_expand_url().
  */
 function _national_archives_generate_url($path) {
   $path = drupal_get_path_alias($path);
-  //return variable_get('national_archives_base_url') . variable_get('national_archives_site_url') . '/' . $path;
   // Allow other modules to alter the National Archives URL.
   drupal_alter('national_archives_url', $path);
   return NATIONAL_ARCHIVES_PSEUDO_PROTOCOL . $path;
@@ -245,6 +267,12 @@ function _national_archives_generate_url($path) {
 
 /**
  * Helper function - 'expands' stored National Archives URL to a real one
+ * 
+ * @param string $url
+ *   A pseudo-URL of the form nationalarchives://path
+ *
+ * @return string
+ *   A real URL that can be used to redirect the request
  */
 function _national_archives_expand_url($url) {
   global $base_url;
