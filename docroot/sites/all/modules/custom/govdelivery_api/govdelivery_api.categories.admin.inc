@@ -58,7 +58,7 @@ function govdelivery_api_categories_form($form, &$form_state) {
   $options = array();
   foreach ($categories as $category) {
     $options[$category->code] = array(
-      user_access('view govdelivery categories') ? l($category->code, 'admin/config/services/govdelivery-api/categories/' . $category->code) : $category->code,
+      user_access('view govdelivery categories') ? l($category->code, GOVDELIVERY_API_MENU_PATH . '/categories/' . $category->code) : $category->code,
       $category->name,
       $category->{'short-name'},
       !empty($category->{'allow-subscriptions'}) && $category->{'allow-subscriptions'} == 'true' ? t('Yes') : t('No'),
@@ -166,7 +166,7 @@ function govdelivery_api_category_create_form_submit(&$form, &$form_state) {
   $category = govdelivery_api_create_category($form_state['values']);
   if ($category->success && !empty($category->result->{'to-param'})) {
     drupal_set_message(t('New category created with code: %code', array('%code' => $category->result->{'to-param'})));
-    $form_state['redirect'] = url('admin/config/services/govdelivery-api/categories');
+    $form_state['redirect'] = url(GOVDELIVERY_API_MENU_PATH . '/categories');
   }
   elseif (!empty($category->errorMessage)) {
     drupal_set_message($category->getErrorMessage(), 'error');
@@ -183,7 +183,7 @@ function govdelivery_api_category_edit_form($form, &$form_state, $category_code)
   $categories = govdelivery_api_get_categories($category_code);
   if (empty($categories->result)) {
     drupal_set_message('No category found', 'error');
-    drupal_goto('admin/config/services/govdelivery-api/categories');
+    drupal_goto(GOVDELIVERY_API_MENU_PATH . '/categories');
   }
   else {
     $category = $categories->getResult();
@@ -211,7 +211,7 @@ function govdelivery_api_category_edit_form($form, &$form_state, $category_code)
   $form['category_description'] = array(
     '#type' => 'textarea',
     '#title' => t('Description'),
-    '#default_value' => $category->description,
+    '#default_value' => !is_object($category->description) ? $category->description : NULL,
   );
   // Get the categories from GovDelivery.
   $categories = govdelivery_api_get_categories();
@@ -291,7 +291,7 @@ function govdelivery_api_category_edit_form_submit(&$form, &$form_state) {
   elseif (!empty($category->errorMessage)) {
     drupal_set_message($category->getErrorMessage(), 'error');
   }
-  $form_state['redirect'] = url('admin/config/services/govdelivery-api/categories');
+  $form_state['redirect'] = url(GOVDELIVERY_API_MENU_PATH . '/categories');
 }
 
 
@@ -309,7 +309,7 @@ function govdelivery_api_category_edit_form_delete_submit($form, &$form_state) {
     unset($_GET['destination']);
   }
   $category_code = $form_state['values']['category_code'];
-  $form_state['redirect'] = array('admin/config/services/govdelivery-api/categories/' . $category_code . '/delete', array('query' => $destination));
+  $form_state['redirect'] = array(GOVDELIVERY_API_MENU_PATH . '/categories/' . $category_code . '/delete', array('query' => $destination));
 }
 
 
@@ -323,7 +323,7 @@ function govdelivery_api_category_delete_form($form, &$form_state, $category_cod
   
   return confirm_form($form,
     t('Are you sure you want to delete category %category_code?', array('%category_code' => $category_code)),
-    'admin/config/services/govdelivery-api/categories' . $category_code . '/edit',
+    GOVDELIVERY_API_MENU_PATH . '/categories' . $category_code . '/edit',
     t('This action cannot be undone.'),
     t('Delete'),
     t('Cancel')
@@ -344,7 +344,7 @@ function govdelivery_api_category_delete_form_submit(&$form, &$form_state) {
       drupal_set_message($delete->getErrorMessage(), 'error');
     }
   }
-  $form_state['redirect'] = 'admin/config/services/govdelivery-api/categories';
+  $form_state['redirect'] = GOVDELIVERY_API_MENU_PATH . '/categories';
 }
 
 
@@ -356,7 +356,7 @@ function _govdelivery_api_category_operations($category_code = NULL) {
 
   // Add the edit link - if the user has access.
   if (user_access('edit govdelivery categories')) {
-    $operations[] = l(t('Edit'), 'admin/config/services/govdelivery-api/categories/' . $category_code . "/edit");
+    $operations[] = l(t('Edit'), GOVDELIVERY_API_MENU_PATH . '/categories/' . $category_code . "/edit");
   }
 
   // Add the delete link - if the user has access.
