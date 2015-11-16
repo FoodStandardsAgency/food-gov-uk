@@ -32,6 +32,7 @@ function fsa_search_spellcheck_block_view($delta = '') {
         '#theme' => 'search_spelling_suggestions',
         '#keyword' => $_GET['keyword'],
         '#original_query' => !empty($_GET['original_query']) ? $_GET['original_query'] : NULL,
+        '#suggestion' => !empty($_GET['suggestion']) ? $_GET['suggestion'] : NULL,
         '#attached' => array(
           'css' => array(
             drupal_get_path('module', 'fsa_search_spellcheck') . "/css/search-spelling-suggestions.css",
@@ -54,6 +55,7 @@ function fsa_search_spellcheck_theme() {
       'variables' => array(
         'keyword' => '',
         'original_query' => NULL,
+        'suggestion' => NULL,
       ),
     ),
   );
@@ -64,8 +66,10 @@ function fsa_search_spellcheck_theme() {
  * Preprocess function for spelling suggestions block
  */
 function template_preprocess_search_spelling_suggestions(&$variables) {
-  $variables['show_suggestions'] = !empty($variables['original_query']);
+  $variables['show_original'] = !empty($variables['original_query']);
+  $variables['show_suggestions'] = !empty($variables['suggestion']);
   $variables['original_query_link'] = !empty($variables['original_query']) ? url('search', array('query' => array('keyword' => $variables['original_query']))) : NULL;
+  $variables['suggested_query_link'] = !empty($variables['suggestion']) ? url('search', array('query' => array('keyword' => $variables['suggestion']))) : NULL;
 }
 
 
@@ -96,15 +100,29 @@ function fsa_search_spellcheck_form_alter(&$form, &$form_state, $form_id) {
 function fsa_search_spellcheck_search_form_submit(&$form, &$form_state) {
   $original_query = $form_state['values']['search_block_form'];
   $form_state['rebuild'] = TRUE;
-  $search_str = fsa_search_spellcheck_check_spelling($original_query);
+
+  // Get the Solr spellcheck results
+  $spellcheck_result = fsa_search_spellcheck_check_spelling($original_query);
+
+  // Get the search string
+  $search_str = !empty($spellcheck_result['query']) ? $spellcheck_result['query'] : $original_query;
   $options = array(
     'query' => array(
       'keyword' => $search_str,
     ),
   );
-  if ($search_str != $original_query) {
-    $options['query']['original_query'] = $original_query;
+
+  // If we have an original query, then add it to the query string
+  if (!empty($spellcheck_result['original_query'])) {
+    $options['query']['original_query'] = $spellcheck_result['original_query'];
   }
+
+  // If we have a spelling suggestion, add it to the query string
+  if (!empty($spellcheck_result['suggestion'])) {
+    $options['query']['suggestion'] = $spellcheck_result['suggestion'];
+  }
+
+  // Redirect the user to the search results page - with any additional options.
   drupal_goto('search', $options);
 }
 
@@ -121,18 +139,41 @@ function fsa_search_spellcheck_search_form_submit(&$form, &$form_state) {
       // Create a new SolrBaseQuery
       $query = new SolrBaseQuery('spellcheck', $solr);
       // Add solr parameters for the spelling check
-      $query->addParam('qt', '/spell');
+      //$query->addParam('qt', '/spell');
       $query->removeParam('fq');
+      $query->addParam('q', $keyword);
       $query->addParam('spellcheck.q', $keyword);
       $query->addParam('spellcheck', 'true');
       $query->addParam('spellcheck.onlyMorePopular', 'true');
       $query->addParam('spellcheck.extendedResults', 'true');
       $query->addParam('spellcheck.collate', 'true');
+      $query->addParam('spellcheck.build', 'true');
       // Execute the query
       list($final_query, $response) = apachesolr_do_query($query);
-      // If we have spelling collations, return them; otherwise, return the
-      // original query.
-      return !empty($response->spellcheck->suggestions->collation) ? $response->spellcheck->suggestions->collation : $keyword;
+
+      // Does Solr think all the words are correctly spelt?
+      $correctly_spelled = !empty($response->spellcheck->suggestions->correctlySpelled) ? TRUE : FALSE;
+
+      // Is there a suggestion (collation)?
+      $suggestion = !empty($response->spellcheck->suggestions->collation) ? $response->spellcheck->suggestions->collation : NULL;
+
+      // Return an array that can be used when presenting the results.
+      $return_array = array(
+        // This is the query that will be executed. If there is a suggestion,
+        // and Solr thinks it's incorrectly spelt, use the suggestion. Otherwise
+        // use the original search term.
+        'query' => !empty($suggestion) && !$correctly_spelled ? $suggestion : $keyword,
+        // This is set if a suggestion is used instead of the original query,
+        // otherwise it is set to NULL.
+        'original_query' => !empty($suggestion) && !$correctly_spelled ? $keyword : NULL,
+        // This is set if there is a suggestion, but Solr thinks the original
+        // query was correctly spelt. In this case, we provide a suggestion,
+        // but the search executes the original query by default.
+        'suggestion' => !empty($suggestion) && $correctly_spelled ? $suggestion : NULL,
+      );
+
+      return $return_array;
+
     }
     // Catch any exceptions and return the original query.
     catch (Exception $e) {
