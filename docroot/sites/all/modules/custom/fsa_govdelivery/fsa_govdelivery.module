@@ -307,7 +307,10 @@ function fsa_govdelivery_taxonomy_vocabulary_update($vocabulary) {
         'govdelivery_type' => $child_type,
         'govdelivery_code' => NULL,
       );
-      if (!empty($quick_subscribe_page)) {
+      // Get any existing mapping details for the term.
+      $term_mapping = _fsa_govdelivery_get_entity_settings('term', $term->tid);
+      // Overwrite child options only if they are not set.
+      if (!empty($quick_subscribe_page) && empty($term_mapping->quick_subscribe_page)) {
         $params['options']['quick_subscribe_page'] = $quick_subscribe_page;
       }
       $gid = fsa_govdelivery_add_mapping($params);
