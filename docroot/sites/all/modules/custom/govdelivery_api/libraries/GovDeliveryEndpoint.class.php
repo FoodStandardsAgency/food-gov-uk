@@ -264,9 +264,6 @@ abstract class GovDeliveryEndpoint {
     // Override any CURL options specified in the $curl_options parameter
     $curl_options += $curl_opts;
     
-    dpm($curl_options);
-    
-
     // Set the CURL method
     switch ($method) {
       case 'DELETE':

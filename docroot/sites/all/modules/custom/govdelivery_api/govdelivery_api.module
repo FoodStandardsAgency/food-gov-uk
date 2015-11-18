@@ -53,11 +53,15 @@ function govdelivery_api_permission() {
     'view govdelivery topics' => array(
       'title' => t('View GovDelivery topics'),
       'description' => t('View topics from GovDelivery'),
-    ),  
+    ),
     'edit govdelivery topics' => array(
       'title' => t('Edit GovDelivery topics'),
       'description' => t('Edit topics from GovDelivery'),
-    ),  
+    ),
+    'manage govdelivery quick subscribe pages' => array(
+      'title' => t('Manage GovDelivery quick subscribe pages'),
+      'description' => t('View, create, edit and delete quick subscribe pages'),
+    ),
   );
 }
 
@@ -136,7 +140,7 @@ function govdelivery_api_menu() {
     'file' => 'govdelivery_api.categories.admin.inc',
     'type' => MENU_LOCAL_TASK,
     'weight' => -10,
-  );  
+  );
   $items[GOVDELIVERY_API_MENU_PATH . '/categories/%/delete'] = array(
     'title' => t('Delete'),
     'description' => t('Delete the category.'),
@@ -158,7 +162,7 @@ function govdelivery_api_menu() {
     'type' => MENU_LOCAL_TASK,
     'weight' => -9,
     'file' => 'govdelivery_api.topics.admin.inc',
-  );  
+  );
   $items[GOVDELIVERY_API_MENU_PATH . '/topics/%/edit'] = array(
     'title' => t('Edit topic'),
     'description' => t('Edit the topic.'),
@@ -166,8 +170,43 @@ function govdelivery_api_menu() {
     'page arguments' => array('govdelivery_api_topic_edit_form', 5),
     'access arguments' => array('edit govdelivery topics'),
     'file' => 'govdelivery_api.topics.admin.inc',
-  );  
+  );
 
+  $items[GOVDELIVERY_API_MENU_PATH . '/quick-subscribe-pages'] = array(
+    'title' => t('Quick subscribe pages'),
+    'description' => t('View a list of GovDirectory Quick Subscribe pages'),
+    'page arguments' => array('govdelivery_api_quick_subscribe_pages_form'),
+    'access arguments' => array('manage govdelivery quick subscribe pages'),
+    'file' => 'govdelivery_api.quick_subscribe_pages.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 10,
+  );
+
+  $items[GOVDELIVERY_API_MENU_PATH . '/quick-subscribe-pages/create'] = array(
+    'title' => t('Create quick subscribe page'),
+    'description' => t('Create a new GovDelivery quick subscribe page.'),
+    'page arguments' => array('govdelivery_api_quick_subscribe_page_create_form'),
+    'access arguments' => array('manage govdelivery quick subscribe pages'),
+    'type' => MENU_LOCAL_ACTION,
+    'weight' => -9,
+    'file' => 'govdelivery_api.quick_subscribe_pages.admin.inc',
+  );
+
+  $items[GOVDELIVERY_API_MENU_PATH . '/quick-subscribe-pages/%/edit'] = array(
+    'title' => t('Edit'),
+    'description' => t('Edit GovDelivery quick subscribe page.'),
+    'page arguments' => array('govdelivery_api_quick_subscribe_page_create_form', 5),
+    'access arguments' => array('manage govdelivery quick subscribe pages'),
+    'file' => 'govdelivery_api.quick_subscribe_pages.admin.inc',
+  );
+
+  $items[GOVDELIVERY_API_MENU_PATH . '/quick-subscribe-pages/%/delete'] = array(
+    'title' => t('Delete'),
+    'description' => t('Delete GovDelivery quick subscribe page.'),
+    'page arguments' => array('govdelivery_api_quick_subscribe_page_delete_form', 5),
+    'access arguments' => array('manage govdelivery quick subscribe pages'),
+    'file' => 'govdelivery_api.quick_subscribe_pages.admin.inc',
+  );
   return $items;
 }
 
@@ -187,7 +226,7 @@ function govdelivery_api_create_category($params = array()) {
     $return_object = new GovDeliveryResult;
     $api_status = _govdelivery_api_set_api_status(FALSE, $e);
     return $return_object->setErrorMessage(t('An error occurred creating the category. The error message was: %message', array('%message' => $e->getMessage())));
-  }  
+  }
 }
 
 
@@ -227,7 +266,7 @@ function govdelivery_api_update_category($params = array()) {
     $return_object = new GovDeliveryResult;
     $api_status = _govdelivery_api_set_api_status(FALSE, $e);
     return $return_object->setErrorMessage(t('An error occurred updating the category. The error message was: %message', array('%message' => $e->getMessage())));
-  }    
+  }
 }
 
 
@@ -306,7 +345,7 @@ function _govdelivery_api_account_details() {
   // Use `drupal_static()` to avoid having to check the variables more than
   // once per request.
   $account_details = &drupal_static(__FUNCTION__);
-  
+
   if (!isset($account_details)) {
     // Regex to determine whether the password has been encrypted in the database.
     // When passwords are encrypted, they are stored as a serialized array, which
@@ -393,7 +432,7 @@ function govdelivery_api_create_topic($params = array()) {
     $return_object = new GovDeliveryResult;
     $api_status = _govdelivery_api_set_api_status(FALSE, $e);
     return $return_object->setErrorMessage(t('An error occurred creating the topic. The error message was: %message', array('%message' => $e->getMessage())));
-  }  
+  }
 }
 
 
@@ -412,7 +451,7 @@ function govdelivery_api_update_topic($params = array()) {
     $return_object = new GovDeliveryResult;
     $api_status = _govdelivery_api_set_api_status(FALSE, $e);
     return $return_object->setErrorMessage(t('An error occurred updating the topic. The error message was: %message', array('%message' => $e->getMessage())));
-  }    
+  }
 }
 
 
@@ -469,15 +508,15 @@ function govdelivery_api_theme() {
 function _govdelivery_api_category_view($category_code = NULL) {
   // First load the category from the GovDelivery API
   $categories = govdelivery_api_get_categories($category_code);
-  
+
   if (empty($categories->result)) {
     drupal_set_message('No category found', 'error');
     drupal_goto(GOVDELIVERY_API_MENU_PATH . '/categories');
   }
-  
+
   else {
     $category = $categories->getResult();
-  }  
+  }
 
   // Create a render array
   $build = array(
@@ -489,11 +528,11 @@ function _govdelivery_api_category_view($category_code = NULL) {
       ),
     ),
   );
-  
+
   drupal_set_title($category->name . ' (' . $category->code . ')');
-  
+
   return $build;
-  
+
 }
 
 
@@ -503,8 +542,6 @@ function _govdelivery_api_category_view($category_code = NULL) {
 function template_preprocess_govdelivery_category(&$variables) {
   // Get the category object
   $category = !empty($variables['category']) ? $variables['category'] : NULL;
-  
-  
   // Set up some variables
   $variables['name'] = !empty($category->name) ? $category->name : '';
   $variables['category_code'] = !empty($category->code) ? $category->code : '';
@@ -512,6 +549,11 @@ function template_preprocess_govdelivery_category(&$variables) {
   $variables['description'] = !empty($category->description) && !is_object($category->description) ? $category->description : t('None');
   $variables['allow_subscriptions'] = !empty($category->{'allow-subscriptions'}) ? t('Yes') : t('No');
   $variables['default_open'] = !empty($category->{'default-open'}) ? t('Yes') : t('No');
+
+  // Get the quick subscribe page
+  $qs_page = _govdelivery_api_get_category_quick_subscribe_page($category);
+  // Set the quick subscribe page variable.
+  $variables['quick_subscribe_page'] = !empty($qs_page['name']) ? $qs_page['name'] : NULL;
 
   // Get the parent category (if present)
   $parent_category_code = !empty($category->parent) ? $category->parent->code : NULL;
@@ -527,7 +569,7 @@ function template_preprocess_govdelivery_category(&$variables) {
   else {
     $variables['parent_category'] = NULL;
   }
-  
+
   // Get related topics - if there are any
   $topic_results = govdelivery_api_get_category_topics($category->code)->result;
   $topics = !empty($topic_results->topic) ? $topic_results->topic : array();
@@ -543,7 +585,7 @@ function template_preprocess_govdelivery_category(&$variables) {
       '#href' => GOVDELIVERY_API_MENU_PATH . "/topics/" . $topic->code . '/edit',
     );
   }
-  
+
 }
 
 
@@ -558,16 +600,16 @@ function _govdelivery_api_available($force_check = FALSE) {
     'healthy' => variable_get('govdelivery_api_healthy_interval', GOVDELIVERY_API_DEFAULT_HEALTHY_INTERVAL),
     'unhealthy' => variable_get('govdelivery_api_unhealthy_interval', GOVDELIVERY_API_DEFAULT_UNHEALTHY_INTERVAL),
   );
-  
+
   // Get the previous API status.
   $api_status = _govdelivery_api_get_api_status();
-  
+
   // If we have a previous status and the interval has not been exceeded,
   // return the previous state. Processing stops here.
   if (!$force_check && !empty($api_status) && (REQUEST_TIME - $api_status->lastCheck < $intervals[$api_status->healthy ? 'healthy' : 'unhealthy'])) {
     return $api_status;
   }
-  
+
   // Check the status of the API by sending a HEAD request to the endpoint.
   try {
     $api = new GovDeliveryCategories(_govdelivery_api_account_details());
@@ -580,26 +622,26 @@ function _govdelivery_api_available($force_check = FALSE) {
   }
 
   return $api_status;
-  
+
 }
 
 
 /**
  * Wrapper function for drupal_get_form().
- * 
+ *
  * Checks for the availability of the GovDelivery API before calling
  * drupal_get_form(). If the API is not available, returns an error page.
  */
 function _govdelivery_api_get_form($form_id) {
-  
+
   // Check the availability of the GovDelivery API.
   $check = _govdelivery_api_available();
-  
+
   // If the API is healthy, call drupal_get_form(), passing the arguments.
   if ($check->healthy) {
     return call_user_func_array('drupal_get_form', func_get_args());
   }
-  
+
   // Otherwise, build and return a render array for an error page.
   else {
     return array(
@@ -616,9 +658,9 @@ function _govdelivery_api_get_form($form_id) {
 function template_preprocess_govdelivery_api_down_page(&$variables) {
   $check = $variables['api_status'];
   $variables['error_message'] = !empty($check->exception) && method_exists($check->exception, 'getMessage') ? $check->exception->getMessage() : '';
-  
+
   $http_code = $check->getHttpCode();
-  
+
   if (!empty($http_code)) {
     switch($http_code) {
       case 401:
@@ -651,3 +693,94 @@ function _govdelivery_api_set_api_status($healthy = TRUE, $exception = NULL) {
 function _govdelivery_api_get_api_status() {
   return variable_get('govdelivery_api_status');
 }
+
+
+/**
+ * Helper function: returns a list of GovDelivery Quick Subscribe pages
+ *
+ * Note that Quick Subscribe pages are not currently available via the
+ * GovDelivery API, so this list is maintained separately in Drupal. The codes
+ * used must match those used in GovDelivery though. Quick Subscribe pages can
+ * be accessed via the GovDelivery admin interface at:
+ * http://admin.govdelivery.com/accounts/[account code]/quick_subscribe_pages
+ */
+function _govdelivery_api_get_quick_subscribe_pages() {
+  $quick_subscribe_pages = variable_get('govdelivery_api_quick_subscribe_pages', array());
+  return $quick_subscribe_pages;
+}
+
+
+/**
+ * Helper function: updates GovDelivery Quick Subscribe pages
+ */
+function _govdelivery_api_set_quick_subscribe_pages($pages = NULL) {
+  if (empty($pages)) {
+    return FALSE;
+  }
+  variable_set('govdelivery_api_quick_subscribe_pages', $pages);
+  return TRUE;
+}
+
+/**
+ * Helper function: returns details for a specific Quick Subscribe page
+ */
+function _govdelivery_api_get_quick_subscribe_page($code = NULL) {
+  if (empty($code)) {
+    return array();
+  }
+  $quick_subscribe_pages = _govdelivery_api_get_quick_subscribe_pages();
+  if (!empty($quick_subscribe_pages[$code])) {
+    return array(
+      $code => $quick_subscribe_pages[$code],
+    );
+  }
+  else {
+    return array();
+  }
+ }
+
+
+ /**
+  * Helper function: returns Quick Subscribe page for a category
+  */
+ function _govdelivery_api_get_category_quick_subscribe_page($category = NULL) {
+   if (empty($category)) {
+     return array();
+   }
+
+  // Get the quick subscribe pages
+  $quick_subscribe_pages = _govdelivery_api_get_quick_subscribe_pages();
+  $qs_page = !empty($category->{'qs-page'}->code) ? $category->{'qs-page'}->code : NULL;
+
+  if (empty($qs_page)) {
+    return array();
+  }
+
+  $return_array = array(
+    'code' => $qs_page,
+    'name' => !empty($quick_subscribe_pages[$qs_page]) ? $quick_subscribe_pages[$qs_page] : '',
+  );
+
+  return $return_array;
+
+ }
+
+
+ /**
+  * Helper function: returns the public URL for a Quick Subscribe page.
+  *
+  * @param string $code
+  *   The GovDelivery code for the Quick Subscribe page.
+  *
+  * @return string
+  *   The public URL of the Quick Subscribe page, or an empty string if none is
+  *   found.
+  */
+ function _govdelivery_api_quick_subscribe_page_public_url($code) {
+   if (empty($code)) {
+     return '';
+   }
+   $account_details = _govdelivery_api_account_details();
+   $base_url = str_replace('api', 'public', $account_details['base_url']);
+   return url($base_url . '/accounts/' . $account_details['account_code'] . '/subscriber/topics', array('https' => TRUE, 'query' => array('qsp' => $code)));
+ }

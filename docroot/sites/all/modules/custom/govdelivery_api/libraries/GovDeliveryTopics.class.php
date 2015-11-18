@@ -91,10 +91,15 @@ class GovDeliveryTopics extends GovDeliveryEndpoint {
         $xml_doc->addChild('short-name', $params['topic_name']);
         $xml_doc->addChild('description', $params['topic_description']);
         $xml_doc->addChild('pagewatch-enabled', 'true')->addAttribute('type', 'boolean');
-        $xml_doc->addChild('pagewatch-autosend', 'true')->addAttribute('type', 'boolean');
+        
+        
+        $autosend = isset($params['pagewatch_autosend']) ? $params['pagewatch_autosend'] : 'true';
+        
+        $xml_doc->addChild('pagewatch-autosend', $autosend)->addAttribute('type', 'boolean');
         $xml_doc->addChild('pagewatch-type', 1)->addAttribute('type', 'integer');
 
         if (!empty($params['pages'])) {
+          
           $pages = $xml_doc->addChild('pages');
           $pages->addAttribute('type', 'array');
           foreach ($params['pages'] as $page) {
