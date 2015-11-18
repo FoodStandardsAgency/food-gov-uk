@@ -16,17 +16,15 @@ function fsa_govdelivery_form_taxonomy_form_vocabulary_alter(&$form, $form_state
 
   // Get the vocabulary object, if defined.
   $vocabulary = !empty($form['#vocabulary']) ? $form['#vocabulary'] : NULL;
-  
+
   // Get the GovDelivery settings for this vocabulary, if set.
-  $govdelivery_settings = !empty($vocabulary->vid) ? _fsa_govdelivery_get_entity_settings('vocabulary', $vocabulary->vid)->fetchAssoc() : array();
-  
+  $govdelivery_settings = !empty($vocabulary->vid) ? get_object_vars(_fsa_govdelivery_get_entity_settings('vocabulary', $vocabulary->vid)) : array();
+
   // If this vocabulary is already mapped to a vocabulary, get the mapping ID.
   $form['#govdelivery_mapping_id'] = !empty($govdelivery_settings['gid']) ? $govdelivery_settings['gid'] : NULL;
-  
+
   // Get the options array for the GovDelivery mapping, if set.
-  $govdelivery_options = !empty($govdelivery_settings['options']) ? unserialize($govdelivery_settings['options']) : array();
-  
-  //dpm($govdelivery_options);
+  $govdelivery_options = !empty($govdelivery_settings['options']) ? $govdelivery_settings['options'] : array();
 
   // Add a fieldset for the GovDelivery settings
   $form['govdelivery_settings'] = array(
@@ -51,7 +49,7 @@ function fsa_govdelivery_form_taxonomy_form_vocabulary_alter(&$form, $form_state
     '#default_value' => !empty($govdelivery_settings['govdelivery_code']) ? $govdelivery_settings['govdelivery_code'] : NULL,
   );
 
-  
+
   $form['govdelivery_settings']['govdelivery_readonly'] = array(
     '#type' => 'checkbox',
     '#title' => t('Read-only'),
@@ -63,7 +61,7 @@ function fsa_govdelivery_form_taxonomy_form_vocabulary_alter(&$form, $form_state
       ),
     ),
   );
-  
+
   unset($options['new_category']);
   $form['govdelivery_settings']['govdelivery_parent_category'] = array(
     '#type' => 'select',
@@ -96,6 +94,23 @@ function fsa_govdelivery_form_taxonomy_form_vocabulary_alter(&$form, $form_state
     ),
   );
 
+  $quick_subscribe_pages = _govdelivery_api_get_quick_subscribe_pages();
+  if (!empty($quick_subscribe_pages)) {
+    $form['govdelivery_settings']['govdelivery_child_quick_subscribe_page'] = array(
+      '#type' => 'select',
+      '#title' => t('Child item quick subscribe page'),
+      '#description' => t('Which quick subscribe page should be associated with child items of this vocabulary?'),
+      '#options' => $quick_subscribe_pages,
+      '#empty_option' => t('Please choose...'),
+      '#default_value' => !empty($govdelivery_options['child_quick_subscribe_page']) ? $govdelivery_options['child_quick_subscribe_page'] : NULL,
+      '#states' => array(
+        'invisible' => array(
+          ':input[name="govdelivery_category"]' => array('value' => ''),
+        ),
+      ),
+    );
+  }
+
 }
 
 
@@ -114,9 +129,13 @@ function fsa_govdelivery_taxonomy_form_vocabulary_submit($form, &$form_state) {
     if (!empty($form_state['values']['govdelivery_child_type'])) {
       $govdelivery_settings['child_type'] = $form_state['values']['govdelivery_child_type'];
     }
-    
+
     if (!empty($form_state['values']['govdelivery_readonly'])) {
       $govdelivery_settings['readonly'] = $form_state['values']['govdelivery_readonly'];
+    }
+
+    if (!empty($form_state['values']['govdelivery_child_quick_subscribe_page'])) {
+      $govdelivery_settings['child_quick_subscribe_page'] = $form_state['values']['govdelivery_child_quick_subscribe_page'];
     }
 
     // Attempt to create a new category - if that option is selected.
@@ -174,13 +193,45 @@ function fsa_govdelivery_taxonomy_form_vocabulary_submit($form, &$form_state) {
 
 /**
  * Helper function - retrieves settings from the GovDelivery mapping table
+ *
+ * @param string $entity_type
+ *   The type of entity for which we want to retrieve GovDelivery mapping info,
+ *   eg 'vocabulary', 'node', 'term'.
+ * @param string $entity_id
+ *   The ID of the entity for which we want to retrieve GovDelivery mapping
+ *   info, eg the tid of a term or the nid or a node.
+ *
+ * @return object
+ *   An object representing mapping properties, such as entity ID, entity type,
+ *   GovDelivery type, GovDelivery code, together with various other properties
+ *   such as parent entities, Quick Subscribe pages etc.
  */
 function _fsa_govdelivery_get_entity_settings($entity_type = NULL, $entity_id = NULL) {
   $query = db_select('govdelivery_mapping', 'g')
     ->fields('g')
     ->condition('entity_type', $entity_type)
     ->condition('entity_id', $entity_id);
-  $result = $query->execute();
+  $result = $query->execute()->fetchObject();
+
+  // Return early if there is no entry.
+  if (empty($result)) {
+    return $result;
+  }
+
+  // Get the options - if set.
+  $options = !empty($result->options) ? unserialize($result->options) : array();
+
+  // Unserialize the options array here.
+  $result->options = $options;
+
+  // Set some typical values from the options array as properties of the object
+  $keys = array('parents', 'pages', 'quick_subscribe_page', 'child_type', 'child_quick_subscribe_page', 'readonly');
+  foreach ($keys as $key) {
+    if (isset($options[$key])) {
+      $result->{$key} = $options[$key];
+    }
+  }
+  // Return the result object
   return $result;
 }
 
@@ -192,7 +243,7 @@ function _fsa_govdelivery_get_mapping($gid = NULL) {
   if (empty($gid)) {
     return new stdClass();
   }
-  
+
   $query = db_select('govdelivery_mapping', 'g')
     ->fields('g')
     ->condition('gid', $gid);
@@ -220,32 +271,33 @@ function fsa_govdelivery_govdelivery_category_delete($category_code = NULL) {
  * Implements hook_taxonomy_vocabulary_update().
  */
 function fsa_govdelivery_taxonomy_vocabulary_update($vocabulary) {
-  
+
   // Get the $vid for the vocabulary
   $vid = $vocabulary->vid;
-  
+
   // Get the GovDelivery mapping data, if any
   $query = db_select('govdelivery_mapping', 'g')
     ->fields('g')
     ->condition('entity_type', 'vocabulary')
     ->condition('entity_id', $vid);
   $result = $query->execute()->fetchObject();
-  
+
   // If we don't have a mapping, exit now
   if (empty($result->gid)) {
     return;
   }
-  
+
   // Get the options for the mapping, or set some sane defaults if empty.
   $options = !empty($result->options) ? unserialize($result->options) : array('child_type' => 'none', 'readonly' => 1);
-  
+
   // We want to add the vocabulary to the queue only if it's not read-only
   if ($options['readonly'] == 1) {
     _fsa_govdelivery_queue_add_items(array($result->gid));
   }
-  
+
   // Create the child mappings, if required
   $child_type = $options['child_type'];
+  $quick_subscribe_page = !empty($options['child_quick_subscribe_page']) ? $options['child_quick_subscribe_page'] : NULL;
   if ($child_type != 'none') {
     $terms = taxonomy_get_tree($vid);
     foreach ($terms as $term) {
@@ -255,6 +307,9 @@ function fsa_govdelivery_taxonomy_vocabulary_update($vocabulary) {
         'govdelivery_type' => $child_type,
         'govdelivery_code' => NULL,
       );
+      if (!empty($quick_subscribe_page)) {
+        $params['options']['quick_subscribe_page'] = $quick_subscribe_page;
+      }
       $gid = fsa_govdelivery_add_mapping($params);
       _fsa_govdelivery_queue_add_items(array($gid));
     }
@@ -267,21 +322,21 @@ function fsa_govdelivery_taxonomy_vocabulary_update($vocabulary) {
  */
 function fsa_govdelivery_add_mapping($variables) {
   extract($variables);
-  $existing = _fsa_govdelivery_get_entity_settings($entity_type, $entity_id)->fetchObject();
+  $existing = _fsa_govdelivery_get_entity_settings($entity_type, $entity_id);
   $fields = array(
     'entity_id' => $entity_id,
     'entity_type' => $entity_type,
     'govdelivery_type' => $govdelivery_type,
   );
-  
+
   if (!empty($govdelivery_code)) {
     $fields['govdelivery_code'] = $govdelivery_code;
   }
-  
+
   if (!empty($options)) {
     $fields['options'] = serialize($options);
   }
-  
+
   if (empty($existing)) {
     $query = db_insert('govdelivery_mapping')
       ->fields($fields);
@@ -293,19 +348,19 @@ function fsa_govdelivery_add_mapping($variables) {
       return 0;
     }
   }
-  
+
   else {
     if ($existing->govdelivery_type != $govdelivery_type) {
       $fields['govdelivery_code'] = '';
     }
-    
+
     $query = db_update('govdelivery_mapping')
       ->condition('gid', $existing->gid)
       ->fields($fields);
     $result = $query->execute();
     return ($existing->gid);
   }
-  
+
 }
 
 
@@ -335,42 +390,42 @@ function fsa_govdelivery_cron_queue_info() {
 function _fsa_govdelivery_sync_item($item) {
 
   $mapping = _fsa_govdelivery_get_mapping($item);
-  
+
   if (empty($mapping->gid) || empty($mapping->govdelivery_type)) {
     return;
   }
-  
+
   $entity = new stdClass();
   $parent = NULL;
 
   // Get the options for the mapping.
   $options = !empty($mapping->options) ? unserialize($mapping->options) : array('readonly' => 0);
-  
+
   // Load the relevant Drupal entity - vocabulary or taxonomy term.
   switch ($mapping->entity_type) {
-    
+
     case 'vocabulary':
       $entity = taxonomy_vocabulary_load($mapping->entity_id);
       break;
-    
+
     case 'term':
       $entity = taxonomy_term_load($mapping->entity_id);
       $parent = $entity->vid;
       break;
-    
+
     case 'node':
       $entity = node_load($mapping->entity_id);
       $entity->name = $entity->title;
       $entity->description = '';
       $entity->tid = $entity->nid;
       $parents = !empty($options['parents']) ? $options['parents'] : array();
-      
+
       break;
   }
-  
-  
+
+
   switch ($mapping->govdelivery_type) {
-    
+
     case 'category':
       $params = array(
         'category_name' => $entity->name,
@@ -378,15 +433,19 @@ function _fsa_govdelivery_sync_item($item) {
         'category_description' => $entity->description,
       );
 
+      if (!empty($options['quick_subscribe_page'])) {
+        $params['qs_page'] = $options['quick_subscribe_page'];
+      }
+
       if (!empty($parent)) {
         watchdog('fsa_govdelivery', $mapping->entity_type);
         watchdog('fsa_govdelivery', $parent);
-        
-        $parent_category = _fsa_govdelivery_get_entity_settings('vocabulary', $parent)->fetchObject();
+
+        $parent_category = _fsa_govdelivery_get_entity_settings('vocabulary', $parent);
         watchdog('fsa_govdelivery', serialize($parent_category));
         $params['parent_category'] = $parent_category->govdelivery_code;
       }
-      
+
       if (empty($options['readonly'])) {
         watchdog('fsa_govdelivery', 'Not readyonly - ' . serialize($mapping));
         if (!empty($mapping->govdelivery_code)) {
@@ -410,31 +469,31 @@ function _fsa_govdelivery_sync_item($item) {
         }
       }
       break;
-    
-    
+
+
     case 'topic':
-      
+
       $params = array(
         'topic_name' => $entity->name,
         'topic_description' => $entity->description,
       );
-      
+
       $categories = array();
       foreach($parents as $parent) {
-        $m = _fsa_govdelivery_get_entity_settings($parent['type'], $parent['id'])->fetchObject();
+        $m = _fsa_govdelivery_get_entity_settings($parent['type'], $parent['id']);
         if (!empty($m->govdelivery_code)) {
           $categories[] = $m->govdelivery_code;
         }
       }
-      
+
       if (!empty($options['pages'])) {
         $params['pages'] = $options['pages'];
       }
-      
+
       if (is_array($categories)) {
         $params['categories'] = $categories;
       }
-      
+
       if (!empty($mapping->govdelivery_code)) {
         $params['topic_code'] = $mapping->govdelivery_code;
         $topic = govdelivery_api_update_topic($params);
@@ -442,7 +501,7 @@ function _fsa_govdelivery_sync_item($item) {
       else {
         $topic = govdelivery_api_create_topic($params);
       }
-      
+
       if (!empty($topic->result->element_code)) {
         $variables = array(
           'entity_id' => $entity->tid,
@@ -450,13 +509,13 @@ function _fsa_govdelivery_sync_item($item) {
           'govdelivery_type' => 'topic',
           'govdelivery_code' => $topic->result->element_code,
         );
-          
+
         fsa_govdelivery_add_mapping($variables);
       }
       break;
   }
-  
-  
+
+
 }
 
 /**
@@ -495,12 +554,14 @@ function fsa_govdelivery_taxonomy_term_insert($term) {
   if (empty($term->vid)) {
     return;
   }
-  
-  $mapping = _fsa_govdelivery_get_entity_settings('vocabulary', $term->vid)->fetchObject();
+
+  // Get a GovDelivery mapping for the term's vocabulary - if set.
+  $mapping = _fsa_govdelivery_get_entity_settings('vocabulary', $term->vid);
+  // No mapping? Leave now.
   if (empty($mapping)) {
     return;
   }
-  $options = unserialize($mapping->options);
+  $options = $mapping->options;
   $child_type = !empty($options['child_type']) ? $options['child_type'] : 'none';
   if ($child_type == 'none') {
     return;
@@ -513,7 +574,7 @@ function fsa_govdelivery_taxonomy_term_insert($term) {
   );
   $gid = fsa_govdelivery_add_mapping($params);
   _fsa_govdelivery_queue_add_items(array($gid));
-  
+
 }
 
 
@@ -541,11 +602,11 @@ function fsa_govdelivery_taxonomy_term_delete($term) {
  * Deletes a GovDelivery entity mapping
  */
 function fsa_govdelivery_delete_mapping($params) {
-  
-  
+
+
   $query = db_delete('govdelivery_mapping');
-  
-  
+
+
   if (!empty($params['gid'])) {
     $query->condition('gid', $params['gid']);
   }
@@ -553,14 +614,14 @@ function fsa_govdelivery_delete_mapping($params) {
     $query->condition('entity_type', $params['entity_type']);
     $query->condition('entity_id', $params['entity_id']);
   }
-  
+
   $result = $query->execute();
   //dpm($result);
-  
-  
-  
-  
-  
+
+
+
+
+
 }
 
 
@@ -572,36 +633,36 @@ function fsa_govdelivery_delete_mapping($params) {
  * Implements hook_node_update().
  */
 function fsa_govdelivery_node_update($node) {
-  
+
   // Create an entity_metadata_wrapper() to get node values.
   $wrapper = entity_metadata_wrapper('node', $node);
-  
+
   // Get the site section
   $sections = !empty($wrapper->field_site_section) ? $wrapper->field_site_section->value() : NULL;
-  
+
   // If we have no site section, return now.
   if (empty($sections)) {
     return;
   }
-  
+
   // Check to see if we're in the Guidance section.
   $guidance_section_name = 'Guidance';
   $guidance = FALSE;
-  
+
   foreach ($sections as $section) {
     if (!empty($section->name) && $section->name == $guidance_section_name) {
       $guidance = TRUE;
     }
   }
-  
+
   // If we're not in the Guidance section, exit now
   if (!$guidance) {
     return;
   }
-  
+
   // Get the topics from the node
   $topics = !empty($wrapper->field_topic) ? $wrapper->field_topic->value() : NULL;
-  
+
   $categories = array();
   foreach ($topics as $topic) {
     $categories[] = array(
@@ -609,23 +670,23 @@ function fsa_govdelivery_node_update($node) {
       'id' => $topic->tid,
     );
   }
-  
+
   $options = array(
     'parents' => $categories,
     'pages' => array(url('node/' . $node->nid, array('absolute' => TRUE))),
   );
-  
+
   $variables = array(
     'entity_type' => 'node',
     'entity_id' => $node->nid,
     'govdelivery_type' => 'topic',
     'options' => $options,
   );
-  
+
   $gid = fsa_govdelivery_add_mapping($variables);
   _fsa_govdelivery_queue_add_items(array($gid));
-  
-  
+
+
 }
 
 
@@ -667,4 +728,254 @@ function _fsa_govdelivery_create_node_mappings() {
   foreach ($nodes as $node) {
     fsa_govdelivery_node_update($node);
   }
+}
+
+
+/**
+ * Implements template_preprocess_page().
+ */
+function fsa_govdelivery_preprocess_page(&$variables) {
+
+  $node = !empty($variables['node']) ? $variables['node'] : NULL;
+  $nid = !empty($node) && !empty($node->nid) ? $node->nid : NULL;
+  if (empty($node) || empty($nid)) {
+    return;
+  }
+
+  // Get GovDelivery entity mappings - if available
+  $govdelivery_settings = _fsa_govdelivery_get_entity_settings('node', $nid);
+
+  if (empty($govdelivery_settings)) {
+    return;
+  }
+
+  $quick_subscribe_code = NULL;
+
+  // Get the parents
+  $parents = !empty($govdelivery_settings->parents) ? $govdelivery_settings->parents : array();
+  foreach ($parents as $parent) {
+    $parent_options = _fsa_govdelivery_get_entity_settings($parent['type'], $parent['id']);
+    if (!empty($parent_options->options)) {
+      $parent_options = $parent_options->options;
+      if (!empty($parent_options['quick_subscribe_page'])) {
+        $quick_subscribe_code = $parent_options['quick_subscribe_page'];
+        break;
+      }
+    }
+  }
+
+  // If we don't have a quick subscribe code, return now.
+  if (empty($quick_subscribe_code)) {
+    return;
+  }
+
+  // Add quick subscribe link
+  $variables['page']['content']['govdelivery_quick_subscribe_link'] = array(
+    '#theme' => 'govdelivery_quick_subscribe_link',
+    '#quick_subscribe_code' => $quick_subscribe_code,
+    '#weight' => -10,
+  );
+
+
+  //dpm($variables);
+}
+
+
+/**
+ * Implements hook_theme().
+ */
+function fsa_govdelivery_theme() {
+  return array(
+    'govdelivery_quick_subscribe_link' => array(
+      'template' => 'theme/govdelivery-quick-subscribe-link',
+      'variables' => array(
+        'quick_subscribe_code' => NULL,
+      ),
+    ),
+  );
+}
+
+
+/**
+ * Preprocess function for GovDelivery quick subscribe page links
+ */
+function template_preprocess_govdelivery_quick_subscribe_link(&$variables) {
+
+  $variables['link_url'] = NULL;
+
+  if (empty($variables['quick_subscribe_code'])) {
+    return;
+  }
+
+  $link_url = _govdelivery_api_quick_subscribe_page_public_url($variables['quick_subscribe_code']);
+  //dpm($link_url);
+
+  //$variables['link_url'] = url('https://stage-public.govdelivery.com/accounts/UKFSA/subscriber/topics', array('query' => array('qsp' => $variables['quick_subscribe_code'])));
+  $variables['link_url'] = $link_url;
+}
+
+
+/**
+ * Implements hook_form_FORMID_alter().
+ *
+ * Used to modify the taxonomy term form.
+ */
+function fsa_govdelivery_form_taxonomy_form_term_alter(&$form, &$form_state) {
+
+  // If we're on the delete confirmation form, leave it alone.
+  if (!empty($form['delete']['#value'])) {
+    return;
+  }
+
+  // Get the term and tid data, if set.
+  $term = !empty($form['#term']) ? $form['#term'] : NULL;
+  //$tid = is_array($term) && !empty($term) && !empty($term['tid']) ? $term['tid'] : NULL;
+  $tid = !empty($form['tid']) ? $form['tid'] : NULL;
+
+  // Get the GovDelivery settings for the term - if available.
+  $govdelivery_settings = !empty($tid) ? _fsa_govdelivery_get_entity_settings('term', $tid) : NULL;
+
+  // Get GovDelivery categories
+  $categories = govdelivery_api_get_categories();
+
+  // Get GovDelivery topics
+  $topics = govdelivery_api_get_topics();
+
+  // Add our custom submit function at the start of the array.
+  $form['#submit'][] = 'fsa_govdelivery_taxonomy_form_term_submit';
+
+
+  // Add a fieldset for the GovDelivery settings
+  $form['govdelivery_settings'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('GovDelivery settings'),
+  );
+
+  // GovDelivery element type
+  $form['govdelivery_settings']['govdelivery_type'] = array(
+    '#type' => 'select',
+    '#title' => t('GovDelivery type'),
+    '#description' => t('Select the type of GovDelivery element that is associated with this term.'),
+    '#options' => array(
+      'category' => t('Category'),
+      'topic' => t('Topic'),
+    ),
+    '#empty_option' => t('None'),
+    '#default_value' => !empty($govdelivery_settings->govdelivery_type) ? $govdelivery_settings->govdelivery_type : NULL,
+  );
+
+  // GovDelivery categories
+  $form['govdelivery_settings']['govdelivery_category'] = array(
+    '#type' => 'select',
+    '#title' => t('GovDelivery category'),
+    '#options' => _fsa_govdelivery_select_options($categories),
+    '#default_value' => !empty($govdelivery_settings->govdelivery_code) ? $govdelivery_settings->govdelivery_code : NULL,
+    '#empty_option' => t('Please choose...'),
+    '#states' => array(
+      'visible' => array(
+        ':input[name="govdelivery_type"]' => array('value' => 'category'),
+      ),
+    ),
+  );
+
+  // GovDelivery Topics
+  $form['govdelivery_settings']['govdelivery_topic'] = array(
+    '#type' => 'select',
+    '#title' => t('GovDelivery topic'),
+    '#options' => _fsa_govdelivery_select_options($topics),
+    '#default_value' => !empty($govdelivery_settings->govdelivery_code) ? $govdelivery_settings->govdelivery_code : NULL,
+    '#empty_option' => t('Please choose...'),
+    '#states' => array(
+      'visible' => array(
+        ':input[name="govdelivery_type"]' => array('value' => 'topic'),
+      ),
+    ),
+  );
+
+  // Quick Subscribe page
+  $form['govdelivery_settings']['quick_subscribe_page'] = array(
+    '#type' => 'select',
+    '#title' => t('GovDelivery Quick Subscribe page'),
+    '#options' => _govdelivery_api_get_quick_subscribe_pages(),
+    '#default_value' => !empty($govdelivery_settings->quick_subscribe_page) ? $govdelivery_settings->quick_subscribe_page : NULL,
+    '#empty_option' => t('Please choose...'),
+    '#states' => array(
+      'visible' => array(
+        ':input[name="govdelivery_type"]' => array('value' => 'category'),
+      ),
+    ),
+  );
+
+}
+
+
+/**
+ * Helper function: provides an array suitable for using in a select list
+ *
+ * @param $results GovDeliveryResult
+ *   A GovDelivery result object
+ *
+ * @return array
+ *   An associative array suitable for use as the #options element of a
+ *   Form API select item. The keys will be the GovDelivery codes and the
+ *   values will be the GovDelivery names.
+ */
+function _fsa_govdelivery_select_options($results = array()) {
+  $options = array();
+  foreach ($results as $result) {
+    $options[$result->code] = $result->name;
+  }
+  return $options;
+}
+
+
+/**
+ * Custom submit handler: taxonomy term edit form.
+ */
+function fsa_govdelivery_taxonomy_form_term_submit(&$form, &$form_state) {
+
+  // Get the form values from $form_state;
+  $values = $form_state['values'];
+
+  // Get the term and tid data, if set.
+  $term = !empty($form_state['term']) ? $form_state['term'] : NULL;
+  $tid = !empty($form_state['tid']) ? $form_state['tid'] : NULL;
+
+  // No term? No tid? Exit now.
+  if (empty($term) || empty($tid)) {
+    return;
+  }
+
+  // Get the GovDelivery type and code - if provided
+  $govdelivery_type = !empty($values['govdelivery_type']) ? $values['govdelivery_type'] : NULL;
+  $govdelivery_code = !empty($govdelivery_type) && !empty($values["govdelivery_$govdelivery_type"]) ? $values["govdelivery_$govdelivery_type"] : NULL;
+
+  // If we don't hvae a GovDelivery type or code, we need go no further.
+  if (empty($govdelivery_type) || empty($govdelivery_code)) {
+    return;
+  }
+
+  // Get any parent details
+  $parent = !empty($term->vid) ? _fsa_govdelivery_get_entity_settings('vocabulary', $term->vid) : NULL;
+
+  // Build the options array
+  $options = array(
+    'quick_subscribe_page' => !empty($values['quick_subscribe_page']) ? $values['quick_subscribe_page'] : (!empty($parent->child_quick_subscribe_page) ? $parent->child_quick_subscribe_page : NULL),
+  );
+
+  // Build the variables array to be passed to fsa_govdelivery_add_mapping().
+  $variables = array(
+    'entity_type' => 'term',
+    'entity_id' => $tid,
+    'govdelivery_type' => $govdelivery_type,
+    'govdelivery_code' => $govdelivery_code,
+    'options' => $options,
+  );
+
+  // Call fsa_govdelivery_add_mapping().
+  $gid = fsa_govdelivery_add_mapping($variables);
+  if (!empty($gid)) {
+    _fsa_govdelivery_queue_add_items(array($gid));
+  }
+
 }

@@ -4,19 +4,19 @@
  * Class file for the GovDeliveryResult object
  */
 class GovDeliveryResult implements Iterator {
-  
+
   public $response;
   public $info;
   public $xml;
   public $success;
   public $errorMessage;
   public $result;
-  
+
   private $position = 0;
   protected $items = array(NULL);
-  
+
   /**
-   * 
+   *
    * @param type $xml
    */
   function __construct($response = NULL, $element = NULL) {
@@ -43,32 +43,32 @@ class GovDeliveryResult implements Iterator {
     }
     $this->position = 0;
   }
-  
+
   function __toString() {
     return $this->getXml();
   }
-  
+
   function __invoke() {
     return $this->getResult();
   }
-  
+
   protected function setResponse($response) {
     $this->response = $response;
   }
-  
+
   protected function setInfo($info) {
     $this->info = $info;
   }
-  
+
   public function setErrorMessage($error_message) {
     $this->errorMessage = $error_message;
     return $this;
   }
-  
+
   public function getErrorMessage() {
     return $this->errorMessage;
   }
-  
+
   public function getInfo($key = NULL) {
     if (empty($key)) {
       return $this->info;
@@ -78,19 +78,19 @@ class GovDeliveryResult implements Iterator {
     }
     return NULL;
   }
-  
+
   protected function setStatus($http_code = NULL) {
     $this->success = !empty($http_code) && $http_code == 200 ? TRUE : FALSE;
   }
-  
+
   public function setXml($xml) {
     $this->xml = $xml;
   }
-  
+
   public function getXml() {
     return !empty($this->xml) ? $this->xml : '';
   }
-  
+
   public function getJson() {
     $xml = $this->getXml();
     if (empty($xml)) {
@@ -100,7 +100,7 @@ class GovDeliveryResult implements Iterator {
     $json = json_encode($xml);
     return $json;
   }
-  
+
   protected function getObject() {
     $json = $this->getJson();
     $object = new stdClass();
@@ -116,33 +116,46 @@ class GovDeliveryResult implements Iterator {
       return new stdClass();
     }
   }
-  
+
   protected function setResult($result) {
     $this->result = $result;
   }
-  
+
   public function getResult() {
     return $this->result;
   }
-  
+
+  public function getItems($assoc = FALSE) {
+    if (!$assoc) {
+      return !empty($this->items) ? $this->items : array();
+    }
+    else {
+      $return_array = array();
+      foreach ($this->items as $item) {
+        $return_array[$item->code] = $item;
+      }
+      return $return_array;
+    }
+  }
+
   function current() {
     return $this->items[$this->position];
   }
-  
+
   function next() {
     ++$this->position;
   }
-  
+
   function key() {
     return $this->position;
   }
-  
+
   function valid() {
     return isset($this->items[$this->position]);
-  }  
-  
+  }
+
   function rewind() {
     $this->position = 0;
   }
-  
+
 }

@@ -35,6 +35,9 @@ class GovDeliveryCategories extends GovDeliveryEndpoint {
         //if (!empty($params['category_code'])) {
           $xml_doc->addChild('code', $params['category_code']); 
         //}
+        if (!empty($params['qs_page'])) {
+          $xml_doc->addChild('qs_page')->addChild('code', $params['qs_page']);
+        }
         $xml_doc->addChild('allow-subscriptions', $params['allow_subscriptions'])->addAttribute('type', 'boolean');
         $xml_doc->addChild('default-open', $params['default_open'])->addAttribute('type', 'boolean');
         if (!empty($params['parent_category'])) {

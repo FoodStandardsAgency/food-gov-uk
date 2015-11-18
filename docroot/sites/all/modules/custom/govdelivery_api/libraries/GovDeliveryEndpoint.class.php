@@ -152,7 +152,14 @@ abstract class GovDeliveryEndpoint {
     print "Password: Not telling<br>";
     print "Endpoint: $this->endpoint";
   }
-
+  
+  /**
+   * Tests the API connection by sending a HEAD request
+   */
+  function testConnection($timeout = 4) {
+    $return_object = new GovDeliveryResult($this->sendRequest('HEAD', NULL, NULL, array(CURLOPT_TIMEOUT => $timeout)), $this->element);
+    return $return_object;
+  }
 
   /**
    * Lists values for the given endpoint
@@ -214,21 +221,50 @@ abstract class GovDeliveryEndpoint {
 
 
   /**
-   * Send request
+   * Send an HTTP request to the GovDelivery API endpoint
+   * 
+   * @param string $method
+   *   (optional) The HTTP method to use for the request. Defaults to 'GET'.
+   * @param string $body
+   *   (optional) The request body. Defaults to NULL.
+   * @param string $endpoint
+   *   (optional) The endpoint to which the request will be sent. Defaults to
+   *   the endpoint's default endpoint URL.
+   * @param array $curl_options
+   *   (optional) Any additional CURL options for the request. These will
+   *   override the default.
+   *
+   * @throws GovDeliveryException
+   *
+   * @return object
+   *   An object with the following properties:
+   *    - 'response': The HTTP response from CURL
+   *    - 'info': Information from the CURL response
+   *    - 'header': The HTTP headers
+   *    - 'body': The HTTP response body
+   *    - 'error': Any HTTP error messages returned from the endpoint
+   * 
    */
-  function sendRequest($method = 'GET', $body = NULL, $endpoint = NULL) {
+  function sendRequest($method = 'GET', $body = NULL, $endpoint = NULL, $curl_options = array()) {
+    
+    // Determine the endpoint to which the HTTP request will be sent
     $endpoint = !empty($endpoint) ? $endpoint : $this->endpoint;
-    $curl_options = array(
+    
+    // Specify default CURL options
+    $curl_opts = array(
       CURLOPT_URL => $endpoint,
       CURLOPT_FAILONERROR => FALSE,
       CURLOPT_RETURNTRANSFER => TRUE,
-      CURLOPT_TIMEOUT => 120,
+      CURLOPT_TIMEOUT => 60,
       CURLOPT_USERPWD => $this->getAuthHeader(),
       CURLOPT_HEADER => TRUE,
       CURLOPT_HTTPHEADER => array('Content-Type: application/xml'),
-      //CURLOPT_POST => $post,
     );
-
+    
+    // Override any CURL options specified in the $curl_options parameter
+    $curl_options += $curl_opts;
+    
+    // Set the CURL method
     switch ($method) {
       case 'DELETE':
         $curl_options[CURLOPT_CUSTOMREQUEST] = 'DELETE';
@@ -239,16 +275,25 @@ abstract class GovDeliveryEndpoint {
       case 'PUT':
         $curl_options[CURLOPT_CUSTOMREQUEST] = 'PUT';
         break;
+      case 'HEAD':
+        $curl_options[CURLOPT_CUSTOMREQUEST] = 'HEAD';
+        break;
     }
 
+    // Set the request body, if specified.
     if (!empty($body)) {
       $curl_options[CURLOPT_POSTFIELDS] = $body;
     }
 
+    // Initialise CURL
     $ch = curl_init();
+    
+    // Set the CURL options
     curl_setopt_array($ch, $curl_options);
 
+    // Create the response object
     $return_value = new stdClass();
+    // Execute the request
     $return_value->response = curl_exec($ch);
     $return_value->info = curl_getinfo($ch);
     $return_value->header = substr($return_value->response, 0, curl_getinfo($ch, CURLINFO_HEADER_SIZE));
@@ -262,6 +307,7 @@ abstract class GovDeliveryEndpoint {
       else {
         $error_message = !empty($return_value->error) ? $return_value->error : 'No error message returned';
       }
+      // Throw an exception if an error was received.
       throw new GovDeliveryException($error_message, GOV_DELIVERY_EXCEPTION_HTTP_ERROR, $return_value->info);
     }
     return $return_value;
