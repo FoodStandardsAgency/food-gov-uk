@@ -32,6 +32,17 @@ function fsa_govdelivery_form_taxonomy_form_vocabulary_alter(&$form, $form_state
     '#title' => t('GovDelivery settings'),
   );
 
+  // Check GovDelivery API status
+  $govdelivery_status = _govdelivery_api_available();
+  // If it's not healthy, show a message and return.
+  if (!$govdelivery_status->isHealthy()) {
+    $form['govdelivery_settings']['unavailable'] = array(
+      '#theme' => 'govdelivery_api_status_description',
+      '#status' => $govdelivery_status,
+    );
+    return;
+  }
+
   // Get GovDelivery categories
   $categories = govdelivery_api_get_categories();
   $options = array();
@@ -853,6 +864,17 @@ function fsa_govdelivery_form_taxonomy_form_term_alter(&$form, &$form_state) {
     '#type' => 'fieldset',
     '#title' => t('GovDelivery settings'),
   );
+
+  // Check GovDelivery API status
+  $govdelivery_status = _govdelivery_api_available();
+  // If it's not healthy, show a message and return.
+  if (!$govdelivery_status->isHealthy()) {
+    $form['govdelivery_settings']['unavailable'] = array(
+      '#theme' => 'govdelivery_api_status_description',
+      '#status' => $govdelivery_status,
+    );
+    return;
+  }
 
   // GovDelivery element type
   $form['govdelivery_settings']['govdelivery_type'] = array(
