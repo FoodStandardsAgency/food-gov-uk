@@ -23,33 +23,10 @@ function govdelivery_api_settings_form($form, &$form_state) {
     '#title' => t('API status'),
   );
 
-  // Get the status.
-  $status = _govdelivery_api_available();
-  $message_type = $status->isHealthy() ? 'status' : 'error';
-
   $form['status_container']['status_description'] = array(
-    '#prefix' => "<div class=\"messages $message_type\">",
-    '#markup' => t('The GovDelivery API is currently @status.', array('@status' => $status->getStatusDescription())),
-    '#suffix' => '</div>',
+    '#theme' => 'govdelivery_api_status_description',
+    '#status' => _govdelivery_api_available(),
   );
-
-  $error_message = $status->getMessage();
-
-  if (!empty($error_message)) {
-    $form['status_container']['error_message'] = array(
-      '#prefix' => '<p>',
-      '#markup' => t('The error message was: %error_message', array('%error_message' => $error_message)),
-      '#suffix' => '</p>',
-    );
-  }
-
-  if (!empty($status->lastCheck)) {
-    $form['status_container']['status_last_checked'] = array(
-      '#prefix' => '<p>',
-      '#markup' => t('The service was last checked on @last_checked.', array('@last_checked' => $status->getLastChecked('l j F Y \a\t H:i:s'))) . ' ' . t('Next check due in @next_check seconds.', array('@next_check' => $status->getNextCheck(variable_get('govdelivery_api_healthy_interval'), variable_get('govdelivery_api_unhealthy_interval')))),
-      '#suffix' => '</p>',
-    );
-  }
 
   $form['status_container']['check_button'] = array(
     '#type' => 'submit',

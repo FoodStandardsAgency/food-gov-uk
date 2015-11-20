@@ -102,7 +102,7 @@ function govdelivery_api_topic_edit_form($form, &$form_state, $topic_code) {
   $form['general_settings']['topic_description'] = array(
     '#type' => 'textarea',
     '#title' => t('Description'),
-    '#default_value' => $topic->description,
+    '#default_value' => !is_object($topic->description) ? $topic->description : NULL,
   );
   $form['general_settings']['topic_code'] = array(
     '#type' => 'textfield',

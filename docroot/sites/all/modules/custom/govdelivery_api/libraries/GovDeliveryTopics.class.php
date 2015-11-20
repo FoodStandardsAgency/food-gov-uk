@@ -61,8 +61,7 @@ class GovDeliveryTopics extends GovDeliveryEndpoint {
     
     // If the request wasn't successful or we don't have an element code,
     // or we don't have any categories to add, return the response now
-    var_dump($params['categories']);
-    if (empty($response->success) || empty($topic->element_code) || !is_array($params['categories'])) {
+    if (empty($response->success) || empty($topic->element_code) || (!empty($params['categories']) && !is_array($params['categories']))) {
       return $response;
     }
     
