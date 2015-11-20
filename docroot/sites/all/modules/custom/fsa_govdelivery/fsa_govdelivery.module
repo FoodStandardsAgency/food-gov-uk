@@ -689,7 +689,9 @@ function fsa_govdelivery_node_update($node) {
 
   $options = array(
     'parents' => $categories,
-    'pages' => array(url('node/' . $node->nid, array('absolute' => TRUE))),
+    //'pages' => array(url('node/' . $node->nid, array('absolute' => TRUE))),
+    // Enforce URLs from production - change this?
+    'pages' => array(url('node/' . $node->nid, array('absolute' => TRUE, 'base_url' => 'http://www.food.gov.uk'))),
   );
 
   $variables = array(
