@@ -393,8 +393,7 @@ function fsa_govdelivery_cron_queue_info() {
     'worker callback' => '_fsa_govdelivery_sync_item',
     'time' => 60,
   );
-  // Temporarily disable while testing.
-  //return $queues;
+  return $queues;
 }
 
 /**
