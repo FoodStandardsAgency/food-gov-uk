@@ -7,11 +7,18 @@
 
 /**
  * Implements hook_form_FORM_ID_alter().
+ *
+ * Adds GovDelivery fields to the taxonomy vocabulary form.
  */
 function fsa_govdelivery_form_taxonomy_form_vocabulary_alter(&$form, $form_state, &$edit = array()) {
 
   // Add our custom submit function at the start of the array.
   //array_unshift($form['#submit'], 'fsa_govdelivery_taxonomy_form_vocabulary_submit');
+  // Actually added to end of array as it was resulting in errors. However, now
+  // the form sometimes needs to be submitted twice in order for the changes to
+  // take effect.
+  // @todo Review the order in which submit functions are executed and whether
+  //   this could be changed.
   $form['#submit'][] = 'fsa_govdelivery_taxonomy_form_vocabulary_submit';
 
   // Get the vocabulary object, if defined.
