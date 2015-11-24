@@ -44,17 +44,45 @@ function fsa_feedback_page_build(&$page) {
     return;
   }
 
-  // Move the feedback element from page_bottom to FSA_FEEDBACK_REGION.
-  $page[FSA_FEEDBACK_REGION]['feedback'] = $page['page_bottom']['feedback'];
-  $page[FSA_FEEDBACK_REGION]['feedback']['#weight'] = 100;
+  // Get the existing feedback form. We'll use this to add the form to a
+  // different region of the page later.
+  $feedback_form = $page['page_bottom']['feedback'];
 
   // Unset 'feedback' in 'page_bottom'.
   unset($page['page_bottom']['feedback']);
 
-  // First check that the feedback element exists. If not, exit now.
+  // An array of regex patterns for paths on which we don't want the feedback
+  // form to appear. See issue #10303.
+  // @todo Allow users to modify this array via the UI? Propbably not necessary
+  //   at this stage as this is the only request to exclude the form so far, but
+  //   should there be more, this may be worthwhile. Alternatively, expose the
+  //   form as a block and use context to add it to the page - probably better.
+  $exclude_paths = array(
+    "@^.*/user/register$@", // Phony user registration pages
+  );
+
+  // Get the current page path - the one displayed in the browser bar.
+  $current_path = request_path();
+
+  // Test the current page path against those we want to exclude. If we get a
+  // match, exit immediately; the feedback form has been removed from the page
+  // but not yet added back in, so it will not appear.
+  foreach ($exclude_paths as $path) {
+    if (preg_match($path, $current_path)) {
+      return;
+    }
+  }
+
+  // Move the feedback element from page_bottom to FSA_FEEDBACK_REGION.
+  $page[FSA_FEEDBACK_REGION]['feedback'] = $feedback_form;
+
+  // Check that the feedback element exists. If not, exit now.
   if (empty($page[FSA_FEEDBACK_REGION]['feedback'])) {
     return;
   }
+
+  // Set the weight for the feedback element.
+  $page[FSA_FEEDBACK_REGION]['feedback']['#weight'] = 100;
 
   // Add the custom CSS file and make sure it comes after the contrib one.
   $page[FSA_FEEDBACK_REGION]['feedback']['#attached']['css'][drupal_get_path('module', 'fsa_feedback') . '/css/fsa-feedback.css'] = array(
