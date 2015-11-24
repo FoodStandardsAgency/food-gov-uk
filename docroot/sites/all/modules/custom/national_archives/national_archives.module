@@ -103,6 +103,14 @@ function national_archives_menu() {
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
+  // Special file handler for archived files
+  $items['archived-file/%redirect'] = array(
+    'title' => t('Archived file'),
+    'page callback' => '_national_archives_archived_file',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
   return $items;
 }
 
@@ -345,18 +353,18 @@ function national_archives_redirect_alter($redirect) {
   // Expand the pseudo protocol URL into a real URL for redirecting.
   $redirect->redirect = _national_archives_expand_url($redirect->redirect);
 
+  // Is the path for a file?
   // For files, if they've been deleted, there will no longer be a page to
   // display, so we want to execute the redirect immeditately, rather than
   // giving administrators the ability to see the archived page, as with
-  // standard drupal pages. We identify a file by means of extensions. If the
-  // file_entity module is installed, we use the allowed extensions variable, if
-  // not, we just use a basic default list.
-  $extensions = variable_get('file_entity_default_allowed_extensions', 'csv jpg jpeg gif png txt doc docx xls xlsx pdf ppt pptx pps ppsx odt ods odp mp3 mov mp4 m4a m4v mpeg avi ogg oga ogv weba webp webm wma wmv flv smi zip swf xsd xml');
-  $extensions = implode('|', explode(' ', $extensions));
-  // Construct a regex pattern to match any filename with an allowed extension.
-  $pattern = "@^.*\.(" . $extensions . ")$@";
-  // Is it a file?
-  $is_file = preg_match($pattern, $redirect->source);
+  // standard drupal pages.
+  $is_file = _national_archives_path_is_file($redirect->source);
+
+  // If it's a file, we want to redirect to our special file download page.
+  if ($is_file) {
+    $redirect->redirect = 'archived-file/' . $redirect->rid;
+    return;
+  }
 
   // If user has the permission to view the page, don't redirect, but show a
   // warning message - unless the redirect is for a file.
@@ -689,4 +697,76 @@ function _national_archives_file_path($uri = '') {
   // The URL will be encoded, but we actually want to store it plain, so we
   // need to use rawurldecode() to decode it.
   return rawurldecode($url);
+}
+
+
+/**
+ * Helper function: determines if a path is for a file.
+ *
+ * @param string $path
+ *   The file path
+ *
+ * @return boolean
+ *   TRUE if the path looks like a file. FALSE otherwise.
+ */
+function _national_archives_path_is_file($path = NULL) {
+  if (empty($path)) {
+    return FALSE;
+  }
+  // Get the public file path
+  // Not using this bit - yet...
+  //$file_public_path = variable_get('file_public_path', 'sites/default/files');
+
+  // We identify a file by means of extensions. If the
+  // file_entity module is installed, we use the allowed extensions variable, if
+  // not, we just use a basic default list.
+  $extensions = variable_get('file_entity_default_allowed_extensions', 'csv jpg jpeg gif png txt doc docx xls xlsx pdf ppt pptx pps ppsx odt ods odp mp3 mov mp4 m4a m4v mpeg avi ogg oga ogv weba webp webm wma wmv flv smi zip swf xsd xml');
+  $extensions = implode('|', explode(' ', $extensions));
+  // Construct a regex pattern to match any filename with an allowed extension.
+  $pattern = "@^.*\.(" . $extensions . ")$@";
+  // Is it a file?
+  $is_file = preg_match($pattern, $path);
+
+  return $is_file;
+}
+
+
+/**
+ * Page callback for the special archived file download page
+ *
+ * @param object $redirect
+ *   A redirect entity.
+ *
+ * @return array
+ *   Render array for the archive page callback
+ */
+function _national_archives_archived_file($redirect = NULL) {
+  // Assume that the file does not exist in the National Archives
+  $archive_file_exists = FALSE;
+  // If we have a redirect, then let's see if the file exists in NA
+  if (!empty($redirect)) {
+    // Expand the URL
+    $archive_url = _national_archives_expand_url($redirect->redirect);
+    // Make a HEAD request to the NA URL to see if we get a 200 code
+    $request = drupal_http_request(_national_archives_expand_url($redirect->redirect, array(), 'HEAD'));
+    // Does the file exist on NA?
+    $archive_file_exists = $request->code == '200' ? TRUE : FALSE;
+  }
+  // If the file doesn't exist at NA, send a standard Drupal 404 page.
+  if (!$archive_file_exists) {
+    return MENU_NOT_FOUND;
+  }
+  // Create a render array for the page content.
+  $build = array(
+    'archive_content' => array(
+      '#prefix' => '<p>',
+      '#markup' => t('The file you requested has been deleted. An archived copy is available from the <a href="@archive_url">National Archives</a>.', array('@archive_url' => url($redirect->redirect))),
+      '#suffix' => '</p>',
+    ),
+  );
+  // Allow other modules to alter the page content
+  drupal_alter('national_archives_file_archive_page', $build);
+
+  // Return the render array
+  return $build;
 }
