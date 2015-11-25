@@ -27,6 +27,38 @@ function national_archives_admin_form($form, &$form_state) {
     '#default_value' => variable_get('national_archives_base_url'),
   );
 
+  // Which entity types will be archived?
+  $form['entity_types'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Entity types'),
+    '#description' => t('Select the types of Drupal entity that will be redirected to the National Archives when deleted or unpublished.'),
+  );
+
+  // Get a list of entity types
+  $entity_types = _national_archives_entity_types();
+
+  // Create checkboxes to enable users to select the entity types for which
+  // redirection will take place.
+  $form['entity_types']['national_archives_entity_types'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Select entity types'),
+    '#options' => $entity_types,
+    '#default_value' => _national_archives_enabled_entities(),
+  );
+
+  // If the administrator has selected files for archiving, allow them to
+  // specify what should happen when an archived/deleted file is requested
+  $form['entity_types']['national_archives_file_behaviour'] = array(
+    '#type' => 'radios',
+    '#title' => t('File handling'),
+    '#description' => t('What should happen when users request files that have been archived?'),
+    '#options' => array(t('Redirect immediately to National Archives'), t('Show download page')),
+    '#default_value' => variable_get('national_archives_file_behaviour', 1),
+    '#states' => array(
+      'visible' => array(':input[name="national_archives_entity_types[file]"]' => array('checked' => TRUE)),
+    ),
+  );
+
   return system_settings_form($form);
 }
 

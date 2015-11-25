@@ -103,7 +103,7 @@ function national_archives_menu() {
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
-  // Special file handler for archived files
+  // Special file handler for archived files.
   $items['archived-file/%redirect'] = array(
     'title' => t('Archived file'),
     'page callback' => '_national_archives_archived_file',
@@ -359,6 +359,18 @@ function national_archives_redirect_alter($redirect) {
   // giving administrators the ability to see the archived page, as with
   // standard drupal pages.
   $is_file = _national_archives_path_is_file($redirect->source);
+
+  // Get the entity type for the redirect. We'll assume for now that if it's not
+  // a file, then it must be a node. Once we start looking at other entity
+  // types, this will need to be a bit more sophisticated.
+  $entity_type = $is_file ? 'file' : 'node';
+
+  // Are we redirecting entities of this type?
+  // If not, set the redirect to FALSE and return now.
+  if (!_national_archives_redirect_entity($entity_type)) {
+    $redirect->redirect = FALSE;
+    return;
+  }
 
   // If it's a file, we want to redirect to our special file download page.
   if ($is_file) {
@@ -769,4 +781,38 @@ function _national_archives_archived_file($redirect = NULL) {
 
   // Return the render array
   return $build;
+}
+
+
+/**
+ * Helper function: returns a list of entity types for use with NA
+ */
+function _national_archives_entity_types() {
+  $entity_types = array(
+    'node' => t('Nodes'),
+    'file' => t('Files'),
+  );
+  return $entity_types;
+}
+
+
+/**
+ * Helper function: determines whether archiving is enabled for an entity type
+ */
+function _national_archives_redirect_entity($entity_type = NULL) {
+  if (empty($entity_type)) {
+    return FALSE;
+  }
+  // Get the array of enabled entity types
+  $enabled_entities = _national_archives_enabled_entities();
+  // Is this entity type enabled?
+  return !empty($enabled_entities[$entity_type]);
+}
+
+
+/**
+ * Helper function: returns an array of enabled entities
+ */
+function _national_archives_enabled_entities() {
+  return variable_get('national_archives_entity_types', drupal_map_assoc(array_keys($entity_types)));
 }
