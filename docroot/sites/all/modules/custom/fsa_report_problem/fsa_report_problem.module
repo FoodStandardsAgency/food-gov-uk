@@ -391,6 +391,12 @@ function fsa_report_problem_theme($existing, $type, $theme, $path) {
       'template' => 'theme/form-intro',
       'render element' => 'element',
     ),
+    'local_authority_details' => array(
+      'template' => 'theme/local-authority-details',
+      'variables' => array(
+        'local_authority' => NUL,
+      ),
+    ),
   );
 }
 
@@ -1829,4 +1835,28 @@ function fsa_report_problem_block_save($delta = '', $edit = array()) {
     variable_set('fsa_report_problem_service_status_message', $edit['fsa_report_problem_service_status_message']);
   }
 
+}
+
+
+/**
+ * Helper function: determines whether to capture user data
+ *
+ * @return boolean
+ *   TRUE if we are capturing user data; FALSE otherwise.
+ */
+function _fsa_report_problem_capture_user_data() {
+  $capture_user_data = variable_get('fsa_report_problem_capture_user_data', 1);
+  return !empty($capture_user_data);
+}
+
+
+/**
+ * Preprocess function for local authority details
+ */
+function template_preprocess_local_authority_details(&$variables) {
+  $local_authority = !empty($variables['local_authority']) ? $variables['local_authority'] : NULL;
+  if (empty($local_authority)) {
+    return;
+  }
+  $variables['name'] = !empty($local_authority['name']) ? $local_authority['name'] : NULL;
 }
