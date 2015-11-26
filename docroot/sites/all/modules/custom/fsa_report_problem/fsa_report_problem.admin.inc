@@ -454,6 +454,22 @@ function fsa_food_report_admin_form($form, &$form_state) {
     '#description' => t('What is the status of the food problem reporting service? Status text can be set via the <a href="@text_url">Edit text interface.</a>', array('@text_url' => url('admin/config/foodproblems/text'))),
   );
 
+  $form['data_capture'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('User data capture'),
+  );
+
+  $form['data_capture']['fsa_report_problem_capture_user_data'] = array(
+    '#type' => 'radios',
+    '#title' => t('Capture user data?'),
+    '#description' => t('If user data capture is turned off, the users will be given details of the relevant local authority and will have to make contact directly.'),
+    '#options' => array(
+      0 => t('No'),
+      1 => t('Yes'),
+    ),
+    '#default_value' => variable_get('fsa_report_problem_capture_user_data', 1),
+  );
+
   //$form['service_status']['fsa_report_problem_service_status_message'] = array(
   //  '#type' => 'textarea',
   //  '#title' => t('Service status message'),
