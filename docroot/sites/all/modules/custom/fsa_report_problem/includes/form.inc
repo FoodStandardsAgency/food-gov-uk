@@ -659,3 +659,26 @@ function _fsa_report_problem_step_filter($var) {
   }
   return TRUE;
 }
+
+
+/**
+ * Form builder: display local authority details
+ */
+function fsa_report_problem_local_authority_details_form($form, &$form_state) {
+  
+  dpm($form_state['local_authority']);
+  
+  if (empty($form_state['local_authority'])) {
+    $form['no_local_authority'] = array(
+      '#markup' => t('Sorry, we could not find a local authority'),
+    );
+    return $form;
+  }
+  
+  $form['local_authority_details'] = array(
+    '#theme' => 'local_authority_details',
+    '#local_authority' => $form_state['local_authority'],
+  );
+  
+  return $form;
+}
