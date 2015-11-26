@@ -62,6 +62,9 @@ function fsa_report_problem_form($form, &$form_state) {
       $steps[1]['disabled'] = FALSE;
       $form_state['non_autocomplete'] = TRUE;
       break;
+    case 'local_authority_details':
+      $the_form = fsa_report_problem_local_authority_details_form($form, $form_state);
+      break;
     case 'make_report':
       $the_form = fsa_report_problem_make_report_form($form, $form_state);
       if (!empty($form_state['non_autocomplete'])) {
@@ -436,6 +439,12 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
     'make_report',
     'report_complete',
   );
+  
+  // If we're not capturing user details, replace 'make_report' with the local
+  // authority details form.
+  if (!_fsa_report_problem_capture_user_data()) {
+    $stages[2] = 'local_authority_details';
+  }
 
   // Get the current stage
   $current_stage = !empty($form_state['stage']) ? $form_state['stage'] : $stages[0];
@@ -446,11 +455,9 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
   $next_index = $current_index < count($stages) ? $current_index + 1 : 0;
   $next_stage = $stages[$next_index];
 
-
   switch($current_stage) {
 
     case 'find_business':
-
       // Get lat, long, name and address
       $lat = !empty($form_state['values']['lat']) ? $form_state['values']['lat'] : '';
       $lng = !empty($form_state['values']['lng']) ? $form_state['values']['lng'] : '';
@@ -471,9 +478,23 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
         //dpm($local_authority);
         $form_state['local_authority'] = $local_authority;
         $form_state['coords'] = "$lat,$lng";
-        $next_stage = 'make_report';
-        break;
       }
+      
+      // If we're not capturing user details, set the next stage to be show
+      // local authority details and break.
+      if (!_fsa_report_problem_capture_user_data()) {
+        $next_stage = 'local_authority_details';
+        if (is_array($form_state['local_authority']) && !empty($form_state['local_authority']['id'])) {
+          $la = fsa_report_problem_get_local_authority_by_area_id($local_authority['id']);
+          if (!empty($la->email)) {
+            $form_state['local_authority']['email'] = $la->email;
+          }
+        }
+      }
+      else {
+        $next_stage = 'make_report';
+      }
+      break;
 
       // Get business listings from the Google Places API.
       $businesses = fsa_report_problem_get_google_results($name, $address, $user_location);
