@@ -59,6 +59,39 @@ function national_archives_admin_form($form, &$form_state) {
     ),
   );
 
+  $form['entity_types']['national_archives_file_disclaimer_option'] = array(
+    '#type' => 'radios',
+    '#title' => t('File disclaimer'),
+    '#description' => t('What disclaimer, if any, would you like to appear on the archived file download page?'),
+    '#options' => array(
+      'none' => t('None'),
+      'default' => t('Default'),
+      'custom' => t('Custom'),
+    ),
+    '#default_value' => variable_get('national_archives_file_disclaimer_option', 'default'),
+    '#states' => array(
+      'visible' => array(':input[name="national_archives_entity_types[file]"]' => array('checked' => TRUE)),
+    ),
+  );
+
+  $form['entity_types']['national_archives_file_disclaimer_custom'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Disclaimer text'),
+    //'#description' => t('Use this field to provide custom file disclaimer text.'),
+    '#default_value' => variable_get('national_archives_file_disclaimer_custom', NATIONAL_ARCHIVES_DEFAULT_FILE_DISCLAIMER_TEXT),
+    '#states' => array(
+      'visible' => array(
+        ':input[name="national_archives_entity_types[file]"]' => array(
+          'checked' => TRUE
+        ),
+        ':input[id="edit-national-archives-file-disclaimer-option-none"]' => array(
+          'checked' => FALSE
+        ),
+      ),
+      'disabled' => array(':input[name="national_archives_file_disclaimer_option"]' => array('selected' => TRUE)),
+    ),
+  );
+
   return system_settings_form($form);
 }
 
