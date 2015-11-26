@@ -14,15 +14,23 @@ function site_frontend_preprocess_page(&$variables) {
   // @todo Once the FSA GovDelivery module has been deployed to the production
   //   system, move these into an implementation of template_preprocess_page()
   //   in that module, not here.
-  $variables['page']['content']['page_watch_delimiter_start'] = array(
-    '#markup' => '<!--PAGEWATCH-->',
-    '#suffix' => PHP_EOL,
-    '#weight' => -100,
-  );
-  $variables['page']['content']['page_watch_delimiter_end'] = array(
-    '#markup' => '<!--/PAGEWATCH-->',
-    '#weight' => 150,
-  );
+  // The presence of the delimiters is determined by a variable that can be
+  // set via Drush, eg
+  //
+  // `drush vset fsa_govdelivery_add_pagewatch_delimiters 1`
+  //
+  $add_pagewatch_delimiters = variable_get('fsa_govdelivery_add_pagewatch_delimiters', FALSE);
+  if (!empty($add_pagewatch_delimiters)) {
+    $variables['page']['content']['page_watch_delimiter_start'] = array(
+      '#markup' => '<!--PAGEWATCH-->',
+      '#suffix' => PHP_EOL,
+      '#weight' => -100,
+    );
+    $variables['page']['content']['page_watch_delimiter_end'] = array(
+      '#markup' => '<!--/PAGEWATCH-->',
+      '#weight' => 150,
+    );
+  }
 
   // Add current username to the page footer so that we can detect it with Behat tests
   if (user_is_logged_in()) {
