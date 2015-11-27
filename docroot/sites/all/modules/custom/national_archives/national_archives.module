@@ -224,6 +224,21 @@ function national_archives_file_delete($file) {
     return;
   }
 
+  // Check for any existing redirects to the file and add them to a queue to be
+  // recreated later as they'll be deleted by the redirect module now.
+  $file_uri = entity_uri('file', $file);
+  $redirects = _national_archives_redirect_load_by_redirect($file_uri['path']);
+  foreach ($redirects as $redirect) {
+    // Create a new redirect object
+    $new_redirect = new stdClass();
+    redirect_object_prepare($new_redirect);
+    // Set the source and redirect to the existing redirect
+    $new_redirect->source = $redirect->source;
+    $new_redirect->redirect = _national_archives_generate_url(_national_archives_file_path(file_create_url($file->uri)));
+    // Add the new redirect to the queue
+    _national_archives_queue_redirect($new_redirect);
+  }
+
   // We assume no language as files typically don't have one
   $language = LANGUAGE_NONE;
   // Create a redirect for the file
@@ -874,4 +889,55 @@ function template_preprocess_national_archives_archived_file(&$variables) {
   if (!empty($variables['archive_url'])) {
     $variables['archive_url'] = url($variables['archive_url']);
   }
+  $disclaimer_option = variable_get('national_archives_file_disclaimer_option');
+  if ($disclaimer_option != 'none') {
+    $variables['disclaimer'] = array(
+      '#type' => 'html_tag',
+      '#tag' => 'p',
+      '#value' => $disclaimer_option == 'custom' ? variable_get('national_archives_file_disclaimer_custom', NATIONAL_ARCHIVES_DEFAULT_FILE_DISCLAIMER_TEXT) : NATIONAL_ARCHIVES_DEFAULT_FILE_DISCLAIMER_TEXT,
+    );
+  }
+}
+
+
+/**
+ * Helper function: get redirect entities based on their destination (redirect)
+ */
+function _national_archives_redirect_load_by_redirect($redirect, $language = LANGUAGE_NONE) {
+  $rid_query = db_select('redirect');
+  $rid_query->addField('redirect', 'rid');
+  $rid_query->condition('redirect', db_like($redirect), 'LIKE');
+  $rid_query->condition('language', array($language, LANGUAGE_NONE));
+  $rids = $rid_query->execute()->fetchCol();
+  $redirects = redirect_load_multiple($rids);
+  return $redirects;
+}
+
+
+/**
+ * Implements hook_cron_queue_info().
+ */
+function national_archives_cron_queue_info() {
+  $queues['national_archives_redirect_recreate'] = array(
+    'worker callback' => '_national_archives_redirect_recreate',
+    'time' => 60,
+  );
+  return $queues;
+}
+
+
+/**
+ * Callback to recreate deleted redirects
+ */
+function _national_archives_redirect_recreate($redirect) {
+  redirect_save($redirect);
+}
+
+
+/**
+ * Add redirect to the queue to be re-created
+ */
+function _national_archives_queue_redirect($redirect) {
+  $queue = DrupalQueue::get('national_archives_redirect_recreate');
+  $queue->createItem($redirect);
 }
