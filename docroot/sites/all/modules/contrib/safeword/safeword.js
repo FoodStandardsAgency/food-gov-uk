@@ -32,7 +32,11 @@
      */
     attach: function (context, settings) {
       var self = this;
-      if (typeof settings.machineName == 'undefined') return; // make sure that settings exist
+
+      if (!settings.machineName) {
+        return;
+      }
+
       $.each(settings.machineName, function (source_id, options) {
         var $source = $(source_id, context).addClass('machine-name-source');
         var $target = $(options.target, context).addClass('machine-name-target');
@@ -111,7 +115,7 @@
               if ($source.val() !== '') {
                 var request = $.ajax({
                   cache: false,
-                  url: "/safeword/ajax/transliterate",
+                  url: Drupal.settings.basePath + "safeword/ajax/transliterate",
                   type: "POST",
                   dataType: "json",
                   data: {source: $source.val()},
