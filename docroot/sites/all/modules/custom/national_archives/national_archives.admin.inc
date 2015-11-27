@@ -70,25 +70,45 @@ function national_archives_admin_form($form, &$form_state) {
     ),
     '#default_value' => variable_get('national_archives_file_disclaimer_option', 'default'),
     '#states' => array(
-      'visible' => array(':input[name="national_archives_entity_types[file]"]' => array('checked' => TRUE)),
+      'visible' => array(
+        ':input[name="national_archives_entity_types[file]"]' => array('checked' => TRUE),
+        ':input[name="national_archives_file_behaviour"]' => array('!value' => '0'),
+      ),
     ),
   );
 
   $form['entity_types']['national_archives_file_disclaimer_custom'] = array(
     '#type' => 'textarea',
     '#title' => t('Disclaimer text'),
-    //'#description' => t('Use this field to provide custom file disclaimer text.'),
+    '#description' => t('Use this field to provide custom file disclaimer text.'),
     '#default_value' => variable_get('national_archives_file_disclaimer_custom', NATIONAL_ARCHIVES_DEFAULT_FILE_DISCLAIMER_TEXT),
     '#states' => array(
       'visible' => array(
         ':input[name="national_archives_entity_types[file]"]' => array(
           'checked' => TRUE
         ),
-        ':input[id="edit-national-archives-file-disclaimer-option-none"]' => array(
-          'checked' => FALSE
+        ':input[name="national_archives_file_disclaimer_option"]' => array(
+          'value' => 'custom',
         ),
       ),
-      'disabled' => array(':input[name="national_archives_file_disclaimer_option"]' => array('selected' => TRUE)),
+      'disabled' => array(
+        ':input[name="national_archives_file_disclaimer_option"]' => array(
+          '!value' => 'custom',
+        ),
+      ),
+    ),
+  );
+
+  $form['entity_types']['national_archives_file_disclaimer_default'] = array(
+    '#type' => 'item',
+    '#title' => t('Disclaimer text'),
+    '#markup' => NATIONAL_ARCHIVES_DEFAULT_FILE_DISCLAIMER_TEXT,
+    '#states' => array(
+      'visible' => array(
+        ':input[name="national_archives_file_disclaimer_option"]' => array(
+          'value' => 'default'),
+        ':input[name="national_archives_file_behaviour"]' => array('!value' => '0'),
+      ),
     ),
   );
 
