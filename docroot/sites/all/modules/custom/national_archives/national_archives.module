@@ -36,6 +36,11 @@ define('NATIONAL_ARCHIVES_PAGE_UNPUBLISHED', 2);
 define('NATIONAL_ARCHIVES_PAGE_PUBLISHED', 3);
 
 /**
+ * Default file download page disclaimer text
+ */
+define('NATIONAL_ARCHIVES_DEFAULT_FILE_DISCLAIMER_TEXT', 'Please be aware that the content of this file may be out of date or obsolete, and any contact details contained may now be defunct.');
+
+/**
  * Implements hook_permission().
  */
 function national_archives_permission() {
@@ -103,7 +108,7 @@ function national_archives_menu() {
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
-  // Special file handler for archived files
+  // Special file handler for archived files.
   $items['archived-file/%redirect'] = array(
     'title' => t('Archived file'),
     'page callback' => '_national_archives_archived_file',
@@ -128,6 +133,11 @@ function national_archives_menu() {
  *   The node object
  */
 function national_archives_node_update($node) {
+
+  // Are we operating on nodes? If not, exit
+  if (!_national_archives_redirect_entity('node')) {
+    return;
+  }
 
   // Get the node language
   $language = !empty($node->language) ? $node->language : LANGUAGE_NONE;
@@ -157,6 +167,11 @@ function national_archives_node_update($node) {
  */
 function national_archives_node_delete($node) {
 
+  // Are we operating on nodes? If not, exit
+  if (!_national_archives_redirect_entity('node')) {
+    return;
+  }
+
   // Get the node language
   $language = !empty($node->language) ? $node->language : LANGUAGE_NONE;
 
@@ -184,6 +199,10 @@ function national_archives_file_insert($file) {
   if (empty($file->uri)) {
     return;
   }
+  // Are we operating on files? If not, exit
+  if (!_national_archives_redirect_entity('file')) {
+    return;
+  }
   // Disable/delete a redirect for this file if one exists.
   _national_archives_disable_redirect(_national_archives_file_path($file->uri), LANGUAGE_NONE, $file);
 }
@@ -199,6 +218,27 @@ function national_archives_file_delete($file) {
   if (empty($file) || empty($file->uri)) {
     return;
   }
+
+  // Are we operating on files? If not, exit
+  if (!_national_archives_redirect_entity('file')) {
+    return;
+  }
+
+  // Check for any existing redirects to the file and add them to a queue to be
+  // recreated later as they'll be deleted by the redirect module now.
+  $file_uri = entity_uri('file', $file);
+  $redirects = _national_archives_redirect_load_by_redirect($file_uri['path']);
+  foreach ($redirects as $redirect) {
+    // Create a new redirect object
+    $new_redirect = new stdClass();
+    redirect_object_prepare($new_redirect);
+    // Set the source and redirect to the existing redirect
+    $new_redirect->source = $redirect->source;
+    $new_redirect->redirect = _national_archives_generate_url(_national_archives_file_path(file_create_url($file->uri)));
+    // Add the new redirect to the queue
+    _national_archives_queue_redirect($new_redirect);
+  }
+
   // We assume no language as files typically don't have one
   $language = LANGUAGE_NONE;
   // Create a redirect for the file
@@ -358,12 +398,27 @@ function national_archives_redirect_alter($redirect) {
   // display, so we want to execute the redirect immeditately, rather than
   // giving administrators the ability to see the archived page, as with
   // standard drupal pages.
-  $is_file = _national_archives_path_is_file($redirect->source);
+  $is_file = _national_archives_path_is_file($redirect->source) || _national_archives_path_is_file($redirect->redirect);
 
-  // If it's a file, we want to redirect to our special file download page.
-  if ($is_file) {
-    $redirect->redirect = 'archived-file/' . $redirect->rid;
+  // Get the entity type for the redirect. We'll assume for now that if it's not
+  // a file, then it must be a node. Once we start looking at other entity
+  // types, this will need to be a bit more sophisticated.
+  $entity_type = $is_file ? 'file' : 'node';
+
+  // Are we redirecting entities of this type?
+  // If not, set the redirect to FALSE and return now.
+  if (!_national_archives_redirect_entity($entity_type)) {
+    $redirect->redirect = FALSE;
     return;
+  }
+
+  // If it's a file, we may want to redirect to our special file download page.
+  if ($is_file) {
+    $file_behaviour = variable_get('national_archives_file_behaviour', 0);
+    if (!empty($file_behaviour)) {
+      $redirect->redirect = 'archived-file/' . $redirect->rid;
+      return;
+    }
   }
 
   // If user has the permission to view the page, don't redirect, but show a
@@ -717,6 +772,10 @@ function _national_archives_path_is_file($path = NULL) {
   // Not using this bit - yet...
   //$file_public_path = variable_get('file_public_path', 'sites/default/files');
 
+  // Parse the URL to get just the path, minus query string and fragment.
+  $url_parts = drupal_parse_url($path);
+  $path = $url_parts['path'];
+  
   // We identify a file by means of extensions. If the
   // file_entity module is installed, we use the allowed extensions variable, if
   // not, we just use a basic default list.
@@ -756,17 +815,129 @@ function _national_archives_archived_file($redirect = NULL) {
   if (!$archive_file_exists) {
     return MENU_NOT_FOUND;
   }
-  // Create a render array for the page content.
+
+  // The National Archives URL
+  $national_archives_url = $redirect->redirect;
+
+  // Create a render array for the page content
   $build = array(
-    'archive_content' => array(
-      '#prefix' => '<p>',
-      '#markup' => t('The file you requested has been deleted. An archived copy is available from the <a href="@archive_url">National Archives</a>.', array('@archive_url' => url($redirect->redirect))),
-      '#suffix' => '</p>',
-    ),
+    '#theme' => 'national_archives_archived_file',
+    '#archive_url' => $national_archives_url,
   );
-  // Allow other modules to alter the page content
-  drupal_alter('national_archives_file_archive_page', $build);
 
   // Return the render array
   return $build;
+}
+
+
+/**
+ * Helper function: returns a list of entity types for use with NA
+ */
+function _national_archives_entity_types() {
+  $entity_types = array(
+    'node' => t('Nodes'),
+    'file' => t('Files'),
+  );
+  return $entity_types;
+}
+
+
+/**
+ * Helper function: determines whether archiving is enabled for an entity type
+ */
+function _national_archives_redirect_entity($entity_type = NULL) {
+  if (empty($entity_type)) {
+    return FALSE;
+  }
+  // Get the array of enabled entity types
+  $enabled_entities = _national_archives_enabled_entities();
+  // Is this entity type enabled?
+  return !empty($enabled_entities[$entity_type]);
+}
+
+
+/**
+ * Helper function: returns an array of enabled entities
+ */
+function _national_archives_enabled_entities() {
+  $entity_types = _national_archives_entity_types();
+  return variable_get('national_archives_entity_types', drupal_map_assoc(array_keys($entity_types)));
+}
+
+
+/**
+ * Implements hook_theme()
+ */
+function national_archives_theme() {
+  return array(
+    'national_archives_archived_file' => array(
+      'template' => 'theme/national-archives-archived-file',
+      'variables' => array(
+        'archive_message' => NULL,
+        'archive_url' => NULL,
+        'disclaimer' => NULL,
+      ),
+    ),
+  );
+}
+
+
+/**
+ * Preprocess function for national archives archived file pages
+ */
+function template_preprocess_national_archives_archived_file(&$variables) {
+  if (!empty($variables['archive_url'])) {
+    $variables['archive_url'] = url($variables['archive_url']);
+  }
+  $disclaimer_option = variable_get('national_archives_file_disclaimer_option');
+  if ($disclaimer_option != 'none') {
+    $variables['disclaimer'] = array(
+      '#type' => 'html_tag',
+      '#tag' => 'p',
+      '#value' => $disclaimer_option == 'custom' ? variable_get('national_archives_file_disclaimer_custom', NATIONAL_ARCHIVES_DEFAULT_FILE_DISCLAIMER_TEXT) : NATIONAL_ARCHIVES_DEFAULT_FILE_DISCLAIMER_TEXT,
+    );
+  }
+}
+
+
+/**
+ * Helper function: get redirect entities based on their destination (redirect)
+ */
+function _national_archives_redirect_load_by_redirect($redirect, $language = LANGUAGE_NONE) {
+  $rid_query = db_select('redirect');
+  $rid_query->addField('redirect', 'rid');
+  $rid_query->condition('redirect', db_like($redirect), 'LIKE');
+  $rid_query->condition('language', array($language, LANGUAGE_NONE));
+  $rids = $rid_query->execute()->fetchCol();
+  $redirects = redirect_load_multiple($rids);
+  return $redirects;
+}
+
+
+/**
+ * Implements hook_cron_queue_info().
+ */
+function national_archives_cron_queue_info() {
+  $queues['national_archives_redirect_recreate'] = array(
+    'worker callback' => '_national_archives_redirect_recreate',
+    'time' => 60,
+  );
+  return $queues;
+}
+
+
+/**
+ * Callback to recreate deleted redirects
+ */
+function _national_archives_redirect_recreate($redirect) {
+  redirect_save($redirect);
+}
+
+
+/**
+ * Add redirect to the queue to be re-created
+ */
+function _national_archives_queue_redirect($redirect) {
+  $queue = DrupalQueue::get('national_archives_redirect_recreate');
+  $queue->createItem($redirect);
 }
