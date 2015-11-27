@@ -383,7 +383,7 @@ function national_archives_redirect_alter($redirect) {
   // display, so we want to execute the redirect immeditately, rather than
   // giving administrators the ability to see the archived page, as with
   // standard drupal pages.
-  $is_file = _national_archives_path_is_file($redirect->source);
+  $is_file = _national_archives_path_is_file($redirect->source) || _national_archives_path_is_file($redirect->redirect);
 
   // Get the entity type for the redirect. We'll assume for now that if it's not
   // a file, then it must be a node. Once we start looking at other entity
