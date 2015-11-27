@@ -12,9 +12,8 @@
     <p><?php print t('An archived copy is available from the <a href="@archive_url">National Archives</a>.', array('@archive_url' => url($archive_url))); ?></p>
   <?php endif; ?>
   <?php if (!empty($disclaimer)): ?>
-    <?php print render($disclaimer); ?>
-  <?php else: ?>
-    <p class="national-archives-disclaimer">Please be aware that the content of this file may be out of date or obsolete, and any contact details contained may now be defunct.</p>
+    <div class="national-archives-disclaimer">
+      <?php print render($disclaimer); ?>
+    </div>
   <?php endif; ?>
-    
 </div>
