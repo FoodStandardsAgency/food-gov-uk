@@ -757,6 +757,10 @@ function _national_archives_path_is_file($path = NULL) {
   // Not using this bit - yet...
   //$file_public_path = variable_get('file_public_path', 'sites/default/files');
 
+  // Parse the URL to get just the path, minus query string and fragment.
+  $url_parts = drupal_parse_url($path);
+  $path = $url_parts['path'];
+  
   // We identify a file by means of extensions. If the
   // file_entity module is installed, we use the allowed extensions variable, if
   // not, we just use a basic default list.
