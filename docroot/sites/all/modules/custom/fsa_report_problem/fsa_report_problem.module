@@ -1351,6 +1351,11 @@ function fsa_report_problem_token_info() {
       'description' => t('Food problem report properties'),
       'needs-data' => 'problem_report',
     ),
+    'food_establishment' => array(
+      'name' => t('Food establishment'),
+      'description' => t('Food establishment properties'),
+      'needs-data' => 'food_establishment',
+    ),
   );
 
   $local_authority['name'] = array(
@@ -1368,11 +1373,17 @@ function fsa_report_problem_token_info() {
     'description' => t('The unique ID of the report as stored on the system'),
   );
 
+  $food_establishment['name'] = array(
+    'name' => t('Establishment name'),
+    'description' => t('The name of the food establishment where the problem was experienced'),
+  );
+
   return array(
     'types' => $types,
     'tokens' => array(
       'local_authority' => $local_authority,
       'food_report' => $food_report,
+      'food_establishment' => $food_establishment,
     )
   );
 
@@ -1473,6 +1484,14 @@ function fsa_report_problem_tokens($type, $tokens, array $data = array(), array 
             }
             $replacements[$original] = implode(', ', $reporter);
           }
+          break;
+      }
+    }
+
+    if ($type == 'food_establishment') {
+      switch ($name) {
+        case 'name':
+          $replacements[$original] = !empty($data['food_establishment']['name']) ? $data['food_establishment']['name'] : t('this business');
           break;
       }
     }
