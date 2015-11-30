@@ -1852,11 +1852,20 @@ function _fsa_report_problem_capture_user_data() {
 
 /**
  * Preprocess function for local authority details
+ *
+ * @see local-authority-details.tpl.php
  */
 function template_preprocess_local_authority_details(&$variables) {
+  // Get the local authority from the $variables array
   $local_authority = !empty($variables['local_authority']) ? $variables['local_authority'] : NULL;
+  // No local authority? Exit now.
   if (empty($local_authority)) {
     return;
   }
+  // Set the local authority name
   $variables['name'] = !empty($local_authority['name']) ? $local_authority['name'] : NULL;
+  // Set the local authority email address
+  $variables['email'] = !empty($local_authority['email']) ? $local_authority['email'] : NULL;
+  // Create a link for the email address
+  $variables['email_link'] = !empty($variables['email']) ? l($variables['email'], 'mailto:' . $variables['email'], array('absolute' => TRUE)) : NULL;
 }

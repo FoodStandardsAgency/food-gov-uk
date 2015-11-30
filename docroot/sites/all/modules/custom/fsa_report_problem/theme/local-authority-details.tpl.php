@@ -9,4 +9,7 @@
   <?php if (!empty($variables['name'])): ?>
     <h2><?php print render($name); ?></h2>
   <?php endif; ?>
+  <?php if (!empty($variables['email_link'])): ?>
+    <p><?php print render($email_link); ?></p>
+  <?php endif; ?>
 </div>
