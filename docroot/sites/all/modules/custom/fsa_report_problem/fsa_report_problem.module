@@ -772,7 +772,7 @@ function fsa_report_problem_get_google_results($name, $location, $user_location 
 
 function fsa_report_problem_get_local_authority($lng, $lat){
   $endpoint = 'http://mapit.mysociety.org/point/4326';
-  $url = url("$endpoint/$lng,$lat", array('query' => array('type' => 'DIS,UTA,LBO,LGD')));
+  $url = url("$endpoint/$lng,$lat", array('query' => array('type' => implode(',', _fsa_report_problem_mapit_authority_types()))));
   $area_data = drupal_http_request($url);
   return current(drupal_json_decode($area_data->data));
 }
@@ -789,7 +789,7 @@ function fsa_report_problem_get_local_authority_by_postcode($postcode = NULL) {
   $area_data = drupal_http_request($url);
   $data = drupal_json_decode($area_data->data);
   $areas = !empty($data['areas']) ? $data['areas'] : array();
-  $area_types = array('DIS', 'UTA', 'LBO', 'LGD');
+  $area_types = _fsa_report_problem_mapit_authority_types();
   $selected_area = array();
   foreach ($areas as $id => $area) {
     if (!empty($area['type']) && in_array($area['type'], $area_types)) {
@@ -903,7 +903,10 @@ function fsa_report_problem_get_local_authority_id($id) {
 
 
 
-function fsa_report_problem_get_mapit_areas($types = array('DIS', 'UTA', 'LBO', 'LGD')) {
+function fsa_report_problem_get_mapit_areas($types = array()) {
+  if (empty($types)) {
+    $types = _fsa_report_problem_mapit_authority_types();
+  }
   $endpoint = 'http://mapit.mysociety.org/areas';
   $url = "$endpoint/" . implode(',', $types);
   $areas = drupal_http_request($url);

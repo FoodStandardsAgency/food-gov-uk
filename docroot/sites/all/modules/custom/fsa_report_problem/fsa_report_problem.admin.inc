@@ -1084,7 +1084,7 @@ function fsa_report_problem_authorities_import_form_new($form, &$form_state) {
   $form_state['areas'] = array();
   $form_state['fhrs_authorities'] = array();
   
-  $areas = fsa_report_problem_get_mapit_areas(array('DIS', 'UTA', 'LBO', 'LGD'));
+  $areas = fsa_report_problem_get_mapit_areas(_fsa_report_problem_mapit_authority_types());
   
   $fhrs_authorities = fsa_report_problem_get_fhrs_authorities();
   $authorities = array();
