@@ -722,10 +722,14 @@ function _fsa_report_problem_step_filter($var) {
  * Form builder: display local authority details
  */
 function fsa_report_problem_local_authority_details_form($form, &$form_state) {
-  
+
+  // Text to display if no local authority is found.
+  // @todo Create a text entry for this.
   if (empty($form_state['local_authority'])) {
     $form['no_local_authority'] = array(
+      '#prefix' => '<div class="form-intro"><p>',
       '#markup' => t('Sorry, we could not find a local authority'),
+      '#suffix' => '</p></div>',
     );
     return $form;
   }
