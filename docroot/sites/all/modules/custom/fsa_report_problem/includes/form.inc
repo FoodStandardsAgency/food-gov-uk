@@ -7,8 +7,11 @@
 /**
  * Form builder: Master form for report a food problem
  *
- * This is a multi-stage form that pulls in the following child forms at the
- * appropriate point in the process:
+ * This is a multi-stage form that pulls in 'child' forms at the appropriate
+ * point in the process.
+ *
+ * There a two modes: data capture and non-data capture. In data capture mode
+ * the process has the following steps.
  *
  * Step 1: Find a business: fsa_report_problem_find_business_form()
  * Step 2: Business results: fsa_report_problem_results_form()
@@ -17,12 +20,25 @@
  *
  * Step 2 is displayed only if the user does not use the Google Places
  * autocomplete to select their business.
+ * 
+ * In non-data-capture mode, the process has the following steps.
  *
+ * Step 1: Find a business: fsa_report_problem_find_business_form()
+ * Step 2: Business results: fsa_report_problem_results_form()
+ * Step 3: Display local authority details
+ * 
+ * Step 2 is displayed only if the user does not use the Google Places
+ * autocomplete to select their business.
+ *
+ * The mode is changed via the admin UI.
+ * 
  */
 function fsa_report_problem_form($form, &$form_state) {
 
+  // Get query string parameters
   $params = drupal_get_query_parameters();
 
+  // Determine whether the process is complete, based on query string parameter
   if (!empty($params['complete'])) {
     $form_state['stage'] = 'report_complete';
   }
