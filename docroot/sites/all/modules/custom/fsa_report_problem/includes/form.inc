@@ -325,6 +325,8 @@ function fsa_report_problem_results_form($form, &$form_state) {
       '#name' => 'op' . $id,
       '#attributes' => array(
         'data-business-id' => $id,
+        'title' => t('Report @business_name', array('@business_name' => $business['name'])),
+        'aria-label' => t('Report @business_name', array('@business_name' => $business['name'])),
       ),
     );
 
