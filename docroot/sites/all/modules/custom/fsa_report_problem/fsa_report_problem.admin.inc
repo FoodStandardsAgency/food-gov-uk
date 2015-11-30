@@ -1097,6 +1097,7 @@ function fsa_report_problem_authorities_import_form_new($form, &$form_state) {
     $form_state['fhrs_authorities'][$authority->LocalAuthorityId] = array(
       'name' => $authority->Name,
       'email' => $authority->Email,
+      'url' => $authority->Url,
     );
   }
 
@@ -1228,6 +1229,7 @@ function fsa_report_problem_authorities_import_form_new_submit(&$form, &$form_st
       $authority->fhrs_name = !empty($form_state['fhrs_authorities'][$value]['name']) ? $form_state['fhrs_authorities'][$value]['name'] : NULL;
       $authority->fhrs_email = !empty($form_state['fhrs_authorities'][$value]['email']) ? $form_state['fhrs_authorities'][$value]['email'] : NULL;
       $authority->email = $authority->fhrs_email;
+      $authority->url = !empty($form_state['fhrs_authorities'][$value]['url']) ? $form_state['fhrs_authorities'][$value]['url'] : NULL;
       $authority->created = time();
       $authority->save();
     }
