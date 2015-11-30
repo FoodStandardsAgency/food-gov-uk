@@ -710,7 +710,16 @@ function fsa_report_problem_local_authority_details_form($form, &$form_state) {
     );
     return $form;
   }
-  
+
+  $form['intro'] = array(
+    '#type' => 'html_tag',
+    '#tag' => 'p',
+    '#value' => t('The local authority for this business is:'),
+    '#attributes' => array(
+      'class' => array('form-intro'),
+    ),
+  );
+
   $form['local_authority_details'] = array(
     '#theme' => 'local_authority_details',
     '#local_authority' => $form_state['local_authority'],
