@@ -1862,6 +1862,8 @@ function template_preprocess_local_authority_details(&$variables) {
   if (empty($local_authority)) {
     return;
   }
+  // Adde content attributes array
+  $variables['content_attributes_array']['class'] = array('local-authority-details-inner');
   // Set the local authority name
   $variables['name'] = !empty($local_authority['name']) ? $local_authority['name'] : NULL;
   // Set the local authority email address
