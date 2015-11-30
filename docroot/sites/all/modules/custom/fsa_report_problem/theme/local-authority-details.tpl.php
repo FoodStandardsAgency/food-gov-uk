@@ -11,6 +11,8 @@
     <?php endif; ?>
     <?php if (!empty($email_link)): ?>
       <p>Email address: <?php print render($email_link); ?></p>
+    <?php else: ?>
+      <p><?php print t('Sorry, we do not have an email address on record for this local authority. Please visit their website or contact their main switchboard for further information.'); ?></p>
     <?php endif; ?>
     <?php if (!empty($website_link)): ?>
       <p>Website: <?php print render($website_link); ?></p>
