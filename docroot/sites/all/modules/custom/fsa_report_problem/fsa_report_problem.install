@@ -197,6 +197,12 @@ function fsa_report_problem_schema() {
         'length' => 256,
         'not null' => FALSE,
       ),
+      'url' => array(
+        'description' => 'URL of the local authority website',
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => FALSE,
+      ),
       'fhrs_name' => array(
         'description' => 'The name of the local authority from FHRS',
         'type' => 'varchar',
@@ -410,4 +416,25 @@ function fsa_report_problem_update_7007() {
   }
   
   
+}
+
+
+/**
+ * Adds a URL field to the local_authority_details table.
+ */
+function fsa_report_problem_update_7008() {
+
+  // If the field already exists, return now.
+  if (db_field_exists('local_authority_details', 'url')) {
+    return;
+  }
+
+  $spec = array(
+    'description' => 'URL of the local authority website',
+    'type' => 'varchar',
+    'length' => 256,
+    'not null' => FALSE,
+  );
+
+  db_add_field('local_authority_details', 'url', $spec);
 }
