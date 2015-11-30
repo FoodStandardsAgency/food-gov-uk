@@ -1874,4 +1874,16 @@ function template_preprocess_local_authority_details(&$variables) {
   $variables['url'] = !empty($local_authority['url']) ? $local_authority['url'] : NULL;
   // Create a link to the local authority website
   $variables['website_link'] = !empty($variables['url']) ? l($variables['url'], $variables['url'], array('external' => TRUE)) : NULL;
+
+  // If we have neither an email nor a URL for the local authority, we can try
+  // Google Places to find contact details.
+  // This needs to be fleshed out a bit. We probably need to make two requests
+  // to the Google Places API to get more detail for the result.
+  // @todo Consider looking at this later. Leave for now as not that important.
+  if (empty($variables['email']) && empty($variables['url'])) {
+    $details = fsa_report_problem_get_google_results($variables['name']);
+    foreach ($details as $result) {
+      //dpm($result, $result['name']);
+    }
+  }
 }
