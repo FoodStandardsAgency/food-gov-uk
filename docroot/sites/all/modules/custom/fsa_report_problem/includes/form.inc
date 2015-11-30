@@ -494,24 +494,25 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
         //dpm($local_authority);
         $form_state['local_authority'] = $local_authority;
         $form_state['coords'] = "$lat,$lng";
-      }
-      
-      // If we're not capturing user details, set the next stage to be show
-      // local authority details and break.
-      if (!_fsa_report_problem_capture_user_data()) {
-        $next_stage = 'local_authority_details';
-        if (is_array($form_state['local_authority']) && !empty($form_state['local_authority']['id'])) {
-          $la = fsa_report_problem_get_local_authority_by_area_id($local_authority['id']);
-          if (!empty($la->email)) {
-            $form_state['local_authority']['email'] = $la->email;
-            $form_state['local_authority']['url'] = $la->url;
+
+        // If we're not capturing user details, set the next stage to be show
+        // local authority details and break.
+        // @todo This is duplicated below. Create a function instead.
+        if (!_fsa_report_problem_capture_user_data()) {
+          $next_stage = 'local_authority_details';
+          if (is_array($form_state['local_authority']) && !empty($form_state['local_authority']['id'])) {
+            $la = fsa_report_problem_get_local_authority_by_area_id($local_authority['id']);
+            if (!empty($la->email)) {
+              $form_state['local_authority']['email'] = $la->email;
+              $form_state['local_authority']['url'] = $la->url;
+            }
           }
         }
+        else {
+          $next_stage = 'make_report';
+        }
+        break;
       }
-      else {
-        $next_stage = 'make_report';
-      }
-      break;
 
       // Get business listings from the Google Places API.
       $businesses = fsa_report_problem_get_google_results($name, $address, $user_location);
@@ -543,6 +544,19 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
       $local_authority = fsa_report_problem_get_local_authority($business['geometry']['location']['lng'], $business['geometry']['location']['lat']);
       $form_state['selected_business'] = $business;
       $form_state['local_authority'] = $local_authority;
+
+      // If we're not capturing user data, we need to get the full local
+      // authority details to display to the user.
+      // @todo This is duplicated above. Create a function instead.
+      if (!_fsa_report_problem_capture_user_data()) {
+        if (is_array($form_state['local_authority']) && !empty($form_state['local_authority']['id'])) {
+          $la = fsa_report_problem_get_local_authority_by_area_id($local_authority['id']);
+          if (!empty($la->email)) {
+            $form_state['local_authority']['email'] = $la->email;
+            $form_state['local_authority']['url'] = $la->url;
+          }
+        }
+      }
       break;
 
 
