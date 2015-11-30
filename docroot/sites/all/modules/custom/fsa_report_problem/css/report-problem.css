@@ -157,4 +157,9 @@ p.service-offline {
     font-size: 2em;
     margin: 0; }
 
+.local-authority-details h2 {
+  margin-bottom: 5px; }
+.local-authority-details p {
+  margin: 0; }
+
 /*# sourceMappingURL=report-problem.css.map */
