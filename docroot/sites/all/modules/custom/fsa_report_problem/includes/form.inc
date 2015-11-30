@@ -714,7 +714,9 @@ function fsa_report_problem_local_authority_details_form($form, &$form_state) {
   $form['intro'] = array(
     '#type' => 'html_tag',
     '#tag' => 'p',
-    '#value' => t('The local authority for this business is:'),
+    // @todo Make this user editable.
+    // @todo Display the business name here.
+    '#value' => t('Detais of the local authority for this business are shown below. Please contact them to report the problem you have experienced.'),
     '#attributes' => array(
       'class' => array('form-intro'),
     ),
