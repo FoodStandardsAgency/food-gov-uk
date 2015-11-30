@@ -727,21 +727,15 @@ function fsa_report_problem_local_authority_details_form($form, &$form_state) {
     return $form;
   }
 
-  $form['intro'] = array(
-    '#type' => 'html_tag',
-    '#tag' => 'p',
-    // @todo Make this user editable.
-    // @todo Display the business name here.
-    '#value' => t('Detais of the local authority for this business are shown below. Please contact them to report the problem you have experienced.'),
-    '#attributes' => array(
-      'class' => array('form-intro'),
-    ),
+  $form['intro_text'] = array(
+    '#type' => 'form_intro',
+    '#text' => _fsa_report_problem_text('local_authority_intro'),
   );
 
   $form['local_authority_details'] = array(
     '#theme' => 'local_authority_details',
     '#local_authority' => $form_state['local_authority'],
   );
-  
+
   return $form;
 }
