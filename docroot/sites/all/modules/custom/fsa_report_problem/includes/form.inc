@@ -501,6 +501,9 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
         // local authority details and break.
         // @todo This is duplicated below. Create a function instead.
         if (!_fsa_report_problem_capture_user_data()) {
+          // Set the selected business form state element, as we'll need this to
+          // display the business name on the local authority details form.
+          $form_state['selected_business'] = !empty($form_state['values']['business_name']) ? array('name' => $form_state['values']['business_name']) : array();
           $next_stage = 'local_authority_details';
           if (is_array($form_state['local_authority']) && !empty($form_state['local_authority']['id'])) {
             $la = fsa_report_problem_get_local_authority_by_area_id($local_authority['id']);
