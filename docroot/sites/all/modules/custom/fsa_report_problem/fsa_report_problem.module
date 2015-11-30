@@ -1868,4 +1868,8 @@ function template_preprocess_local_authority_details(&$variables) {
   $variables['email'] = !empty($local_authority['email']) ? $local_authority['email'] : NULL;
   // Create a link for the email address
   $variables['email_link'] = !empty($variables['email']) ? l($variables['email'], 'mailto:' . $variables['email'], array('absolute' => TRUE)) : NULL;
+  // Set the local authority URL
+  $variables['url'] = !empty($local_authority['url']) ? $local_authority['url'] : NULL;
+  // Create a link to the local authority website
+  $variables['website_link'] = !empty($variables['url']) ? l($variables['url'], $variables['url'], array('external' => TRUE)) : NULL;
 }

@@ -504,6 +504,7 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
           $la = fsa_report_problem_get_local_authority_by_area_id($local_authority['id']);
           if (!empty($la->email)) {
             $form_state['local_authority']['email'] = $la->email;
+            $form_state['local_authority']['url'] = $la->url;
           }
         }
       }
