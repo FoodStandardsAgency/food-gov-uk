@@ -146,6 +146,8 @@ function fsa_report_problem_form($form, &$form_state) {
       '#value' => is_array($steps[$step]) ? $steps[$step]['label'] : $steps[$step],
     ),
     '#weight' => -8,
+    // Don't show the step indicator if we're not capturing user data.
+    '#access' => _fsa_report_problem_capture_user_data(),
   );
 
   return $the_form;
