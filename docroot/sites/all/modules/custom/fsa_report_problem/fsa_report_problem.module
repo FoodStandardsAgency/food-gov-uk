@@ -694,14 +694,30 @@ function template_preprocess_problem_report(&$variables) {
  *   effect since the maximum number of results per request is limited by
  *   Google.
  *
+ * @throws GooglePlacesApiException
+ *   If there are any issues with the request, including standard HTTP errors,
+ *   as well as Google Places API errors such as invalid keys or API request
+ *   limit exceeded, a GooglePlacesApiException will be thrown. The calling
+ *   code should catch these exceptions and handle them appropriately,
+ *   including providing user feedback and logging. This function does not
+ *   itself provide Watchdog logging.
+ *
  * @return array
- *   An array of Google Places results
+ *   An array of Google Places results. This will be empty if no results are
+ *   returned.
  */
 function fsa_report_problem_get_google_results($name, $location, $user_location = NULL, $max_results = 60) {
 
+  // Get the endpoint
   $endpoint = variable_get('fsa_report_problem_google_places_api_endpoint', 'https://maps.googleapis.com/maps/api/place/textsearch/json');
 
+  // Get the API key
   $api_key = variable_get('fsa_report_problem_google_places_api_key');
+
+  // If we don't have an API key, throw an exception now
+  if (empty($api_key)) {
+    throw new GooglePlacesApiException(t('No Google Places API key available.'), GOOGLE_PLACES_EXCEPTION_NO_API_KEY);
+  }
 
   // Number of results returned per request. This is set by Google.
   $results_per_request = 20;
@@ -713,6 +729,7 @@ function fsa_report_problem_get_google_results($name, $location, $user_location 
   // Number of seconds to wait before re-querying Google Places
   $time_between_requests = variable_get('fsa_report_problem_google_places_delay', 2);
 
+  // Build query parameters
   $query = "$name $location";
   $options = array(
     'query' => array(
@@ -723,6 +740,7 @@ function fsa_report_problem_get_google_results($name, $location, $user_location 
     ),
   );
 
+  // Are we using location?
   $use_location = FALSE;
   if ($use_location) {
     $client_ip = !empty($_SERVER['HTTP_X_REAL_IP']) ? $_SERVER['HTTP_X_REAL_IP'] : '';
@@ -733,12 +751,14 @@ function fsa_report_problem_get_google_results($name, $location, $user_location 
     }
   }
 
+  // Array to hold the results to return.
   $results = array();
+  // String variable for the next page token
   $next_page_token = '';
+  // Number of requests made so far
   $request_count = 0;
-  // An object to return
-  $return_object = new GooglePlacesLookupResult();
 
+  // Start making requests to the Google Places API
   do {
     if ($request_count > 0) {
       sleep($time_between_requests);
@@ -746,33 +766,47 @@ function fsa_report_problem_get_google_results($name, $location, $user_location 
     if (!empty($next_page_token) && $next_page_token != 'not-set') {
       $options['query']['pagetoken'] = $next_page_token;
     }
+
+    // Construct the Google Places endpoint URL, including query
     $url = url($endpoint, $options);
+
+    // Make the request to the API
     $places = drupal_http_request($url);
 
-    $return_object->setHttpCode($places->code);
-    if (!empty($places->status_message)) {
-      $return_object->setStatus($places->status_message);
+    // Get the request data
+    $data = !empty($places->data) ? drupal_json_decode($places->data) : array();
+    // Get the status description
+    $status = !empty($data['status']) ? $data['status'] : NULL;
+    // Get the HTTP response code
+    $http_code = !empty($places->code) ? $places->code : 0;
+
+    // If the HTTP response code is anything other than 200, throw an exception.
+    if($places->code != 200) {
+      $error_message = !empty($places->error) ? $places->error : t('HTTP error');
+      throw new GooglePlacesApiException($error_message, GOOGLE_PLACES_EXCEPTION_HTTP_ERROR, $http_code);
     }
 
-    if($places->code != 200) {
-      $return_object->setErrorMessage($places->error);
-      watchdog('report_food_problem', 'Problem with Google Places API. Error message: %error_message Status: %status', array('%error_message' => !empty($places->error) ? $places->error : '', '%status' => !empty($places->status_message) ? $places->status_message : ''), WATCHDOG_ERROR);
-      return $return_object;
+    // If the Google Places API didn't like the key, throw an exception
+    if ($status == 'REQUEST_DENIED') {
+      $error_message = !empty($data['error_message']) ? $data['error_message'] : t('Google Places API denied request');
+      throw new GooglePlacesApiException($error_message, GOOGLE_PLACES_EXCEPTION_INVALID_KEY, $http_code);
     }
+
+    // If we're over the API request limit, throw and exception
+    if ($status == 'OVER_QUERY_LIMIT') {
+      $error_message = !empty($data['error_message']) ? $data['error_message'] : t('Google Places API over query limit');
+      throw new GooglePlacesApiException($error_message, GOOGLE_PLACES_EXCEPTION_OVER_QUERY_LIMIT, $http_code);
+    }
+
+    // Catch any other unspecified errors
+    if (!empty($data['error_message'])) {
+      throw new GooglePlacesApiException($data['error_message'], GOOGLE_PLACES_EXCEPTION_UNSPECIFIED, $http_code);
+    }
+
     $request_count++;
-    if (!empty($places->data)) {
-      $data = drupal_json_decode($places->data);
+    if (!empty($data)) {
       $next_page_token = !empty($data['next_page_token']) ? $data['next_page_token'] : 'not-set';
-      // Check for any errors from the Google Places API.
-      if (!empty($data['error_message'])) {
-        // Log a message in Watchdog
-        watchdog('report_food_problem', 'Problem with Google Places API. Error message: %error_message Status: %status', array('%error_message' => $data['error_message'], '%status' => !empty($data['status']) ? $data['status'] : ''), WATCHDOG_ERROR);
-        $return_object->success = FALSE;
-        $return_object->error_message = $data['error_message'];
-      }
-      $return_object->status = !empty($data['status']) ? $data['status'] : NULL;
       if (!empty($data['results'])) {
-        $return_object->success = TRUE;
         foreach ($data['results'] as $key => $result) {
           if (strpos($result['formatted_address'], 'United Kingdom') !== FALSE || strpos($result['formatted_address'], 'UK') !== FALSE) {
             $results[] = $result;
@@ -783,16 +817,8 @@ function fsa_report_problem_get_google_results($name, $location, $user_location 
   }
   while($request_count < $max_results/$results_per_request && count($results) < $result_threshold && $next_page_token != 'not-set');
 
-  $return_object->results = $results;
-
-  if (!empty($results)) {
-    //return $results;
-    //return $return_object;
-  }
-  else {
-    //return array();
-  }
-  return $return_object;
+  // Return the results array.
+  return $results;
 }
 
 
