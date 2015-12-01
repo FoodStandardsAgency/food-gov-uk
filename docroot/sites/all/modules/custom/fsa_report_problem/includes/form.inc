@@ -523,14 +523,29 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
 
       // Get business listings from the Google Places API.
       $businesses = fsa_report_problem_get_google_results($name, $address, $user_location);
-      if (count($businesses) == 0) {
-        $next_stage = 'find_business';
-        $form_state['no_businesses_found'] = TRUE;
-        drupal_set_message('Sorry, we could not find any matching businesses.', 'error');
-        $form_state['rebuild'] = TRUE;
-      }
-      else {
-        $form_state['businesses'] = $businesses;
+
+      // Set the business search results array.
+      $form_state['businesses'] = $businesses->results;
+
+      // Take action based on the return status
+      switch ($businesses->status) {
+        case 'ZERO_RESULTS':
+          $form_state['no_businesses_found'] = TRUE;
+          drupal_set_message('Sorry, we could not find any matching businesses.', 'error');
+          $next_stage = 'find_business';
+          $form_state['rebuild'] = TRUE;
+          break;
+
+        case 'OVER_QUERY_LIMIT':
+        case 'REQUEST_DENIED':
+        case FSA_REPORT_PROBLEM_UNSPECIFIED_ERROR:
+          drupal_set_message("We're sorry, but an error occurred looking up the business. Please try again later.", 'error');
+          $next_stage = 'find_business';
+          $form_state['rebuild'] = TRUE;
+          break;
+
+        case 'OK':
+          break;
       }
 
       break;
