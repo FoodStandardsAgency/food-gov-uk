@@ -586,7 +586,7 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
           // Get the error message
           $error_message = empty($business_name) ? array('value' => t('Sorry, we could not find any matching businesses. Please try again.')) : _fsa_report_problem_text('no_matching_business', array('food_establishment' => array('name' => $business_name)));
           // Display the message
-          drupal_set_message(strip_tags($error_message['value'], '<em><i>'), 'error');
+          drupal_set_message(strip_tags($error_message['value'], '<em><i><a>'), 'error');
         }
       }
       // Catch any exceptions
