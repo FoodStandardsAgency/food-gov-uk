@@ -736,6 +736,8 @@ function fsa_report_problem_get_google_results($name, $location, $user_location 
   $results = array();
   $next_page_token = '';
   $request_count = 0;
+  // An object to return
+  $return_object = new GooglePlacesLookupResult();
 
   do {
     if ($request_count > 0) {
@@ -746,11 +748,31 @@ function fsa_report_problem_get_google_results($name, $location, $user_location 
     }
     $url = url($endpoint, $options);
     $places = drupal_http_request($url);
+
+    $return_object->setHttpCode($places->code);
+    if (!empty($places->status_message)) {
+      $return_object->setStatus($places->status_message);
+    }
+
+    if($places->code != 200) {
+      $return_object->setErrorMessage($places->error);
+      watchdog('report_food_problem', 'Problem with Google Places API. Error message: %error_message Status: %status', array('%error_message' => !empty($places->error) ? $places->error : '', '%status' => !empty($places->status_message) ? $places->status_message : ''), WATCHDOG_ERROR);
+      return $return_object;
+    }
     $request_count++;
     if (!empty($places->data)) {
       $data = drupal_json_decode($places->data);
       $next_page_token = !empty($data['next_page_token']) ? $data['next_page_token'] : 'not-set';
+      // Check for any errors from the Google Places API.
+      if (!empty($data['error_message'])) {
+        // Log a message in Watchdog
+        watchdog('report_food_problem', 'Problem with Google Places API. Error message: %error_message Status: %status', array('%error_message' => $data['error_message'], '%status' => !empty($data['status']) ? $data['status'] : ''), WATCHDOG_ERROR);
+        $return_object->success = FALSE;
+        $return_object->error_message = $data['error_message'];
+      }
+      $return_object->status = !empty($data['status']) ? $data['status'] : NULL;
       if (!empty($data['results'])) {
+        $return_object->success = TRUE;
         foreach ($data['results'] as $key => $result) {
           if (strpos($result['formatted_address'], 'United Kingdom') !== FALSE || strpos($result['formatted_address'], 'UK') !== FALSE) {
             $results[] = $result;
@@ -761,12 +783,16 @@ function fsa_report_problem_get_google_results($name, $location, $user_location 
   }
   while($request_count < $max_results/$results_per_request && count($results) < $result_threshold && $next_page_token != 'not-set');
 
+  $return_object->results = $results;
+
   if (!empty($results)) {
-    return $results;
+    //return $results;
+    //return $return_object;
   }
   else {
-    return array();
+    //return array();
   }
+  return $return_object;
 }
 
 
