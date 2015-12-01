@@ -763,3 +763,24 @@ function fsa_report_problem_local_authority_details_form($form, &$form_state) {
 
   return $form;
 }
+
+
+/**
+ * Form builder: Postcode search form
+ */
+function fsa_report_problem_postcode_search_form($form, &$form_state) {
+
+  $form['#postcode_search'] = TRUE;
+
+  $form['postcode'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Postcode'),
+    '#description' => t('Enter the postcode of the business, if you know it.'),
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Search'),
+  );
+  return $form;
+}
