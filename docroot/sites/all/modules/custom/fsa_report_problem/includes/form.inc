@@ -527,17 +527,23 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
         $businesses = fsa_report_problem_get_google_results($name, $address, $user_location);
         // Set the business search results array.
         $form_state['businesses'] = $businesses;
+        // No businesses found? Set an error and return to stage 1.
         if (count($businesses) == 0) {
           $form_state['no_businesses_found'] = TRUE;
           $next_stage = 'find_business';
           $form_state['rebuild'] = TRUE;
-          drupal_set_message('Sorry, we could not find any matching businesses.', 'error');
+          // Get the business name - if available
+          $business_name = !empty($form_state['values']['business_name']) ? $form_state['values']['business_name'] : '';
+          // Get the error message
+          $error_message = empty($business_name) ? array('value' => t('Sorry, we could not find any matching businesses. Please try again.')) : _fsa_report_problem_text('no_matching_business', array('food_establishment' => array('name' => $business_name)));
+          // Display the message
+          drupal_set_message(strip_tags($error_message['value'], '<em><i>'), 'error');
         }
       }
       // Catch any exceptions
       catch (Exception $e) {
         watchdog_exception('fsa_report_problem', $e);
-        drupal_set_message("We're sorry, but an error occurred looking up the business. Please try again later.", 'error');
+        drupal_set_message(t("We're sorry, but an error occurred looking up the business. Please try again later."), 'error');
         $next_stage = 'find_business';
         $form_state['rebuild'] = TRUE;
       }
