@@ -494,9 +494,22 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
   switch($current_stage) {
 
     case 'postcode_search':
-      $next_stage = 'local_authority_details';
-      // Here is where we need to search for local authority by postcode.
-      // @todo Implement local authority postcode search using MapIt
+      // Get the local authority details from MapIt
+      $local_authority = fsa_report_problem_get_local_authority_by_postcode($form_state['values']['postcode']);
+      if(!empty($local_authority)) {
+        if (!empty($local_authority['id'])) {
+          // Get the stored local authority details.
+          $la = fsa_report_problem_get_local_authority_by_area_id($local_authority['id']);
+          $local_authority['email'] = !empty($la->email) ? $la->email: NULL;
+          $local_authority['url'] = !empty($la->url) ? $la->url : NULL;
+        }
+        $form_state['local_authority'] = $local_authority;
+        $next_stage = 'local_authority_details';
+      }
+      else {
+        $next_stage = 'postcode_search';
+        drupal_set_message(t("Sorry, we couldn't find a local authority for that postcode. Please try again."), 'error');
+      }
       break;
 
     case 'find_business':
