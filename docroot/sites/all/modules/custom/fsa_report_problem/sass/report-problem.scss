@@ -300,3 +300,11 @@ $border-colour: $grey-2;
     margin: 0;
   }
 }
+
+
+// Special styling for messages
+.messages {
+  font-size: 1.5em;
+  line-height: 1.35;
+  padding-left: 40px;
+}
