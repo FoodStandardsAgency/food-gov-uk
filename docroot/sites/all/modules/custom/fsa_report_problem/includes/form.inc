@@ -211,6 +211,7 @@ function fsa_report_problem_find_business_form($form, &$form_state) {
     $form['no_results_message'] = array(
       '#type' => 'form_intro',
       '#text' => _fsa_report_problem_text('no_matching_business'),
+      '#access' => FALSE,
     );
   }
 
