@@ -4,4 +4,4 @@ core = 7.x
 package = FSA Custom
 files[] = includes/form.inc
 dependencies[] = fhrs_api
-files[] = classes/GooglePlacesLookupResult.class.php
+files[] = classes/GooglePlacesApiException.class.php
