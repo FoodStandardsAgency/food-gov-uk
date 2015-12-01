@@ -64,10 +64,20 @@ function fsa_report_problem_form($form, &$form_state) {
     t('Report complete'),
   );
 
+  // If we're going to do a postcode search, change step 1
+  if (empty($form_state['stage']) && !empty($params['postcode'])) {
+    $form_state['stage'] = 'postcode_search';
+  }
+
   // Get the right stage - default to the first one.
-  if (!isset($form_state['stage'])) $form_state['stage'] = 'find_business';
+  if (!isset($form_state['stage'])) {
+    $form_state['stage'] = 'find_business';
+  }
 
   switch ($form_state['stage']) {
+    case 'postcode_search':
+      $the_form = fsa_report_problem_postcode_search_form($form, $form_state);
+      break;
     case 'find_business':
       $the_form = fsa_report_problem_find_business_form($form, $form_state);
       $step = 0;
@@ -461,6 +471,11 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
     'report_complete',
   );
   
+  // If we're doing a postcode search, change the first stage.
+  if (!empty($form['#postcode_search'])) {
+    $stages[0] = 'postcode_search';
+  }
+
   // If we're not capturing user details, replace 'make_report' with the local
   // authority details form.
   if (!_fsa_report_problem_capture_user_data()) {
@@ -477,6 +492,12 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
   $next_stage = $stages[$next_index];
 
   switch($current_stage) {
+
+    case 'postcode_search':
+      $next_stage = 'local_authority_details';
+      // Here is where we need to search for local authority by postcode.
+      // @todo Implement local authority postcode search using MapIt
+      break;
 
     case 'find_business':
       // Get lat, long, name and address
