@@ -810,6 +810,7 @@ function fsa_report_problem_postcode_search_form($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Postcode'),
     '#description' => t('Enter the postcode of the business, if you know it.'),
+    '#required' => TRUE,
   );
 
   $form['submit'] = array(
