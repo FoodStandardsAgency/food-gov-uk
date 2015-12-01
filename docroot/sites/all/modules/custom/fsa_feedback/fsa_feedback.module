@@ -44,17 +44,45 @@ function fsa_feedback_page_build(&$page) {
     return;
   }
 
-  // Move the feedback element from page_bottom to FSA_FEEDBACK_REGION.
-  $page[FSA_FEEDBACK_REGION]['feedback'] = $page['page_bottom']['feedback'];
-  $page[FSA_FEEDBACK_REGION]['feedback']['#weight'] = 100;
+  // Get the existing feedback form. We'll use this to add the form to a
+  // different region of the page later.
+  $feedback_form = $page['page_bottom']['feedback'];
 
   // Unset 'feedback' in 'page_bottom'.
   unset($page['page_bottom']['feedback']);
 
-  // First check that the feedback element exists. If not, exit now.
+  // An array of regex patterns for paths on which we don't want the feedback
+  // form to appear. See issue #10303.
+  // @todo Allow users to modify this array via the UI? Propbably not necessary
+  //   at this stage as this is the only request to exclude the form so far, but
+  //   should there be more, this may be worthwhile. Alternatively, expose the
+  //   form as a block and use context to add it to the page - probably better.
+  $exclude_paths = array(
+    "@^.*/user/register$@", // Phony user registration pages
+  );
+
+  // Get the current page path - the one displayed in the browser bar.
+  $current_path = request_path();
+
+  // Test the current page path against those we want to exclude. If we get a
+  // match, exit immediately; the feedback form has been removed from the page
+  // but not yet added back in, so it will not appear.
+  foreach ($exclude_paths as $path) {
+    if (preg_match($path, $current_path)) {
+      return;
+    }
+  }
+
+  // Move the feedback element from page_bottom to FSA_FEEDBACK_REGION.
+  $page[FSA_FEEDBACK_REGION]['feedback'] = $feedback_form;
+
+  // Check that the feedback element exists. If not, exit now.
   if (empty($page[FSA_FEEDBACK_REGION]['feedback'])) {
     return;
   }
+
+  // Set the weight for the feedback element.
+  $page[FSA_FEEDBACK_REGION]['feedback']['#weight'] = 100;
 
   // Add the custom CSS file and make sure it comes after the contrib one.
   $page[FSA_FEEDBACK_REGION]['feedback']['#attached']['css'][drupal_get_path('module', 'fsa_feedback') . '/css/fsa-feedback.css'] = array(
@@ -76,6 +104,21 @@ function fsa_feedback_page_build(&$page) {
  * Implements hook_form_alter().
  */
 function fsa_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
+
+  // We want to capture the full originating URL, including any query string
+  // variables. This will help when analysing feedback from pages that
+  // incorporate a query string in their URLs, eg search.
+  // @see #10287 - https://support.siriusopensource.com/index.pl?Action=AgentTicketZoom;TicketID=785
+
+  // First get the current page path
+  $page_path = current_path();
+  // Now get the query string - minus the standard Drupal params
+  $query_string = drupal_get_query_parameters();
+  // Construct a URL using url(), but trim off the initial slash
+  $page_url = ltrim(url($page_path, array('query' => $query_string)), '/');
+  // Amend the values of the page URL in the $form and $form_state arrays.
+  $form_state['inline']['location'] = $page_url;
+  $form['location']['#value'] = $page_url;
 
   // Give the form a class to enable FSA styling to be applied.
   $form['#attributes']['class'][] = 'custom-block-inner';
@@ -249,6 +292,29 @@ function fsa_feedback_form_submit($form, &$form_state) {
   entity_form_submit_build_entity('feedback', $entry, $form, $form_state);
   $entry->message = $form_state['values']['message'];
   $entry->location = $form_state['values']['location'];
+
+  // The standard `feedback_save()` function doesn't cater for URLs that contain
+  // query strings. To overcome this issue, we set the url property here. This
+  // prevents the save function from trying to re-set it.
+  // @see #10287 - https://support.siriusopensource.com/index.pl?Action=AgentTicketZoom;TicketID=785
+  // Parse the location URL to get path and query string.
+  $path_parts = !empty($entry->location) ? drupal_parse_url($entry->location) : array();
+  // Create some options suitable for passing to Drupals `url()` function.
+  $url_options = array(
+    'absolute' => TRUE,
+    'query' => !empty($path_parts['query']) ? $path_parts['query'] : array(),
+  );
+  // Get the path part of the URL
+  $path = !empty($path_parts['path']) ? $path_parts['path'] : '';
+  // Set the url property of the entry using `url()`.
+  $entry->url = url($path, $url_options);
+
+  // Unset URL if it's blank, otherwise it doesn't get set as part of
+  // feedback_save().
+  if (isset($entry->url) && empty($entry->url)) {
+    unset($entry->url);
+  }
+
   feedback_save($entry);
 
   // Set the thankyou message for the user. The message is passed from the form,

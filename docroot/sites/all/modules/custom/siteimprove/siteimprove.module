@@ -1,0 +1,142 @@
+<?php
+/**
+ * @file
+ * Module code for the SiteImprove Drupal module
+ */
+
+
+/**
+ * Implements hook_permission().
+ */
+function siteimprove_permission() {
+  return array(
+    'administer siteimprove' => array(
+      'title' => t('Administer SiteImprove settings'),
+      'description' => t('Allows users to configure settings for the SiteImprove quality assurance module'),
+    ),
+  );
+}
+
+
+/**
+ * Implements hook_menu().
+ *
+ * @see siteimprove_admin_form().
+ */
+function siteimprove_menu() {
+  $items = array();
+
+  // Administration link for the module.
+  $items['admin/config/services/siteimprove'] = array(
+    'title' => t('SiteImprove'),
+    'description' => t('Configure settings for the SiteImprove quality assurance module'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('siteimprove_admin_form'),
+    'access arguments' => array('administer siteimprove'),
+    'file' => 'siteimprove.admin.inc',
+  );
+
+  return $items;
+}
+
+
+/**
+ * Implements hook_theme().
+ */
+function siteimprove_theme() {
+  return array(
+    // Theme implementation for the SiteImprove JavaScript
+    'siteimprove_analytics_javascript' => array(
+      'template' => 'theme/siteimprove-analytics-javascript',
+      'variables' => array(
+        'siteimprove_account_code' => variable_get('siteimprove_account_code'),
+      ),
+    ),
+  );
+}
+
+
+/**
+ * Implements hook_page_alter().
+ *
+ * @see theme/siteimprove-analytics-javascript.tpl.php
+ */
+function siteimprove_page_alter(&$page) {
+  // Get the SiteImprove account code
+  $account_code = variable_get('siteimprove_account_code');
+  // If we don't have an account code, don't render the script.
+  if (empty($account_code)) {
+    return;
+  }
+  // Get the page path
+  $path = current_path();
+  // If we're on an admin page and the siteimprove_track_admin variable is not
+  // set, then exit now.
+  if (path_is_admin($path) && !variable_get('siteimprove_track_admin')) {
+    return;
+  }
+  // Create a render array for the script
+  $script_element = array(
+    '#theme' => 'siteimprove_analytics_javascript',
+    '#siteimprove_account_code' => $account_code,
+  );
+  // Render the script into code.
+  $script = drupal_render($script_element);
+  // Add the JavaScript file to the site footer.
+  drupal_add_js($script, array('scope' => 'footer', 'type' => 'inline'));
+}
+
+
+/**
+ * Implements template_preprocess_page().
+ *
+ * We use this to add the SiteImprove meta tags that facilitate CMS deeplinking
+ *
+ * @see http://support.siteimprove.com/hc/en-gb/articles/206343443-What-is-CMS-Deeplinking-and-How-do-I-enable-it-
+ */
+function siteimprove_preprocess_page(&$variables) {
+  // Get the node object from the page variables - if available.
+  $node = !empty($variables['node']) ? $variables['node'] : NULL;
+  // No node object? Exit now.
+  if (empty($node)) {
+    return;
+  }
+  // Get the Nid from the node object
+  $nid = !empty($node->nid) ? $node->nid : NULL;
+  // No Nid? Exit now.
+  if (empty($nid)) {
+    return;
+  }
+  // Add the pageID meta tag - if required.
+  if (variable_get('siteimprove_meta_pageid', FALSE)) {
+    $page_id = array(
+      '#tag' => 'meta',
+      '#attributes' => array(
+        'name' => 'pageID',
+        'content' => $node->nid,
+      ),
+    );
+    drupal_add_html_head($page_id, 'siteimprove_page_id');
+  }
+
+  // Add the editingPage meta tag - if required.
+  if (variable_get('siteimprove_meta_editing_page', FALSE)) {
+    $editing_page_options = array(
+      'absolute' => TRUE,
+      'https' => TRUE,
+    );
+
+    // Allow modules to alter the editing page options
+    drupal_alter('siteimprove_editing_page_options', $editing_page_options);
+
+    $editing_page = array(
+      '#tag' => 'meta',
+      '#attributes' => array(
+        'name' => 'editingPage',
+        'content' => url("node/$nid/edit", $editing_page_options),
+      ),
+    );
+
+    drupal_add_html_head($editing_page, 'siteimprove_editing_page');
+  }
+}

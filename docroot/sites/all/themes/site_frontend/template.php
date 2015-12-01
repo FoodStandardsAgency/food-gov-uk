@@ -191,3 +191,72 @@ function site_frontend_html_head_alter(&$head) {
     unset($head['omega-cleartype']);
   }
 }
+
+/**
+ * Implements hook_css_alter().
+ *
+ * We use this to fix a bug with the Code Per Node (CPN) module, whereby if a
+ * node that has custom CSS is included somehow in another node as a teaser, its
+ * CSS is rendered on the parent node. To get around this, we check to see
+ * whether any CPN CSS is attached and then compare it with the NID of the node.
+ *
+ */
+function site_frontend_css_alter(&$css) {
+  // If there is no CPN CSS, then we can get out now.
+  if (empty($css['cpn_node'])) {
+    return;
+  }
+
+  // Get the menu object. We'll assume it's a node, even though it may not be.
+  $node = menu_get_object();
+
+  // If it's a node, it'll have a nid. If not, we can exit now.
+  if (empty($node->nid)) {
+   return;
+  }
+
+  // Get the nid
+  $nid = $node->nid;
+  // Get the CPN path. We'll use this later...
+  $cpn_path = variable_get('cpn_path', 'public://cpn');
+
+  // The CPN CSS filename is based on the nid of the node. We don't want any
+  // CSS that comes from another node, so unset it now if it doesn't match the
+  // current node's nid.
+  if (!empty($css['cpn_node']['data']) && $css['cpn_node']['data'] != "$cpn_path/${nid}.css") {
+   unset($css['cpn_node']);
+  }
+
+}
+
+
+/**
+ * Includes external libraries
+ *
+ * @see site_frontend_preprocess_page().
+ */
+function site_frontend_get_external_libraries() {
+  // Get the path to the theme
+  $theme_path = drupal_get_path('theme', 'site_frontend');
+  // Include the file that contains this theme's external library declarations
+  require_once "$theme_path/includes/external_libraries.inc";
+  // Invoke hook_external_libraries().
+  $libraries = omega_invoke_all('external_libraries');
+  // Set some defaults
+  $library_defaults = array(
+    'type' => 'js',
+    'options' => array(),
+  );
+  // Add each library.
+  foreach ($libraries as $library) {
+    $library += $library_defaults;
+    switch ($library['type']) {
+      case 'js':
+        drupal_add_js($library['url'], $library['options']);
+        break;
+      case 'css':
+        // @todo Flesh this out for adding external CSS libraries.
+        break;
+    }
+  }
+}

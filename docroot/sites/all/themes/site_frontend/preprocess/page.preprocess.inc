@@ -6,6 +6,32 @@
 
 
 function site_frontend_preprocess_page(&$variables) {
+
+  // Add the GovDelivery PageWatch delimiter comments to the page content array.
+  // These mark the start and end of the real content of the page and are used
+  // by GovDelivery to determine when a page has actually been updated
+  // @see #10225 - https://support.siriusopensource.com/index.pl?Action=AgentTicketZoom;TicketID=723
+  // @todo Once the FSA GovDelivery module has been deployed to the production
+  //   system, move these into an implementation of template_preprocess_page()
+  //   in that module, not here.
+  // The presence of the delimiters is determined by a variable that can be
+  // set via Drush, eg
+  //
+  // `drush vset fsa_govdelivery_add_pagewatch_delimiters 1`
+  //
+  $add_pagewatch_delimiters = variable_get('fsa_govdelivery_add_pagewatch_delimiters', FALSE);
+  if (!empty($add_pagewatch_delimiters)) {
+    $variables['page']['content']['page_watch_delimiter_start'] = array(
+      '#markup' => '<!--PAGEWATCH-->',
+      '#suffix' => PHP_EOL,
+      '#weight' => -100,
+    );
+    $variables['page']['content']['page_watch_delimiter_end'] = array(
+      '#markup' => '<!--/PAGEWATCH-->',
+      '#weight' => 150,
+    );
+  }
+
   // Add current username to the page footer so that we can detect it with Behat tests
   if (user_is_logged_in()) {
     $variables['page']['footer']['username'] = array(
@@ -41,6 +67,9 @@ function site_frontend_preprocess_page(&$variables) {
       $function_name($variables, $node);
     }
   }
+
+  // Add any external libraries - not to be hosted locally within Drupal.
+  site_frontend_get_external_libraries();
 
 }
 

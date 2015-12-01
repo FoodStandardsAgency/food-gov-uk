@@ -1,0 +1,5 @@
+name = FSA File validation
+description = "Adds validation functions to files being uploaded to Drupal"
+core = 7.x
+package = FSA Custom
+configure = admin/config/media/file-settings/validation
