@@ -21,6 +21,11 @@
       reportProblem.latField = document.getElementById('lat');
       reportProblem.lngField = document.getElementById('lng');
 
+      // Clear form values to prevent accidental re-submission.
+      reportProblem.latField.value = '';
+      reportProblem.lngField.value = '';
+      reportProblem.addressField.value = '';
+
       // Set autocomplete options
       var autocompleteOptions = {
         'types': ['establishment'],
