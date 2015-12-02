@@ -2076,3 +2076,24 @@ function _fsa_report_problem_restore_tokens($text = '') {
   $replacement = '[$2]';
   return preg_replace($pattern, $replacement, $text);
 }
+
+
+/**
+ * Helper function: returns title for a step in the progress indicator
+ *
+ * @param string $id
+ *   The identifier for the text entry, without the prefix "step_title_".
+ *
+ * @return string
+ *   The title of the step.
+ *
+ * @see _fsa_report_problem_text()
+ */
+function _fsa_report_problem_step_title($id = NULL) {
+  if (empty($id)) {
+    return '';
+  }
+  $id = "step_title_$id";
+  $step_title = _fsa_report_problem_text($id);
+  return !empty($step_title['value']) ? $step_title['value'] : '';
+}
