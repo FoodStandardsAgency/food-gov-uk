@@ -1324,6 +1324,10 @@ function _fsa_report_problem_text($key = NULL, $data = array()) {
       'title' => t('Local authority details intro'),
       'description'=> t('Introductory text for the local authority details page. Appears only if user data capture is turned off.'),
     ),
+    'local_authority_intro_postcode' => array(
+      'title' => t('Local authority details intro - postcode search'),
+      'description'=> t('Introductory text for the local authority details page following a postcode search. Appears only if user data capture is turned off.'),
+    ),
     'report_complete' => array(
       'title' => t('Report complete text'),
       'description' => t('Report complete text'),
