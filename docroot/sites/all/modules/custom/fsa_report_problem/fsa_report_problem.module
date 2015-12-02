@@ -1844,6 +1844,10 @@ function fsa_report_problem_init() {
     'complete' => array(
       'complete' => 1,
     ),
+    // Postcode search
+    'postcode' => array(
+      'postcode' => 1,
+    )
   );
 
   // Check to see if anything after the path is in our array of $path_mappings.
