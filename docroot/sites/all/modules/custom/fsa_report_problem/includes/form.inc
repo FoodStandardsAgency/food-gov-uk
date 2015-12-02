@@ -69,6 +69,15 @@ function fsa_report_problem_form($form, &$form_state) {
     $form_state['stage'] = 'postcode_search';
   }
 
+  // If we're not doing data capture, we don't need the standard steps 3 and 4,
+  // so we need to amend them
+  if (!_fsa_report_problem_capture_user_data()) {
+    // Unset the Report complete step
+    unset($steps[3]);
+    // Rename step 3 - 'Tell us about the food problem'
+    $steps[2] = t('Local authority details');
+  }
+
   // Get the right stage - default to the first one.
   if (!isset($form_state['stage'])) {
     $form_state['stage'] = 'find_business';
@@ -93,6 +102,9 @@ function fsa_report_problem_form($form, &$form_state) {
     case 'local_authority_details':
       $the_form = fsa_report_problem_local_authority_details_form($form, $form_state);
       $step = 2;
+      if (!empty($form_state['non_autocomplete'])) {
+        $steps[1]['disabled'] = FALSE;
+      }
       break;
     case 'make_report':
       $the_form = fsa_report_problem_make_report_form($form, $form_state);
@@ -159,8 +171,6 @@ function fsa_report_problem_form($form, &$form_state) {
       '#value' => is_array($steps[$step]) ? $steps[$step]['label'] : $steps[$step],
     ),
     '#weight' => -8,
-    // Don't show the step indicator if we're not capturing user data.
-    '#access' => _fsa_report_problem_capture_user_data(),
   );
 
   return $the_form;
@@ -332,15 +342,18 @@ function fsa_report_problem_results_form($form, &$form_state) {
       '#establishment_details' => $business,
     );
 
-     $form['business_wrapper_' . $id][$id] = array(
+    // Set the verb to appear on the buttons to select a business.
+    $button_verb = _fsa_report_problem_capture_user_data() ? t('Report') : t('Choose');
+
+    $form['business_wrapper_' . $id][$id] = array(
       '#type' => 'submit',
       '#value' => $business['name'],
-      '#value' => t('Report this business'),
+      '#value' => t('@select this business', array('@select' => $button_verb)),
       '#name' => 'op' . $id,
       '#attributes' => array(
         'data-business-id' => $id,
-        'title' => t('Report !business_name', array('!business_name' =>  htmlspecialchars($business['name'], ENT_COMPAT, 'UTF-8'))),
-        'aria-label' => t('Report !business_name', array('!business_name' =>  htmlspecialchars($business['name'], ENT_COMPAT, 'UTF-8'))),
+        'title' => t('@select !business_name', array('!business_name' =>  htmlspecialchars($business['name'], ENT_COMPAT, 'UTF-8'), '@select' => $button_verb)),
+        'aria-label' => t('@select !business_name', array('!business_name' =>  htmlspecialchars($business['name'], ENT_COMPAT, 'UTF-8'), '@select' => $button_verb)),
       ),
     );
 
@@ -368,6 +381,21 @@ function fsa_report_problem_results_form($form, &$form_state) {
  * Form builder: Step 3 - Make the report
  */
 function fsa_report_problem_make_report_form($form, &$form_state) {
+
+  // Are we capturing user data? If not, don't show this form.
+  if (!_fsa_report_problem_capture_user_data()) {
+    $form['err_message'] = array(
+      '#type' => 'html_tag',
+      '#tag' => 'p',
+      '#value' => t('Sorry, an error has occurred. Please return to the <a href="/enforcement/report-problem">start page</a>.'),
+      '#attributes' => array(
+        'class' => array(
+          'form-intro',
+        ),
+      ),
+    );
+    return $form;
+  }
 
   if (!empty($form_state['selected_business'])) {
     $business = $form_state['selected_business'];
@@ -819,21 +847,48 @@ function fsa_report_problem_local_authority_details_form($form, &$form_state) {
 
 /**
  * Form builder: Postcode search form
+ *
+ * This form is used to search for a local authority by postcode, using MapIt
  */
 function fsa_report_problem_postcode_search_form($form, &$form_state) {
 
+  // Are we capturing user data? If so, don't show this form.
+  if (_fsa_report_problem_capture_user_data()) {
+    $form['err_message'] = array(
+      '#type' => 'html_tag',
+      '#tag' => 'p',
+      '#value' => t('Sorry, an error has occurred. Please return to the <a href="/enforcement/report-problem">start page</a>.'),
+      '#attributes' => array(
+        'class' => array(
+          'form-intro',
+        ),
+      ),
+    );
+    return $form;
+  }
+
   $form['#postcode_search'] = TRUE;
+
+  $form['intro'] = array(
+    '#type' => 'form_intro',
+    '#text' => _fsa_report_problem_text('postcode_search_intro'),
+  );
 
   $form['postcode'] = array(
     '#type' => 'textfield',
     '#title' => t('Postcode'),
-    '#description' => t('Enter the postcode of the business, if you know it.'),
+    '#title_display' => 'invisible',
+    '#description' => t('Enter the full postcode of the business to search for its local authority.'),
     '#required' => TRUE,
+    '#maxlength' => 8,
+    '#attributes' => array(
+      'placeholder' => t('Enter the full postcode of the business'),
+    ),
   );
 
   $form['submit'] = array(
     '#type' => 'submit',
-    '#value' => t('Search'),
+    '#value' => t('Look up postcode'),
   );
   return $form;
 }

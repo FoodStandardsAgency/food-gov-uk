@@ -1316,6 +1316,10 @@ function _fsa_report_problem_text($key = NULL, $data = array()) {
       'title' => t('Report page intro - manual entry'),
       'description' => t('Intro text for the manual entry version of the main report page'),
     ),
+    'postcode_search_intro' => array(
+      'title' => t('Postcode search form intro'),
+      'description' => t('Intro text for the search for authority by postcode lookup form'),
+    ),
     'local_authority_intro' => array(
       'title' => t('Local authority details intro'),
       'description'=> t('Introductory text for the local authority details page. Appears only if user data capture is turned off.'),
@@ -1844,6 +1848,10 @@ function fsa_report_problem_init() {
     'complete' => array(
       'complete' => 1,
     ),
+    // Postcode search
+    'postcode' => array(
+      'postcode' => 1,
+    )
   );
 
   // Check to see if anything after the path is in our array of $path_mappings.
