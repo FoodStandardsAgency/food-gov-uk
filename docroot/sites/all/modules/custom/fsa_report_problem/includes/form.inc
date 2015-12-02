@@ -332,15 +332,18 @@ function fsa_report_problem_results_form($form, &$form_state) {
       '#establishment_details' => $business,
     );
 
-     $form['business_wrapper_' . $id][$id] = array(
+    // Set the verb to appear on the buttons to select a business.
+    $button_verb = _fsa_report_problem_capture_user_data() ? t('Report') : t('Choose');
+
+    $form['business_wrapper_' . $id][$id] = array(
       '#type' => 'submit',
       '#value' => $business['name'],
-      '#value' => t('Report this business'),
+      '#value' => t('@select this business', array('@select' => $button_verb)),
       '#name' => 'op' . $id,
       '#attributes' => array(
         'data-business-id' => $id,
-        'title' => t('Report !business_name', array('!business_name' =>  htmlspecialchars($business['name'], ENT_COMPAT, 'UTF-8'))),
-        'aria-label' => t('Report !business_name', array('!business_name' =>  htmlspecialchars($business['name'], ENT_COMPAT, 'UTF-8'))),
+        'title' => t('@select !business_name', array('!business_name' =>  htmlspecialchars($business['name'], ENT_COMPAT, 'UTF-8'), '@select' => $button_verb)),
+        'aria-label' => t('@select !business_name', array('!business_name' =>  htmlspecialchars($business['name'], ENT_COMPAT, 'UTF-8'), '@select' => $button_verb)),
       ),
     );
 
