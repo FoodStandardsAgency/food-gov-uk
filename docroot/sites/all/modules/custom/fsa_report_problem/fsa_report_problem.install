@@ -438,3 +438,17 @@ function fsa_report_problem_update_7008() {
 
   db_add_field('local_authority_details', 'url', $spec);
 }
+
+
+/**
+ * Imports text values from files - will replace any existing variable values.
+ */
+function fsa_report_problem_update_7009() {
+  // Get the text entries.
+  $text = _fsa_report_problem_text();
+  // Import any corresponding text files.
+  foreach ($text as $key => $properties) {
+    $text_format = !empty($properties['format']) ? $properties['format'] : 'full_html';
+    _fsa_report_problem_import_text($key, $text_format, TRUE);
+  }
+}
