@@ -394,7 +394,7 @@ function fsa_report_problem_theme($existing, $type, $theme, $path) {
     'local_authority_details' => array(
       'template' => 'theme/local-authority-details',
       'variables' => array(
-        'local_authority' => NUL,
+        'local_authority' => NULL,
       ),
     ),
   );
