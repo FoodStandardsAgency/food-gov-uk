@@ -55,13 +55,13 @@ function fsa_report_problem_form($form, &$form_state) {
   // is disabled by default, but will be enabled if the user does not use the
   // Google Places autocomplete.
   $steps = array(
-    t('Find a business'),
+    _fsa_report_problem_step_title('find_business'),
     array(
-      'label' => t('Choose a business'),
+      'label' => _fsa_report_problem_step_title('choose_business'),
       'disabled' => TRUE,
     ),
-    t('Tell us about the food problem'),
-    t('Report complete'),
+    _fsa_report_problem_step_title('make_report'),
+    _fsa_report_problem_step_title('report_complete'),
   );
 
   // If we're going to do a postcode search, change step 1
@@ -75,7 +75,7 @@ function fsa_report_problem_form($form, &$form_state) {
     // Unset the Report complete step
     unset($steps[3]);
     // Rename step 3 - 'Tell us about the food problem'
-    $steps[2] = t('Local authority details');
+    $steps[2] = _fsa_report_problem_step_title('local_authority_details');
   }
 
   // Get the right stage - default to the first one.
@@ -86,8 +86,8 @@ function fsa_report_problem_form($form, &$form_state) {
   switch ($form_state['stage']) {
     case 'postcode_search':
       $the_form = fsa_report_problem_postcode_search_form($form, $form_state);
-      $steps[1]['disabled'] = FALSE;
-      $step = 1;
+      $steps[0] = _fsa_report_problem_step_title('postcode_search');
+      $step = 0;
       break;
     case 'find_business':
       $the_form = fsa_report_problem_find_business_form($form, $form_state);
@@ -160,12 +160,12 @@ function fsa_report_problem_form($form, &$form_state) {
   $the_form['step_indicator'] = array(
     '#prefix' => '<div class="step-indicator">',
     '#suffix' => '</div>',
-    'test1' => array(
+    'counter' => array(
       '#type' => 'html_tag',
       '#tag' => 'p',
       '#value' => t('Step @step of @steps', array('@step' => $current_step, '@steps' => count($steps))),
     ),
-    'tester' => array(
+    'heading' => array(
       '#type' => 'html_tag',
       '#tag' => 'h2',
       '#value' => is_array($steps[$step]) ? $steps[$step]['label'] : $steps[$step],
