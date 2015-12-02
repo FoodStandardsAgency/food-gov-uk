@@ -90,6 +90,7 @@ function fsa_report_problem_form($form, &$form_state) {
       break;
     case 'local_authority_details':
       $the_form = fsa_report_problem_local_authority_details_form($form, $form_state);
+      $step = 1;
       break;
     case 'make_report':
       $the_form = fsa_report_problem_make_report_form($form, $form_state);
