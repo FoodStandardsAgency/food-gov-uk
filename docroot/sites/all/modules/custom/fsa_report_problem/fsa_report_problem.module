@@ -1962,3 +1962,109 @@ function _fsa_report_problem_mapit_authority_types() {
   $area_types = array('DIS', 'UTA', 'LBO', 'LGD', 'MTD');
   return $area_types;
 }
+
+
+/**
+ * Helper function - import text from file into variable
+ *
+ * @param string $text_id
+ *   The ID of the text entry.
+ *
+ * @param string $format
+ *   The text format to use, defaults to 'full_html'
+ *
+ * @param boolean $overwrite
+ *   Determines whether to overwrite existing variable values. Defaults to
+ *   FALSE.
+ *
+ * @see _fsa_report_problem_escape_tokens()
+ * @see _fsa_report_problem_restore_tokens()
+ *
+ */
+function _fsa_report_problem_import_text($text_id = NULL, $format = 'full_html', $overwrite = FALSE) {
+
+  // If text_id is empty, exit now.
+  if (empty($text_id)) {
+    return;
+  }
+
+  // Construct the variable name
+  $variable_name = 'fsa_report_problem_text_' . $text_id;
+
+  // Get the current variable value, if set.
+  $current_value = variable_get($variable_name);
+
+  // If the variable is already populated and we're not set to overwrite, exit
+  // now.
+  if (!empty($current_value) && !$overwrite) {
+    return;
+  }
+
+  // Build the file path
+  $path = drupal_get_path('module', 'fsa_report_problem') . '/text/' . $text_id . '.txt';
+
+  // Check the requested format exists. Otherwise use the fallback.
+  $format = filter_format_exists($format) ? $format : filter_fallback_format();
+
+  // If the file exists, get its content.
+  if (file_exists($path)) {
+    $variable_value = array(
+      'format' => $format,
+      'value' => _fsa_report_problem_restore_tokens(check_markup(_fsa_report_problem_escape_tokens(file_get_contents($path)), $format)),
+    );
+    // Save the variable
+    variable_set($variable_name, $variable_value);
+    // Log that the import has taken place
+    watchdog('fsa_report_problem', 'Updated text entry: %text_id.', array('%text_id' => $text_id));
+  }
+  // If the file does not exist, log it in Watchdog.
+  else {
+    watchdog('fsa_report_problem', 'Could not find file for text entry: %text_id.', array('%text_id' => $text_id), WATCHDOG_WARNING);
+  }
+}
+
+/**
+ * Helper function: replaces token delimiters with alternatives
+ *
+ * This avoids tokens being replaced during the import of text entries from text
+ * files, which involves calling `check_markup()`.
+ *
+ * We replace the square brackets around the tokens with alternatives: {{...}}.
+ *
+ * We then use another helper function to reinstate the square brackets once
+ * `check_markup()` has done its work.
+ *
+ * @param string $text
+ *   The original text, containing standard token patterns.
+ *
+ * @return string
+ *   The text with square brackets around tokens replaced with alternative
+ *   characters that won't be interpreted as tokens by `check_markup()`.
+ *
+ * @see _fsa_report_problem_restore_tokens()
+ */
+function _fsa_report_problem_escape_tokens($text = '') {
+  $pattern = "@(\[)(.*)(\])@";
+  $replacement = '{{$2}}';
+  return preg_replace($pattern, $replacement, $text);
+}
+
+/**
+ * Helper function: restores token delimiters that had previously been 'escaped'
+ *
+ * This function replaces the alternative characters around tokens so that they
+ * can be used within Drupal: {{...}} becomes [...]
+ *
+ * @param string $text
+ *   Text potentially containing escaped tokens of the form {{...}}
+ *
+ * @return string
+ *   Text with patterns of the form {{...}} replaced by [...]
+ *
+ * @see _fsa_report_problem_escape_tokens()
+ */
+function _fsa_report_problem_restore_tokens($text = '') {
+  $pattern = "@({{)(.*)(}})@";
+  $replacement = '[$2]';
+  return preg_replace($pattern, $replacement, $text);
+}
