@@ -839,6 +839,21 @@ function fsa_report_problem_local_authority_details_form($form, &$form_state) {
  */
 function fsa_report_problem_postcode_search_form($form, &$form_state) {
 
+  // Are we capturing user data? If so, don't show this form.
+  if (_fsa_report_problem_capture_user_data()) {
+    $form['err_message'] = array(
+      '#type' => 'html_tag',
+      '#tag' => 'p',
+      '#value' => t('Sorry, an error has occurred. Please return to the <a href="/enforcement/report-problem">start page</a>.'),
+      '#attributes' => array(
+        'class' => array(
+          'form-intro',
+        ),
+      ),
+    );
+    return $form;
+  }
+
   $form['#postcode_search'] = TRUE;
 
   $form['intro'] = array(
