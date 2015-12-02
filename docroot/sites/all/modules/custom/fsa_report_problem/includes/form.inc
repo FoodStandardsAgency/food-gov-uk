@@ -831,13 +831,16 @@ function fsa_report_problem_local_authority_details_form($form, &$form_state) {
     return $form;
   }
 
+  // Get the postcode - if supplied
+  $postcode = !empty($form_state['values']['postcode']) ? $form_state['values']['postcode'] : '';
+
   // Which version of intro text should we use. Depends on whether we are doing
   // a postcode-based search.
-  $intro_text = !empty($form_state['values']['postcode']) ? 'local_authority_intro_postcode' : 'local_authority_intro';
+  $intro_text = !empty($postcode) ? 'local_authority_intro_postcode' : 'local_authority_intro';
 
   $form['intro_text'] = array(
     '#type' => 'form_intro',
-    '#text' => _fsa_report_problem_text($intro_text, array('food_establishment' => !empty($form_state['selected_business']) ? $form_state['selected_business'] : array('name' => 'this business'))),
+    '#text' => _fsa_report_problem_text($intro_text, array('food_establishment' => !empty($form_state['selected_business']) ? $form_state['selected_business'] : array('name' => 'this business', 'postcode' => $postcode))),
   );
 
   $form['local_authority_details'] = array(

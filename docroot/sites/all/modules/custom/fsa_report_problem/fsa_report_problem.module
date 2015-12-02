@@ -1464,6 +1464,11 @@ function fsa_report_problem_token_info() {
     'description' => t('The name of the food establishment where the problem was experienced'),
   );
 
+  $food_establishment['postcode'] = array(
+    'name' => t('Establishment postcode'),
+    'description' => t('The postcode of the food establishment where the problem was experienced'),
+  );
+
   return array(
     'types' => $types,
     'tokens' => array(
@@ -1578,6 +1583,9 @@ function fsa_report_problem_tokens($type, $tokens, array $data = array(), array 
       switch ($name) {
         case 'name':
           $replacements[$original] = !empty($data['food_establishment']['name']) ? $data['food_establishment']['name'] : t('this business');
+          break;
+        case 'postcode':
+          $replacements[$original] = !empty($data['food_establishment']['postcode']) ? $data['food_establishment']['postcode'] : '';
           break;
       }
     }
