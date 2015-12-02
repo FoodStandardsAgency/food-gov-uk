@@ -834,21 +834,33 @@ function fsa_report_problem_local_authority_details_form($form, &$form_state) {
 
 /**
  * Form builder: Postcode search form
+ *
+ * This form is used to search for a local authority by postcode, using MapIt
  */
 function fsa_report_problem_postcode_search_form($form, &$form_state) {
 
   $form['#postcode_search'] = TRUE;
 
+  $form['intro'] = array(
+    '#type' => 'form_intro',
+    '#text' => _fsa_report_problem_text('postcode_search_intro'),
+  );
+
   $form['postcode'] = array(
     '#type' => 'textfield',
     '#title' => t('Postcode'),
-    '#description' => t('Enter the postcode of the business, if you know it.'),
+    '#title_display' => 'invisible',
+    '#description' => t('Enter the full postcode of the business to search for its local authority.'),
     '#required' => TRUE,
+    '#maxlength' => 8,
+    '#attributes' => array(
+      'placeholder' => t('Enter the full postcode of the business'),
+    ),
   );
 
   $form['submit'] = array(
     '#type' => 'submit',
-    '#value' => t('Search'),
+    '#value' => t('Look up postcode'),
   );
   return $form;
 }
