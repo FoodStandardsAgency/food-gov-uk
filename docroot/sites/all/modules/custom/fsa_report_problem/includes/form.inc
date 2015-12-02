@@ -242,7 +242,7 @@ function fsa_report_problem_find_business_form($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Business name and location'),
     '#title_display' => 'invisible',
-    '#description' => t('Please enter the name and location of the business that you wish to report'),
+    '#description' => t('Please enter the name and location of the business.'),
     '#required' => TRUE,
     '#attributes' => array(
       'placeholder' => t('Enter the business name and address'),
