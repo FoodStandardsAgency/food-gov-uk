@@ -160,12 +160,12 @@ function fsa_report_problem_form($form, &$form_state) {
   $the_form['step_indicator'] = array(
     '#prefix' => '<div class="step-indicator">',
     '#suffix' => '</div>',
-    'test1' => array(
+    'counter' => array(
       '#type' => 'html_tag',
       '#tag' => 'p',
       '#value' => t('Step @step of @steps', array('@step' => $current_step, '@steps' => count($steps))),
     ),
-    'tester' => array(
+    'heading' => array(
       '#type' => 'html_tag',
       '#tag' => 'h2',
       '#value' => is_array($steps[$step]) ? $steps[$step]['label'] : $steps[$step],
