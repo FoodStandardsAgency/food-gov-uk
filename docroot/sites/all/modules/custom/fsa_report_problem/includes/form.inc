@@ -77,6 +77,8 @@ function fsa_report_problem_form($form, &$form_state) {
   switch ($form_state['stage']) {
     case 'postcode_search':
       $the_form = fsa_report_problem_postcode_search_form($form, $form_state);
+      $steps[1]['disabled'] = FALSE;
+      $step = 1;
       break;
     case 'find_business':
       $the_form = fsa_report_problem_find_business_form($form, $form_state);
@@ -242,7 +244,7 @@ function fsa_report_problem_find_business_form($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Business name and location'),
     '#title_display' => 'invisible',
-    '#description' => t('Please enter the name and location of the business that you wish to report'),
+    '#description' => t('Please enter the name and location of the business.'),
     '#required' => TRUE,
     '#attributes' => array(
       'placeholder' => t('Enter the business name and address'),
