@@ -69,6 +69,15 @@ function fsa_report_problem_form($form, &$form_state) {
     $form_state['stage'] = 'postcode_search';
   }
 
+  // If we're not doing data capture, we don't need the standard steps 3 and 4,
+  // so we need to amend them
+  if (!_fsa_report_problem_capture_user_data()) {
+    // Unset the Report complete step
+    unset($steps[3]);
+    // Rename step 3 - 'Tell us about the food problem'
+    $steps[2] = t('Local authority details');
+  }
+
   // Get the right stage - default to the first one.
   if (!isset($form_state['stage'])) {
     $form_state['stage'] = 'find_business';
