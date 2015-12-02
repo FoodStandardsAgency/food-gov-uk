@@ -1,0 +1,1 @@
+<p>Sorry, we could not find any matching businesses. Please <a href="/enforcement/report-problem">try again</a> or <a href="/enforcement/report-problem/manual">enter the details manually</a>.</p>

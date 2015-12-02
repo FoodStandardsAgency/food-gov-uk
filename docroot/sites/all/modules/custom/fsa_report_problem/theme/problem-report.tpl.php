@@ -16,7 +16,7 @@
   
   <h2><?php print $business_name; ?></h2>
   
-  <p><?php print $business_location; ?></p>
+  <p><?php print $business_location; ?><?php if (!empty($business_postcode)) : ?>, <?php print $business_postcode; ?><?php endif; ?></p>
 
   <div class="problem-report-detail">
     <?php print render($local_authority); ?>

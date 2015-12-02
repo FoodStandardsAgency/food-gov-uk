@@ -4,163 +4,113 @@
  * Forms used by the FSA Report a problem module
  */
 
-function fsa_report_problem_establishment_search_form($form, &$form_state) {
-
-  // Field for business name
-  $form['business_name'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Business name'),
-  );
-
-  // Field for location
-  $form['business_location'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Street, borough, or town/city'),
-  );
-
-  // Submit button
-  $form['submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Find'),
-  );
-
-  return $form;
-
-}
-
-function fsa_report_problem_establishment_search_form_submit(&$form, &$form_state) {
-  $fields = array('business_name', 'business_location');
-  $query = array();
-  foreach ($fields as $field) {
-    if (!empty($form_state['input'][$field])) {
-      $query[$field] = $form_state['input'][$field];
-    }
-  }
-
-  $form_state['redirect'] = array(
-    request_path(),
-    //array('query' => $form_state['input']),
-    array('query' => $query),
-  );
-}
-
-
-
-
-function fsa_report_problem_report_form($form, &$form_state, $establishment = array()) {
-
-  $form['#fhrsid'] = $establishment['FHRSID'];
-  $form['#business_details'] = serialize($establishment);
-  $form['#local_authority_name'] = $establishment['LocalAuthorityName'];
-  $form['#local_authority_email'] = $establishment['LocalAuthorityEmailAddress'];
-
-  $form['business_name'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Name of the business'),
-    '#default_value' => !empty($establishment['BusinessName']) ? $establishment['BusinessName'] : '',
-  );
-
-
-  $form['postcode'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Where is it located?'),
-    '#default_value' => !empty($establishment['PostCode']) ? $establishment['PostCode'] : '',
-  );
-
-  $form['reporter_name'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Your name (optional)'),
-  );
-
-  $form['reporter_email'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Your email address (optional)'),
-  );
-
-  $today = date("Y-m-d H:i:s");
-
-  $form['issue_date'] = array(
-    '#type' => 'date_popup',
-    '#title' => t('Date and approximate time the food issue happened'),
-    '#default_value' => $today,
-    '#date_type' => DATE_DATETIME,
-    '#date_timezone' => date_default_timezone(),
-    '#date_format' => 'd/m/Y h:i a',
-    '#date_increment' => 1,
-    '#date_year_range' => '-3:+3',
-  );
-
-  $form['problem_details'] = array(
-    '#type' => 'textarea',
-    '#title' => t('Details of the food issue'),
-    '#cols' => 20,
-    '#rows' => 10,
-  );
-
-  // Submit button
-  $form['submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Find'),
-  );
-
-
-
-  return $form;
-
-}
-
-
-
-function fsa_report_problem_report_form_submit($form, &$form_state) {
-  $entity = entity_create('problem_report', array());
-  $entity->fhrsid = $form['#fhrsid'];
-  $entity->business_name = $form_state['values']['business_name'];
-  $entity->created = REQUEST_TIME;
-  $entity->changed = REQUEST_TIME;
-  $entity->reporter_name = $form_state['values']['reporter_name'];
-  $entity->reporter_email = $form_state['values']['reporter_email'];
-  $entity->business_location = $form_state['values']['business_location'];
-  $entity->problem_details = $form_state['values']['issue_details'];
-  $entity->local_authority_name = $form['#local_authority_name'];
-  $entity->local_authority_email = $form['#local_authority_email'];
-  $entity->business_details = $form['#business_details'];
-  $entity->save();
-}
-
-
-
-
-
-
+/**
+ * Form builder: Master form for report a food problem
+ *
+ * This is a multi-stage form that pulls in 'child' forms at the appropriate
+ * point in the process.
+ *
+ * There a two modes: data capture and non-data capture. In data capture mode
+ * the process has the following steps.
+ *
+ * Step 1: Find a business: fsa_report_problem_find_business_form()
+ * Step 2: Business results: fsa_report_problem_results_form()
+ * Step 3: Make the report: fsa_report_problem_make_report_form()
+ * Step 4: Report complete: fsa_report_problem_report_complete_form()
+ *
+ * Step 2 is displayed only if the user does not use the Google Places
+ * autocomplete to select their business.
+ * 
+ * In non-data-capture mode, the process has the following steps.
+ *
+ * Step 1: Find a business: fsa_report_problem_find_business_form()
+ * Step 2: Business results: fsa_report_problem_results_form()
+ * Step 3: Display local authority details
+ * 
+ * Step 2 is displayed only if the user does not use the Google Places
+ * autocomplete to select their business.
+ *
+ * The mode is changed via the admin UI.
+ * 
+ */
 function fsa_report_problem_form($form, &$form_state) {
 
+  // Get query string parameters
   $params = drupal_get_query_parameters();
 
+  // Determine whether the process is complete, based on query string parameter
   if (!empty($params['complete'])) {
     $form_state['stage'] = 'report_complete';
   }
 
+  // Is this the manual entry form? If so, go straight to the make report step.
   if (!empty($params['manual'])) {
     $form_state['stage'] = 'make_report';
     $form_state['manual_entry'] = TRUE;
   }
 
-  if (!isset($form_state['stage'])) $form_state['stage'] = 'find_business';
+  // Define the steps of the process as an array. Each step can be either a
+  // string containing the human-readable name of the step or an array with
+  // elements for the label and whether the step is disabled. The second step
+  // is disabled by default, but will be enabled if the user does not use the
+  // Google Places autocomplete.
+  $steps = array(
+    t('Find a business'),
+    array(
+      'label' => t('Choose a business'),
+      'disabled' => TRUE,
+    ),
+    t('Tell us about the food problem'),
+    t('Report complete'),
+  );
+
+  // If we're going to do a postcode search, change step 1
+  if (empty($form_state['stage']) && !empty($params['postcode'])) {
+    $form_state['stage'] = 'postcode_search';
+  }
+
+  // Get the right stage - default to the first one.
+  if (!isset($form_state['stage'])) {
+    $form_state['stage'] = 'find_business';
+  }
 
   switch ($form_state['stage']) {
+    case 'postcode_search':
+      $the_form = fsa_report_problem_postcode_search_form($form, $form_state);
+      break;
     case 'find_business':
       $the_form = fsa_report_problem_find_business_form($form, $form_state);
+      $step = 0;
       break;
     case 'show_results':
       $the_form = fsa_report_problem_results_form($form, $form_state);
+      $step = 1;
+      $steps[1]['disabled'] = FALSE;
+      $form_state['non_autocomplete'] = TRUE;
+      break;
+    case 'local_authority_details':
+      $the_form = fsa_report_problem_local_authority_details_form($form, $form_state);
       break;
     case 'make_report':
       $the_form = fsa_report_problem_make_report_form($form, $form_state);
+      if (!empty($form_state['non_autocomplete'])) {
+        $steps[1]['disabled'] = FALSE;
+        $form_state['non_autocomplete'] = TRUE;
+        $the_form['non_autocomplete'] = array(
+          '#type' => 'hidden',
+          '#value' => TRUE,
+        );
+      }
+      $step = 2;
       break;
     case 'report_complete':
       $form_state['rebuild'] = FALSE;
       $form_state['redirect'] = 'node/1';
       $the_form = fsa_report_problem_report_complete_form($form, $form_state);
+      $step = 3;
+      if (!empty($params['na'])) {
+        $steps[1]['disabled'] = FALSE;
+      }
       break;
     default:
       $the_form = fsa_report_problem_find_business_form($form, $form_state);
@@ -171,13 +121,63 @@ function fsa_report_problem_form($form, &$form_state) {
     drupal_get_path('module', 'fsa_report_problem') . '/css/report-problem.css',
   );
 
+  // Add a status message if the system is in alpha or beta
+  if (FSA_REPORT_PROBLEM_STATUS > FSA_REPORT_PROBLEM_STATUS_PRODUCTION) {
+    $the_form['status_message'] = array(
+      '#prefix' => '<div class="phase-banner"><p>',
+      '#markup' => '<strong class="phase-tag ' . strtolower(_fsa_report_problem_status_description(FSA_REPORT_PROBLEM_STATUS)) . '">' . _fsa_report_problem_status_description(FSA_REPORT_PROBLEM_STATUS) . '</strong></span>' . _fsa_report_problem_status_message(FSA_REPORT_PROBLEM_STATUS) . '</span>',
+      '#suffix' => '</p></div>',
+      '#weight' => -10,
+    );
+  }
+
+  $steps = array_filter($steps, '_fsa_report_problem_step_filter');
+  $step_count = 1;
+  $current_step = 0;
+  foreach ($steps as $step_key => $step_value) {
+    if ($step_key == $step) {
+      $current_step = $step_count;
+    }
+    $step_count++;
+  }
+
+  // Add the step indicator
+  $the_form['step_indicator'] = array(
+    '#prefix' => '<div class="step-indicator">',
+    '#suffix' => '</div>',
+    'test1' => array(
+      '#type' => 'html_tag',
+      '#tag' => 'p',
+      '#value' => t('Step @step of @steps', array('@step' => $current_step, '@steps' => count($steps))),
+    ),
+    'tester' => array(
+      '#type' => 'html_tag',
+      '#tag' => 'h2',
+      '#value' => is_array($steps[$step]) ? $steps[$step]['label'] : $steps[$step],
+    ),
+    '#weight' => -8,
+    // Don't show the step indicator if we're not capturing user data.
+    '#access' => _fsa_report_problem_capture_user_data(),
+  );
 
   return $the_form;
 
 }
 
-function fsa_report_problem_find_business_form() {
+/**
+ * Form builder: Step 1 - Find a business subform
+ */
+function fsa_report_problem_find_business_form($form, &$form_state) {
 
+  // Hidden field for location
+  $form['business_location'] = array(
+    '#type' => 'hidden',
+    '#attributes' => array(
+      'id' => 'business-location',
+    ),
+  );
+
+  // Hidden field for latitude
   $form['lat'] = array(
     '#type' => 'hidden',
     '#attributes' => array(
@@ -185,10 +185,19 @@ function fsa_report_problem_find_business_form() {
     ),
   );
 
+  // Hidden field for longitude
   $form['lng'] = array(
     '#type' => 'hidden',
     '#attributes' => array(
       'id' => 'lng',
+    ),
+  );
+
+  // Hidden field for user location - not currently used
+  $form['user_location'] = array(
+    '#type' => 'hidden',
+    '#attributes' => array(
+      'id' => 'user-location',
     ),
   );
 
@@ -205,15 +214,16 @@ function fsa_report_problem_find_business_form() {
 
   $form['intro'] = array(
     '#type' => 'form_intro',
-    //'#text' => t('If you have noticed a problem with a food establisment, you can use this form to report it. An investigation will then be carried out by the establishment\'s local authority. You can make an anonymous report or include your contact details as you wish.'),
     '#text' => _fsa_report_problem_text('find_business_intro'),
   );
 
-  $form['step1'] = array(
-    '#prefix' => '<p>',
-    '#markup' => 'Please use the form below to enter all or part of the business\'s name and a location such as a town, area or postcode.',
-    '#suffix' => '</p>',
-  );
+  if (!empty($form_state['no_businesses_found'])) {
+    $form['no_results_message'] = array(
+      '#type' => 'form_intro',
+      '#text' => _fsa_report_problem_text('no_matching_business'),
+      '#access' => FALSE,
+    );
+  }
 
   $form['field_wrapper'] = array(
     '#type' => 'container',
@@ -226,17 +236,18 @@ function fsa_report_problem_find_business_form() {
     '#type' => 'container',
   );
 
-  // Field for business name
+
   $form['field_wrapper']['business_name'] = array(
     '#type' => 'textfield',
-    '#title' => t('Business name'),
+    '#title' => t('Business name and location'),
+    '#title_display' => 'invisible',
+    '#description' => t('Please enter the name and location of the business that you wish to report'),
+    '#required' => TRUE,
+    '#attributes' => array(
+      'placeholder' => t('Enter the business name and address'),
+    ),
   );
 
-  // Field for location
-  $form['field_wrapper']['business_location'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Street, borough, or town/city'),
-  );
 
   // Submit button
   $form['field_wrapper']['submit'] = array(
@@ -244,19 +255,41 @@ function fsa_report_problem_find_business_form() {
     '#value' => t('Find business'),
   );
 
-  $form['#attached'] = array(
-    'js' => array(
-      'https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places',
-      drupal_get_path('module', 'fsa_report_problem') . '/js/report-problem.js',
-    ),
-  );
+
+  // Additional text - appears beneath the form on the first page.
+  $additional_text = _fsa_report_problem_text('find_business_extra');
+  if (!empty($additional_text['value'])) {
+    $form['additional_info'] = array(
+      '#prefix' => '<div class="form-intro find-business-extra">',
+      '#markup' => $additional_text['value'],
+      '#suffix' => '</div>',
+    );
+  }
+
+  // Include the JavaScript for the Google Places autocomplete - unless the
+  // $_GET parameter 'ac' is set to TRUE or 1.
+  if (!isset($_GET['ac']) || !empty($_GET['ac'])) {
+    $form['#attached'] = array(
+      'js' => array(
+        'https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places' => array('preprocess' => FALSE),
+        drupal_get_path('module', 'fsa_report_problem') . '/js/report-problem.js' => array('preprocess' => FALSE),
+      ),
+    );
+  }
 
   return $form;
 }
 
 
+/**
+ * Form builder: Step 2 - business search results
+ *
+ * This form lists business found via the server-side Google Places lookup.
+ * It is displayed only if the user does not use the client-side JavaScript
+ * auto-complete - or if autocomplete is turned off via the URL.
+ */
 function fsa_report_problem_results_form($form, &$form_state) {
-
+  $form_state['non_autocomplete'] = TRUE;
   // If the search returned no results, tell the user.
   if (count($form_state['businesses']) === 0) {
     $form['no_results_message'] = array(
@@ -264,17 +297,6 @@ function fsa_report_problem_results_form($form, &$form_state) {
       //'#text' => t('Sorry, we could not find any matching businesses. You can either try again or enter the business details manually.'),
       '#text' => _fsa_report_problem_text('no_matching_business'),
     );
-
-    //    $form['try_again'] = array(
-    //      '#type' => 'submit',
-    //      '#value' => t('Try again'),
-    //    );
-    //
-    //    $form['manual_entry'] = array(
-    //      '#type' => 'submit',
-    //      '#value' => t('Enter business details manually'),
-    //    );
-
   }
   else {
     $form['intro'] = array(
@@ -283,50 +305,17 @@ function fsa_report_problem_results_form($form, &$form_state) {
       '#text' => _fsa_report_problem_text('choose_business_intro'),
     );
   }
-  
-  //  $form['alternative_actions'] = array(
-  //    '#type' => 'fieldset',
-  //  );
-  //  
-  //  $form['alternative_actions']['try_again'] = array(
-  //    '#type' => 'submit',
-  //    '#value' => t('Try again'),
-  //  );
-  //
-  //  $form['alternative_actions']['manual_entry'] = array(
-  //    '#type' => 'submit',
-  //    '#value' => t('Enter business details manually'),
-  //  );
+
+  $form['result_header'] = array(
+    '#prefix' => '<div><p>',
+    '#markup' => t('Your search for %search_term found @result_count businesses.', array('%search_term' => $form_state['values']['business_name'], '@result_count' => count($form_state['businesses']))),
+    '#suffix' => '</p></div>',
+  );
+
 
   foreach($form_state['businesses'] as $id => $business) {
 
-    /*
-    $form['business_name_' . $id] = array(
-      '#prefix' => '<h3>',
-      '#markup' => $business['name'],
-      '#suffix' => '</h3>',
-    );
-
-    $form['business_addrress_' . $id] = array(
-      '#prefix' => '<p>',
-      '#markup' => $business['formatted_address'],
-      '#suffix' => '</p>',
-    );
-
-    $form[$id] = array(
-      '#type' => 'submit',
-      '#value' => $business['name'],
-      '#value' => t('Report this business'),
-      '#name' => 'op' . $id,
-      '#attributes' => array(
-        'data-business-id' => $id,
-      ),
-    );
-    */
-
     $business['test_id'] = $id;
-
-    //dpm($business);
 
     $form['business_wrapper_' . $id] = array(
       '#type' => 'container',
@@ -347,20 +336,34 @@ function fsa_report_problem_results_form($form, &$form_state) {
       '#name' => 'op' . $id,
       '#attributes' => array(
         'data-business-id' => $id,
+        'title' => t('Report !business_name', array('!business_name' =>  htmlspecialchars($business['name'], ENT_COMPAT, 'UTF-8'))),
+        'aria-label' => t('Report !business_name', array('!business_name' =>  htmlspecialchars($business['name'], ENT_COMPAT, 'UTF-8'))),
       ),
     );
 
-
-
   }
 
+  $form['powered_by_google'] = array(
+    '#theme' => 'image',
+    '#path' => drupal_get_path('module', 'fsa_report_problem') . "/img/powered-by-google-on-white.png",
+    '#alt' => t('Powered by Google'),
+  );
 
+  $bottom_text = _fsa_report_problem_text('choose_business_bottom');
+  $form['botom_text'] = array(
+    '#prefix' => '<div class="not-listed">',
+    '#markup' => !empty($bottom_text['value']) ? $bottom_text['value'] : '',
+    '#suffix' => '</div>',
+  );
 
   return $form;
 
-
 }
 
+
+/**
+ * Form builder: Step 3 - Make the report
+ */
 function fsa_report_problem_make_report_form($form, &$form_state) {
 
   if (!empty($form_state['selected_business'])) {
@@ -369,9 +372,6 @@ function fsa_report_problem_make_report_form($form, &$form_state) {
 
   $form['intro'] = array(
     '#type' => 'form_intro',
-    //'#text' => array(
-    //  t('Please complete the form below, including as much detail as possible about the food problem you have seen. You may leave out your name and address if you wish to remain anonymous. When you submit your report, it will be sent to @local_authority_name, who will investigate the problem.', array('@local_authority_name' => $form_state['local_authority']['name'])),
-    //),
     '#text' => !empty($form_state['manual_entry']) ? _fsa_report_problem_text('make_report_intro_manual') : _fsa_report_problem_text('make_report_intro', array('local_authority' => (object) $form_state['local_authority'] )),
   );
 
@@ -379,6 +379,7 @@ function fsa_report_problem_make_report_form($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Name of the business'),
     '#default_value' => !empty($business['name']) ? $business['name'] : '',
+    '#required' => TRUE,
   );
 
   $business_address = !empty($business['formatted_address']) ? $business['formatted_address'] : '';
@@ -389,7 +390,17 @@ function fsa_report_problem_make_report_form($form, &$form_state) {
     '#title' => t('Business address'),
     '#default_value' => $business_address,
     '#rows' => 2,
+    '#required' => TRUE,
   );
+
+  if (!empty($form_state['manual_entry'])) {
+    $form['business_postcode'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Postcode'),
+      '#description' => t('Please provide the postcode of the business if you know it. This will help us to identify the relevant local authority to investigate the problem.'),
+      '#size' => 10,
+    );
+  }
 
   if (empty($form_state['manual_entry'])) {
 
@@ -404,15 +415,18 @@ function fsa_report_problem_make_report_form($form, &$form_state) {
   $form['reporter_name'] = array(
     '#type' => 'textfield',
     '#title' => t('Your name (optional)'),
+    '#description' => t('The local authority would only use this when contacting you about your issue.'),
   );
 
   $form['reporter_email'] = array(
     '#type' => 'textfield',
     '#title' => t('Your email address (optional)'),
+    '#description' => t('This would only be used by the local authority to contact you about your issue.'),
   );
 
+  // @todo Change this to a single date field and add a free-text field for the
+  // time as some users find the time selector confusing
   $today = date("Y-m-d H:i:s");
-
   $form['issue_date'] = array(
     '#type' => 'date_popup',
     '#title' => t('Date and approximate time the food issue happened'),
@@ -427,8 +441,10 @@ function fsa_report_problem_make_report_form($form, &$form_state) {
   $form['issue_details'] = array(
     '#type' => 'textarea',
     '#title' => t('Details of the food issue'),
+    '#description' => t('If you want to remain anonymous, make sure you don’t include anything that could identify you or any people you were with.'),
     '#cols' => 20,
     '#rows' => 10,
+    '#required' => TRUE,
   );
 
   $form['submit'] = array(
@@ -439,10 +455,12 @@ function fsa_report_problem_make_report_form($form, &$form_state) {
 
   return $form;
 
-
 }
 
 
+/**
+ * Submit handler for the main report a problem form
+ */
 function fsa_report_problem_form_submit(&$form, &$form_state) {
 
   // These are the stages
@@ -452,6 +470,17 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
     'make_report',
     'report_complete',
   );
+  
+  // If we're doing a postcode search, change the first stage.
+  if (!empty($form['#postcode_search'])) {
+    $stages[0] = 'postcode_search';
+  }
+
+  // If we're not capturing user details, replace 'make_report' with the local
+  // authority details form.
+  if (!_fsa_report_problem_capture_user_data()) {
+    $stages[2] = 'local_authority_details';
+  }
 
   // Get the current stage
   $current_stage = !empty($form_state['stage']) ? $form_state['stage'] : $stages[0];
@@ -462,32 +491,112 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
   $next_index = $current_index < count($stages) ? $current_index + 1 : 0;
   $next_stage = $stages[$next_index];
 
-
   switch($current_stage) {
 
-    case 'find_business':
+    case 'postcode_search':
+      // Get the postcode from the form_state values array
+      $postcode = !empty($form_state['values']['postcode']) ? $form_state['values']['postcode'] : NULL;
 
+      // If we don't have a postcode, go back to previous stage and set an error
+      // message for the user.
+      if (empty($postcode)) {
+        $next_stage = 'postcode_search';
+        drupal_set_message(t('No postcode was supplied. Please try again.'), 'error');
+        break;
+      }
+
+      // Format the postcode
+      $postcode = _fsa_report_problem_format_postcode($postcode);
+
+      // Get the local authority details from MapIt
+      $local_authority = fsa_report_problem_get_local_authority_by_postcode($postcode);
+
+      // If no local authority is returned or if the local authority ID is not
+      // set, go back to the previous stage and set an error.
+      if (empty($local_authority) || empty($local_authority['id'])) {
+        $next_stage = 'postcode_search';
+        drupal_set_message(t("Sorry, we couldn't find a local authority for that postcode. Please try again."), 'error');
+        break;
+      }
+
+      // Get the stored local authority details.
+      $la = fsa_report_problem_get_local_authority_by_area_id($local_authority['id']);
+      $local_authority['email'] = !empty($la->email) ? $la->email: NULL;
+      $local_authority['url'] = !empty($la->url) ? $la->url : NULL;
+      $form_state['local_authority'] = $local_authority;
+      $next_stage = 'local_authority_details';
+      break;
+
+    case 'find_business':
       // Get lat, long, name and address
       $lat = !empty($form_state['values']['lat']) ? $form_state['values']['lat'] : '';
       $lng = !empty($form_state['values']['lng']) ? $form_state['values']['lng'] : '';
+      //$name = !empty($form_state['values']['business_name']) ? $form_state['values']['business_name'] : '';
       $name = !empty($form_state['values']['business_name']) ? $form_state['values']['business_name'] : '';
       $address = !empty($form_state['values']['business_location']) ? $form_state['values']['business_location'] : '';
+      $user_location = !empty($form_state['values']['user_location']) ? $form_state['values']['user_location'] : '';
 
-      // If we already have name, address, lat and long, then presumably we've
+      // If we already have name, lat and long, then presumably we've
       // come from the Google Places autocomplete, so we can bypass the stage
       // where users would select a business. Instead, we go straight to the
       // report stage.
       if (!empty($lat) && !empty($lng) && !empty($name) && !empty($address)) {
         $local_authority = fsa_report_problem_get_local_authority($lng, $lat);
+        // @todo Add some validation here to check whether an authority is
+        // returned for these coordinates.
+        //dpm("$lng,$lat");
+        //dpm($local_authority);
         $form_state['local_authority'] = $local_authority;
         $form_state['coords'] = "$lat,$lng";
-        $next_stage = 'make_report';
+
+        // If we're not capturing user details, set the next stage to be show
+        // local authority details and break.
+        // @todo This is duplicated below. Create a function instead.
+        if (!_fsa_report_problem_capture_user_data()) {
+          // Set the selected business form state element, as we'll need this to
+          // display the business name on the local authority details form.
+          $form_state['selected_business'] = !empty($form_state['values']['business_name']) ? array('name' => $form_state['values']['business_name']) : array();
+          $next_stage = 'local_authority_details';
+          if (is_array($form_state['local_authority']) && !empty($form_state['local_authority']['id'])) {
+            $la = fsa_report_problem_get_local_authority_by_area_id($local_authority['id']);
+            if (!empty($la->email)) {
+              $form_state['local_authority']['email'] = $la->email;
+              $form_state['local_authority']['url'] = $la->url;
+            }
+          }
+        }
+        else {
+          $next_stage = 'make_report';
+        }
         break;
       }
 
-      // Get business listings from the Google Places API.
-      $businesses = fsa_report_problem_get_google_results($name, $address);
-      $form_state['businesses'] = $businesses;
+      try {
+        // Get business listings from the Google Places API.
+        $businesses = fsa_report_problem_get_google_results($name, $address, $user_location);
+        // Set the business search results array.
+        $form_state['businesses'] = $businesses;
+        // No businesses found? Set an error and return to stage 1.
+        if (count($businesses) == 0) {
+          $form_state['no_businesses_found'] = TRUE;
+          $next_stage = 'find_business';
+          $form_state['rebuild'] = TRUE;
+          // Get the business name - if available
+          $business_name = !empty($form_state['values']['business_name']) ? $form_state['values']['business_name'] : '';
+          // Get the error message
+          $error_message = empty($business_name) ? array('value' => t('Sorry, we could not find any matching businesses. Please try again.')) : _fsa_report_problem_text('no_matching_business', array('food_establishment' => array('name' => $business_name)));
+          // Display the message
+          drupal_set_message(strip_tags($error_message['value'], '<em><i><a>'), 'error');
+        }
+      }
+      // Catch any exceptions
+      catch (Exception $e) {
+        watchdog_exception('fsa_report_problem', $e);
+        drupal_set_message(t("We're sorry, but an error occurred looking up the business. Please try again later."), 'error');
+        $next_stage = 'find_business';
+        $form_state['rebuild'] = TRUE;
+      }
+
       break;
 
     case 'show_results':
@@ -504,20 +613,33 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
       // Get the businesses
       $business = $form_state['businesses'][$form_state['triggering_element']['#attributes']['data-business-id']];
       $local_authority = fsa_report_problem_get_local_authority($business['geometry']['location']['lng'], $business['geometry']['location']['lat']);
-      dpm($local_authority);
       $form_state['selected_business'] = $business;
       $form_state['local_authority'] = $local_authority;
+
+      // If we're not capturing user data, we need to get the full local
+      // authority details to display to the user.
+      // @todo This is duplicated above. Create a function instead.
+      if (!_fsa_report_problem_capture_user_data()) {
+        if (is_array($form_state['local_authority']) && !empty($form_state['local_authority']['id'])) {
+          $la = fsa_report_problem_get_local_authority_by_area_id($local_authority['id']);
+          if (!empty($la->email)) {
+            $form_state['local_authority']['email'] = $la->email;
+            $form_state['local_authority']['url'] = $la->url;
+          }
+        }
+      }
       break;
 
 
     case 'make_report':
-
       // Try to get the local authority email address.
-      $local_authority_email = fsa_report_problem_get_local_authority_email_address($form_state['local_authority']['id']);
+      //$local_authority_email = fsa_report_problem_get_local_authority_email_address($form_state['local_authority']['id']);
+      $area_id = !empty($form_state['local_authority']['id']) ? $form_state['local_authority']['id'] : 0;
 
-      //drupal_set_message($form_state['values']['issue_date']);
-      //drupal_set_message(strtotime($form_state['values']['issue_date']));
-      //drupal_set_message(date_default_timezone());
+      //$local_authority_id = fsa_report_problem_get_local_authority_id($area_id);
+
+      // Get a local authority entity based on the area ID from MapIt
+      $la = fsa_report_problem_get_local_authority_by_area_id($area_id);
 
       // Create a problem_report entity to hold the data, and populate it from
       // the form values.
@@ -528,10 +650,17 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
       $entity->reporter_name = $form_state['values']['reporter_name'];
       $entity->reporter_email = $form_state['values']['reporter_email'];
       $entity->business_location = $form_state['values']['business_address'];
+      $entity->business_postcode = !empty($form_state['values']['business_postcode']) ? $form_state['values']['business_postcode'] : NULL;
       $entity->coordinates = !empty($form_state['coords']) ? $form_state['coords'] : NULL;
       $entity->problem_details = $form_state['values']['issue_details'];
-      $entity->local_authority_name = $form_state['local_authority']['name'];
-      $entity->local_authority_email = $local_authority_email;
+
+      if ($la) {
+        $entity->local_authority_name = $la->name;
+        $entity->local_authority_email = $la->email;
+        $entity->local_authority_id = $la->local_authority_id;
+        $entity->area_id = $la->area_id;
+      }
+
       $entity->problem_date = strtotime($form_state['values']['issue_date']);
       $entity->save();
 
@@ -566,11 +695,11 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
   else {
     $entity_id = !empty($entity->rid) ? $entity->rid : 0;
     $form_state['redirect'] = array(
-      current_path(),
+      FSA_REPORT_PROBLEM_PATH . '/complete',
       array(
         'query' => array(
-          'complete' => true,
           'report_id' => $entity_id,
+          'na' => !empty($form_state['non_autocomplete']) ? $form_state['non_autocomplete'] : NULL,
         ),
       ),
     );
@@ -578,27 +707,14 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
 
   // Set the next stage
   $form_state['stage'] = $next_stage;
-  // Rebuild the form
-
-  //if ($next_stage != 'report_complete') {
-    //$form_state['rebuild'] = TRUE;
-  //  $form_state['redirect'] = 'node/1';
-  //}
-
-
-  //dpm($form_state);
 
 }
 
 
+/**
+ * Form builder: Step 4 - Report complete
+ */
 function fsa_report_problem_report_complete_form($form, &$form_state) {
-
-  /*
-  $form['thank_you'] = array(
-    '#type' => 'form_intro',
-    '#text' => t('Thank you for your report. With your help we can make food safer.'),
-  );
-  */
 
   $params = drupal_get_query_parameters();
 
@@ -609,26 +725,39 @@ function fsa_report_problem_report_complete_form($form, &$form_state) {
     return $form;
   }
 
-  $form['thank_you_test'] = array(
-    '#type' => 'form_intro',
-    '#text' => _fsa_report_problem_text('report_complete', array('report' => $report)),
-  );
-
+  $local_authority_name = !empty($report->local_authority_name) ? $report->local_authority_name : '';
   $local_authority_email = !empty($report->local_authority_email) ? $report->local_authority_email : '';
+
+  if (empty($local_authority_name)) {
+    $form['thank_you_text'] = array(
+      '#type' => 'form_intro',
+      '#text' => _fsa_report_problem_text('report_complete_manual', array('report' => $report)),
+    );
+  }
+  else {
+    $form['thank_you_text'] = array(
+      '#type' => 'form_intro',
+      '#text' => _fsa_report_problem_text('report_complete', array('report' => $report)),
+    );
+  }
 
   if (!empty($local_authority_email)) {
     $form['report_contact'] = array(
       '#type' => 'form_intro',
       '#text' => _fsa_report_problem_text('contact_local_authority', array('report' => $report)),
     );
-
   }
+
+  $form['report_id'] = array(
+    '#type' => 'form_intro',
+    '#text' => t('Please quote reference !reference in all correspondence.', array('!reference' => $params['report_id'])),
+    '#access' => FALSE, // Hide this for now.
+  );
 
   if (!empty($report->reporter_email)) {
     $form['report_receipt'] = array(
-      '#type' => 'html_tag',
-      '#tag' => 'p',
-      '#value' => t('A confirmation email has been sent to @reporter_email.', array('@reporter_email' => $report->reporter_email)),
+      '#type' => 'form_intro',
+      '#text' => t('A confirmation email has been sent to @reporter_email.', array('@reporter_email' => $report->reporter_email)),
     );
   }
 
@@ -636,4 +765,72 @@ function fsa_report_problem_report_complete_form($form, &$form_state) {
 }
 
 
+/**
+ * Array filter helper function - removes disabled steps from step counter
+ *
+ * @param string|array $var
+ *   The step to be tested
+ * @return boolean
+ *   True if enabled; False if disabled
+ */
+function _fsa_report_problem_step_filter($var) {
+  if (!is_array(($var))) {
+    return TRUE;
+  }
+  if (!empty($var['disabled'])) {
+    return FALSE;
+  }
+  return TRUE;
+}
 
+
+/**
+ * Form builder: display local authority details
+ */
+function fsa_report_problem_local_authority_details_form($form, &$form_state) {
+
+  // Text to display if no local authority is found.
+  // @todo Create a text entry for this.
+  if (empty($form_state['local_authority'])) {
+    $form['no_local_authority'] = array(
+      '#prefix' => '<div class="form-intro"><p>',
+      '#markup' => t('Sorry, we could not find a local authority'),
+      '#suffix' => '</p></div>',
+    );
+    return $form;
+  }
+
+  $form['intro_text'] = array(
+    '#type' => 'form_intro',
+    '#text' => _fsa_report_problem_text('local_authority_intro', array('food_establishment' => !empty($form_state['selected_business']) ? $form_state['selected_business'] : array('name' => 'this business'))),
+  );
+
+  $form['local_authority_details'] = array(
+    '#theme' => 'local_authority_details',
+    '#local_authority' => $form_state['local_authority'],
+  );
+
+  return $form;
+}
+
+
+/**
+ * Form builder: Postcode search form
+ */
+function fsa_report_problem_postcode_search_form($form, &$form_state) {
+
+  $form['#postcode_search'] = TRUE;
+
+  $form['postcode'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Postcode'),
+    '#description' => t('Enter the postcode of the business, if you know it.'),
+    '#required' => TRUE,
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Search'),
+  );
+  return $form;
+}

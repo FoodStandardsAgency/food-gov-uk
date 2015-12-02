@@ -1,0 +1,19 @@
+<h3>Overview</h3>
+
+<p>You can use this service to report issues such as:</p>
+
+<ul>
+	<li>poor food hygiene</li>
+	<li>a foreign object&nbsp;in your food</li>
+	<li>cleanliness of facilities</li>
+</ul>
+
+<p>Once you submit your report it will be sent to the relevant local authority to investigate.</p>
+
+<h3><strong>I want to do something else</strong></h3>
+
+<ul>
+	<li><a href="http://www.citizensadvice.org.uk/consumer/protection-for-the-consumer/trading-standards/reporting-a-problem-to-trading-standards/" target="_blank" title="Citizens Advice website opens in new browser window">report poor service</a></li>
+	<li><a href="http://www.citizensadvice.org.uk/consumer/protection-for-the-consumer/trading-standards/reporting-a-problem-to-trading-standards/" target="_blank" title="Citizens Advice website opens in new browser window">report a food&nbsp;labelling&nbsp;issue</a></li>
+	<li><a href="https://www.gov.uk/food-business-registration" target="_blank" title="GOV.UK website opens in new browser window">register a new catering business with the food safety team</a></li>
+</ul>

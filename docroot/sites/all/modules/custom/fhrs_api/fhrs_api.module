@@ -34,7 +34,8 @@ function _fhrs_test_page() {
 
 function fhrs_api_make_request($endpoint = 'Regions', $args = array(), $params = array(), $headers = array()) {
   if (empty($endpoint)) {
-    return t('No endpoint selected');
+    //return t('No endpoint selected');
+    return new RatingsApiResponse((object) array('error' => t('No FHRS API endpoint selected')));
   }
   
   $endpoint_name = '';
@@ -48,10 +49,6 @@ function fhrs_api_make_request($endpoint = 'Regions', $args = array(), $params =
   
   $ep = new $endpoint($endpoint_name);
   $response = $ep->get($args, $params);
-  
-  
-  
-  
   
   return $response;
   

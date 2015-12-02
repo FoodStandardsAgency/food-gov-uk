@@ -38,7 +38,7 @@ function fsa_report_problem_variable_info($options) {
       'type' => 'text',
       'title' => $details['title'],
       'description' => $details['description'],
-      'default' => $details['default'],
+      'default' => !empty($details['default']) ? $details['default'] : NULL,
       'required' => FALSE,
       'localize' => TRUE,
       'group' => FSA_REPORT_PROBLEM_VARIABLE_GROUP_NAME,

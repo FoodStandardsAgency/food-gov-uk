@@ -1,0 +1,3 @@
+<h3>Business not listed?</h3>
+
+<p>Couldn't find the business you were looking for? <a href="">Try again</a> or <a href="/enforcement/report-problem/manual">enter the details manually</a>.</p>

@@ -2,6 +2,7 @@ name = Food Hygiene Rating Scheme API
 description = "Allows Drupal modules to interface with the Food Hygiene Rating Scheme (FHRS) API, available at http://api.ratings.food.gov.uk."
 core = 7.x
 package = FSA Custom
+files[] = classes/RatingsApiResponse.class.php
 files[] = classes/RatingsApiEndpoint.class.php
 files[] = classes/EstablishmentsEndpoint.class.php
 files[] = classes/GenericEndpoint.class.php
