@@ -1153,6 +1153,28 @@ function fsa_report_problem_mail_send($report = NULL) {
   return $result;
 }
 
+
+/**
+ * Forward a report to an email address
+ *
+ * @param object $report
+ *   A food problem report entity
+ *
+ * @param string $to
+ *   The email address to which to forward the report
+ *
+ * @param string $from
+ *   The email address from which the forwarded report will appear to be sent
+ *
+ * @param string $subject
+ *   The subject line of the email
+ *
+ * @param string $message
+ *   The message to be forwarded
+ *
+ * @return array
+ *   Message array structure as returned by drupal_mail()
+ */
 function fsa_report_problem_mail_forward($report = NULL, $to = NULL, $from = NULL, $subject = NULL, $message = NULL) {
 
   $module = 'fsa_report_problem';
