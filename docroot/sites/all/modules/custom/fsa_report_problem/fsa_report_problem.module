@@ -929,7 +929,15 @@ function fsa_report_problem_get_local_authority_id($id) {
 }
 
 
-
+/**
+ * Gets a list of areas from MapIt
+ *
+ * @param array $types
+ *   The types of area to return
+ *
+ * @return array
+ *   An associative array of areas matching the $types parameter
+ */
 function fsa_report_problem_get_mapit_areas($types = array()) {
   if (empty($types)) {
     $types = _fsa_report_problem_mapit_authority_types();
@@ -939,6 +947,7 @@ function fsa_report_problem_get_mapit_areas($types = array()) {
   $areas = drupal_http_request($url);
   return drupal_json_decode($areas->data);
 }
+
 
 /**
  * Returns a MapIt area based on FHRS ID
