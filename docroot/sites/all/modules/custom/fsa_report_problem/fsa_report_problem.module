@@ -237,7 +237,7 @@ function fsa_report_problem_block_view($delta = '') {
   // Array to hold the block.
   $block = array();
 
-  switch($delta) {
+  switch ($delta) {
 
     // Search for an establishment form
     case 'report_problem_form':
