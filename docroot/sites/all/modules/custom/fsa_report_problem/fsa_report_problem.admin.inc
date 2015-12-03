@@ -116,6 +116,7 @@ function fsa_report_problem_view_reports($form, &$form_state) {
 
 }
 
+
 /**
  * Returns a renderable array of a food problem report for viewing
  *
@@ -145,8 +146,9 @@ function problem_report_view($rid) {
 }
 
 
-
-
+/**
+ * Form builder: Local authority data import form
+ */
 function fsa_report_problem_authorities_import_form($form, &$form_state) {
   $areas = fsa_report_problem_get_mapit_areas(array('DIS', 'UTA', 'LBO', 'LGD'));
   $fhrs_authorities = fsa_report_problem_get_fhrs_authorities();
@@ -167,8 +169,6 @@ function fsa_report_problem_authorities_import_form($form, &$form_state) {
     array('data' => t('Type')),
     array('data' => t('Authority (from FHRS)')),
   );
-
-
 
   $authority_selector = array(
     '#type' => 'select',
