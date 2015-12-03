@@ -1267,8 +1267,8 @@ function template_preprocess_form_intro(&$variables) {
   // Get the render element
   $element = !empty($variables['element']) ? $variables['element'] : NULL;
 
-  // Get the text. We want it to be an array, so if it's a string - ie a single
-  // paragraph, turn it into an array instead.
+  // Get the text. We want it to be an array, so if it's a string - i.e.
+  // a single paragraph, turn it into an array instead.
   $text = !empty($element['#text']) ? $element['#text'] : array();
 
   if (is_array($text)) {
@@ -1279,7 +1279,7 @@ function template_preprocess_form_intro(&$variables) {
       }
     }
     else {
-      foreach($text as $index => $t) {
+      foreach ($text as $index => $t) {
         $text[$index] = "<p>$t</p>";
       }
     }
@@ -1320,7 +1320,7 @@ function _fsa_report_problem_status_description($status = FSA_REPORT_PROBLEM_STA
  * @return array
  *   Text array as returned by _fsa_report_problem_text().
  *
- * @see _fsa_report_problem_text().
+ * @see _fsa_report_problem_text()
  */
 function _fsa_report_problem_status_message($status = FSA_REPORT_PROBLEM_STATUS_PRODUCTION) {
   $messages = array(
@@ -1394,11 +1394,11 @@ function _fsa_report_problem_text($key = NULL, $data = array()) {
     ),
     'local_authority_intro' => array(
       'title' => t('Local authority details intro'),
-      'description'=> t('Introductory text for the local authority details page. Appears only if user data capture is turned off.'),
+      'description' => t('Introductory text for the local authority details page. Appears only if user data capture is turned off.'),
     ),
     'local_authority_intro_postcode' => array(
       'title' => t('Local authority details intro - postcode search'),
-      'description'=> t('Introductory text for the local authority details page following a postcode search. Appears only if user data capture is turned off.'),
+      'description' => t('Introductory text for the local authority details page following a postcode search. Appears only if user data capture is turned off.'),
     ),
     'report_complete' => array(
       'title' => t('Report complete text'),
