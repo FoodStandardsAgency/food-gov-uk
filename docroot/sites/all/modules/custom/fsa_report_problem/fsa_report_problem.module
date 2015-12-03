@@ -1070,7 +1070,7 @@ function fsa_report_problem_mail($key, &$message, $params) {
       $message['headers']['From'] = $message['from'];
 
       $message['subject'] = FSA_REPORT_PROBLEM_STATUS > FSA_REPORT_PROBLEM_STATUS_PRODUCTION ? 'TEST :: ' : '';
-      $message['subject'] .= empty($report->local_authority_email) ? t('ACTION REQUIRED: ') : '';
+      $message['subject'] .= empty($report->local_authority_email) ? t('ACTION REQUIRED:') . ' ' : '';
 
       $message['subject'] .= token_replace($message_details['subject'], array('report' => $params['report']));
       //$message['subject'] .= t('Food Problem report');
