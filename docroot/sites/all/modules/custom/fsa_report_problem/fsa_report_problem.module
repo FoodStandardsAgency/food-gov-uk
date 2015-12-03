@@ -1120,7 +1120,15 @@ function fsa_report_problem_mail($key, &$message, $params) {
   }
 }
 
-
+/**
+ * Sends an email message
+ *
+ * @param object $report
+ *   Food problem report entity.
+ *
+ * @return array
+ *   $message array structure returned by drupal_mail()
+ */
 function fsa_report_problem_mail_send($report = NULL) {
 
   $module = 'fsa_report_problem';
