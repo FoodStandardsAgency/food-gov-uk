@@ -1196,6 +1196,16 @@ function fsa_report_problem_mail_forward($report = NULL, $to = NULL, $from = NUL
   return $result;
 }
 
+
+/**
+ * Sends an acknloweldgement email to the person making the report
+ *
+ * @param object $report
+ *   The food problem report object.
+ *
+ * @return array
+ *   Message structure as returned by drupal_mail().
+ */
 function fsa_report_problem_acknowledgement_send($report = NULL) {
   $module = 'fsa_report_problem';
   $key = 'acknowledgement';
