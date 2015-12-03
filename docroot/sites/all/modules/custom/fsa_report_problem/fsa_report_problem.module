@@ -1320,6 +1320,11 @@ function _fsa_report_problem_text($key = NULL, $data = array()) {
       'title' => t('Postcode search form intro'),
       'description' => t('Intro text for the search for authority by postcode lookup form'),
     ),
+    'postcode_not_found' => array(
+      'title' => t('Postcode not found error'),
+      'description' => t('Error text displayed when a postcode search returns no results'),
+      'format' => 'plain_text',
+    ),
     'local_authority_intro' => array(
       'title' => t('Local authority details intro'),
       'description'=> t('Introductory text for the local authority details page. Appears only if user data capture is turned off.'),
