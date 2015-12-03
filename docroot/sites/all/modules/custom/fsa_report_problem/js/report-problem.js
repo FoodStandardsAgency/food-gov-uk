@@ -66,10 +66,10 @@
         delete this.place;
       }
       if (this.place) {
-        $('#edit-submit').attr('value', 'Report this business');
+        //$('#edit-submit').attr('value', 'Report this business');
       }
       else {
-        $('#edit-submit').attr('value', 'Find business');
+        //$('#edit-submit').attr('value', 'Find business');
       }
     },
 
