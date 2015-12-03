@@ -1876,7 +1876,7 @@ function fsa_report_problem_ctools_plugin_api() {
 
 
 /**
- * Implementation of hook_context_default_contexts().
+ * Implements hook_context_default_contexts().
  */
 function fsa_report_problem_context_default_contexts() {
   $export = array();
