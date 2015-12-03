@@ -1668,8 +1668,13 @@ function fsa_report_problem_tokens($type, $tokens, array $data = array(), array 
 }
 
 
-
-
+/**
+ * Returns an array of service statuses
+ *
+ * @return array
+ *   Associative array of service statuses with service status codes as keys and
+ *   descriptions as values
+ */
 function _fsa_report_problem_service_statuses() {
   return array(
     FSA_REPORT_PROBLEM_STATUS_ALPHA => _fsa_report_problem_status_description(FSA_REPORT_PROBLEM_STATUS_ALPHA),
@@ -1681,7 +1686,18 @@ function _fsa_report_problem_service_statuses() {
 
 
 
-
+/**
+ * Defines emails sent by the report a food problem service
+ *
+ * @param string $key
+ *   The identifier for a specific email
+ *
+ * @return array
+ *   If no $key is supplied, then an associative array of all emails is
+ *   returned. If a $key is supplied that matches an entry, just that entry is
+ *   returned. If a $key is supplied that does not match an entry, an empty
+ *   array is returned.
+ */
 function _fsa_report_problem_email($key = NULL) {
 
   $emails = array();
