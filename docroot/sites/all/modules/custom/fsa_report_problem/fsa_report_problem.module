@@ -1334,6 +1334,24 @@ function _fsa_report_problem_status_message($status = FSA_REPORT_PROBLEM_STATUS_
   return !empty($messages[$status]['value']) ? $messages[$status]['value'] : '';
 }
 
+/**
+ * Manages editable text entries for use in the user interface
+ *
+ * @param string $key
+ *   The key of the text entry to return. If NULL, all entries are returned.
+ *
+ * @param array $data
+ *   Associative array of data to be used in token replacements.
+ *
+ * @return string|array
+ *   If no $key parameter is supplied, all text entries are returned as an
+ *   associative array.
+ *   If a $key is supplied that matches an entry, an associative array with two
+ *   elements 'value' and 'format' is returned, where 'value' is the text and
+ *   'format' is the text format, eg 'plain_text'
+ *   If a $key is supplied that doesn't match an entry, an empty string is
+ *   returned.
+ */
 function _fsa_report_problem_text($key = NULL, $data = array()) {
 
   $text = array(
