@@ -401,9 +401,13 @@ function local_field_group_pre_render_alter(&$element, $group, & $form) {
 
 
 /**
- * Implements hook_national_archives_url_alter()
+ * Implements hook_siteimprove_editing_page_options_alter().
+ *
+ * This is used to ensure that the editing page URL rendered in the meta tag
+ * for SiteImprove uses the admin domain, rather than the front-end domain.
  */
-function local_national_archives_url_alter(&$url) {
+function local_siteimprove_editing_page_options_alter(&$editing_page_options) {
+  $editing_page_options['base_url'] = local_get_site_domain(TRUE, 'https');
 }
 
 
