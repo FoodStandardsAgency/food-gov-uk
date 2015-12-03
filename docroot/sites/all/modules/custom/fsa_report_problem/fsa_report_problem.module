@@ -1312,6 +1312,16 @@ function _fsa_report_problem_status_description($status = FSA_REPORT_PROBLEM_STA
 }
 
 
+/**
+ * Returns service status message
+ * @param int $status
+ *   Status code
+ *
+ * @return array
+ *   Text array as returned by _fsa_report_problem_text().
+ *
+ * @see _fsa_report_problem_text().
+ */
 function _fsa_report_problem_status_message($status = FSA_REPORT_PROBLEM_STATUS_PRODUCTION) {
   $messages = array(
     //FSA_REPORT_PROBLEM_STATUS_ALPHA => t('This is a prototype service – your <a href="@feedback_link">feedback</a> will help us to improve it. No information you share here will leave this test system.', array('@feedback_link' => 'mailto:digital.communications@foodstandards.gsi.gov.uk?subject=Feedback%20on%20Report%20a%20food%20problem%20service%20[ALPHA%20phase]&amp;body=Hello%2C%20%0A%0AYou%20asked%20for%20my%20feedback.%20Here%20it is:')),
