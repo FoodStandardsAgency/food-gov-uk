@@ -44,6 +44,6 @@ function fsa_report_problem_variable_info($options) {
       'group' => FSA_REPORT_PROBLEM_VARIABLE_GROUP_NAME,
     );
   }
-  
+
   return $variables;
 }
