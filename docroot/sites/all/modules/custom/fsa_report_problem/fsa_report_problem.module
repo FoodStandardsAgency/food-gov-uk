@@ -846,7 +846,7 @@ function fsa_report_problem_get_local_authority_by_postcode($postcode = NULL) {
  *   If no email address is found, or if something else goes wrong, we return
  *   a zero-length string.
  *
- * @see fsa_report_problem_get_fhrs_authorities().
+ * @see fsa_report_problem_get_fhrs_authorities()
  */
 function fsa_report_problem_get_local_authority_email_address($id) {
 
