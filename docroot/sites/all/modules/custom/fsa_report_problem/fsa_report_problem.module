@@ -706,7 +706,7 @@ function template_preprocess_problem_report(&$variables) {
  *   An array of Google Places results. This will be empty if no results are
  *   returned.
  */
-function fsa_report_problem_get_google_results($name, $location, $user_location = NULL, $max_results = 60) {
+function fsa_report_problem_get_google_results($name, $location = '', $user_location = NULL, $max_results = 60) {
 
   // Get the endpoint
   $endpoint = variable_get('fsa_report_problem_google_places_api_endpoint', 'https://maps.googleapis.com/maps/api/place/textsearch/json');
