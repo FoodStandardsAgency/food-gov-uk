@@ -264,7 +264,9 @@ function fsa_report_problem_authorities_import_form($form, &$form_state) {
 }
 
 
-
+/**
+ * Submit handler: local authorities import form
+ */
 function fsa_report_problem_authorities_import_form_submit(&$form, &$form_state) {
 
   // First clear out the local_authority_areas table as we're re-importing
