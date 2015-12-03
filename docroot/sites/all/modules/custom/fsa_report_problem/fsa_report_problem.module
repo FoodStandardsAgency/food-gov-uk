@@ -912,8 +912,6 @@ function fsa_report_problem_get_local_authority_id($id) {
   $results = $query->execute()
     ->fetchAllAssoc('area_id');
 
-  //dpm($results);
-
   // Query the local_authority_areas table to find a corresponding ID for use in
   // the FHRS API. Return the results as an associative array keyed on the ID.
   $query = db_select('local_authority_areas', 'l');
