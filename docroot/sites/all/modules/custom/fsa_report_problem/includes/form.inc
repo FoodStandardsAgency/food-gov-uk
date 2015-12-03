@@ -20,18 +20,18 @@
  *
  * Step 2 is displayed only if the user does not use the Google Places
  * autocomplete to select their business.
- * 
+ *
  * In non-data-capture mode, the process has the following steps.
  *
  * Step 1: Find a business: fsa_report_problem_find_business_form()
  * Step 2: Business results: fsa_report_problem_results_form()
  * Step 3: Display local authority details
- * 
+ *
  * Step 2 is displayed only if the user does not use the Google Places
  * autocomplete to select their business.
  *
  * The mode is changed via the admin UI.
- * 
+ *
  */
 function fsa_report_problem_form($form, &$form_state) {
 
@@ -501,7 +501,7 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
     'make_report',
     'report_complete',
   );
-  
+
   // If we're doing a postcode search, change the first stage.
   if (!empty($form['#postcode_search'])) {
     $stages[0] = 'postcode_search';
