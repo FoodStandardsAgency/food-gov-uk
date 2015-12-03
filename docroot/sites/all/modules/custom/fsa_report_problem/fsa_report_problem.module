@@ -1123,11 +1123,6 @@ function fsa_report_problem_mail($key, &$message, $params) {
 
 function fsa_report_problem_mail_send($report = NULL) {
 
-  //$message = !empty($entry) && !empty($entry->message) ? $entry->message : '';
-
-
-  //dpm($report->local_authority_email);
-
   $module = 'fsa_report_problem';
   $key = 'problem_report';
 
