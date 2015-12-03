@@ -1846,7 +1846,7 @@ function fsa_report_problem_cron() {
   // need to run this job more than once a day, but there will be a manual
   // override within the GUI and a Drush command to force an update.
   if (date('dmY', REQUEST_TIME) == date('dmY', $last_import)) {
-    watchdog('Food report', t('FHRS authority update already run today. Exiting.'));
+    watchdog('Food report', 'FHRS authority update already run today. Exiting.');
     return;
   }
 
@@ -1854,12 +1854,12 @@ function fsa_report_problem_cron() {
   // from happening again today.
   if (_fsa_report_problem_update_fhrs_data()) {
     variable_set('fsa_report_problem_fhrs_last_import', REQUEST_TIME);
-    watchdog('Food report', t('FHRS authority data updated.'));
+    watchdog('Food report', 'FHRS authority data updated.');
   }
   // Looks like the update failed for some reason. Let Watchdog know and don't
   // set the variable, so it'll try on the next Cron run.
   else {
-    watchdog('Food report', t('An error occurred updating the FHRS data. Will try again on next Cron run.'), array(), WATCHDOG_NOTICE);
+    watchdog('Food report', 'An error occurred updating the FHRS data. Will try again on next Cron run.', array(), WATCHDOG_NOTICE);
   }
 }
 
