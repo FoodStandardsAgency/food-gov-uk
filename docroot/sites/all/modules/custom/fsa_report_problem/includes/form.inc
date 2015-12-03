@@ -546,7 +546,8 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
       // set, go back to the previous stage and set an error.
       if (empty($local_authority) || empty($local_authority['id'])) {
         $next_stage = 'postcode_search';
-        drupal_set_message(t("Sorry, we couldn't find a local authority for that postcode. Please try again."), 'error');
+        $error_message = _fsa_report_problem_text('postcode_not_found');
+        drupal_set_message($error_message['value'], 'error');
         break;
       }
 
