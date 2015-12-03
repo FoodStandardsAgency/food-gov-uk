@@ -1292,7 +1292,15 @@ function template_preprocess_form_intro(&$variables) {
 }
 
 
-
+/**
+ * Returns a status description
+ *
+ * @param int $status
+ *   The status code
+ *
+ * @return string
+ *   The associated status desription
+ */
 function _fsa_report_problem_status_description($status = FSA_REPORT_PROBLEM_STATUS_PRODUCTION) {
   $status_descriptions = array(
     FSA_REPORT_PROBLEM_STATUS_ALPHA => t('Alpha'),
