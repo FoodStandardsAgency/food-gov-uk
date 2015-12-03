@@ -475,25 +475,6 @@ function fsa_report_problem_pre_render_food_establishment($element) {
 }
 
 
-
-
-function fsa_report_problem_show_report_form() {
-
-  $params = _fsa_report_problem_get_params();
-  if (empty($params['fhrsid'])) {
-    return '';
-  }
-
-  $establishment = fsa_report_problem_get_establishment_details($params['fhrsid']);
-
-  return drupal_get_form('fsa_report_problem_report_form', $establishment);
-
-
-
-
-}
-
-
 function fsa_report_problem_get_establishment_details($fhrsid = NULL) {
 
   if (empty($fhrsid)) {
