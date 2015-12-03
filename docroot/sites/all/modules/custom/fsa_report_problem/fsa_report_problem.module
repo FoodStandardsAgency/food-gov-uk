@@ -827,6 +827,7 @@ function fsa_report_problem_get_local_authority_by_postcode($postcode = NULL) {
   return $selected_area;
 }
 
+
 /**
  * Returns an email address for a local authority, based on the MapIt area ID
  *
@@ -853,7 +854,6 @@ function fsa_report_problem_get_local_authority_email_address($id) {
   if (empty($id) || !is_numeric($id)) {
     return '';
   }
-
 
   // Query the local_authority_areas table to find a corresponding ID for use in
   // the FHRS API. Return the results as an associative array keyed on the ID.
@@ -886,6 +886,7 @@ function fsa_report_problem_get_local_authority_email_address($id) {
   return $local_authority->Email;
 
 }
+
 
 /**
  * Gets the local authority ID from FHRS, based on MapIt area ID.
