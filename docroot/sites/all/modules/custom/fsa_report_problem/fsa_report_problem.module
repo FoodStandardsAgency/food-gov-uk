@@ -986,6 +986,18 @@ function fsa_report_problem_get_local_authority_by_area_id($area_id = 0) {
 }
 
 
+/**
+ * Gets local authority data from the FHRS API
+ *
+ * @param int $id
+ *   (optional) The ID of the authority for which to retrieve data
+ *
+ * @return array
+ *   Associative array of local authority data from the FHRS API. If no $id
+ *   parameter is supplied, all authority data is returned. If an $id is
+ *   supplied and a matching authority is found, data for just this authority is
+ *   returned. If no matching authority is found, an empty array is returned.
+ */
 function fsa_report_problem_get_fhrs_authorities($id = NULL) {
   $endpoint = 'Authorities';
   $args = !empty($id) ? array($id) : array();
