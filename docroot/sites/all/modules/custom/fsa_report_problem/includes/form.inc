@@ -832,7 +832,7 @@ function fsa_report_problem_local_authority_details_form($form, &$form_state) {
   }
 
   // Get the postcode - if supplied
-  $postcode = !empty($form_state['values']['postcode']) ? $form_state['values']['postcode'] : '';
+  $postcode = !empty($form_state['values']['postcode']) ? _fsa_report_problem_format_postcode($form_state['values']['postcode']) : '';
 
   // Which version of intro text should we use. Depends on whether we are doing
   // a postcode-based search.
