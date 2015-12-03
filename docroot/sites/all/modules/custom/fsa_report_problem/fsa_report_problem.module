@@ -797,6 +797,15 @@ function fsa_report_problem_get_local_authority($lng, $lat) {
 }
 
 
+/**
+ * Gets local authority details from MapIt based on postcode
+ *
+ * @param string $postcode
+ *   The postcode for which to look up the local authority
+ *
+ * @return array
+ *   An associative array of local authority properties
+ */
 function fsa_report_problem_get_local_authority_by_postcode($postcode = NULL) {
 
   if (empty($postcode)) {
