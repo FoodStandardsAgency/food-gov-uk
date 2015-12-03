@@ -740,7 +740,7 @@ function fsa_report_problem_get_google_results($name, $location = '', $user_loca
     $http_code = !empty($places->code) ? $places->code : 0;
 
     // If the HTTP response code is anything other than 200, throw an exception.
-    if($places->code != 200) {
+    if ($places->code != 200) {
       $error_message = !empty($places->error) ? $places->error : t('HTTP error');
       throw new GooglePlacesApiException($error_message, GOOGLE_PLACES_EXCEPTION_HTTP_ERROR, $http_code);
     }
@@ -774,14 +774,25 @@ function fsa_report_problem_get_google_results($name, $location = '', $user_loca
       }
     }
   }
-  while($request_count < $max_results/$results_per_request && count($results) < $result_threshold && $next_page_token != 'not-set');
+  while ($request_count < $max_results/$results_per_request && count($results) < $result_threshold && $next_page_token != 'not-set');
 
   // Return the results array.
   return $results;
 }
 
-
-function fsa_report_problem_get_local_authority($lng, $lat){
+/**
+ * Gets local authority details from MapIt based on latitude and longitude
+ *
+ * @param float $lng
+ *   The longitude for which to find a local authority
+ *
+ * @param float $lat
+ *   The latitude for which to find a local authority
+ *
+ * @return array
+ *   An associative array of local authority properties
+ */
+function fsa_report_problem_get_local_authority($lng, $lat) {
   $endpoint = 'http://mapit.mysociety.org/point/4326';
   $url = url("$endpoint/$lng,$lat", array('query' => array('type' => implode(',', _fsa_report_problem_mapit_authority_types()))));
   $area_data = drupal_http_request($url);
