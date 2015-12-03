@@ -4,6 +4,9 @@
  * Admin functions for the FSA Report a problem module.
  */
 
+/**
+ * Form builder: Provides admin listing of submitted food problem reports
+ */
 function fsa_report_problem_view_reports($form, &$form_state) {
 
   $query = new EntityFieldQuery();
@@ -113,7 +116,15 @@ function fsa_report_problem_view_reports($form, &$form_state) {
 
 }
 
-
+/**
+ * Returns a renderable array of a food problem report for viewing
+ *
+ * @param int $rid
+ *   The report ID
+ *
+ * @return array
+ *   Render array for passing to drupal_render() or render()
+ */
 function problem_report_view($rid) {
   $reports = entity_load('problem_report', array($rid));
   $report = $reports[$rid];
