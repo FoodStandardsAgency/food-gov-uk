@@ -444,7 +444,7 @@ function fsa_report_problem_local_authorities() {
     array('data' => t('Local authority email')),
   );
 
-  while($record = $result->fetchAssoc()) {
+  while ($record = $result->fetchAssoc()) {
     $area_id = $record['area_id'];
     $local_authority_id = $record['local_authority_id'];
     $area = $areas[$area_id];
