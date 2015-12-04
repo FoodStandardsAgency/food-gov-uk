@@ -1449,7 +1449,7 @@ function fsa_report_problem_authority_edit_form_submit(&$form, &$form_state) {
     if (empty($fhrs_authority->Email) && !empty($form_state['values']['email'])) {
       $authority->email = $form_state['values']['email'];
     }
-    else if (empty($authority->email) || empty($form_state['values']['email'])) {
+    elseif (empty($authority->email) || empty($form_state['values']['email'])) {
       $authority->email = $authority->fhrs_email;
     }
     else {
