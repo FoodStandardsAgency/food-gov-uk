@@ -580,7 +580,7 @@ function fsa_food_report_text_form($form, &$form_state) {
  */
 function fsa_food_report_email_form($form, &$form_state) {
 
-     $form['email_text_title'] = array(
+  $form['email_text_title'] = array(
     '#type' => 'item',
     '#title' => t('Emails'),
   );
