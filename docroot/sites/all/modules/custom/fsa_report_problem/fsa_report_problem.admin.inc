@@ -196,7 +196,6 @@ function fsa_report_problem_authorities_import_form($form, &$form_state) {
 
   foreach ($areas as $id => $area) {
     $council_name = str_replace(' Council', '', $area['name']);
-    $area_name = filter_xss($area['name']);
     //$council_name = str_replace(' Borough', '', $council_name);
     //$council_name = str_replace(' District', '', $council_name);
     //$council_name = str_replace(' City', '', $council_name);
@@ -238,7 +237,7 @@ function fsa_report_problem_authorities_import_form($form, &$form_state) {
       '#options' => $authority_options,
       //'#title' => t('Select an authority'),
       '#default_value' => $select_default,
-      '#title' => $area_name,
+      '#title' => filter_xss($area['name']),
       '#attributes' => array(
         'class' => $selector_classes,
       ),
