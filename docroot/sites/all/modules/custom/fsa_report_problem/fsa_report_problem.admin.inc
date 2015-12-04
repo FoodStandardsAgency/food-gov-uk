@@ -596,8 +596,8 @@ function fsa_food_report_email_form($form, &$form_state) {
 
     $form['email_text']["fsa_report_problem_email_${key}_container"] = array(
       '#type' => 'fieldset',
-      '#title' => $item['title'],
-      '#description' => !empty($item['description']) ? $item['description'] : '',
+      '#title' => filter_xss($item['title']),
+      '#description' => !empty($item['description']) ? filter_xss($item['description']) : '',
     );
 
     $item['subject'] = variable_get("fsa_report_problem_email_${key}_subject", $emails[$key]['subject']);
