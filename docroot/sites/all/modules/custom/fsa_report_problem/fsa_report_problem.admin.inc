@@ -468,7 +468,9 @@ function fsa_report_problem_local_authorities() {
 }
 
 
-
+/**
+ * Form builder: Report a food problem admin form
+ */
 function fsa_food_report_admin_form($form, &$form_state) {
 
   $form['service_status'] = array(
@@ -513,6 +515,9 @@ function fsa_food_report_admin_form($form, &$form_state) {
 }
 
 
+/**
+ * Form builder: Report a food problem text editing administration form
+ */
 function fsa_food_report_text_form($form, &$form_state) {
   $text = _fsa_report_problem_text();
 
