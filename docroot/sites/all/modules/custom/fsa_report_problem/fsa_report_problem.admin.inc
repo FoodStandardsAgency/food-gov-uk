@@ -472,6 +472,29 @@ function fsa_report_problem_local_authorities() {
  */
 function fsa_food_report_admin_form($form, &$form_state) {
 
+  $form['node'] = array(
+    '#type' => 'fieldset',
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+    '#title' => t('Page'),
+  );
+
+  $form['node']['intro'] = array(
+    '#markup' => t('We need to tell the form on which page it should appear. Use the field below to find it.'),
+  );
+
+  $form['node']['fsa_report_problem_node_nid'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Page title'),
+    '#description' => t('Enter the title or node ID of the page on which the form should appear'),
+    '#default_value' => variable_get('fsa_report_problem_node_nid'),
+    '#autocomplete_path' => 'admin/config/foodproblems/nodes',
+    '#size' => 80,
+    '#attributes' => array(
+      'autocomplete' => 'off',
+    ),
+  );
+
   $form['service_status'] = array(
     '#type' => 'fieldset',
     '#collapsible' => TRUE,
