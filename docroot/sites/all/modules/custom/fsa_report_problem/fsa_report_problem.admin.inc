@@ -1106,16 +1106,9 @@ function fsa_report_problem_report_local_authority_form_submit(&$form, &$form_st
       }
 
       break;
-
-
   }
 
-
-
-
 }
-
-
 
 
 /**
