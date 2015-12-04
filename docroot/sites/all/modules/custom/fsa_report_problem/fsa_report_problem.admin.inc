@@ -1219,7 +1219,9 @@ function fsa_report_problem_authorities_import_form_new($form, &$form_state) {
 }
 
 
-
+/**
+ * Submit handler: Local authorities import form
+ */
 function fsa_report_problem_authorities_import_form_new_submit(&$form, &$form_state) {
   foreach ($form_state['values'] as $field_name => $value) {
     if (strpos($field_name, 'authority-') === 0) {
