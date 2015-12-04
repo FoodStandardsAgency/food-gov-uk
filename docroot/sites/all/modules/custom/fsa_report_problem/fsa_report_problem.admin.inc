@@ -987,12 +987,6 @@ function fsa_report_problem_report_local_authority_form($form, &$form_state, $ri
 
   }
 
-
-
-
-
-
-
   if ($report->local_authority_id > 0 && empty($form_state['confirm_local_authority'])) {
 
     $form['local_authority'] = array(
@@ -1016,38 +1010,11 @@ function fsa_report_problem_report_local_authority_form($form, &$form_state, $ri
       '#markup' => !empty($report->local_authority_email) ? $report->local_authority_email : t('No email address found'),
     );
 
-    //return $form;
-
   }
-
 
   if (!empty($report->coordinates)) {
     list($lat, $lng) = explode(',', $report->coordinates);
   }
-
-  //  $form['coordinates'] = array(
-  //    '#type' => 'fieldset',
-  //    '#title' => t('Coordinates'),
-  //    '#collapsible' => TRUE,
-  //    '#collapsed' => !empty($local_authority['name']) ? TRUE : FALSE,
-  //  );
-  //
-  //  $form['coordinates']['lat'] = array(
-  //    '#type' => 'textfield',
-  //    '#title' => t('Latitude'),
-  //    '#default_value' => !empty($lat) ? $lat : NULL,
-  //  );
-  //
-  //  $form['coordinates']['lng'] = array(
-  //    '#type' => 'textfield',
-  //    '#title' => t('Longitude'),
-  //    '#default_value' => !empty($lng) ? $lng : NULL,
-  //  );
-  //
-  //  $form['coordinates']['submit_coordinates'] = array(
-  //    '#type' => 'submit',
-  //    '#value' => t('Find authority by coordinates'),
-  //  );
 
   $form['postcode_container'] = array(
     '#type' => 'fieldset',
@@ -1072,7 +1039,6 @@ function fsa_report_problem_report_local_authority_form($form, &$form_state, $ri
   );
 
   return $form;
-
 
 }
 
