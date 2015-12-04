@@ -577,7 +577,9 @@ function fsa_food_report_text_form($form, &$form_state) {
   return system_settings_form($form);
 }
 
-
+/**
+ * Form buider: Email administration form
+ */
 function fsa_food_report_email_form($form, &$form_state) {
 
      $form['email_text_title'] = array(
