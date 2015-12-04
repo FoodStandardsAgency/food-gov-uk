@@ -661,8 +661,18 @@ function fsa_food_report_email_form($form, &$form_state) {
 }
 
 
-
-
+/**
+ * Form builder: Forward a report by email
+ *
+ * @param array $form
+ *   The form array
+ * @param array $form_state
+ *   The form_state array
+ * @param int $report_id
+ *   The ID of the report to forward
+ * @return array
+ *   The form array for rendering
+ */
 function fsa_report_problem_report_forward_form($form, &$form_state, $report_id = 0) {
 
   //$reports = !empty($report_id) ? entity_load('problem_report', array($report_id)) : array();
