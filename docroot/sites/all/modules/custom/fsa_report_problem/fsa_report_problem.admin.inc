@@ -682,7 +682,7 @@ function fsa_report_problem_report_forward_form($form, &$form_state, $report_id 
   $form_state['report'] = $report;
 
   if (!empty($report->email_sent)) {
-    drupal_set_message('This report has already been sent. Are you sure you want to forward it?', 'warning');
+    drupal_set_message(t('This report has already been sent. Are you sure you want to forward it?'), 'warning');
   }
 
   if (empty($report->local_authority_email)) {
