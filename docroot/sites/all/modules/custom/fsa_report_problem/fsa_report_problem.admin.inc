@@ -573,7 +573,6 @@ function fsa_food_report_text_form($form, &$form_state) {
 
   }
 
-
   return system_settings_form($form);
 }
 
@@ -586,7 +585,6 @@ function fsa_food_report_email_form($form, &$form_state) {
     '#type' => 'item',
     '#title' => t('Emails'),
   );
-
 
   $form['email_text'] = array(
     '#type' => 'vertical_tabs',
