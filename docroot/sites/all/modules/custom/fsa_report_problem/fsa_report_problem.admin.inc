@@ -148,6 +148,10 @@ function problem_report_view($rid) {
 
 /**
  * Form builder: Local authority data import form
+ *
+ * @deprecated in favour of fsa_report_problem_authorities_import_form_new()
+ *
+ * @see fsa_report_problem_authorities_import_form_new()
  */
 function fsa_report_problem_authorities_import_form($form, &$form_state) {
   $areas = fsa_report_problem_get_mapit_areas(array('DIS', 'UTA', 'LBO', 'LGD'));
