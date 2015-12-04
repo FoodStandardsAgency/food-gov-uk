@@ -751,10 +751,19 @@ function fsa_report_problem_report_forward_form_submit(&$form, &$form_state) {
   if (!empty($mail_sent['result'])) {
     $report->email_sent = 1;
     $report->save();
-    drupal_set_message(t("This report has been forwarded to $to"));
+    drupal_set_message(t("This report has been forwarded to %to"), array('%to' => $to));
   }
 }
 
+/**
+ * Form builder: Local authority edit form (old)
+ *
+ * @deprecated in favour of fsa_report_problem_authority_edit_form()
+ *
+ * @see fsa_report_problem_authority_edit_form()
+ *
+ * @todo Remove this once we're sure we don't need any of it
+ */
 function fsa_report_problem_authority_edit_form_old($form, &$form_state, $aid = 0, $local_authority_id = 0) {
 
   // Check to see whether we have a corresponding local authority entity, even
