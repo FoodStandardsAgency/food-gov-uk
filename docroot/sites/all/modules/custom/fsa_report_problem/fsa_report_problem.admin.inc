@@ -469,9 +469,6 @@ function fsa_report_problem_local_authorities() {
 
 
 
-
-
-
 function fsa_food_report_admin_form($form, &$form_state) {
 
   $form['service_status'] = array(
