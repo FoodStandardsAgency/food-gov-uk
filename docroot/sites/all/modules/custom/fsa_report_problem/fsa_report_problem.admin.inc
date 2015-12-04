@@ -888,7 +888,7 @@ function fsa_report_problem_authority_edit_form_old_submit(&$form, &$form_state)
 
   $table = 'local_authority_details';
 
-  switch($operation) {
+  switch ($operation) {
     case 'delete':
       $local_authority = db_delete($table)
         ->condition('local_authority_id', $local_authority_id)
