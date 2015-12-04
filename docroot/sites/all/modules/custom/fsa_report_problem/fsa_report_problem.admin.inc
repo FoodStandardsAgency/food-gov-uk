@@ -1109,10 +1109,7 @@ function fsa_report_problem_report_local_authority_form_submit(&$form, &$form_st
 
 
 /**
- * Import local authority data from MapIt and FHRS API
- * @param type $form
- * @param type $form_state
- * @return type
+ * Form builder: Import local authority data from MapIt and FHRS API
  */
 function fsa_report_problem_authorities_import_form_new($form, &$form_state) {
 
