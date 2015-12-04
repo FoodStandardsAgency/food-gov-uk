@@ -1,5 +1,11 @@
 <?php
 /**
+ * @file
+ * Variables used in the Report a food problem module
+ */
+
+
+/**
  * Implements hook_variable_group_info().
  *
  * @return array
