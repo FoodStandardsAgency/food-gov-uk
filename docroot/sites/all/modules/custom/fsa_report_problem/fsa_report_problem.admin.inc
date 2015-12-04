@@ -1256,8 +1256,21 @@ function fsa_report_problem_authorities_import_form_new_submit(&$form, &$form_st
 }
 
 
-
-
+/**
+ * Form builder: View a local authority's details
+ *
+ * @param array $form
+ *   The form array
+ *
+ * @param array $form_state
+ *   The form_state array (passed by reference)
+ *
+ * @param array $aid
+ *  The local authority ID
+ *
+ * @return array
+ *   The form array for rendering
+ */
 function fsa_report_problem_authority_view_form($form, &$form_state, $aid = 0) {
 
   // Load the authority entity based on $aid.
