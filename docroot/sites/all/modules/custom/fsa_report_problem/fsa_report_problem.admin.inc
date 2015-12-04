@@ -1043,7 +1043,9 @@ function fsa_report_problem_report_local_authority_form($form, &$form_state, $ri
 }
 
 
-
+/**
+ * Submit handler: Set local authority for a report form
+ */
 function fsa_report_problem_report_local_authority_form_submit(&$form, &$form_state) {
 
   $operation = !empty($form_state['triggering_element']['#id']) ? str_replace('edit-submit-', '', $form_state['triggering_element']['#id']) : NULL;
