@@ -926,7 +926,18 @@ function fsa_report_problem_authority_edit_form_old_submit(&$form, &$form_state)
   drupal_set_message(t('Local authority updated'));
 }
 
-
+/**
+ * Form builder: Set the local authority for a specified report
+ *
+ * @param array $form
+ *   The form array
+ * @param array $form_state
+ *   The form_state array
+ * @param int $rid
+ *   The report ID
+ * @return array
+ *   The form array
+ */
 function fsa_report_problem_report_local_authority_form($form, &$form_state, $rid = 0) {
   $reports = entity_load('problem_report', array($rid));
   $report = $reports[$rid];
