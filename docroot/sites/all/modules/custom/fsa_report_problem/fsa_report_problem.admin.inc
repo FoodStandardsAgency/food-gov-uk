@@ -1293,7 +1293,7 @@ function fsa_report_problem_authority_view_form($form, &$form_state, $aid = 0) {
     '#markup' => $authority->name,
   );
 
-   $form['area_id'] = array(
+  $form['area_id'] = array(
     '#type' => 'item',
     '#title' => t('MapIt area ID'),
     '#markup' => $authority->area_id,
@@ -1366,7 +1366,7 @@ function fsa_report_problem_authority_edit_form($form, &$form_state, $aid = 0) {
     '#default_value' => $authority->name,
   );
 
-   $form['local_authority_details']['area_id'] = array(
+  $form['local_authority_details']['area_id'] = array(
     '#type' => 'item',
     '#title' => t('MapIt area ID'),
     '#markup' => $authority->area_id,
