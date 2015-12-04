@@ -290,6 +290,12 @@ function fsa_report_problem_authorities_import_form_submit(&$form, &$form_state)
   }
 }
 
+/**
+ * Displays a table of local authority details stored in Drupal
+ *
+ * @return array
+ *   Render array for the table.
+ */
 function fsa_report_problem_local_authorities_new() {
 
   $output = array();
@@ -380,6 +386,17 @@ function fsa_report_problem_local_authorities_new() {
   return $output;
 }
 
+
+/**
+ * Returns a list of local authority mappings
+ *
+ * @deprecated in favour of fsa_report_problem_local_authorities_new()
+ *
+ * @return array
+ *   Renderable array for local authorities table
+ *
+ * @see fsa_report_problem_local_authorities_new()
+ */
 function fsa_report_problem_local_authorities() {
 
   $output = array();
