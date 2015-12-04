@@ -226,6 +226,13 @@ function fsa_report_problem_menu() {
     'file' => 'fsa_report_problem.admin.inc',
   );
 
+  $items['admin/config/foodproblems/nodes'] = array(
+    'title' => 'Autocomplete for nodes',
+    'page callback' => '_fsa_report_problem_nodes_autocomplete',
+    'access arguments' => array('administer food problem repororting'),
+    'type' => MENU_CALLBACK,
+  );
+
   return $items;
 }
 
@@ -1880,6 +1887,7 @@ function fsa_report_problem_ctools_plugin_api() {
  */
 function fsa_report_problem_context_default_contexts() {
   $export = array();
+  $nid = _fsa_report_problem_extract_nid(variable_get('fsa_report_problem_node_nid', 1000000));
   $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
@@ -1887,9 +1895,9 @@ function fsa_report_problem_context_default_contexts() {
   $context->description = 'Adds food problem report form to the relevant pages';
   $context->tag = 'Report food problem';
   $context->conditions = array(
-    'path' => array(
+    'report_problem_node_nid' => array(
       'values' => array(
-        FSA_REPORT_PROBLEM_PATH . '*' => FSA_REPORT_PROBLEM_PATH . '*',
+        $nid => $nid,
       ),
     ),
   );
@@ -1910,6 +1918,7 @@ function fsa_report_problem_context_default_contexts() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Adds food problem report form to the relevant pages');
+  t('Report food problem');
 
   $export[$context->name] = $context;
   return $export;
@@ -1958,8 +1967,14 @@ function _fsa_report_problem_get_location_by_ip($ip = NULL) {
  */
 function fsa_report_problem_init() {
 
+  // Get the request path
   $request_path = request_path();
   $path = FSA_REPORT_PROBLEM_PATH;
+
+  // Get the nid of the node associated with the report a problem block
+  $nid = _fsa_report_problem_get_nid();
+  // Get the path alias for the associated node.
+  $path = drupal_get_path_alias("node/$nid");
 
   // Make sure that the path for the report a problem service is the first part
   // of the current path. If not, exit now.
@@ -2220,4 +2235,125 @@ function _fsa_report_problem_step_title($id = NULL) {
   $id = "step_title_$id";
   $step_title = _fsa_report_problem_text($id);
   return !empty($step_title['value']) ? $step_title['value'] : '';
+}
+
+
+/**
+ * Implements hook_context_plugins().
+ */
+function fsa_report_problem_context_plugins() {
+  $plugins = array();
+  $plugins['fsa_report_problem_context_condition_report_problem_node'] = array(
+    'handler' => array(
+      'path' => drupal_get_path('module', 'fsa_report_problem') . '/includes',
+      'file' => 'fsa_report_problem_context_condition_report_problem_node.inc',
+      'class' => 'fsa_report_problem_context_condition_report_problem_node',
+      'parent' => 'context_condition',
+    ),
+  );
+  return $plugins;
+}
+
+
+/**
+ * Implements hook_context_registry().
+ *
+ */
+function fsa_report_problem_context_registry() {
+  return array(
+    'conditions' => array(
+      'report_problem_node_nid' => array(
+        'title' => t('Report problem page'),
+        'description' => t('Set this context based on node ID of the current node.'),
+        'plugin' => 'fsa_report_problem_context_condition_report_problem_node',
+      ),
+    ),
+  );
+}
+
+
+/**
+ * Implements hook_node_view()
+ */
+function fsa_report_problem_node_view($node, $view_mode, $langcode) {
+  // If we're not in full view mode, exit now.
+  if ($view_mode != 'full') {
+    return;
+  }
+  // Get the menu object
+  $menu_object = menu_get_object();
+  // Get the nid property of the menu object - if defined
+  $nid = !empty($menu_object->nid) ? $menu_object->nid : NULL;
+  // If the menu object doesn't have a nid, exit now
+  if (empty($nid)) {
+    return;
+  }
+  if ($plugin = context_get_plugin('condition', 'report_problem_node_nid')) {
+    $plugin->execute($nid);
+  }
+}
+
+
+/**
+ * Autocomplete callback for nodes
+ */
+function _fsa_report_problem_nodes_autocomplete($string) {
+  $matches = array();
+  $query = db_select('node', 'n')
+    ->fields('n', array('nid', 'title'))
+    ->condition('status', 1);
+
+  if (is_numeric($string)) {
+    $query->condition('nid', db_like($string) . '%', 'LIKE');
+  }
+  else {
+    $query->condition('title', '%' . db_like($string) . '%', 'LIKE');
+  }
+  $result = $query->execute();
+
+  // save the query to matches
+  foreach ($result as $row) {
+    $matches[$row->title . ' [nid:' . $row->nid . ']'] = check_plain($row->title);
+  }
+
+  // Return the result to the form in json
+  drupal_json_output($matches);
+}
+
+
+/**
+ * Helper function: extracts nid from a string containing node title and nid
+ *
+ * @param string $title
+ *   The title of the node with the nid included, eg 'Test page [nid: 123]'
+ *
+ * @return int
+ *   The nid extracted from the title string or 0 if not found
+ */
+function _fsa_report_problem_extract_nid($title = '') {
+  // If the $title parameter is empty, return 0
+  if (empty($title)) {
+    return 0;
+  }
+  // Use regex replacement to extract just the nid part of the title
+  $pattern = "@^.*\[nid:([0-9]+)\]$@";
+  $replacement = '$1';
+  $nid = preg_replace($pattern, $replacement, $title);
+  // Return the nid as an integer or 0
+  return is_numeric($nid) ? (int) $nid : 0;
+}
+
+
+/**
+ * Helper function: gets nid of the node assigned to the report a problem block
+ *
+ * @return int
+ *   The nid of the node associated with the block
+ *
+ * @see _fsa_report_problem_extract_nid()
+ */
+function _fsa_report_problem_get_nid() {
+  $node = variable_get('fsa_report_problem_node_nid');
+  $nid = _fsa_report_problem_extract_nid($node);
+  return $nid;
 }
