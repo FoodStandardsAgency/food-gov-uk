@@ -1,3 +1,8 @@
+/**
+ * @file
+ * JavaScript functions for the Report a food problem module
+ */
+
 (function ($) {
   Drupal.behaviors.reportProblem = {
     attach: function (context) {
