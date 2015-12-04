@@ -1328,6 +1328,21 @@ function fsa_report_problem_authority_view_form($form, &$form_state, $aid = 0) {
 }
 
 
+/**
+ * Form builder: Edit a local authority's details
+ *
+ * @param array $form
+ *   The form array
+ *
+ * @param array $form_state
+ *   The form_state array (passed by reference)
+ *
+ * @param array $aid
+ *  The local authority ID
+ *
+ * @return array
+ *   The form array for rendering
+ */
 function fsa_report_problem_authority_edit_form($form, &$form_state, $aid = 0) {
 
   // Load the authority entity based on $aid.
@@ -1417,7 +1432,9 @@ function fsa_report_problem_authority_edit_form($form, &$form_state, $aid = 0) {
 
 
 
-
+/**
+ * Submit handler: Edit a local authority's details
+ */
 function fsa_report_problem_authority_edit_form_submit(&$form, &$form_state) {
   $aid = $form_state['aid'];
 
