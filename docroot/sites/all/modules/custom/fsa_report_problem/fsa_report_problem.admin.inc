@@ -1164,19 +1164,7 @@ function fsa_report_problem_authorities_import_form_new($form, &$form_state) {
 
   foreach ($areas as $id => $area) {
     $council_name = str_replace(' Council', '', $area['name']);
-    //$council_name = str_replace(' Borough', '', $council_name);
-    //$council_name = str_replace(' District', '', $council_name);
-    //$council_name = str_replace(' City', '', $council_name);
     $form_state['areas'][$id] = array('name' => $area['name']);
-
-
-    //if (empty($select_default)) {
-      //$council_name = str_replace(' City', '', $council_name);
-    //}
-
-
-
-    //$select_default = !empty($authorities[str_replace(' City', '', $council_name)]) ? $authorities[str_replace(' City', '', $council_name)]->LocalAuthorityId : '';
 
     $replacements = array(
       ' Borough',
@@ -1194,13 +1182,10 @@ function fsa_report_problem_authorities_import_form_new($form, &$form_state) {
       }
     }
 
-
-
     $select_default = !empty($authorities[$council_name]) ? $authorities[$council_name]->LocalAuthorityId : '';
     $selector_classes = empty($select_default) ? array('not-matched') : array();
     $fieldset = empty($select_default) ? 'unmatched' : 'matched';
 
-    //$form[$fieldset]['authority-' . $council_name] = array(
     $form[$fieldset]['authority-' . $id] = array(
       '#type' => 'select',
       '#options' => $authority_options,
@@ -1219,9 +1204,6 @@ function fsa_report_problem_authorities_import_form_new($form, &$form_state) {
       array('data' => $authority),
     );
   }
-
-
-  //$form['areas_table'] = $areas_table;
 
   $form['#attached']['css'] = array(
     drupal_get_path('module', 'fsa_report_problem') . '/css/report-problem.admin.css',
