@@ -540,8 +540,8 @@ function fsa_food_report_text_form($form, &$form_state) {
 
       $form['text']["fsa_report_problem_text_${key}_container"] = array(
         '#type' => 'fieldset',
-        '#title' => $item['title'],
-        '#description' => $item['description'],
+        '#title' => filter_xss($item['title']),
+        '#description' => filter_xss($item['description']),
       );
 
       $text_format = !empty($text[$key]['format']) ? $text[$key]['format'] : 'full_html';
