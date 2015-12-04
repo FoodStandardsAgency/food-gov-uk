@@ -733,6 +733,10 @@ function fsa_report_problem_report_forward_form($form, &$form_state, $report_id 
 
 }
 
+
+/**
+ * Submit handler: Forward a food problem report by email
+ */
 function fsa_report_problem_report_forward_form_submit(&$form, &$form_state) {
   $report = $form_state['report'];
   $to = $form_state['values']['to'];
@@ -848,6 +852,13 @@ function fsa_report_problem_authority_edit_form_old($form, &$form_state, $aid = 
 }
 
 
+/**
+ * Submit handler: Local authority edit form (OLD)
+ *
+ * @deprecated in favour of fsa_report_problem_authority_edit_form()
+ *
+ * @see fsa_report_problem_authority_edit_form()
+ */
 function fsa_report_problem_authority_edit_form_old_submit(&$form, &$form_state) {
 
   $form_state['redirect'] = 'admin/config/foodproblems/authorities';
