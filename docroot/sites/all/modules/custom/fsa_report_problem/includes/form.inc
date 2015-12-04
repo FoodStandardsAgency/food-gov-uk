@@ -326,7 +326,7 @@ function fsa_report_problem_results_form($form, &$form_state) {
   );
 
 
-  foreach($form_state['businesses'] as $id => $business) {
+  foreach ($form_state['businesses'] as $id => $business) {
 
     $business['test_id'] = $id;
 
@@ -522,7 +522,7 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
   $next_index = $current_index < count($stages) ? $current_index + 1 : 0;
   $next_stage = $stages[$next_index];
 
-  switch($current_stage) {
+  switch ($current_stage) {
 
     case 'postcode_search':
       // Get the postcode from the form_state values array
