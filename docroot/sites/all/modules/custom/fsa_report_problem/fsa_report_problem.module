@@ -37,7 +37,8 @@ define('FSA_REPORT_PROBLEM_VARIABLE_GROUP_NAME', 'fsa_report_problem');
 /**
  * URL for the report a food problem service
  */
-define('FSA_REPORT_PROBLEM_PATH', 'enforcement/report-problem');
+//define('FSA_REPORT_PROBLEM_PATH', 'enforcement/report-problem');
+define('FSA_REPORT_PROBLEM_PATH', _fsa_report_problem_node_path());
 
 
 /**
