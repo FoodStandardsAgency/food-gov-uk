@@ -43,6 +43,10 @@ function fsa_report_problem_form($form, &$form_state) {
     $form_state['stage'] = 'report_complete';
   }
 
+  if (!empty($params['authority'])) {
+    $form_state['stage'] = 'local_authority_details';
+  }
+
   // Is this the manual entry form? If so, go straight to the make report step.
   if (!empty($params['manual'])) {
     $form_state['stage'] = 'make_report';
