@@ -4,6 +4,9 @@
  * Admin functions for the FSA Report a problem module.
  */
 
+/**
+ * Form builder: Provides admin listing of submitted food problem reports
+ */
 function fsa_report_problem_view_reports($form, &$form_state) {
 
   $query = new EntityFieldQuery();
@@ -114,6 +117,15 @@ function fsa_report_problem_view_reports($form, &$form_state) {
 }
 
 
+/**
+ * Returns a renderable array of a food problem report for viewing
+ *
+ * @param int $rid
+ *   The report ID
+ *
+ * @return array
+ *   Render array for passing to drupal_render() or render()
+ */
 function problem_report_view($rid) {
   $reports = entity_load('problem_report', array($rid));
   $report = $reports[$rid];
@@ -134,8 +146,13 @@ function problem_report_view($rid) {
 }
 
 
-
-
+/**
+ * Form builder: Local authority data import form
+ *
+ * @deprecated in favour of fsa_report_problem_authorities_import_form_new()
+ *
+ * @see fsa_report_problem_authorities_import_form_new()
+ */
 function fsa_report_problem_authorities_import_form($form, &$form_state) {
   $areas = fsa_report_problem_get_mapit_areas(array('DIS', 'UTA', 'LBO', 'LGD'));
   $fhrs_authorities = fsa_report_problem_get_fhrs_authorities();
@@ -156,8 +173,6 @@ function fsa_report_problem_authorities_import_form($form, &$form_state) {
     array('data' => t('Type')),
     array('data' => t('Authority (from FHRS)')),
   );
-
-
 
   $authority_selector = array(
     '#type' => 'select',
@@ -222,7 +237,7 @@ function fsa_report_problem_authorities_import_form($form, &$form_state) {
       '#options' => $authority_options,
       //'#title' => t('Select an authority'),
       '#default_value' => $select_default,
-      '#title' => $area['name'],
+      '#title' => filter_xss($area['name']),
       '#attributes' => array(
         'class' => $selector_classes,
       ),
@@ -253,7 +268,9 @@ function fsa_report_problem_authorities_import_form($form, &$form_state) {
 }
 
 
-
+/**
+ * Submit handler: local authorities import form
+ */
 function fsa_report_problem_authorities_import_form_submit(&$form, &$form_state) {
 
   // First clear out the local_authority_areas table as we're re-importing
@@ -272,6 +289,12 @@ function fsa_report_problem_authorities_import_form_submit(&$form, &$form_state)
   }
 }
 
+/**
+ * Displays a table of local authority details stored in Drupal
+ *
+ * @return array
+ *   Render array for the table.
+ */
 function fsa_report_problem_local_authorities_new() {
 
   $output = array();
@@ -362,6 +385,17 @@ function fsa_report_problem_local_authorities_new() {
   return $output;
 }
 
+
+/**
+ * Returns a list of local authority mappings
+ *
+ * @deprecated in favour of fsa_report_problem_local_authorities_new()
+ *
+ * @return array
+ *   Renderable array for local authorities table
+ *
+ * @see fsa_report_problem_local_authorities_new()
+ */
 function fsa_report_problem_local_authorities() {
 
   $output = array();
@@ -409,7 +443,7 @@ function fsa_report_problem_local_authorities() {
     array('data' => t('Local authority email')),
   );
 
-  while($record = $result->fetchAssoc()) {
+  while ($record = $result->fetchAssoc()) {
     $area_id = $record['area_id'];
     $local_authority_id = $record['local_authority_id'];
     $area = $areas[$area_id];
@@ -433,11 +467,33 @@ function fsa_report_problem_local_authorities() {
 }
 
 
-
-
-
-
+/**
+ * Form builder: Report a food problem admin form
+ */
 function fsa_food_report_admin_form($form, &$form_state) {
+
+  $form['node'] = array(
+    '#type' => 'fieldset',
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+    '#title' => t('Page'),
+  );
+
+  $form['node']['intro'] = array(
+    '#markup' => t('We need to tell the form on which page it should appear. Use the field below to find it.'),
+  );
+
+  $form['node']['fsa_report_problem_node_nid'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Page title'),
+    '#description' => t('Enter the title or node ID of the page on which the form should appear'),
+    '#default_value' => variable_get('fsa_report_problem_node_nid'),
+    '#autocomplete_path' => 'admin/config/foodproblems/nodes',
+    '#size' => 80,
+    '#attributes' => array(
+      'autocomplete' => 'off',
+    ),
+  );
 
   $form['service_status'] = array(
     '#type' => 'fieldset',
@@ -481,6 +537,9 @@ function fsa_food_report_admin_form($form, &$form_state) {
 }
 
 
+/**
+ * Form builder: Report a food problem text editing administration form
+ */
 function fsa_food_report_text_form($form, &$form_state) {
   $text = _fsa_report_problem_text();
 
@@ -503,8 +562,8 @@ function fsa_food_report_text_form($form, &$form_state) {
 
       $form['text']["fsa_report_problem_text_${key}_container"] = array(
         '#type' => 'fieldset',
-        '#title' => $item['title'],
-        '#description' => $item['description'],
+        '#title' => filter_xss($item['title']),
+        '#description' => filter_xss($item['description']),
       );
 
       $text_format = !empty($text[$key]['format']) ? $text[$key]['format'] : 'full_html';
@@ -536,18 +595,18 @@ function fsa_food_report_text_form($form, &$form_state) {
 
   }
 
-
   return system_settings_form($form);
 }
 
-
+/**
+ * Form buider: Email administration form
+ */
 function fsa_food_report_email_form($form, &$form_state) {
 
-     $form['email_text_title'] = array(
+  $form['email_text_title'] = array(
     '#type' => 'item',
     '#title' => t('Emails'),
   );
-
 
   $form['email_text'] = array(
     '#type' => 'vertical_tabs',
@@ -560,8 +619,8 @@ function fsa_food_report_email_form($form, &$form_state) {
 
     $form['email_text']["fsa_report_problem_email_${key}_container"] = array(
       '#type' => 'fieldset',
-      '#title' => $item['title'],
-      '#description' => !empty($item['description']) ? $item['description'] : '',
+      '#title' => filter_xss($item['title']),
+      '#description' => !empty($item['description']) ? filter_xss($item['description']) : '',
     );
 
     $item['subject'] = variable_get("fsa_report_problem_email_${key}_subject", $emails[$key]['subject']);
@@ -625,8 +684,18 @@ function fsa_food_report_email_form($form, &$form_state) {
 }
 
 
-
-
+/**
+ * Form builder: Forward a report by email
+ *
+ * @param array $form
+ *   The form array
+ * @param array $form_state
+ *   The form_state array
+ * @param int $report_id
+ *   The ID of the report to forward
+ * @return array
+ *   The form array for rendering
+ */
 function fsa_report_problem_report_forward_form($form, &$form_state, $report_id = 0) {
 
   //$reports = !empty($report_id) ? entity_load('problem_report', array($report_id)) : array();
@@ -636,7 +705,7 @@ function fsa_report_problem_report_forward_form($form, &$form_state, $report_id 
   $form_state['report'] = $report;
 
   if (!empty($report->email_sent)) {
-    drupal_set_message('This report has already been sent. Are you sure you want to forward it?', 'warning');
+    drupal_set_message(t('This report has already been sent. Are you sure you want to forward it?'), 'warning');
   }
 
   if (empty($report->local_authority_email)) {
@@ -687,6 +756,10 @@ function fsa_report_problem_report_forward_form($form, &$form_state, $report_id 
 
 }
 
+
+/**
+ * Submit handler: Forward a food problem report by email
+ */
 function fsa_report_problem_report_forward_form_submit(&$form, &$form_state) {
   $report = $form_state['report'];
   $to = $form_state['values']['to'];
@@ -701,10 +774,19 @@ function fsa_report_problem_report_forward_form_submit(&$form, &$form_state) {
   if (!empty($mail_sent['result'])) {
     $report->email_sent = 1;
     $report->save();
-    drupal_set_message(t("This report has been forwarded to $to"));
+    drupal_set_message(t("This report has been forwarded to %to"), array('%to' => $to));
   }
 }
 
+/**
+ * Form builder: Local authority edit form (old)
+ *
+ * @deprecated in favour of fsa_report_problem_authority_edit_form()
+ *
+ * @see fsa_report_problem_authority_edit_form()
+ *
+ * @todo Remove this once we're sure we don't need any of it
+ */
 function fsa_report_problem_authority_edit_form_old($form, &$form_state, $aid = 0, $local_authority_id = 0) {
 
   // Check to see whether we have a corresponding local authority entity, even
@@ -802,6 +884,13 @@ function fsa_report_problem_authority_edit_form_old($form, &$form_state, $aid = 
 }
 
 
+/**
+ * Submit handler: Local authority edit form (OLD)
+ *
+ * @deprecated in favour of fsa_report_problem_authority_edit_form()
+ *
+ * @see fsa_report_problem_authority_edit_form()
+ */
 function fsa_report_problem_authority_edit_form_old_submit(&$form, &$form_state) {
 
   $form_state['redirect'] = 'admin/config/foodproblems/authorities';
@@ -822,7 +911,7 @@ function fsa_report_problem_authority_edit_form_old_submit(&$form, &$form_state)
 
   $table = 'local_authority_details';
 
-  switch($operation) {
+  switch ($operation) {
     case 'delete':
       $local_authority = db_delete($table)
         ->condition('local_authority_id', $local_authority_id)
@@ -860,7 +949,18 @@ function fsa_report_problem_authority_edit_form_old_submit(&$form, &$form_state)
   drupal_set_message(t('Local authority updated'));
 }
 
-
+/**
+ * Form builder: Set the local authority for a specified report
+ *
+ * @param array $form
+ *   The form array
+ * @param array $form_state
+ *   The form_state array
+ * @param int $rid
+ *   The report ID
+ * @return array
+ *   The form array
+ */
 function fsa_report_problem_report_local_authority_form($form, &$form_state, $rid = 0) {
   $reports = entity_load('problem_report', array($rid));
   $report = $reports[$rid];
@@ -910,12 +1010,6 @@ function fsa_report_problem_report_local_authority_form($form, &$form_state, $ri
 
   }
 
-
-
-
-
-
-
   if ($report->local_authority_id > 0 && empty($form_state['confirm_local_authority'])) {
 
     $form['local_authority'] = array(
@@ -939,38 +1033,11 @@ function fsa_report_problem_report_local_authority_form($form, &$form_state, $ri
       '#markup' => !empty($report->local_authority_email) ? $report->local_authority_email : t('No email address found'),
     );
 
-    //return $form;
-
   }
-
 
   if (!empty($report->coordinates)) {
     list($lat, $lng) = explode(',', $report->coordinates);
   }
-
-  //  $form['coordinates'] = array(
-  //    '#type' => 'fieldset',
-  //    '#title' => t('Coordinates'),
-  //    '#collapsible' => TRUE,
-  //    '#collapsed' => !empty($local_authority['name']) ? TRUE : FALSE,
-  //  );
-  //
-  //  $form['coordinates']['lat'] = array(
-  //    '#type' => 'textfield',
-  //    '#title' => t('Latitude'),
-  //    '#default_value' => !empty($lat) ? $lat : NULL,
-  //  );
-  //
-  //  $form['coordinates']['lng'] = array(
-  //    '#type' => 'textfield',
-  //    '#title' => t('Longitude'),
-  //    '#default_value' => !empty($lng) ? $lng : NULL,
-  //  );
-  //
-  //  $form['coordinates']['submit_coordinates'] = array(
-  //    '#type' => 'submit',
-  //    '#value' => t('Find authority by coordinates'),
-  //  );
 
   $form['postcode_container'] = array(
     '#type' => 'fieldset',
@@ -996,11 +1063,12 @@ function fsa_report_problem_report_local_authority_form($form, &$form_state, $ri
 
   return $form;
 
-
 }
 
 
-
+/**
+ * Submit handler: Set local authority for a report form
+ */
 function fsa_report_problem_report_local_authority_form_submit(&$form, &$form_state) {
 
   $operation = !empty($form_state['triggering_element']['#id']) ? str_replace('edit-submit-', '', $form_state['triggering_element']['#id']) : NULL;
@@ -1061,23 +1129,13 @@ function fsa_report_problem_report_local_authority_form_submit(&$form, &$form_st
       }
 
       break;
-
-
   }
-
-
-
 
 }
 
 
-
-
 /**
- * Import local authority data from MapIt and FHRS API
- * @param type $form
- * @param type $form_state
- * @return type
+ * Form builder: Import local authority data from MapIt and FHRS API
  */
 function fsa_report_problem_authorities_import_form_new($form, &$form_state) {
 
@@ -1132,19 +1190,7 @@ function fsa_report_problem_authorities_import_form_new($form, &$form_state) {
 
   foreach ($areas as $id => $area) {
     $council_name = str_replace(' Council', '', $area['name']);
-    //$council_name = str_replace(' Borough', '', $council_name);
-    //$council_name = str_replace(' District', '', $council_name);
-    //$council_name = str_replace(' City', '', $council_name);
     $form_state['areas'][$id] = array('name' => $area['name']);
-
-
-    //if (empty($select_default)) {
-      //$council_name = str_replace(' City', '', $council_name);
-    //}
-
-
-
-    //$select_default = !empty($authorities[str_replace(' City', '', $council_name)]) ? $authorities[str_replace(' City', '', $council_name)]->LocalAuthorityId : '';
 
     $replacements = array(
       ' Borough',
@@ -1162,13 +1208,10 @@ function fsa_report_problem_authorities_import_form_new($form, &$form_state) {
       }
     }
 
-
-
     $select_default = !empty($authorities[$council_name]) ? $authorities[$council_name]->LocalAuthorityId : '';
     $selector_classes = empty($select_default) ? array('not-matched') : array();
     $fieldset = empty($select_default) ? 'unmatched' : 'matched';
 
-    //$form[$fieldset]['authority-' . $council_name] = array(
     $form[$fieldset]['authority-' . $id] = array(
       '#type' => 'select',
       '#options' => $authority_options,
@@ -1188,9 +1231,6 @@ function fsa_report_problem_authorities_import_form_new($form, &$form_state) {
     );
   }
 
-
-  //$form['areas_table'] = $areas_table;
-
   $form['#attached']['css'] = array(
     drupal_get_path('module', 'fsa_report_problem') . '/css/report-problem.admin.css',
   );
@@ -1205,7 +1245,9 @@ function fsa_report_problem_authorities_import_form_new($form, &$form_state) {
 }
 
 
-
+/**
+ * Submit handler: Local authorities import form
+ */
 function fsa_report_problem_authorities_import_form_new_submit(&$form, &$form_state) {
   foreach ($form_state['values'] as $field_name => $value) {
     if (strpos($field_name, 'authority-') === 0) {
@@ -1237,8 +1279,21 @@ function fsa_report_problem_authorities_import_form_new_submit(&$form, &$form_st
 }
 
 
-
-
+/**
+ * Form builder: View a local authority's details
+ *
+ * @param array $form
+ *   The form array
+ *
+ * @param array $form_state
+ *   The form_state array (passed by reference)
+ *
+ * @param array $aid
+ *  The local authority ID
+ *
+ * @return array
+ *   The form array for rendering
+ */
 function fsa_report_problem_authority_view_form($form, &$form_state, $aid = 0) {
 
   // Load the authority entity based on $aid.
@@ -1261,7 +1316,7 @@ function fsa_report_problem_authority_view_form($form, &$form_state, $aid = 0) {
     '#markup' => $authority->name,
   );
 
-   $form['area_id'] = array(
+  $form['area_id'] = array(
     '#type' => 'item',
     '#title' => t('MapIt area ID'),
     '#markup' => $authority->area_id,
@@ -1296,6 +1351,21 @@ function fsa_report_problem_authority_view_form($form, &$form_state, $aid = 0) {
 }
 
 
+/**
+ * Form builder: Edit a local authority's details
+ *
+ * @param array $form
+ *   The form array
+ *
+ * @param array $form_state
+ *   The form_state array (passed by reference)
+ *
+ * @param array $aid
+ *  The local authority ID
+ *
+ * @return array
+ *   The form array for rendering
+ */
 function fsa_report_problem_authority_edit_form($form, &$form_state, $aid = 0) {
 
   // Load the authority entity based on $aid.
@@ -1334,7 +1404,7 @@ function fsa_report_problem_authority_edit_form($form, &$form_state, $aid = 0) {
     '#default_value' => $authority->name,
   );
 
-   $form['local_authority_details']['area_id'] = array(
+  $form['local_authority_details']['area_id'] = array(
     '#type' => 'item',
     '#title' => t('MapIt area ID'),
     '#markup' => $authority->area_id,
@@ -1385,7 +1455,9 @@ function fsa_report_problem_authority_edit_form($form, &$form_state, $aid = 0) {
 
 
 
-
+/**
+ * Submit handler: Edit a local authority's details
+ */
 function fsa_report_problem_authority_edit_form_submit(&$form, &$form_state) {
   $aid = $form_state['aid'];
 
@@ -1400,7 +1472,7 @@ function fsa_report_problem_authority_edit_form_submit(&$form, &$form_state) {
     if (empty($fhrs_authority->Email) && !empty($form_state['values']['email'])) {
       $authority->email = $form_state['values']['email'];
     }
-    else if (empty($authority->email) || empty($form_state['values']['email'])) {
+    elseif (empty($authority->email) || empty($form_state['values']['email'])) {
       $authority->email = $authority->fhrs_email;
     }
     else {

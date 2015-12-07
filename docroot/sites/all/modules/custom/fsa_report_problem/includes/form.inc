@@ -43,6 +43,10 @@ function fsa_report_problem_form($form, &$form_state) {
     $form_state['stage'] = 'report_complete';
   }
 
+  if (!empty($params['authority'])) {
+    $form_state['stage'] = 'local_authority_details';
+  }
+
   // Is this the manual entry form? If so, go straight to the make report step.
   if (!empty($params['manual'])) {
     $form_state['stage'] = 'make_report';
@@ -265,7 +269,7 @@ function fsa_report_problem_find_business_form($form, &$form_state) {
   // Submit button
   $form['field_wrapper']['submit'] = array(
     '#type' => 'submit',
-    '#value' => t('Find business'),
+    '#value' => t('Submit'),
   );
 
 
@@ -326,7 +330,7 @@ function fsa_report_problem_results_form($form, &$form_state) {
   );
 
 
-  foreach($form_state['businesses'] as $id => $business) {
+  foreach ($form_state['businesses'] as $id => $business) {
 
     $business['test_id'] = $id;
 
@@ -522,7 +526,7 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
   $next_index = $current_index < count($stages) ? $current_index + 1 : 0;
   $next_stage = $stages[$next_index];
 
-  switch($current_stage) {
+  switch ($current_stage) {
 
     case 'postcode_search':
       // Get the postcode from the form_state values array
@@ -546,7 +550,8 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
       // set, go back to the previous stage and set an error.
       if (empty($local_authority) || empty($local_authority['id'])) {
         $next_stage = 'postcode_search';
-        drupal_set_message(t("Sorry, we couldn't find a local authority for that postcode. Please try again."), 'error');
+        $error_message = _fsa_report_problem_text('postcode_not_found');
+        drupal_set_message($error_message['value'], 'error');
         break;
       }
 
@@ -717,6 +722,25 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
       break;
   }
 
+  // For the future? This is to redirect to the final stage of the local
+  // authority search so that the URL can be based on the local authority
+  // name. We don't have budget to implement this now, but leaving it in just
+  // in case we decide to go for it.
+  //if ($next_stage == 'local_authority_details') {
+    // Test using CTools object cache to persist data when redirecting
+  //  ctools_include('object-cache');
+  //  $object = new stdClass();
+  //  $object->business_name = $form_state['values']['business_name'];
+  //  ctools_object_cache_set('submission', 'local_authority_search', $object);
+    // Don't rebuild as we're going to redirect instead
+    //$form_state['rebuild'] = TRUE;
+    // Generate a URL-save alias based on local authority name
+  //  $local_authority_alias = str_replace('-', '_', $local_authority['name']);
+  //  $local_authority_alias = str_replace(' ', '-', $local_authority_alias);
+  //  $local_authority_alias = strtolower(str_replace('_', '--', $local_authority_alias));
+  //  $form_state['redirect'] = FSA_REPORT_PROBLEM_PATH . '/authority/' . $local_authority_alias;
+  //}
+
   // Rebuild the form - unless we're on the last stage, in which case we
   // redirect. This is to avoid issues with refreshing the final stage and
   // duplicating reports.
@@ -820,9 +844,31 @@ function _fsa_report_problem_step_filter($var) {
  */
 function fsa_report_problem_local_authority_details_form($form, &$form_state) {
 
+  // Get the query string parameters
+  $params = drupal_get_query_parameters();
+  // Get the local authority from the form state - if set.
+  $local_authority = !empty($form_state['local_authority']) ? $form_state['local_authority'] : NULL;
+
+  // Include the CTools object cache
+  ctools_include('object-cache');
+  // Get the CTools object cache, if set.
+  // Note, this is not currently used - work in progress
+  // @todo Implement properly if given the go-ahead.
+  $object = ctools_object_cache_get('submission', 'local_authority_search');
+
+  // If we don't have a local authority by way of the form state, let's see if
+  // we have a local authority ID in the $_GET array.
+  // @todo Instead, use the CTools cache object above
+  if (empty($local_authority)) {
+    $authorities = !empty($params['aid']) ? entity_load('local_authority', array($params['aid'])) : NULL;
+    if (!empty($authorities) && !empty($authorities[$params['aid']]) && is_object($authorities[$params['aid']])) {
+      $local_authority = get_object_vars($authorities[$params['aid']]);
+    }
+  }
+
   // Text to display if no local authority is found.
   // @todo Create a text entry for this.
-  if (empty($form_state['local_authority'])) {
+  if (empty($local_authority)) {
     $form['no_local_authority'] = array(
       '#prefix' => '<div class="form-intro"><p>',
       '#markup' => t('Sorry, we could not find a local authority'),
@@ -845,7 +891,7 @@ function fsa_report_problem_local_authority_details_form($form, &$form_state) {
 
   $form['local_authority_details'] = array(
     '#theme' => 'local_authority_details',
-    '#local_authority' => $form_state['local_authority'],
+    '#local_authority' => $local_authority,
   );
 
   return $form;
@@ -895,7 +941,16 @@ function fsa_report_problem_postcode_search_form($form, &$form_state) {
 
   $form['submit'] = array(
     '#type' => 'submit',
-    '#value' => t('Look up postcode'),
+    '#value' => t('Submit'),
   );
+
+  // Link back to the search by business name form
+  // @todo Consider making this text editable via the admin UI.
+  $form['search_by_business'] = array(
+    '#prefix' => '<p><br>',
+    '#markup' => l(t('Search by business name instead'), FSA_REPORT_PROBLEM_PATH),
+    '#suffix' => '</p>',
+  );
+
   return $form;
 }

@@ -42,7 +42,22 @@ define('GOOGLE_PLACES_EXCEPTION_UNSPECIFIED', 5);
  * GooglePlacesApiException class.
  */
 class GooglePlacesApiException extends Exception {
-  // Class constructor method - overrides parent
+
+  /**
+   * Class constructor method
+   *
+   * @param string $message
+   *   The exception message
+   *
+   * @param int $code
+   *   The exception code
+   *
+   * @param int $http_code
+   *   The HTTP code returned by the Google Places API
+   *
+   * @param Exception $previous
+   *   Previous exception
+   */
   function __construct($message, $code = 0, $http_code = NULL, $previous = NULL) {
     // Call the parent constructor method with the standard parameters
     parent::__construct($message, $code, $previous);
@@ -50,7 +65,9 @@ class GooglePlacesApiException extends Exception {
     $this->setMessage($this->message, $http_code);
   }
 
-  // Set message function - creates a custom exception message.
+  /**
+   * Set message function - creates a custom exception message.
+   */
   private function setMessage($message, $http_code = NULL) {
     $this->message = $this->getCode() . " - " . $message;
     if (!is_null($http_code)) {

@@ -9,6 +9,12 @@
  */
 define('FSA_REPORT_PROBLEM_UNSPECIFIED_ERROR', 'UNSPECIFIED_ERROR');
 
+/**
+ * Use to return Google Places lookup results
+ *
+ * @deprecated
+ *   We now return a simple array and raise an exception if an error occurs.
+ */
 class GooglePlacesLookupResult {
   public $results;
   public $success;
@@ -16,7 +22,9 @@ class GooglePlacesLookupResult {
   public $status;
   public $httpCode;
 
-  // Class constructor function
+  /**
+   * Class constructor method
+   */
   function __construct() {
     $this->results = array();
     $this->success = FALSE;
@@ -25,28 +33,44 @@ class GooglePlacesLookupResult {
     $this->httpCode = 0;
   }
 
-  // Set the success value
+  /**
+   * Sets the success value
+   *
+   * @param boolean $success
+   *   TRUE if the request was successful, FALSE otherwise
+   */
   function setSuccess($success = FALSE) {
     $this->success = $success;
   }
 
-  // Set the error message
+  /**
+   * Sets the error message
+   *
+   * @param string $errorMessage
+   *   The error message
+   */
   function setErrorMessage($errorMessage = '') {
     $this->errorMessage = $errorMessage;
   }
 
-  // Sets the HTTP code
+  /**
+   * Sets the HTTP code
+   *
+   * @param int $httpCode
+   *   The HTTP code returned by the Google Places API
+   */
   function setHttpCode($httpCode = 0) {
     $this->httpCode = $httpCode;
   }
 
-  // Sets the status message
+  /**
+   * Sets the status message
+   *
+   * @param string $status
+   *   The status message as returned by the Google Places API
+   */
   function setStatus($status = FSA_REPORT_PROBLEM_UNSPECIFIED_ERROR) {
     $this->status = $status;
   }
 
-  // Add results
-  // @todo Build this method properly
-  function addResults(array $results = array()) {
-  }
 }
