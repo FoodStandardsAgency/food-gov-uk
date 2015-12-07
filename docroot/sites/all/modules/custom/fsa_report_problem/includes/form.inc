@@ -839,9 +839,31 @@ function _fsa_report_problem_step_filter($var) {
  */
 function fsa_report_problem_local_authority_details_form($form, &$form_state) {
 
+  // Get the query string parameters
+  $params = drupal_get_query_parameters();
+  // Get the local authority from the form state - if set.
+  $local_authority = !empty($form_state['local_authority']) ? $form_state['local_authority'] : NULL;
+
+  // Include the CTools object cache
+  ctools_include('object-cache');
+  // Get the CTools object cache, if set.
+  // Note, this is not currently used - work in progress
+  // @todo Implement properly if given the go-ahead.
+  $object = ctools_object_cache_get('submission', 'local_authority_search');
+
+  // If we don't have a local authority by way of the form state, let's see if
+  // we have a local authority ID in the $_GET array.
+  // @todo Instead, use the CTools cache object above
+  if (empty($local_authority)) {
+    $authorities = !empty($params['aid']) ? entity_load('local_authority', array($params['aid'])) : NULL;
+    if (!empty($authorities) && !empty($authorities[$params['aid']]) && is_object($authorities[$params['aid']])) {
+      $local_authority = get_object_vars($authorities[$params['aid']]);
+    }
+  }
+
   // Text to display if no local authority is found.
   // @todo Create a text entry for this.
-  if (empty($form_state['local_authority'])) {
+  if (empty($local_authority)) {
     $form['no_local_authority'] = array(
       '#prefix' => '<div class="form-intro"><p>',
       '#markup' => t('Sorry, we could not find a local authority'),
