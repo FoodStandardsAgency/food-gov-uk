@@ -269,7 +269,7 @@ function fsa_report_problem_find_business_form($form, &$form_state) {
   // Submit button
   $form['field_wrapper']['submit'] = array(
     '#type' => 'submit',
-    '#value' => t('Find business'),
+    '#value' => t('Submit'),
   );
 
 
