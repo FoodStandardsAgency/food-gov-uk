@@ -1967,7 +1967,7 @@ function _fsa_report_problem_get_location_by_ip($ip = NULL) {
  * within the report a food problem service.
  */
 function fsa_report_problem_init() {
-
+  
   // Get the request path
   $request_path = request_path();
   $path = FSA_REPORT_PROBLEM_PATH;
@@ -1982,8 +1982,12 @@ function fsa_report_problem_init() {
   if (strpos($request_path, $path) !== 0) {
     return;
   }
+  
+  $_GET['q'] = drupal_get_normal_path($path);
 
+  // The path suffix is any path left after the FSA_REPORT_PROBLEM_PATH.
   $path_suffix = str_replace("$path/", '', $request_path);
+  $path_suffix_array = explode('/', $path_suffix);
 
   // Define a set of path suffixes and the $_GET keys and values associated
   // with them
@@ -2003,19 +2007,40 @@ function fsa_report_problem_init() {
     // Postcode search
     'postcode' => array(
       'postcode' => 1,
-    )
+    ),
+    // Display local authority details
+    'authority' => array(
+      'authority' => 1,
+    ),
   );
 
   // Check to see if anything after the path is in our array of $path_mappings.
   // If so, set the $_GET['q'] parameter to our standard path and add $_GET
   // elements for each of the items in the array within $path_mappings.
-  if (array_key_exists($path_suffix, $path_mappings)) {
-    $_GET['q'] = drupal_get_normal_path($path);
-    if (is_array($path_mappings[$path_suffix])) {
-      foreach ($path_mappings[$path_suffix] as $param => $value) {
-        $_GET[$param] = $value;
+  //if (array_key_exists($path_suffix, $path_mappings)) {
+    //$_GET['q'] = drupal_get_normal_path($path);
+  //  if (is_array($path_mappings[$path_suffix])) {
+  //    foreach ($path_mappings[$path_suffix] as $param => $value) {
+  //      $_GET[$param] = $value;
+  //    }
+  //  }
+  //}
+  
+  // New string-based mapping
+  foreach ($path_mappings as $path => $settings) {
+    if (strpos($path_suffix, $path) === 0) {
+      if (is_array($settings)) {
+        foreach ($settings as $key => $value) {
+          $_GET[$key] = $value;
+        }
       }
     }
+  }
+  
+  // If we're looking for a specific local authority, let's try to get its ID
+  if ($path_suffix_array[0] == 'authority' && count($path_suffix_array > 1)) {
+    $local_authority_alias = $path_suffix_array[1];
+    $_GET['aid'] = _fsa_report_problem_load_authority_by_alias($local_authority_alias);
   }
 
 }
