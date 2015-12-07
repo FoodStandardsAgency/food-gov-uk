@@ -725,7 +725,21 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
   // Rebuild the form - unless we're on the last stage, in which case we
   // redirect. This is to avoid issues with refreshing the final stage and
   // duplicating reports.
-  if ($form_state['stage'] != 'make_report') {
+  if ($next_stage == 'local_authority_details') {
+    // Test using CTools object cache to persist data when redirecting
+    ctools_include('object-cache');
+    $object = new stdClass();
+    $object->business_name = $form_state['values']['business_name'];
+    ctools_object_cache_set('submission', 'local_authority_search', $object);
+    // Don't rebuild as we're going to redirect instead
+    //$form_state['rebuild'] = TRUE;
+    // Generate a URL-save alias based on local authority name
+    $local_authority_alias = str_replace('-', '_', $local_authority['name']);
+    $local_authority_alias = str_replace(' ', '-', $local_authority_alias);
+    $local_authority_alias = strtolower(str_replace('_', '--', $local_authority_alias));
+    $form_state['redirect'] = FSA_REPORT_PROBLEM_PATH . '/authority/' . $local_authority_alias;
+  }
+  elseif ($form_state['stage'] != 'make_report') {
     $form_state['rebuild'] = TRUE;
   }
   else {
