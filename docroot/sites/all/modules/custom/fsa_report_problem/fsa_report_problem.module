@@ -2357,3 +2357,36 @@ function _fsa_report_problem_get_nid() {
   $nid = _fsa_report_problem_extract_nid($node);
   return $nid;
 }
+
+
+/**
+ * Helper function: gets the path alias of the node selected for the block
+ */
+function _fsa_report_problem_node_path() {
+  // Get the nid from the variable
+  $nid = _fsa_report_problem_get_nid();
+  // Now get its path alias
+  $alias = drupal_get_path_alias("node/$nid");
+  // Return the alias
+  return $alias;
+}
+
+
+/**
+ * Helper function: gets a local authority entity based on sanitised name
+ */
+function _fsa_report_problem_load_authority_by_alias($alias) {
+  $alias = str_replace('--', '_', $alias);
+  $name = str_replace('-', ' ', $alias);
+  $name = str_replace('_', '-', $name);
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'local_authority');
+  $query->propertyCondition('name', $name);
+  $result = $query->execute();
+  if (!empty($result['local_authority'])) {
+    $aids = array_keys($result['local_authority']);
+    return ($aids[0]);
+  }
+  return 0;
+}
+
