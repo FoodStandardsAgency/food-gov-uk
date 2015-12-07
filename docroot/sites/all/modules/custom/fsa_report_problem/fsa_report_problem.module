@@ -2127,7 +2127,7 @@ function template_preprocess_local_authority_details(&$variables) {
   // Set the local authority URL
   $variables['url'] = !empty($local_authority['url']) ? $local_authority['url'] : NULL;
   // Create a link to the local authority website
-  $variables['website_link'] = !empty($variables['url']) ? l($variables['url'], $variables['url'], array('external' => TRUE)) : NULL;
+  $variables['website_link'] = !empty($variables['url']) ? l(_fsa_report_problem_format_url($variables['url']), $variables['url'], array('external' => TRUE)) : NULL;
 }
 
 
