@@ -886,7 +886,7 @@ function fsa_report_problem_local_authority_details_form($form, &$form_state) {
 
   $form['local_authority_details'] = array(
     '#theme' => 'local_authority_details',
-    '#local_authority' => $form_state['local_authority'],
+    '#local_authority' => $local_authority,
   );
 
   return $form;
