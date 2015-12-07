@@ -941,7 +941,7 @@ function fsa_report_problem_postcode_search_form($form, &$form_state) {
 
   $form['submit'] = array(
     '#type' => 'submit',
-    '#value' => t('Look up postcode'),
+    '#value' => t('Submit'),
   );
   return $form;
 }
