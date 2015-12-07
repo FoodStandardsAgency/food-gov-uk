@@ -2419,3 +2419,21 @@ function _fsa_report_problem_load_authority_by_alias($alias) {
   return 0;
 }
 
+
+/**
+ * Helper function: formats a URL for display
+ *
+ * This is essentially just for removing the 'http://' part from URLs that
+ * start with www.
+ */
+function _fsa_report_problem_format_url($url = '') {
+  if (empty($url)) {
+    return '';
+  }
+  // Regex pattern for URLs starting with www.
+  $pattern = "@(^http://www)@";
+  // Replacement - minus the 'http://' part.
+  $replacement = 'www';
+  // Return the replacement
+  return preg_replace($pattern, $replacement, $url);
+}
