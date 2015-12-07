@@ -984,6 +984,9 @@ function fsa_report_problem_get_local_authority_by_area_id($area_id = 0) {
   $query->entityCondition('entity_type', 'local_authority')
     ->propertyCondition('area_id', $area_id);
   $result = $query->execute();
+  if (empty($result) || empty($result['local_authority'])) {
+    return FALSE;
+  }
   $authorities = entity_load('local_authority', array_keys($result['local_authority']));
   if (empty($authorities)) {
     return FALSE;
