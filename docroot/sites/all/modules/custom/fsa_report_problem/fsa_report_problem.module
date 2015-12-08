@@ -263,6 +263,11 @@ function fsa_report_problem_block_view($delta = '') {
 
     // Search for an establishment form
     case 'report_problem_form':
+
+      // Check the API status - this is just for testing purposes
+      // @todo Remove this/incorporate it properly
+      _fsa_report_problem_check_api_status();
+
       if (FSA_REPORT_PROBLEM_STATUS == FSA_REPORT_PROBLEM_STATUS_OFFLINE) {
         $block['content'] = array(
           'heading' => array(
