@@ -1,7 +1,5 @@
 <?php
 
-require_once('context_menu_helpers.inc');
-
 /**
  * Expose menu items as a context condition.
  */
@@ -11,23 +9,21 @@ class context_condition_menu extends context_condition {
    */
   function condition_values() {
     if (module_exists('menu')) {
-      $menus = context_menu_parent_options(menu_get_menus(), array('mlid' => 0));
+      $menus = menu_parent_options(menu_get_menus(), array('mlid' => 0));
       $root_menus = array();
-      foreach ($menus as $key => $link) {
+      foreach ($menus as $key => $name) {
         $id = explode(':', $key);
         if ($id[1] == '0') {
-          $root_menus[$id[0]] = check_plain($link);
+          $root_menus[$id[0]] = check_plain($name);
         }
         else {
-          if (!is_array($link)) {
-            $link = menu_link_load($id[1]);
-          }
+          $link = menu_link_load($id[1]);
           $identifier = $link['link_path'];
           $root_menu = $root_menus[$id[0]];
           while (isset($menus[$root_menu][$identifier])) {
             $identifier .= "'";
           }
-          $menus[$root_menu][$identifier] = $link['title'];
+          $menus[$root_menu][$identifier] = $name;
         }
         unset($menus[$key]);
       }

@@ -23,9 +23,11 @@ class CurrentSearchItemActiveLinks extends CurrentSearchItem {
     $attributes = ($this->settings['nofollow']) ? array('rel' => 'nofollow') : array();
     $attributes += array('class' => array());
 
+    $search_keys = $adapter->getSearchKeys();
+
     // Adds the keywords if any were passed.
-    if ($this->settings['keys'] && $adapter->getSearchKeys() && $adapter->getSearchKeys() != t('[all items]')) {
-      preg_match_all('/"(?:\\\\.|[^\\\\"])*"|\S+/', $adapter->getSearchKeys(), $keys);
+    if ($this->settings['keys'] && $search_keys && $search_keys != t('[all items]')) {
+      preg_match_all('/"(?:\\\\.|[^\\\\"])*"|\S+/', $search_keys, $keys);
       $keys = $keys[0];
 
       foreach ($keys as $i => $key) {
@@ -34,20 +36,24 @@ class CurrentSearchItemActiveLinks extends CurrentSearchItem {
         unset($keys_copy[$i]);
         $new_search_terms = implode(' ', $keys_copy);
 
+        $path = $adapter->getSearchPath();
         if (isset($this->settings['arguments']) && is_numeric($this->settings['arguments'])) {
           // Change the appropriate URL argument
           $arg_position = $this->settings['arguments'];
           $args = arg();
-          if ($args[$arg_position]) {
+          if (!empty($args[$arg_position])) {
             $args[$arg_position] = $new_search_terms;
           }
-          $path = implode('/', $args );
+          $path = implode('/', $args);
         }
         else {
-          $path = current_path();
-
           // Change the search filter parameter
-          $params['keyword'] = $new_search_terms;
+          $params[$this->settings['search_param']] = $new_search_terms;
+        }
+
+        // Clean up parameters if pretty paths are enabled.
+        if (module_exists('facetapi_pretty_paths')) {
+          unset($params[$adapter->getUrlProcessor()->getFilterKey()]);
         }
 
         $variables = array(
@@ -64,7 +70,9 @@ class CurrentSearchItemActiveLinks extends CurrentSearchItem {
       }
     }
     else {
-      $items[] = $adapter->getSearchKeys();
+      if ($search_keys) {
+        $items[] = check_plain($search_keys);
+      }
     }
 
     // Gets the translated pattern with token replacements in tact.
@@ -79,7 +87,7 @@ class CurrentSearchItemActiveLinks extends CurrentSearchItem {
       $data = array('facetapi_active_item' => $item);
       $variables = array(
         'text' => token_replace($pattern, $data),
-        'path' => current_path(),
+        'path' => $this->getFacetPath($item, $adapter),
         'options' => array(
           'attributes' => $attributes,
           'html' => TRUE,
@@ -151,10 +159,19 @@ class CurrentSearchItemActiveLinks extends CurrentSearchItem {
       '#size' => 8,
       '#maxlength' => 128,
       '#title' => 'URL argument position',
-      '#description' => t('Normally, this can be left empty. If search terms are in a URL argument (for example, URLs like <code>/search/search+terms</code> rather than <code>/search?search_api_views_fulltext=some+terms</code>), enter the number of the position of the search terms in the URL here. 0 is the first argument, so enter 1 for a URL like <code>/search/some+terms</code>, 2 for a URL like <code>/search/advanced_search/some+terms</code>, etc.'),
+      '#description' => t('Normally, this can be left empty. This becomes useful if you use a contextual filter instead of exposed filters for your search terms (for example, URLs like <code>/search/search+terms</code> rather than <code>/search?search_api_views_fulltext=some+terms</code>), enter the position of the search terms in the URL here. 0 is the first argument, so enter 1 for a URL like <code>/search/some+terms</code>, 2 for a URL like <code>/search/advanced_search/some+terms</code>, etc.'),
       '#element_validate' => array('element_validate_number'),
       '#filters' => array('trim', 'uppercase'),
       '#default_value' => $this->settings['arguments'],
+    );
+
+    $form['search_param'] = array(
+      '#type' => 'textfield',
+      '#size' => 16,
+      '#maxlength' => 128,
+      '#title' => 'Search parameter',
+      '#description' => t('Normally, this is "search_api_views_fulltext". But if you customized your search, the search parameter is maybe "find" or just "search". E.g. <code>/search?find=some+text</code>'),
+      '#default_value' => $this->settings['search_param'],
     );
 
     // Adds token tree.
@@ -171,6 +188,8 @@ class CurrentSearchItemActiveLinks extends CurrentSearchItem {
       'css' => FALSE,
       'classes' => '',
       'nofollow' => 1,
+      'attributes' => '',
+      'search_param' => 'search_api_views_fulltext',
     );
   }
 }
