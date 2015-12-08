@@ -2437,3 +2437,24 @@ function _fsa_report_problem_format_url($url = '') {
   // Return the replacement
   return preg_replace($pattern, $replacement, $url);
 }
+
+
+/**
+ * Helper function: checks external API status
+ */
+function _fsa_report_problem_check_api_status($api = NULL) {
+
+  $apis = array(
+    'mapit' => new MapItApiStatus(),
+  );
+
+  if (!empty($api)) {
+    $apis[$api]->check();
+  }
+  else {
+    foreach ($apis as $item) {
+      dpm($item->check());
+    }
+  }
+
+}
