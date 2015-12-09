@@ -509,7 +509,7 @@ function _fsa_cache_clear_cloudflare_purge_individual_url($url = NULL) {
 
   // If we don't have a URL, exit now.
   if (empty($url)) {
-    return;
+    return FALSE;
   }
 
   // Get the CloudFlare endpoint. We specify a default in case it's not set,
