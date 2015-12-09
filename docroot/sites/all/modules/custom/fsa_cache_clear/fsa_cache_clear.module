@@ -500,11 +500,73 @@ function fsa_cache_clear_cron_queue_info() {
     'worker callback' => '_fsa_cache_clear_varnish_purge',
     'time' => FSA_CACHE_CLEAR_CLOUDFLARE_CRON_TIME,
   );
-  $queues[FSA_CACHE_CLEAR_CLOUDFLARE_QUEUE_NAME] = array(
-    'worker callback' => '_fsa_cache_clear_cloudflare_purge_individual_url',
-    'time' => FSA_CACHE_CLEAR_CLOUDFLARE_CRON_TIME,
-  );
+  // Don't return CloudFlare queue items as we're now using a hook_cron()
+  // implementation instead.
+  // @see fsa_cache_clear_cron()
+  //$queues[FSA_CACHE_CLEAR_CLOUDFLARE_QUEUE_NAME] = array(
+  //  'worker callback' => '_fsa_cache_clear_cloudflare_purge_individual_url',
+  //  'time' => FSA_CACHE_CLEAR_CLOUDFLARE_CRON_TIME,
+  //);
+
   return $queues;
+}
+
+
+/**
+ * Implements hook_cron().
+ */
+function fsa_cache_clear_cron() {
+  // Get the queue of URLs be be Cleared from CloudFlare
+  $queue = DrupalQueue::get(FSA_CACHE_CLEAR_CLOUDFLARE_QUEUE_NAME);
+  $queue->createQueue();
+
+  // Determine the number of items in the queue
+  $queue_length = $queue->numberOfItems();
+
+  // If the queue is empty, exit now.
+  if ($queue_length == 0) {
+    return;
+  }
+
+  // Get the setting for the maximum number of CloudFlare URLs per cron run
+  $max_items = _fsa_cache_clear_settings('cloudflare_max_items', 10);
+  // If there are fewer items in the queue than $max_items, use queue length
+  $max_items = $queue_length < $max_items ? $queue_length : $max_items;
+
+  // Item couner
+  $item_counter = 1;
+
+  // Loop through the items in the queue up to a maximum of $max_items
+  while ($item_counter <= $max_items) {
+    // Claim the next item from the queue
+    $item = $queue->claimItem();
+
+    // If $item is not an object or if $item->data is empty, continue.
+    if (!is_object($item) || empty($item->data)) {
+      $item_counter++;
+      continue;
+    }
+
+    // Try to purge the item from the CloudFlare queue
+    try {
+      if (_fsa_cache_clear_cloudflare_purge_individual_url($item->data)) {
+        // If successful, delete the item from the queue
+        $queue->deleteItem($item);
+      }
+      else {
+        watchdog('fsa_cache_clear', 'Failed to purge: ' . $item->data, NULL, WATCHDOG_ERROR);
+        // If the purge fails, for whatever reason, release the item for next time
+        $queue->releaseItem($item);
+      }
+    }
+    // Catch any exceptions and log an error message.
+    catch (Exception $e) {
+      watchdog_exception('fsa_cache_clear', $e);
+    }
+
+    // Increment the counter
+    $item_counter++;
+  }
 }
 
 
