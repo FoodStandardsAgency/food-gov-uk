@@ -316,7 +316,12 @@ function _fsa_cache_clear_cloudflare_purge_url($path = NULL) {
 
   // Clear each URL from the CloudFlare cache.
   foreach ($urls as $url) {
-    _fsa_cache_clear_cloudflare_purge_individual_url($url);
+    try {
+      _fsa_cache_clear_cloudflare_purge_individual_url($url);
+    }
+    catch (Exception $e) {
+      watchdog_exception('fsa_cache_clear', $e);
+    }
   }
 
 }
@@ -403,7 +408,12 @@ function _fsa_cache_clear_cloudflare_queue_url($path = NULL, $object_type = NULL
   else {
     // Clear each URL from the CloudFlare cache.
     foreach ($urls as $url) {
-      _fsa_cache_clear_cloudflare_purge_individual_url($url);
+      try {
+        _fsa_cache_clear_cloudflare_purge_individual_url($url);
+      }
+      catch (Exception $e) {
+        watchdog_exception('fsa_cache_clear', $e);
+      }
     }
   }
 
