@@ -555,9 +555,19 @@ function _fsa_cache_clear_cloudflare_purge_individual_url($url = NULL) {
     $result_object = json_decode($fp);
     if (is_object($result_object) && !empty($result_object->result) && $result_object->result == 'success') {
       _fsa_cache_clear_log_message('cloudflare_purge', 'Successfully purged @url from the CloudFlare cache.', array('@url' => $url));
+      return TRUE;
     }
+    // If the purge fails, throw an exception, including the CloudFlare error
+    // code and message.
     else {
       _fsa_cache_clear_log_message('cloudflare_purge', 'An error occurred purging @url from the CloudFlare cache.', array('@url' => $url), WATCHDOG_ERROR);
+      $error_message = t("Failed to purge item $url from the CloudFlare cache.");
+      if (is_object($result_object)) {
+        $error_message .= !empty($result_object->msg) ? ' ' . $result_object->msg : '';
+        $error_message .= !empty($result_object->err_code) ? ' (' . $result_object->err_code . ')' : '';
+      }
+      throw new Exception($error_message);
+      return FALSE;
     }
 
 }
