@@ -46,7 +46,15 @@ function fsa_cache_clear_menu() {
     'file' => 'fsa_cache_clear.admin.inc',
   );
 
-  // A test interface.
+  // Settings - default tab
+  $items['admin/config/development/fsa-cache-clear/settings'] = array(
+    'title' => 'Settings',
+    'description' => 'Configuration settings for the cache clearing module',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );
+
+  // Purge URLs from the cache(s)
   $items['admin/config/development/fsa-cache-clear/purge'] = array(
     'title' => t('Purge URLs'),
     'description' => t('Purge a URL from the Varnish and/or CloudFlare caches'),
@@ -54,6 +62,17 @@ function fsa_cache_clear_menu() {
     'page arguments' => array('fsa_cache_clear_purge_form'),
     'access arguments' => array('administer site configuration'),
     'file' => 'fsa_cache_clear.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+
+  // View queued items to be purged from CloudFlare
+  $items['admin/config/development/fsa-cache-clear/cloudflare-queue'] = array(
+    'title' => 'View CloudFlare queue',
+    'description' => 'View the list of URLs to be cleared from the CloudFlare cache on cron',
+    'page callback' => '_fsa_cache_clear_view_cloudflare_queue',
+    'access arguments' => array('administer site configuration'),
+    'file' => 'fsa_cache_clear.admin.inc',
+    'type' => MENU_LOCAL_TASK,
   );
 
   return $items;
