@@ -5,3 +5,5 @@ package = FSA Custom
 files[] = includes/form.inc
 dependencies[] = fhrs_api
 files[] = classes/GooglePlacesApiException.class.php
+files[] = classes/ExternalApiStatus.class.php
+files[] = classes/MapItApiStatus.class.php

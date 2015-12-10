@@ -263,6 +263,11 @@ function fsa_report_problem_block_view($delta = '') {
 
     // Search for an establishment form
     case 'report_problem_form':
+
+      // Check the API status - this is just for testing purposes
+      // @todo Remove this/incorporate it properly
+      //_fsa_report_problem_check_api_status();
+
       if (FSA_REPORT_PROBLEM_STATUS == FSA_REPORT_PROBLEM_STATUS_OFFLINE) {
         $block['content'] = array(
           'heading' => array(
@@ -2436,4 +2441,65 @@ function _fsa_report_problem_format_url($url = '') {
   $replacement = 'www';
   // Return the replacement
   return preg_replace($pattern, $replacement, $url);
+}
+
+
+/**
+ * Helper function: checks external API status
+ */
+function _fsa_report_problem_check_api_status($api = NULL) {
+
+  $apis = array(
+    'mapit' => new MapItApiStatus(),
+  );
+
+  if (!empty($api)) {
+    $apis[$api]->check();
+  }
+  else {
+    foreach ($apis as $item) {
+      dpm($item->check());
+    }
+  }
+
+}
+
+
+/**
+ * Helper function: gets the nids of any translations of the given nid
+ *
+ * @param int $nid
+ *   The node ID (nid) of a node for which we want to find translations
+ *
+ * @return array
+ *   An associative array of node titles keyed on node IDs (nids). If no
+ *   translations are found, an empty array is returned.
+ */
+function _fsa_report_problem_get_transaltion_nids($nid = NULL) {
+  // Create an empty array to return
+  $return_array = array();
+
+  // If we don't have a nid, return an empty array.
+  if (empty($nid)) {
+    return $return_array;
+  }
+
+  // Get any translations of the node based on its nid
+  $translations = translation_node_get_translations($nid);
+
+  // If there are no tranlsations, return an empty array
+  if (empty($translations)) {
+    return array();
+  }
+
+  // Build an associative array keyed on nid, but excluding the $nid passed as
+  // @param as we don't want to duplicate
+  foreach ($translations as $lang => $node) {
+    if ($node->nid != $nid) {
+      $return_array[$node->nid] = $node->title;
+    }
+  }
+
+  // Return the array
+  return $return_array;
 }
