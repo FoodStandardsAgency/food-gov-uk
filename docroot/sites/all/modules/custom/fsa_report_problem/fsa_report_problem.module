@@ -2140,7 +2140,7 @@ function template_preprocess_local_authority_details(&$variables) {
  * Helper function - returns an array of MapIt authority types
  */
 function _fsa_report_problem_mapit_authority_types() {
-  $area_types = array('DIS', 'UTA', 'LBO', 'LGD', 'MTD');
+  $area_types = array('DIS', 'UTA', 'LBO', 'LGD', 'MTD', 'COI');
   return $area_types;
 }
 
