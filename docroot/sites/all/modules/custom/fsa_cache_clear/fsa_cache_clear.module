@@ -891,3 +891,79 @@ function _fsa_cache_clear_get_object_type_from_path($path) {
 
   return 'unknown';
 }
+
+
+/**
+ * Implements hook_file_operations().
+ */
+function fsa_cache_clear_file_operations() {
+  $operations = array(
+    'delete' => array(
+      'label' => t('Purge from CloudFlare cache'),
+      'callback' => '_fsa_cache_clear_file_operation_cloudflare_purge',
+    ),
+  );
+  return $operations;
+}
+
+
+/**
+ * Implements hook_action_info().
+ *
+ * @see fsa_cache_clear_file_purge_cloudflare_action()
+ */
+function fsa_cache_clear_action_info() {
+  return array(
+    'fsa_cache_clear_file_purge_cloudflare_action' => array(
+      'type' => 'file',
+      'label' => t('Purge from CloudFlare cache'),
+      'configurable' => FALSE,
+      //'behavior' => array('changes_property'),
+      'vbo_configurable' => FALSE,
+      'triggers' => array('any'),
+    ),
+  );
+}
+
+
+/**
+ * Action callback for purging files from CloudFlare
+ */
+function fsa_cache_clear_file_purge_cloudflare_action($file, $context) {
+
+  // If we don't have a file, exit now
+  if (empty($file)) {
+    return;
+  }
+
+  // Get the filename
+  $filename = file_uri_target($file->uri);
+  // Get the path for public files.
+  $public_path = variable_get('file_public_path');
+  // Add the filename to the URLs for clearing
+  $urls = array("$public_path/$filename");
+  // Handle image derivatives
+  if ($file->type == 'image') {
+    $image_styles = image_styles();
+    foreach ($image_styles as $style_name => $style_properties) {
+      if (file_exists(image_style_path($style_name, $filename))) {
+        // Get the image style token to add to the URL for CloudFlare
+        $image_style_path_token = image_style_path_token($style_name,  "public://$filename");
+        // Add the path to be cleared from the CloudFlare cache, including the
+        // image derivative token as this is stored in CloudFlare.
+        $urls[] = $public_path . '/' . file_uri_target(image_style_path($style_name, $filename)) . "?" . IMAGE_DERIVATIVE_TOKEN . "=$image_style_path_token";
+      }
+    }
+  }
+  foreach ($urls as $url) {
+    _fsa_cache_clear_cloudflare_queue_url($url, 'file', TRUE, TRUE);
+  }
+}
+
+/**
+ * Callback for CloudFlare purge file operation
+ */
+function _fsa_cache_clear_file_operation_cloudflare_purge() {
+  // Not currently implemented as a view is used in place of the standard
+  // files admin page.
+}
