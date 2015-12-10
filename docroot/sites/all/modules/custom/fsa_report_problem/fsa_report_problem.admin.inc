@@ -344,8 +344,13 @@ function fsa_report_problem_local_authorities_new() {
   //$query->propertyOrderBy('name');
   $query->tableSort($headers);
   $result = $query->execute();
-  $aids = array_keys($result['local_authority']);
-  $authorities = entity_load('local_authority', $aids);
+  if (!empty($result['local_authority'])) {
+    $aids = array_keys($result['local_authority']);
+    $authorities = entity_load('local_authority', $aids);
+  }
+  else {
+    $authorities = array();
+  }
 
   $table = array(
     '#theme' => 'table',
