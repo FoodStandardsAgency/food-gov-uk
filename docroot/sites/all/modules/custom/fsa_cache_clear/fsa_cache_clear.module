@@ -355,22 +355,37 @@ function _fsa_cache_clear_cloudflare_purge_url($path = NULL) {
  * @param string $object_type
  *   The type of object corresponding to the path
  *
- * @param $queue
+ * @param boolean $queue
  *   (optional) Determines whether the request to clear the CloudFlare cache for
  *   the given path will be queued for execution on cron run or carried out
  *   immediately. The default is TRUE.
+ *
+ * @param boolean $force_committee_domains
+ *   (optional) If set to TRUE, then if the $object_type is set to file, URLs
+ *   will be generated for each committee domain. Defaults to FALSE.
  *
  * @return NULL
  *
  * @see fsa_cache_clear_file_entity_edit_submit()
  * @see _fsa_cache_clear_cloudflare_queue_add_items()
  */
-function _fsa_cache_clear_cloudflare_queue_url($path = NULL, $object_type = NULL, $queue = TRUE) {
+function _fsa_cache_clear_cloudflare_queue_url($path = NULL, $object_type = NULL, $queue = TRUE, $force_committe_domains = FALSE) {
 
   // If we have no URL, return now.
   if (empty($path)) {
     //drupal_set_message('No path supplied', 'error');
     return;
+  }
+
+  // Exclude certain URLs from being purged (mainly internal ones)
+  $exclude = array(
+    "@^batch$@",
+  );
+
+  foreach ($exclude as $pattern) {
+    if (preg_match($pattern, $path)) {
+      return;
+    }
   }
 
   // An array to hold the URLs to be purged from CloudFlare
@@ -384,7 +399,7 @@ function _fsa_cache_clear_cloudflare_queue_url($path = NULL, $object_type = NULL
 
   // If we're purging a file object, we need to make sure we purge it from all
   // of the committee subdomains as well as any configured by the users.
-  if ($object_type == 'file' && !$queue) {
+  if ($object_type == 'file' && (!$queue || $force_committe_domains)) {
     // Purging of files is now usually handled by the custom submit function:
     // `fsa_cache_clear_file_entity_edit_submit()`. This function handles image
     // derivative files, which can't easily be handled here. The exception to
