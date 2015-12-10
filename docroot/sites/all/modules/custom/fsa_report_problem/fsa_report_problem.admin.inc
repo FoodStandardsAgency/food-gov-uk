@@ -344,8 +344,13 @@ function fsa_report_problem_local_authorities_new() {
   //$query->propertyOrderBy('name');
   $query->tableSort($headers);
   $result = $query->execute();
-  $aids = array_keys($result['local_authority']);
-  $authorities = entity_load('local_authority', $aids);
+  if (!empty($result['local_authority'])) {
+    $aids = array_keys($result['local_authority']);
+    $authorities = entity_load('local_authority', $aids);
+  }
+  else {
+    $authorities = array();
+  }
 
   $table = array(
     '#theme' => 'table',
@@ -1207,6 +1212,22 @@ function fsa_report_problem_authorities_import_form_new($form, &$form_state) {
         $council_name = $cn;
       }
     }
+
+    // Some specific mappings not picked up by generic pattern matching
+    $mappings = array(
+      'blackburn with darwen borough' => 'blackburn',
+      'city of edinburgh' => 'edinburgh (city of)',
+      'comhairle nan eilean siar' => 'comhairle nan eilean siar (western isles)',
+      'isle of anglesey' => 'anglesey',
+      'kingston upon thames borough' => 'kingston-upon-thames',
+      'richmond upon thames borough' => 'richmond-upon-thames',
+      'south bucks district' => 'south buckinghamshire',
+      'stockton-on-tees borough' => 'stockton on tees',
+      'telford and wrekin' => 'telford and wrekin council',
+    );
+
+    // Replace specific mappings if matched.
+    $council_name = !empty($mappings[trim(strtolower($council_name))]) ? $mappings[trim(strtolower($council_name))] : $council_name;
 
     $select_default = !empty($authorities[$council_name]) ? $authorities[$council_name]->LocalAuthorityId : '';
     $selector_classes = empty($select_default) ? array('not-matched') : array();
