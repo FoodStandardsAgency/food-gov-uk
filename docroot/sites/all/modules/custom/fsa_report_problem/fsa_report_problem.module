@@ -2172,35 +2172,65 @@ function _fsa_report_problem_import_text($text_id = NULL, $format = 'full_html',
   // Construct the variable name
   $variable_name = 'fsa_report_problem_text_' . $text_id;
 
-  // Get the current variable value, if set.
-  $current_value = variable_get($variable_name);
-
-  // If the variable is already populated and we're not set to overwrite, exit
-  // now.
-  if (!empty($current_value) && !$overwrite) {
-    return;
-  }
-
-  // Build the file path
-  $path = drupal_get_path('module', 'fsa_report_problem') . '/text/' . $text_id . '.txt';
-
   // Check the requested format exists. Otherwise use the fallback.
   $format = filter_format_exists($format) ? $format : filter_fallback_format();
 
-  // If the file exists, get its content.
-  if (file_exists($path)) {
-    $variable_value = array(
-      'format' => $format,
-      'value' => _fsa_report_problem_restore_tokens(check_markup(_fsa_report_problem_escape_tokens(file_get_contents($path)), $format)),
-    );
-    // Save the variable
-    variable_set($variable_name, $variable_value);
-    // Log that the import has taken place
-    watchdog('fsa_report_problem', 'Updated text entry: %text_id.', array('%text_id' => $text_id));
-  }
-  // If the file does not exist, log it in Watchdog.
-  else {
-    watchdog('fsa_report_problem', 'Could not find file for text entry: %text_id.', array('%text_id' => $text_id), WATCHDOG_WARNING);
+  // Get available languages
+  $languages = array_keys(language_list());
+
+  // Get the site's default language.
+  $default_language = language_default();
+  // Get the language code, and assume 'en' as default if not set.
+  $default_language = !empty($default_language->language) ? $default_language->language : 'en';
+
+  foreach ($languages as $language) {
+
+    // An array to hold file paths
+    $paths = array();
+
+    // Build the file path
+    $paths[] = drupal_get_path('module', 'fsa_report_problem') . '/text/' . $text_id . '.' . $language . '.txt';
+
+    // If we're on the default language, include the option not to have the
+    // language in the file path
+    if ($language == $default_language) {
+      $paths[] = drupal_get_path('module', 'fsa_report_problem') . '/text/' . $text_id . '.txt';
+    }
+
+    // If the file exists, get its content.
+    foreach ($paths as $path) {
+      if (file_exists($path)) {
+        $variable_value = array(
+          'format' => $format,
+          'value' => _fsa_report_problem_restore_tokens(check_markup(_fsa_report_problem_escape_tokens(file_get_contents($path)), $format)),
+        );
+
+        // Get a list of variable realms
+        $realms = function_exists('variable_realm_list') ? variable_realm_list() : array();
+
+        if (function_exists('variable_realm_set') && array_key_exists('language', $realms)) {
+          $current_value = function_exists('variable_realm_get') ? variable_realm_get('language', $language, $variable_name) : '';
+          if ($overwrite || empty($current_value)) {
+            variable_realm_set('language', $language, $variable_name, $variable_value);
+          }
+        }
+        else {
+          // Save the variable
+          $current_value = variable_get($variable_name);
+          if ($overwrite || empty($current_value)) {
+            variable_set($variable_name, $variable_value);
+          }
+        }
+
+        // Log that the import has taken place
+        watchdog('fsa_report_problem', 'Updated text entry: %text_id.', array('%text_id' => $text_id));
+        continue;
+      }
+      // If the file does not exist, log it in Watchdog.
+      else {
+        //watchdog('fsa_report_problem', 'Could not find file for text entry: %text_id.', array('%text_id' => $text_id), WATCHDOG_WARNING);
+      }
+    }
   }
 }
 
