@@ -2503,3 +2503,54 @@ function _fsa_report_problem_get_transaltion_nids($nid = NULL) {
   // Return the array
   return $return_array;
 }
+
+
+/**
+ * Sets up initial variables for the FSA Report Problem module.
+ *
+ * @global object $language
+ *   The language object.
+ */
+function _fsa_report_problem_variable_setup($langcode = 'cy') {
+  // Get the current language settings so we can pass them to
+  // hook_variable_info.
+  global $language;
+  $options = array(
+    'language' => $language,
+    'langcode' => $language->language,
+  );
+
+  // Get the current variable_realm_list_language settings.
+  $variable_realm_list_language = variable_get('variable_realm_list_language', array());
+  $translate_vars = array();
+
+  // Get this module's localizable variables and add them to the list.
+  $variables = module_invoke('fsa_report_problem', 'variable_info', $options);
+  foreach ($variables as $variable_name => $variable_info) {
+    if (!empty($variable_info['localize']) && $variable_info['localize']) {
+      $translate_vars[] = $variable_name;
+      if (!in_array($variable_name, $variable_realm_list_language)) {
+        $variable_realm_list_language[] = $variable_name;
+      }
+    }
+  }
+
+  // Set the list of localizable variables.
+  if (count($variable_realm_list_language) > 0) {
+    variable_set('variable_realm_list_language', $variable_realm_list_language);
+  }
+
+  // Translate the variables
+  if (function_exists('i18n_variable_set')) {
+    foreach ($translate_vars as $var) {
+
+      $var_value = $variables[$var]['default'];
+      $var_value_translated = locale($variables[$var]['default'], NULL, $langcode);
+
+      if ($var_value != $var_value_translated) {
+        i18n_variable_set($var, $var_value, 'en');
+        i18n_variable_set($var, $var_value_translated, $langcode);
+      }
+    }
+  }
+}
