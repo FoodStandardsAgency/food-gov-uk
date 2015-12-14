@@ -82,7 +82,8 @@
         width: 50%; } }
     @media (min-width: 880px) {
       .fsa-report-problem-form .food-establishment-wrapper .food-establishment {
-        width: auto; } }
+        width: auto;
+        max-width: 75%; } }
     .fsa-report-problem-form .food-establishment-wrapper h3 {
       font-size: 1.5em;
       margin-bottom: 5px; }
