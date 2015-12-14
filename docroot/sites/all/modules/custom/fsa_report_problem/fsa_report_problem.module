@@ -2097,6 +2097,10 @@ function fsa_report_problem_block_save($delta = '', $edit = array()) {
     variable_set('fsa_report_problem_service_status_message', $edit['fsa_report_problem_service_status_message']);
   }
 
+  if (isset($edit['fsa_report_problem_capture_user_data'])) {
+    variable_set('fsa_report_problem_capture_user_data', $edit['fsa_report_problem_capture_user_data']);
+  }
+
 }
 
 
