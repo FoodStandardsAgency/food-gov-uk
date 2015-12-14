@@ -542,7 +542,7 @@ function fsa_food_report_admin_form($form, &$form_state) {
       0 => t('No'),
       1 => t('Yes'),
     ),
-    '#default_value' => variable_get('fsa_report_problem_capture_user_data', 1),
+    '#default_value' => (int) variable_get('fsa_report_problem_capture_user_data', 0),
   );
 
   //$form['service_status']['fsa_report_problem_service_status_message'] = array(
