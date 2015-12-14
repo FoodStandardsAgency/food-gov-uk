@@ -158,11 +158,9 @@ function fsa_report_problem_variable_info($options) {
 
   foreach ($text_entries as $key => $details) {
     $variables["fsa_report_problem_text_$key"] = array(
-      'type' => 'text',
+      'type' => 'text_format',
       'title' => $details['title'],
       'description' => $details['description'],
-      //'default' => !empty($details['default']) ? $details['default'] : NULL,
-      'default callback' => '_fsa_report_problem_get_text_entry_value',
       'required' => FALSE,
       'localize' => TRUE,
       'group' => FSA_REPORT_PROBLEM_VARIABLE_GROUP_NAME,
