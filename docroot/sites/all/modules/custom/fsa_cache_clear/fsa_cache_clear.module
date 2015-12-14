@@ -210,6 +210,11 @@ function _fsa_cache_clear_cloudflare_purge($paths = array(), $object_type = NULL
     "/^system\/temporary.*$/",
   );
 
+  // If we're purging a file, don't bother to clear the homepage
+  if ($object_type == 'file') {
+    $ignore_patterns[] = "/^<front>$/";
+  }
+
   // Remove paths to be ignored.
   foreach ($paths as $index => $path) {
     foreach ($ignore_patterns as $pattern) {
