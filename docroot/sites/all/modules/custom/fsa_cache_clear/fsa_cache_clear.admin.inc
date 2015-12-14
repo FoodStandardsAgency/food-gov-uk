@@ -247,7 +247,7 @@ function fsa_cache_clear_purge_form($form, &$form_state) {
 function fsa_cache_clear_purge_form_submit($form, &$form_state) {
   $form_state['rebuild'] = TRUE;
   
-  $url = !empty($form_state['values']['url']) ? $form_state['values']['url'] : NULL;
+  $url = !empty($form_state['values']['url']) ? drupal_encode_path($form_state['values']['url']) : NULL;
   
   if (empty($url)) {
     drupal_set_message('No URL supplied', 'error');
