@@ -263,6 +263,7 @@ function fsa_cache_clear_purge_form_submit($form, &$form_state) {
   
   if (!empty($caches_to_clear['cloudflare'])) {
     _fsa_cache_clear_cloudflare_queue_url($url, _fsa_cache_clear_get_object_type_from_path($url), FALSE);
+    // @todo Let the user know if any problems occurred.
     drupal_set_message(t('CloudFlare cache cleared for @url', array('@url' => $url)));
   }
   
