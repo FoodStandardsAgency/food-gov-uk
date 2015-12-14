@@ -1337,7 +1337,7 @@ function fsa_report_problem_authority_view_form($form, &$form_state, $aid = 0) {
   // If we don't have an authority object, return now.
   if (empty($authority)) {
     $form['error_message'] = array(
-      '#markup' => t('Sorry, something has gone wrong.'),
+      '#markup' => t('Local authority not found.'),
     );
     return $form;
   }
@@ -1427,7 +1427,7 @@ function fsa_report_problem_authority_edit_form($form, &$form_state, $aid = 0) {
     // If we don't have an authority object, return now.
     if (empty($authority)) {
       $form['error_message'] = array(
-        '#markup' => t('Sorry, something has gone wrong.'),
+        '#markup' => t('Local authority not found.'),
       );
       return $form;
     }
