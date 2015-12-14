@@ -1554,7 +1554,6 @@ function fsa_report_problem_authority_edit_form_submit(&$form, &$form_state) {
     $authority->email = !empty($values['email']) ? $values['email'] : NULL;
     $authority->area_id = !empty($values['area_id']) ? $values['area_id'] : NULL;
     $authority->created = REQUEST_TIME;
-    $authority->save();
   }
 
   // Get the relevant FHRS authority
