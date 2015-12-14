@@ -1492,7 +1492,6 @@ function fsa_report_problem_authority_edit_form($form, &$form_state, $aid = 0) {
   $form['fhrs'] = array(
     '#type' => 'fieldset',
     '#title' => t('FHRS details'),
-
   );
 
   if (!empty($authority->fhrs_name)) {
