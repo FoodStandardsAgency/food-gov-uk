@@ -1538,6 +1538,9 @@ function fsa_report_problem_authority_edit_form($form, &$form_state, $aid = 0) {
  */
 function fsa_report_problem_authority_edit_form_submit(&$form, &$form_state) {
 
+  // A variable to hold the message to be displayed to the user.
+  $message = '';
+
   // Get the form values from the $form_state array
   $values = !empty($form_state['values']) ? $form_state['values'] : array();
 
@@ -1573,7 +1576,21 @@ function fsa_report_problem_authority_edit_form_submit(&$form, &$form_state) {
     }
     $authority->url = !empty($fhrs_authority->Url) ? $fhrs_authority->Url : NULL;
   }
-  $authority->save();
+  $result = $authority->save();
+
+  switch ($result) {
+    case 0:
+      $message = 'Sorry, an error occurred saving the local authority.';
+      break;
+    case 1:
+      $message = t('Local authority %name created.', array('%name' => $authority->name));
+      break;
+    case 2:
+      $message = t('Local authority %name updated.', array('%name' => $authority->name));
+      break;
+  }
+
+  drupal_set_message($message, $result === 0 ? 'error' : 'status');
 
   // Redirect to the view page for the authority.
   $authority_uri = entity_uri('local_authority', $authority);
