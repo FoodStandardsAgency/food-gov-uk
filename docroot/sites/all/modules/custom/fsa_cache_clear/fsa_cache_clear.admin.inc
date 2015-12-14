@@ -353,7 +353,7 @@ function _fsa_cache_clear_view_cloudflare_queue() {
     $stats = array(
       '#type' => 'html_tag',
       '#tag' => 'p',
-      '#value' => t('There are currently @total items in the queue. Each time cron runs, @cron_count items will be processed from the queue.', array('@total' => count($rows), '@cron_count' => $cron_count)),
+      '#value' => t('There are currently @total items in the queue. Each time <a href="@cron_link">cron</a> runs, @cron_count items will be processed from the queue.', array('@total' => count($rows), '@cron_count' => $cron_count, '@cron_link' => url('admin/config/system/cron'))),
     );
   }
 
