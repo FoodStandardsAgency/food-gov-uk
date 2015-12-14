@@ -356,8 +356,8 @@ function fsa_report_problem_results_form($form, &$form_state) {
       '#name' => 'op' . $id,
       '#attributes' => array(
         'data-business-id' => $id,
-        'title' => t('@select !business_name', array('!business_name' =>  htmlspecialchars($business['name'], ENT_COMPAT, 'UTF-8'), '@select' => $button_verb)),
-        'aria-label' => t('@select !business_name', array('!business_name' =>  htmlspecialchars($business['name'], ENT_COMPAT, 'UTF-8'), '@select' => $button_verb)),
+        'title' => t('@select !business_name, !business_address', array('!business_name' =>  htmlspecialchars($business['name'], ENT_COMPAT, 'UTF-8'), '!business_address' => htmlspecialchars($business['formatted_address'], ENT_COMPAT, 'UTF-8'), '@select' => $button_verb)),
+        'aria-label' => t('@select !business_name, !business_address', array('!business_name' =>  htmlspecialchars($business['name'], ENT_COMPAT, 'UTF-8'), '!business_address' => htmlspecialchars($business['formatted_address'], ENT_COMPAT, 'UTF-8'), '@select' => $button_verb)),
       ),
     );
 
