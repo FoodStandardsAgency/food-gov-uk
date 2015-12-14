@@ -101,6 +101,8 @@
 .messages {
   font-size: 1.2em;
   margin-bottom: 2em; }
+  .messages a {
+    text-decoration: underline; }
 
 .not-listed {
   border: 1px solid #2a8641;

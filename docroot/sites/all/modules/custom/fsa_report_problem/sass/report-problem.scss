@@ -177,6 +177,13 @@
 .messages {
   font-size: 1.2em;
   margin-bottom: 2em;
+  
+  a {
+    text-decoration: underline;
+    
+    &:hover {
+    }
+  }
 }
 
 
