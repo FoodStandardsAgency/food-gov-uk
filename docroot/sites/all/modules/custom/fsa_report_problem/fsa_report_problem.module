@@ -177,6 +177,16 @@ function fsa_report_problem_menu() {
     'weight' => 30,
   );
 
+  $items['admin/config/foodproblems/authorities/add'] = array(
+    'title' => 'Add new local authority',
+    'description' => 'Add a new local authority for use with the food problem reporting system',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_report_problem_authority_edit_form'),
+    'access arguments' => array('administer food problem reporting'),
+    'file' => 'fsa_report_problem.admin.inc',
+    'type' => MENU_LOCAL_ACTION,
+  );
+
   $items['admin/config/foodproblems/authorities/%'] = array(
     'title' => 'View Local authority data',
     'description' => 'Manage details for this local authority',
@@ -189,24 +199,17 @@ function fsa_report_problem_menu() {
   $items['admin/config/foodproblems/authorities/%/view'] = array(
     'title' => 'View',
     'weight' => -10,
+    'type' => MENU_DEFAULT_LOCAL_TASK,
   );
 
   $items['admin/config/foodproblems/authorities/%/edit'] = array(
-    'title' => 'Edit Local authority data',
+    'title' => 'Edit',
     'description' => 'Edit details for this local authority',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('fsa_report_problem_authority_edit_form', 4),
     'access arguments' => array('administer food problem reporting'),
     'file' => 'fsa_report_problem.admin.inc',
-  );
-
-  $items['admin/config/foodproblems/authorities/add'] = array(
-    'title' => 'Add new local authority',
-    'description' => 'Add a new local authority for use with the food problem reporting system',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('fsa_report_problem_authority_edit_form'),
-    'access arguments' => array('administer food problem reporting'),
-    'file' => 'fsa_report_problem.admin.inc',
+    'type' => MENU_LOCAL_TASK,
   );
 
   $items['admin/config/foodproblems/authorities/add/%'] = array(
