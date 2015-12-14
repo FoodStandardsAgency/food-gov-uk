@@ -1499,6 +1499,12 @@ function fsa_report_problem_authority_edit_form($form, &$form_state, $aid = 0) {
       '#markup' => !empty($authority->fhrs_email) ? $authority->fhrs_email : t('No email address on file'),
     );
 
+    $form['fhrs']['fhrs_url'] = array(
+      '#type' => 'item',
+      '#title' => t('FHRS URL'),
+      '#markup' => !empty($authority->url) ? l(_fsa_report_problem_format_url($authority->url), $authority->url) : t('No URL available on FHRS'),
+    );
+
   }
 
   $form['fhrs']['fhrs_authority'] = array(
