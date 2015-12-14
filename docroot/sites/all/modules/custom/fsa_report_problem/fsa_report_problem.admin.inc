@@ -484,8 +484,22 @@ function fsa_food_report_admin_form($form, &$form_state) {
     '#title' => t('Page'),
   );
 
+  // Get the node on which the block is set to appear - if set.
+  $node = variable_get('fsa_report_problem_node_nid');
+  // Extract the nid from the node value - if populated. Otherwise set as NULL.
+  $nid = !empty($node) ? _fsa_report_problem_get_nid($node) : NULL;
+
+  // Set the intro text for the node fieldset based on whether a node has
+  // already been set.
+  if (empty($nid)) {
+    $intro = t('We need to tell the form on which page it should appear. Use the field below to find it.');
+  }
+  else {
+    $intro = t('The <a href="@url" target="_blank">page</a> on which the form is set to appear is show below. You can change this deleting the value and adding a new one.', array('@url' => url('node/'. $nid)));
+  }
+
   $form['node']['intro'] = array(
-    '#markup' => t('We need to tell the form on which page it should appear. Use the field below to find it.'),
+    '#markup' => $intro,
   );
 
   $form['node']['fsa_report_problem_node_nid'] = array(
