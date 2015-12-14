@@ -46,7 +46,15 @@ function fsa_cache_clear_menu() {
     'file' => 'fsa_cache_clear.admin.inc',
   );
 
-  // A test interface.
+  // Settings - default tab
+  $items['admin/config/development/fsa-cache-clear/settings'] = array(
+    'title' => 'Settings',
+    'description' => 'Configuration settings for the cache clearing module',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );
+
+  // Purge URLs from the cache(s)
   $items['admin/config/development/fsa-cache-clear/purge'] = array(
     'title' => t('Purge URLs'),
     'description' => t('Purge a URL from the Varnish and/or CloudFlare caches'),
@@ -54,6 +62,17 @@ function fsa_cache_clear_menu() {
     'page arguments' => array('fsa_cache_clear_purge_form'),
     'access arguments' => array('administer site configuration'),
     'file' => 'fsa_cache_clear.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+
+  // View queued items to be purged from CloudFlare
+  $items['admin/config/development/fsa-cache-clear/cloudflare-queue'] = array(
+    'title' => 'View CloudFlare queue',
+    'description' => 'View the list of URLs to be cleared from the CloudFlare cache on cron',
+    'page callback' => '_fsa_cache_clear_view_cloudflare_queue',
+    'access arguments' => array('administer site configuration'),
+    'file' => 'fsa_cache_clear.admin.inc',
+    'type' => MENU_LOCAL_TASK,
   );
 
   return $items;
@@ -316,7 +335,12 @@ function _fsa_cache_clear_cloudflare_purge_url($path = NULL) {
 
   // Clear each URL from the CloudFlare cache.
   foreach ($urls as $url) {
-    _fsa_cache_clear_cloudflare_purge_individual_url($url);
+    try {
+      _fsa_cache_clear_cloudflare_purge_individual_url($url);
+    }
+    catch (Exception $e) {
+      watchdog_exception('fsa_cache_clear', $e);
+    }
   }
 
 }
@@ -331,22 +355,37 @@ function _fsa_cache_clear_cloudflare_purge_url($path = NULL) {
  * @param string $object_type
  *   The type of object corresponding to the path
  *
- * @param $queue
+ * @param boolean $queue
  *   (optional) Determines whether the request to clear the CloudFlare cache for
  *   the given path will be queued for execution on cron run or carried out
  *   immediately. The default is TRUE.
+ *
+ * @param boolean $force_committee_domains
+ *   (optional) If set to TRUE, then if the $object_type is set to file, URLs
+ *   will be generated for each committee domain. Defaults to FALSE.
  *
  * @return NULL
  *
  * @see fsa_cache_clear_file_entity_edit_submit()
  * @see _fsa_cache_clear_cloudflare_queue_add_items()
  */
-function _fsa_cache_clear_cloudflare_queue_url($path = NULL, $object_type = NULL, $queue = TRUE) {
+function _fsa_cache_clear_cloudflare_queue_url($path = NULL, $object_type = NULL, $queue = TRUE, $force_committe_domains = FALSE) {
 
   // If we have no URL, return now.
   if (empty($path)) {
     //drupal_set_message('No path supplied', 'error');
     return;
+  }
+
+  // Exclude certain URLs from being purged (mainly internal ones)
+  $exclude = array(
+    "@^batch$@",
+  );
+
+  foreach ($exclude as $pattern) {
+    if (preg_match($pattern, $path)) {
+      return;
+    }
   }
 
   // An array to hold the URLs to be purged from CloudFlare
@@ -360,7 +399,7 @@ function _fsa_cache_clear_cloudflare_queue_url($path = NULL, $object_type = NULL
 
   // If we're purging a file object, we need to make sure we purge it from all
   // of the committee subdomains as well as any configured by the users.
-  if ($object_type == 'file' && !$queue) {
+  if ($object_type == 'file' && (!$queue || $force_committe_domains)) {
     // Purging of files is now usually handled by the custom submit function:
     // `fsa_cache_clear_file_entity_edit_submit()`. This function handles image
     // derivative files, which can't easily be handled here. The exception to
@@ -403,7 +442,12 @@ function _fsa_cache_clear_cloudflare_queue_url($path = NULL, $object_type = NULL
   else {
     // Clear each URL from the CloudFlare cache.
     foreach ($urls as $url) {
-      _fsa_cache_clear_cloudflare_purge_individual_url($url);
+      try {
+        _fsa_cache_clear_cloudflare_purge_individual_url($url);
+      }
+      catch (Exception $e) {
+        watchdog_exception('fsa_cache_clear', $e);
+      }
     }
   }
 
@@ -490,11 +534,73 @@ function fsa_cache_clear_cron_queue_info() {
     'worker callback' => '_fsa_cache_clear_varnish_purge',
     'time' => FSA_CACHE_CLEAR_CLOUDFLARE_CRON_TIME,
   );
-  $queues[FSA_CACHE_CLEAR_CLOUDFLARE_QUEUE_NAME] = array(
-    'worker callback' => '_fsa_cache_clear_cloudflare_purge_individual_url',
-    'time' => FSA_CACHE_CLEAR_CLOUDFLARE_CRON_TIME,
-  );
+  // Don't return CloudFlare queue items as we're now using a hook_cron()
+  // implementation instead.
+  // @see fsa_cache_clear_cron()
+  //$queues[FSA_CACHE_CLEAR_CLOUDFLARE_QUEUE_NAME] = array(
+  //  'worker callback' => '_fsa_cache_clear_cloudflare_purge_individual_url',
+  //  'time' => FSA_CACHE_CLEAR_CLOUDFLARE_CRON_TIME,
+  //);
+
   return $queues;
+}
+
+
+/**
+ * Implements hook_cron().
+ */
+function fsa_cache_clear_cron() {
+  // Get the queue of URLs be be Cleared from CloudFlare
+  $queue = DrupalQueue::get(FSA_CACHE_CLEAR_CLOUDFLARE_QUEUE_NAME);
+  $queue->createQueue();
+
+  // Determine the number of items in the queue
+  $queue_length = $queue->numberOfItems();
+
+  // If the queue is empty, exit now.
+  if ($queue_length == 0) {
+    return;
+  }
+
+  // Get the setting for the maximum number of CloudFlare URLs per cron run
+  $max_items = _fsa_cache_clear_settings('cloudflare_max_items', 10);
+  // If there are fewer items in the queue than $max_items, use queue length
+  $max_items = $queue_length < $max_items ? $queue_length : $max_items;
+
+  // Item couner
+  $item_counter = 1;
+
+  // Loop through the items in the queue up to a maximum of $max_items
+  while ($item_counter <= $max_items) {
+    // Claim the next item from the queue
+    $item = $queue->claimItem();
+
+    // If $item is not an object or if $item->data is empty, continue.
+    if (!is_object($item) || empty($item->data)) {
+      $item_counter++;
+      continue;
+    }
+
+    // Try to purge the item from the CloudFlare queue
+    try {
+      if (_fsa_cache_clear_cloudflare_purge_individual_url($item->data)) {
+        // If successful, delete the item from the queue
+        $queue->deleteItem($item);
+      }
+      else {
+        watchdog('fsa_cache_clear', 'Failed to purge: ' . $item->data, NULL, WATCHDOG_ERROR);
+        // If the purge fails, for whatever reason, release the item for next time
+        $queue->releaseItem($item);
+      }
+    }
+    // Catch any exceptions and log an error message.
+    catch (Exception $e) {
+      watchdog_exception('fsa_cache_clear', $e);
+    }
+
+    // Increment the counter
+    $item_counter++;
+  }
 }
 
 
@@ -509,7 +615,7 @@ function _fsa_cache_clear_cloudflare_purge_individual_url($url = NULL) {
 
   // If we don't have a URL, exit now.
   if (empty($url)) {
-    return;
+    return FALSE;
   }
 
   // Get the CloudFlare endpoint. We specify a default in case it's not set,
@@ -555,9 +661,19 @@ function _fsa_cache_clear_cloudflare_purge_individual_url($url = NULL) {
     $result_object = json_decode($fp);
     if (is_object($result_object) && !empty($result_object->result) && $result_object->result == 'success') {
       _fsa_cache_clear_log_message('cloudflare_purge', 'Successfully purged @url from the CloudFlare cache.', array('@url' => $url));
+      return TRUE;
     }
+    // If the purge fails, throw an exception, including the CloudFlare error
+    // code and message.
     else {
       _fsa_cache_clear_log_message('cloudflare_purge', 'An error occurred purging @url from the CloudFlare cache.', array('@url' => $url), WATCHDOG_ERROR);
+      $error_message = t("Failed to purge item $url from the CloudFlare cache.");
+      if (is_object($result_object)) {
+        $error_message .= !empty($result_object->msg) ? ' ' . $result_object->msg : '';
+        $error_message .= !empty($result_object->err_code) ? ' (' . $result_object->err_code . ')' : '';
+      }
+      throw new Exception($error_message);
+      return FALSE;
     }
 
 }
@@ -774,4 +890,80 @@ function _fsa_cache_clear_get_object_type_from_path($path) {
   }
 
   return 'unknown';
+}
+
+
+/**
+ * Implements hook_file_operations().
+ */
+function fsa_cache_clear_file_operations() {
+  $operations = array(
+    'delete' => array(
+      'label' => t('Purge from CloudFlare cache'),
+      'callback' => '_fsa_cache_clear_file_operation_cloudflare_purge',
+    ),
+  );
+  return $operations;
+}
+
+
+/**
+ * Implements hook_action_info().
+ *
+ * @see fsa_cache_clear_file_purge_cloudflare_action()
+ */
+function fsa_cache_clear_action_info() {
+  return array(
+    'fsa_cache_clear_file_purge_cloudflare_action' => array(
+      'type' => 'file',
+      'label' => t('Purge from CloudFlare cache'),
+      'configurable' => FALSE,
+      //'behavior' => array('changes_property'),
+      'vbo_configurable' => FALSE,
+      'triggers' => array('any'),
+    ),
+  );
+}
+
+
+/**
+ * Action callback for purging files from CloudFlare
+ */
+function fsa_cache_clear_file_purge_cloudflare_action($file, $context) {
+
+  // If we don't have a file, exit now
+  if (empty($file)) {
+    return;
+  }
+
+  // Get the filename
+  $filename = file_uri_target($file->uri);
+  // Get the path for public files.
+  $public_path = variable_get('file_public_path');
+  // Add the filename to the URLs for clearing
+  $urls = array("$public_path/$filename");
+  // Handle image derivatives
+  if ($file->type == 'image') {
+    $image_styles = image_styles();
+    foreach ($image_styles as $style_name => $style_properties) {
+      if (file_exists(image_style_path($style_name, $filename))) {
+        // Get the image style token to add to the URL for CloudFlare
+        $image_style_path_token = image_style_path_token($style_name,  "public://$filename");
+        // Add the path to be cleared from the CloudFlare cache, including the
+        // image derivative token as this is stored in CloudFlare.
+        $urls[] = $public_path . '/' . file_uri_target(image_style_path($style_name, $filename)) . "?" . IMAGE_DERIVATIVE_TOKEN . "=$image_style_path_token";
+      }
+    }
+  }
+  foreach ($urls as $url) {
+    _fsa_cache_clear_cloudflare_queue_url($url, 'file', TRUE, TRUE);
+  }
+}
+
+/**
+ * Callback for CloudFlare purge file operation
+ */
+function _fsa_cache_clear_file_operation_cloudflare_purge() {
+  // Not currently implemented as a view is used in place of the standard
+  // files admin page.
 }

@@ -295,3 +295,83 @@ function _fsa_cache_clear_validate_drupal_path($element, &$form_state, $form) {
   
   
 }
+
+
+/**
+ * Displays a list of items to be purged from the CloudFlare queue
+ */
+function _fsa_cache_clear_view_cloudflare_queue() {
+
+  // Get the number of items to be cleared per cron run
+  $cron_count = _fsa_cache_clear_settings('cloudflare_max_items', 10);
+
+  // Table headers - sortable.
+  $header = array(
+    array(
+      'data' => t('Item ID'),
+      'field' => 'q.item_id',
+    ),
+    array(
+      'data' => t('URL'),
+      'field' => 'q.data',
+    ),
+    array(
+      'data' => t('Added to queue'),
+      'field' => 'q.created',
+    ),
+  );
+
+  // Query the database
+  $query = db_select('queue', 'q')
+    ->extend('TableSort')
+    ->fields('q', array('item_id', 'data', 'created'))
+    ->condition('name', FSA_CACHE_CLEAR_CLOUDFLARE_QUEUE_NAME);
+  $items = $query->orderByHeader($header)->execute()->fetchAll();
+
+  // An empty array to hold the table data
+  $rows = array();
+
+  // Build the table data
+  foreach ($items as $item) {
+    $data = !empty($item->data) ? unserialize($item->data) : '';
+    $rows[] = array(
+      $item->item_id,
+      l($data, $data),
+      format_date($item->created, 'medium'),
+    );
+  }
+
+  // A render array for the page intro
+  $intro = array(
+    '#type' => 'html_tag',
+    '#tag' => 'p',
+    '#value' => t('The table below shows URLs that are due to be purged from the CloudFlare cache the next time cron is run.'),
+  );
+
+  // A render array to hold stats
+  if (count($rows) > 0) {
+    $stats = array(
+      '#type' => 'html_tag',
+      '#tag' => 'p',
+      '#value' => t('There are currently @total items in the queue. Each time <a href="@cron_link">cron</a> runs, @cron_count items will be processed from the queue.', array('@total' => count($rows), '@cron_count' => $cron_count, '@cron_link' => url('admin/config/system/cron'))),
+    );
+  }
+
+  // A render array for the table
+  $table = array(
+    '#theme' => 'table',
+    '#header' => $header,
+    '#rows' => $rows,
+    '#empty' => t('There are currently no items awaiting purging from the CloudFlare cache.'),
+  );
+
+  // A render array for the page content
+  $build = array(
+    'intro' => $intro,
+    'stats' => !empty($stats) ? $stats : NULL,
+    'table' => $table,
+  );
+
+  // Return the render array for the page
+  return $build;
+}
