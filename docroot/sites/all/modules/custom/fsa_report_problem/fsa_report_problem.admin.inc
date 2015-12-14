@@ -375,7 +375,7 @@ function fsa_report_problem_local_authorities_new() {
     $edit_url = "$view_url/edit";
 
     $table['#rows'][] = array(
-      array('data' => l($authority->name, $edit_url)),
+      array('data' => l($authority->name, $view_url)),
       array('data' => $authority->area_id),
       array('data' => $authority->local_authority_id),
       array('data' => $authority->fhrs_name),
@@ -484,8 +484,22 @@ function fsa_food_report_admin_form($form, &$form_state) {
     '#title' => t('Page'),
   );
 
+  // Get the node on which the block is set to appear - if set.
+  $node = variable_get('fsa_report_problem_node_nid');
+  // Extract the nid from the node value - if populated. Otherwise set as NULL.
+  $nid = !empty($node) ? _fsa_report_problem_get_nid($node) : NULL;
+
+  // Set the intro text for the node fieldset based on whether a node has
+  // already been set.
+  if (empty($nid)) {
+    $intro = t('We need to tell the form on which page it should appear. Use the field below to find it.');
+  }
+  else {
+    $intro = t('The <a href="@url" target="_blank">page</a> on which the form is set to appear is show below. You can change this deleting the value and adding a new one.', array('@url' => url('node/'. $nid)));
+  }
+
   $form['node']['intro'] = array(
-    '#markup' => t('We need to tell the form on which page it should appear. Use the field below to find it.'),
+    '#markup' => $intro,
   );
 
   $form['node']['fsa_report_problem_node_nid'] = array(
@@ -1323,7 +1337,7 @@ function fsa_report_problem_authority_view_form($form, &$form_state, $aid = 0) {
   // If we don't have an authority object, return now.
   if (empty($authority)) {
     $form['error_message'] = array(
-      '#markup' => t('Sorry, something has gone wrong.'),
+      '#markup' => t('Local authority not found.'),
     );
     return $form;
   }
@@ -1331,41 +1345,56 @@ function fsa_report_problem_authority_view_form($form, &$form_state, $aid = 0) {
   // Set the page title
   drupal_set_title($authority->name);
 
-  $form['name'] = array(
+  $form['local_authority_details'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Local authority details'),
+  );
+
+  $form['local_authority_details']['name'] = array(
     '#type' => 'item',
     '#title' => t('Local authority name'),
     '#markup' => $authority->name,
   );
 
-  $form['area_id'] = array(
+  $form['local_authority_details']['area_id'] = array(
     '#type' => 'item',
     '#title' => t('MapIt area ID'),
     '#markup' => $authority->area_id,
   );
 
+  $form['fhrs'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('FHRS details'),
+  );
 
-  $form['fhrs_name'] = array(
+  $form['fhrs']['fhrs_name'] = array(
     '#type' => 'item',
     '#title' => t('FHRS name'),
     '#markup' => $authority->fhrs_name,
   );
 
-  $form['fhrs_id'] = array(
+  $form['fhrs']['fhrs_id'] = array(
     '#type' => 'item',
     '#title' => t('FHRS ID'),
     '#markup' => $authority->local_authority_id,
   );
 
-  $form['email'] = array(
+  $form['fhrs']['email'] = array(
     '#type' => 'item',
     '#title' => t('Email address'),
     '#markup' => $authority->email,
   );
 
-  $form['fhrs_email'] = array(
+  $form['fhrs']['fhrs_email'] = array(
     '#type' => 'item',
     '#title' => t('FHRS Email address'),
     '#markup' => !empty($authority->fhrs_email) ? $authority->fhrs_email : t('No email address available on FHRS'),
+  );
+
+  $form['fhrs']['fhrs_url'] = array(
+    '#type' => 'item',
+    '#title' => t('FHRS URL'),
+    '#markup' => !empty($authority->url) ? l(_fsa_report_problem_format_url($authority->url), $authority->url) : t('No URL available on FHRS'),
   );
 
   return $form;
@@ -1389,30 +1418,36 @@ function fsa_report_problem_authority_view_form($form, &$form_state, $aid = 0) {
  */
 function fsa_report_problem_authority_edit_form($form, &$form_state, $aid = 0) {
 
-  // Load the authority entity based on $aid.
-  $authority = entity_load_single('local_authority', $aid);
+  // If we have an authority ID, then we want to load it and set a form value.
+  if (!empty($aid)) {
 
-  // If we don't have an authority object, return now.
-  if (empty($authority)) {
-    $form['error_message'] = array(
-      '#markup' => t('Sorry, something has gone wrong.'),
-    );
-    return $form;
+    // Load the authority entity based on $aid.
+    $authority = entity_load_single('local_authority', $aid);
+
+    // If we don't have an authority object, return now.
+    if (empty($authority)) {
+      $form['error_message'] = array(
+        '#markup' => t('Local authority not found.'),
+      );
+      return $form;
+    }
+
+    // Set the form state value.
+    $form_state['aid'] = $aid;
+
   }
-
-  $form_state['aid'] = $aid;
 
   // Get the FHRS authorities
   $fhrs_authorities = fsa_report_problem_get_fhrs_authorities();
-  //dpm($fhrs_authorities);
   $fhrs_options = array();
   foreach ($fhrs_authorities as $details) {
     $fhrs_options[$details->LocalAuthorityId] = $details->Name;
   }
 
-
-  // Set the page title
-  drupal_set_title($authority->name);
+  // Set the page title to the local authority name - if we have one
+  if (!empty($authority)) {
+    drupal_set_title($authority->name);
+  }
 
   $form['local_authority_details'] = array(
     '#type' => 'fieldset',
@@ -1422,25 +1457,41 @@ function fsa_report_problem_authority_edit_form($form, &$form_state, $aid = 0) {
   $form['local_authority_details']['name'] = array(
     '#type' => 'textfield',
     '#title' => t('Local authority name'),
-    '#default_value' => $authority->name,
+    '#default_value' => !empty($authority) ? $authority->name : NULL,
   );
 
-  $form['local_authority_details']['area_id'] = array(
-    '#type' => 'item',
-    '#title' => t('MapIt area ID'),
-    '#markup' => $authority->area_id,
-  );
+  if (!empty($authority)) {
+    $form['local_authority_details']['area_id'] = array(
+      '#type' => 'item',
+      '#title' => t('MapIt area ID'),
+      '#markup' => $authority->area_id,
+    );
+  }
+  else {
+    $mapit_authorities = fsa_report_problem_get_mapit_areas();
+    $mapit_options = array();
+    if (!empty($mapit_authorities)) {
+      foreach ($mapit_authorities as $area_id => $mapit_authority) {
+        $mapit_options[$area_id] = $mapit_authority['name'];
+      }
+    }
+    $form['local_authority_details']['area_id'] = array(
+      '#type' => 'select',
+      '#title' => t('MapIt area ID'),
+      '#options' => $mapit_options,
+      '#empty_option' => t('Please choose'),
+    );
+  }
 
   $form['local_authority_details']['email'] = array(
     '#type' => 'textfield',
     '#title' => t('Email address'),
-    '#default_value' => $authority->email,
+    '#default_value' => !empty($authority) ? $authority->email : NULL,
   );
 
   $form['fhrs'] = array(
     '#type' => 'fieldset',
     '#title' => t('FHRS details'),
-
   );
 
   if (!empty($authority->fhrs_name)) {
@@ -1456,6 +1507,12 @@ function fsa_report_problem_authority_edit_form($form, &$form_state, $aid = 0) {
       '#markup' => !empty($authority->fhrs_email) ? $authority->fhrs_email : t('No email address on file'),
     );
 
+    $form['fhrs']['fhrs_url'] = array(
+      '#type' => 'item',
+      '#title' => t('FHRS URL'),
+      '#markup' => !empty($authority->url) ? l(_fsa_report_problem_format_url($authority->url), $authority->url) : t('No URL available on FHRS'),
+    );
+
   }
 
   $form['fhrs']['fhrs_authority'] = array(
@@ -1463,7 +1520,7 @@ function fsa_report_problem_authority_edit_form($form, &$form_state, $aid = 0) {
     '#title' => t('FHRS authority'),
     '#empty_option' => t('Not set'),
     '#options' => $fhrs_options,
-    '#default_value' => $authority->local_authority_id,
+    '#default_value' => !empty($authority) ? $authority->local_authority_id : NULL,
   );
 
   $form['submit'] = array(
@@ -1480,11 +1537,29 @@ function fsa_report_problem_authority_edit_form($form, &$form_state, $aid = 0) {
  * Submit handler: Edit a local authority's details
  */
 function fsa_report_problem_authority_edit_form_submit(&$form, &$form_state) {
-  $aid = $form_state['aid'];
 
-  // Load the authority entity based on $aid.
-  $authority = entity_load_single('local_authority', $aid);
+  // A variable to hold the message to be displayed to the user.
+  $message = '';
 
+  // Get the form values from the $form_state array
+  $values = !empty($form_state['values']) ? $form_state['values'] : array();
+
+  // Get the local authority id, if set. If empty, it means we're creating a
+  // new local authority entity.
+  $aid = !empty($form_state['aid']) ? $form_state['aid'] : NULL;
+
+  // Load the authority entity based on $aid or create one if we have no $aid
+  $authority = !empty($aid) ? entity_load_single('local_authority', $aid) : entity_create('local_authority', array());
+
+  // If the authority is new, set its properties from $values
+  if (!empty($authority->is_new)) {
+    $authority->name = !empty($values['name']) ? $values['name'] : 'No name';
+    $authority->email = !empty($values['email']) ? $values['email'] : NULL;
+    $authority->area_id = !empty($values['area_id']) ? $values['area_id'] : NULL;
+    $authority->created = REQUEST_TIME;
+  }
+
+  // Get the relevant FHRS authority
   $fhrs_authority = !empty($form_state['values']['fhrs_authority']) ? fsa_report_problem_get_fhrs_authorities($form_state['values']['fhrs_authority']) : NULL;
   if (!empty($fhrs_authority)) {
     $authority->local_authority_id = !empty($form_state['values']['fhrs_authority']) ? $form_state['values']['fhrs_authority'] : $authority->local_authority_id;
@@ -1499,8 +1574,23 @@ function fsa_report_problem_authority_edit_form_submit(&$form, &$form_state) {
     else {
       $authority->email = $form_state['values']['email'];
     }
+    $authority->url = !empty($fhrs_authority->Url) ? $fhrs_authority->Url : NULL;
   }
-  $authority->save();
+  $result = $authority->save();
+
+  switch ($result) {
+    case 0:
+      $message = 'Sorry, an error occurred saving the local authority.';
+      break;
+    case 1:
+      $message = t('Local authority %name created.', array('%name' => $authority->name));
+      break;
+    case 2:
+      $message = t('Local authority %name updated.', array('%name' => $authority->name));
+      break;
+  }
+
+  drupal_set_message($message, $result === 0 ? 'error' : 'status');
 
   // Redirect to the view page for the authority.
   $authority_uri = entity_uri('local_authority', $authority);

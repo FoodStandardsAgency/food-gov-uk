@@ -177,6 +177,16 @@ function fsa_report_problem_menu() {
     'weight' => 30,
   );
 
+  $items['admin/config/foodproblems/authorities/add'] = array(
+    'title' => 'Add new local authority',
+    'description' => 'Add a new local authority for use with the food problem reporting system',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_report_problem_authority_edit_form'),
+    'access arguments' => array('administer food problem reporting'),
+    'file' => 'fsa_report_problem.admin.inc',
+    'type' => MENU_LOCAL_ACTION,
+  );
+
   $items['admin/config/foodproblems/authorities/%'] = array(
     'title' => 'View Local authority data',
     'description' => 'Manage details for this local authority',
@@ -189,24 +199,17 @@ function fsa_report_problem_menu() {
   $items['admin/config/foodproblems/authorities/%/view'] = array(
     'title' => 'View',
     'weight' => -10,
+    'type' => MENU_DEFAULT_LOCAL_TASK,
   );
 
   $items['admin/config/foodproblems/authorities/%/edit'] = array(
-    'title' => 'Edit Local authority data',
+    'title' => 'Edit',
     'description' => 'Edit details for this local authority',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('fsa_report_problem_authority_edit_form', 4),
     'access arguments' => array('administer food problem reporting'),
     'file' => 'fsa_report_problem.admin.inc',
-  );
-
-  $items['admin/config/foodproblems/authorities/add'] = array(
-    'title' => 'Add new local authority',
-    'description' => 'Add a new local authority for use with the food problem reporting system',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('fsa_report_problem_authority_edit_form'),
-    'access arguments' => array('administer food problem reporting'),
-    'file' => 'fsa_report_problem.admin.inc',
+    'type' => MENU_LOCAL_TASK,
   );
 
   $items['admin/config/foodproblems/authorities/add/%'] = array(
@@ -2172,35 +2175,65 @@ function _fsa_report_problem_import_text($text_id = NULL, $format = 'full_html',
   // Construct the variable name
   $variable_name = 'fsa_report_problem_text_' . $text_id;
 
-  // Get the current variable value, if set.
-  $current_value = variable_get($variable_name);
-
-  // If the variable is already populated and we're not set to overwrite, exit
-  // now.
-  if (!empty($current_value) && !$overwrite) {
-    return;
-  }
-
-  // Build the file path
-  $path = drupal_get_path('module', 'fsa_report_problem') . '/text/' . $text_id . '.txt';
-
   // Check the requested format exists. Otherwise use the fallback.
   $format = filter_format_exists($format) ? $format : filter_fallback_format();
 
-  // If the file exists, get its content.
-  if (file_exists($path)) {
-    $variable_value = array(
-      'format' => $format,
-      'value' => _fsa_report_problem_restore_tokens(check_markup(_fsa_report_problem_escape_tokens(file_get_contents($path)), $format)),
-    );
-    // Save the variable
-    variable_set($variable_name, $variable_value);
-    // Log that the import has taken place
-    watchdog('fsa_report_problem', 'Updated text entry: %text_id.', array('%text_id' => $text_id));
-  }
-  // If the file does not exist, log it in Watchdog.
-  else {
-    watchdog('fsa_report_problem', 'Could not find file for text entry: %text_id.', array('%text_id' => $text_id), WATCHDOG_WARNING);
+  // Get available languages
+  $languages = array_keys(language_list());
+
+  // Get the site's default language.
+  $default_language = language_default();
+  // Get the language code, and assume 'en' as default if not set.
+  $default_language = !empty($default_language->language) ? $default_language->language : 'en';
+
+  foreach ($languages as $language) {
+
+    // An array to hold file paths
+    $paths = array();
+
+    // Build the file path
+    $paths[] = drupal_get_path('module', 'fsa_report_problem') . '/text/' . $text_id . '.' . $language . '.txt';
+
+    // If we're on the default language, include the option not to have the
+    // language in the file path
+    if ($language == $default_language) {
+      $paths[] = drupal_get_path('module', 'fsa_report_problem') . '/text/' . $text_id . '.txt';
+    }
+
+    // If the file exists, get its content.
+    foreach ($paths as $path) {
+      if (file_exists($path)) {
+        $variable_value = array(
+          'format' => $format,
+          'value' => _fsa_report_problem_restore_tokens(check_markup(_fsa_report_problem_escape_tokens(file_get_contents($path)), $format)),
+        );
+
+        // Get a list of variable realms
+        $realms = function_exists('variable_realm_list') ? variable_realm_list() : array();
+
+        if (function_exists('variable_realm_set') && array_key_exists('language', $realms)) {
+          $current_value = function_exists('variable_realm_get') ? variable_realm_get('language', $language, $variable_name) : '';
+          if ($overwrite || empty($current_value)) {
+            variable_realm_set('language', $language, $variable_name, $variable_value);
+          }
+        }
+        else {
+          // Save the variable
+          $current_value = variable_get($variable_name);
+          if ($overwrite || empty($current_value)) {
+            variable_set($variable_name, $variable_value);
+          }
+        }
+
+        // Log that the import has taken place
+        watchdog('fsa_report_problem', 'Updated text entry: %text_id.', array('%text_id' => $text_id));
+        continue;
+      }
+      // If the file does not exist, log it in Watchdog.
+      else {
+        //watchdog('fsa_report_problem', 'Could not find file for text entry: %text_id.', array('%text_id' => $text_id), WATCHDOG_WARNING);
+      }
+    }
   }
 }
 
@@ -2502,4 +2535,55 @@ function _fsa_report_problem_get_transaltion_nids($nid = NULL) {
 
   // Return the array
   return $return_array;
+}
+
+
+/**
+ * Sets up initial variables for the FSA Report Problem module.
+ *
+ * @global object $language
+ *   The language object.
+ */
+function _fsa_report_problem_variable_setup($langcode = 'cy') {
+  // Get the current language settings so we can pass them to
+  // hook_variable_info.
+  global $language;
+  $options = array(
+    'language' => $language,
+    'langcode' => $language->language,
+  );
+
+  // Get the current variable_realm_list_language settings.
+  $variable_realm_list_language = variable_get('variable_realm_list_language', array());
+  $translate_vars = array();
+
+  // Get this module's localizable variables and add them to the list.
+  $variables = module_invoke('fsa_report_problem', 'variable_info', $options);
+  foreach ($variables as $variable_name => $variable_info) {
+    if (!empty($variable_info['localize']) && $variable_info['localize']) {
+      $translate_vars[] = $variable_name;
+      if (!in_array($variable_name, $variable_realm_list_language)) {
+        $variable_realm_list_language[] = $variable_name;
+      }
+    }
+  }
+
+  // Set the list of localizable variables.
+  if (count($variable_realm_list_language) > 0) {
+    variable_set('variable_realm_list_language', $variable_realm_list_language);
+  }
+
+  // Translate the variables
+  if (function_exists('i18n_variable_set')) {
+    foreach ($translate_vars as $var) {
+
+      $var_value = $variables[$var]['default'];
+      $var_value_translated = locale($variables[$var]['default'], NULL, $langcode);
+
+      if ($var_value != $var_value_translated) {
+        i18n_variable_set($var, $var_value, 'en');
+        i18n_variable_set($var, $var_value_translated, $langcode);
+      }
+    }
+  }
 }
