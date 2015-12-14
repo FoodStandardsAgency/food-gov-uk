@@ -1345,44 +1345,53 @@ function fsa_report_problem_authority_view_form($form, &$form_state, $aid = 0) {
   // Set the page title
   drupal_set_title($authority->name);
 
-  $form['name'] = array(
+  $form['local_authority_details'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Local authority details'),
+  );
+
+  $form['local_authority_details']['name'] = array(
     '#type' => 'item',
     '#title' => t('Local authority name'),
     '#markup' => $authority->name,
   );
 
-  $form['area_id'] = array(
+  $form['local_authority_details']['area_id'] = array(
     '#type' => 'item',
     '#title' => t('MapIt area ID'),
     '#markup' => $authority->area_id,
   );
 
+  $form['fhrs'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('FHRS details'),
+  );
 
-  $form['fhrs_name'] = array(
+  $form['fhrs']['fhrs_name'] = array(
     '#type' => 'item',
     '#title' => t('FHRS name'),
     '#markup' => $authority->fhrs_name,
   );
 
-  $form['fhrs_id'] = array(
+  $form['fhrs']['fhrs_id'] = array(
     '#type' => 'item',
     '#title' => t('FHRS ID'),
     '#markup' => $authority->local_authority_id,
   );
 
-  $form['email'] = array(
+  $form['fhrs']['email'] = array(
     '#type' => 'item',
     '#title' => t('Email address'),
     '#markup' => $authority->email,
   );
 
-  $form['fhrs_email'] = array(
+  $form['fhrs']['fhrs_email'] = array(
     '#type' => 'item',
     '#title' => t('FHRS Email address'),
     '#markup' => !empty($authority->fhrs_email) ? $authority->fhrs_email : t('No email address available on FHRS'),
   );
 
-  $form['fhrs_url'] = array(
+  $form['fhrs']['fhrs_url'] = array(
     '#type' => 'item',
     '#title' => t('FHRS URL'),
     '#markup' => !empty($authority->url) ? l(_fsa_report_problem_format_url($authority->url), $authority->url) : t('No URL available on FHRS'),
