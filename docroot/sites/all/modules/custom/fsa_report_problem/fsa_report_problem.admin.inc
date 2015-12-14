@@ -375,7 +375,7 @@ function fsa_report_problem_local_authorities_new() {
     $edit_url = "$view_url/edit";
 
     $table['#rows'][] = array(
-      array('data' => l($authority->name, $edit_url)),
+      array('data' => l($authority->name, $view_url)),
       array('data' => $authority->area_id),
       array('data' => $authority->local_authority_id),
       array('data' => $authority->fhrs_name),
