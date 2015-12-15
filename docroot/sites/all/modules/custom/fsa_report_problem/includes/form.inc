@@ -750,7 +750,7 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
   else {
     $entity_id = !empty($entity->rid) ? $entity->rid : 0;
     $form_state['redirect'] = array(
-      FSA_REPORT_PROBLEM_PATH . '/complete',
+      _fsa_report_problem_get_start_path(NULL, 'complete'),
       array(
         'query' => array(
           'report_id' => $entity_id,
