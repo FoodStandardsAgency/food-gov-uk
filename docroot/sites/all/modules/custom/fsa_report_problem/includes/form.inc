@@ -948,7 +948,7 @@ function fsa_report_problem_postcode_search_form($form, &$form_state) {
   // @todo Consider making this text editable via the admin UI.
   $form['search_by_business'] = array(
     '#prefix' => '<p><br>',
-    '#markup' => l(t('Search by business name instead'), FSA_REPORT_PROBLEM_PATH),
+    '#markup' => l(t('Search by business name instead'), _fsa_report_problem_get_start_path()),
     '#suffix' => '</p>',
   );
 
