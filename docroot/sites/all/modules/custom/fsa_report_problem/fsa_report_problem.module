@@ -2600,3 +2600,56 @@ function _fsa_report_problem_variable_setup($langcode = 'cy') {
     }
   }
 }
+
+
+/**
+ * Helper function: returns the 'start page' path for the current process
+ *
+ * @param string $lang_code
+ *   (optional) The language code for which we want to return the path. If this
+ *   parameter is NULL, the current language will be used.
+ *
+ * @param string $suffix
+ *   (optional) Any additional path parts to be added after the main path. Note
+ *   that this will not be used if an internal path is specified. Defaults to
+ *   an empty string.
+ *
+ * @param boolean $internal
+ *   (optional) If set to TRUE, the path returned will be internal,
+ *   eg node/1234. Defaults to FALSE.
+ *
+ * @return string
+ *   The path of the start page
+ */
+function _fsa_report_problem_get_start_path($lang_code = NULL, $suffix = '', $internal = FALSE) {
+
+  // Get the current language.
+  global $language;
+
+  // Set the language code.  By default we'll use the current language, unless
+  // one is specified via the first parameter.
+  $lang_code = empty($lang_code) ? $language->language : $lang_code;
+
+  // Get the nid. We'll use this to construct a path - provided there isn't a
+  // language-specific translation node.
+  $nid = _fsa_report_problem_get_nid();
+
+  // See if there are any translations
+  $translations = translation_node_get_translations($nid);
+
+  // See if we have a translation that matches the $lang_code variable. If so,
+  // we use its $nid instead of the existing one.
+  if (!empty($lang_code) && !empty($translations) && !empty($translations[$lang_code])) {
+    $nid = !empty($translations[$lang_code]->nid) ? $translations[$lang_code]->nid : $nid;
+  }
+
+  // If an internal path has been specified, return it now. Note that we don't
+  // add suffixes to internal paths as they may cause issues.
+  if ($internal) {
+    return "node/$nid";
+  }
+
+  // Return the external path, with any suffix included
+  return drupal_get_path_alias("node/$nid") . (!empty($suffix) ? "/$suffix" : '');
+
+}
