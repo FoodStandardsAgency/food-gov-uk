@@ -391,7 +391,7 @@ function fsa_report_problem_make_report_form($form, &$form_state) {
     $form['err_message'] = array(
       '#type' => 'html_tag',
       '#tag' => 'p',
-      '#value' => t('Sorry, an error has occurred. Please return to the <a href="/enforcement/report-problem">start page</a>.'),
+      '#value' => t('Sorry, an error has occurred. Please return to the <a href="@start_page">start page</a>.', array('@start_page' => url(_fsa_report_problem_get_start_path()))),
       '#attributes' => array(
         'class' => array(
           'form-intro',
@@ -910,7 +910,7 @@ function fsa_report_problem_postcode_search_form($form, &$form_state) {
     $form['err_message'] = array(
       '#type' => 'html_tag',
       '#tag' => 'p',
-      '#value' => t('Sorry, an error has occurred. Please return to the <a href="/enforcement/report-problem">start page</a>.'),
+      '#value' => t('Sorry, an error has occurred. Please return to the <a href="@start_page">start page</a>.', array('@start_page' => url(_fsa_report_problem_get_start_path()))),
       '#attributes' => array(
         'class' => array(
           'form-intro',
@@ -948,7 +948,7 @@ function fsa_report_problem_postcode_search_form($form, &$form_state) {
   // @todo Consider making this text editable via the admin UI.
   $form['search_by_business'] = array(
     '#prefix' => '<p><br>',
-    '#markup' => l(t('Search by business name instead'), FSA_REPORT_PROBLEM_PATH),
+    '#markup' => l(t('Search by business name instead'), _fsa_report_problem_get_start_path()),
     '#suffix' => '</p>',
   );
 
