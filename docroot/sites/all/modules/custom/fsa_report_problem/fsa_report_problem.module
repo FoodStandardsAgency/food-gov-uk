@@ -761,12 +761,14 @@ function fsa_report_problem_get_google_results($name, $location = '', $user_loca
     // If the Google Places API didn't like the key, throw an exception
     if ($status == 'REQUEST_DENIED') {
       $error_message = !empty($data['error_message']) ? $data['error_message'] : t('Google Places API denied request');
+      _fsa_report_problem_api_status('google_places', array('healthy' => FALSE, 'httpCode' => $http_code, 'statusDescription' => $error_message));
       throw new GooglePlacesApiException($error_message, GOOGLE_PLACES_EXCEPTION_INVALID_KEY, $http_code);
     }
 
     // If we're over the API request limit, throw and exception
     if ($status == 'OVER_QUERY_LIMIT') {
       $error_message = !empty($data['error_message']) ? $data['error_message'] : t('Google Places API over query limit');
+      _fsa_report_problem_api_status('google_places', array('healthy' => FALSE, 'httpCode' => $http_code, 'statusDescription' => $error_message));
       throw new GooglePlacesApiException($error_message, GOOGLE_PLACES_EXCEPTION_OVER_QUERY_LIMIT, $http_code);
     }
 
