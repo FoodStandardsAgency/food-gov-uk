@@ -7,3 +7,4 @@ dependencies[] = fhrs_api
 files[] = classes/GooglePlacesApiException.class.php
 files[] = classes/ExternalApiStatus.class.php
 files[] = classes/MapItApiStatus.class.php
+files[] = classes/GooglePlacesApiStatus.class.php
