@@ -1,0 +1,69 @@
+<?php
+
+/**
+ * @file
+ * Module file for the FSA site status module
+ */
+
+
+/**
+ * Implements hook_menu()
+ */
+function fsa_site_status_menu() {
+  $items = array();
+
+  $items['admin/config/development/site-status'] = array(
+    'title' => t('Site status message'),
+    'description' => t('Enable or disable the the site status message and set the text'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('site_status_admin_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'fsa_site_status.admin.inc',
+  );
+
+  return $items;
+}
+
+
+/**
+ * @file
+ * Module file for the FSA site status module
+ */
+function fsa_site_status_page_build(&$page) {
+
+  // Don't show message if we're not supposed to
+  $show_messasge = variable_get('fsa_site_status_show_message', FALSE);
+  if (!$show_messasge) {
+    return;
+  }
+
+  // Don't show message on admin paths.
+  if (path_is_admin(current_path())) {
+    return;
+  }
+
+  // Create a render array and add it to the 'page_top' element of the $page
+  // array.
+  $page['page_top']['site_status_message'] = array(
+    '#prefix' => '<div id="site-status-message"><p>',
+    '#markup' => _fsa_site_status_text(),
+    '#suffix' => '</p></div>',
+    '#attached' => array(
+      'css' => array(
+        drupal_get_path('module', 'fsa_site_status') . '/css/site-status.css',
+      ),
+      'js' => array(
+        drupal_get_path('module', 'fsa_site_status') . '/js/site-status.js',
+      ),
+    ),
+  );
+}
+
+
+/**
+ * Provides site status text
+ */
+function _fsa_site_status_text() {
+  $default = t('This is a test environment. See live and up to date information at <a href="@live_link">www.food.gov.uk</a>', array('@live_link' => 'http://www.food.gov.uk'));
+  return variable_get('fsa_site_status_text', $default);
+}

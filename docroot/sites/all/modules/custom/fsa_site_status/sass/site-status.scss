@@ -1,0 +1,29 @@
+#site-status-message {
+  background-color: #565656;
+  color: #ffffff;
+  width: 100%;
+  z-index: 500;
+  
+  &.fixed-banner {
+    position: fixed;
+  }
+  
+  p {
+    font-size: 1.4em;
+    margin: 0;
+    padding: 8px;
+  }
+  
+  a {
+    color: #fff;
+    text-decoration: underline;
+  }
+}
+
+body {
+  &.admin-menu {
+    // This gets around the problem that the offset provided by the admin menu
+    // module is insufficient. If we ever fix that, this can be removed.
+    padding-top: 9px;
+  }
+}

@@ -1,0 +1,1 @@
+If you need to contact [local_authority:name] about your report, you can do so at <a href="mailto:[local_authority:email]">[local_authority:email]</a>.

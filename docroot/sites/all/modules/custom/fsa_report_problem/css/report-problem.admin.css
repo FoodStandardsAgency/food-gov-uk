@@ -1,0 +1,30 @@
+#fsa-report-problem-authorities-import-form .form-item {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 8px; }
+
+#fsa-report-problem-authorities-import-form .form-item label {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: normal;
+  width: 20%; }
+
+.problem-report .messages {
+  margin-bottom: 2em; }
+  .problem-report .messages p {
+    margin: 0; }
+.problem-report h2 {
+  font-size: 28px; }
+.problem-report .form-type-item label {
+  font-size: 14px;
+  font-weight: bold;
+  padding-bottom: 5px; }
+.problem-report .form-type-item p {
+  margin: 0 0 1.2em 0; }
+
+.email-override {
+  font-weight: bold; }
+  .email-override:after {
+    color: red;
+    content: ' [ overridden ]'; }
+
+/*# sourceMappingURL=report-problem.admin.css.map */

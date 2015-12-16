@@ -1,0 +1,19 @@
+#site-status-message {
+  background-color: #565656;
+  color: #ffffff;
+  width: 100%;
+  z-index: 500; }
+  #site-status-message.fixed-banner {
+    position: fixed; }
+  #site-status-message p {
+    font-size: 1.4em;
+    margin: 0;
+    padding: 8px; }
+  #site-status-message a {
+    color: #fff;
+    text-decoration: underline; }
+
+body.admin-menu {
+  padding-top: 9px; }
+
+/*# sourceMappingURL=site-status.css.map */

@@ -1,0 +1,56 @@
+<?php
+/**
+ * @file
+ * Module file for the Food Hygiene Rating Scheme API module
+ */
+
+
+function fhrs_api_menu() {
+  $items = array();
+  
+  $items['admin/config/system/fhrs'] = array(
+    'title' => t('FHRS API'),
+    'description' => t('Have fun with the FHRS API'),
+    'access arguments' => array('administer site configuration'),
+    'page callback' => '_fhrs_test_page',
+  );
+  
+  return $items;
+  
+}
+
+
+function _fhrs_test_page() {
+  $endpoint = 'Establishments';
+  $args = array();
+  $params = array(
+    'name' => 'starbucks',
+    'address' => 'guildford',
+  );
+  return fhrs_api_make_request($endpoint, $args, $params);
+}
+
+
+
+function fhrs_api_make_request($endpoint = 'Regions', $args = array(), $params = array(), $headers = array()) {
+  if (empty($endpoint)) {
+    //return t('No endpoint selected');
+    return new RatingsApiResponse((object) array('error' => t('No FHRS API endpoint selected')));
+  }
+  
+  $endpoint_name = '';
+  
+  if (!class_exists("${endpoint}Endpoint")) {
+    $endpoint_name = $endpoint;
+    $endpoint = "Generic";
+  }
+  
+  $endpoint = "${endpoint}Endpoint";
+  
+  $ep = new $endpoint($endpoint_name);
+  $response = $ep->get($args, $params);
+  
+  return $response;
+  
+  
+}
