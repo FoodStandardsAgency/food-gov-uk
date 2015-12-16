@@ -5,7 +5,7 @@
  */
 
 class ExternalApiStatus {
-  
+
   public $healthy;
   public $lastCheck;
   public $exception;
@@ -13,11 +13,11 @@ class ExternalApiStatus {
   public $httpError;
   public $statusDescription;
   protected $url;
-  
+
   public function __construct($settings = NULL) {
     $this->healthy = TRUE;
   }
-  
+
   public function check(){
     if (!empty($this->url)) {
       $request = drupal_http_request($this->url);
@@ -31,9 +31,9 @@ class ExternalApiStatus {
     }
     return $this;
   }
-  
+
   private function logError() {
     //watchdog('fsa_report_problem', 'ExternalApiError')
   }
-  
+
 }
