@@ -688,6 +688,7 @@ function fsa_report_problem_get_google_results($name, $location = '', $user_loca
   // If we don't have an API key, throw an exception now
   if (empty($api_key)) {
     throw new GooglePlacesApiException(t('No Google Places API key available.'), GOOGLE_PLACES_EXCEPTION_NO_API_KEY);
+    _fsa_report_problem_api_status('google_places', array('healthy' => FALSE, 'statusDescription' => 'No Google Places API code available'));
   }
 
   // Number of results returned per request. This is set by Google.
