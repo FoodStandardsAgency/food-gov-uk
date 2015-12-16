@@ -268,9 +268,9 @@ function fsa_report_problem_block_view($delta = '') {
 
       // Check the API status - this is just for testing purposes
       // @todo Remove this/incorporate it properly
-      //_fsa_report_problem_check_api_status();
 
-      if (FSA_REPORT_PROBLEM_STATUS == FSA_REPORT_PROBLEM_STATUS_OFFLINE) {
+
+      if (FSA_REPORT_PROBLEM_STATUS == FSA_REPORT_PROBLEM_STATUS_OFFLINE || !_fsa_report_problem_api_status()->healthy) {
         $block['content'] = array(
           'heading' => array(
             '#type' => 'html_tag',
