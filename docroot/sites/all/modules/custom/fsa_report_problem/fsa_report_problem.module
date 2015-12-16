@@ -268,9 +268,9 @@ function fsa_report_problem_block_view($delta = '') {
 
       // Check the API status - this is just for testing purposes
       // @todo Remove this/incorporate it properly
-      //_fsa_report_problem_check_api_status();
 
-      if (FSA_REPORT_PROBLEM_STATUS == FSA_REPORT_PROBLEM_STATUS_OFFLINE) {
+
+      if (FSA_REPORT_PROBLEM_STATUS == FSA_REPORT_PROBLEM_STATUS_OFFLINE || !_fsa_report_problem_api_status()->healthy) {
         $block['content'] = array(
           'heading' => array(
             '#type' => 'html_tag',
@@ -688,6 +688,7 @@ function fsa_report_problem_get_google_results($name, $location = '', $user_loca
   // If we don't have an API key, throw an exception now
   if (empty($api_key)) {
     throw new GooglePlacesApiException(t('No Google Places API key available.'), GOOGLE_PLACES_EXCEPTION_NO_API_KEY);
+    _fsa_report_problem_api_status('google_places', array('healthy' => FALSE, 'statusDescription' => 'No Google Places API code available'));
   }
 
   // Number of results returned per request. This is set by Google.
@@ -760,12 +761,14 @@ function fsa_report_problem_get_google_results($name, $location = '', $user_loca
     // If the Google Places API didn't like the key, throw an exception
     if ($status == 'REQUEST_DENIED') {
       $error_message = !empty($data['error_message']) ? $data['error_message'] : t('Google Places API denied request');
+      _fsa_report_problem_api_status('google_places', array('healthy' => FALSE, 'httpCode' => $http_code, 'statusDescription' => $error_message));
       throw new GooglePlacesApiException($error_message, GOOGLE_PLACES_EXCEPTION_INVALID_KEY, $http_code);
     }
 
     // If we're over the API request limit, throw and exception
     if ($status == 'OVER_QUERY_LIMIT') {
       $error_message = !empty($data['error_message']) ? $data['error_message'] : t('Google Places API over query limit');
+      _fsa_report_problem_api_status('google_places', array('healthy' => FALSE, 'httpCode' => $http_code, 'statusDescription' => $error_message));
       throw new GooglePlacesApiException($error_message, GOOGLE_PLACES_EXCEPTION_OVER_QUERY_LIMIT, $http_code);
     }
 
@@ -2491,25 +2494,99 @@ function _fsa_report_problem_format_url($url = '') {
 
 
 /**
- * Helper function: checks external API status
+ * Helper function: checks or sets external API status
+ *
+ * @param string $api
+ *   (optional) The name of the API to check or set. If omitted, the status of
+ *   all APIs is checked.
+ *
+ * @param array $settings
+ *   (optional) An array of settings to pass to an API status. Used only if $api
+ *   is populated.
  */
-function _fsa_report_problem_check_api_status($api = NULL) {
+function _fsa_report_problem_api_status($api = NULL, $settings = NULL) {
 
+  // An array of APIs
   $apis = array(
     'mapit' => new MapItApiStatus(),
+    'google_places' => new GooglePlacesApiStatus(),
   );
 
-  if (!empty($api)) {
-    $apis[$api]->check();
+  // Intervals between checks (seconds)
+  // @todo Manage these via the admin API
+  $healthy_interval = 120;
+  $unhealthy_interval = 30;
+
+  // Use drupal_static() to cache the values for this request.
+  $api_statuses = &drupal_static(__FUNCTION__);
+
+  // If $settings is not NULL, we're setting the API status
+  if (!empty($settings)) {
+    // First get the current settings - if available
+    $current_status = variable_get('fsa_report_problem_api_status', $apis);
+    if (!empty($current_status)) {
+      if (isset($current_status[$api])) {
+        $current_status[$api]->lastCheck = REQUEST_TIME;
+        if (isset($settings['healthy'])) {
+          $current_status[$api]->healthy = isset($settings['healthy']) ? $settings['healthy'] : TRUE;
+          $current_status[$api]->httpCode = isset($settings['httpCode']) ? $settings['httpCode'] : NULL;
+          $current_status[$api]->statusDescription = isset($settings['statusDescription']) ? $settings['statusDescription'] : NULL;
+          $current_status['overall'] = new ExternalApiStatus();
+          $current_status['overall']->healthy = FALSE;
+          $current_status['overall']->lastCheck = REQUEST_TIME;
+        }
+      }
+    }
+    variable_set('fsa_report_problem_api_status', $current_status);
+    return $current_status[$api];
   }
-  else {
-    foreach ($apis as $item) {
-      dpm($item->check());
+
+
+  // If we haven't a cached version, test the APIs now
+  if (!isset($api_statuses)) {
+
+    $stored_status = variable_get('fsa_report_problem_api_status');
+
+    $last_check = !empty($stored_status['overall']) ? $stored_status['overall']->lastCheck : REQUEST_TIME;
+    $last_status = !empty($stored_status['overall']) ? $stored_status['overall']->healthy : NULL;
+
+    if (($last_status && REQUEST_TIME - $last_check <= $healthy_interval) || (!$last_status && REQUEST_TIME - $last_check <= $unhealthy_interval)) {
+      $api_statuses = $stored_status;
+      $overall_status = !empty($api_statuses['overall']) ? $api_statuses['overall'] : new ExternalApiStatus();
+    }
+
+    else {
+      // Set the overall status
+      $overall_status = new ExternalApiStatus();
+      $api_statuses = array();
+
+      foreach ($apis as $key => $status) {
+        $api_statuses[$key] = $status->check();
+        if (!$api_statuses[$key]->healthy) {
+          $overall_status->healthy = FALSE;
+        }
+        if (!empty($api_statuses[$key]->exception)) {
+          watchdog_exception('fsa_report_problem', $api_statuses[$key]->exception);
+        }
+        $overall_status->lastCheck = REQUEST_TIME;
+      }
+      $api_statuses['overall'] = $overall_status;
+      variable_set('fsa_report_problem_api_status', $api_statuses);
     }
   }
+  else {
+    $overall_status = !empty($api_statuses['overall']) ? $api_statuses['overall'] : new ExternalApiStatus();
+  }
 
+
+  $return_value = $overall_status;
+
+  if (!empty($api) && !empty($api_statuses[$api])) {
+    $return_value = $api_statuses[$api];
+  }
+
+  return $return_value;
 }
-
 
 /**
  * Helper function: gets the nids of any translations of the given nid

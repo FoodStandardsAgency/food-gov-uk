@@ -4,23 +4,22 @@
  * Class for returning external API status
  */
 
-abstract class ExternalApiStatus {
-  
+class ExternalApiStatus {
+
   public $healthy;
   public $lastCheck;
   public $exception;
   public $httpCode;
   public $httpError;
-  private $url;
-  
-  public function __construct($url = '') {
+  public $statusDescription;
+  protected $url;
+
+  public function __construct($settings = NULL) {
     $this->healthy = TRUE;
-    $this->url = $url;
   }
-  
+
   public function check(){
     if (!empty($this->url)) {
-      dpm('hello');
       $request = drupal_http_request($this->url);
       $this->lastCheck = REQUEST_TIME;
       $this->healthy = $request->code == 200 ? TRUE : FALSE;
@@ -32,9 +31,9 @@ abstract class ExternalApiStatus {
     }
     return $this;
   }
-  
+
   private function logError() {
     //watchdog('fsa_report_problem', 'ExternalApiError')
   }
-  
+
 }

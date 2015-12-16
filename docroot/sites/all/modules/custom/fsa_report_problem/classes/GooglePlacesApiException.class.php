@@ -39,6 +39,11 @@ define('GOOGLE_PLACES_EXCEPTION_HTTP_ERROR', 4);
 define('GOOGLE_PLACES_EXCEPTION_UNSPECIFIED', 5);
 
 /**
+ * Invalid request
+ */
+define('GOOGLE_PLACES_EXCEPTION_INVALID_REQUEST', 6);
+
+/**
  * GooglePlacesApiException class.
  */
 class GooglePlacesApiException extends Exception {
