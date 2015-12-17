@@ -1686,6 +1686,9 @@ function fsa_report_problem_api_admin_form($form, &$form_state) {
 function _fsa_report_problem_api_status_check_now($form, &$form_state) {
   // Check the API statuses - force a recheck
   $overall_status = _fsa_report_problem_api_status(NULL, NULL, TRUE);
-  dpm($overall_status);
-  drupal_set_message(t('API status checked.'));
+  $message_type = !empty($overall_status->healthy) ? 'status' : 'error';
+  $message = t('API status checked.');
+  $message .= ' ';
+  $message .= !empty($overall_status->healthy) ? t('All APIs are healthy.') : t('Issues were found with one or more APIs. See below for details');
+  drupal_set_message($message, $message_type);
 }
