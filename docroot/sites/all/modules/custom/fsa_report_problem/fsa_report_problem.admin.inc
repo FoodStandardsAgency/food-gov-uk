@@ -1638,6 +1638,7 @@ function fsa_report_problem_api_admin_form($form, &$form_state) {
   $form['api_status'] = array(
     '#type' => 'fieldset',
     '#title' => t('External API status'),
+    '#weight' => -10,
   );
 
   // First check the API status. This will populate the variable if it isn't
