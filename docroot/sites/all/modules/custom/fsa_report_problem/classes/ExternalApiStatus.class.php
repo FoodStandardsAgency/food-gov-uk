@@ -12,10 +12,12 @@ class ExternalApiStatus {
   public $httpCode;
   public $httpError;
   public $statusDescription;
+  public $name;
   protected $url;
 
   public function __construct($settings = NULL) {
     $this->healthy = TRUE;
+    $this->name = 'External API';
   }
 
   public function check(){
