@@ -1635,5 +1635,57 @@ function fsa_report_problem_api_admin_form($form, &$form_state) {
     '#default_value' => variable_get('fsa_report_problem_google_places_min_results', 5),
   );
 
+  $form['api_status'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('External API status'),
+  );
+
+  // First check the API status. This will populate the variable if it isn't
+  // already.
+  $overall_status = _fsa_report_problem_api_status();
+  // Get the API status from the variable.
+  $apis = variable_get('fsa_report_problem_api_status', _fsa_report_problem_apis());
+
+  $form['api_status']['overall'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Overall status'),
+  );
+
+  $form['api_status']['overall']['overall_status'] = array(
+    '#theme' => 'external_api_status',
+    '#status' => !empty($apis['overall']) ? $apis['overall'] : NULL,
+  );
+
+  $form['api_status']['overall']['check_now'] = array(
+    '#type' => 'submit',
+    '#value' => t('Check now'),
+    '#submit' => array('_fsa_report_problem_api_status_check_now'),
+  );
+
+  foreach ($apis as $api => $status) {
+    if ($api != 'overall') {
+      $form['api_status'][$api] = array(
+        '#type' => 'fieldset',
+        '#title' => $status->name,
+      );
+      $form['api_status'][$api]["${api}_status"] = array(
+        '#theme' => 'external_api_status',
+        '#name' => $status->name,
+        '#status' => $status,
+      );
+    }
+  }
+
   return system_settings_form($form);
+}
+
+
+/**
+ * Submit handler: API form checks the status of the APIs
+ */
+function _fsa_report_problem_api_status_check_now($form, &$form_state) {
+  // Check the API statuses - force a recheck
+  $overall_status = _fsa_report_problem_api_status(NULL, NULL, TRUE);
+  dpm($overall_status);
+  drupal_set_message(t('API status checked.'));
 }
