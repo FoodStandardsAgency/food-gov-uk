@@ -17,7 +17,7 @@
     </div>
   </div>
   <p><strong>Last check:</strong> <?php print format_date($status->lastCheck, 'custom', 'l j F Y \a\t H:i:s '); ?></p>
-  <?php if (!empty($status->statusDescription)): ?>
+  <?php if (!empty($status->httpCode)): ?>
     <p><strong>HTTP code:</strong> <?php print $status->httpCode; ?></p>
   <?php endif; ?>
   <?php if (!empty($status->statusDescription)): ?>
