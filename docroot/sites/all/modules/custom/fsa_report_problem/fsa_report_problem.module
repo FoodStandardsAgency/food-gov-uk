@@ -426,6 +426,13 @@ function fsa_report_problem_theme($existing, $type, $theme, $path) {
         'local_authority' => NULL,
       ),
     ),
+    'external_api_status' => array(
+      'template' => 'theme/external-api-status',
+      'variables' => array(
+        'name' => t('External API'),
+        'status' => array(),
+      ),
+    ),
   );
 }
 
@@ -2729,4 +2736,43 @@ function _fsa_report_problem_get_start_path($lang_code = NULL, $suffix = '', $in
   // Return the external path, with any suffix included
   return drupal_get_path_alias("node/$nid") . (!empty($suffix) ? "/$suffix" : '');
 
+}
+
+
+/**
+ * Preprocess function for external API status
+ */
+function template_preprocess_external_api_status(&$variables) {
+
+  // Get the status object from the $variables array
+  $status = !empty($variables['status']) ? $variables['status'] : NULL;
+  
+  // Is the API healthy?
+  $variables['healthy'] = !empty($status->healthy) ? TRUE : FALSE;
+  
+  // Is there an exception?
+  $exception = !empty($status->exception) ? $status->exception : NULL;
+  
+  $exception_details = !empty($exception) ? _drupal_decode_exception($exception) : NULL;
+  $variables['exception_details'] = !empty($exception_details) ? t('%type: !message in %function (line %line of %file).', $exception_details) : NULL;
+  
+  // Create an array of classes for the status message
+  $variables['status_classes_array'] = array('messages');
+  if ($variables['healthy']) {
+    $variables['status_classes_array'][] = 'status';
+  }
+  else {
+    $variables['status_classes_array'][] = 'error';
+  }
+  
+}
+
+
+/**
+ * Process function for external API status
+ */
+function template_process_external_api_status(&$variables) {
+  // Flatten the status classes array
+  $status_classes_array = !empty($variables['status_classes_array']) ? $variables['status_classes_array'] : array();
+  $variables['status_classes'] = implode(' ', $status_classes_array);
 }
