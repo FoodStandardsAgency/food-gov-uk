@@ -2510,14 +2510,15 @@ function _fsa_report_problem_format_url($url = '') {
  * @param array $settings
  *   (optional) An array of settings to pass to an API status. Used only if $api
  *   is populated.
+ *
+ * @param boolean $force_check
+ *   Forces the function to check the API(s) now, rather than using the last
+ *   stored status.
  */
-function _fsa_report_problem_api_status($api = NULL, $settings = NULL) {
+function _fsa_report_problem_api_status($api = NULL, $settings = NULL, $force_check = FALSE) {
 
   // An array of APIs
-  $apis = array(
-    'mapit' => new MapItApiStatus(),
-    'google_places' => new GooglePlacesApiStatus(),
-  );
+  $apis = _fsa_report_problem_apis();
 
   // Intervals between checks (seconds)
   // @todo Manage these via the admin API
@@ -2550,14 +2551,14 @@ function _fsa_report_problem_api_status($api = NULL, $settings = NULL) {
 
 
   // If we haven't a cached version, test the APIs now
-  if (!isset($api_statuses)) {
+  if (!isset($api_statuses) || $force_check) {
 
     $stored_status = variable_get('fsa_report_problem_api_status');
 
     $last_check = !empty($stored_status['overall']) ? $stored_status['overall']->lastCheck : REQUEST_TIME;
     $last_status = !empty($stored_status['overall']) ? $stored_status['overall']->healthy : NULL;
 
-    if (($last_status && REQUEST_TIME - $last_check <= $healthy_interval) || (!$last_status && REQUEST_TIME - $last_check <= $unhealthy_interval)) {
+    if (!$force_check && (($last_status && REQUEST_TIME - $last_check <= $healthy_interval) || (!$last_status && REQUEST_TIME - $last_check <= $unhealthy_interval))) {
       $api_statuses = $stored_status;
       $overall_status = !empty($api_statuses['overall']) ? $api_statuses['overall'] : new ExternalApiStatus();
     }
