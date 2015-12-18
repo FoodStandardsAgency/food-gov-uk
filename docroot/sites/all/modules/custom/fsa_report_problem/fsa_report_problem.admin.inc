@@ -1691,17 +1691,13 @@ function fsa_report_problem_api_admin_form($form, &$form_state) {
   // Get the API status from the variable.
   $apis = variable_get('fsa_report_problem_api_status', _fsa_report_problem_apis());
 
-  $form['api_status']['overall'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Overall status'),
-  );
-
-  $form['api_status']['overall']['overall_status'] = array(
+  $form['api_status']['overall_status'] = array(
+    '#prefix' => '<h4>' . t('Overall status') . '</h4>',
     '#theme' => 'external_api_status',
     '#status' => !empty($apis['overall']) ? $apis['overall'] : NULL,
   );
 
-  $form['api_status']['overall']['check_now'] = array(
+  $form['api_status']['check_now'] = array(
     '#type' => 'submit',
     '#value' => t('Check now'),
     '#submit' => array('_fsa_report_problem_api_status_check_now'),
@@ -1711,7 +1707,9 @@ function fsa_report_problem_api_admin_form($form, &$form_state) {
     if ($api != 'overall') {
       $form['api_status'][$api] = array(
         '#type' => 'fieldset',
-        '#title' => $status->name,
+        '#title' => $status->name . ' ' . t('status'),
+        '#collapsible' => TRUE,
+        '#collapsed' => $status->healthy,
       );
       $form['api_status'][$api]["${api}_status"] = array(
         '#theme' => 'external_api_status',
