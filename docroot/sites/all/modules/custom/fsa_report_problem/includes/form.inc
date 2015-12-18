@@ -586,34 +586,46 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
       // where users would select a business. Instead, we go straight to the
       // report stage.
       if (!empty($lat) && !empty($lng) && !empty($name) && !empty($address)) {
-        $local_authority = fsa_report_problem_get_local_authority($lng, $lat);
-        // @todo Add some validation here to check whether an authority is
-        // returned for these coordinates.
-        //dpm("$lng,$lat");
-        //dpm($local_authority);
-        $form_state['local_authority'] = $local_authority;
-        $form_state['coords'] = "$lat,$lng";
 
-        // If we're not capturing user details, set the next stage to be show
-        // local authority details and break.
-        // @todo This is duplicated below. Create a function instead.
-        if (!_fsa_report_problem_capture_user_data()) {
-          // Set the selected business form state element, as we'll need this to
-          // display the business name on the local authority details form.
-          $form_state['selected_business'] = !empty($form_state['values']['business_name']) ? array('name' => $form_state['values']['business_name']) : array();
-          $next_stage = 'local_authority_details';
-          if (is_array($form_state['local_authority']) && !empty($form_state['local_authority']['id'])) {
-            $la = fsa_report_problem_get_local_authority_by_area_id($local_authority['id']);
-            if (!empty($la->email)) {
-              $form_state['local_authority']['email'] = $la->email;
-              $form_state['local_authority']['url'] = $la->url;
+        try {
+
+          $local_authority = fsa_report_problem_get_local_authority($lng, $lat);
+          // @todo Add some validation here to check whether an authority is
+          // returned for these coordinates.
+          //dpm("$lng,$lat");
+          //dpm($local_authority);
+          $form_state['local_authority'] = $local_authority;
+          $form_state['coords'] = "$lat,$lng";
+
+          // If we're not capturing user details, set the next stage to be show
+          // local authority details and break.
+          // @todo This is duplicated below. Create a function instead.
+          if (!_fsa_report_problem_capture_user_data()) {
+            // Set the selected business form state element, as we'll need this to
+            // display the business name on the local authority details form.
+            $form_state['selected_business'] = !empty($form_state['values']['business_name']) ? array('name' => $form_state['values']['business_name']) : array();
+            $next_stage = 'local_authority_details';
+            if (is_array($form_state['local_authority']) && !empty($form_state['local_authority']['id'])) {
+              $la = fsa_report_problem_get_local_authority_by_area_id($local_authority['id']);
+              if (!empty($la->email)) {
+                $form_state['local_authority']['email'] = $la->email;
+                $form_state['local_authority']['url'] = $la->url;
+              }
             }
           }
+          else {
+            $next_stage = 'make_report';
+          }
+
         }
-        else {
-          $next_stage = 'make_report';
+        catch (MapItApiException $e) {
+          watchdog_exception('fsa_report_problem', $e);
+          drupal_set_message(t("We're sorry, but an error occurred looking up the business. Please try again later."), 'error');
+          $next_stage = 'find_business';
+          $form_state['rebuild'] = TRUE;
         }
         break;
+
       }
 
       try {
@@ -657,7 +669,13 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
 
       // Get the businesses
       $business = $form_state['businesses'][$form_state['triggering_element']['#attributes']['data-business-id']];
-      $local_authority = fsa_report_problem_get_local_authority($business['geometry']['location']['lng'], $business['geometry']['location']['lat']);
+      try {
+        $local_authority = fsa_report_problem_get_local_authority($business['geometry']['location']['lng'], $business['geometry']['location']['lat']);
+      }
+      catch (MapItApiException $e) {
+        watchdog_exception('fsa_report_problem', $e);
+        $local_authority = NULL;
+      }
       $form_state['selected_business'] = $business;
       $form_state['local_authority'] = $local_authority;
 
