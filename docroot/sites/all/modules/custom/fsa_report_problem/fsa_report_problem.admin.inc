@@ -1679,6 +1679,13 @@ function fsa_report_problem_api_admin_form($form, &$form_state) {
     '#default_value' => _fsa_report_problem_mapit_url(),
   );
 
+  $form['mapit_settings']['fsa_report_problem_mapit_authority_types'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Authority types'),
+    '#options' => _fsa_report_problem_mapit_authority_types(TRUE),
+    '#default_value' => _fsa_report_problem_mapit_authority_types(),
+  );
+
   $form['api_status'] = array(
     '#type' => 'fieldset',
     '#title' => t('External API status'),
