@@ -856,6 +856,13 @@ function fsa_report_problem_get_local_authority_by_postcode($postcode = NULL) {
   $url = url("$endpoint/$postcode");
   $area_data = drupal_http_request($url);
   $data = drupal_json_decode($area_data->data);
+
+  // If response code other than 200, or if data is empty, throw an exception.
+  if (empty($area_data->code) || $area_data->code != '200') {
+    _fsa_report_problem_api_status('mapit', array('healthy' => FALSE, 'httpCode' => $area_data->code));
+    throw new MapItApiException('', 0, $area_data);
+  }
+
   $areas = !empty($data['areas']) ? $data['areas'] : array();
   $area_types = _fsa_report_problem_mapit_authority_types();
   $selected_area = array();
