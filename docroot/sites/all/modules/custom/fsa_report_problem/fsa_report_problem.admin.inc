@@ -1664,6 +1664,19 @@ function fsa_report_problem_api_admin_form($form, &$form_state) {
     '#default_value' => variable_get('fsa_report_problem_google_places_min_results', 5),
   );
 
+  $form['mapit_settings'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('MapIt API settings'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  $form['mapit_settings']['base_url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('MapIt base URL'),
+    '#default_value' => _fsa_report_problem_mapit_url(),
+  );
+
   $form['api_status'] = array(
     '#type' => 'fieldset',
     '#title' => t('External API status'),
