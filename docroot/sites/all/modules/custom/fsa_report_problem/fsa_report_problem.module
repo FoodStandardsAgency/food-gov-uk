@@ -813,12 +813,27 @@ function fsa_report_problem_get_google_results($name, $location = '', $user_loca
  *
  * @return array
  *   An associative array of local authority properties
+ *
+ * @throws MapItApiException
+ *   An exception is thrown if the request to the API returns anything but a 200
+ *   response. Any calling code must handle this exception.
  */
 function fsa_report_problem_get_local_authority($lng, $lat) {
   $endpoint = 'http://mapit.mysociety.org/point/4326';
   $url = url("$endpoint/$lng,$lat", array('query' => array('type' => implode(',', _fsa_report_problem_mapit_authority_types()))));
   $area_data = drupal_http_request($url);
-  return current(drupal_json_decode($area_data->data));
+
+  // Get the data - if available.
+  $data = !empty($area_data->data) ? drupal_json_decode($area_data->data) : NULL;
+
+  // If response code other than 200, or if data is empty, throw an exception.
+  if (empty($area_data->code) || $area_data->code != '200' || empty($data)) {
+    _fsa_report_problem_api_status('mapit', array('healthy' => FALSE, 'httpCode' => $area_data->code));
+    throw new MapItApiException('', 0, $area_data);
+  }
+
+  // Return the data
+  return current($data);
 }
 
 
