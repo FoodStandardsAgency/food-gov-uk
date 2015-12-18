@@ -992,6 +992,13 @@ function fsa_report_problem_get_mapit_areas($types = array()) {
   $endpoint = 'http://mapit.mysociety.org/areas';
   $url = "$endpoint/" . implode(',', $types);
   $areas = drupal_http_request($url);
+
+  // If response code other than 200, throw an exception.
+  if (empty($areas->code) || $areas->code != '200') {
+    _fsa_report_problem_api_status('mapit', array('healthy' => FALSE, 'httpCode' => $areas->code));
+    throw new MapItApiException('', 0, $areas);
+  }
+
   return drupal_json_decode($areas->data);
 }
 
