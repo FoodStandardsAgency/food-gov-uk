@@ -823,7 +823,7 @@ function fsa_report_problem_get_google_results($name, $location = '', $user_loca
  *   response. Any calling code must handle this exception.
  */
 function fsa_report_problem_get_local_authority($lng, $lat) {
-  $endpoint = 'http://mapit.mysociety.org/point/4326';
+  $endpoint = _fsa_report_problem_mapit_url('point/4326');
   $url = url("$endpoint/$lng,$lat", array('query' => array('type' => implode(',', _fsa_report_problem_mapit_authority_types()))));
   $area_data = drupal_http_request($url);
 
@@ -856,7 +856,7 @@ function fsa_report_problem_get_local_authority_by_postcode($postcode = NULL) {
     return array();
   }
   $postcode = urlencode($postcode);
-  $endpoint = 'http://mapit.mysociety.org/postcode';
+  $endpoint = _fsa_report_problem_mapit_url('postcode');
   $url = url("$endpoint/$postcode");
   $area_data = drupal_http_request($url);
   $data = drupal_json_decode($area_data->data);
@@ -993,7 +993,7 @@ function fsa_report_problem_get_mapit_areas($types = array()) {
   if (empty($types)) {
     $types = _fsa_report_problem_mapit_authority_types();
   }
-  $endpoint = 'http://mapit.mysociety.org/areas';
+  $endpoint = _fsa_report_problem_mapit_url('areas');
   $url = "$endpoint/" . implode(',', $types);
   $areas = drupal_http_request($url);
 
