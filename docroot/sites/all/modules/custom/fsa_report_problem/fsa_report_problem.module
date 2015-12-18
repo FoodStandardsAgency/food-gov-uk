@@ -2821,3 +2821,18 @@ function template_process_external_api_status(&$variables) {
   $status_classes_array = !empty($variables['status_classes_array']) ? $variables['status_classes_array'] : array();
   $variables['status_classes'] = implode(' ', $status_classes_array);
 }
+
+
+/**
+ * Helper function: returns a MapIt URL based on the MapIt base path
+ *
+ * @param string $path
+ *   A path to add onto the end of the MapIt base URL
+ *
+ * @return string
+ *   The base URL of the MapIt location service.
+ */
+function _fsa_report_problem_mapit_url($path = '') {
+  $base_url = variable_get('fsa_report_problem_mapit_base_url', FSA_REPORT_PROBLEM_MAPIT_BASE_URL);
+  return !empty($path) ? "$base_url/$path" : $base_url;
+}
