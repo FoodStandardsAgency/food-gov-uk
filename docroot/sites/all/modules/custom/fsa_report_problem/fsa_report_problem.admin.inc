@@ -1168,7 +1168,16 @@ function fsa_report_problem_authorities_import_form_new($form, &$form_state) {
   $form_state['areas'] = array();
   $form_state['fhrs_authorities'] = array();
 
-  $areas = fsa_report_problem_get_mapit_areas(_fsa_report_problem_mapit_authority_types());
+  try {
+    $areas = fsa_report_problem_get_mapit_areas(_fsa_report_problem_mapit_authority_types());
+  }
+  catch (MapItApiException $e) {
+    watchdog_exception('fsa_report_problem', $e);
+    $form['error_message'] = array(
+      '#markup' => t('An error has occurred with the MapIt API.'),
+    );
+    return $form;
+  }
 
   $fhrs_authorities = fsa_report_problem_get_fhrs_authorities();
   $authorities = array();
@@ -1475,19 +1484,32 @@ function fsa_report_problem_authority_edit_form($form, &$form_state, $aid = 0) {
     );
   }
   else {
-    $mapit_authorities = fsa_report_problem_get_mapit_areas();
-    $mapit_options = array();
-    if (!empty($mapit_authorities)) {
-      foreach ($mapit_authorities as $area_id => $mapit_authority) {
-        $mapit_options[$area_id] = $mapit_authority['name'];
+    // @todo Handle exceptions here
+    try {
+      $mapit_authorities = fsa_report_problem_get_mapit_areas();
+      $mapit_options = array();
+      if (!empty($mapit_authorities)) {
+        foreach ($mapit_authorities as $area_id => $mapit_authority) {
+          $mapit_options[$area_id] = $mapit_authority['name'];
+        }
       }
+      $form['local_authority_details']['area_id'] = array(
+        '#type' => 'select',
+        '#title' => t('MapIt area ID'),
+        '#options' => $mapit_options,
+        '#empty_option' => t('Please choose'),
+      );
     }
-    $form['local_authority_details']['area_id'] = array(
-      '#type' => 'select',
-      '#title' => t('MapIt area ID'),
-      '#options' => $mapit_options,
-      '#empty_option' => t('Please choose'),
-    );
+    catch (MapItApiException $e) {
+      watchdog_exception('fsa_report_problem', $e);
+      $error_message = t('An error has occurred accessing MapIt. Please try again later.');
+      drupal_set_message(t('An error has occurred accessing MapIt. Please try again later.'), 'error');
+      $form['local_authority_details']['area_id'] = array(
+        '#type' => 'item',
+        '#title' => t('MapIt area ID'),
+        '#markup' => $error_message,
+      );
+    }
   }
 
   $form['local_authority_details']['email'] = array(
