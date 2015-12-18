@@ -544,7 +544,16 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
       $postcode = _fsa_report_problem_format_postcode($postcode);
 
       // Get the local authority details from MapIt
-      $local_authority = fsa_report_problem_get_local_authority_by_postcode($postcode);
+      try {
+        $local_authority = fsa_report_problem_get_local_authority_by_postcode($postcode);
+      }
+      catch (MapItApiException $e) {
+        watchdog_exception('fsa_report_problem', $e);
+        $next_stage = 'postcode_search';
+        $error_message = t('Sorry, a problem has occurred. Please try again later.');
+        drupal_set_message($error_message, 'error');
+        break;
+      }
 
       // If no local authority is returned or if the local authority ID is not
       // set, go back to the previous stage and set an error.
