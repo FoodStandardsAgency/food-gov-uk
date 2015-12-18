@@ -1671,7 +1671,7 @@ function fsa_report_problem_api_admin_form($form, &$form_state) {
     '#collapsed' => TRUE,
   );
 
-  $form['mapit_settings']['base_url'] = array(
+  $form['mapit_settings']['fsa_report_problem_mapit_base_url'] = array(
     '#type' => 'textfield',
     '#title' => t('MapIt base URL'),
     '#default_value' => _fsa_report_problem_mapit_url(),
