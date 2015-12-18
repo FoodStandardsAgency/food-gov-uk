@@ -1634,6 +1634,8 @@ function fsa_report_problem_api_admin_form($form, &$form_state) {
   $form['google_places_settings'] = array(
     '#type' => 'fieldset',
     '#title' => t('Google Places API settings'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
   );
 
   $form['google_places_settings']['fsa_report_problem_google_places_api_endpoint'] = array(
