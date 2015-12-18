@@ -1098,8 +1098,15 @@ function fsa_report_problem_report_local_authority_form_submit(&$form, &$form_st
 
     case 'postcode':
       $postcode = !empty($form_state['values']['postcode']) ? $form_state['values']['postcode'] : '';
-      $la = fsa_report_problem_get_local_authority_by_postcode($postcode);
-      $area_id = $la['id'];
+      try {
+        $la = fsa_report_problem_get_local_authority_by_postcode($postcode);
+        $area_id = $la['id'];
+      }
+      catch (MapItApiException $e) {
+        watchdog_exception('fsa_report_problem', $e);
+        drupal_set_message(t('An error has occurred looking up the postcode'), 'error');
+        $area_id = 0;
+      }
       //$query = new EntityFieldQuery();
       //$query->entityCondition('entity_type', 'local_authority')
       //  ->propertyCondition('area_id', $area_id);
