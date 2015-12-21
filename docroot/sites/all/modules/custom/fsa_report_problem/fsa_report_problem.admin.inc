@@ -1098,8 +1098,15 @@ function fsa_report_problem_report_local_authority_form_submit(&$form, &$form_st
 
     case 'postcode':
       $postcode = !empty($form_state['values']['postcode']) ? $form_state['values']['postcode'] : '';
-      $la = fsa_report_problem_get_local_authority_by_postcode($postcode);
-      $area_id = $la['id'];
+      try {
+        $la = fsa_report_problem_get_local_authority_by_postcode($postcode);
+        $area_id = $la['id'];
+      }
+      catch (MapItApiException $e) {
+        watchdog_exception('fsa_report_problem', $e);
+        drupal_set_message(t('An error has occurred looking up the postcode'), 'error');
+        $area_id = 0;
+      }
       //$query = new EntityFieldQuery();
       //$query->entityCondition('entity_type', 'local_authority')
       //  ->propertyCondition('area_id', $area_id);
@@ -1161,7 +1168,16 @@ function fsa_report_problem_authorities_import_form_new($form, &$form_state) {
   $form_state['areas'] = array();
   $form_state['fhrs_authorities'] = array();
 
-  $areas = fsa_report_problem_get_mapit_areas(_fsa_report_problem_mapit_authority_types());
+  try {
+    $areas = fsa_report_problem_get_mapit_areas(_fsa_report_problem_mapit_authority_types());
+  }
+  catch (MapItApiException $e) {
+    watchdog_exception('fsa_report_problem', $e);
+    $form['error_message'] = array(
+      '#markup' => t('An error has occurred with the MapIt API.'),
+    );
+    return $form;
+  }
 
   $fhrs_authorities = fsa_report_problem_get_fhrs_authorities();
   $authorities = array();
@@ -1468,19 +1484,32 @@ function fsa_report_problem_authority_edit_form($form, &$form_state, $aid = 0) {
     );
   }
   else {
-    $mapit_authorities = fsa_report_problem_get_mapit_areas();
-    $mapit_options = array();
-    if (!empty($mapit_authorities)) {
-      foreach ($mapit_authorities as $area_id => $mapit_authority) {
-        $mapit_options[$area_id] = $mapit_authority['name'];
+    // @todo Handle exceptions here
+    try {
+      $mapit_authorities = fsa_report_problem_get_mapit_areas();
+      $mapit_options = array();
+      if (!empty($mapit_authorities)) {
+        foreach ($mapit_authorities as $area_id => $mapit_authority) {
+          $mapit_options[$area_id] = $mapit_authority['name'];
+        }
       }
+      $form['local_authority_details']['area_id'] = array(
+        '#type' => 'select',
+        '#title' => t('MapIt area ID'),
+        '#options' => $mapit_options,
+        '#empty_option' => t('Please choose'),
+      );
     }
-    $form['local_authority_details']['area_id'] = array(
-      '#type' => 'select',
-      '#title' => t('MapIt area ID'),
-      '#options' => $mapit_options,
-      '#empty_option' => t('Please choose'),
-    );
+    catch (MapItApiException $e) {
+      watchdog_exception('fsa_report_problem', $e);
+      $error_message = t('An error has occurred accessing MapIt. Please try again later.');
+      drupal_set_message(t('An error has occurred accessing MapIt. Please try again later.'), 'error');
+      $form['local_authority_details']['area_id'] = array(
+        '#type' => 'item',
+        '#title' => t('MapIt area ID'),
+        '#markup' => $error_message,
+      );
+    }
   }
 
   $form['local_authority_details']['email'] = array(
@@ -1558,6 +1587,10 @@ function fsa_report_problem_authority_edit_form_submit(&$form, &$form_state) {
     $authority->area_id = !empty($values['area_id']) ? $values['area_id'] : NULL;
     $authority->created = REQUEST_TIME;
   }
+  else {
+    $authority_name = !empty($authority->name) ? $authority->name : 'No name';
+    $authority->name = !empty($values['name']) ? $values['name'] : $authority_name;
+  }
 
   // Get the relevant FHRS authority
   $fhrs_authority = !empty($form_state['values']['fhrs_authority']) ? fsa_report_problem_get_fhrs_authorities($form_state['values']['fhrs_authority']) : NULL;
@@ -1605,6 +1638,8 @@ function fsa_report_problem_api_admin_form($form, &$form_state) {
   $form['google_places_settings'] = array(
     '#type' => 'fieldset',
     '#title' => t('Google Places API settings'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
   );
 
   $form['google_places_settings']['fsa_report_problem_google_places_api_endpoint'] = array(
@@ -1635,5 +1670,86 @@ function fsa_report_problem_api_admin_form($form, &$form_state) {
     '#default_value' => variable_get('fsa_report_problem_google_places_min_results', 5),
   );
 
+  $form['mapit_settings'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('MapIt API settings'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  $form['mapit_settings']['fsa_report_problem_mapit_base_url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('MapIt base URL'),
+    '#default_value' => _fsa_report_problem_mapit_url(),
+  );
+
+  $form['mapit_settings']['fsa_report_problem_mapit_user_agent'] = array(
+    '#type' => 'textfield',
+    '#title' => t('User agent'),
+    '#description' => t('This is used by MapIt to determine usage of their API. It should not be changed without first informing MapIt.'),
+    '#default_value' => _fsa_report_problem_mapit_user_agent(),
+  );
+
+  $form['mapit_settings']['fsa_report_problem_mapit_authority_types'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Authority types'),
+    '#options' => _fsa_report_problem_mapit_authority_types(TRUE),
+    '#default_value' => _fsa_report_problem_mapit_authority_types(),
+  );
+
+  $form['api_status'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('External API status'),
+    '#weight' => -10,
+  );
+
+  // First check the API status. This will populate the variable if it isn't
+  // already.
+  $overall_status = _fsa_report_problem_api_status();
+  // Get the API status from the variable.
+  $apis = variable_get('fsa_report_problem_api_status', _fsa_report_problem_apis());
+
+  $form['api_status']['overall_status'] = array(
+    '#prefix' => '<h4>' . t('Overall status') . '</h4>',
+    '#theme' => 'external_api_status',
+    '#status' => !empty($apis['overall']) ? $apis['overall'] : NULL,
+  );
+
+  $form['api_status']['check_now'] = array(
+    '#type' => 'submit',
+    '#value' => t('Check now'),
+    '#submit' => array('_fsa_report_problem_api_status_check_now'),
+  );
+
+  foreach ($apis as $api => $status) {
+    if ($api != 'overall') {
+      $form['api_status'][$api] = array(
+        '#type' => 'fieldset',
+        '#title' => $status->name . ' ' . t('status'),
+        '#collapsible' => TRUE,
+        '#collapsed' => $status->healthy,
+      );
+      $form['api_status'][$api]["${api}_status"] = array(
+        '#theme' => 'external_api_status',
+        '#name' => $status->name,
+        '#status' => $status,
+      );
+    }
+  }
+
   return system_settings_form($form);
+}
+
+
+/**
+ * Submit handler: API form checks the status of the APIs
+ */
+function _fsa_report_problem_api_status_check_now($form, &$form_state) {
+  // Check the API statuses - force a recheck
+  $overall_status = _fsa_report_problem_api_status(NULL, NULL, TRUE);
+  $message_type = !empty($overall_status->healthy) ? 'status' : 'error';
+  $message = t('API status checked.');
+  $message .= ' ';
+  $message .= !empty($overall_status->healthy) ? t('All APIs are healthy.') : t('Issues were found with one or more APIs. See below for details');
+  drupal_set_message($message, $message_type);
 }
