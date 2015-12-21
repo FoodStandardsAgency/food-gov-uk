@@ -831,7 +831,7 @@ function fsa_report_problem_get_google_results($name, $location = '', $user_loca
 function fsa_report_problem_get_local_authority($lng, $lat) {
   $endpoint = _fsa_report_problem_mapit_url('point/4326');
   $url = url("$endpoint/$lng,$lat", array('query' => array('type' => implode(',', _fsa_report_problem_mapit_authority_types()))));
-  $area_data = drupal_http_request($url);
+  $area_data = drupal_http_request($url, _fsa_report_problem_mapit_http_options());
 
   // Get the data - if available.
   $data = !empty($area_data->data) ? drupal_json_decode($area_data->data) : NULL;
@@ -864,7 +864,7 @@ function fsa_report_problem_get_local_authority_by_postcode($postcode = NULL) {
   $postcode = urlencode($postcode);
   $endpoint = _fsa_report_problem_mapit_url('postcode');
   $url = url("$endpoint/$postcode");
-  $area_data = drupal_http_request($url);
+  $area_data = drupal_http_request($url, _fsa_report_problem_mapit_http_options());
   $data = drupal_json_decode($area_data->data);
 
   // If response code other than 200, or if data is empty, throw an exception.
@@ -1001,7 +1001,7 @@ function fsa_report_problem_get_mapit_areas($types = array()) {
   }
   $endpoint = _fsa_report_problem_mapit_url('areas');
   $url = "$endpoint/" . implode(',', $types);
-  $areas = drupal_http_request($url);
+  $areas = drupal_http_request($url, _fsa_report_problem_mapit_http_options());
 
   // If response code other than 200, throw an exception.
   if (empty($areas->code) || $areas->code != '200') {
