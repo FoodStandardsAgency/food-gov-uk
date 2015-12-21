@@ -2853,23 +2853,29 @@ function template_preprocess_external_api_status(&$variables) {
 
   // Get the status object from the $variables array
   $status = !empty($variables['status']) ? $variables['status'] : NULL;
-  
+
   // Is the API healthy?
   $variables['healthy'] = !empty($status->healthy) ? TRUE : FALSE;
-  
+
   // Is there an exception?
   $exception = !empty($status->exception) ? $status->exception : NULL;
-  
+
   $exception_details = !empty($exception) ? _drupal_decode_exception($exception) : NULL;
   $variables['exception_details'] = !empty($exception_details) ? t('%type: !message in %function (line %line of %file).', $exception_details) : NULL;
-  
-  // Create an array of classes for the status message
+
+  // Create an array of classes for the status message and message text
   $variables['status_classes_array'] = array('messages');
-  if ($variables['healthy']) {
+  if (empty($status->lastCheck)) {
+    $variables['status_classes_array'][] = 'warning';
+    $variables['status_message'] = t('No data available');
+  }
+  elseif ($variables['healthy']) {
     $variables['status_classes_array'][] = 'status';
+    $variables['status_message'] = t('OK');
   }
   else {
     $variables['status_classes_array'][] = 'error';
+    $variables['status_message'] = t('Problems detected');
   }
   
 }
