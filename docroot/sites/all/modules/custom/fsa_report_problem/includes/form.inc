@@ -607,6 +607,7 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
             $next_stage = 'local_authority_details';
             if (is_array($form_state['local_authority']) && !empty($form_state['local_authority']['id'])) {
               $la = fsa_report_problem_get_local_authority_by_area_id($local_authority['id']);
+              $form_state['local_authority']['name'] = $la->name;
               if (!empty($la->email)) {
                 $form_state['local_authority']['email'] = $la->email;
                 $form_state['local_authority']['url'] = $la->url;
@@ -685,6 +686,7 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
       if (!_fsa_report_problem_capture_user_data()) {
         if (is_array($form_state['local_authority']) && !empty($form_state['local_authority']['id'])) {
           $la = fsa_report_problem_get_local_authority_by_area_id($local_authority['id']);
+          $form_state['local_authority']['name'] = $la->name;
           if (!empty($la->email)) {
             $form_state['local_authority']['email'] = $la->email;
             $form_state['local_authority']['url'] = $la->url;
