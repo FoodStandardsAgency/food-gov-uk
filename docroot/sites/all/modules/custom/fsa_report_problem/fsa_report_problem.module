@@ -39,6 +39,16 @@ define('FSA_REPORT_PROBLEM_VARIABLE_GROUP_NAME', 'fsa_report_problem');
  */
 define('FSA_REPORT_PROBLEM_PATH', _fsa_report_problem_node_path());
 
+/**
+ * Default MapIt base URL. Can be overridden via the admin interface.
+ */
+define('FSA_REPORT_PROBLEM_MAPIT_BASE_URL', 'http://mapit.mysociety.org');
+
+/**
+ * Default MapIt user agent - used for usage tracking
+ */
+define('FSA_REPORT_PROBLEM_MAPIT_USER_AGENT', 'UK Food Standards Agency (http://www.food.gov.uk)');
+
 
 /**
  * Implements hook_permission().
@@ -426,6 +436,13 @@ function fsa_report_problem_theme($existing, $type, $theme, $path) {
         'local_authority' => NULL,
       ),
     ),
+    'external_api_status' => array(
+      'template' => 'theme/external-api-status',
+      'variables' => array(
+        'name' => t('External API'),
+        'status' => array(),
+      ),
+    ),
   );
 }
 
@@ -806,12 +823,27 @@ function fsa_report_problem_get_google_results($name, $location = '', $user_loca
  *
  * @return array
  *   An associative array of local authority properties
+ *
+ * @throws MapItApiException
+ *   An exception is thrown if the request to the API returns anything but a 200
+ *   response. Any calling code must handle this exception.
  */
 function fsa_report_problem_get_local_authority($lng, $lat) {
-  $endpoint = 'http://mapit.mysociety.org/point/4326';
+  $endpoint = _fsa_report_problem_mapit_url('point/4326');
   $url = url("$endpoint/$lng,$lat", array('query' => array('type' => implode(',', _fsa_report_problem_mapit_authority_types()))));
-  $area_data = drupal_http_request($url);
-  return current(drupal_json_decode($area_data->data));
+  $area_data = drupal_http_request($url, _fsa_report_problem_mapit_http_options());
+
+  // Get the data - if available.
+  $data = !empty($area_data->data) ? drupal_json_decode($area_data->data) : NULL;
+
+  // If response code other than 200, or if data is empty, throw an exception.
+  if (empty($area_data->code) || $area_data->code != '200') {
+    _fsa_report_problem_api_status('mapit', array('healthy' => FALSE, 'httpCode' => $area_data->code));
+    throw new MapItApiException('', 0, $area_data);
+  }
+
+  // Return the data
+  return current($data);
 }
 
 
@@ -830,10 +862,17 @@ function fsa_report_problem_get_local_authority_by_postcode($postcode = NULL) {
     return array();
   }
   $postcode = urlencode($postcode);
-  $endpoint = 'http://mapit.mysociety.org/postcode';
+  $endpoint = _fsa_report_problem_mapit_url('postcode');
   $url = url("$endpoint/$postcode");
-  $area_data = drupal_http_request($url);
+  $area_data = drupal_http_request($url, _fsa_report_problem_mapit_http_options());
   $data = drupal_json_decode($area_data->data);
+
+  // If response code other than 200, or if data is empty, throw an exception.
+  if (empty($area_data->code) || $area_data->code != '200') {
+    _fsa_report_problem_api_status('mapit', array('healthy' => FALSE, 'httpCode' => $area_data->code));
+    throw new MapItApiException('', 0, $area_data);
+  }
+
   $areas = !empty($data['areas']) ? $data['areas'] : array();
   $area_types = _fsa_report_problem_mapit_authority_types();
   $selected_area = array();
@@ -960,9 +999,16 @@ function fsa_report_problem_get_mapit_areas($types = array()) {
   if (empty($types)) {
     $types = _fsa_report_problem_mapit_authority_types();
   }
-  $endpoint = 'http://mapit.mysociety.org/areas';
+  $endpoint = _fsa_report_problem_mapit_url('areas');
   $url = "$endpoint/" . implode(',', $types);
-  $areas = drupal_http_request($url);
+  $areas = drupal_http_request($url, _fsa_report_problem_mapit_http_options());
+
+  // If response code other than 200, throw an exception.
+  if (empty($areas->code) || $areas->code != '200') {
+    _fsa_report_problem_api_status('mapit', array('healthy' => FALSE, 'httpCode' => $areas->code));
+    throw new MapItApiException('', 0, $areas);
+  }
+
   return drupal_json_decode($areas->data);
 }
 
@@ -2157,10 +2203,66 @@ function template_preprocess_local_authority_details(&$variables) {
 
 /**
  * Helper function - returns an array of MapIt authority types
+ *
+ * @param boolean $full
+ *   If set to TRUE, returns the full list of MapIt authority types as an
+ *   associative array with the codes as keys and the names as values. By
+ *   default, when set to FALSE returns an array of keys for the selected
+ *   authority types.
+ *
+ * @return array
+ *   By default, returns an array of authority type codes. If the $full argument
+ *   is set to TRUE, returns an associative array of codes to names for all
+ *   authority types.
  */
-function _fsa_report_problem_mapit_authority_types() {
-  $area_types = array('DIS', 'UTA', 'LBO', 'LGD', 'MTD', 'COI');
-  return $area_types;
+function _fsa_report_problem_mapit_authority_types($full = FALSE) {
+
+  // Full list of MapIt authority types.
+  // @see https://github.com/mysociety/mapit/blob/b471659b14b8912948247fa72bdbc5f65c5a6a61/mapit_gb/templates/mapit/api/areas-types.html
+  $mapit_authority_types = array(
+    'CTY' => 'county council',
+    'CED' => 'county ward',
+    'COI' => 'Isles of Scilly',
+    'COP' => 'Isles of Scilly parish',
+    'CPC' => 'civil parish/community',
+    'CPW' => 'civil parish/community ward',
+    'DIS' => 'district council',
+    'DIW' => 'district ward',
+    'EUR' => 'Euro region',
+    'GLA' => 'London Assembly',
+    'LAC' => 'London Assembly constituency',
+    'LBO' => 'London borough',
+    'LBW' => 'London ward',
+    'LGD' => 'NI council',
+    'LGE' => 'NI electoral area',
+    'LGW' => 'NI ward',
+    'MTD' => 'Metropolitan district',
+    'MTW' => 'Metropolitan ward',
+    'NIE' => 'NI Assembly constituency',
+    'OLF' => 'Lower Layer Super Output Area Full',
+    'OLG' => 'Lower Layer Super Output Area Generalised',
+    'OMF' => 'Middle Layer Super Output Area Full',
+    'OMG' => 'Middle Layer Super Output Area Generalised',
+    'SPC' => 'Scottish Parliament constituency',
+    'SPE' => 'Scottish Parliament region',
+    'UTA' => 'Unitary authority',
+    'UTE' => 'Unitary authority electoral division',
+    'UTW' => 'Unitary authority ward',
+    'WAC' => 'Welsh Assembly constituency',
+    'WAE' => 'Welsh Assembly region',
+    'WMC' => 'UK Parliamentary constituency',
+  );
+
+  // If a full listing was specified, return all of the types now
+  if ($full) {
+    return $mapit_authority_types;
+  }
+
+  // Default list of types to use with this service
+  $default_types = array('DIS', 'UTA', 'LBO', 'LGD', 'MTD', 'COI');
+
+  // Types selected for use
+  return variable_get('fsa_report_problem_mapit_authority_types', $default_types);
 }
 
 
@@ -2503,14 +2605,15 @@ function _fsa_report_problem_format_url($url = '') {
  * @param array $settings
  *   (optional) An array of settings to pass to an API status. Used only if $api
  *   is populated.
+ *
+ * @param boolean $force_check
+ *   Forces the function to check the API(s) now, rather than using the last
+ *   stored status.
  */
-function _fsa_report_problem_api_status($api = NULL, $settings = NULL) {
+function _fsa_report_problem_api_status($api = NULL, $settings = NULL, $force_check = FALSE) {
 
   // An array of APIs
-  $apis = array(
-    'mapit' => new MapItApiStatus(),
-    'google_places' => new GooglePlacesApiStatus(),
-  );
+  $apis = _fsa_report_problem_apis();
 
   // Intervals between checks (seconds)
   // @todo Manage these via the admin API
@@ -2543,14 +2646,14 @@ function _fsa_report_problem_api_status($api = NULL, $settings = NULL) {
 
 
   // If we haven't a cached version, test the APIs now
-  if (!isset($api_statuses)) {
+  if (!isset($api_statuses) || $force_check) {
 
     $stored_status = variable_get('fsa_report_problem_api_status');
 
     $last_check = !empty($stored_status['overall']) ? $stored_status['overall']->lastCheck : REQUEST_TIME;
     $last_status = !empty($stored_status['overall']) ? $stored_status['overall']->healthy : NULL;
 
-    if (($last_status && REQUEST_TIME - $last_check <= $healthy_interval) || (!$last_status && REQUEST_TIME - $last_check <= $unhealthy_interval)) {
+    if (!$force_check && (($last_status && REQUEST_TIME - $last_check <= $healthy_interval) || (!$last_status && REQUEST_TIME - $last_check <= $unhealthy_interval))) {
       $api_statuses = $stored_status;
       $overall_status = !empty($api_statuses['overall']) ? $api_statuses['overall'] : new ExternalApiStatus();
     }
@@ -2586,6 +2689,17 @@ function _fsa_report_problem_api_status($api = NULL, $settings = NULL) {
   }
 
   return $return_value;
+}
+
+
+/**
+ * Helper function: returns an array of external API status objects
+ */
+function _fsa_report_problem_apis() {
+  return array(
+    'mapit' => new MapItApiStatus(),
+    'google_places' => new GooglePlacesApiStatus(),
+  );
 }
 
 /**
@@ -2729,4 +2843,90 @@ function _fsa_report_problem_get_start_path($lang_code = NULL, $suffix = '', $in
   // Return the external path, with any suffix included
   return drupal_get_path_alias("node/$nid") . (!empty($suffix) ? "/$suffix" : '');
 
+}
+
+
+/**
+ * Preprocess function for external API status
+ */
+function template_preprocess_external_api_status(&$variables) {
+
+  // Get the status object from the $variables array
+  $status = !empty($variables['status']) ? $variables['status'] : NULL;
+  
+  // Is the API healthy?
+  $variables['healthy'] = !empty($status->healthy) ? TRUE : FALSE;
+  
+  // Is there an exception?
+  $exception = !empty($status->exception) ? $status->exception : NULL;
+  
+  $exception_details = !empty($exception) ? _drupal_decode_exception($exception) : NULL;
+  $variables['exception_details'] = !empty($exception_details) ? t('%type: !message in %function (line %line of %file).', $exception_details) : NULL;
+  
+  // Create an array of classes for the status message
+  $variables['status_classes_array'] = array('messages');
+  if ($variables['healthy']) {
+    $variables['status_classes_array'][] = 'status';
+  }
+  else {
+    $variables['status_classes_array'][] = 'error';
+  }
+  
+}
+
+
+/**
+ * Process function for external API status
+ */
+function template_process_external_api_status(&$variables) {
+  // Flatten the status classes array
+  $status_classes_array = !empty($variables['status_classes_array']) ? $variables['status_classes_array'] : array();
+  $variables['status_classes'] = implode(' ', $status_classes_array);
+}
+
+
+/**
+ * Helper function: returns a MapIt URL based on the MapIt base path
+ *
+ * @param string $path
+ *   A path to add onto the end of the MapIt base URL
+ *
+ * @return string
+ *   The base URL of the MapIt location service.
+ */
+function _fsa_report_problem_mapit_url($path = '') {
+  $base_url = variable_get('fsa_report_problem_mapit_base_url', FSA_REPORT_PROBLEM_MAPIT_BASE_URL);
+  return !empty($path) ? "$base_url/$path" : $base_url;
+}
+
+
+/**
+ * Helper function: returns the MapIt user agent
+ *
+ * @return string
+ *   User agent string for MapIt API requests
+ */
+function _fsa_report_problem_mapit_user_agent() {
+  return variable_get('fsa_report_problem_mapit_user_agent', FSA_REPORT_PROBLEM_MAPIT_USER_AGENT);
+}
+
+
+/**
+ * Helper function: returns MapIt HTTP request options
+ *
+ * @return array
+ *   Associative array suitable for use as the second parameter of
+ *   `drupal_http_request()`. Includes the custom user agent string used by
+ *   MapIt to track usage of their API.
+ *
+ * @see drupal_http_request()
+ * @see _fsa_report_problem_mapit_user_agent()
+ *
+ */
+function _fsa_report_problem_mapit_http_options() {
+  $options = array();
+  $options['headers'] = array(
+    'User-Agent' => _fsa_report_problem_mapit_user_agent(),
+  );
+  return $options;
 }

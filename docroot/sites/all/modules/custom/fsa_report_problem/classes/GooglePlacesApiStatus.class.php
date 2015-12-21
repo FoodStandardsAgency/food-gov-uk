@@ -8,6 +8,7 @@ class GooglePlacesApiStatus extends ExternalApiStatus {
   function __construct() {
     parent::__construct();
     $this->url = variable_get('fsa_report_problem_google_places_api_endpoint', 'https://maps.googleapis.com/maps/api/place/textsearch/json');
+    $this->name = 'Google Places API';
   }
 
   /**
