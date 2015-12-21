@@ -566,6 +566,7 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
 
       // Get the stored local authority details.
       $la = fsa_report_problem_get_local_authority_by_area_id($local_authority['id']);
+      $local_authority['name'] = !empty($la->name) ? $la->name: t('No name');
       $local_authority['email'] = !empty($la->email) ? $la->email: NULL;
       $local_authority['url'] = !empty($la->url) ? $la->url : NULL;
       $form_state['local_authority'] = $local_authority;
