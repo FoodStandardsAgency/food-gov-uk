@@ -1679,6 +1679,13 @@ function fsa_report_problem_api_admin_form($form, &$form_state) {
     '#default_value' => _fsa_report_problem_mapit_url(),
   );
 
+  $form['mapit_settings']['fsa_report_problem_mapit_user_agent'] = array(
+    '#type' => 'textfield',
+    '#title' => t('User agent'),
+    '#description' => t('This is used by MapIt to determine usage of their API. It should not be changed without first informing MapIt.'),
+    '#default_value' => _fsa_report_problem_mapit_user_agent(),
+  );
+
   $form['mapit_settings']['fsa_report_problem_mapit_authority_types'] = array(
     '#type' => 'checkboxes',
     '#title' => t('Authority types'),
