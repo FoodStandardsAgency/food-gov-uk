@@ -8,15 +8,11 @@
 ?>
 <div>
   <div class="<?php print $status_classes; ?>">
-    <div><?php print t('Status'); ?>:
-      <?php if ($healthy): ?>
-        <?php print t('OK'); ?>
-      <?php else: ?>
-        <?php print t('Problems detected'); ?>
-      <?php endif; ?>
-    </div>
+    <div><?php print t('Status'); ?>: <?php print $status_message; ?></div>
   </div>
-  <p><strong>Last check:</strong> <?php print format_date($status->lastCheck, 'custom', 'l j F Y \a\t H:i:s '); ?></p>
+  <?php if (!empty($status->lastCheck)): ?>
+    <p><strong>Last check:</strong> <?php print format_date($status->lastCheck, 'custom', 'l j F Y \a\t H:i:s '); ?></p>
+  <?php endif; ?>
   <?php if (!empty($status->httpCode)): ?>
     <p><strong>HTTP code:</strong> <?php print $status->httpCode; ?></p>
   <?php endif; ?>

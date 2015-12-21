@@ -1587,6 +1587,10 @@ function fsa_report_problem_authority_edit_form_submit(&$form, &$form_state) {
     $authority->area_id = !empty($values['area_id']) ? $values['area_id'] : NULL;
     $authority->created = REQUEST_TIME;
   }
+  else {
+    $authority_name = !empty($authority->name) ? $authority->name : 'No name';
+    $authority->name = !empty($values['name']) ? $values['name'] : $authority_name;
+  }
 
   // Get the relevant FHRS authority
   $fhrs_authority = !empty($form_state['values']['fhrs_authority']) ? fsa_report_problem_get_fhrs_authorities($form_state['values']['fhrs_authority']) : NULL;

@@ -2180,6 +2180,10 @@ function _fsa_report_problem_capture_user_data() {
  * @see local-authority-details.tpl.php
  */
 function template_preprocess_local_authority_details(&$variables) {
+  // Get the language code
+  global $language;
+  $lang_code = !empty($language->language) ? $language->language : language_default()->language;
+  
   // Get the local authority from the $variables array
   $local_authority = !empty($variables['local_authority']) ? $variables['local_authority'] : NULL;
   // No local authority? Exit now.
@@ -2190,6 +2194,10 @@ function template_preprocess_local_authority_details(&$variables) {
   $variables['content_attributes_array']['class'] = array('local-authority-details-inner');
   // Set the local authority name
   $variables['name'] = !empty($local_authority['name']) ? $local_authority['name'] : NULL;
+  // Translate the name if we're not in English
+  if ($lang_code != 'en') {
+    $variables['name'] = locale($variables['name']);
+  }
   // Set the local authority email address
   $variables['email'] = !empty($local_authority['email']) ? $local_authority['email'] : NULL;
   // Create a link for the email address
@@ -2853,23 +2861,29 @@ function template_preprocess_external_api_status(&$variables) {
 
   // Get the status object from the $variables array
   $status = !empty($variables['status']) ? $variables['status'] : NULL;
-  
+
   // Is the API healthy?
   $variables['healthy'] = !empty($status->healthy) ? TRUE : FALSE;
-  
+
   // Is there an exception?
   $exception = !empty($status->exception) ? $status->exception : NULL;
-  
+
   $exception_details = !empty($exception) ? _drupal_decode_exception($exception) : NULL;
   $variables['exception_details'] = !empty($exception_details) ? t('%type: !message in %function (line %line of %file).', $exception_details) : NULL;
-  
-  // Create an array of classes for the status message
+
+  // Create an array of classes for the status message and message text
   $variables['status_classes_array'] = array('messages');
-  if ($variables['healthy']) {
+  if (empty($status->lastCheck)) {
+    $variables['status_classes_array'][] = 'warning';
+    $variables['status_message'] = t('No data available');
+  }
+  elseif ($variables['healthy']) {
     $variables['status_classes_array'][] = 'status';
+    $variables['status_message'] = t('OK');
   }
   else {
     $variables['status_classes_array'][] = 'error';
+    $variables['status_message'] = t('Problems detected');
   }
   
 }
