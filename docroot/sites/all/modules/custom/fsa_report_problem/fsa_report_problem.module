@@ -45,6 +45,12 @@ define('FSA_REPORT_PROBLEM_PATH', _fsa_report_problem_node_path());
 define('FSA_REPORT_PROBLEM_MAPIT_BASE_URL', 'http://mapit.mysociety.org');
 
 /**
+ * Default MapIt user agent - used for usage tracking
+ */
+define('FSA_REPORT_PROBLEM_MAPIT_USER_AGENT', 'UK Food Standards Agency (http://www.food.gov.uk)');
+
+
+/**
  * Implements hook_permission().
  */
 function fsa_report_problem_permission() {
