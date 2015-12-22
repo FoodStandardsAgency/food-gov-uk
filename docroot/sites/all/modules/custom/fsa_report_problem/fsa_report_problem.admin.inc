@@ -1747,6 +1747,47 @@ function fsa_report_problem_api_admin_form($form, &$form_state) {
 function _fsa_report_problem_api_status_check_now($form, &$form_state) {
   // Check the API statuses - force a recheck
   $overall_status = _fsa_report_problem_api_status(NULL, NULL, TRUE);
+
+  // We need to clear the caches for the lookup pages
+  global $base_url;
+  $base_path = parse_url($base_url);
+  $base_path = !empty($base_path['host']) ? $base_path['host'] : $base_path;
+  // Get the domains for which we need to clear the cache.
+  $domains = _fsa_cache_clear_settings('varnish_domains', array('www.food.gov.uk', $base_path));
+  // Get the page on which the block appears
+  $nid = _fsa_report_problem_get_nid();
+  // Get any translations of the page
+  $nids = array_merge(array($nid), array_keys(_fsa_report_problem_get_transaltion_nids($nid)));
+  // An array to hold paths to be cleared from the Varnish cache
+  $paths = array();
+
+  // Populate the $paths array
+  foreach ($nids as $nid) {
+    // Get the path alias
+    $path = drupal_get_path_alias("node/$nid");
+    // Clear the path for all domains from the Drupal page cache
+    // This was designed to reduce load on Drupal by clearing only those items
+    // from the page cache that need clearing. However, since the page and block
+    // caches are fully cleared every time a node is saved, this is probably
+    // unneccessary, so we just clear them all (see below).
+    // @todo Remove this when we're happy we don't need it.
+    //foreach ($domains as $domain) {
+      // Clear the Drupal page cache for both HTTP and HTTPS versions
+      //cache_clear_all("http://${domain}/$path", 'cache_page', TRUE);
+      //cache_clear_all("https://${domain}/$path", 'cache_page', TRUE);
+    //}
+    $paths[] = $path . "(/?.*)";
+  }
+
+  // Clear the Drupal page and block caches
+  cache_clear_all();
+
+  // Clear the Varnish cache for paths in the $paths array
+  if (is_callable('fsa_cache_clear_expire_cache')) {
+    fsa_cache_clear_expire_cache($paths, NULL, 'node', new stdClass());
+  }
+
+  // Set a message to tell the user what's happened.
   $message_type = !empty($overall_status->healthy) ? 'status' : 'error';
   $message = t('API status checked.');
   $message .= ' ';
