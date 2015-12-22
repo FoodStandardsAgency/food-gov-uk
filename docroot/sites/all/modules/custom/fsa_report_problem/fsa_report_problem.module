@@ -2270,7 +2270,13 @@ function _fsa_report_problem_mapit_authority_types($full = FALSE) {
   $default_types = array('DIS', 'UTA', 'LBO', 'LGD', 'MTD', 'COI');
 
   // Types selected for use
-  return variable_get('fsa_report_problem_mapit_authority_types', $default_types);
+  $types = variable_get('fsa_report_problem_mapit_authority_types', $default_types);
+  foreach ($types as $key => $value) {
+    if (empty($value)) {
+      unset ($types[$key]);
+    }
+  }
+  return array_values($types);
 }
 
 
