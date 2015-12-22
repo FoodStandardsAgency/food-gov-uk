@@ -868,7 +868,7 @@ function fsa_report_problem_get_local_authority_by_postcode($postcode = NULL) {
   $data = drupal_json_decode($area_data->data);
 
   // If response code other than 200, or if data is empty, throw an exception.
-  if (empty($area_data->code) || $area_data->code != '200') {
+  if (empty($area_data->code) || ($area_data->code != '200' && $area_data->code != '404')) {
     _fsa_report_problem_api_status('mapit', array('healthy' => FALSE, 'httpCode' => $area_data->code));
     throw new MapItApiException('', 0, $area_data);
   }
