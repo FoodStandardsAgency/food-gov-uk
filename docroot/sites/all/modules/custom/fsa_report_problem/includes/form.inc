@@ -494,6 +494,87 @@ function fsa_report_problem_make_report_form($form, &$form_state) {
 
 
 /**
+ * Validation function for postcode search form
+ */
+function fsa_report_problem_form_validate($form, &$form_state) {
+
+  // Get the stage of the process
+  $stage = !empty($form_state['stage']) ? $form_state['stage'] : NULL;
+
+  // At the moment, we're interested only in the postcode search stage.
+  if ($stage != 'postcode_search') {
+    return;
+  }
+
+  // Get the postcode from the form_state
+  $postcode = isset($form_state['values']['postcode']) ? $form_state['values']['postcode'] : NULL;
+
+  // Make sure we have a postcode. If not, set an error and return.
+  if (empty($postcode)) {
+    form_set_error('postcode', t('Please enter a postcode'));
+    return;
+  }
+
+  // Get rid of any spaces in the postcode and convert it to uppercase.
+  $postcode = strtoupper(str_replace(' ', '', $postcode));
+
+  // UK postcodes are between 6 and 8 characters in length including the space.
+  // If it's longer or shorter than this, then it's invalid, so set an error
+  if (strlen($postcode) < 5 || strlen($postcode) > 7) {
+    form_set_error('postcode', t('Sorry, the postcode you entered appears to be invalid. Please try again, making sure you enter the full postcode.'));
+    return;
+  }
+
+  // Perform local postcode validation that mimics MapIt's validation.
+  // @see https://github.com/mysociety/mapit/blob/b471659b14b8912948247fa72bdbc5f65c5a6a61/mapit_gb/countries.py
+
+  // Special postcodes
+  if (in_array($postcode, array(
+    'ASCN1ZZ',  // Ascension Island
+    'BBND1ZZ',  // BIOT
+    'BIQQ1ZZ',  // British Antarctic Territory
+    'FIQQ1ZZ',  // Falkland Islands
+    'PCRN1ZZ',  // Pitcairn Islands
+    'SIQQ1ZZ',  // South Georgia and the South Sandwich Islands
+    'STHL1ZZ',  // St Helena
+    'TDCU1ZZ',  // Tristan da Cunha
+    'TKCA1ZZ',  // Turks and Caicos Islands
+    'GIR0AA', 'G1R0AA',  // Girobank
+    'SANTA1', 'XM45HQ',  // Santa Claus
+  ))) {
+    return;
+  }
+
+  // Now for standard postcodes
+  $inward = 'ABDEFGHJLNPQRSTUWXYZ';
+  $fst = 'ABCDEFGHIJKLMNOPRSTUWYZ';
+  $sec = 'ABCDEFGHJKLMNOPQRSTUVWXY';
+  $thd = 'ABCDEFGHJKSTUW';
+  $fth = 'ABEHMNPRVWXY';
+
+  // An array of regex patterns to use for validation
+  $patterns = array(
+    sprintf('/[%1$s][1-9]\d[%2$s][%3$s]$/', $fst, $inward, $inward),
+    sprintf('/[%1$s][1-9]\d\d[%2$s][%3$s]$/', $fst, $inward, $inward),
+    sprintf('/[%1$s][%2$s]\d\d[%3$s][%4$s]$/', $fst, $sec, $inward, $inward),
+    sprintf('/[%1$s][%2$s][1-9]\d\d[%3$s][%4$s]$/', $fst, $sec, $inward, $inward),
+    sprintf('/[%1$s][1-9][%2$s]\d[%3$s][%4$s]$/', $fst, $thd, $inward, $inward),
+    sprintf('/[%1$s][%2$s][1-9][%3$s]\d[%4$s][%5$s]$/', $fst, $sec, $fth, $inward, $inward),
+  );
+
+  // If the postcode matches one of these patterns, it's valid, so return.
+  foreach ($patterns as $pattern) {
+    if (preg_match($pattern, $postcode)) {
+      return;
+    }
+  }
+
+  // The postcode hasn't matched any of the patterns, so it must be invalid.
+  form_set_error('postcode', t('Sorry, the postcode you entered does not appear to be valid. Please try again.'));
+}
+
+
+/**
  * Submit handler for the main report a problem form
  */
 function fsa_report_problem_form_submit(&$form, &$form_state) {
