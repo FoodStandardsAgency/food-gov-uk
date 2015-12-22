@@ -631,7 +631,7 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
       catch (MapItApiException $e) {
         watchdog_exception('fsa_report_problem', $e);
         $next_stage = 'postcode_search';
-        $error_message = t('Sorry, a problem has occurred. Please try again later.');
+        $error_message = $e->getOriginalError();
         drupal_set_message($error_message, 'error');
         break;
       }
