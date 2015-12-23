@@ -1466,6 +1466,18 @@ function _fsa_report_problem_text($key = NULL, $data = array()) {
       'description' => t('Error text displayed when a postcode search returns no results'),
       'format' => 'plain_text',
     ),
+    'postcode_incomplete' => array(
+      'title' => t('Incomplete postcode error'),
+      'description' => t('Error message displayed when an incomplete postcode is entered into the postcode search'),
+      'format' => 'plain_text',
+      'default' => t('Sorry, the postcode you entered does not appear to be valid. Please try again, making sure you enter the full postcode.'),
+    ),
+    'postcode_invalid' => array(
+      'title' => t('Invalid postcode error'),
+      'description' => t('Error message displayed when a user searches for an invalid postcode'),
+      'format' => 'plain_text',
+      'default' => t('Sorry, the postcode you entered does not appear to be valid. Please try again.'),
+    ),
     'local_authority_intro' => array(
       'title' => t('Local authority details intro'),
       'description' => t('Introductory text for the local authority details page. Appears only if user data capture is turned off.'),
