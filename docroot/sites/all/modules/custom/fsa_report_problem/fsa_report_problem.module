@@ -246,6 +246,13 @@ function fsa_report_problem_menu() {
     'type' => MENU_CALLBACK,
   );
 
+  $items['postcode-autocomplete'] = array(
+    'title' => 'Autocomplete for postcodes',
+    'page callback' => '_fsa_report_problem_postcode_autocomplete',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
   return $items;
 }
 
@@ -2517,6 +2524,26 @@ function _fsa_report_problem_nodes_autocomplete($string) {
 
   // Return the result to the form in json
   drupal_json_output($matches);
+}
+
+
+/**
+ * Autocomplete callback for postcodes
+ */
+function _fsa_report_problem_postcode_autocomplete($postcode) {
+  $output = array();
+  $limit = 20;
+  if (!empty($postcode)) {
+    $endpoint = format_string("http://api.postcodes.io/postcodes/@postcode/autocomplete", array('@postcode' => $postcode));
+    $url = url($endpoint, array('query' => array('limit' => $limit, 't' => time())));
+    $results = drupal_http_request($url);
+    $data = !empty($results->data) ? json_decode($results->data) : NULL;
+    $postcodes = !empty($data->result) && is_array($data->result) ? $data->result : array();
+    if (is_array($postcodes)) {
+      $output = array_combine($postcodes, $postcodes);
+    }
+  }
+  drupal_json_output($output);
 }
 
 

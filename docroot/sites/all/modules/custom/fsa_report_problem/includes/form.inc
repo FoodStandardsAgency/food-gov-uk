@@ -1048,6 +1048,9 @@ function fsa_report_problem_postcode_search_form($form, &$form_state) {
     '#attributes' => array(
       'placeholder' => t('Enter the full postcode of the business'),
     ),
+    // Postcode autocomplete - disabled for now
+    // @todo Enable/disable via the admin interface
+    //'#autocomplete_path' => 'postcode-autocomplete',
   );
 
   $form['submit'] = array(
