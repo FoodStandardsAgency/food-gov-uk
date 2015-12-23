@@ -572,7 +572,9 @@ function fsa_report_problem_form_validate($form, &$form_state) {
   }
 
   // The postcode hasn't matched any of the patterns, so it must be invalid.
-  form_set_error('postcode', t('Sorry, the postcode you entered does not appear to be valid. Please try again.'));
+  $error_message = _fsa_report_problem_text('postcode_invalid');
+  $error_message = !empty($error_message['value']) ? $error_message['value'] : t('Sorry, the postcode you entered does not appear to be valid. Please try again.');
+  form_set_error('postcode', $error_message);
 }
 
 
