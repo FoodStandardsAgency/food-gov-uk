@@ -521,7 +521,9 @@ function fsa_report_problem_form_validate($form, &$form_state) {
   // UK postcodes are between 6 and 8 characters in length including the space.
   // If it's longer or shorter than this, then it's invalid, so set an error
   if (strlen($postcode) < 5 || strlen($postcode) > 7) {
-    form_set_error('postcode', t('Sorry, the postcode you entered appears to be invalid. Please try again, making sure you enter the full postcode.'));
+    $error_message = _fsa_report_problem_text('postcode_incomplete');
+    $error_message = !empty($error_message['value']) ? $error_message['value'] : t('Sorry, the postcode you entered appears to be invalid. Please try again, making sure you enter the full postcode.');
+    form_set_error('postcode', $error_message);
     return;
   }
 
