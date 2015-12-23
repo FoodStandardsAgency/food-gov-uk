@@ -5,6 +5,9 @@
  */
 class MapItApiException extends Exception {
 
+  protected $originalError;
+
+
   /**
    * Constructor function - extends parent
    *
@@ -22,6 +25,8 @@ class MapItApiException extends Exception {
     parent::__construct($message, $code, $previous);
     // Build the message
     $this->setMessage($response);
+    // Set the original error message
+    $this->setOriginalError($response);
   }
 
   /**
@@ -43,5 +48,31 @@ class MapItApiException extends Exception {
     }
     // Set the exception message
     $this->message = $error_message;
+  }
+
+
+  /**
+   * Sets the original error message property that came from MapIt
+   *
+   * @param stdClass $response
+   *   A response object as returned by drupal_http_request().
+   */
+  function setOriginalError($response = NULL) {
+    if (empty($response)) {
+      return;
+    }
+    $data = !empty($response->data) ? drupal_json_decode($response->data) : NULL;
+    $this->originalError = is_array($data) && !empty($data['error']) ? $data['error'] : 'Sorry, a problem has occurred';
+  }
+
+
+  /**
+   * Returns the original error message from MapIt
+   *
+   * @return string
+   *   The original error message returned by MapIt
+   */
+  function getOriginalError() {
+    return $this->originalError;
   }
 }
