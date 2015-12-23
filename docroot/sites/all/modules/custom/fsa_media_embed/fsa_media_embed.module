@@ -94,5 +94,13 @@ function template_preprocess_youtube_embed(&$variables) {
  * Process function for YouTube video embeds.
  */
 function template_process_youtube_embed(&$variables) {
+  // Add classes to the attributes array if not already present. This is
+  // typically done by `omega_cleanup_attributes()`, but this function is not
+  // always called during rendering.
+  if (empty($variables['attributes_array']['class']) && !empty($variables['classes_array'])) {
+    $variables['attributes_array']['class'] = $variables['classes_array'];
+    $variables['attributes'] = drupal_attributes($variables['attributes_array']);
+  }
+  // Flatten the iframe_attributes array.
   $variables['iframe_attributes'] = drupal_attributes($variables['iframe_attributes_array']);
 }
