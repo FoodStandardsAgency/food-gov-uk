@@ -7,7 +7,7 @@
 /**
  * Implements hook_token_info().
  */
-function fsa_media_embed_token_info() {
+function _fsa_media_embed_token_info() {
   $type = array(
     'name' => t('YouTube video embeds'),
     'description' => t('Allows YouTube videos to be embedded via tokens.'),
@@ -26,7 +26,7 @@ function fsa_media_embed_token_info() {
 /**
  * Implements hook_tokens().
  */
-function fsa_media_embed_tokens($type, $tokens, array $data = array(), array $options = array()) {
+function _fsa_media_embed_tokens($type, $tokens, array $data = array(), array $options = array()) {
 
   $replacements = array();
 
