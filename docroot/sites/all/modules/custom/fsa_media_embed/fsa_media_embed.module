@@ -104,3 +104,50 @@ function template_process_youtube_embed(&$variables) {
   // Flatten the iframe_attributes array.
   $variables['iframe_attributes'] = drupal_attributes($variables['iframe_attributes_array']);
 }
+
+
+/**
+ * Implements hook_filter_info().
+ */
+function fsa_media_embed_filter_info() {
+  $filters = array();
+  $filters['fsa_media_embed'] = array(
+    'title' => t('Embed media'),
+    'description' => t('Allows easy embedding of YouTube and other media'),
+    'process callback' => '_fsa_embed_media_filter_media_embed'
+  );
+  return $filters;
+}
+
+
+/**
+ * Filter process callback
+ */
+function _fsa_embed_media_filter_media_embed($text, $filter, $format, $langcode, $cache, $cache_id) {
+  // Regex Pattern to match YouTube embeds
+  // @todo Make this more general to support other types - each with own
+  // callback - array?
+  $pattern = "/\[youtube:.*?\]/";
+  // Replace the embed shortcuts with the actual embed code
+  $text = preg_replace_callback($pattern, '_fsa_embed_media_replacement_callback', $text);
+  return $text;
+}
+
+
+/**
+ * Helper function for preg_replace_callback().
+ */
+function _fsa_embed_media_replacement_callback($text = NULL) {
+  if (is_array($text)) {
+    $text = $text[0];
+  }
+  $pattern = "/\[([a-zA-Z0-9]+):(.*?)\]/";
+  $provider = preg_replace($pattern, '$1', $text);
+  $identifier = preg_replace($pattern, '$2', $text);
+  // Create a render array for the video
+  $video = array(
+    '#theme' => 'youtube_embed',
+    '#youtube_id' => filter_xss($identifier),
+  );
+  return drupal_render($video);
+}
