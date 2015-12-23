@@ -502,6 +502,7 @@ function fsa_report_problem_form_validate($form, &$form_state) {
   $stage = !empty($form_state['stage']) ? $form_state['stage'] : NULL;
 
   // At the moment, we're interested only in the postcode search stage.
+  // @todo Move this to a field validation function?
   if ($stage != 'postcode_search') {
     return;
   }
