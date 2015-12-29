@@ -1,0 +1,336 @@
+<?php
+/**
+ * @file
+ * Module code for the FSA media embed module.
+ */
+
+/**
+ * Implements hook_token_info().
+ */
+function _fsa_media_embed_token_info() {
+  $type = array(
+    'name' => t('YouTube video embeds'),
+    'description' => t('Allows YouTube videos to be embedded via tokens.'),
+  );
+  $youtube['id'] = array(
+    'name' => t('Video ID'),
+    'description' => t('The ID of the video on YouTube'),
+  );
+  return array(
+    'types' => array('youtube' => $type),
+    'tokens' => array('youtube' => $youtube),
+  );
+}
+
+
+/**
+ * Implements hook_tokens().
+ */
+function _fsa_media_embed_tokens($type, $tokens, array $data = array(), array $options = array()) {
+
+  $replacements = array();
+
+  if ($type == 'youtube') {
+    foreach ($tokens as $name => $original) {
+      $video = array(
+        '#theme' => 'youtube_embed',
+        '#youtube_id' => filter_xss($name),
+      );
+      $replacements[$original] = drupal_render($video);
+    }
+  }
+  return $replacements;
+}
+
+/**
+ * Implements hook_theme().
+ * @return array
+ *   Theme hooks defined by this module.
+ */
+function fsa_media_embed_theme() {
+  $items = array(
+    'multiple_media_embed_wrapper' => array(
+      'template' => 'theme/multiple-media-embed-wrapper',
+      'render element' => 'element',
+    ),
+    'media_embed' => array(
+      'template' => 'theme/media-embed',
+      'variables' => array(
+        'provider' => 'youtube',
+        'media_id' => NULL,
+        'width' => NULL,
+        'height' => NULL,
+        'allow_fullscreen' => TRUE,
+        'source_pattern' => NULL,
+      ),
+    ),
+  );
+  $providers = _fsa_media_embed_providers();
+  foreach ($providers as $provider => $details) {
+    if (!empty($details['theme'])) {
+      foreach ($details['theme'] as $hook => $properties) {
+        $items[$hook] = $properties;
+      }
+    }
+  }
+  return $items;
+}
+
+/**
+ * Implements template_preprocess_html().
+ */
+function fsa_media_embed_preprocess_html(&$variables) {
+  // Don't affect admin paths.
+  if (path_is_admin(current_path())) {
+    return;
+  }
+  // Add our CSS file
+  drupal_add_css(drupal_get_path('module', 'fsa_media_embed') . '/css/fsa-media-embed.css');
+}
+
+/**
+ * Preprocess function for YouTube video embeds.
+ *
+ * @param array $variables
+ *   Template variables, passed by reference. Includes:
+ *   - 'youtube_id' : The ID of the YouTube video to embed
+ *   - 'width' : The width of the embedded video
+ *   - 'height' : The height of the embedded video
+ */
+function template_preprocess_media_embed(&$variables) {
+
+  // Allow videos to be viewed full-screen - unless specified otherwise
+  $allow_fullscreen = isset($variables['allow_fullscreen']) ? $variables['allow_fullscreen'] : TRUE;
+  if ($allow_fullscreen) {
+    $variables['iframe_attributes_array']['allowfullscreen'] = 'true';
+    $variables['iframe_attributes_array']['webkitallowfullscreen'] = 'true';
+    $variables['iframe_attributes_array']['mozallowfullscreen'] = 'true';
+  }
+
+  // Populate the source
+  if (!empty($variables['source_pattern']) && !empty($variables['media_id'])) {
+    $source = format_string($variables['source_pattern'], array('@media_id' => $variables['media_id']));
+    $variables['iframe_attributes_array']['src'] = $source;
+  }
+
+  // Set height and width attributes
+  if (!empty($variables['width']) && !empty($variables['height'])) {
+    $variables['iframe_attributes_array']['width'] = $variables['width'];
+    $variables['iframe_attributes_array']['height'] = $variables['height'];
+  }
+  $provider = !empty($variables['provider']) ? $variables['provider'] : 'youtube';
+  $variables['theme_hook_suggestions'][] = "${provider}_embed";
+  $variables['classes_array'] = !empty($variables['classes_array']) ? $variables['classes_array'] : array();
+  $variables['classes_array'][] = "${provider}-embed";
+}
+
+
+/**
+ * Process function for YouTube video embeds.
+ */
+function template_process_media_embed(&$variables) {
+  // Add classes to the attributes array if not already present. This is
+  // typically done by `omega_cleanup_attributes()`, but this function is not
+  // always called during rendering.
+  if (empty($variables['attributes_array']['class']) && !empty($variables['classes_array'])) {
+    $variables['attributes_array']['class'] = $variables['classes_array'];
+    $variables['attributes'] = drupal_attributes($variables['attributes_array']);
+  }
+  // Flatten the iframe_attributes array.
+  $variables['iframe_attributes'] = drupal_attributes($variables['iframe_attributes_array']);
+}
+
+
+/**
+ * Implements hook_filter_info().
+ */
+function fsa_media_embed_filter_info() {
+  $filters = array();
+  $filters['fsa_media_embed'] = array(
+    'title' => t('Embed media'),
+    'description' => t('Allows easy embedding of YouTube and other media'),
+    'settings callback' => '_fsa_embed_media_filter_settings',
+    'default settings' => array(
+      'enabled_providers' => array(
+        'youtube',
+        'vimeo',
+      ),
+    ),
+    'process callback' => '_fsa_embed_media_filter_media_embed',
+    'tips callback' => '_fsa_embed_media_filter_tips',
+  );
+  return $filters;
+}
+
+
+/**
+ * Filter process callback
+ */
+function _fsa_embed_media_filter_media_embed($text, $filter, $format, $langcode, $cache, $cache_id) {
+
+  // Build a regex pattern to match different types of media embed
+  $providers = array();
+  foreach ($filter->settings['enabled_providers'] as $provider => $enabled) {
+    if (!empty($enabled)) {
+      $providers[] = $provider;
+    }
+  }
+  if (!empty($providers)) {
+    $pattern = "/(<p>)?\[(";
+    $pattern .= implode('|', $providers);
+    $pattern .= "):.*?\](<\/p>)?/";
+    // Replace the embed shortcuts with the actual embed code
+    $text = preg_replace_callback($pattern, '_fsa_embed_media_replacement_callback', $text);
+  }
+  return $text;
+}
+
+
+/**
+ * Helper function for preg_replace_callback().
+ */
+function _fsa_embed_media_replacement_callback($text = NULL) {
+  if (is_array($text)) {
+    $text = $text[0];
+  }
+  $providers = _fsa_media_embed_providers();
+  $output = '';
+  $build = array();
+  $pattern = "/\[([a-zA-Z0-9]+):(.*?)\]/";
+  $pattern = "/(<p>)?\[([a-zA-Z0-9]+):(.*?)\](<\/p>)?/";
+  $provider = trim(filter_xss(preg_replace($pattern, '$2', $text)));
+  $source_pattern = !empty($providers[$provider]) && !empty($providers[$provider]['source_pattern']) ? $providers[$provider]['source_pattern'] : NULL;
+  $identifier = preg_replace($pattern, '$3', $text);
+  $videos = explode(',', $identifier);
+  foreach ($videos as $item) {
+    // Create a render array for the video
+    $video = array(
+      '#theme' => 'media_embed',
+      '#media_id' => trim(filter_xss($item)),
+      '#provider' => $provider,
+      '#source_pattern' => $source_pattern,
+    );
+   $build[$item] = $video;
+  }
+  // If more than one video is being included, wrap them in a container.
+  if (count($videos) > 1) {
+    $build['#theme_wrappers'] = array('multiple_media_embed_wrapper');
+    $build['#wrapper_attributes'] = array(
+      'class' => array(
+        'media-embed-multiple',
+        $provider . '-embed-multiple',
+      )
+    );
+  }
+  // @todo Give other modules the opportunity to modify the render array here.
+  // Render the render array.
+  $output = drupal_render($build);
+  return $output;
+}
+
+
+/**
+ * Provides settings for the filter
+ */
+function _fsa_embed_media_filter_settings($form, &$form_state, $filter, $format, $defaults) {
+  $filter->settings += $defaults;
+  $providers = _fsa_media_embed_providers();
+  $provider_options = array();
+  foreach ($providers as $key => $details) {
+    $provider_options[$key] = $details['name'];
+  }
+  $settings['enabled_providers'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Enabled providers'),
+    '#options' => $provider_options,
+    '#default_value' => $filter->settings['enabled_providers'],
+  );
+  return $settings;
+}
+
+
+/**
+ * Implements hook_element_info().
+ */
+function fsa_media_embed_element_info() {
+  $types = array();
+  $types['multiple_media_embed_wrapper'] = array(
+    '#theme_wrappers' => array('multiple_media_embed_wrapper'),
+  );
+}
+
+
+/**
+ * Preprocess function for multiple media embed wrappers
+ */
+function template_preprocess_multiple_media_embed_wrapper(&$variables) {
+  // Get the child render element
+  $element = !empty($variables['element']) ? $variables['element'] : array();
+  // Get any wrapper attributes - if set
+  $wrapper_attributes = !empty($element['#wrapper_attributes']) ? $element['#wrapper_attributes'] : array();
+  // Add wrapper attributes to the attributes array
+  $variables['attributes_array'] += $wrapper_attributes;
+}
+
+
+/**
+ * Helper function: returns an array of media providers
+ */
+function _fsa_media_embed_providers() {
+  $providers = module_invoke_all('media_embed_providers');
+  return $providers;
+}
+
+
+/**
+ * Implements hook_media_embed_providers().
+ */
+function fsa_media_embed_media_embed_providers() {
+  return array(
+    'youtube' => array(
+      'name' => t('YouTube'),
+      'source_pattern' => 'https://www.youtube.com/embed/@media_id',
+    ),
+    'vimeo' => array(
+      'name' => t('Vimeo'),
+      'theme' => array(
+        'vimeo_embed' => array(
+          'template' => 'theme/vimeo-embed',
+          'variables' => array(
+            'media_id' => NULL,
+            'allow_fullscreen' => TRUE,
+          ),
+        ),
+      ),
+    ),
+    'ted' => array(
+      'name' => t('TED talks'),
+      'source_pattern' => 'https://embed-ssl.ted.com/talks/@media_id',
+    ),
+    'slideshare' => array(
+      'name' => t('Slideshare'),
+      'source_pattern' => '//www.slideshare.net/slideshow/embed_code/key/@media_id',
+    ),
+  );
+}
+
+
+/**
+ * Implements callback_filter_tips().
+ */
+function _fsa_embed_media_filter_tips($filter, $format, $long = FALSE) {
+  $providers = _fsa_media_embed_providers();
+  $enabled_providers = !empty($filter->settings['enabled_providers']) ? $filter->settings['enabled_providers'] : array();
+  foreach ($enabled_providers as $key => $enabled) {
+    if (empty($enabled)) {
+      unset($enabled_providers[$key]);
+    }
+  }
+  $provider_names = array();
+  foreach ($enabled_providers as $provider) {
+    $provider_names[] = $providers[$provider]['name'];
+  }
+  $provider_string = implode(', ', $provider_names);
+  $output = t('Media from the following providers will be embedded: @providers', array('@providers' => $provider_string));
+  return $output;
+}
