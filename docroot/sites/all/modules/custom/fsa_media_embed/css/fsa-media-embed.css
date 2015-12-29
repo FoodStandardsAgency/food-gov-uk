@@ -1,4 +1,5 @@
 .embed-wrapper {
+  clear: both;
   padding: 2% 0; }
   .embed-wrapper .youtube-embed {
     height: 0;
@@ -20,6 +21,7 @@
   margin-bottom: 7px; }
 @media screen and (min-width: 480px) {
   .youtube-embed-multiple .embed-wrapper {
+    clear: none;
     float: left;
     width: 49%; }
     .youtube-embed-multiple .embed-wrapper:nth-child(even) {

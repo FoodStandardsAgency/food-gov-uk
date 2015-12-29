@@ -1,5 +1,6 @@
 .embed-wrapper {
 
+  clear: both;
   padding: 2% 0;
 
   .youtube-embed {
@@ -30,6 +31,7 @@
   @media screen and (min-width: 480px) {
 
     .embed-wrapper {
+      clear: none;
       float: left;
       width: 49%;
 
