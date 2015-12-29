@@ -141,13 +141,29 @@ function _fsa_embed_media_replacement_callback($text = NULL) {
   if (is_array($text)) {
     $text = $text[0];
   }
+  $output = '';
+  $build = array();
   $pattern = "/\[([a-zA-Z0-9]+):(.*?)\]/";
   $provider = preg_replace($pattern, '$1', $text);
   $identifier = preg_replace($pattern, '$2', $text);
-  // Create a render array for the video
-  $video = array(
-    '#theme' => 'youtube_embed',
-    '#youtube_id' => filter_xss($identifier),
-  );
-  return drupal_render($video);
+  $videos = explode(',', $identifier);
+  foreach ($videos as $item) {
+    // Create a render array for the video
+    $video = array(
+      '#theme' => 'youtube_embed',
+      '#youtube_id' => trim(filter_xss($item)),
+    );
+   $build[$item] = $video;
+  }
+  if (count($videos) > 1) {
+    // @todo Create a mulitple-wrapper theme function/template to suppor
+    //   wrapper_attributes. It feels dirty to include markup here. It should be
+    //   properly themeable and more generic.
+    $build['#prefix'] = '<div class="youtube-embed-multiple">';
+    $build['#suffix'] = '</div>';
+    //$build['#theme_wrappers'] = array('container');
+    //$build['#wrapper_attributes'] = array('class' => 'youtube-embed-multiple');
+  }
+  $output = drupal_render($build);
+  return $output;
 }
