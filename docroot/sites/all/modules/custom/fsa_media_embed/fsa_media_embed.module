@@ -48,35 +48,32 @@ function _fsa_media_embed_tokens($type, $tokens, array $data = array(), array $o
  *   Theme hooks defined by this module.
  */
 function fsa_media_embed_theme() {
-  return array(
+  $items = array(
     'multiple_media_embed_wrapper' => array(
       'template' => 'theme/multiple-media-embed-wrapper',
       'render element' => 'element',
     ),
     'media_embed' => array(
+      'template' => 'theme/media-embed',
       'variables' => array(
         'provider' => 'youtube',
         'media_id' => NULL,
         'width' => NULL,
         'height' => NULL,
         'allow_fullscreen' => TRUE,
-      ),
-    ),
-    'youtube_embed' => array(
-      'template' => 'theme/youtube-embed',
-      'variables' => array(
-        'media_id' => NULL,
-        'allow_fullscreen' => TRUE,
-      ),
-    ),
-    'vimeo_embed' => array(
-      'template' => 'theme/vimeo-embed',
-      'variables' => array(
-        'media_id' => NULL,
-        'allow_fullscreen' => TRUE,
+        'source_pattern' => NULL,
       ),
     ),
   );
+  $providers = _fsa_media_embed_providers();
+  foreach ($providers as $provider => $details) {
+    if (!empty($details['theme'])) {
+      foreach ($details['theme'] as $hook => $properties) {
+        $items[$hook] = $properties;
+      }
+    }
+  }
+  return $items;
 }
 
 /**
@@ -108,6 +105,12 @@ function template_preprocess_media_embed(&$variables) {
     $variables['iframe_attributes_array']['allowfullscreen'] = 'true';
     $variables['iframe_attributes_array']['webkitallowfullscreen'] = 'true';
     $variables['iframe_attributes_array']['mozallowfullscreen'] = 'true';
+  }
+
+  // Populate the source
+  if (!empty($variables['source_pattern']) && !empty($variables['media_id'])) {
+    $source = format_string($variables['source_pattern'], array('@media_id' => $variables['media_id']));
+    $variables['iframe_attributes_array']['src'] = $source;
   }
 
   // Set height and width attributes
@@ -159,15 +162,10 @@ function _fsa_embed_media_filter_media_embed($text, $filter, $format, $langcode,
 
   // Build a regex pattern to match different types of media embed
   // @todo Enable these to be controlled via admin interface.
-  // @todo Use a hook to allow providers to add their own theme hooks etc
-  $providers = array(
-    'youtube' => t('YouTube'),
-    'vimeo' => t('Vimeo'),
-  );
-  $pattern = "/\[(";
+  $providers = _fsa_media_embed_providers();
+  $pattern = "/(<p>)?\[(";
   $pattern .= implode('|', array_keys($providers));
-  $pattern .= "):.*?\]/";
-
+  $pattern .= "):.*?\](<\/p>)?/";
   // Replace the embed shortcuts with the actual embed code
   $text = preg_replace_callback($pattern, '_fsa_embed_media_replacement_callback', $text);
   return $text;
@@ -181,11 +179,14 @@ function _fsa_embed_media_replacement_callback($text = NULL) {
   if (is_array($text)) {
     $text = $text[0];
   }
+  $providers = _fsa_media_embed_providers();
   $output = '';
   $build = array();
   $pattern = "/\[([a-zA-Z0-9]+):(.*?)\]/";
-  $provider = trim(filter_xss(preg_replace($pattern, '$1', $text)));
-  $identifier = preg_replace($pattern, '$2', $text);
+  $pattern = "/(<p>)?\[([a-zA-Z0-9]+):(.*?)\](<\/p>)?/";
+  $provider = trim(filter_xss(preg_replace($pattern, '$2', $text)));
+  $source_pattern = !empty($providers[$provider]) && !empty($providers[$provider]['source_pattern']) ? $providers[$provider]['source_pattern'] : NULL;
+  $identifier = preg_replace($pattern, '$3', $text);
   $videos = explode(',', $identifier);
   foreach ($videos as $item) {
     // Create a render array for the video
@@ -193,9 +194,11 @@ function _fsa_embed_media_replacement_callback($text = NULL) {
       '#theme' => 'media_embed',
       '#media_id' => trim(filter_xss($item)),
       '#provider' => $provider,
+      '#source_pattern' => $source_pattern,
     );
    $build[$item] = $video;
   }
+  // If more than one video is being included, wrap them in a container.
   if (count($videos) > 1) {
     $build['#theme_wrappers'] = array('multiple_media_embed_wrapper');
     $build['#wrapper_attributes'] = array(
@@ -205,16 +208,10 @@ function _fsa_embed_media_replacement_callback($text = NULL) {
       )
     );
   }
+  // @todo Give other modules the opportunity to modify the render array here.
+  // Render the render array.
   $output = drupal_render($build);
   return $output;
-}
-
-
-/**
- * Stub theme function for media embeds - overridden for specific providers
- */
-function theme_media_embed($variables) {
-  return '<div>Test' . $variables['provider'] . '</div>';
 }
 
 
@@ -239,4 +236,42 @@ function template_preprocess_multiple_media_embed_wrapper(&$variables) {
   $wrapper_attributes = !empty($element['#wrapper_attributes']) ? $element['#wrapper_attributes'] : array();
   // Add wrapper attributes to the attributes array
   $variables['attributes_array'] += $wrapper_attributes;
+}
+
+
+/**
+ * Helper function: returns an array of media providers
+ */
+function _fsa_media_embed_providers() {
+  $providers = module_invoke_all('media_embed_providers');
+  return $providers;
+}
+
+
+/**
+ * Implements hook_media_embed_providers().
+ */
+function fsa_media_embed_media_embed_providers() {
+  return array(
+    'youtube' => array(
+      'name' => t('YouTube'),
+      'source_pattern' => 'https://www.youtube.com/embed/@media_id',
+    ),
+    'vimeo' => array(
+      'name' => t('Vimeo'),
+      'theme' => array(
+        'vimeo_embed' => array(
+          'template' => 'theme/vimeo-embed',
+          'variables' => array(
+            'media_id' => NULL,
+            'allow_fullscreen' => TRUE,
+          ),
+        ),
+      ),
+    ),
+    'ted' => array(
+      'name' => t('TED talks'),
+      'source_pattern' => 'https://embed-ssl.ted.com/talks/@media_id',
+    ),
+  );
 }
