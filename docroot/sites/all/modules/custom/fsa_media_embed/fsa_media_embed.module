@@ -49,12 +49,31 @@ function _fsa_media_embed_tokens($type, $tokens, array $data = array(), array $o
  */
 function fsa_media_embed_theme() {
   return array(
+    'multiple_media_embed_wrapper' => array(
+      'template' => 'theme/multiple-media-embed-wrapper',
+      'render element' => 'element',
+    ),
+    'media_embed' => array(
+      'variables' => array(
+        'provider' => 'youtube',
+        'media_id' => NULL,
+        'width' => NULL,
+        'height' => NULL,
+        'allow_fullscreen' => TRUE,
+      ),
+    ),
     'youtube_embed' => array(
       'template' => 'theme/youtube-embed',
       'variables' => array(
-        'youtube_id' => NULL,
-        'width' => 460,
-        'height' => 259,
+        'media_id' => NULL,
+        'allow_fullscreen' => TRUE,
+      ),
+    ),
+    'vimeo_embed' => array(
+      'template' => 'theme/vimeo-embed',
+      'variables' => array(
+        'media_id' => NULL,
+        'allow_fullscreen' => TRUE,
       ),
     ),
   );
@@ -81,19 +100,32 @@ function fsa_media_embed_preprocess_html(&$variables) {
  *   - 'width' : The width of the embedded video
  *   - 'height' : The height of the embedded video
  */
-function template_preprocess_youtube_embed(&$variables) {
-  $variables['iframe_attributes_array']['allowfullscreen'] = 'true';
+function template_preprocess_media_embed(&$variables) {
+
+  // Allow videos to be viewed full-screen - unless specified otherwise
+  $allow_fullscreen = isset($variables['allow_fullscreen']) ? $variables['allow_fullscreen'] : TRUE;
+  if ($allow_fullscreen) {
+    $variables['iframe_attributes_array']['allowfullscreen'] = 'true';
+    $variables['iframe_attributes_array']['webkitallowfullscreen'] = 'true';
+    $variables['iframe_attributes_array']['mozallowfullscreen'] = 'true';
+  }
+
+  // Set height and width attributes
   if (!empty($variables['width']) && !empty($variables['height'])) {
     $variables['iframe_attributes_array']['width'] = $variables['width'];
     $variables['iframe_attributes_array']['height'] = $variables['height'];
   }
+  $provider = !empty($variables['provider']) ? $variables['provider'] : 'youtube';
+  $variables['theme_hook_suggestions'][] = "${provider}_embed";
+  $variables['classes_array'] = !empty($variables['classes_array']) ? $variables['classes_array'] : array();
+  $variables['classes_array'][] = "${provider}-embed";
 }
 
 
 /**
  * Process function for YouTube video embeds.
  */
-function template_process_youtube_embed(&$variables) {
+function template_process_media_embed(&$variables) {
   // Add classes to the attributes array if not already present. This is
   // typically done by `omega_cleanup_attributes()`, but this function is not
   // always called during rendering.
@@ -124,10 +156,18 @@ function fsa_media_embed_filter_info() {
  * Filter process callback
  */
 function _fsa_embed_media_filter_media_embed($text, $filter, $format, $langcode, $cache, $cache_id) {
-  // Regex Pattern to match YouTube embeds
-  // @todo Make this more general to support other types - each with own
-  // callback - array?
-  $pattern = "/\[youtube:.*?\]/";
+
+  // Build a regex pattern to match different types of media embed
+  // @todo Enable these to be controlled via admin interface.
+  // @todo Use a hook to allow providers to add their own theme hooks etc
+  $providers = array(
+    'youtube' => t('YouTube'),
+    'vimeo' => t('Vimeo'),
+  );
+  $pattern = "/\[(";
+  $pattern .= implode('|', array_keys($providers));
+  $pattern .= "):.*?\]/";
+
   // Replace the embed shortcuts with the actual embed code
   $text = preg_replace_callback($pattern, '_fsa_embed_media_replacement_callback', $text);
   return $text;
@@ -144,26 +184,59 @@ function _fsa_embed_media_replacement_callback($text = NULL) {
   $output = '';
   $build = array();
   $pattern = "/\[([a-zA-Z0-9]+):(.*?)\]/";
-  $provider = preg_replace($pattern, '$1', $text);
+  $provider = trim(filter_xss(preg_replace($pattern, '$1', $text)));
   $identifier = preg_replace($pattern, '$2', $text);
   $videos = explode(',', $identifier);
   foreach ($videos as $item) {
     // Create a render array for the video
     $video = array(
-      '#theme' => 'youtube_embed',
-      '#youtube_id' => trim(filter_xss($item)),
+      '#theme' => 'media_embed',
+      '#media_id' => trim(filter_xss($item)),
+      '#provider' => $provider,
     );
    $build[$item] = $video;
   }
   if (count($videos) > 1) {
-    // @todo Create a mulitple-wrapper theme function/template to suppor
-    //   wrapper_attributes. It feels dirty to include markup here. It should be
-    //   properly themeable and more generic.
-    $build['#prefix'] = '<div class="youtube-embed-multiple">';
-    $build['#suffix'] = '</div>';
-    //$build['#theme_wrappers'] = array('container');
-    //$build['#wrapper_attributes'] = array('class' => 'youtube-embed-multiple');
+    $build['#theme_wrappers'] = array('multiple_media_embed_wrapper');
+    $build['#wrapper_attributes'] = array(
+      'class' => array(
+        'media-embed-multiple',
+        $provider . '-embed-multiple',
+      )
+    );
   }
   $output = drupal_render($build);
   return $output;
+}
+
+
+/**
+ * Stub theme function for media embeds - overridden for specific providers
+ */
+function theme_media_embed($variables) {
+  return '<div>Test' . $variables['provider'] . '</div>';
+}
+
+
+/**
+ * Implements hook_element_info().
+ */
+function fsa_media_embed_element_info() {
+  $types = array();
+  $types['multiple_media_embed_wrapper'] = array(
+    '#theme_wrappers' => array('multiple_media_embed_wrapper'),
+  );
+}
+
+
+/**
+ * Preprocess function for multiple media embed wrappers
+ */
+function template_preprocess_multiple_media_embed_wrapper(&$variables) {
+  // Get the child render element
+  $element = !empty($variables['element']) ? $variables['element'] : array();
+  // Get any wrapper attributes - if set
+  $wrapper_attributes = !empty($element['#wrapper_attributes']) ? $element['#wrapper_attributes'] : array();
+  // Add wrapper attributes to the attributes array
+  $variables['attributes_array'] += $wrapper_attributes;
 }

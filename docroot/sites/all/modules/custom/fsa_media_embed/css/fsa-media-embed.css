@@ -1,13 +1,12 @@
 .embed-wrapper {
   clear: both;
   padding: 2% 0; }
-  .embed-wrapper .youtube-embed {
+  .embed-wrapper .youtube-embed, .embed-wrapper .vimeo-embed {
     height: 0;
     padding-bottom: 56.25%;
     /* 16:9 */
-    padding-top: 25px;
     position: relative; }
-    .embed-wrapper .youtube-embed iframe {
+    .embed-wrapper .youtube-embed iframe, .embed-wrapper .vimeo-embed iframe {
       border: 0;
       height: 100%;
       left: 0;
@@ -15,16 +14,16 @@
       top: 0;
       width: 100%; }
 
-.youtube-embed-multiple h3 {
+.media-embed-multiple h3 {
   font-size: 14px;
   margin-top: 15px;
   margin-bottom: 7px; }
 @media screen and (min-width: 480px) {
-  .youtube-embed-multiple .embed-wrapper {
+  .media-embed-multiple .embed-wrapper {
     clear: none;
     float: left;
     width: 49%; }
-    .youtube-embed-multiple .embed-wrapper:nth-child(even) {
+    .media-embed-multiple .embed-wrapper:nth-child(even) {
       float: right; } }
 
 /*# sourceMappingURL=fsa-media-embed.css.map */
