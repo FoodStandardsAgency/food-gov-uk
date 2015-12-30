@@ -3,6 +3,16 @@
   clear: both;
   padding: 2% 0;
 
+  .media-embed-title {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: 0 0 5px 0;
+  }
+
+  .media-embed-caption {
+    margin: 5px 0 0 0;
+  }
+
   .youtube-embed, .vimeo-embed, .media-embed {
     height: 0;
     padding-bottom: 56.25%; /* 16:9 */
@@ -19,7 +29,7 @@
   }
 }
 
-.media-embed-multiple {
+.media-embed-multiple, .multiple-media-embed-wrapper {
 
   h3 {
     font-size: 14px;
