@@ -198,7 +198,7 @@ function _fsa_embed_media_replacement_callback($text = NULL) {
   $build = array();
   $pattern = "/\[([a-zA-Z0-9]+):(.*?)\]/";
   $pattern = "/(<p>)?\[([a-zA-Z0-9]+):(.*?)\](<\/p>)?/";
-  $provider = trim(filter_xss(preg_replace($pattern, '$2', $text)));
+  $provider = trim(check_plain(preg_replace($pattern, '$2', $text)));
   $source_pattern = !empty($providers[$provider]) && !empty($providers[$provider]['source_pattern']) ? $providers[$provider]['source_pattern'] : NULL;
   $identifier = preg_replace($pattern, '$3', $text);
   $videos = explode(',', $identifier);
@@ -206,7 +206,7 @@ function _fsa_embed_media_replacement_callback($text = NULL) {
     // Create a render array for the video
     $video = array(
       '#theme' => 'media_embed',
-      '#media_id' => trim(filter_xss($item)),
+      '#media_id' => trim(check_plain($item)),
       '#provider' => $provider,
       '#source_pattern' => $source_pattern,
     );
