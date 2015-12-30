@@ -4,43 +4,6 @@
  * Module code for the FSA media embed module.
  */
 
-/**
- * Implements hook_token_info().
- */
-function _fsa_media_embed_token_info() {
-  $type = array(
-    'name' => t('YouTube video embeds'),
-    'description' => t('Allows YouTube videos to be embedded via tokens.'),
-  );
-  $youtube['id'] = array(
-    'name' => t('Video ID'),
-    'description' => t('The ID of the video on YouTube'),
-  );
-  return array(
-    'types' => array('youtube' => $type),
-    'tokens' => array('youtube' => $youtube),
-  );
-}
-
-
-/**
- * Implements hook_tokens().
- */
-function _fsa_media_embed_tokens($type, $tokens, array $data = array(), array $options = array()) {
-
-  $replacements = array();
-
-  if ($type == 'youtube') {
-    foreach ($tokens as $name => $original) {
-      $video = array(
-        '#theme' => 'youtube_embed',
-        '#youtube_id' => filter_xss($name),
-      );
-      $replacements[$original] = drupal_render($video);
-    }
-  }
-  return $replacements;
-}
 
 /**
  * Implements hook_theme().
