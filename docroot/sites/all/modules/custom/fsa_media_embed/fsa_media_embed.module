@@ -201,6 +201,28 @@ function _fsa_embed_media_replacement_callback($text = NULL) {
 
 
 /**
+ * Multiple preg_replace callback.
+ */
+function _fsa_embed_media_replacement_callback_multiple($text) {
+  $original = is_array($text) && !empty($text[2]) ? $text[2] : NULL;
+  $build = array(
+    '#theme' => 'multiple_media_embed_wrapper',
+  );
+  $replacement = '';
+  if (empty($original)) {
+    return is_array($text) && !empty($text[0]) ? $text[0] : '';
+  }
+  $elements = explode('+', $original);
+  foreach ($elements as $element) {
+    $replacement .= "[" . trim($element) . "]\n";
+  }
+  $build['#children'] = $replacement;
+  $output = drupal_render($build);
+  return $output;
+}
+
+
+/**
  * Provides settings for the filter
  */
 function _fsa_embed_media_filter_settings($form, &$form_state, $filter, $format, $defaults) {
