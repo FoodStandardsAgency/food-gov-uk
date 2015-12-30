@@ -4,43 +4,6 @@
  * Module code for the FSA media embed module.
  */
 
-/**
- * Implements hook_token_info().
- */
-function _fsa_media_embed_token_info() {
-  $type = array(
-    'name' => t('YouTube video embeds'),
-    'description' => t('Allows YouTube videos to be embedded via tokens.'),
-  );
-  $youtube['id'] = array(
-    'name' => t('Video ID'),
-    'description' => t('The ID of the video on YouTube'),
-  );
-  return array(
-    'types' => array('youtube' => $type),
-    'tokens' => array('youtube' => $youtube),
-  );
-}
-
-
-/**
- * Implements hook_tokens().
- */
-function _fsa_media_embed_tokens($type, $tokens, array $data = array(), array $options = array()) {
-
-  $replacements = array();
-
-  if ($type == 'youtube') {
-    foreach ($tokens as $name => $original) {
-      $video = array(
-        '#theme' => 'youtube_embed',
-        '#youtube_id' => filter_xss($name),
-      );
-      $replacements[$original] = drupal_render($video);
-    }
-  }
-  return $replacements;
-}
 
 /**
  * Implements hook_theme().
@@ -62,6 +25,8 @@ function fsa_media_embed_theme() {
         'height' => NULL,
         'allow_fullscreen' => TRUE,
         'source_pattern' => NULL,
+        'title' => NULL,
+        'caption' => NULL,
       ),
     ),
   );
@@ -85,6 +50,9 @@ function fsa_media_embed_preprocess_html(&$variables) {
     return;
   }
   // Add our CSS file
+  // Due to field caching, we can't add the CSS file as #attached in the render
+  // array that we generate for the media embeds since these are processed and
+  // rendered at the wrong point in the process.
   drupal_add_css(drupal_get_path('module', 'fsa_media_embed') . '/css/fsa-media-embed.css');
 }
 
@@ -122,6 +90,9 @@ function template_preprocess_media_embed(&$variables) {
   $variables['theme_hook_suggestions'][] = "${provider}_embed";
   $variables['classes_array'] = !empty($variables['classes_array']) ? $variables['classes_array'] : array();
   $variables['classes_array'][] = "${provider}-embed";
+
+  $variables['title_attributes_array']['class'] = array('media-embed-title');
+
 }
 
 
@@ -176,9 +147,14 @@ function _fsa_embed_media_filter_media_embed($text, $filter, $format, $langcode,
     }
   }
   if (!empty($providers)) {
+    // First handle multiple embeds
+    $multiple_pattern = '/(<p>)?\[embed:\s*(.*)\](<\/p>)?/';
+    $text = preg_replace_callback($multiple_pattern, '_fsa_embed_media_replacement_callback_multiple', $text);
+
     $pattern = "/(<p>)?\[(";
     $pattern .= implode('|', $providers);
-    $pattern .= "):.*?\](<\/p>)?/";
+    //$pattern .= "):.*?\](<\/p>)?/";
+    $pattern .= "):([a-zA-Z0-9_ ,]*)(\|?)(.*?)\](<\/p>)?/";
     // Replace the embed shortcuts with the actual embed code
     $text = preg_replace_callback($pattern, '_fsa_embed_media_replacement_callback', $text);
   }
@@ -190,27 +166,50 @@ function _fsa_embed_media_filter_media_embed($text, $filter, $format, $langcode,
  * Helper function for preg_replace_callback().
  */
 function _fsa_embed_media_replacement_callback($text = NULL) {
+  $matches = $text;
   if (is_array($text)) {
     $text = $text[0];
   }
+  $provider = !empty($matches[2]) ? $matches[2] : NULL;
+  $identifier = !empty($matches[3]) ? $matches[3] : NULL;
+  $options = !empty($matches[5]) ? $matches[5] : NULL;
   $providers = _fsa_media_embed_providers();
-  $output = '';
-  $build = array();
-  $pattern = "/\[([a-zA-Z0-9]+):(.*?)\]/";
-  $pattern = "/(<p>)?\[([a-zA-Z0-9]+):(.*?)\](<\/p>)?/";
-  $provider = trim(filter_xss(preg_replace($pattern, '$2', $text)));
+  //  $output = '';
+  //  $build = array();
+  //  $pattern = "/\[([a-zA-Z0-9]+):(.*?)\]/";
+  //  $pattern = "/(<p>)?\[([a-zA-Z0-9]+):(.*?)\](<\/p>)?/";
+  //$provider = trim(check_plain(preg_replace($pattern, '$2', $text)));
   $source_pattern = !empty($providers[$provider]) && !empty($providers[$provider]['source_pattern']) ? $providers[$provider]['source_pattern'] : NULL;
-  $identifier = preg_replace($pattern, '$3', $text);
+  //  $identifier = preg_replace($pattern, '$3', $text);
+
+  $options = !empty($matches[5]) ? html_entity_decode($matches[5]) : NULL;
+  $options_pattern = '/([\w-]+)\s*=\s*"([^"]*)"(?:\s|$)|([\w-]+)\s*=\s*\'([^\']*)\'(?:\s|$)|([\w-]+)\s*=\s*([^\s\'"]+)(?:\s|$)|"([^"]*)"(?:\s|$)|(\S+)(?:\s|$)/';
+  preg_match_all($options_pattern, $options, $options_matches, PREG_SET_ORDER);
+  $options_array = array();
+  foreach ($options_matches as $option) {
+    $name = !empty($option[1]) ? $option[1] : NULL;
+    $value = !empty($option[2]) ? $option[2] : NULL;
+    if (!empty($name) && !empty($value)) {
+      $options_array[$name] = $value;
+    }
+  }
+
   $videos = explode(',', $identifier);
   foreach ($videos as $item) {
     // Create a render array for the video
     $video = array(
       '#theme' => 'media_embed',
-      '#media_id' => trim(filter_xss($item)),
+      '#media_id' => trim(check_plain($item)),
       '#provider' => $provider,
       '#source_pattern' => $source_pattern,
     );
-   $build[$item] = $video;
+    if (!empty($options_array['title'])) {
+      $video['#title'] = $options_array['title'];
+    }
+    if (!empty($options_array['caption'])) {
+      $video['#caption'] = $options_array['caption'];
+    }
+    $build[$item] = $video;
   }
   // If more than one video is being included, wrap them in a container.
   if (count($videos) > 1) {
@@ -224,6 +223,28 @@ function _fsa_embed_media_replacement_callback($text = NULL) {
   }
   // @todo Give other modules the opportunity to modify the render array here.
   // Render the render array.
+  $output = drupal_render($build);
+  return $output;
+}
+
+
+/**
+ * Multiple preg_replace callback.
+ */
+function _fsa_embed_media_replacement_callback_multiple($text) {
+  $original = is_array($text) && !empty($text[2]) ? $text[2] : NULL;
+  $build = array(
+    '#theme' => 'multiple_media_embed_wrapper',
+  );
+  $replacement = '';
+  if (empty($original)) {
+    return is_array($text) && !empty($text[0]) ? $text[0] : '';
+  }
+  $elements = explode('+', $original);
+  foreach ($elements as $element) {
+    $replacement .= "[" . trim($element) . "]\n";
+  }
+  $build['#children'] = $replacement;
   $output = drupal_render($build);
   return $output;
 }
@@ -274,6 +295,20 @@ function template_preprocess_multiple_media_embed_wrapper(&$variables) {
 
 
 /**
+ * Process function for multiple media embed wrappers
+ */
+function template_process_multiple_media_embed_wrapper(&$variables) {
+  // Add classes to the attributes array if not already present. This is
+  // typically done by `omega_cleanup_attributes()`, but this function is not
+  // always called during rendering.
+  if (empty($variables['attributes_array']['class']) && !empty($variables['classes_array'])) {
+    $variables['attributes_array']['class'] = $variables['classes_array'];
+    $variables['attributes'] = drupal_attributes($variables['attributes_array']);
+  }
+}
+
+
+/**
  * Helper function: returns an array of media providers
  */
 function _fsa_media_embed_providers() {
@@ -311,6 +346,10 @@ function fsa_media_embed_media_embed_providers() {
       'name' => t('Slideshare'),
       'source_pattern' => '//www.slideshare.net/slideshow/embed_code/key/@media_id',
     ),
+    'ustream' => array(
+      'name' => t('UStream'),
+      'source_pattern' => '//www.ustream.tv/embed/@media_id?html5ui',
+    ),
   );
 }
 
@@ -321,10 +360,18 @@ function fsa_media_embed_media_embed_providers() {
 function _fsa_embed_media_filter_tips($filter, $format, $long = FALSE) {
   $providers = _fsa_media_embed_providers();
   $enabled_providers = !empty($filter->settings['enabled_providers']) ? $filter->settings['enabled_providers'] : array();
+  // If we have no providers or enabled providers, return now.
+  if (empty($providers) || empty($enabled_providers)) {
+    return;
+  }
   foreach ($enabled_providers as $key => $enabled) {
     if (empty($enabled)) {
       unset($enabled_providers[$key]);
     }
+  }
+  // If no providers are enabled, return now.
+  if (count($enabled_providers) == 0) {
+    return;
   }
   $provider_names = array();
   foreach ($enabled_providers as $provider) {

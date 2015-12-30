@@ -1,6 +1,12 @@
 .embed-wrapper {
   clear: both;
   padding: 2% 0; }
+  .embed-wrapper .media-embed-title {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: 0 0 5px 0; }
+  .embed-wrapper .media-embed-caption {
+    margin: 5px 0 0 0; }
   .embed-wrapper .youtube-embed, .embed-wrapper .vimeo-embed, .embed-wrapper .media-embed {
     height: 0;
     padding-bottom: 56.25%;
@@ -14,16 +20,16 @@
       top: 0;
       width: 100%; }
 
-.media-embed-multiple h3 {
+.media-embed-multiple h3, .multiple-media-embed-wrapper h3 {
   font-size: 14px;
   margin-top: 15px;
   margin-bottom: 7px; }
 @media screen and (min-width: 480px) {
-  .media-embed-multiple .embed-wrapper {
+  .media-embed-multiple .embed-wrapper, .multiple-media-embed-wrapper .embed-wrapper {
     clear: none;
     float: left;
     width: 49%; }
-    .media-embed-multiple .embed-wrapper:nth-child(even) {
+    .media-embed-multiple .embed-wrapper:nth-child(even), .multiple-media-embed-wrapper .embed-wrapper:nth-child(even) {
       float: right; } }
 
 /*# sourceMappingURL=fsa-media-embed.css.map */
