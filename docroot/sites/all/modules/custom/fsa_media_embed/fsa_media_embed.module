@@ -50,6 +50,9 @@ function fsa_media_embed_preprocess_html(&$variables) {
     return;
   }
   // Add our CSS file
+  // Due to field caching, we can't add the CSS file as #attached in the render
+  // array that we generate for the media embeds since these are processed and
+  // rendered at the wrong point in the process.
   drupal_add_css(drupal_get_path('module', 'fsa_media_embed') . '/css/fsa-media-embed.css');
 }
 
