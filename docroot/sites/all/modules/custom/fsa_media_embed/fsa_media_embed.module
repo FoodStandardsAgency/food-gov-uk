@@ -321,10 +321,18 @@ function fsa_media_embed_media_embed_providers() {
 function _fsa_embed_media_filter_tips($filter, $format, $long = FALSE) {
   $providers = _fsa_media_embed_providers();
   $enabled_providers = !empty($filter->settings['enabled_providers']) ? $filter->settings['enabled_providers'] : array();
+  // If we have no providers or enabled providers, return now.
+  if (empty($providers) || empty($enabled_providers)) {
+    return;
+  }
   foreach ($enabled_providers as $key => $enabled) {
     if (empty($enabled)) {
       unset($enabled_providers[$key]);
     }
+  }
+  // If no providers are enabled, return now.
+  if (count($enabled_providers) == 0) {
+    return;
   }
   $provider_names = array();
   foreach ($enabled_providers as $provider) {
