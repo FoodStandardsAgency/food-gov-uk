@@ -245,6 +245,20 @@ function template_preprocess_multiple_media_embed_wrapper(&$variables) {
 
 
 /**
+ * Process function for multiple media embed wrappers
+ */
+function template_process_multiple_media_embed_wrapper(&$variables) {
+  // Add classes to the attributes array if not already present. This is
+  // typically done by `omega_cleanup_attributes()`, but this function is not
+  // always called during rendering.
+  if (empty($variables['attributes_array']['class']) && !empty($variables['classes_array'])) {
+    $variables['attributes_array']['class'] = $variables['classes_array'];
+    $variables['attributes'] = drupal_attributes($variables['attributes_array']);
+  }
+}
+
+
+/**
  * Helper function: returns an array of media providers
  */
 function _fsa_media_embed_providers() {
