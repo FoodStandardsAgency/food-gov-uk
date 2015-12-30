@@ -90,6 +90,9 @@ function template_preprocess_media_embed(&$variables) {
   $variables['theme_hook_suggestions'][] = "${provider}_embed";
   $variables['classes_array'] = !empty($variables['classes_array']) ? $variables['classes_array'] : array();
   $variables['classes_array'][] = "${provider}-embed";
+
+  $variables['title_attributes_array']['class'] = array('media-embed-title');
+
 }
 
 
