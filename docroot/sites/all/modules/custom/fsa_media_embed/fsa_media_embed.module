@@ -311,6 +311,10 @@ function fsa_media_embed_media_embed_providers() {
       'name' => t('Slideshare'),
       'source_pattern' => '//www.slideshare.net/slideshow/embed_code/key/@media_id',
     ),
+    'ustream' => array(
+      'name' => t('UStream'),
+      'source_pattern' => '//www.ustream.tv/embed/@media_id?html5ui',
+    ),
   );
 }
 
