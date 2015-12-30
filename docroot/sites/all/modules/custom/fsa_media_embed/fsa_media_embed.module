@@ -25,6 +25,8 @@ function fsa_media_embed_theme() {
         'height' => NULL,
         'allow_fullscreen' => TRUE,
         'source_pattern' => NULL,
+        'title' => NULL,
+        'caption' => NULL,
       ),
     ),
   );
