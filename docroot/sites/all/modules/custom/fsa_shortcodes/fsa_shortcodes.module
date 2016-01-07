@@ -1,0 +1,445 @@
+<?php
+/**
+ * @file
+ * Module code for the FSA Shortcodes module.
+ *
+ * This module provides shortcodes for use on the FSA website.
+ */
+
+
+/**
+ * Implements hook_shortcode_info().
+ */
+function fsa_shortcodes_shortcode_info() {
+  $shortcodes = array();
+
+  $shortcodes['multi-embed'] = array(
+    'title' => t('Multi-embed wrapper'),
+    'description' => t('Used for wrapping multiple embedded media such as videos'),
+    'process callback' => 'fsa_shortcodes_shortcode_multi_embed',
+    'tips callback' => 'fsa_shortcodes_shortcode_multi_embed_tip',
+  );
+
+  $shortcodes['video'] = array(
+    'title' => t('Embedded video'),
+    'description' => t('Embed videos from a variety of sources'),
+    'process callback' => 'fsa_shortcodes_shortcode_video',
+    'tips callback' => 'fsa_shortcodes_shortcode_video_tips',
+  );
+
+  $shortcodes['vimeo'] = array(
+    'title' => t('Vimeo videos'),
+    'description' => t('Embed videos from Vimeo'),
+    'process callback' => 'fsa_shortcodes_shortcode_vimeo',
+    'tips callback' => 'fsa_shortcodes_shortcode_vimeo_tips',
+  );
+
+  $shortcodes['youtube'] = array(
+    'title' => t('YouTube videos'),
+    'description' => t('Embed videos from YouTube'),
+    'process callback' => 'fsa_shortcodes_shortcode_youtube',
+    'tips callback' => 'fsa_shortcodes_shortcode_youtube_tips',
+  );
+
+  $shortcodes['ted'] = array(
+    'title' => t('TED videos'),
+    'description' => t('Embed videos from TED'),
+    'process callback' => 'fsa_shortcodes_shortcode_ted',
+    'tips callback' => 'fsa_shortcodes_shortcode_ted_tips',
+  );
+
+  $shortcodes['dailymotion'] = array(
+    'title' => t('DailyMotion videos'),
+    'description' => t('Embed video content from DailyMotion'),
+    'process callback' => 'fsa_shortcodes_shortcode_dailymotion',
+    'tips callback' => 'fsa_shortcodes_shortcode_dailymotion_tips',
+  );
+
+  return $shortcodes;
+}
+
+
+/**
+ * Process callback for embed wrapper shortcode
+ */
+function fsa_shortcodes_shortcode_multi_embed($attrs, $text) {
+  $build = array(
+    '#theme' => 'multiple_media_embed_wrapper',
+    '#children' => $text,
+  );
+  return drupal_render($build);
+}
+
+
+/**
+ * Process callback for generic videos
+ */
+function fsa_shortcodes_shortcode_video($attrs, $text) {
+
+  // Remove the / element from the $attrs array - if present
+  $attrs = is_array($attrs) ? array_diff($attrs, array('/')) : array();
+
+  // If we have no attributes, set an error.
+  if (empty($attrs)) {
+    $attrs = array(
+      'error' => array(
+        '#theme' => 'media_embed_error',
+      ),
+    );
+  }
+
+  foreach ($attrs as $key => $value) {
+    if (is_numeric($key) && $value != '/') {
+      $attrs['id'] = $value;
+    }
+  }
+
+  $attrs = shortcode_attrs(
+    array(
+      'id' => 0,
+      'title' => NULL,
+      'caption' => NULL,
+      'provider' => 'youtube',
+      'error' => NULL,
+    ),
+    $attrs
+  );
+  $callback = 'fsa_shortcodes_shortcode_' . $attrs['provider'];
+
+  if (is_callable($callback)) {
+    return call_user_func_array($callback, array($attrs, $text));
+  }
+
+}
+
+
+/**
+ * Process callback for Vimeo videos
+ */
+function fsa_shortcodes_shortcode_vimeo($attrs, $text) {
+
+  foreach ($attrs as $key => $value) {
+    if (is_numeric($key) && preg_match("/[0-9]+/", $value)) {
+      $attrs['id'] = $value;
+    }
+  }
+
+  // Try to extract a Vimeo video ID from a URL
+  // This should work with URLs of the following forms:
+  // 1. https://vimeo.com/149066287
+  // 2. https://player.vimeo.com/video/149066287
+  $pattern = '!(http)?(s)?(://)(www\.)?(player\.)?vimeo\.com\/(video/)?(.*)!';
+  $attrs['id'] = preg_replace($pattern, '$7', $attrs['id']);
+
+  $attrs = shortcode_attrs(
+    array(
+      'id' => 0,
+      'title' => NULL,
+      'caption' => NULL,
+    ),
+    $attrs
+  );
+
+  $source_pattern = '//player.vimeo.com/video/@media_id';
+  return _fsa_shortcodes_embed_media('vimeo', $attrs['id'], $source_pattern, $attrs, $text);
+}
+
+
+/**
+ * Process callback for YouTube videos
+ */
+function fsa_shortcodes_shortcode_youtube($attrs, $text) {
+
+  $url = '';
+
+  foreach ($attrs as $key => $value) {
+    if (is_numeric($key) && $value != '/') {
+      $url = $value;
+    }
+  }
+
+  // Try to extract a YouTube video ID from a URL
+  // This should work with URLs of the following forms:
+  // 1. https://www.youtube.com/embed/kb58NbiVFXE
+  // 2. https://www.youtube.com/watch?v=kb58NbiVFXE
+  // 3. https://youtu.be/kb58NbiVFXE
+  if (!empty($url)) {
+    $attrs['id'] = preg_replace('@^(http)?s?(://)?(www\.)?(youtu)\.?(be)(\.com)?/(embed/|watch\?v=)?(.*)$@', '$8', $url);
+  }
+
+  $attrs = shortcode_attrs(
+    array(
+      'id' => 0,
+      'title' => NULL,
+      'caption' => NULL,
+      'error' => NULL,
+    ),
+    $attrs
+  );
+  $source_pattern = '//www.youtube.com/embed/@media_id';
+  return _fsa_shortcodes_embed_media('youtube', $attrs['id'], $source_pattern, $attrs, $text);
+}
+
+
+/**
+ * Process callback for DailyMotion videos
+ */
+function fsa_shortcodes_shortcode_dailymotion($attrs, $text) {
+  $attrs = shortcode_attrs(
+    array(
+      'id' => 0,
+      'title' => NULL,
+      'caption' => NULL,
+    ),
+    $attrs
+  );
+  $source_pattern = '//www.dailymotion.com/embed/video/@media_id';
+  return _fsa_shortcodes_embed_media('youtube', $attrs['id'], $source_pattern, $attrs, $text);
+}
+
+
+/**
+ * Process callback for TED videos
+ */
+function fsa_shortcodes_shortcode_ted($attrs, $text) {
+
+  $url = '';
+
+  foreach ($attrs as $key => $value) {
+    if (is_numeric($key) && $value != '/') {
+      $url = $value;
+    }
+  }
+
+  // Try to extract a TED video ID from a URL
+  // This should work with URLs of the following forms:
+  //
+  if (!empty($url)) {
+    $attrs['id'] = preg_replace('@^(http)?(s)?(://)?(www\.)?(embed-ssl|www)\.ted\.com/talks/(.*)$@', '$6', $url);
+  }
+
+  foreach ($attrs as $key => $value) {
+    if (is_numeric($key) && preg_match("/[0-9]+/", $value)) {
+      $attrs['id'] = $value;
+    }
+  }
+
+  $attrs = shortcode_attrs(
+    array(
+      'id' => 0,
+      'title' => NULL,
+      'caption' => NULL,
+    ),
+    $attrs
+  );
+
+  $source_pattern = '//embed-ssl.ted.com/talks/@media_id';
+  return _fsa_shortcodes_embed_media('ted', $attrs['id'], $source_pattern, $attrs, $text);
+}
+
+
+/**
+ * Helper function - renders a media embed
+ */
+function _fsa_shortcodes_embed_media($provider, $media_id, $source_pattern, $attrs = array(), $text = NULL) {
+  $title = !empty($attrs['title']) ? $attrs['title'] : NULL;
+  $title = !empty($text) ? $text : $title;
+
+  $build = array(
+    '#theme' => 'media_embed',
+    '#provider' => $provider,
+    '#media_id' => $media_id,
+    '#source_pattern' => $source_pattern,
+    '#title' => $title,
+    '#caption' => !empty($attrs['caption']) ? $attrs['caption'] : NULL,
+    '#error' => !empty($attrs['error']) ? $attrs['error'] : NULL,
+  );
+  return drupal_render($build);
+}
+
+/**
+ * Implements hook_theme().
+ * @return array
+ *   Theme hooks defined by this module.
+ */
+function fsa_shortcodes_theme() {
+  $items = array(
+    'multiple_media_embed_wrapper' => array(
+      'template' => 'theme/multiple-media-embed-wrapper',
+      'render element' => 'element',
+    ),
+    'media_embed' => array(
+      'template' => 'theme/media-embed',
+      'variables' => array(
+        'provider' => 'youtube',
+        'media_id' => NULL,
+        'width' => NULL,
+        'height' => NULL,
+        'allow_fullscreen' => TRUE,
+        'source_pattern' => NULL,
+        'title' => NULL,
+        'caption' => NULL,
+        'error' => NULL,
+      ),
+    ),
+    'media_embed_error' => array(
+      'variables' => array(),
+    ),
+  );
+  return $items;
+}
+
+
+/**
+ * Implements template_preprocess_html().
+ */
+function fsa_shortcodes_preprocess_html(&$variables) {
+  // Don't affect admin paths.
+  if (path_is_admin(current_path())) {
+    return;
+  }
+  // Add our CSS file
+  // Due to field caching, we can't add the CSS file as #attached in the render
+  // array that we generate for the media embeds since these are processed and
+  // rendered at the wrong point in the process.
+  drupal_add_css(drupal_get_path('module', 'fsa_shortcodes') . '/css/fsa-shortcodes.css');
+}
+
+
+/**
+ * Preprocess function for YouTube video embeds.
+ *
+ * @param array $variables
+ *   Template variables, passed by reference. Includes:
+ *   - 'youtube_id' : The ID of the YouTube video to embed
+ *   - 'width' : The width of the embedded video
+ *   - 'height' : The height of the embedded video
+ */
+function template_preprocess_media_embed(&$variables) {
+
+  // Allow videos to be viewed full-screen - unless specified otherwise
+  $allow_fullscreen = isset($variables['allow_fullscreen']) ? $variables['allow_fullscreen'] : TRUE;
+  if ($allow_fullscreen) {
+    $variables['iframe_attributes_array']['allowfullscreen'] = 'allowfullscreen';
+    //$variables['iframe_attributes_array']['webkitallowfullscreen'] = 'true';
+    //$variables['iframe_attributes_array']['mozallowfullscreen'] = 'true';
+  }
+
+  // Populate the source
+  if (!empty($variables['source_pattern']) && !empty($variables['media_id'])) {
+    $source = format_string($variables['source_pattern'], array('@media_id' => $variables['media_id']));
+    $variables['iframe_attributes_array']['src'] = $source;
+  }
+
+  // Set height and width attributes
+  if (!empty($variables['width']) && !empty($variables['height'])) {
+    $variables['iframe_attributes_array']['width'] = $variables['width'];
+    $variables['iframe_attributes_array']['height'] = $variables['height'];
+  }
+  $provider = !empty($variables['provider']) ? $variables['provider'] : 'youtube';
+  $variables['theme_hook_suggestions'][] = "${provider}_embed";
+  $variables['classes_array'] = !empty($variables['classes_array']) ? $variables['classes_array'] : array();
+  $variables['classes_array'][] = "${provider}-embed";
+
+  if (!empty($variables['error'])) {
+    $variables['classes_array'][] = 'media-embed-error';
+    $variables['classes_array'][] = "${provider}-error";
+  }
+
+  $variables['title_attributes_array']['class'] = array('media-embed-title');
+
+}
+
+
+/**
+ * Process function for YouTube video embeds.
+ */
+function template_process_media_embed(&$variables) {
+  // Add classes to the attributes array if not already present. This is
+  // typically done by `omega_cleanup_attributes()`, but this function is not
+  // always called during rendering.
+  if (empty($variables['attributes_array']['class']) && !empty($variables['classes_array'])) {
+    $variables['attributes_array']['class'] = $variables['classes_array'];
+    $variables['attributes'] = drupal_attributes($variables['attributes_array']);
+  }
+  // Flatten the iframe_attributes array.
+  $variables['iframe_attributes'] = drupal_attributes($variables['iframe_attributes_array']);
+}
+
+
+/**
+ * Preprocess function for multiple media embed wrappers
+ */
+function template_preprocess_multiple_media_embed_wrapper(&$variables) {
+  // Get the child render element
+  $element = !empty($variables['element']) ? $variables['element'] : array();
+  // Get any wrapper attributes - if set
+  $wrapper_attributes = !empty($element['#wrapper_attributes']) ? $element['#wrapper_attributes'] : array();
+  // Add wrapper attributes to the attributes array
+  $variables['attributes_array'] += $wrapper_attributes;
+}
+
+
+/**
+ * Process function for multiple media embed wrappers
+ */
+function template_process_multiple_media_embed_wrapper(&$variables) {
+  // Add classes to the attributes array if not already present. This is
+  // typically done by `omega_cleanup_attributes()`, but this function is not
+  // always called during rendering.
+  if (empty($variables['attributes_array']['class']) && !empty($variables['classes_array'])) {
+    $variables['attributes_array']['class'] = $variables['classes_array'];
+    $variables['attributes'] = drupal_attributes($variables['attributes_array']);
+  }
+}
+
+
+/**
+ * Implements hook_filter_info().
+ */
+function fsa_shortcodes_filter_info() {
+  $filters['shortcode_preprocess'] = array(
+    'title' => t('Shortcode preprocess'),
+    'description' => t('Cleans up text prior to parsing for WordPress-style shortcodes.'),
+    'process callback' => '_fsa_shortcodes_shortcode_preprocess',
+    //'settings callback' => '_shortcode_settings_form',
+    //'tips callback' => '_shortcode_filter_tips',
+  );
+
+  return $filters;
+}
+
+
+/**
+ * Shortcode preprocessor
+ */
+function _fsa_shortcodes_shortcode_preprocess($text, $filter) {
+  $patterns = array(
+    '!\[.*?<a.*?/\]">.*?/\]</a>!',
+    '/\[.*?\]/',
+  );
+  $text = preg_replace_callback($patterns, '_fsa_shortcodes_shortcode_preprocess_callback', $text);
+
+  return $text;
+}
+
+
+/**
+ * Replacement callback
+ */
+function _fsa_shortcodes_shortcode_preprocess_callback($matches) {
+  $shortcode = !empty($matches[0]) ? $matches[0] : '';
+  // First, get rid of any &nbsp; entities. They break shortcodes.
+  $shortcode = str_replace('&nbsp;', ' ', $shortcode);
+  // Now remove any link elements that have been inserted by the WYSIWYG editor
+  $shortcode = preg_replace('!<a href="(.*)">.*</a>!', '$1', $shortcode);
+  return $shortcode;
+}
+
+
+/**
+ * Theme function for media embed errors
+ */
+function theme_media_embed_error(&$variables) {
+  return '<div class="embed-error">' . t('Sorry, an error ocurred displaying this media.') . '</div>';
+}
