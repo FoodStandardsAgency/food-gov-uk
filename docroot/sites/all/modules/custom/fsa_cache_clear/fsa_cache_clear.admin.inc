@@ -247,7 +247,7 @@ function fsa_cache_clear_purge_form($form, &$form_state) {
 function fsa_cache_clear_purge_form_submit($form, &$form_state) {
   $form_state['rebuild'] = TRUE;
   
-  $url = !empty($form_state['values']['url']) ? $form_state['values']['url'] : NULL;
+  $url = !empty($form_state['values']['url']) ? drupal_encode_path($form_state['values']['url']) : NULL;
   
   if (empty($url)) {
     drupal_set_message('No URL supplied', 'error');
@@ -263,6 +263,7 @@ function fsa_cache_clear_purge_form_submit($form, &$form_state) {
   
   if (!empty($caches_to_clear['cloudflare'])) {
     _fsa_cache_clear_cloudflare_queue_url($url, _fsa_cache_clear_get_object_type_from_path($url), FALSE);
+    // @todo Let the user know if any problems occurred.
     drupal_set_message(t('CloudFlare cache cleared for @url', array('@url' => $url)));
   }
   
@@ -353,7 +354,7 @@ function _fsa_cache_clear_view_cloudflare_queue() {
     $stats = array(
       '#type' => 'html_tag',
       '#tag' => 'p',
-      '#value' => t('There are currently @total items in the queue. Each time cron runs, @cron_count items will be processed from the queue.', array('@total' => count($rows), '@cron_count' => $cron_count)),
+      '#value' => t('There are currently @total items in the queue. Each time <a href="@cron_link">cron</a> runs, @cron_count items will be processed from the queue.', array('@total' => count($rows), '@cron_count' => $cron_count, '@cron_link' => url('admin/config/system/cron'))),
     );
   }
 

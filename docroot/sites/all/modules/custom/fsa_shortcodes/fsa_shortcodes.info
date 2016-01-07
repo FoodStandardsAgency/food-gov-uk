@@ -1,0 +1,6 @@
+name = FSA Shortcodes
+description = Provides various FSA-specific shortcodes for use with the Shortcodes module
+package = Shortcode
+core = 7.x
+dependencies[] = filter
+dependencies[] = shortcode
