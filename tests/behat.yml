@@ -1,71 +1,53 @@
 default:
-  paths:
-    features: features
-    bootstrap: %behat.paths.features%/bootstrap
-  context:
-    class: Drupal\DrupalExtension\Context\Tag1Context
-    parameters:
-       drupal_users:
-        editor:
-          Test/password
-        admin:
-          Tharg/V@&GJRxRQt#N7B5
-        mail:
-          test@codepositive.com/guWranujUnkot8/gmail.com/imap.gmail.com:993
-       authentication:
-          username: "shield"
-          password: "down"
+  suites:
+    default:
+      contexts:
+        - FeatureContext:
+            drupal_users:
+              editor: 'Tharg/V@&GJRxRQt#N7B5'
+              admin: 'Tharg/V@&GJRxRQt#N7B5'
   extensions:
-    Behat\MinkExtension\Extension:
-    #  browser_name: 'chrome'
-      goutte: ~
-      selenium2: ~
-    Drupal\DrupalExtension\Extension:
-        blackbox: ~
-        region_map:
-          Menu: "#block-superfish-1"  
-          Nations menu: "#block-menu-block-3"
-          Footer main menu: "#block-menu-block-15"
-          Footer buttons menu: "#block-menu-block-22"
-          Log In: "#edit-actions"
-          Page Title: "#branding"
-          Drupal Menu: "#admin-menu-wrapper"
-          Submit: "#edit-actions"
-          Left Sidebar: ".l-sidebar-first"
-          Right Sidebar: ".l-sidebar-second"
-          Quote: ".field--name-field-fc-section-quote"
-          News Block News & Updates: "#block-views-news-block"     
-          News Block Business & industry: "#block-views-news-block-2"           
-          News Block Enforcement & regulation: "#block-views-news-block-3"           
-          News Block Science & policy: "#block-views-news-block-4"           
-          News Block About us: "#block-views-news-block-5" 
-          News Block Wales: "#block-views-nation-news-block"
-          News Block Northern Ireland: "#block-views-nation-news-block-1"
-          News Block Scotland: "#block-views-nation-news-block-2"
-          Block in Block: "#block-container-blocks-search-all-news-facets"     
-          Resources Block: "#block-views-resources-block" 
-          Current topics Block: "#block-views-current-topics-block"          
-          Wales Banner: "#block-nation-banners-wales-banner"          
-          Scotland Banner: "#block-nation-banners-scotland-banner"
-          Northern Ireland Banner: "#block-nation-banners-northern-ireland-banner"
-          Back to top: ".section-back-top"
-          Final research report block: "#block-views-foodbase-links-block"
-          Book parent title: ".book-parent-title"
-          Book section title: ".book-section-title"
-          Book page title: "#page-title"
-          Hygiene ratings block: "#block-block-2"
-          Nations block: "#block-block-3"
-          Business and industry block: "#block-views-bc19aa51ea77511ddea86d9bba825fe5"
-          Enforcement and regulation block: "#block-views-13a2955a6d4897842062d0c1dfba0a3e"
-          Science and research block: "#block-views-83a0284222088593efb39f55c1bb9147"
-          See also block: "#block-views-see-also-links-block"
-          External links block: "#block-views-external-links-block"
-annotations:
-  paths:
-    features: features/annotations
-
-closures:
-  paths:
-    features: features/closures
-
-
+    Behat\MinkExtension:
+      base_url: http://dev.food.gov.uk:8000
+      selenium2:
+        wd_host: http://fsaenaa12.miniserver.com:4444/wd/hub
+    Drupal\DrupalExtension:
+      blackbox: ~
+      region_map:
+        Menu: "#block-superfish-1"
+        Nations menu: "#block-menu-block-3"
+        Footer main menu: "#block-menu-block-15"
+        Footer buttons menu: "#block-menu-block-22"
+        Log In: "#edit-actions"
+        Page Title: "#branding"
+        Drupal Menu: "#admin-menu-wrapper"
+        Submit: "#edit-actions"
+        Left Sidebar: ".l-sidebar-first"
+        Right Sidebar: ".l-sidebar-second"
+        Quote: ".field--name-field-fc-section-quote"
+        News Block News & Updates: "#block-views-news-block"
+        News Block Business & industry: "#block-views-news-block-2"
+        News Block Enforcement & regulation: "#block-views-news-block-3"
+        News Block Science & policy: "#block-views-news-block-4"
+        News Block About us: "#block-views-news-block-5"
+        News Block Wales: "#block-views-nation-news-block"
+        News Block Northern Ireland: "#block-views-nation-news-block-1"
+        News Block Scotland: "#block-views-nation-news-block-2"
+        Block in Block: "#block-container-blocks-search-all-news-facets"
+        Resources Block: "#block-views-resources-block"
+        Current topics Block: "#block-views-current-topics-block"
+        Wales Banner: "#block-nation-banners-wales-banner"
+        Scotland Banner: "#block-nation-banners-scotland-banner"
+        Northern Ireland Banner: "#block-nation-banners-northern-ireland-banner"
+        Back to top: ".section-back-top"
+        Final research report block: "#block-views-foodbase-links-block"
+        Book parent title: ".book-parent-title"
+        Book section title: ".book-section-title"
+        Book page title: "#page-title"
+        Hygiene ratings block: "#block-block-2"
+        Nations block: "#block-block-3"
+        Business and industry block: "#block-views-bc19aa51ea77511ddea86d9bba825fe5"
+        Enforcement and regulation block: "#block-views-13a2955a6d4897842062d0c1dfba0a3e"
+        Science and research block: "#block-views-83a0284222088593efb39f55c1bb9147"
+        See also block: "#block-views-see-also-links-block"
+        External links block: "#block-views-external-links-block"

@@ -1,0 +1,168 @@
+<?php
+/**
+ * @file
+ * Module code for the FSA Search spellcheck module.
+ *
+ * Provides spelling suggestions for site search queries.
+ */
+
+
+/**
+ * Implements hook_block_info().
+ */
+function fsa_search_spellcheck_block_info() {
+  $blocks = array();
+  $blocks['search_spelling_suggestions'] = array(
+    'info' => t('Search spelling suggestions'),
+  );
+  return $blocks;
+}
+
+
+/**
+ * Implements hook_block_view().
+ */
+function fsa_search_spellcheck_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+    case 'search_spelling_suggestions':
+      $block['subject'] = NULL;
+      $block['content'] = array(
+        '#theme' => 'search_spelling_suggestions',
+        '#keyword' => $_GET['keyword'],
+        '#original_query' => !empty($_GET['original_query']) ? $_GET['original_query'] : NULL,
+        '#attached' => array(
+          'css' => array(
+            drupal_get_path('module', 'fsa_search_spellcheck') . "/css/search-spelling-suggestions.css",
+          ),
+        ),
+      );
+      break;
+  }
+  return $block;
+}
+
+
+/**
+ * Implements hook_theme().
+ */
+function fsa_search_spellcheck_theme() {
+  return array(
+    'search_spelling_suggestions' => array(
+      'template' => 'theme/search-spelling-suggestions',
+      'variables' => array(
+        'keyword' => '',
+        'original_query' => NULL,
+      ),
+    ),
+  );
+}
+
+
+/**
+ * Preprocess function for spelling suggestions block
+ */
+function template_preprocess_search_spelling_suggestions(&$variables) {
+  $variables['show_suggestions'] = !empty($variables['original_query']);
+  $variables['original_query_link'] = !empty($variables['original_query']) ? url('search', array('query' => array('keyword' => $variables['original_query']))) : NULL;
+}
+
+
+/**
+ * Implements hook_form_alter().
+ */
+function fsa_search_spellcheck_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id != 'search_block_form') {
+    return;
+  }
+
+  // First, replace the custom search submit handler for the global site search
+  // form with our new version. We'll incorporate its functionality
+  // here, but we don't want to execute its drupal_goto() implementation.
+  if (!empty($form['#submit']) && is_array($form['#submit'])) {
+    foreach ($form['#submit'] as $key => $handler) {
+      if ($handler == 'apachesolr_custom_search_form_submit_funtion') {
+        $form['#submit'][$key] = 'fsa_search_spellcheck_search_form_submit';
+      }
+    }
+  }
+}
+
+
+/**
+ * Custom submit function for the global site search form.
+ */
+function fsa_search_spellcheck_search_form_submit(&$form, &$form_state) {
+  $original_query = $form_state['values']['search_block_form'];
+  $form_state['rebuild'] = TRUE;
+  $search_str = fsa_search_spellcheck_check_spelling($original_query);
+  $options = array(
+    'query' => array(
+      'keyword' => $search_str,
+    ),
+  );
+  if ($search_str != $original_query) {
+    $options['query']['original_query'] = $original_query;
+  }
+  drupal_goto('search', $options);
+}
+
+
+/**
+ * Check spelling of search query terms
+ */
+ function fsa_search_spellcheck_check_spelling($keyword = NULL) {
+    try {
+      // Get the default solr environment
+      $env_id = apachesolr_default_environment();
+      // Get the solr environment
+      $solr = apachesolr_get_solr($env_id);
+      // Create a new SolrBaseQuery
+      $query = new SolrBaseQuery('spellcheck', $solr);
+      // Add solr parameters for the spelling check
+      $query->addParam('qt', '/spell');
+      $query->removeParam('fq');
+      $query->addParam('spellcheck.q', $keyword);
+      $query->addParam('spellcheck', 'true');
+      $query->addParam('spellcheck.onlyMorePopular', 'true');
+      $query->addParam('spellcheck.extendedResults', 'true');
+      $query->addParam('spellcheck.collate', 'true');
+      // Execute the query
+      list($final_query, $response) = apachesolr_do_query($query);
+      // If we have spelling collations, return them; otherwise, return the
+      // original query.
+      return !empty($response->spellcheck->suggestions->collation) ? $response->spellcheck->suggestions->collation : $keyword;
+    }
+    // Catch any exceptions and return the original query.
+    catch (Exception $e) {
+      return $keyword;
+    }
+  }
+
+/**
+ * Implements hook_facetapi_searcher_info_alter().
+ * @param array $searcher_info
+ */
+function fsa_search_spellcheck_facetapi_searcher_info_alter(array &$searcher_info) {
+  foreach ($searcher_info as &$info) {
+    // Activate custom URL processor.
+    $id = 'exposed_facets_searcher_' . $info['name'];
+    $info['url processor'] = 'fsa_exposed_facets';
+  }
+}
+
+
+/**
+ * Implements hook_facetapi_url_processors().
+ */
+function fsa_search_spellcheck_facetapi_url_processors() {
+  return array(
+    'fsa_exposed_facets' => array(
+      'handler' => array(
+        'label' => t('Custom URL processor'),
+        'class' => 'FsaFacetapiUrlProcessorExposedFacets',
+      ),
+    ),
+  );
+}

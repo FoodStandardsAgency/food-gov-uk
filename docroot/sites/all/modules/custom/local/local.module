@@ -456,5 +456,4 @@ function local_national_archives_site_url_alter(&$site_url, &$url) {
       $url = str_replace("$path/", NATIONAL_ARCHIVES_PSEUDO_PROTOCOL, $temp_path);
     }
   }
-
 }

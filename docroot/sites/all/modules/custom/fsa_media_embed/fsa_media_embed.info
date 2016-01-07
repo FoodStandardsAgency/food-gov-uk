@@ -1,0 +1,4 @@
+name=FSA Media embed module
+description="Allows easy embedding of media such as YouTube videos using tokens"
+core=7.x
+package=FSA Custom
