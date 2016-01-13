@@ -108,6 +108,7 @@ function fsa_shortcodes_shortcode_video($attrs, $text) {
       'caption' => NULL,
       'provider' => 'youtube',
       'error' => NULL,
+      'iframe_title' => NULL,
     ),
     $attrs
   );
@@ -131,6 +132,7 @@ function fsa_shortcodes_shortcode_vimeo($attrs, $text) {
     'title' => NULL,
     'caption' => NULL,
     'error' => NULL,
+    'iframe_title' => NULL,
   );
 
   // If we don't already have an explicitly set ID, we look for the first
@@ -164,6 +166,7 @@ function fsa_shortcodes_shortcode_youtube($attrs, $text) {
     'title' => NULL,
     'caption' => NULL,
     'error' => NULL,
+    'iframe_title' => NULL,
   );
 
   // If we don't already have an explicitly set ID, we look for the first
@@ -214,6 +217,7 @@ function fsa_shortcodes_shortcode_ted($attrs, $text) {
     'title' => NULL,
     'caption' => NULL,
     'error' => NULL,
+    'iframe_title' => NULL,
   );
 
   // If we don't already have an explicitly set ID, we look for the first
@@ -253,6 +257,7 @@ function fsa_shortcodes_shortcode_ted($attrs, $text) {
 function _fsa_shortcodes_embed_media($provider, $media_id, $source_pattern, $attrs = array(), $text = NULL) {
   $title = !empty($attrs['title']) ? $attrs['title'] : NULL;
   $title = !empty($text) ? $text : $title;
+  $iframe_title = !empty($attrs['iframe_title']) ? $attrs['iframe_title'] : $title;
 
   $build = array(
     '#theme' => 'media_embed',
@@ -262,6 +267,7 @@ function _fsa_shortcodes_embed_media($provider, $media_id, $source_pattern, $att
     '#title' => $title,
     '#caption' => !empty($attrs['caption']) ? $attrs['caption'] : NULL,
     '#error' => !empty($attrs['error']) ? $attrs['error'] : NULL,
+    '#iframe_title' => $iframe_title,
   );
   return drupal_render($build);
 }
@@ -289,6 +295,7 @@ function fsa_shortcodes_theme() {
         'title' => NULL,
         'caption' => NULL,
         'error' => NULL,
+        'iframe_title' => NULL,
       ),
     ),
     'media_embed_error' => array(
@@ -345,13 +352,18 @@ function template_preprocess_media_embed(&$variables) {
       '#theme' => 'media_embed_error',
     );
   }
+  $provider = !empty($variables['provider']) ? $variables['provider'] : 'youtube';
+  
+  // Set the title attribute for the iframe
+  $iframe_title = !empty($variables['iframe_title']) ? $variables['iframe_title'] : $variables['title'];
+  
+  $variables['iframe_attributes_array']['title'] = !empty($iframe_title) ? $iframe_title : t('Embedded content from @provider', array('@provider' => _fsa_shortcodes_provider_name($provider)));
 
   // Set height and width attributes
   if (!empty($variables['width']) && !empty($variables['height'])) {
     $variables['iframe_attributes_array']['width'] = $variables['width'];
     $variables['iframe_attributes_array']['height'] = $variables['height'];
   }
-  $provider = !empty($variables['provider']) ? $variables['provider'] : 'youtube';
   $variables['theme_hook_suggestions'][] = "${provider}_embed";
   $variables['classes_array'] = !empty($variables['classes_array']) ? $variables['classes_array'] : array();
   $variables['classes_array'][] = "${provider}-embed";
@@ -471,6 +483,7 @@ function fsa_shortcodes_shortcode_slideshare($attrs, $text) {
     'title' => NULL,
     'caption' => NULL,
     'error' => NULL,
+    'iframe_title' => NULL,
   );
 
   // If we don't already have an explicitly set ID, we look for the first
@@ -486,9 +499,33 @@ function fsa_shortcodes_shortcode_slideshare($attrs, $text) {
       }
     }
   }
-  
+
   $attrs = shortcode_attrs($defaults, $attrs);
 
   $source_pattern = '//www.slideshare.net/slideshow/embed_code/key/@media_id';
-  return _fsa_shortcodes_embed_media('vimeo', $attrs['id'], $source_pattern, $attrs, $text);
+  return _fsa_shortcodes_embed_media('slideshare', $attrs['id'], $source_pattern, $attrs, $text);
+}
+
+
+/**
+ * Helper function: returns a human-friendly provider name - if available
+ *
+ * @param string $provider
+ *   The machine name of the provider, eg 'youtube'
+ *
+ * @return string
+ *   The human-friendly name of the provider - if available. Otherwise the
+ *   original value of $provider
+ */
+function _fsa_shortcodes_provider_name($provider = '') {
+  $providers = array(
+    'youtube' => t('YouTube'),
+    'ted' => t('TED Talks'),
+    'vimeo' => t('Vimeo'),
+    'slideshare' => t('SlideShare'),
+  );
+  if (!empty($provider) && isset($providers[$provider])) {
+    $provider = $providers[$provider];
+  }
+  return $provider;
 }
