@@ -118,27 +118,28 @@ function fsa_shortcodes_shortcode_video($attrs, $text) {
  */
 function fsa_shortcodes_shortcode_vimeo($attrs, $text) {
 
-  foreach ($attrs as $key => $value) {
-    if (is_numeric($key) && preg_match("/[0-9]+/", $value)) {
-      $attrs['id'] = $value;
+  // Default attribute settings
+  $defaults = array(
+    'id' => 0,
+    'title' => NULL,
+    'caption' => NULL,
+    'error' => NULL,
+  );
+
+  // If we don't already have an explicitly set ID, we look for the first
+  // numerically indexed element in the $attrs array and assume that this is
+  // the ID. All other subsequent numerically indexed elements will be ignored.
+  if (!empty($attrs) && empty($attrs['id'])) {
+    foreach ($attrs as $key => $value) {
+      if (is_numeric($key) && $value != '/') {
+        // The ID may be a URL, so try to extract the ID from it based on regex.
+        $attrs['id'] = preg_replace('!(http)?(s)?(://)(www\.)?(player\.)?vimeo\.com\/(video/)?(.*)!', '$7', $value);
+        break;
+      }
     }
   }
 
-  // Try to extract a Vimeo video ID from a URL
-  // This should work with URLs of the following forms:
-  // 1. https://vimeo.com/149066287
-  // 2. https://player.vimeo.com/video/149066287
-  $pattern = '!(http)?(s)?(://)(www\.)?(player\.)?vimeo\.com\/(video/)?(.*)!';
-  $attrs['id'] = preg_replace($pattern, '$7', $attrs['id']);
-
-  $attrs = shortcode_attrs(
-    array(
-      'id' => 0,
-      'title' => NULL,
-      'caption' => NULL,
-    ),
-    $attrs
-  );
+  $attrs = shortcode_attrs($defaults, $attrs);
 
   $source_pattern = '//player.vimeo.com/video/@media_id';
   return _fsa_shortcodes_embed_media('vimeo', $attrs['id'], $source_pattern, $attrs, $text);
@@ -150,32 +151,29 @@ function fsa_shortcodes_shortcode_vimeo($attrs, $text) {
  */
 function fsa_shortcodes_shortcode_youtube($attrs, $text) {
 
-  $url = '';
+  // Default attribute settings
+  $defaults = array(
+    'id' => 0,
+    'title' => NULL,
+    'caption' => NULL,
+    'error' => NULL,
+  );
 
-  foreach ($attrs as $key => $value) {
-    if (is_numeric($key) && $value != '/') {
-      $url = $value;
+  // If we don't already have an explicitly set ID, we look for the first
+  // numerically indexed element in the $attrs array and assume that this is
+  // the ID. All other subsequent numerically indexed elements will be ignored.
+  if (!empty($attrs) && empty($attrs['id'])) {
+    foreach ($attrs as $key => $value) {
+      if (is_numeric($key) && $value != '/') {
+        // The ID may be a URL, so try to extract the ID from it based on regex.
+        $attrs['id'] = preg_replace('@^(http)?s?(://)?(www\.)?(youtu)\.?(be)(\.com)?/(embed/|watch\?v=)?(.*)$@', '$8', $value);
+        break;
+      }
     }
   }
 
-  // Try to extract a YouTube video ID from a URL
-  // This should work with URLs of the following forms:
-  // 1. https://www.youtube.com/embed/kb58NbiVFXE
-  // 2. https://www.youtube.com/watch?v=kb58NbiVFXE
-  // 3. https://youtu.be/kb58NbiVFXE
-  if (!empty($url)) {
-    $attrs['id'] = preg_replace('@^(http)?s?(://)?(www\.)?(youtu)\.?(be)(\.com)?/(embed/|watch\?v=)?(.*)$@', '$8', $url);
-  }
+  $attrs = shortcode_attrs($defaults, $attrs);
 
-  $attrs = shortcode_attrs(
-    array(
-      'id' => 0,
-      'title' => NULL,
-      'caption' => NULL,
-      'error' => NULL,
-    ),
-    $attrs
-  );
   $source_pattern = '//www.youtube.com/embed/@media_id';
   return _fsa_shortcodes_embed_media('youtube', $attrs['id'], $source_pattern, $attrs, $text);
 }
