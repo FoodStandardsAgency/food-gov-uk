@@ -449,5 +449,5 @@ function _fsa_shortcodes_shortcode_preprocess_callback($matches) {
  * Theme function for media embed errors
  */
 function theme_media_embed_error(&$variables) {
-  return '<div class="embed-error">' . t('Sorry, an error ocurred displaying this media.') . '</div>';
+  return '<div class="embed-error">' . $variables['message'] . '</div>';
 }
