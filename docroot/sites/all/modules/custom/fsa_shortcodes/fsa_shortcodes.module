@@ -285,7 +285,9 @@ function fsa_shortcodes_theme() {
       ),
     ),
     'media_embed_error' => array(
-      'variables' => array(),
+      'variables' => array(
+        'message' => t('Sorry, an error occurred displaying this media.'),
+      ),
     ),
   );
   return $items;
