@@ -54,6 +54,13 @@ function fsa_shortcodes_shortcode_info() {
     'process callback' => 'fsa_shortcodes_shortcode_dailymotion',
     'tips callback' => 'fsa_shortcodes_shortcode_dailymotion_tips',
   );
+  
+  $shortcodes['slideshare'] = array(
+    'title' => t('SlideShare'),
+    'description' => t('Embed presentations from SlideShare'),
+    'process callback' => 'fsa_shortcodes_shortcode_slideshare',
+    'tips callback' => 'fsa_shortcodes_shortcode_slideshare_tips',
+  );
 
   return $shortcodes;
 }
@@ -450,4 +457,38 @@ function _fsa_shortcodes_shortcode_preprocess_callback($matches) {
  */
 function theme_media_embed_error(&$variables) {
   return '<div class="embed-error">' . $variables['message'] . '</div>';
+}
+
+
+/**
+ * Process callback for SlideShare presentations
+ */
+function fsa_shortcodes_shortcode_slideshare($attrs, $text) {
+
+  // Default attribute settings
+  $defaults = array(
+    'id' => 0,
+    'title' => NULL,
+    'caption' => NULL,
+    'error' => NULL,
+  );
+
+  // If we don't already have an explicitly set ID, we look for the first
+  // numerically indexed element in the $attrs array and assume that this is
+  // the ID. All other subsequent numerically indexed elements will be ignored.
+  if (!empty($attrs) && empty($attrs['id'])) {
+    foreach ($attrs as $key => $value) {
+      if (is_numeric($key) && $value != '/') {
+        // The ID may be a URL, so try to extract the ID from it based on regex.
+        //$attrs['id'] = preg_replace('!(http)?(s)?(://)(www\.)?(player\.)?vimeo\.com\/(video/)?(.*)!', '$7', $value);
+        $attrs['id'] = $value;
+        break;
+      }
+    }
+  }
+  
+  $attrs = shortcode_attrs($defaults, $attrs);
+
+  $source_pattern = '//www.slideshare.net/slideshow/embed_code/key/@media_id';
+  return _fsa_shortcodes_embed_media('vimeo', $attrs['id'], $source_pattern, $attrs, $text);
 }
