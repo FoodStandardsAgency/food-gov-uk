@@ -201,37 +201,41 @@ function fsa_shortcodes_shortcode_dailymotion($attrs, $text) {
  */
 function fsa_shortcodes_shortcode_ted($attrs, $text) {
 
-  $url = '';
-
-  foreach ($attrs as $key => $value) {
-    if (is_numeric($key) && $value != '/') {
-      $url = $value;
-    }
-  }
-
-  // Try to extract a TED video ID from a URL
-  // This should work with URLs of the following forms:
-  //
-  if (!empty($url)) {
-    $attrs['id'] = preg_replace('@^(http)?(s)?(://)?(www\.)?(embed-ssl|www)\.ted\.com/talks/(.*)$@', '$6', $url);
-  }
-
-  foreach ($attrs as $key => $value) {
-    if (is_numeric($key) && preg_match("/[0-9]+/", $value)) {
-      $attrs['id'] = $value;
-    }
-  }
-
-  $attrs = shortcode_attrs(
-    array(
-      'id' => 0,
-      'title' => NULL,
-      'caption' => NULL,
-    ),
-    $attrs
+  // Default attribute settings
+  $defaults = array(
+    'id' => 0,
+    'title' => NULL,
+    'caption' => NULL,
+    'error' => NULL,
   );
 
+  // If we don't already have an explicitly set ID, we look for the first
+  // numerically indexed element in the $attrs array and assume that this is
+  // the ID. All other subsequent numerically indexed elements will be ignored.
+  if (!empty($attrs) && empty($attrs['id'])) {
+    foreach ($attrs as $key => $value) {
+      if (is_numeric($key) && $value != '/') {
+        // The ID may be a URL, so try to extract the ID from it based on regex.
+        $attrs['id'] = preg_replace('@^(http)?(s)?(://)?(www\.)?(embed-ssl|www)\.ted\.com/talks/(.*)$@', '$6', $value);
+        break;
+      }
+    }
+  }
+
+  // Clean up the attributes array and set defaults
+  $attrs = shortcode_attrs($defaults, $attrs);
+
+  // Pattern for URLs for TED videos
   $source_pattern = '//embed-ssl.ted.com/talks/@media_id';
+
+  // If we don't have a proper ID, set the error
+  if (empty($attrs['id'])) {
+    $attrs['error'] = array(
+      '#theme' => 'media_embed_error',
+    );
+  }
+
+  // Embed the video
   return _fsa_shortcodes_embed_media('ted', $attrs['id'], $source_pattern, $attrs, $text);
 }
 
