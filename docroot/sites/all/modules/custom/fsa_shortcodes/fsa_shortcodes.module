@@ -325,14 +325,18 @@ function template_preprocess_media_embed(&$variables) {
   $allow_fullscreen = isset($variables['allow_fullscreen']) ? $variables['allow_fullscreen'] : TRUE;
   if ($allow_fullscreen) {
     $variables['iframe_attributes_array']['allowfullscreen'] = 'allowfullscreen';
-    //$variables['iframe_attributes_array']['webkitallowfullscreen'] = 'true';
-    //$variables['iframe_attributes_array']['mozallowfullscreen'] = 'true';
   }
 
   // Populate the source
   if (!empty($variables['source_pattern']) && !empty($variables['media_id'])) {
     $source = format_string($variables['source_pattern'], array('@media_id' => $variables['media_id']));
-    $variables['iframe_attributes_array']['src'] = $source;
+    $variables['iframe_attributes_array']['src'] = filter_xss($source);
+  }
+  else {
+    // If we don't have a source, there must be an error, so set one now.
+    $variables['error'] = array(
+      '#theme' => 'media_embed_error',
+    );
   }
 
   // Set height and width attributes
