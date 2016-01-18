@@ -1,0 +1,62 @@
+.embed-wrapper {
+
+  clear: both;
+  padding: 2% 0;
+
+  .media-embed-title {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: 0 0 5px 0;
+  }
+
+  .media-embed-caption {
+    margin: 5px 0 0 0;
+  }
+
+  .youtube-embed, .vimeo-embed, .media-embed {
+    height: 0;
+    padding-bottom: 56.25%; /* 16:9 */
+    position: relative;
+
+    iframe {
+      border: 0;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+  }
+
+  .media-embed-error {
+    background-color: #555;
+    color: #fff;
+
+    .embed-error {
+      font-size: 1.5em;
+      padding: 10px;
+    }
+  }
+}
+
+.media-embed-multiple, .multiple-media-embed-wrapper {
+
+  h3 {
+    font-size: 14px;
+    margin-top: 15px;
+    margin-bottom: 7px;
+  }
+
+  @media screen and (min-width: 480px) {
+
+    .embed-wrapper {
+      clear: none;
+      float: left;
+      width: 49%;
+
+      &:nth-child(even) {
+        float: right;
+      }
+    }
+  }
+}
