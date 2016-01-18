@@ -525,3 +525,39 @@ function fsa_shortcodes_fsa_shortcodes_media_provider_names() {
   );
   return $providers;
 }
+
+
+/**
+ * Tips callback for YouTube videos
+ */
+function fsa_shortcodes_shortcode_youtube_tips() {
+  $tips = t('To include a YouTube video, enter a shortcode such as [youtube zU8806-PEgU /].');
+  return $tips;
+}
+
+
+/**
+ * Tips callback for Vimeo videos
+ */
+function fsa_shortcodes_shortcode_vimeo_tips() {
+  $tips = t("To include a Vimeo video, enter a shortcode such as [vimeo 8194546 /].");
+  return $tips;
+}
+
+
+/**
+ * Tips callback for TED videos
+ */
+function fsa_shortcodes_shortcode_ted_tips() {
+  $tips = t("To include a TED Talks video, enter a shortcode such as [ted 2298 /].");
+  return $tips;
+}
+
+
+/**
+ * Tips callback for SlideShare presentations
+ */
+function fsa_shortcodes_shortcode_slideshare_tips() {
+  $tips = t("To include a SlideShare presentation, enter a shortcode such as [slideshare eL2nIoRymv978N /].");
+  return $tips;
+}
