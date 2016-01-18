@@ -3007,3 +3007,170 @@ function _fsa_report_problem_mapit_http_options() {
   );
   return $options;
 }
+
+
+
+/**
+ * Helper function: returns a render array for the Rate widget
+ *
+ * Rate widgets are provide by the Rate module.
+ *
+ * @param string $widget_machine_name
+ *   Machine name of the widget to embed
+ * @param integer $weight
+ *   The weight of the widget
+ * @param integer $nid
+ *   nid of the node on which the widget will appear.
+ * @param string $mode
+ *   View mode for the widget. Note that we don't use the constant RATE_FULL
+ *   here as it may not be defined.
+ *
+ * @return array
+ *   Render array for the Rate widget
+ *
+ * @see rate_get_active_widgets()
+ * @see rate_embed()
+ */
+function _fsa_report_problem_rate_widget($widget_machine_name, $weight = 10, $nid = NULL, $mode = 1) {
+
+  // Create the base render array.
+  $build = array(
+    '#markup' => t('Could not embed rate widget.'),
+    '#weight' => $weight,
+  );
+
+  // If rate_embed() is not callable, exit now. This probably means that the
+  // Rate module isn't available.
+  if (!is_callable('rate_embed')) {
+    return $build;
+  }
+
+  // If we have no $widget_machine_name, exit now
+  if (empty($widget_machine_name)) {
+    return $build;
+  }
+
+  // Set the $mode to its proper value
+  $mode = $mode === 1 && defined('MODE_COMPACT') ? MODE_COMPACT : $mode;
+
+  // Use the supplied $nid or get the one stored for the page
+  $nid = !empty($nid) ? $nid : _fsa_report_problem_get_nid();
+
+  // If we have no $nid, exit now, returning an empty array.
+  if (empty($nid)) {
+    return $build;
+  }
+
+  // Get the node object from the $nid
+  $node = node_load($nid);
+
+  // If there's no node, exit now, returning an empty array.
+  if (empty($node)) {
+    return $build;
+  }
+
+  // Get the widget object so we can get its title
+  $widget = NULL;
+  $widgets = rate_get_active_widgets('node', $node->type, 'full');
+  foreach ($widgets as $widget_id => $w) {
+    if ($w->name == $widget_machine_name) {
+      $widget = $w;
+    }
+  }
+
+  // If we have no $widget, return an empty render array.
+  if (empty($widget)) {
+    return $build;
+  }
+
+  // Create the proper render array
+  $build['#type'] = 'item';
+  $build['#title'] = check_plain($widget->title);
+  $build['#markup'] = rate_embed($node, $widget_machine_name, $mode);
+
+  return $build;
+}
+
+
+/**
+ * Implements hook_rate_templates().
+ */
+function fsa_report_problem_rate_templates() {
+  $templates = array();
+  $templates['circles'] = new stdClass();
+  $templates['circles']->value_type = 'option';
+  $templates['circles']->options = array(
+    array(1, '1'),
+    array(2, '2'),
+    array(3, '3'),
+    array(4, '4'),
+    array(5, '5'),
+  );
+  $templates['circles']->theme = 'rate_template_circles';
+  $templates['circles']->css = drupal_get_path('module', 'fsa_report_problem') . '/css/circles.css';
+  $templates['circles']->js = drupal_get_path('module', 'fsa_report_problem') . '/js/circles.js';
+  $templates['circles']->customizable = TRUE;
+  $templates['circles']->translate = FALSE;
+  $templates['circles']->template_title = t('Circles');
+
+  return $templates;
+}
+
+
+/**
+ * Preprocess function for the circles rating template.
+ */
+function fsa_report_problem_preprocess_rate_template_circles(&$variables) {
+  extract($variables);
+
+  $circles = array();
+  $count = count($links);
+  $percent_per_star = 100 / ($count - 1);
+  $circles_populated = FALSE;
+
+  $rating = $results['rating'];
+  foreach ($links as $index => $settings) {
+    if ($settings['text'] == $rating) {
+      $results['rating_index'] = $index + 1;
+    }
+  }
+
+
+
+  for ($i = 0; $i < $count; $i++) {
+    if ($results['rating_index'] >= $i+1 && !$results['empty']) {
+      $class = 'rate-circles-btn-filled';
+      $circles_populated = TRUE;
+    }
+    else {
+      $class = 'rate-circles-btn-empty';
+    }
+    $class .= ' rate-circles-' . ($i + 1);
+    $circles[] = theme('rate_button', array('text' => $links[$i]['text'], 'href' => $links[$i]['href'], 'class' => $class));
+  }
+
+  $variables['circles'] = array(
+    '#theme' => 'item_list',
+    '#items' => $circles,
+    '#attributes' => array(
+      'class' => array(),
+    ),
+  );
+
+  if ($circles_populated) {
+    $variables['circles']['#attributes']['class'][] = 'rate-circles-widget-populated';
+  }
+
+  $info = array();
+  if ($mode == RATE_CLOSED) {
+    $info[] = t('Voting is closed.');
+  }
+  if ($mode != RATE_COMPACT && $mode != RATE_COMPACT_DISABLED) {
+    if (isset($results['user_vote'])) {
+      $vote = $results['user_vote'];
+      $info[] = t('You rated the service as <strong>@vote</strong>.', array('@vote' => $vote));
+    }
+    //$info[] = t('Total votes: !count', array('!count' => $results['count']));
+  }
+  $variables['info'] = implode(' ', $info);
+}
