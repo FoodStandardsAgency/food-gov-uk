@@ -2220,7 +2220,7 @@ function template_preprocess_local_authority_details(&$variables) {
   // Get the language code
   global $language;
   $lang_code = !empty($language->language) ? $language->language : language_default()->language;
-  
+
   // Get the local authority from the $variables array
   $local_authority = !empty($variables['local_authority']) ? $variables['local_authority'] : NULL;
   // No local authority? Exit now.
@@ -2948,7 +2948,7 @@ function template_preprocess_external_api_status(&$variables) {
     $variables['status_classes_array'][] = 'error';
     $variables['status_message'] = t('Problems detected');
   }
-  
+
 }
 
 
