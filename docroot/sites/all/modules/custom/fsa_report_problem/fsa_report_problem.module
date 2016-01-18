@@ -464,6 +464,10 @@ function fsa_report_problem_theme($existing, $type, $theme, $path) {
         'status' => array(),
       ),
     ),
+    'rate_template_circles' => array(
+      'variables' => array('links' => NULL, 'results' => NULL, 'mode' => NULL, 'just_voted' => FALSE, 'content_type' => NULL, 'content_id' => NULL, 'display_options' => NULL),
+      'template' => 'theme/rate-template-circles',
+    ),
   );
 }
 
