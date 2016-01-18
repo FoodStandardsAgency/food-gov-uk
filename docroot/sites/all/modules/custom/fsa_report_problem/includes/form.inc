@@ -960,7 +960,7 @@ function _fsa_report_problem_step_filter($var) {
  */
 function fsa_report_problem_local_authority_details_form($form, &$form_state) {
 
-    // Embed the rating widget
+  // Embed the rating widget
   $form['rate_widget'] = _fsa_report_problem_rate_widget('what_did_you_think');
 
   // Get the query string parameters
