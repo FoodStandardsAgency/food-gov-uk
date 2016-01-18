@@ -48,13 +48,6 @@ function fsa_shortcodes_shortcode_info() {
     'tips callback' => 'fsa_shortcodes_shortcode_ted_tips',
   );
 
-  $shortcodes['dailymotion'] = array(
-    'title' => t('DailyMotion videos'),
-    'description' => t('Embed video content from DailyMotion'),
-    'process callback' => 'fsa_shortcodes_shortcode_dailymotion',
-    'tips callback' => 'fsa_shortcodes_shortcode_dailymotion_tips',
-  );
-  
   $shortcodes['slideshare'] = array(
     'title' => t('SlideShare'),
     'description' => t('Embed presentations from SlideShare'),
@@ -185,23 +178,6 @@ function fsa_shortcodes_shortcode_youtube($attrs, $text) {
   $attrs = shortcode_attrs($defaults, $attrs);
 
   $source_pattern = '//www.youtube.com/embed/@media_id';
-  return _fsa_shortcodes_embed_media('youtube', $attrs['id'], $source_pattern, $attrs, $text);
-}
-
-
-/**
- * Process callback for DailyMotion videos
- */
-function fsa_shortcodes_shortcode_dailymotion($attrs, $text) {
-  $attrs = shortcode_attrs(
-    array(
-      'id' => 0,
-      'title' => NULL,
-      'caption' => NULL,
-    ),
-    $attrs
-  );
-  $source_pattern = '//www.dailymotion.com/embed/video/@media_id';
   return _fsa_shortcodes_embed_media('youtube', $attrs['id'], $source_pattern, $attrs, $text);
 }
 
