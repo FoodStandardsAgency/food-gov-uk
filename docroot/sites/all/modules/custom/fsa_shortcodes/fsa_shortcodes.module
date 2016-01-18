@@ -330,15 +330,20 @@ function template_preprocess_media_embed(&$variables) {
   }
   $provider = !empty($variables['provider']) ? $variables['provider'] : 'youtube';
   
+  // Sanitise the title - if populated
+  if (!empty($variables['title'])) {
+    $variables['title'] = filter_xss($variables['title']);
+  }
+
   // Set the title attribute for the iframe
-  $iframe_title = !empty($variables['iframe_title']) ? $variables['iframe_title'] : $variables['title'];
+  $iframe_title = !empty($variables['iframe_title']) ? filter_xss($variables['iframe_title']) : $variables['title'];
   
   $variables['iframe_attributes_array']['title'] = !empty($iframe_title) ? $iframe_title : t('Embedded content from @provider', array('@provider' => _fsa_shortcodes_provider_name($provider)));
 
   // Set height and width attributes
   if (!empty($variables['width']) && !empty($variables['height'])) {
-    $variables['iframe_attributes_array']['width'] = $variables['width'];
-    $variables['iframe_attributes_array']['height'] = $variables['height'];
+    $variables['iframe_attributes_array']['width'] = filter_xss($variables['width']);
+    $variables['iframe_attributes_array']['height'] = filter_xss($variables['height']);
   }
   $variables['theme_hook_suggestions'][] = "${provider}_embed";
   $variables['classes_array'] = !empty($variables['classes_array']) ? $variables['classes_array'] : array();
@@ -350,6 +355,11 @@ function template_preprocess_media_embed(&$variables) {
   }
 
   $variables['title_attributes_array']['class'] = array('media-embed-title');
+
+  // Sanitise the caption - if populated
+  if (!empty($variables['caption'])) {
+    $variables['caption'] = filter_xss($variables['caption']);
+  }
 
 }
 
