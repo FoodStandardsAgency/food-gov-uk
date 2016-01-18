@@ -239,6 +239,20 @@ function fsa_report_problem_menu() {
     'file' => 'fsa_report_problem.admin.inc',
   );
 
+  // If the Rate module is enabled, show a tab for ratings in the admin UI
+  if (module_exists('rate')) {
+    $items['admin/config/foodproblems/ratings'] = array(
+      'title' => 'Ratings',
+      'description' => 'View user ratings for the service',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('fsa_report_problem_rating_results_form'),
+      'access arguments' => array('administer food problem reporting'),
+      'file' => 'fsa_report_problem.admin.inc',
+      'type' => MENU_LOCAL_TASK,
+      'weight' => 50,
+    );
+  }
+
   $items['admin/config/foodproblems/nodes'] = array(
     'title' => 'Autocomplete for nodes',
     'page callback' => '_fsa_report_problem_nodes_autocomplete',
