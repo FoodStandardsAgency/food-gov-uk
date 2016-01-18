@@ -1794,3 +1794,121 @@ function _fsa_report_problem_api_status_check_now($form, &$form_state) {
   $message .= !empty($overall_status->healthy) ? t('All APIs are healthy.') : t('Issues were found with one or more APIs. See below for details');
   drupal_set_message($message, $message_type);
 }
+
+
+/**
+ * Form builder: rating results form
+ */
+function fsa_report_problem_rating_results_form($form, &$form_state) {
+  $widgets = variable_get(RATE_VAR_WIDGETS, array());
+  $widget = NULL;
+  foreach ($widgets as $id => $details) {
+    if ($details->name == 'what_did_you_think') {
+      $widget = $details;
+      break;
+    }
+  }
+  $nid = _fsa_report_problem_get_nid();
+  $node = !empty($nid) ? node_load($nid) : NULL;
+
+  if (empty($node)) {
+    $form['error'] = array(
+      '#markup' => t('No node found'),
+    );
+    return $form;
+  }
+
+  $votingapi_results = votingapi_select_results(array(
+    'entity_type' => 'node',
+    'entity_id' => $node->nid,
+    'tag' => $widget->tag,
+    'value_type' => $widget->value_type,
+  ));
+
+  $count = 0;
+  $average = 0;
+  $sum = 0;
+  $votingapi_functions = array('count', 'average', 'sum');
+
+  foreach ($votingapi_results as $result) {
+    if (!in_array($result['function'], $votingapi_functions)) { //custom options, need to tally these together to get a total count
+      $count += $result['value'];
+    }
+    else {
+      ${$result['function']} = $result['value'];
+    }
+  }
+
+  $form['total_votes'] = array(
+    '#type' => 'item',
+    '#title' => t('Total votes'),
+    '#markup' => $count,
+  );
+
+  $output = '';
+
+  // Display a table with vote counts per button.
+  if (count($widget->options) > 1) {
+    $widget_options = array_reverse($widget->options);
+    $rows = array();
+    foreach ($widget_options as $option) {
+      $query = db_select('votingapi_vote', 'vv')
+        ->condition('vv.entity_type', 'node')
+        ->condition('vv.entity_id', $node->nid)
+        ->condition('vv.value_type', $widget->value_type)
+        ->condition('vv.value', $option[0])
+        ->condition('vv.tag', $widget->tag)
+        ->condition('vv.timestamp', 0, '>')
+        ->orderBy('vv.value', 'DESC');
+      $field = $query->addExpression('COUNT(*)', 'vote_count');
+      $total_count = $query->execute()->fetchField();
+      $circles = $option[0];
+      $title = $widget->translate ? t($option[1]) : $option[1];
+      $ratings = array(
+        '#type' => 'container',
+        '#attributes' => array(
+          'class' => array(
+            'circles',
+          ),
+        ),
+        'inner' => array(
+          '#type' => 'container',
+          '#attributes' => array(
+            'class' => array(
+              'circles',
+              'circles-' . $circles,
+            ),
+          ),
+        ),
+      );
+
+      $text = array(
+        '#type' => 'html_tag',
+        '#tag' => 'span',
+        '#value' => $title,
+        '#attributes' => array(
+          'class' => array(
+            'rate-text',
+          ),
+        ),
+      );
+      $title = drupal_render($ratings);
+      $title .= drupal_render($text);
+      $rows[] = array($title, $total_count);
+    }
+    $header = array(t('Rating'), t('Votes'));
+    $output .= '<h4>' . t('Breakdown of ratings') . '</h4>';
+    $output .= theme('table', array('header' => $header, 'rows' => $rows));
+  }
+
+  $form['output'] = array(
+    '#markup' => $output,
+  );
+
+  $form['#attached']['css'] = array(
+    drupal_get_path('module', 'fsa_report_problem') . '/css/circles.css',
+  );
+
+
+  return $form;
+}
