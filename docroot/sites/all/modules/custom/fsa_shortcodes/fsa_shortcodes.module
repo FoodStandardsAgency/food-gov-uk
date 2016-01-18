@@ -504,14 +504,24 @@ function fsa_shortcodes_shortcode_slideshare($attrs, $text) {
  *   original value of $provider
  */
 function _fsa_shortcodes_provider_name($provider = '') {
+  // Allow other modules to provide media provider names
+  $providers = module_invoke_all('fsa_shortcodes_media_provider_names');
+  if (!empty($provider) && isset($providers[$provider])) {
+    $provider = $providers[$provider];
+  }
+  return $provider;
+}
+
+
+/**
+ * Implements hook_fsa_shortcodes_media_provider_names().
+ */
+function fsa_shortcodes_fsa_shortcodes_media_provider_names() {
   $providers = array(
     'youtube' => t('YouTube'),
     'ted' => t('TED Talks'),
     'vimeo' => t('Vimeo'),
     'slideshare' => t('SlideShare'),
   );
-  if (!empty($provider) && isset($providers[$provider])) {
-    $provider = $providers[$provider];
-  }
-  return $provider;
+  return $providers;
 }
