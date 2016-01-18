@@ -48,13 +48,6 @@ function fsa_shortcodes_shortcode_info() {
     'tips callback' => 'fsa_shortcodes_shortcode_ted_tips',
   );
 
-  $shortcodes['dailymotion'] = array(
-    'title' => t('DailyMotion videos'),
-    'description' => t('Embed video content from DailyMotion'),
-    'process callback' => 'fsa_shortcodes_shortcode_dailymotion',
-    'tips callback' => 'fsa_shortcodes_shortcode_dailymotion_tips',
-  );
-  
   $shortcodes['slideshare'] = array(
     'title' => t('SlideShare'),
     'description' => t('Embed presentations from SlideShare'),
@@ -185,23 +178,6 @@ function fsa_shortcodes_shortcode_youtube($attrs, $text) {
   $attrs = shortcode_attrs($defaults, $attrs);
 
   $source_pattern = '//www.youtube.com/embed/@media_id';
-  return _fsa_shortcodes_embed_media('youtube', $attrs['id'], $source_pattern, $attrs, $text);
-}
-
-
-/**
- * Process callback for DailyMotion videos
- */
-function fsa_shortcodes_shortcode_dailymotion($attrs, $text) {
-  $attrs = shortcode_attrs(
-    array(
-      'id' => 0,
-      'title' => NULL,
-      'caption' => NULL,
-    ),
-    $attrs
-  );
-  $source_pattern = '//www.dailymotion.com/embed/video/@media_id';
   return _fsa_shortcodes_embed_media('youtube', $attrs['id'], $source_pattern, $attrs, $text);
 }
 
@@ -354,15 +330,20 @@ function template_preprocess_media_embed(&$variables) {
   }
   $provider = !empty($variables['provider']) ? $variables['provider'] : 'youtube';
   
+  // Sanitise the title - if populated
+  if (!empty($variables['title'])) {
+    $variables['title'] = filter_xss($variables['title']);
+  }
+
   // Set the title attribute for the iframe
-  $iframe_title = !empty($variables['iframe_title']) ? $variables['iframe_title'] : $variables['title'];
+  $iframe_title = !empty($variables['iframe_title']) ? filter_xss($variables['iframe_title']) : $variables['title'];
   
   $variables['iframe_attributes_array']['title'] = !empty($iframe_title) ? $iframe_title : t('Embedded content from @provider', array('@provider' => _fsa_shortcodes_provider_name($provider)));
 
   // Set height and width attributes
   if (!empty($variables['width']) && !empty($variables['height'])) {
-    $variables['iframe_attributes_array']['width'] = $variables['width'];
-    $variables['iframe_attributes_array']['height'] = $variables['height'];
+    $variables['iframe_attributes_array']['width'] = filter_xss($variables['width']);
+    $variables['iframe_attributes_array']['height'] = filter_xss($variables['height']);
   }
   $variables['theme_hook_suggestions'][] = "${provider}_embed";
   $variables['classes_array'] = !empty($variables['classes_array']) ? $variables['classes_array'] : array();
@@ -374,6 +355,11 @@ function template_preprocess_media_embed(&$variables) {
   }
 
   $variables['title_attributes_array']['class'] = array('media-embed-title');
+
+  // Sanitise the caption - if populated
+  if (!empty($variables['caption'])) {
+    $variables['caption'] = filter_xss($variables['caption']);
+  }
 
 }
 
@@ -518,14 +504,60 @@ function fsa_shortcodes_shortcode_slideshare($attrs, $text) {
  *   original value of $provider
  */
 function _fsa_shortcodes_provider_name($provider = '') {
+  // Allow other modules to provide media provider names
+  $providers = module_invoke_all('fsa_shortcodes_media_provider_names');
+  if (!empty($provider) && isset($providers[$provider])) {
+    $provider = $providers[$provider];
+  }
+  return $provider;
+}
+
+
+/**
+ * Implements hook_fsa_shortcodes_media_provider_names().
+ */
+function fsa_shortcodes_fsa_shortcodes_media_provider_names() {
   $providers = array(
     'youtube' => t('YouTube'),
     'ted' => t('TED Talks'),
     'vimeo' => t('Vimeo'),
     'slideshare' => t('SlideShare'),
   );
-  if (!empty($provider) && isset($providers[$provider])) {
-    $provider = $providers[$provider];
-  }
-  return $provider;
+  return $providers;
+}
+
+
+/**
+ * Tips callback for YouTube videos
+ */
+function fsa_shortcodes_shortcode_youtube_tips() {
+  $tips = t('To include a YouTube video, enter a shortcode such as [youtube zU8806-PEgU /].');
+  return $tips;
+}
+
+
+/**
+ * Tips callback for Vimeo videos
+ */
+function fsa_shortcodes_shortcode_vimeo_tips() {
+  $tips = t("To include a Vimeo video, enter a shortcode such as [vimeo 8194546 /].");
+  return $tips;
+}
+
+
+/**
+ * Tips callback for TED videos
+ */
+function fsa_shortcodes_shortcode_ted_tips() {
+  $tips = t("To include a TED Talks video, enter a shortcode such as [ted 2298 /].");
+  return $tips;
+}
+
+
+/**
+ * Tips callback for SlideShare presentations
+ */
+function fsa_shortcodes_shortcode_slideshare_tips() {
+  $tips = t("To include a SlideShare presentation, enter a shortcode such as [slideshare eL2nIoRymv978N /].");
+  return $tips;
 }
