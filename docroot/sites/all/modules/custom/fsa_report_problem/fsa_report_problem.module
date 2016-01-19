@@ -3148,8 +3148,6 @@ function fsa_report_problem_preprocess_rate_template_circles(&$variables) {
     }
   }
 
-
-
   for ($i = 0; $i < $count; $i++) {
     if ($results['rating_index'] >= $i+1 && !$results['empty']) {
       $class = 'rate-circles-btn-filled';
