@@ -3181,7 +3181,47 @@ function fsa_report_problem_preprocess_rate_template_circles(&$variables) {
       $vote = $results['user_vote'];
       $info[] = t('You rated the service as <strong>@vote</strong>.', array('@vote' => $vote));
     }
-    //$info[] = t('Total votes: !count', array('!count' => $results['count']));
   }
   $variables['info'] = implode(' ', $info);
+}
+
+
+/**
+ * Theme function for circle ratings
+ */
+function theme_circle_rating(&$variables) {
+
+  $score = !empty($variables['score']) ? $variables['score'] : 0;
+  $descriptions = !empty($variables['descriptions']) ? $variables['descriptions'] : array();
+  $description = !empty($variables['description']) ? $variables['description'] : (!empty($descriptions[$score]) ? $descriptions[$score] : '');
+
+  $output = '<div class="circles">';
+  $output .= '<div class="circles circles-' . $score . '"></div>';
+  $output .= '</div>';
+  if (!empty($description)) {
+    $output .= '<span class="rate-text">' . $description . '</span>';
+  }
+  return $output;
+}
+
+
+/**
+ * Helper function: returns or sets the rating widget set for the service
+ *
+ * @param string $name
+ *   (optional) The machine name of the rating widget. If populated, this will
+ *   set the name of the rating widget for the service. Otherwise, this function
+ *   will simply return the name - if set.
+ *
+ * @return string
+ *   The machine name of the rating widget set for this service.
+ */
+function _fsa_report_problem_selected_rating_widget($name = NULL) {
+  if (empty($name)) {
+    $name = variable_get('fsa_report_problem_rating_widget');
+  }
+  else {
+    variable_set('fsa_report_problem_rating_widget', $name);
+  }
+  return $name;
 }
