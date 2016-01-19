@@ -468,6 +468,19 @@ function fsa_report_problem_theme($existing, $type, $theme, $path) {
       'variables' => array('links' => NULL, 'results' => NULL, 'mode' => NULL, 'just_voted' => FALSE, 'content_type' => NULL, 'content_id' => NULL, 'display_options' => NULL),
       'template' => 'theme/rate-template-circles',
     ),
+    'circle_rating' => array(
+      'variables' => array(
+        'score' => 0,
+        'description' => NULL,
+        'descriptions' => array(
+          1 => t('Poor'),
+          2 => t('Fair'),
+          3 => t('Good'),
+          4 => t('Very good'),
+          5 => t('Excellent'),
+        ),
+      ),
+    ),
   );
 }
 
