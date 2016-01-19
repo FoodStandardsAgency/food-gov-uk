@@ -1,0 +1,99 @@
+#edit-rate-widget {
+  margin-top: 20px;
+}
+.rate-widget-circles ul {
+  float: left;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 0;
+  margin: 10px 0;
+}
+.rate-widget-circles .item-list ul li {
+  background-image: none;
+  padding: 0;
+  margin: 0;
+}
+.rate-widget-circles ul li {
+  float: left;
+  list-style: none;
+}
+.rate-widget-circles ul li a {
+  display: block;
+  float: left;
+  height: 32px;
+  width: 32px;
+}
+.rate-circles-btn-filled {
+  display: inline-block;
+  background: url(../img/circles.png?2) no-repeat 0 -16px;
+  width: 16px;
+  height: 16px;
+  text-indent: -9999px;
+}
+.rate-user .rate-circles-btn-filled {
+  /*background: url(../img/circles.png?2) no-repeat 0 0;*/
+  background: url(../img/circles.png?2) no-repeat 0 -64px;
+}
+.rate-circles-btn-empty {
+  display: inline-block;
+  /*background: url(../img/circles.png?2) no-repeat 0 -34px;*/
+  background: url(../img/circles.png?2) no-repeat 0 -32px;
+  width: 16px;
+  height: 16px;
+  text-indent: -9999px;
+}
+.rate-circles-widget-populated .rate-circles-btn-empty {
+  background: url(../img/circles.png?2) no-repeat 0 0;
+}
+#rate-value-description {
+  color: #006f51;
+  float: left;
+  font-weight: bold;
+  font-size: 1.2em;
+  padding-top: 19px;
+  padding-left: 5px;
+}
+
+
+.circles {
+  background: url(../img/circles.png?2) repeat-x 0 0;
+  display: inline-block;
+  margin-right: 10px;
+  height: 32px;
+  width: 160px;
+}
+
+
+.circles .circles {
+  background: url(../img/circles.png?2) repeat-x 0 -64px;
+  display: inline-block;
+  width: 32px;
+}
+
+.circles span {
+  display: inline-block;
+}
+
+.circles .circles.circles-2 {
+  width: 64px;
+}
+
+.circles .circles.circles-3 {
+  width: 96px;
+}
+
+.circles .circles.circles-4 {
+  width: 128px;
+}
+
+.circles .circles.circles-5 {
+  width: 160px;
+}
+
+.rate-text {
+  color: #006f51;
+  font-size: 1.2em;
+  font-weight: bold;
+  line-height: 32px;
+  vertical-align: top;
+}
