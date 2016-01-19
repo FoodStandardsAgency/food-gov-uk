@@ -1906,6 +1906,18 @@ function fsa_report_problem_rating_results_form($form, &$form_state) {
     ->condition('vv.entity_id', $node->nid);
   $results = $query->execute()->fetchCol();
 
+  // If we have no results, display a message and exit now.
+  if (count($results) == 0) {
+    $form['results'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Rating results'),
+    );
+    $form['results']['zero_results'] = array(
+      '#markup' => t('There have been no ratings so far.'),
+    );
+    return $form;
+  }
+
   // Calculate mean, mode and median scores
   $mean = round(array_sum($results) / count($results));
   $median = array_median($results);
