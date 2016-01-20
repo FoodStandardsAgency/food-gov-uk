@@ -1,0 +1,106 @@
+// Creates an outer circle
+@mixin circle() {
+  float: left;
+  clear: none;
+  margin: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 22px;
+  border-width: 5px;
+  border-style: solid;
+  padding: 3px;
+  border-color: #aaaaaa;
+  white-space: nowrap;
+
+  &:hover, &.filled {
+    border-color: #4b800d;
+  }
+
+  &.empty {
+    border-color: #aaaaaa;
+  }  
+}
+
+// Creates an inner circle
+@mixin inner-circle {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: #4b800d;
+}
+
+// Styling for rate value descriptions
+@mixin rate-value-description {
+  color: #4b800d;
+  padding: 0;
+  float: left;
+  font-weight: bold;
+  font-size: 1.2em;
+  line-height: 18px;
+  padding-top: 19px;
+  padding-left: 5px;
+}
+
+// Display ratings in the admin section
+.circles {
+  overflow: hidden;
+  .circle {
+    @include circle;
+    border-color: #4b800d;
+    height: 22px;
+    width: 22px;
+    
+    &.filled .inner-circle {
+      @include inner-circle;
+      margin: 1px 0 0 1px;
+    }
+  }
+  .rate-text {
+    @include rate-value-description;
+    padding-top: 9px;
+  }
+}
+
+
+#edit-rate-widget {
+  margin-top: 1em;
+}
+
+// Rating widgets
+.rate-widget-circles {
+  
+  ul {
+    float: left;
+    list-style: none;
+    margin: 10px 0;
+    overflow: hidden;
+    padding: 0;
+    
+    &.rate-circles-widget-populated {
+      li {
+        border-color: #4b800d;
+      }
+    }
+    
+  }
+
+  li {
+    @include circle;
+
+    a {
+      display: block;
+      text-indent: -99999px;
+    }
+    
+    &:hover a, .rate-circles-btn-filled {
+      @include inner-circle;
+    }
+  }
+  
+}
+
+// Rating valud descriptions
+#rate-value-description {
+  @include rate-value-description;
+}
