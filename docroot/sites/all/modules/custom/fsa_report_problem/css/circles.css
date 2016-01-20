@@ -1,31 +1,35 @@
+*, *:after, *:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  *behavior: url("../behaviors/box-sizing/boxsizing.php"); }
+
 .circles {
   overflow: hidden; }
   .circles .circle {
     float: left;
     clear: none;
     margin: 0;
-    width: 36px;
-    height: 36px;
-    border-radius: 22px;
-    border-width: 5px;
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    border-width: 3px;
     border-style: solid;
-    padding: 3px;
     border-color: #aaaaaa;
     white-space: nowrap;
-    border-color: #4b800d;
-    height: 22px;
-    width: 22px; }
+    border-color: #4b800d; }
     .circles .circle:hover, .circles .circle.filled {
       border-color: #4b800d; }
     .circles .circle.empty {
       border-color: #aaaaaa; }
     .circles .circle.filled .inner-circle {
       display: block;
-      width: 20px;
-      height: 20px;
-      border-radius: 10px;
-      background-color: #4b800d;
-      margin: 1px 0 0 1px; }
+      width: 26px;
+      height: 26px;
+      border-radius: 13px;
+      margin: 0;
+      border: 5px solid #fff;
+      background-color: #4b800d; }
   .circles .rate-text {
     color: #4b800d;
     padding: 0;
@@ -52,12 +56,11 @@
   float: left;
   clear: none;
   margin: 0;
-  width: 36px;
-  height: 36px;
-  border-radius: 22px;
-  border-width: 5px;
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  border-width: 3px;
   border-style: solid;
-  padding: 3px;
   border-color: #aaaaaa;
   white-space: nowrap; }
   .rate-widget-circles li:hover, .rate-widget-circles li.filled {
@@ -69,9 +72,11 @@
     text-indent: -99999px; }
   .rate-widget-circles li:hover a, .rate-widget-circles li .rate-circles-btn-filled {
     display: block;
-    width: 20px;
-    height: 20px;
-    border-radius: 10px;
+    width: 26px;
+    height: 26px;
+    border-radius: 13px;
+    margin: 0;
+    border: 5px solid #fff;
     background-color: #4b800d; }
 
 #rate-value-description {
