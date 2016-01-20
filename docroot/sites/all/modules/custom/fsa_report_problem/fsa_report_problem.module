@@ -3194,13 +3194,16 @@ function theme_circle_rating(&$variables) {
   $score = !empty($variables['score']) ? $variables['score'] : 0;
   $descriptions = !empty($variables['descriptions']) ? $variables['descriptions'] : array();
   $description = !empty($variables['description']) ? $variables['description'] : (!empty($descriptions[$score]) ? $descriptions[$score] : '');
-
+  // Define the maximum rating
+  // @todo Make this configurable somehow in case we want different options
+  $max_rating = 5;
   $output = '<div class="circles">';
-  $output .= '<div class="circles circles-' . $score . '"></div>';
-  $output .= '</div>';
-  if (!empty($description)) {
-    $output .= '<span class="rate-text">' . $description . '</span>';
+  for ($i = 0; $i < $max_rating; $i++) {
+    $class = $i < $score ? 'circle filled' : 'circle';
+    $output .= '<div class="' . $class . '"><div class="inner-circle"></div></div>';
   }
+  $output .= '<span class="rate-text">' . $description . '</span>';
+  $output .= '</div>';
   return $output;
 }
 
