@@ -1,14 +1,26 @@
+// Taken from normalize.css. Needed to maintain consistency in display between
+// the front-end interface and the admin theme since Adminimal doesn't contain
+// this.
+// NB: May affect other styling in the admin interface, so be aware!
+*, *:after, *:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  *behavior: url('../behaviors/box-sizing/boxsizing.php');
+}
+
 // Creates an outer circle
-@mixin circle() {
+@mixin circle($size: 32px, $borderWidth: 3px) {
+  $borderRadius: $size/2;
   float: left;
   clear: none;
   margin: 0;
-  width: 36px;
-  height: 36px;
-  border-radius: 22px;
-  border-width: 5px;
+  width: $size;
+  height: $size;
+  border-radius: $borderRadius;
+  border-width: $borderWidth;
   border-style: solid;
-  padding: 3px;
+  //padding: 3px;
   border-color: #aaaaaa;
   white-space: nowrap;
 
@@ -22,12 +34,15 @@
 }
 
 // Creates an inner circle
-@mixin inner-circle {
+@mixin inner-circle($size: 26px, $border: 5px, $color: #4b800d) {
   display: block;
-  width: 20px;
-  height: 20px;
-  border-radius: 10px;
-  background-color: #4b800d;
+  width: $size;
+  height: $size;
+  border-radius: $size/2;
+  //margin: $margin;
+  margin: 0;
+  border: $border solid #fff;
+  background-color: $color;
 }
 
 // Styling for rate value descriptions
@@ -48,12 +63,9 @@
   .circle {
     @include circle;
     border-color: #4b800d;
-    height: 22px;
-    width: 22px;
     
     &.filled .inner-circle {
       @include inner-circle;
-      margin: 1px 0 0 1px;
     }
   }
   .rate-text {
