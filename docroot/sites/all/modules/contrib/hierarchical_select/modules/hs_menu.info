@@ -5,9 +5,9 @@ dependencies[] = menu
 package = Form Elements
 core = 7.x
 
-; Information added by drupal.org packaging script on 2013-10-28
-version = "7.x-3.0-alpha7+1-dev"
+; Information added by Drupal.org packaging script on 2015-12-14
+version = "7.x-3.0-beta3"
 core = "7.x"
 project = "hierarchical_select"
-datestamp = "1382965488"
+datestamp = "1450092843"
 
