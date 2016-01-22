@@ -116,3 +116,11 @@
 #rate-value-description {
   @include rate-value-description;
 }
+
+
+// Rate info
+.rate-info, .rate-info-new {
+  clear: left;
+  font-size: 0.8em;
+  color: #666;
+}

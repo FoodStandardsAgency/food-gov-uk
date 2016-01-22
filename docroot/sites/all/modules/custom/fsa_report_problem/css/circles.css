@@ -89,4 +89,9 @@
   padding-top: 12px;
   padding-left: 5px; }
 
+.rate-info, .rate-info-new {
+  clear: left;
+  font-size: 0.8em;
+  color: #666; }
+
 /*# sourceMappingURL=circles.css.map */
