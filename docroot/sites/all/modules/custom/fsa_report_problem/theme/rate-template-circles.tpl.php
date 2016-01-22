@@ -16,5 +16,5 @@
   <div id="rate-value-description"></div>
 
 <?php if (!empty($info)): ?>
-  <div class="rate-info"><?php print $info; ?></div>
+  <div class="rate-info-new"><?php print $info; ?></div>
 <?php endif; ?>
