@@ -3252,3 +3252,20 @@ function fsa_report_problem_form_votingapi_settings_form_alter(&$form, &$form_st
   // Sort the anonymous window options
   ksort($form['votingapi_anonymous_window']['#options']);
 }
+
+
+/**
+ * Implements hook_js_alter().
+ */
+function fsa_report_problem_js_alter(&$javascript) {
+  // We need to make sure that circles.js is rendered before rate.js, otherwise
+  // the event handler that sets the 'Saving rating...' text doesn't get fired.
+  // We do this by reducing the weight of circles.js by a tiny amount so that it
+  // floats above rate.js.
+  $circles = drupal_get_path('module', 'fsa_report_problem') . '/js/circles.js';
+  $rate = drupal_get_path('module', 'rate') . '/rate.js';
+  if (!isset($javascript[$circles]) || !isset($javascript[$rate])) {
+    return;
+  }
+  $javascript[$circles]['weight'] = $javascript[$rate]['weight'] - 0.0001;
+}
