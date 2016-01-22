@@ -10,7 +10,7 @@
 }
 
 // Creates an outer circle
-@mixin circle($size: 32px, $borderWidth: 3px) {
+@mixin circle($size: 22px, $borderWidth: 2px) {
   $borderRadius: $size/2;
   float: left;
   clear: none;
@@ -25,7 +25,7 @@
   white-space: nowrap;
 
   &:hover, &.filled {
-    border-color: #4b800d;
+    border-color: #c14618;
   }
 
   &.empty {
@@ -34,26 +34,26 @@
 }
 
 // Creates an inner circle
-@mixin inner-circle($size: 26px, $border: 5px, $color: #4b800d) {
+@mixin inner-circle($size: 20px, $border: 0px, $color: #c14618) {
   display: block;
   width: $size;
   height: $size;
   border-radius: $size/2;
   //margin: $margin;
-  margin: 0;
+  margin: -1px;
   border: $border solid #fff;
   background-color: $color;
 }
 
 // Styling for rate value descriptions
 @mixin rate-value-description {
-  color: #4b800d;
+  color: #c14618;
   padding: 0;
   float: left;
   font-weight: bold;
   font-size: 1.2em;
   line-height: 18px;
-  padding-top: 19px;
+  padding-top: 12px;
   padding-left: 5px;
 }
 
@@ -62,7 +62,7 @@
   overflow: hidden;
   .circle {
     @include circle;
-    border-color: #4b800d;
+    border-color: #c14618;
     
     &.filled .inner-circle {
       @include inner-circle;
@@ -70,13 +70,13 @@
   }
   .rate-text {
     @include rate-value-description;
-    padding-top: 9px;
+    padding-top: 3px;
   }
 }
 
 
 #edit-rate-widget {
-  margin-top: 1em;
+  margin-top: 3em;
 }
 
 // Rating widgets
@@ -91,7 +91,7 @@
     
     &.rate-circles-widget-populated {
       li {
-        border-color: #4b800d;
+        border-color: #c14618;
       }
     }
     
