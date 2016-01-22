@@ -28,6 +28,10 @@
             }
         );
       });
+      // Set the custom text that is shown when a rating is saved
+      $('.rate-widget:not(.rate-processed)', context).on('eventBeforeRate', function(e, widget){
+        $(".rate-info-new").text(Drupal.t('Saving rating...'));
+      });
     }
   };
 })(jQuery);
