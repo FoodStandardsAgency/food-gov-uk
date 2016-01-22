@@ -3098,7 +3098,7 @@ function _fsa_report_problem_rate_widget($widget_machine_name, $weight = 10, $ni
 
   // Create the proper render array
   $build['#type'] = 'item';
-  $build['#title'] = check_plain($widget->title);
+  $build['#title'] = check_plain(locale($widget->title));
   $build['#markup'] = rate_embed($node, $widget_machine_name, $mode);
 
   return $build;
@@ -3141,7 +3141,8 @@ function fsa_report_problem_preprocess_rate_template_circles(&$variables) {
   $percent_per_star = 100 / ($count - 1);
   $circles_populated = FALSE;
 
-  $rating = $results['rating'];
+  // Translate the rating in case we're on a Welsh page
+  $rating = locale($results['rating']);
   foreach ($links as $index => $settings) {
     if ($settings['text'] == $rating) {
       $results['rating_index'] = $index + 1;
@@ -3178,7 +3179,7 @@ function fsa_report_problem_preprocess_rate_template_circles(&$variables) {
   }
   if ($mode != RATE_COMPACT && $mode != RATE_COMPACT_DISABLED) {
     if (isset($results['user_vote'])) {
-      $vote = $results['user_vote'];
+      $vote = locale($results['user_vote']);
       $info[] = t('You rated the service as <strong>@vote</strong>.', array('@vote' => $vote));
     }
   }
