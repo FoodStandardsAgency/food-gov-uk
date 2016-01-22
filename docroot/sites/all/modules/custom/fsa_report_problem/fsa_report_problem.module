@@ -3229,3 +3229,26 @@ function _fsa_report_problem_selected_rating_widget($name = NULL) {
   }
   return $name;
 }
+
+
+/**
+ * Alter the Voting API settings form.
+ *
+ * We use this to add additional time windows for anonymous users.
+ */
+function fsa_report_problem_form_votingapi_settings_form_alter(&$form, &$form_state, $form_id) {
+  // Make sure the anonymous window options element exists and has options.
+  if (empty($form['votingapi_anonymous_window']) || empty($form['votingapi_anonymous_window']['#options'])) {
+    return;
+  }
+  // Additional options to be added to the anonymous voting window
+  $additional_options = array(
+    10 => t('10 seconds'),
+    30 => t('30 seconds'),
+    60 => t('1 min'),
+  );
+  // Add the additional options
+  $form['votingapi_anonymous_window']['#options'] += $additional_options;
+  // Sort the anonymous window options
+  ksort($form['votingapi_anonymous_window']['#options']);
+}
