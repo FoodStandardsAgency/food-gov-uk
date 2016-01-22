@@ -7,7 +7,7 @@
 
 <?php if ($display_options['description']): ?>
   <div class="rate-description">
-    <?php print $display_options['description']; ?>
+    <?php print locale($display_options['description']); ?>
   </div>
 <?php endif; ?>
 
