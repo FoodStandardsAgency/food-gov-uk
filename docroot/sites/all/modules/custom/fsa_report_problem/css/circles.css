@@ -10,36 +10,36 @@
     float: left;
     clear: none;
     margin: 0;
-    width: 32px;
-    height: 32px;
-    border-radius: 16px;
-    border-width: 3px;
+    width: 22px;
+    height: 22px;
+    border-radius: 11px;
+    border-width: 2px;
     border-style: solid;
     border-color: #aaaaaa;
     white-space: nowrap;
-    border-color: #4b800d; }
+    border-color: #c14618; }
     .circles .circle:hover, .circles .circle.filled {
-      border-color: #4b800d; }
+      border-color: #c14618; }
     .circles .circle.empty {
       border-color: #aaaaaa; }
     .circles .circle.filled .inner-circle {
       display: block;
-      width: 26px;
-      height: 26px;
-      border-radius: 13px;
-      margin: 0;
-      border: 5px solid #fff;
-      background-color: #4b800d; }
+      width: 20px;
+      height: 20px;
+      border-radius: 10px;
+      margin: -1px;
+      border: 0px solid #fff;
+      background-color: #c14618; }
   .circles .rate-text {
-    color: #4b800d;
+    color: #c14618;
     padding: 0;
     float: left;
     font-weight: bold;
     font-size: 1.2em;
     line-height: 18px;
-    padding-top: 19px;
+    padding-top: 12px;
     padding-left: 5px;
-    padding-top: 9px; }
+    padding-top: 3px; }
 
 #edit-rate-widget {
   margin-top: 1em; }
@@ -51,20 +51,20 @@
   overflow: hidden;
   padding: 0; }
   .rate-widget-circles ul.rate-circles-widget-populated li {
-    border-color: #4b800d; }
+    border-color: #c14618; }
 .rate-widget-circles li {
   float: left;
   clear: none;
   margin: 0;
-  width: 32px;
-  height: 32px;
-  border-radius: 16px;
-  border-width: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 11px;
+  border-width: 2px;
   border-style: solid;
   border-color: #aaaaaa;
   white-space: nowrap; }
   .rate-widget-circles li:hover, .rate-widget-circles li.filled {
-    border-color: #4b800d; }
+    border-color: #c14618; }
   .rate-widget-circles li.empty {
     border-color: #aaaaaa; }
   .rate-widget-circles li a {
@@ -72,21 +72,21 @@
     text-indent: -99999px; }
   .rate-widget-circles li:hover a, .rate-widget-circles li .rate-circles-btn-filled {
     display: block;
-    width: 26px;
-    height: 26px;
-    border-radius: 13px;
-    margin: 0;
-    border: 5px solid #fff;
-    background-color: #4b800d; }
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    margin: -1px;
+    border: 0px solid #fff;
+    background-color: #c14618; }
 
 #rate-value-description {
-  color: #4b800d;
+  color: #c14618;
   padding: 0;
   float: left;
   font-weight: bold;
   font-size: 1.2em;
   line-height: 18px;
-  padding-top: 19px;
+  padding-top: 12px;
   padding-left: 5px; }
 
 /*# sourceMappingURL=circles.css.map */
