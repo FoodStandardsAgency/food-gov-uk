@@ -1,0 +1,24 @@
+From f3142bf87c8e4fb0f5cf9ef963fd914344a9a2c2 Mon Sep 17 00:00:00 2001
+From: Matt Farrow <matt.farrow@siriusopensource.com>
+Date: Mon, 25 Jan 2016 11:15:55 +0000
+Subject: [PATCH] Issue #2656040 by mattfarrow: Require JQuery UI
+
+---
+ hierarchical_select.module | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/hierarchical_select.module b/hierarchical_select.module
+index b7e8a87..02f663f 100644
+--- a/hierarchical_select.module
++++ b/hierarchical_select.module
+@@ -366,6 +366,7 @@ function _hs_process_attach_css_js($element, $hsid, &$form_state, $complete_form
+   global $language;
+   // Set up Javascript and add settings specifically for the current
+   // hierarchical select.
++  $element['#attached']['library'][] = array('system', 'ui');
+   $element['#attached']['library'][] = array('system', 'drupal.ajax');
+   $element['#attached']['library'][] = array('system', 'jquery.form');
+   $element['#attached']['library'][] = array('system', 'effects');
+-- 
+2.5.4 (Apple Git-61)
+

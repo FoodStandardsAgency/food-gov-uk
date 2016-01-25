@@ -366,6 +366,7 @@ function _hs_process_attach_css_js($element, $hsid, &$form_state, $complete_form
   global $language;
   // Set up Javascript and add settings specifically for the current
   // hierarchical select.
+  $element['#attached']['library'][] = array('system', 'ui');
   $element['#attached']['library'][] = array('system', 'drupal.ajax');
   $element['#attached']['library'][] = array('system', 'jquery.form');
   $element['#attached']['library'][] = array('system', 'effects');
