@@ -156,3 +156,11 @@ Footer is default.
 See #10248
 
 
+=============================================
+
+HierarchicalSelect
+
+Always load JQuery UI library. This fixes FSA issue #10336, as well as issue
+#2656040 on Drupal.org: https://www.drupal.org/node/2656040
+Patch file for Drupal.org: hierarchical_select-require_jquery_ui-2656040-1.patch
+
