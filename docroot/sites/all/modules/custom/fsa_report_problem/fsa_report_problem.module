@@ -3269,3 +3269,83 @@ function fsa_report_problem_js_alter(&$javascript) {
   }
   $javascript[$circles]['weight'] = $javascript[$rate]['weight'] - 0.0001;
 }
+
+
+/**
+ * Export rating data as a CSV file
+ */
+function _fsa_report_problem_export_rating_data() {
+  // Set the name for the CSV file to be downloaded
+  $filename = 'ratings.csv';
+  // An empty array for the CSV column headers
+  $header = array();
+  // An empty string for the exported text
+  $output = '';
+
+  // Get all the available widgets
+  $widgets = variable_get(RATE_VAR_WIDGETS, array());
+
+  // Get the machine name of the widget assigned to this service - if set.
+  $widget_name = _fsa_report_problem_selected_rating_widget();
+
+  // Set a message if no rating widget is selected
+  if (empty($widget_name)) {
+    drupal_set_message('No rating widget has been selected, so there are no results to display.', 'warning');
+    drupal_add_http_header('status', '500 Internal server error');
+    return t('Sorry, a problem occured exporting the data.');
+  }
+
+  // Set widget to NULL
+  $widget = NULL;
+  // Get details for the selected widget
+  foreach ($widgets as $id => $details) {
+    if ($details->name == $widget_name) {
+      $widget = $details;
+      break;
+    }
+  }
+
+  // Get the nid for the node
+  $nid = _fsa_report_problem_get_nid();
+  // Load the node
+  $node = !empty($nid) ? node_load($nid) : NULL;
+
+  // If we don't have a node, set an error
+  if (empty($node)) {
+    drupal_set_message('No node found', 'warning');
+    drupal_add_http_header('status', '500 Internal server error');
+    return t('Sorry a problem occured exporting the data');
+  }
+
+  // Build the CSV output with vote counts per button.
+  if (count($widget->options) > 1) {
+    $widget_options = array_reverse($widget->options);
+    $rows = array();
+    foreach ($widget_options as $option) {
+      $query = db_select('votingapi_vote', 'vv')
+        ->condition('vv.entity_type', 'node')
+        ->condition('vv.entity_id', $node->nid)
+        ->condition('vv.value_type', $widget->value_type)
+        ->condition('vv.value', $option[0])
+        ->condition('vv.tag', $widget->tag)
+        ->condition('vv.timestamp', 0, '>')
+        ->orderBy('vv.value', 'DESC');
+      $field = $query->addExpression('COUNT(*)', 'vote_count');
+      $total_count = $query->execute()->fetchField();
+      $circles = $option[0];
+      $score = $circles * $total_count;
+      $title = $widget->translate ? t($option[1]) : $option[1];
+      $header[] = $title;
+      $rows[] = $total_count;
+    }
+  }
+  // Assemble the output
+  $output = implode(',', $header) . "\n" . implode(',', $rows);
+  // Add HTTP headers
+  drupal_add_http_header('Content-Type', 'text/csv; utf-8');
+  drupal_add_http_header('Content-Disposition', 'attachment;filename=' . $filename);
+  // Output the data
+  print $output;
+  // Call drupal_exit().
+  drupal_exit();
+}
