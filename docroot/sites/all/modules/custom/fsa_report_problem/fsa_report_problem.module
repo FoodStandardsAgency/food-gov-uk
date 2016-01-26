@@ -251,6 +251,15 @@ function fsa_report_problem_menu() {
       'type' => MENU_LOCAL_TASK,
       'weight' => 50,
     );
+
+    $items['admin/config/foodproblems/ratings/export'] = array(
+      'title' => 'Export rating data',
+      'description' => 'Export rating data for the service',
+      'page callback' => '_fsa_report_problem_export_rating_data',
+      'access arguments' => array('administer food problem reporting'),
+      'type' => MENU_LOCAL_ACTION,
+      'weight' => 100,
+    );
   }
 
   $items['admin/config/foodproblems/nodes'] = array(
