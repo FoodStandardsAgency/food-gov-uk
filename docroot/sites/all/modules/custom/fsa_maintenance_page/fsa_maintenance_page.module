@@ -1,0 +1,216 @@
+<?php
+/**
+ * @file
+ * Module file for the FSA maintenance page module
+ */
+
+
+/**
+ * CSS file for the maintenance page
+ */
+define('FSA_MAINTENANCE_PAGE_CSS_FILE', 'maintenance-page.css');
+
+/**
+ * Default maintenance page title
+ */
+define('FSA_MAINTENANCE_PAGE_DEFAULT_PAGE_TITLE', t('Site under maintenance'));
+
+/**
+ * Implements hook_menu().
+ */
+function fsa_maintenance_page_menu() {
+  $items = array();
+
+  // Creates a link for external systems to use as a maintenance page.
+  $items['site-maintenance'] = array(
+    'title' => 'Site under maintenance',
+    'page callback' => '_fsa_maintenance_page_render_page',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  // Creates a link for CloudFlare to use as an error page
+  $items['site-maintenance/cf'] = array(
+    'title' => 'Site under maintenance',
+    'page callback' => '_fsa_maintenance_page_render_page',
+    'page arguments' => array(TRUE),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+
+/**
+ * Implements template_preprocess_maintenance_page().
+ *
+ * @param array $variables
+ *   Template variables - passed by reference.
+ */
+function fsa_maintenance_page_preprocess_maintenance_page(&$variables) {
+
+  // Render array for the maintenance page CSS file.
+  $css_file = array(
+    '#type' => 'html_tag',
+    '#tag' => 'link',
+    '#attributes' => array(
+      'rel' => 'stylesheet',
+      'media' => 'screen',
+      'href' => '/' . drupal_get_path('theme', 'site_frontend') . '/css/' . FSA_MAINTENANCE_PAGE_CSS_FILE,
+    ),
+  );
+
+  // Set the page title
+  $variables['title'] = variable_get('maintenance_mode_title', FSA_MAINTENANCE_PAGE_DEFAULT_PAGE_TITLE);
+  drupal_set_title($variables['title']);
+
+  // Make sure $head_title reflects the page title
+  if (drupal_get_title()) {
+    $head_title_array = array(
+      'title' => strip_tags(drupal_get_title()),
+      'name' => check_plain(variable_get('site_slogan', t('Food Standards Agency'))),
+    );
+  }
+  else {
+    $head_title_array = array(
+      'title' => strip_tags($variables['title']),
+      'name' => t('Food Standards Agency'),
+    );
+  }
+
+  // Flatten the $head_title array
+  // @todo Move this to a process function
+  $variables['head_title'] = implode(' | ', array_values($head_title_array));
+
+  // Set the 'css_file' variable
+  $variables['css_file'] = $css_file;
+
+  // Render the social media icons block in the header
+  $variables['page']['header_social_media'] = _fsa_maintenance_page_social_media_icons();
+
+  // Make the content variable into an array so we can add to it.
+  $variables['content'] = array(
+    'message' => array(
+      '#type' => 'html_tag',
+      '#value' => $variables['content'],
+      '#tag' => 'p',
+      '#attributes' => array(
+        'class' => array(
+          'views-field-field-summary'
+        ),
+      ),
+      '#weight' => 0,
+    ),
+    // Add the social media icons to the main body content, but hide labels
+    'social_media_icons' => array(
+      'icons' => _fsa_maintenance_page_social_media_icons(array('show_labels' => FALSE)),
+      '#weight' => 100,
+    ),
+  );
+
+  // Add the additional content - if populated
+  $extra_content = variable_get('maintenance_mode_extra');
+  $extra_content = !empty($extra_content['value']) ? $extra_content['value'] : '';
+  if (!empty($extra_content)) {
+    $variables['content']['extra'] = array(
+      '#markup' => $extra_content,
+      '#weight' => 10,
+    );
+  }
+
+  // Add the CloudFlare token if required
+  if (!empty($variables['cf'])) {
+    $variables['content']['cf_token'] = array(
+      '#markup' => '::ALWAYS_ONLINE_NO_COPY_BOX::',
+      '#weight' => 5,
+    );
+  }
+}
+
+
+/**
+ * Renders a 'static' version of the site maintenance page.
+ *
+ * @param boolean $cf
+ *   If set to TRUE, indicates that this is for use by CloudFlare, in which case
+ *   it needs to output the special token.
+ *
+ * This can be used on other systems where a maintenance page may be required.
+ */
+function _fsa_maintenance_page_render_page($cf = FALSE) {
+  $content = variable_get('maintenance_mode_message');
+  $theme = 'site_frontend';
+  $variables = array(
+    'content' => $content,
+    'external' => FALSE,
+    'cf' => $cf,
+  );
+  $rendered_page = theme('maintenance_page', $variables);
+  print $rendered_page;
+  drupal_exit();
+}
+
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * We use this to add fields to the maintenance mode admin form.
+ *
+ * @param array $form
+ *   The form array - passed by reference
+ *
+ * @param array $form_state
+ *   The form state array - passed by reference
+ */
+function fsa_maintenance_page_form_system_site_maintenance_mode_alter(&$form, &$form_state) {
+
+  // We add a field for additional content on the site maintenance page.
+  $extra_content = variable_get('maintenance_mode_extra');
+  $extra_content = !empty($extra_content['value']) ? $extra_content['value'] : '';
+
+  // Set some form element weights so that fields appear in the right order
+  $form['maintenance_mode']['#weight'] = 0;
+  $form['maintenance_mode_message']['#weight'] = 20;
+
+  // Add a field for maintenance page title
+  $form['maintenance_mode_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Maintenance mode page title'),
+    '#description' => t('This is the title that will be displayed at the top of the site maintenance page.'),
+    '#required' => TRUE,
+    '#default_value' => variable_get('maintenance_mode_title', FSA_MAINTENANCE_PAGE_DEFAULT_PAGE_TITLE),
+    '#weight' => 10,
+  );
+
+  // Add a WYSIWYG field for additional content such as contact details etc
+  $form['maintenance_mode_extra'] = array(
+    '#type' => 'text_format',
+    '#title' => t('Additional information'),
+    '#description' => t('Use this field to include additional information such as contact details.'),
+    '#format' => 'full_html',
+    '#default_value' => $extra_content,
+    '#weight' => 30,
+  );
+}
+
+
+// Helper function - returns social media icons block render array
+function _fsa_maintenance_page_social_media_icons($options = array()) {
+  $module = 'fsa_social_media';
+  $delta = 'social_media_icons';
+  // Set the maintenance_mode option
+  $options['maintenance_mode'] = TRUE;
+  // Load the block
+  $block = block_load($module, $delta);
+  // If there is no block or it's not an object, return an empty string now.
+  if (empty($block) || !is_object($block)) {
+    return '';
+  }
+  // If we have any options, add them to the block object.
+  if (!empty($options)) {
+    $block->display_options = $options;
+  }
+  // Generate the render array for the block.
+  return _block_get_renderable_array(_block_render_blocks(array($block)));
+}
