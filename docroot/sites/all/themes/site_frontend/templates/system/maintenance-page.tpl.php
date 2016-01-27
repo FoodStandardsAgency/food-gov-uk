@@ -1,3 +1,9 @@
+<?php
+/**
+ * @file
+ * Theme implementation for the site maintenance page.
+ */
+?>
 <!DOCTYPE html>
 <?php if (omega_extension_enabled('compatibility') && omega_theme_get_setting('omega_conditional_classes_html', TRUE)): ?>
 <!--[if !IE]><!--><html class="no-js" lang="<?php print $language->language; ?>" dir="<?php print $language->dir; ?>"><!--<![endif]-->
