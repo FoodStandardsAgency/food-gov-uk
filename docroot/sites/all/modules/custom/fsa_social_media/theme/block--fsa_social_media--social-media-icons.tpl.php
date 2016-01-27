@@ -66,10 +66,16 @@
     <?php print render($title_suffix); ?>
     <div<?php print $content_attributes; ?>>
       <div class="custom-block-content-inner">
-        <div class="label-wrapper">
-          <span class="left-label"><?php print t('Stay updated'); ?>:</span>
-          <span class="right-label"><?php print t('Keep connected'); ?>:</span>
-        </div>
+        <?php if ($show_labels): ?>
+          <div class="label-wrapper">
+            <?php if (!$maintenance_mode): ?>
+              <span class="left-label"><?php print t('Stay updated'); ?>:</span>
+              <span class="right-label"><?php print t('Keep connected'); ?>:</span>
+            <?php else: ?>
+              <?php print t('Keep connected'); ?>
+            <?php endif; ?>
+          </div>
+        <?php endif; ?>
         <div class="icons-wrapper">
         <ul>
           <li><a href="/subscribe" target="_blank" title="email"><img alt="email" src="/sites/all/themes/site_frontend/images/icons/34x34/email.png" /></a></li>

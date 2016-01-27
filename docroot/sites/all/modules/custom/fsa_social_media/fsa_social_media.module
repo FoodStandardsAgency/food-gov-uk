@@ -132,6 +132,14 @@ function fsa_social_media_preprocess_block(&$variables) {
   if ($delta != 'social_media_icons') {
     return;
   }
+  // By default, show the labels
+  $variables['show_labels'] = TRUE;
+  // Get block display options - if set
+  $display_options = !empty($block->display_options) ? $block->display_options : array();
+  // Add any display options to the $variables array
+  foreach ($display_options as $option => $value) {
+    $variables[$option] = $value;
+  }
   // Preprocess the items
   $variables['items'] = !empty($block->items) ? $block->items : array();
   $last_item = count($variables['items']) > 0 ? count($variables['items']) - 1 : 0;
