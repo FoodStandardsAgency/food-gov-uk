@@ -180,6 +180,11 @@ function fsa_social_media_preprocess_block(&$variables) {
 
   }
   $variables['classes_array'][] = 'social-media-icons';
+
+  // Are we in maintenance mode?
+  $maintenance_mode = empty($variables['maintenance_mode']) ? variable_get('maintenance_mode', 0) : $variables['maintenance_mode'];
+  // Make sure it's a boolean
+  $variables['maintenance_mode'] = !empty($maintenance_mode);
 }
 
 

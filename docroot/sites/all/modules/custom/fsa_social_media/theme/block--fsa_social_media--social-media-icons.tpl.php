@@ -78,9 +78,11 @@
         <?php endif; ?>
         <div class="icons-wrapper">
         <ul>
-          <li><a href="/subscribe" target="_blank" title="email"><img alt="email" src="/sites/all/themes/site_frontend/images/icons/34x34/email.png" /></a></li>
-          <li><a href="/subscribe" target="_blank" title="phone"><img alt="phone" src="/sites/all/themes/site_frontend/images/icons/34x34/phone.png" /></a></li>
-          <li class="extra-margin"><a href="/about-us/data-and-policies/aboutsite/rss" target="_blank" title="RSS"><img alt="RSS" src="/sites/all/themes/site_frontend/images/icons/34x34/rss.png" /></a></li>
+          <?php if (!$maintenance_mode): ?>
+            <li><a href="/subscribe" target="_blank" title="email"><img alt="email" src="/sites/all/themes/site_frontend/images/icons/34x34/email.png" /></a></li>
+            <li><a href="/subscribe" target="_blank" title="phone"><img alt="phone" src="/sites/all/themes/site_frontend/images/icons/34x34/phone.png" /></a></li>
+            <li class="extra-margin"><a href="/about-us/data-and-policies/aboutsite/rss" target="_blank" title="RSS"><img alt="RSS" src="/sites/all/themes/site_frontend/images/icons/34x34/rss.png" /></a></li>
+          <?php endif; ?>
           <?php foreach($items as $item): ?>
             <li class="<?= $item['classes']; ?>"><a href="<?php print render($item['url']); ?>" target="_blank" title="<?php print render($item['title']); ?>"><?php print render($item['icon']); ?></a></li>
           <?php endforeach; ?>
