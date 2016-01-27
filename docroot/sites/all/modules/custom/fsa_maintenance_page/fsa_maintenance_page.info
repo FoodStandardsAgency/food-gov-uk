@@ -1,0 +1,4 @@
+name = FSA maintenance page
+description = "Provides additional functionality for the site maintenance page."
+core = 7.x
+package = System
