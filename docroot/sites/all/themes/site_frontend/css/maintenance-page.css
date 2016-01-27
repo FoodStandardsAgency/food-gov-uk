@@ -9056,6 +9056,9 @@ body {
     min-width: 0;
   }
 }
+.maintenance-page.in-maintenance .always_online {
+  display: none;
+}
 .maintenance-page.in-maintenance .contextual-links-wrapper {
   display: none;
 }
