@@ -192,6 +192,9 @@ function fsa_maintenance_page_form_system_site_maintenance_mode_alter(&$form, &$
     '#default_value' => $extra_content,
     '#weight' => 30,
   );
+
+  // Add an additional submit handler
+  $form['#submit'][] = '_fsa_maintenance_page_site_maintenance_form_submit';
 }
 
 
@@ -213,4 +216,104 @@ function _fsa_maintenance_page_social_media_icons($options = array()) {
   }
   // Generate the render array for the block.
   return _block_get_renderable_array(_block_render_blocks(array($block)));
+}
+
+
+/**
+ * Additional submit handler for the maintenance page admin form
+ */
+function _fsa_maintenance_page_site_maintenance_form_submit($form, &$form_state) {
+  _fsa_maintenance_page_update_cloudflare_error_page();
+}
+
+
+/**
+ *  Helper function: tells CloudFlare to update its error page
+ */
+function _fsa_maintenance_page_update_cloudflare_error_page() {
+
+
+  if (!is_callable('_fsa_cache_clear_settings')) {
+    // @todo Log a Watchdog message here
+    return;
+  }
+
+  $api_key = _fsa_cache_clear_settings('cloudflare_api_key');
+  $email = _fsa_cache_clear_settings('cloudflare_email');
+  $endpoint = 'https://api.cloudflare.com/client/v4/zones/';
+
+
+  $options = array(
+    'headers' => array(
+      'X-Auth-Email' => $email,
+      'X-Auth-Key' => $api_key,
+      'Content-Type' => 'application/json',
+    ),
+    'query' => array(
+      'name' => 'food.go.uk',
+    ),
+  );
+
+  // First, get the zone for the domain
+  $response = drupal_http_request($endpoint, $options);
+  $zone = NULL;
+  $zones = !empty($response->data) ? json_decode($response->data) : NULL;
+  if (is_object($zones) && !empty($zones->result) && is_array($zones->result)) {
+    $zone = !empty($zones->result[0]->id) ? $zones->result[0]->id : NULL;
+  }
+
+  // No zone? Exit now
+  if (empty($zone)) {
+    // @todo Log a Watchdog message here
+    return;
+  }
+
+  // Get the custom pages
+  $url = "$endpoint/$zone/custom_pages";
+  unset($options['query']);
+
+  $response = drupal_http_request($url, $options);
+  $custom_pages =  !empty($response->data) ? json_decode($response->data) : NULL;
+  if (is_object($custom_pages) && !empty($custom_pages->result) && is_array($custom_pages->result)) {
+    $custom_pages = !empty($custom_pages->result) ? $custom_pages->result : array();
+  }
+
+  $custom_page = FALSE;
+  foreach ($custom_pages as $page) {
+    if (!empty($page->id) && $page->id == 'always_online') {
+      $custom_page = TRUE;
+    }
+  }
+
+  if (!$custom_page) {
+    // @todo Log a Watchdog message here
+    return;
+  }
+
+  // Get the site domain
+  $domain = local_get_site_domain(FALSE, 'http');
+  // Force the domain to dev for testing
+  // @todo Remove this before going live!
+  $domain = 'http://dev.food.gov.uk';
+  $maintenance_page_url = url('site-maintenance/cf', array('absolute' => TRUE, 'base_url' => $domain, 'query' => array('ts' => REQUEST_TIME)));
+
+  // Update the Always online custom page
+  $url = "$endpoint/$zone/custom_pages/always_online";
+  // Set request method to PUT
+  $options['method'] = 'PUT';
+  // Set request data
+  $data = array(
+    'url' => $maintenance_page_url,
+    'state' => 'customized',
+  );
+  $data = (object) $data;
+  $options['data'] = drupal_json_encode($data);
+  $request = drupal_http_request($url, $options);
+  $response = !empty($request->data) ? json_decode($request->data) : NULL;
+  if (!empty($response->success)) {
+    drupal_set_message(t('Updated the CloudFlare Always Online custom error page.'));
+  }
+  else {
+    drupal_set_message(t('Failed to update the CloudFlare Always Online custom error page'), 'error');
+  }
 }
