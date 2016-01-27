@@ -24,8 +24,8 @@
   <a href="#main-content" class="element-invisible element-focusable" accesskey="S"><?php print t('Skip to main content'); ?></a>
   <?php if (!empty($page_top)): ?>
     <?php print $page_top; ?>
-  <?php endif; ?>  
-  
+  <?php endif; ?>
+
   <div class="header-wrapper">
     <div class="header-wrapper-inner">
       <header class="l-header" role="banner">
@@ -64,7 +64,7 @@
       </header>
     </div> <!-- end header-wrapper-inner -->
   </div> <!-- end header-wrapper -->
-  
+
   <div class="main-wrapper">
     <div class="l-main">
       <div class="main-inner">
@@ -93,7 +93,7 @@
             <?php if (!empty($action_links)): ?>
               <ul class="action-links"><?php print render($action_links); ?></ul>
             <?php endif; ?>
-              <?php print render($content); ?>
+            <?php print render($content); ?>
             <?php if (!empty($page['node_inline'])): ?>
               <?php print render($page['node_inline']); ?>
             <?php endif; ?>
@@ -106,7 +106,7 @@
       </div> <!-- end main-inner -->
     </div> <!-- end main -->
   </div> <!-- end main-wrapper -->
-  
+
   <div class="bottom-menu-wrapper">
     <div class="bottom-menu-wrapper-inner">
       <div class="l-bottom-menu">
