@@ -292,9 +292,6 @@ function _fsa_maintenance_page_update_cloudflare_error_page() {
 
   // Get the site domain
   $domain = local_get_site_domain(FALSE, 'http');
-  // Force the domain to dev for testing
-  // @todo Remove this before going live!
-  $domain = 'http://dev.food.gov.uk';
   $maintenance_page_url = url('site-maintenance/cf', array('absolute' => TRUE, 'base_url' => $domain, 'query' => array('ts' => REQUEST_TIME)));
 
   // Update the Always online custom page
