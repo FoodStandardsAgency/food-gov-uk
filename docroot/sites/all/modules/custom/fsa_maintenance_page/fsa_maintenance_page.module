@@ -408,7 +408,7 @@ function _fsa_maintenance_page_update_cloudflare_error_page() {
   $options['method'] = 'PUT';
   // Set request data
   $data = array(
-    'url' => $maintenance_page_url,
+    'url' => _fsa_maintenance_page_cloudflare_error_page_url(TRUE),
     'state' => 'customized',
   );
   $data = (object) $data;
