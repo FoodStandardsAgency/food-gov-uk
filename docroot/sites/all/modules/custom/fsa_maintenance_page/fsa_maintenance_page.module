@@ -362,7 +362,6 @@ function _fsa_maintenance_page_site_maintenance_form_submit($form, &$form_state)
  */
 function _fsa_maintenance_page_update_cloudflare_error_page() {
 
-
   if (!is_callable('_fsa_cache_clear_settings')) {
     watchdog('fsa_maintenance_page', 'No CloudFlare settings found', array(), WATCHDOG_ERROR);
     return;
