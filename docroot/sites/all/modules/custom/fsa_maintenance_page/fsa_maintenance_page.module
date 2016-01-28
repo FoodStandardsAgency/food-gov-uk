@@ -136,7 +136,7 @@ function fsa_maintenance_page_preprocess_maintenance_page(&$variables) {
     'heading' => array(
       '#type' => 'html_tag',
       '#tag' => 'h2',
-      '#value' => _fsa_maintenance_page_twitter_config('title'),
+      '#value' => _fsa_maintenance_page_twitter_config('title', t('Latest updates from Twitter')),
     ),
     'link' => array(
       '#type' => 'link',
@@ -261,7 +261,7 @@ function fsa_maintenance_page_form_system_site_maintenance_mode_alter(&$form, &$
       '#type' => 'textfield',
       '#title' => t('Title'),
       '#description' => t('Title to be displayed above the Twitter feed'),
-      '#default_value' => _fsa_maintenance_page_twitter_config('title'),
+      '#default_value' => _fsa_maintenance_page_twitter_config('title', t('Latest updates from Twitter')),
     ),
 
     FSA_MAINTENANCE_PAGE_TWITTER_CONFIG_PREFIX . '_url' => array(
@@ -282,7 +282,7 @@ function fsa_maintenance_page_form_system_site_maintenance_mode_alter(&$form, &$
       '#type' => 'textfield',
       '#title' => t('Number of tweets'),
       '#description' => t('Set the number of tweets to display. If you don\'t want to limit them, leave blank.'),
-      '#default_value' => _fsa_maintenance_page_twitter_config('tweet_limit'),
+      '#default_value' => _fsa_maintenance_page_twitter_config('tweet_limit', 5),
     ),
 
     FSA_MAINTENANCE_PAGE_TWITTER_CONFIG_PREFIX . '_height' => array(
