@@ -342,7 +342,7 @@ function _fsa_maintenance_page_update_cloudflare_error_page() {
 
 
   if (!is_callable('_fsa_cache_clear_settings')) {
-    // @todo Log a Watchdog message here
+    watchdog('fsa_maintenance_page', 'No CloudFlare settings found', array(), WATCHDOG_ERROR);
     return;
   }
 
@@ -372,7 +372,7 @@ function _fsa_maintenance_page_update_cloudflare_error_page() {
 
   // No zone? Exit now
   if (empty($zone)) {
-    // @todo Log a Watchdog message here
+    watchdog('fsa_maintenance_page', 'No CloudFlare zone information found', array(), WATCHDOG_ERROR);
     return;
   }
 
@@ -394,7 +394,7 @@ function _fsa_maintenance_page_update_cloudflare_error_page() {
   }
 
   if (!$custom_page) {
-    // @todo Log a Watchdog message here
+    watchdog('fsa_maintenance_page', 'No CloudFlare custom error page found', array(), WATCHDOG_ERROR);
     return;
   }
 
@@ -416,6 +416,15 @@ function _fsa_maintenance_page_update_cloudflare_error_page() {
   }
   else {
     drupal_set_message(t('Failed to update the CloudFlare Always Online custom error page'), 'error');
+    $errors = !empty($response->errors) ? $response->errors : array();
+    $err_message = t('There was a problem updating the CloudFlare Always Online custom error page.');
+    if (count($err_message) > 0) {
+      $err_message .= ' ' . t('The errors were: ');
+      foreach ($errors as $error) {
+        $err_message .= $error->code . ' - ' . $error->message . '; ';
+      }
+    }
+    watchdog('fsa_maintenance_page', $err_message, array(), WATCHDOG_ERROR);
   }
 }
 
