@@ -295,6 +295,26 @@ function fsa_maintenance_page_form_system_site_maintenance_mode_alter(&$form, &$
   // Add Twitter config submit handler
   array_unshift($form['#submit'], '_fsa_maintenance_page_site_maintenance_form_twitter_config_submit');
 
+  // CloudFlare configuration
+  $form['cloudflare_config'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('CloudFlare configuration'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#weight' => 50,
+
+    'maintenance_mode_update_cloudflare' => array(
+      '#type' => 'checkbox',
+      '#title' => t('Update CloudFlare error page'),
+      '#default_value' => variable_get('maintenance_mode_update_cloudflare', 1),
+    ),
+
+    'maintenance_mode_cloudflare_error_url' => array(
+      '#type' => 'textfield',
+      '#title' => t('CloudFlare error page URL'),
+      '#default_value' => _fsa_maintenance_page_cloudflare_error_page_url(FALSE),
+    ),
+  );
 
   // Add an additional submit handler for CloudFlare
   $form['#submit'][] = '_fsa_maintenance_page_site_maintenance_form_submit';
