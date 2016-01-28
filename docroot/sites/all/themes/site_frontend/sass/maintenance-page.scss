@@ -198,6 +198,13 @@ body {
   .always_online {
     display: none;
   }
+  
+  // Formatting for the Twitter widget
+  .twitter-widget {
+    border-top: 1px solid #ddd;
+    padding-top: 1em;
+    margin-bottom: 3em;
+  }
 
   // Hide contextual links wrappers
   .contextual-links-wrapper {
