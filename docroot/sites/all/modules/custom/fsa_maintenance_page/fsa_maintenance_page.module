@@ -480,3 +480,33 @@ function _fsa_maintenance_page_twitter_config($param = NULL, $default = NULL) {
     return $default;
   }
 }
+
+
+/**
+ * Helper function: returns the URL for the CloudFlare error page
+ *
+ * @param boolean $add_timestamp
+ *   (optional) If set to TRUE, adds a timestamp as a query string parameter
+ *   to the URL returned. This is useful for ensuring a cache miss when
+ *   CloudFlare scrapes the page. Defaults to FALSE.
+ *
+ * @return string
+ *   The full URL of the error page that CloudFlare will scrape and internalise
+ */
+function _fsa_maintenance_page_cloudflare_error_page_url($add_timestamp = FALSE) {
+  $options = array(
+    'absolute' => TRUE,
+  );
+  if ($add_timestamp) {
+    $options['query'] = array(
+      'ts' => REQUEST_TIME,
+    );
+  }
+  $url = variable_get('maintenance_mode_cloudflare_error_url');
+  if (empty($url)) {
+    $options['base_url'] = local_get_site_domain(FALSE, 'http');
+    $url = 'site-maintenance/cf';
+  }
+
+  return url($url, $options);
+}
