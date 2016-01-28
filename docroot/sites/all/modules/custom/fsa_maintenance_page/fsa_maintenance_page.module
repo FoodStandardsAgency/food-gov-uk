@@ -398,10 +398,6 @@ function _fsa_maintenance_page_update_cloudflare_error_page() {
     return;
   }
 
-  // Get the site domain
-  $domain = local_get_site_domain(FALSE, 'http');
-  $maintenance_page_url = url('site-maintenance/cf', array('absolute' => TRUE, 'base_url' => $domain, 'query' => array('ts' => REQUEST_TIME)));
-
   // Update the Always online custom page
   $url = "$endpoint/$zone/custom_pages/always_online";
   // Set request method to PUT
