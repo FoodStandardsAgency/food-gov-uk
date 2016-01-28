@@ -9059,6 +9059,11 @@ body {
 .maintenance-page.in-maintenance .always_online {
   display: none;
 }
+.maintenance-page.in-maintenance .twitter-widget {
+  border-top: 1px solid #ddd;
+  padding-top: 1em;
+  margin-bottom: 3em;
+}
 .maintenance-page.in-maintenance .contextual-links-wrapper {
   display: none;
 }
