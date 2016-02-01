@@ -210,6 +210,25 @@ function fsa_search_spellcheck_search_form_submit(&$form, &$form_state) {
       $query_length = !empty($keyword) ? count($keywords) : 0;
       $correctly_spelled = $query_length === 1 && !empty($response->spellcheck->suggestions->correctlySpelled);
 
+      // It may prove useful to have access to an array of keywords combining
+      // those entered by the user and any suggested by Solr. We generate this
+      // here.
+      $suggested_keywords = $keywords;
+      $suggested_terms = !empty($response->spellcheck->suggestions) && is_object($response->spellcheck->suggestions) ? (array) $response->spellcheck->suggestions : array();
+      $remove_elements = array('correctlySpelled');
+      foreach($suggested_terms as $term => $object) {
+        if (in_array($term, $remove_elements)) {
+          unset($suggested_terms[$term]);
+        }
+        if (!empty($object->suggestion) && is_array($object->suggestion)) {
+          foreach ($object->suggestion as $s) {
+            if (!empty($s->word) && !in_array($s->word, $keywords)) {
+              $suggested_keywords[] = $s->word;
+            }
+          }
+        }
+      }
+      $suggested_keywords = !empty($suggested_keywords) ? implode(',', $suggested_keywords) : NULL;
 
       // Is there a suggestion (collation)?
       $suggestion = !empty($response->spellcheck->suggestions->collation) ? $response->spellcheck->suggestions->collation : NULL;
