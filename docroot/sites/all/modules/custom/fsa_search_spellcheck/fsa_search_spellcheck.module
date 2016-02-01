@@ -230,6 +230,13 @@ function fsa_search_spellcheck_search_form_submit(&$form, &$form_state) {
       }
       $suggested_keywords = !empty($suggested_keywords) ? implode(',', $suggested_keywords) : NULL;
 
+      // Number of results returned by the original search
+      $hits = !empty($response->response->numFound) ? $response->response->numFound : 0;
+      // Suggested alternative query
+      $collation_query = !empty($response->spellcheck->suggestions->collation->collationQuery) ? $response->spellcheck->suggestions->collation->collationQuery : NULL;
+      // Number of results returned by the suggested query
+      $collation_hits = !empty($response->spellcheck->suggestions->collation->hits) ? $response->spellcheck->suggestions->collation->hits : 0;
+
       // Is there a suggestion (collation)?
       $suggestion = !empty($response->spellcheck->suggestions->collation) ? $response->spellcheck->suggestions->collation : NULL;
 
