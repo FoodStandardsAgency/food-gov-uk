@@ -97,8 +97,14 @@ function template_preprocess_search_spelling_suggestions(&$variables) {
   $variables['show_suggestions'] = !empty($variables['suggestion']);
   $variables['original_query_link'] = !empty($variables['original_query']) ? url('search', array('query' => array('keyword' => $variables['original_query']))) : NULL;
   $variables['suggested_query_link'] = !empty($variables['suggestion']) ? url('search', array('query' => array('keyword' => $variables['suggestion']))) : NULL;
-}
 
+  $variables['suggested_keywords'] = !empty($variables['sk']) ? explode(',', $variables['sk']) : array();
+  $variables['suggested_keyword_links'] = array();
+  foreach ($variables['suggested_keywords'] as $keyword) {
+    $variables['suggested_keyword_links'][] = l($keyword, 'search', array('query' => array('keyword' => $keyword)));
+  }
+
+}
 
 /**
  * Implements hook_form_alter().
