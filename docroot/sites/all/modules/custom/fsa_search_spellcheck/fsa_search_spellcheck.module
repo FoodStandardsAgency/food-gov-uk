@@ -246,14 +246,22 @@ function fsa_search_spellcheck_search_form_submit(&$form, &$form_state) {
         // This is the query that will be executed. If there is a suggestion,
         // and Solr thinks it's incorrectly spelt, use the suggestion. Otherwise
         // use the original search term.
-        'query' => !empty($suggestion) && !$correctly_spelled ? $suggestion : $keyword,
+        'query' => !empty($suggestion) && $collation_hits > $hits && !$correctly_spelled ? $suggestion : $keyword,
         // This is set if a suggestion is used instead of the original query,
         // otherwise it is set to NULL.
-        'original_query' => !empty($suggestion) && !$correctly_spelled ? $keyword : NULL,
+        'original_query' => !empty($suggestion) && $hits < $collation_hits ? $keyword : NULL,
         // This is set if there is a suggestion, but Solr thinks the original
         // query was correctly spelt. In this case, we provide a suggestion,
         // but the search executes the original query by default.
-        'suggestion' => !empty($suggestion) && $correctly_spelled ? $suggestion : NULL,
+        'suggestion' => !empty($suggestion) ? $suggestion : NULL,
+        // This is the number of hits for the original query
+        'hits' => $hits,
+        // This is the number of hits for any collation suggestion
+        'ch' => $collation_hits,
+        // Whether or not the term is considered to be correctly spelled
+        'cs' => $correctly_spelled,
+        // Suggested keywords
+        'sk' => $suggested_keywords,
       );
 
       return $return_array;
