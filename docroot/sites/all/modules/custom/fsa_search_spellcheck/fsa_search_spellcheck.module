@@ -204,8 +204,6 @@ function fsa_search_spellcheck_search_form_submit(&$form, &$form_state) {
       // Execute the query
       list($final_query, $response) = apachesolr_do_query($query);
 
-      // Does Solr think all the words are correctly spelt?
-      $correctly_spelled = !empty($response->spellcheck->suggestions->correctlySpelled) ? TRUE : FALSE;
 
       // Is there a suggestion (collation)?
       $suggestion = !empty($response->spellcheck->suggestions->collation) ? $response->spellcheck->suggestions->collation : NULL;
