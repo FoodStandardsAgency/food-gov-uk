@@ -299,3 +299,22 @@ function fsa_search_spellcheck_facetapi_url_processors() {
     ),
   );
 }
+
+
+/**
+ * Form builder - search form for the search page
+ */
+function fsa_search_spellcheck_search_form($form, &$form_state) {
+  $form['keyword'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Search'),
+    '#title_display' => 'invisible',
+    '#default_value' => !empty($_GET['keyword']) ? $_GET['keyword'] : NULL,
+  );
+  $form['submit_button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Submit'),
+  );
+  $form['#attributes']['class'][] = 'search-keyword-page';
+  return $form;
+}
