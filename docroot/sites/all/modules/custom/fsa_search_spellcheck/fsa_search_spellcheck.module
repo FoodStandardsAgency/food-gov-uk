@@ -204,6 +204,12 @@ function fsa_search_spellcheck_search_form_submit(&$form, &$form_state) {
       // Execute the query
       list($final_query, $response) = apachesolr_do_query($query);
 
+      // For single-word queries, where the word is not a mis-spelling, we
+      // probably shouldn't substitute the suggestion - cf 'fridge' v 'friday'.
+      $keywords = explode(' ', preg_replace("/ +/", ' ', $keyword));
+      $query_length = !empty($keyword) ? count($keywords) : 0;
+      $correctly_spelled = $query_length === 1 && !empty($response->spellcheck->suggestions->correctlySpelled);
+
 
       // Is there a suggestion (collation)?
       $suggestion = !empty($response->spellcheck->suggestions->collation) ? $response->spellcheck->suggestions->collation : NULL;
