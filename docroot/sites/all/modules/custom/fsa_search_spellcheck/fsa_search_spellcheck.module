@@ -170,6 +170,7 @@ function fsa_search_spellcheck_search_form_submit(&$form, &$form_state) {
 
   // Redirect the user to the search results page - with any additional options.
   drupal_goto('search', $options);
+
 }
 
 
