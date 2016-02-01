@@ -36,6 +36,10 @@ function fsa_search_spellcheck_block_view($delta = '') {
         '#keyword' => !empty($_GET['keyword']) ? $_GET['keyword'] : NULL,
         '#original_query' => !empty($_GET['original_query']) ? $_GET['original_query'] : NULL,
         '#suggestion' => !empty($_GET['suggestion']) ? $_GET['suggestion'] : NULL,
+        '#hits' => !empty($_GET['hits']) ? $_GET['hits'] : 0,
+        '#ch' => !empty($_GET['ch']) ? $_GET['ch'] : 0,
+        '#cs' => !empty($_GET['cs']),
+        '#sk' => !empty($_GET['sk']) ? $_GET['sk'] : NULL,
         '#attached' => array(
           'css' => array(
             drupal_get_path('module', 'fsa_search_spellcheck') . "/css/search-spelling-suggestions.css",
