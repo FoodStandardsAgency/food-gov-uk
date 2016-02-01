@@ -65,9 +65,20 @@ function fsa_search_spellcheck_theme() {
     'search_spelling_suggestions' => array(
       'template' => 'theme/search-spelling-suggestions',
       'variables' => array(
+        // The keyword to search on
         'keyword' => '',
+        // The original query - if different
         'original_query' => NULL,
+        // Any suggested search terms
         'suggestion' => NULL,
+        // Number of hits for the original query
+        'hits' => 0,
+        // Number of hits for collation (spelling suggestion)
+        'ch' => 0,
+        // Whether or not the search term is considered to be spelled correctly
+        'cs' => FALSE,
+        // Suggested keywords
+        'sk' => NULL,
       ),
     ),
   );
