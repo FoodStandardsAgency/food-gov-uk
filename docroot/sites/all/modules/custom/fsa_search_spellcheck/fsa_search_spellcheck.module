@@ -151,6 +151,10 @@ function fsa_search_spellcheck_search_form_submit(&$form, &$form_state) {
   $options = array(
     'query' => array(
       'keyword' => $search_str,
+      'hits' => $spellcheck_result['hits'],
+      'ch' => $spellcheck_result['ch'],
+      'cs' => $spellcheck_result['cs'],
+      'sk' => $spellcheck_result['sk'],
     ),
   );
 
