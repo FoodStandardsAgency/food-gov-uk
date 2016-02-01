@@ -15,6 +15,9 @@ function fsa_search_spellcheck_block_info() {
   $blocks['search_spelling_suggestions'] = array(
     'info' => t('Search spelling suggestions'),
   );
+  $blocks['search_sitewide_test'] = array(
+    'info' => t('Site search box for search page'),
+  );
   return $blocks;
 }
 
@@ -40,6 +43,15 @@ function fsa_search_spellcheck_block_view($delta = '') {
         ),
       );
       break;
+
+    case 'search_sitewide_test':
+      $block['subject'] = NULL;
+      $search_form = drupal_get_form('fsa_search_spellcheck_search_form');
+      $block['content'] = array(
+        '#markup' => drupal_render($search_form),
+      );
+      break;
+
   }
   return $block;
 }
