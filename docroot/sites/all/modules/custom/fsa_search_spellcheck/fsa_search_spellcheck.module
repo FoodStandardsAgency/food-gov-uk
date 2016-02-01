@@ -194,7 +194,7 @@ function fsa_search_spellcheck_search_form_submit(&$form, &$form_state) {
       $query->addParam('spellcheck.onlyMorePopular', 'true');
       $query->addParam('spellcheck.extendedResults', 'true');
       $query->addParam('spellcheck.collate', 'true');
-      $query->addParam('spellcheck.build', 'true');
+      //$query->addParam('spellcheck.build', 'true');
       // Execute the query
       list($final_query, $response) = apachesolr_do_query($query);
 
