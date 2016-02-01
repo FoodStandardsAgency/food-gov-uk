@@ -238,7 +238,8 @@ function fsa_search_spellcheck_search_form_submit(&$form, &$form_state) {
       $collation_hits = !empty($response->spellcheck->suggestions->collation->hits) ? $response->spellcheck->suggestions->collation->hits : 0;
 
       // Is there a suggestion (collation)?
-      $suggestion = !empty($response->spellcheck->suggestions->collation) ? $response->spellcheck->suggestions->collation : NULL;
+      //$suggestion = !empty($response->spellcheck->suggestions->collation) ? $response->spellcheck->suggestions->collation : NULL;
+      $suggestion = !empty($collation_query) && !empty($collation_hits) ? $collation_query : NULL;
 
       // Return an array that can be used when presenting the results.
       $return_array = array(
