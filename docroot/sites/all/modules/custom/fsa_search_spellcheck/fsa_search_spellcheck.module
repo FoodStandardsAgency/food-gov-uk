@@ -195,6 +195,12 @@ function fsa_search_spellcheck_search_form_submit(&$form, &$form_state) {
       $query->addParam('spellcheck.extendedResults', 'true');
       $query->addParam('spellcheck.collate', 'true');
       //$query->addParam('spellcheck.build', 'true');
+
+      $query->addParam('spellcheck.collateExtendedResults', 'true');
+      $query->addParam('spellcheck.maxCollations', '100');
+      $query->addParam('spellcheck.maxCollationTries', '1');
+      $query->addParam('spellcheck.accuracy', '0.65');
+
       // Execute the query
       list($final_query, $response) = apachesolr_do_query($query);
 
