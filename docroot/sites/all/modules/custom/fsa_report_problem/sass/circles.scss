@@ -98,18 +98,28 @@
   }
 
   li {
-    @include circle;
+    @include circle(44px, 4px);
+
+    @media screen and (min-width: 481px) {
+      @include circle;
+    }
 
     a {
       display: block;
       text-indent: -99999px;
     }
-    
+
     &:hover a, .rate-circles-btn-filled {
-      @include inner-circle;
+      @include inner-circle(40px);
+
+      @media screen and (min-width: 481px) {
+        @include inner-circle;
+      }
+
     }
+
   }
-  
+
 }
 
 // Rating valud descriptions

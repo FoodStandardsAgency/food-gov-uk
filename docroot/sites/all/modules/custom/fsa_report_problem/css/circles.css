@@ -56,10 +56,10 @@
   float: left;
   clear: none;
   margin: 0;
-  width: 22px;
-  height: 22px;
-  border-radius: 11px;
-  border-width: 2px;
+  width: 44px;
+  height: 44px;
+  border-radius: 22px;
+  border-width: 4px;
   border-style: solid;
   border-color: #aaaaaa;
   white-space: nowrap; }
@@ -67,17 +67,42 @@
     border-color: #c14618; }
   .rate-widget-circles li.empty {
     border-color: #aaaaaa; }
+  @media screen and (min-width: 481px) {
+    .rate-widget-circles li {
+      float: left;
+      clear: none;
+      margin: 0;
+      width: 22px;
+      height: 22px;
+      border-radius: 11px;
+      border-width: 2px;
+      border-style: solid;
+      border-color: #aaaaaa;
+      white-space: nowrap; }
+      .rate-widget-circles li:hover, .rate-widget-circles li.filled {
+        border-color: #c14618; }
+      .rate-widget-circles li.empty {
+        border-color: #aaaaaa; } }
   .rate-widget-circles li a {
     display: block;
     text-indent: -99999px; }
   .rate-widget-circles li:hover a, .rate-widget-circles li .rate-circles-btn-filled {
     display: block;
-    width: 20px;
-    height: 20px;
-    border-radius: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
     margin: -1px;
     border: 0px solid #fff;
     background-color: #c14618; }
+    @media screen and (min-width: 481px) {
+      .rate-widget-circles li:hover a, .rate-widget-circles li .rate-circles-btn-filled {
+        display: block;
+        width: 20px;
+        height: 20px;
+        border-radius: 10px;
+        margin: -1px;
+        border: 0px solid #fff;
+        background-color: #c14618; } }
 
 #rate-value-description {
   color: #c14618;
