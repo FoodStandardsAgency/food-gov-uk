@@ -313,6 +313,11 @@ function fsa_search_spellcheck_search_form($form, &$form_state) {
   $form['submit_button'] = array(
     '#type' => 'submit',
     '#value' => t('Submit'),
+    '#attributes' => array(
+      'class' => array(
+        'search-sitewide-submit',
+      ),
+    ),
   );
   $form['#attributes']['class'][] = 'search-keyword-page';
   return $form;
