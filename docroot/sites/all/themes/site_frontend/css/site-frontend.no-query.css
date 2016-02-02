@@ -2034,7 +2034,6 @@ ul.breadcrumb {
 }
 .home-page-carousel .slide-content-wrapper {
   z-index: 2;
-  width: 400px;
   max-height: 169px;
   overflow: hidden;
   position: absolute;

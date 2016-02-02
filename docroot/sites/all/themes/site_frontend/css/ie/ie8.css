@@ -6,3 +6,7 @@
   min-height: 0;
   height: 3.5em;
 }
+
+.home-page-carousel img {
+  max-width: inherit;
+}

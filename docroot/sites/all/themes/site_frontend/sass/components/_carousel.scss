@@ -26,7 +26,8 @@
 	/* slide content wrapper */
 	.slide-content-wrapper {
 		z-index: 2;
-		width: 400px;
+    // Allow text box to fit text
+		//width: 400px;
 		max-height: 169px;
 		overflow: hidden;
 		position: absolute;
