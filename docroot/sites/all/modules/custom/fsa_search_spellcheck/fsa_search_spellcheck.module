@@ -307,8 +307,7 @@ function fsa_search_spellcheck_facetapi_url_processors() {
 function fsa_search_spellcheck_search_form($form, &$form_state) {
   $form['keyword'] = array(
     '#type' => 'textfield',
-    '#title' => t('Search'),
-    '#title_display' => 'invisible',
+    '#title' => t('Search by word or phrase'),
     '#default_value' => !empty($_GET['keyword']) ? $_GET['keyword'] : NULL,
   );
   $form['submit_button'] = array(
