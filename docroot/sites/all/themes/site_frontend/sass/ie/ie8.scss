@@ -8,3 +8,11 @@
 	height: 3.5em;
 }
 
+// Homepage carousel tweaks
+.home-page-carousel {
+  // For the carousel fix the image display issue. Setting max-width seems to
+  // break images in the carousel.
+  img {
+    max-width: inherit;
+  }
+}
