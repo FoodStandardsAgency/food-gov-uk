@@ -6505,10 +6505,13 @@ ul.pager li.pager__item--last a:hover {
   /* wrapper for search text box and its label */
   /* wrapper for submit button */
 }
-.search-keyword-page .views-exposed-form .views-exposed-widget.views-widget-filter-keyword {
+.search-keyword-page .views-exposed-form .views-exposed-widget.views-widget-filter-keyword, .search-keyword-page.fsa-search-spellcheck-search-form .form-item-keyword {
   padding: 0.5em 0.5em 0 0;
   max-width: 80%;
   /* need to restrict width to prevent wraping of submit button when increasing font size */
+}
+.search-keyword-page.fsa-search-spellcheck-search-form .form-item-keyword {
+  float: left;
 }
 .search-keyword-page label,
 .search-keyword-page .views-exposed-form label,
@@ -6563,6 +6566,10 @@ ul.pager li.pager__item--last a:hover {
 }
 .search-keyword-page input.form-submit:hover {
   background-color: #CC3708;
+}
+.search-keyword-page input.form-submit.search-sitewide-submit {
+  display: inline-block;
+  margin-top: 1.7em;
 }
 .search-keyword-page .views-exposed-form .views-exposed-widget.views-submit-button {
   position: relative;
