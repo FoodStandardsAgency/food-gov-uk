@@ -8,6 +8,27 @@
 
 
 /**
+ * Implements hook_menu().
+ */
+function fsa_search_spellcheck_menu() {
+  $items = array();
+  
+  $items['admin/config/search/apachesolr/spellcheck'] = array(
+    'title' => 'Spelling suggestions',
+    'description' => 'Configure search spell checking and suggestions',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_search_spellcheck_configuration_form'),
+    'access arguments' => array('administer search'),
+    'file' => 'fsa_search_spellcheck.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 50,
+  );
+  
+  return $items;
+}
+
+
+/**
  * Implements hook_block_info().
  */
 function fsa_search_spellcheck_block_info() {
