@@ -103,6 +103,9 @@ function container_blocks_block_view($delta = '') {
       $blocks[] = block_load('facetapi', '2114gf0ekix3fbtdoanmoe1w9krmhxv4');
       $blocks[] = block_load('facetapi', 'p3fubrie0j3kxs8j2aewwxks2gqtkmih');
 
+      // Let other modules alter the blocks before rendering
+      drupal_alter('container_blocks', $delta, $blocks);
+
       $content = container_blocks_concatenate_content($blocks);
 
       $block['subject'] = NULL;
