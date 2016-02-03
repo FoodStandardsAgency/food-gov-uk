@@ -67,8 +67,8 @@ function fsa_search_spellcheck_block_view($delta = '') {
         '#keyword' => !empty($_GET['keyword']) ? $_GET['keyword'] : NULL,
         '#original_query' => !empty($_GET['original_query']) ? $_GET['original_query'] : NULL,
         '#suggestion' => !empty($_GET['suggestion']) ? $_GET['suggestion'] : NULL,
-        '#hits' => !empty($_GET['hits']) ? $_GET['hits'] : 0,
-        '#ch' => !empty($_GET['ch']) ? $_GET['ch'] : 0,
+        '#hits' => isset($_GET['hits']) ? intval($_GET['hits']) : NULL,
+        '#ch' => isset($_GET['ch']) ? intval($_GET['ch']) : NULL,
         '#cs' => !empty($_GET['cs']),
         '#sk' => !empty($_GET['sk']) ? $_GET['sk'] : NULL,
         '#attached' => array(
@@ -107,9 +107,9 @@ function fsa_search_spellcheck_theme() {
         // Any suggested search terms
         'suggestion' => NULL,
         // Number of hits for the original query
-        'hits' => 0,
+        'hits' => NULL,
         // Number of hits for collation (spelling suggestion)
-        'ch' => 0,
+        'ch' => NULL,
         // Whether or not the search term is considered to be spelled correctly
         'cs' => FALSE,
         // Suggested keywords
