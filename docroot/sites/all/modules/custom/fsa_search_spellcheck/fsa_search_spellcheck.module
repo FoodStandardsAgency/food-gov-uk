@@ -130,11 +130,12 @@ function template_preprocess_search_spelling_suggestions(&$variables) {
   $variables['suggested_query_link'] = !empty($variables['suggestion']) ? url('search', array('query' => array('keyword' => $variables['suggestion']))) : NULL;
 
   $variables['suggested_keywords'] = !empty($variables['sk']) ? explode(',', $variables['sk']) : array();
-  $variables['suggested_keyword_links'] = array();
-  foreach ($variables['suggested_keywords'] as $keyword) {
-    $variables['suggested_keyword_links'][] = l($keyword, 'search', array('query' => array('keyword' => $keyword)));
+  $variables['suggested_keyword_links'] = count($variables['suggested_keywords']) > 0 ? array() : NULL;
+  if (is_array($variables['suggested_keyword_links'])) {
+    foreach ($variables['suggested_keywords'] as $keyword) {
+      $variables['suggested_keyword_links'][] = l($keyword, 'search', array('query' => array('keyword' => $keyword)));
+    }
   }
-
 }
 
 /**
