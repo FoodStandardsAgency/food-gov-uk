@@ -275,6 +275,10 @@ function fsa_search_spellcheck_search_form_submit(&$form, &$form_state) {
             }
           }
         }
+        // If no occurrences of a term are found, remove it from suggestions
+        if (isset($object->origFreq) && $object->origFreq === 0) {
+          $suggested_keywords = array_diff($suggested_keywords, array($term));
+        }
       }
       $suggested_keywords = !empty($suggested_keywords) ? implode(',', $suggested_keywords) : NULL;
 
