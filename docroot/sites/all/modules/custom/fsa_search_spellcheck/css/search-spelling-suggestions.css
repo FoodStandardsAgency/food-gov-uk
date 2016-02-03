@@ -1,4 +1,18 @@
+@charset "UTF-8";
 .search-spelling-suggestions {
   font-size: 1.3em; }
+
+.search-suggested-keywords {
+  list-style-type: none;
+  margin: -1em 0 2em 0;
+  padding: 0; }
+  .search-suggested-keywords li {
+    display: inline-block; }
+    .search-suggested-keywords li:after {
+      content: ' •'; }
+    .search-suggested-keywords li:last-child:after {
+      content: ''; }
+  .search-suggested-keywords a {
+    color: #006f51; }
 
 /*# sourceMappingURL=search-spelling-suggestions.css.map */
