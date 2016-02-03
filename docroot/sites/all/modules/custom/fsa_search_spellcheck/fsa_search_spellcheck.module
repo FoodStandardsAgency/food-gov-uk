@@ -374,3 +374,24 @@ function fsa_search_spellcheck_search_form($form, &$form_state) {
   $form['#attributes']['class'][] = 'search-keyword-page';
   return $form;
 }
+
+
+/**
+ * Implements hook_container_blocks_alter().
+ *
+ * We use this hook to replace the standard views exposed filter that provides
+ * keyword search on the search results page with our own search box.
+ */
+function fsa_search_spellcheck_container_blocks_alter($delta, &$blocks) {
+  // We want to act only on the 'search_all_facets' block.
+  if ($delta != 'search_all_facets') {
+    return;
+  }
+  // Replace the views exposed filter. As soon as we find it, return.
+  foreach ($blocks as $key => $block) {
+    if ($block->delta == '-exp-search_sitewide-page') {
+      $blocks[$key] = block_load('fsa_search_spellcheck', 'search_sitewide_test');
+      return;
+    }
+  }
+}
