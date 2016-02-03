@@ -51,7 +51,17 @@ function fsa_search_spellcheck_block_view($delta = '') {
 
   switch ($delta) {
     case 'search_spelling_suggestions':
+      // Create an empty block.
       $block['subject'] = NULL;
+      $block['content'] = NULL;
+
+      // If spellcheck is not enabled, return an empty block now.
+      $spellcheck_enabled = variable_get('fsa_search_spellcheck_enabled');
+      if (empty($spellcheck_enabled)) {
+        return $block;
+      }
+
+      // Populate the block content
       $block['content'] = array(
         '#theme' => 'search_spelling_suggestions',
         '#keyword' => !empty($_GET['keyword']) ? $_GET['keyword'] : NULL,
@@ -157,12 +167,27 @@ function fsa_search_spellcheck_search_form_submit(&$form, &$form_state) {
 
   $original_query = $form_id == 'fsa_search_spellcheck_search_form' ? $form_state['values']['keyword'] : $form_state['values']['search_block_form'];
 
+  // Rebuild the form
+  $form_state['rebuild'] = TRUE;
+  
   // If we have no search query to act on, exit now.
   if (empty($original_query)) {
     return;
   }
+  
+  // Build the options array
+  $options = array(
+    'query' => array(
+      'keyword' => $original_query,
+    ),
+  );
 
-  $form_state['rebuild'] = TRUE;
+  // If spellcheck is not enabled, redirect to search page now.
+  $spellcheck_enabled = variable_get('fsa_search_spellcheck_enabled');
+  if (empty($spellcheck_enabled)) {
+    drupal_goto('search', $options);
+    return;
+  }
 
   // Get the Solr spellcheck results
   $spellcheck_result = fsa_search_spellcheck_check_spelling($original_query);
