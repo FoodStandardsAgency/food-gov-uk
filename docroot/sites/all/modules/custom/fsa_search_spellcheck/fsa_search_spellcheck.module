@@ -261,7 +261,7 @@ function fsa_search_spellcheck_search_form_submit(&$form, &$form_state) {
       // It may prove useful to have access to an array of keywords combining
       // those entered by the user and any suggested by Solr. We generate this
       // here.
-      $suggested_keywords = $keywords;
+      $suggested_keywords = count($keywords) > 1 ? $keywords : array();
       $suggested_terms = !empty($response->spellcheck->suggestions) && is_object($response->spellcheck->suggestions) ? (array) $response->spellcheck->suggestions : array();
       $remove_elements = array('correctlySpelled');
       foreach($suggested_terms as $term => $object) {
