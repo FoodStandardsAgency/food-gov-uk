@@ -8,12 +8,36 @@
 
 
 /**
+ * Implements hook_menu().
+ */
+function fsa_search_spellcheck_menu() {
+  $items = array();
+  
+  $items['admin/config/search/apachesolr/spellcheck'] = array(
+    'title' => 'Spelling suggestions',
+    'description' => 'Configure search spell checking and suggestions',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_search_spellcheck_configuration_form'),
+    'access arguments' => array('administer search'),
+    'file' => 'fsa_search_spellcheck.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 50,
+  );
+  
+  return $items;
+}
+
+
+/**
  * Implements hook_block_info().
  */
 function fsa_search_spellcheck_block_info() {
   $blocks = array();
   $blocks['search_spelling_suggestions'] = array(
     'info' => t('Search spelling suggestions'),
+  );
+  $blocks['search_sitewide_test'] = array(
+    'info' => t('Site search box for search page'),
   );
   return $blocks;
 }
@@ -27,11 +51,26 @@ function fsa_search_spellcheck_block_view($delta = '') {
 
   switch ($delta) {
     case 'search_spelling_suggestions':
+      // Create an empty block.
       $block['subject'] = NULL;
+      $block['content'] = NULL;
+
+      // If spellcheck is not enabled, return an empty block now.
+      $spellcheck_enabled = variable_get('fsa_search_spellcheck_enabled');
+      if (empty($spellcheck_enabled)) {
+        return $block;
+      }
+
+      // Populate the block content
       $block['content'] = array(
         '#theme' => 'search_spelling_suggestions',
-        '#keyword' => $_GET['keyword'],
+        '#keyword' => !empty($_GET['keyword']) ? $_GET['keyword'] : NULL,
         '#original_query' => !empty($_GET['original_query']) ? $_GET['original_query'] : NULL,
+        '#suggestion' => !empty($_GET['suggestion']) ? $_GET['suggestion'] : NULL,
+        '#hits' => isset($_GET['hits']) ? intval($_GET['hits']) : NULL,
+        '#ch' => isset($_GET['ch']) ? intval($_GET['ch']) : NULL,
+        '#cs' => !empty($_GET['cs']),
+        '#sk' => !empty($_GET['sk']) ? $_GET['sk'] : NULL,
         '#attached' => array(
           'css' => array(
             drupal_get_path('module', 'fsa_search_spellcheck') . "/css/search-spelling-suggestions.css",
@@ -39,6 +78,15 @@ function fsa_search_spellcheck_block_view($delta = '') {
         ),
       );
       break;
+
+    case 'search_sitewide_test':
+      $block['subject'] = NULL;
+      $search_form = drupal_get_form('fsa_search_spellcheck_search_form');
+      $block['content'] = array(
+        '#markup' => drupal_render($search_form),
+      );
+      break;
+
   }
   return $block;
 }
@@ -52,8 +100,20 @@ function fsa_search_spellcheck_theme() {
     'search_spelling_suggestions' => array(
       'template' => 'theme/search-spelling-suggestions',
       'variables' => array(
+        // The keyword to search on
         'keyword' => '',
+        // The original query - if different
         'original_query' => NULL,
+        // Any suggested search terms
+        'suggestion' => NULL,
+        // Number of hits for the original query
+        'hits' => NULL,
+        // Number of hits for collation (spelling suggestion)
+        'ch' => NULL,
+        // Whether or not the search term is considered to be spelled correctly
+        'cs' => FALSE,
+        // Suggested keywords
+        'sk' => NULL,
       ),
     ),
   );
@@ -64,10 +124,19 @@ function fsa_search_spellcheck_theme() {
  * Preprocess function for spelling suggestions block
  */
 function template_preprocess_search_spelling_suggestions(&$variables) {
-  $variables['show_suggestions'] = !empty($variables['original_query']);
+  $variables['show_original'] = !empty($variables['original_query']);
+  $variables['show_suggestions'] = !empty($variables['suggestion']);
   $variables['original_query_link'] = !empty($variables['original_query']) ? url('search', array('query' => array('keyword' => $variables['original_query']))) : NULL;
-}
+  $variables['suggested_query_link'] = !empty($variables['suggestion']) ? url('search', array('query' => array('keyword' => $variables['suggestion']))) : NULL;
 
+  $variables['suggested_keywords'] = !empty($variables['sk']) ? explode(',', $variables['sk']) : array();
+  $variables['suggested_keyword_links'] = count($variables['suggested_keywords']) > 0 ? array() : NULL;
+  if (is_array($variables['suggested_keyword_links'])) {
+    foreach ($variables['suggested_keywords'] as $keyword) {
+      $variables['suggested_keyword_links'][] = l($keyword, 'search', array('query' => array('keyword' => $keyword)));
+    }
+  }
+}
 
 /**
  * Implements hook_form_alter().
@@ -94,18 +163,62 @@ function fsa_search_spellcheck_form_alter(&$form, &$form_state, $form_id) {
  * Custom submit function for the global site search form.
  */
 function fsa_search_spellcheck_search_form_submit(&$form, &$form_state) {
-  $original_query = $form_state['values']['search_block_form'];
+  // Get the form ID.
+  $form_id = $form['#form_id'];
+
+  // Get the original query keyword
+  $original_query = $form_id == 'fsa_search_spellcheck_search_form' ? $form_state['values']['keyword'] : $form_state['values']['search_block_form'];
+
+  // Rebuild the form
   $form_state['rebuild'] = TRUE;
-  $search_str = fsa_search_spellcheck_check_spelling($original_query);
+  
+  // If we have no search query to act on, exit now.
+  if (empty($original_query)) {
+    return;
+  }
+  
+  // Build the options array
+  $options = array(
+    'query' => array(
+      'keyword' => $original_query,
+    ),
+  );
+
+  // If spellcheck is not enabled, redirect to search page now.
+  $spellcheck_enabled = variable_get('fsa_search_spellcheck_enabled');
+  if (empty($spellcheck_enabled)) {
+    drupal_goto('search', $options);
+    return;
+  }
+
+  // Get the Solr spellcheck results
+  $spellcheck_result = fsa_search_spellcheck_check_spelling($original_query);
+
+  // Get the search string
+  $search_str = !empty($spellcheck_result['query']) ? $spellcheck_result['query'] : $original_query;
   $options = array(
     'query' => array(
       'keyword' => $search_str,
+      'hits' => $spellcheck_result['hits'],  // Number of hits for keyword
+      'ch' => $spellcheck_result['ch'],      // Number of hits for collation
+      'cs' => $spellcheck_result['cs'],      // Suggestion from collation
+      'sk' => $spellcheck_result['sk'],      // Any suggested keywords
     ),
   );
-  if ($search_str != $original_query) {
-    $options['query']['original_query'] = $original_query;
+
+  // If we have an original query, then add it to the query string
+  if (!empty($spellcheck_result['original_query'])) {
+    $options['query']['original_query'] = $spellcheck_result['original_query'];
   }
+
+  // If we have a spelling suggestion, add it to the query string
+  if (!empty($spellcheck_result['suggestion'])) {
+    $options['query']['suggestion'] = $spellcheck_result['suggestion'];
+  }
+
+  // Redirect the user to the search results page - with any additional options.
   drupal_goto('search', $options);
+
 }
 
 
@@ -119,20 +232,92 @@ function fsa_search_spellcheck_search_form_submit(&$form, &$form_state) {
       // Get the solr environment
       $solr = apachesolr_get_solr($env_id);
       // Create a new SolrBaseQuery
-      $query = new SolrBaseQuery('spellcheck', $solr);
+      $query = new SolrBaseQuery('select', $solr);
       // Add solr parameters for the spelling check
-      $query->addParam('qt', '/spell');
+      //$query->addParam('qt', '/spell');
       $query->removeParam('fq');
+      $query->addParam('q', $keyword);
       $query->addParam('spellcheck.q', $keyword);
       $query->addParam('spellcheck', 'true');
       $query->addParam('spellcheck.onlyMorePopular', 'true');
       $query->addParam('spellcheck.extendedResults', 'true');
       $query->addParam('spellcheck.collate', 'true');
+      //$query->addParam('spellcheck.build', 'true');
+
+      $query->addParam('spellcheck.collateExtendedResults', 'true');
+      $query->addParam('spellcheck.maxCollations', '100');
+      $query->addParam('spellcheck.maxCollationTries', '1');
+      $query->addParam('spellcheck.accuracy', variable_get('fsa_search_spellcheck_accuracy', '0.7'));
+
       // Execute the query
       list($final_query, $response) = apachesolr_do_query($query);
-      // If we have spelling collations, return them; otherwise, return the
-      // original query.
-      return !empty($response->spellcheck->suggestions->collation) ? $response->spellcheck->suggestions->collation : $keyword;
+
+      // For single-word queries, where the word is not a mis-spelling, we
+      // probably shouldn't substitute the suggestion - cf 'fridge' v 'friday'.
+      $keywords = explode(' ', preg_replace("/ +/", ' ', $keyword));
+      $query_length = !empty($keyword) ? count($keywords) : 0;
+      $correctly_spelled = $query_length === 1 && !empty($response->spellcheck->suggestions->correctlySpelled);
+
+      // It may prove useful to have access to an array of keywords combining
+      // those entered by the user and any suggested by Solr. We generate this
+      // here.
+      $suggested_keywords = count($keywords) > 1 ? $keywords : array();
+      $suggested_terms = !empty($response->spellcheck->suggestions) && is_object($response->spellcheck->suggestions) ? (array) $response->spellcheck->suggestions : array();
+      $remove_elements = array('correctlySpelled');
+      foreach($suggested_terms as $term => $object) {
+        if (in_array($term, $remove_elements)) {
+          unset($suggested_terms[$term]);
+        }
+        if (!empty($object->suggestion) && is_array($object->suggestion)) {
+          foreach ($object->suggestion as $s) {
+            if (!empty($s->word) && !in_array($s->word, $keywords)) {
+              $suggested_keywords[] = $s->word;
+            }
+          }
+        }
+        // If no occurrences of a term are found, remove it from suggestions
+        if (isset($object->origFreq) && $object->origFreq === 0) {
+          $suggested_keywords = array_diff($suggested_keywords, array($term));
+        }
+      }
+      $suggested_keywords = !empty($suggested_keywords) ? implode(',', $suggested_keywords) : NULL;
+
+      // Number of results returned by the original search
+      $hits = !empty($response->response->numFound) ? $response->response->numFound : 0;
+      // Suggested alternative query
+      $collation_query = !empty($response->spellcheck->suggestions->collation->collationQuery) ? $response->spellcheck->suggestions->collation->collationQuery : NULL;
+      // Number of results returned by the suggested query
+      $collation_hits = !empty($response->spellcheck->suggestions->collation->hits) ? $response->spellcheck->suggestions->collation->hits : 0;
+
+      // Is there a suggestion (collation)?
+      //$suggestion = !empty($response->spellcheck->suggestions->collation) ? $response->spellcheck->suggestions->collation : NULL;
+      $suggestion = !empty($collation_query) && !empty($collation_hits) ? $collation_query : NULL;
+
+      // Return an array that can be used when presenting the results.
+      $return_array = array(
+        // This is the query that will be executed. If there is a suggestion,
+        // and Solr thinks it's incorrectly spelt, use the suggestion. Otherwise
+        // use the original search term.
+        'query' => !empty($suggestion) && $collation_hits > $hits && !$correctly_spelled ? $suggestion : $keyword,
+        // This is set if a suggestion is used instead of the original query,
+        // otherwise it is set to NULL.
+        'original_query' => !empty($suggestion) && $hits < $collation_hits ? $keyword : NULL,
+        // This is set if there is a suggestion, but Solr thinks the original
+        // query was correctly spelt. In this case, we provide a suggestion,
+        // but the search executes the original query by default.
+        'suggestion' => !empty($suggestion) ? $suggestion : NULL,
+        // This is the number of hits for the original query
+        'hits' => $hits,
+        // This is the number of hits for any collation suggestion
+        'ch' => $collation_hits,
+        // Whether or not the term is considered to be correctly spelled
+        'cs' => $correctly_spelled,
+        // Suggested keywords
+        'sk' => $suggested_keywords,
+      );
+
+      return $return_array;
+
     }
     // Catch any exceptions and return the original query.
     catch (Exception $e) {
@@ -165,4 +350,27 @@ function fsa_search_spellcheck_facetapi_url_processors() {
       ),
     ),
   );
+}
+
+
+/**
+ * Form builder - search form for the search page
+ */
+function fsa_search_spellcheck_search_form($form, &$form_state) {
+  $form['keyword'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Search by word or phrase'),
+    '#default_value' => !empty($_GET['keyword']) ? $_GET['keyword'] : NULL,
+  );
+  $form['submit_button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Submit'),
+    '#attributes' => array(
+      'class' => array(
+        'search-sitewide-submit',
+      ),
+    ),
+  );
+  $form['#attributes']['class'][] = 'search-keyword-page';
+  return $form;
 }

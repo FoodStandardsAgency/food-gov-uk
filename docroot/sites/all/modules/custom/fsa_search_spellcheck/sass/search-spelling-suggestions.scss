@@ -1,3 +1,28 @@
 .search-spelling-suggestions {
   font-size: 1.3em;
 }
+
+.search-suggested-keywords {
+  list-style-type: none;
+  margin: -1em 0 2em 0;
+  padding: 0;
+
+  li {
+    display: inline-block;
+
+    &:after {
+      content: ' •';
+    }
+
+    &:last-child {
+      &:after {
+        content: '';
+      }
+    }
+  }
+
+  a {
+    color: #006f51;
+  }
+
+}

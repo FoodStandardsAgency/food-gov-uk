@@ -5,10 +5,14 @@
  */
 .search-keyword-page {
 	/* wrapper for search text box and its label */
-	.views-exposed-form .views-exposed-widget.views-widget-filter-keyword {
+	.views-exposed-form .views-exposed-widget.views-widget-filter-keyword,
+  &.fsa-search-spellcheck-search-form .form-item-keyword {
 		padding: 0.5em 0.5em 0 0;
 		max-width: 80%;	/* need to restrict width to prevent wraping of submit button when increasing font size */
 	}
+  &.fsa-search-spellcheck-search-form .form-item-keyword {
+    float: left;
+  }
 	label,
   .views-exposed-form label,
   .form-item label, 
@@ -61,6 +65,11 @@
 		&:hover {
 			background-color: #CC3708;
 		}
+    // Replacement search button for search spellcheck form on seach results
+    &.search-sitewide-submit {
+      display: inline-block;
+      margin-top: 1.7em;
+    }
 	}
 	/* wrapper for submit button */
 	.views-exposed-form .views-exposed-widget.views-submit-button {

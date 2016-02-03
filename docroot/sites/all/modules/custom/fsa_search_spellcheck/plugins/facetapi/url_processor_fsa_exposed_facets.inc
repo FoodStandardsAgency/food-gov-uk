@@ -13,7 +13,7 @@ class FsaFacetapiUrlProcessorExposedFacets extends FacetapiUrlProcessorExposedFa
     $params = parent::fetchParams();
 
     // Remove the parameters that we don't want passed to the facet API.
-    $remove_params = array('original_query', 'spellcheck');
+    $remove_params = array('original_query', 'spellcheck', 'suggestion', 'ch', 'hits', 'cs', 'sk', 'op', 'form', 'form_build_id', 'form_token', 'form_id');
     foreach ($remove_params as $remove_param) {
       if (isset($params[$remove_param])) {
         unset($params[$remove_param]);
