@@ -163,9 +163,10 @@ function fsa_search_spellcheck_form_alter(&$form, &$form_state, $form_id) {
  * Custom submit function for the global site search form.
  */
 function fsa_search_spellcheck_search_form_submit(&$form, &$form_state) {
-
+  // Get the form ID.
   $form_id = $form['#form_id'];
 
+  // Get the original query keyword
   $original_query = $form_id == 'fsa_search_spellcheck_search_form' ? $form_state['values']['keyword'] : $form_state['values']['search_block_form'];
 
   // Rebuild the form
@@ -198,10 +199,10 @@ function fsa_search_spellcheck_search_form_submit(&$form, &$form_state) {
   $options = array(
     'query' => array(
       'keyword' => $search_str,
-      'hits' => $spellcheck_result['hits'],
-      'ch' => $spellcheck_result['ch'],
-      'cs' => $spellcheck_result['cs'],
-      'sk' => $spellcheck_result['sk'],
+      'hits' => $spellcheck_result['hits'],  // Number of hits for keyword
+      'ch' => $spellcheck_result['ch'],      // Number of hits for collation
+      'cs' => $spellcheck_result['cs'],      // Suggestion from collation
+      'sk' => $spellcheck_result['sk'],      // Any suggested keywords
     ),
   );
 
