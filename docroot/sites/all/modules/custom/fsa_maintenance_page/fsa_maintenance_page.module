@@ -1,0 +1,538 @@
+<?php
+/**
+ * @file
+ * Module file for the FSA maintenance page module
+ */
+
+
+/**
+ * CSS file for the maintenance page
+ */
+define('FSA_MAINTENANCE_PAGE_CSS_FILE', 'maintenance-page.css');
+
+/**
+ * Default maintenance page title
+ */
+define('FSA_MAINTENANCE_PAGE_DEFAULT_PAGE_TITLE', t('Site under maintenance'));
+
+/**
+ * Twitter configuration prefix
+ */
+define('FSA_MAINTENANCE_PAGE_TWITTER_CONFIG_PREFIX', 'maintenance_mode_twitter_config');
+
+/**
+ * Implements hook_menu().
+ */
+function fsa_maintenance_page_menu() {
+  $items = array();
+
+  // Creates a link for external systems to use as a maintenance page.
+  $items['site-maintenance'] = array(
+    'title' => 'Site under maintenance',
+    'page callback' => '_fsa_maintenance_page_render_page',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  // Creates a link for CloudFlare to use as an error page
+  $items['site-maintenance/cf'] = array(
+    'title' => 'Site under maintenance',
+    'page callback' => '_fsa_maintenance_page_render_page',
+    'page arguments' => array(TRUE),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+
+/**
+ * Implements template_preprocess_maintenance_page().
+ *
+ * @param array $variables
+ *   Template variables - passed by reference.
+ */
+function fsa_maintenance_page_preprocess_maintenance_page(&$variables) {
+
+  // Render array for the maintenance page CSS file.
+  $css_file = array(
+    '#type' => 'html_tag',
+    '#tag' => 'link',
+    '#attributes' => array(
+      'rel' => 'stylesheet',
+      'media' => 'screen',
+      'href' => '/' . drupal_get_path('theme', 'site_frontend') . '/css/' . FSA_MAINTENANCE_PAGE_CSS_FILE,
+    ),
+  );
+
+  // Set the page title
+  $variables['title'] = variable_get('maintenance_mode_title', FSA_MAINTENANCE_PAGE_DEFAULT_PAGE_TITLE);
+  drupal_set_title($variables['title']);
+
+  // Make sure $head_title reflects the page title
+  if (drupal_get_title()) {
+    $head_title_array = array(
+      'title' => strip_tags(drupal_get_title()),
+      'name' => check_plain(variable_get('site_slogan', t('Food Standards Agency'))),
+    );
+  }
+  else {
+    $head_title_array = array(
+      'title' => strip_tags($variables['title']),
+      'name' => t('Food Standards Agency'),
+    );
+  }
+
+  // Flatten the $head_title array
+  // @todo Move this to a process function
+  $variables['head_title'] = implode(' | ', array_values($head_title_array));
+
+  // Set the 'css_file' variable
+  $variables['css_file'] = $css_file;
+
+  // Render the social media icons block in the header
+  $variables['page']['header_social_media'] = _fsa_maintenance_page_social_media_icons();
+
+  // Make the content variable into an array so we can add to it.
+  $variables['content'] = array(
+    'message' => array(
+      '#type' => 'html_tag',
+      '#value' => $variables['content'],
+      '#tag' => 'p',
+      '#attributes' => array(
+        'class' => array(
+          'views-field-field-summary'
+        ),
+      ),
+      '#weight' => 0,
+    ),
+    // Add the social media icons to the main body content, but hide labels
+    'social_media_icons' => array(
+      'icons' => _fsa_maintenance_page_social_media_icons(array('show_labels' => FALSE)),
+      '#weight' => 100,
+    ),
+  );
+
+  // Add the additional content - if populated
+  $extra_content = variable_get('maintenance_mode_extra');
+  $extra_content = !empty($extra_content['value']) ? $extra_content['value'] : '';
+  if (!empty($extra_content)) {
+    $variables['content']['extra'] = array(
+      '#markup' => $extra_content,
+      '#weight' => 10,
+    );
+  }
+
+  // Embed a Twitter widget - if required
+  $variables['content']['twitter_feed'] = array(
+    '#type' => 'container',
+    '#attributes' => array(
+      'class' => array(
+        'twitter-widget',
+      ),
+    ),
+    '#access' => _fsa_maintenance_page_embed_twitter(),
+    'heading' => array(
+      '#type' => 'html_tag',
+      '#tag' => 'h2',
+      '#value' => _fsa_maintenance_page_twitter_config('title', t('Latest updates from Twitter')),
+    ),
+    'link' => array(
+      '#type' => 'link',
+      '#title' => _fsa_maintenance_page_twitter_config('title', t('Tweets from foodgov')),
+      '#href' => _fsa_maintenance_page_twitter_config('url', 'https://twitter.com/foodgov'),
+      '#attributes' => array(
+        'data-widget-id' => _fsa_maintenance_page_twitter_config('widget_id'),
+        'data-tweet-limit' => _fsa_maintenance_page_twitter_config('tweet_limit', 5),
+        'data-chrome' => array(
+          'noheader',
+          'nofooter',
+          'noborders',
+        ),
+        'class' => array('twitter-timeline'),
+        'height' => _fsa_maintenance_page_twitter_config('height', 300),
+      ),
+    ),
+    // Since we're not using Drupal's standard head content functions, we need
+    // to add the Twitter JavaScript in a slightly unorthodox way, via an
+    // HTML tag render array. Remember to escape any quotes!
+    'js' => array(
+      '#type' => 'html_tag',
+      '#tag' => 'script',
+      '#value' => '!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");',
+    ),
+    '#weight' => 110,
+  );
+
+  // Add the CloudFlare token if required
+  if (!empty($variables['cf'])) {
+    $variables['content']['cf_token'] = array(
+      '#markup' => '::ALWAYS_ONLINE_NO_COPY_BOX::',
+      '#weight' => 5,
+    );
+  }
+}
+
+
+/**
+ * Renders a 'static' version of the site maintenance page.
+ *
+ * @param boolean $cf
+ *   If set to TRUE, indicates that this is for use by CloudFlare, in which case
+ *   it needs to output the special token.
+ *
+ * This can be used on other systems where a maintenance page may be required.
+ */
+function _fsa_maintenance_page_render_page($cf = FALSE) {
+  $content = variable_get('maintenance_mode_message');
+  $theme = 'site_frontend';
+  $variables = array(
+    'content' => $content,
+    'external' => FALSE,
+    'cf' => $cf,
+  );
+  $rendered_page = theme('maintenance_page', $variables);
+  print $rendered_page;
+  drupal_exit();
+}
+
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * We use this to add fields to the maintenance mode admin form.
+ *
+ * @param array $form
+ *   The form array - passed by reference
+ *
+ * @param array $form_state
+ *   The form state array - passed by reference
+ */
+function fsa_maintenance_page_form_system_site_maintenance_mode_alter(&$form, &$form_state) {
+
+  // We add a field for additional content on the site maintenance page.
+  $extra_content = variable_get('maintenance_mode_extra');
+  $extra_content = !empty($extra_content['value']) ? $extra_content['value'] : '';
+
+  // Set some form element weights so that fields appear in the right order
+  $form['maintenance_mode']['#weight'] = 0;
+  $form['maintenance_mode_message']['#weight'] = 20;
+
+  // Add a field for maintenance page title
+  $form['maintenance_mode_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Maintenance mode page title'),
+    '#description' => t('This is the title that will be displayed at the top of the site maintenance page.'),
+    '#required' => TRUE,
+    '#default_value' => variable_get('maintenance_mode_title', FSA_MAINTENANCE_PAGE_DEFAULT_PAGE_TITLE),
+    '#weight' => 10,
+  );
+
+  // Add a WYSIWYG field for additional content such as contact details etc
+  $form['maintenance_mode_extra'] = array(
+    '#type' => 'text_format',
+    '#title' => t('Additional information'),
+    '#description' => t('Use this field to include additional information such as contact details.'),
+    '#format' => 'full_html',
+    '#default_value' => $extra_content,
+    '#weight' => 30,
+  );
+
+  // Twitter widget configuration
+  // Configuration URL - where the widget can be modified
+  $widget_id = _fsa_maintenance_page_twitter_config('widget_id');
+  $twitter_config_url = !empty($widget_id) ? url('https://twitter.com/settings/widgets/' . _fsa_maintenance_page_twitter_config('widget_id') . '/edit', array('absolute' => TRUE)) : NULL;
+  $form['twitter_configuration'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Twitter widget configuration'),
+    '#description' => t('You can embed a Twitter feed widget in the site maintenance page.'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#weight' => 40,
+
+    'maintenance_mode_embed_twitter' => array(
+      '#type' => 'checkbox',
+      '#title' => t('Embed Twitter widget'),
+      '#default_value' => variable_get('maintenance_mode_embed_twitter'),
+    ),
+
+    FSA_MAINTENANCE_PAGE_TWITTER_CONFIG_PREFIX . '_title' => array(
+      '#type' => 'textfield',
+      '#title' => t('Title'),
+      '#description' => t('Title to be displayed above the Twitter feed'),
+      '#default_value' => _fsa_maintenance_page_twitter_config('title', t('Latest updates from Twitter')),
+    ),
+
+    FSA_MAINTENANCE_PAGE_TWITTER_CONFIG_PREFIX . '_url' => array(
+      '#type' => 'textfield',
+      '#title' => t('Twitter URL'),
+      '#description' => t('The URL for the Twitter feed.'),
+      '#default_value' => _fsa_maintenance_page_twitter_config('url', 'https://twitter.com/foodgov'),
+    ),
+
+    FSA_MAINTENANCE_PAGE_TWITTER_CONFIG_PREFIX . '_widget_id' => array(
+      '#type' => 'textfield',
+      '#title' => t('Widget ID'),
+      '#description' => t('The ID of the widget to be embedded') . (!empty($twitter_config_url) ? '. ' . l(t('Configure widget'), $twitter_config_url) : NULL),
+      '#default_value' => _fsa_maintenance_page_twitter_config('widget_id'),
+    ),
+
+    FSA_MAINTENANCE_PAGE_TWITTER_CONFIG_PREFIX . '_tweet_limit' => array(
+      '#type' => 'textfield',
+      '#title' => t('Number of tweets'),
+      '#description' => t('Set the number of tweets to display. If you don\'t want to limit them, leave blank.'),
+      '#default_value' => _fsa_maintenance_page_twitter_config('tweet_limit', 5),
+    ),
+
+    FSA_MAINTENANCE_PAGE_TWITTER_CONFIG_PREFIX . '_height' => array(
+      '#type' => 'textfield',
+      '#title' => t('Widget height'),
+      '#description' => t('Set the height of the widget in pixels'),
+      '#default_value' => _fsa_maintenance_page_twitter_config('height', 300),
+    ),
+  );
+  // Add Twitter config submit handler
+  array_unshift($form['#submit'], '_fsa_maintenance_page_site_maintenance_form_twitter_config_submit');
+
+  // CloudFlare configuration
+  $form['cloudflare_config'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('CloudFlare configuration'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#weight' => 50,
+
+    'maintenance_mode_update_cloudflare' => array(
+      '#type' => 'checkbox',
+      '#title' => t('Update CloudFlare error page'),
+      '#default_value' => variable_get('maintenance_mode_update_cloudflare', 1),
+    ),
+
+    'maintenance_mode_cloudflare_error_url' => array(
+      '#type' => 'textfield',
+      '#title' => t('CloudFlare error page URL'),
+      '#default_value' => _fsa_maintenance_page_cloudflare_error_page_url(FALSE),
+    ),
+  );
+
+  // Add an additional submit handler for CloudFlare
+  $form['#submit'][] = '_fsa_maintenance_page_site_maintenance_form_submit';
+}
+
+
+/**
+ * Helper function - returns social media icons block render array
+ *
+ * @param array $options
+ * @return string
+ */
+function _fsa_maintenance_page_social_media_icons($options = array()) {
+  $module = 'fsa_social_media';
+  $delta = 'social_media_icons';
+  // Set the maintenance_mode option
+  $options['maintenance_mode'] = TRUE;
+  // Load the block
+  $block = block_load($module, $delta);
+  // If there is no block or it's not an object, return an empty string now.
+  if (empty($block) || !is_object($block)) {
+    return '';
+  }
+  // If we have any options, add them to the block object.
+  if (!empty($options)) {
+    $block->display_options = $options;
+  }
+  // Generate the render array for the block.
+  return _block_get_renderable_array(_block_render_blocks(array($block)));
+}
+
+
+/**
+ * Additional submit handler for the maintenance page admin form
+ */
+function _fsa_maintenance_page_site_maintenance_form_submit($form, &$form_state) {
+  if (!empty($form_state['values']['maintenance_mode_update_cloudflare'])) {
+    _fsa_maintenance_page_update_cloudflare_error_page();
+  }
+}
+
+
+/**
+ *  Helper function: tells CloudFlare to update its error page
+ */
+function _fsa_maintenance_page_update_cloudflare_error_page() {
+
+  if (!is_callable('_fsa_cache_clear_settings')) {
+    watchdog('fsa_maintenance_page', 'No CloudFlare settings found', array(), WATCHDOG_ERROR);
+    return;
+  }
+
+  $api_key = _fsa_cache_clear_settings('cloudflare_api_key');
+  $email = _fsa_cache_clear_settings('cloudflare_email');
+  $endpoint = 'https://api.cloudflare.com/client/v4/zones/';
+
+
+  $options = array(
+    'headers' => array(
+      'X-Auth-Email' => $email,
+      'X-Auth-Key' => $api_key,
+      'Content-Type' => 'application/json',
+    ),
+    'query' => array(
+      'name' => 'food.go.uk',
+    ),
+  );
+
+  // First, get the zone for the domain
+  $response = drupal_http_request($endpoint, $options);
+  $zone = NULL;
+  $zones = !empty($response->data) ? json_decode($response->data) : NULL;
+  if (is_object($zones) && !empty($zones->result) && is_array($zones->result)) {
+    $zone = !empty($zones->result[0]->id) ? $zones->result[0]->id : NULL;
+  }
+
+  // No zone? Exit now
+  if (empty($zone)) {
+    watchdog('fsa_maintenance_page', 'No CloudFlare zone information found', array(), WATCHDOG_ERROR);
+    return;
+  }
+
+  // Get the custom pages
+  $url = "$endpoint/$zone/custom_pages";
+  unset($options['query']);
+
+  $response = drupal_http_request($url, $options);
+  $custom_pages =  !empty($response->data) ? json_decode($response->data) : NULL;
+  if (is_object($custom_pages) && !empty($custom_pages->result) && is_array($custom_pages->result)) {
+    $custom_pages = !empty($custom_pages->result) ? $custom_pages->result : array();
+  }
+
+  $custom_page = FALSE;
+  foreach ($custom_pages as $page) {
+    if (!empty($page->id) && $page->id == 'always_online') {
+      $custom_page = TRUE;
+    }
+  }
+
+  if (!$custom_page) {
+    watchdog('fsa_maintenance_page', 'No CloudFlare custom error page found', array(), WATCHDOG_ERROR);
+    return;
+  }
+
+  // Update the Always online custom page
+  $url = "$endpoint/$zone/custom_pages/always_online";
+  // Set request method to PUT
+  $options['method'] = 'PUT';
+  // Set request data
+  $data = array(
+    'url' => _fsa_maintenance_page_cloudflare_error_page_url(TRUE),
+    'state' => 'customized',
+  );
+  $data = (object) $data;
+  $options['data'] = drupal_json_encode($data);
+  $request = drupal_http_request($url, $options);
+  $response = !empty($request->data) ? json_decode($request->data) : NULL;
+  if (!empty($response->success)) {
+    drupal_set_message(t('Updated the CloudFlare Always Online custom error page.'));
+  }
+  else {
+    drupal_set_message(t('Failed to update the CloudFlare Always Online custom error page'), 'error');
+    $errors = !empty($response->errors) ? $response->errors : array();
+    $err_message = t('There was a problem updating the CloudFlare Always Online custom error page.');
+    if (count($err_message) > 0) {
+      $err_message .= ' ' . t('The errors were: ');
+      foreach ($errors as $error) {
+        $err_message .= $error->code . ' - ' . $error->message . '; ';
+      }
+    }
+    watchdog('fsa_maintenance_page', $err_message, array(), WATCHDOG_ERROR);
+  }
+}
+
+
+/**
+ * Additional submit handler for maintenance config form - Twitter config
+ */
+function _fsa_maintenance_page_site_maintenance_form_twitter_config_submit($form, &$form_state) {
+  $twitter_config = array();
+  foreach($form_state['values'] as $name => $value) {
+    if (strpos($name, FSA_MAINTENANCE_PAGE_TWITTER_CONFIG_PREFIX) === 0) {
+      $twitter_config[str_replace(FSA_MAINTENANCE_PAGE_TWITTER_CONFIG_PREFIX . '_', '', $name)] = $value;
+      unset($form_state['values'][$name]);
+    }
+  }
+  $form_state['values'][FSA_MAINTENANCE_PAGE_TWITTER_CONFIG_PREFIX] = $twitter_config;
+}
+
+
+/**
+ * Helper function: Determines whether to embed Twitter widget
+ */
+function _fsa_maintenance_page_embed_twitter() {
+  $embed = variable_get('maintenance_mode_embed_twitter');
+  return !empty($embed);
+}
+
+
+/**
+ * Helper function: Gets Twitter configuration
+ *
+ * @param string $param
+ *   (optional) Name of the specific parameter to return. If omitted, the full
+ *   array of values will be returned.
+ * @param string $default
+ *   (optional) The default value to return in case the requested $param is
+ *   not set.
+ * @return array|string|NULL
+ *   Either the full array of configuration parameters or, if a specific
+ *   parameter is requested via the $param argument, the value of this
+ *   parameter. If the $default parameter is specified, this is returned, but
+ *   only if $param is specified too. If no matching parameter is specified,
+ *   the default value of $default (NULL) is returned.
+ */
+function _fsa_maintenance_page_twitter_config($param = NULL, $default = NULL) {
+  // Get the variable
+  $twitter_config = variable_get(FSA_MAINTENANCE_PAGE_TWITTER_CONFIG_PREFIX, array());
+  // If no $param is specified, return the full array.
+  if (empty($param)) {
+    return $twitter_config;
+  }
+  // If a $param is specified and it exists in the array, return it, otherwise
+  // return the default value (which by default is NULL).
+  if (isset($twitter_config[$param])) {
+    return $twitter_config[$param];
+  }
+  else {
+    return $default;
+  }
+}
+
+
+/**
+ * Helper function: returns the URL for the CloudFlare error page
+ *
+ * @param boolean $add_timestamp
+ *   (optional) If set to TRUE, adds a timestamp as a query string parameter
+ *   to the URL returned. This is useful for ensuring a cache miss when
+ *   CloudFlare scrapes the page. Defaults to FALSE.
+ *
+ * @return string
+ *   The full URL of the error page that CloudFlare will scrape and internalise
+ */
+function _fsa_maintenance_page_cloudflare_error_page_url($add_timestamp = FALSE) {
+  $options = array(
+    'absolute' => TRUE,
+  );
+  if ($add_timestamp) {
+    $options['query'] = array(
+      'ts' => REQUEST_TIME,
+    );
+  }
+  $url = variable_get('maintenance_mode_cloudflare_error_url');
+  if (empty($url)) {
+    $options['base_url'] = local_get_site_domain(FALSE, 'http');
+    $url = 'site-maintenance/cf';
+  }
+
+  return url($url, $options);
+}
