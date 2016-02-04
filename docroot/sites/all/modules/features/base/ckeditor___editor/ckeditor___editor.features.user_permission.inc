@@ -14,7 +14,6 @@ function ckeditor___editor_user_default_permissions() {
   $permissions['access ckeditor link'] = array(
     'name' => 'access ckeditor link',
     'roles' => array(
-      'About Us' => 'About Us',
       'Administrator' => 'Administrator',
       'Business' => 'Business',
       'Committee' => 'Committee',

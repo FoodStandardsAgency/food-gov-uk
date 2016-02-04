@@ -94,18 +94,6 @@ function ckeditor___editor_ckeditor_profile_defaults() {
             ),
             'default' => 't',
           ),
-          'media' => array(
-            'name' => 'media',
-            'desc' => 'Plugin for inserting images from Drupal media module',
-            'path' => '%plugin_dir%media/',
-            'buttons' => array(
-              'Media' => array(
-                'label' => 'Media',
-                'icon' => 'images/icon.gif',
-              ),
-            ),
-            'default' => 'f',
-          ),
         ),
       ),
       'input_formats' => array(
@@ -123,7 +111,7 @@ function ckeditor___editor_ckeditor_profile_defaults() {
         'toolbar' => '[
     [\'PasteText\',\'PasteFromWord\'],
     [\'RemoveFormat\'],
-    [\'Media\',\'Table\',\'SpecialChar\'],
+    [\'Table\',\'SpecialChar\'],
     [\'Link\',\'Unlink\',\'Anchor\'],
     [\'Source\'],
     [\'Maximize\'],
@@ -184,18 +172,6 @@ function ckeditor___editor_ckeditor_profile_defaults() {
             'desc' => 'Plugin file: div',
             'path' => '%plugin_dir_extra%div/',
             'buttons' => FALSE,
-            'default' => 'f',
-          ),
-          'media' => array(
-            'name' => 'media',
-            'desc' => 'Plugin for inserting images from Drupal media module',
-            'path' => '%plugin_dir%media/',
-            'buttons' => array(
-              'Media' => array(
-                'label' => 'Media',
-                'icon' => 'images/icon.gif',
-              ),
-            ),
             'default' => 'f',
           ),
           'token_insert_ckeditor' => array(
@@ -286,18 +262,6 @@ function ckeditor___editor_ckeditor_profile_defaults() {
             'desc' => 'Plugin file: div',
             'path' => '%plugin_dir_extra%div/',
             'buttons' => FALSE,
-            'default' => 'f',
-          ),
-          'media' => array(
-            'name' => 'media',
-            'desc' => 'Plugin for inserting images from Drupal media module',
-            'path' => '%plugin_dir%media/',
-            'buttons' => array(
-              'Media' => array(
-                'label' => 'Media',
-                'icon' => 'images/icon.gif',
-              ),
-            ),
             'default' => 'f',
           ),
           'token_insert_ckeditor' => array(
