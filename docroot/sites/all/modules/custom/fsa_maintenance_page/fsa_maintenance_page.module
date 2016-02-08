@@ -98,24 +98,17 @@ function fsa_maintenance_page_preprocess_maintenance_page(&$variables) {
 
   // Make sure $head_title reflects the page title
   if (drupal_get_title()) {
-    $head_title_array = array(
+    $variables['head_title_array'] = array(
       'title' => strip_tags(drupal_get_title()),
       'name' => check_plain(variable_get('site_slogan', t('Food Standards Agency'))),
     );
   }
   else {
-    $head_title_array = array(
+    $variables['head_title_array'] = array(
       'title' => strip_tags($variables['title']),
       'name' => t('Food Standards Agency'),
     );
   }
-
-  // Flatten the $head_title array
-  // @todo Move this to a process function
-  $variables['head_title'] = implode(' | ', array_values($head_title_array));
-
-  // Set the 'css_file' variable
-  $variables['css_file'] = $css_file;
 
   // Render the social media icons block in the header
   $variables['page']['header_social_media'] = _fsa_maintenance_page_social_media_icons();
@@ -198,6 +191,18 @@ function fsa_maintenance_page_preprocess_maintenance_page(&$variables) {
       '#weight' => 5,
     );
   }
+}
+
+
+/**
+ * Process function for the site maintenance page
+ */
+function fsa_maintenance_page_process_maintenance_page(&$variables) {
+  // Render the $head variable.
+  $variables['head'] = !empty($variables['head_array']) ? drupal_render($variables['head_array']) : '';
+
+  // Flatten the $head_title array
+  $variables['head_title'] = implode(' | ', array_values($variables['head_title_array']));
 }
 
 
