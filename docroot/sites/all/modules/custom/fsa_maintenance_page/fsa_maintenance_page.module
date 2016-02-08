@@ -55,14 +55,40 @@ function fsa_maintenance_page_menu() {
  */
 function fsa_maintenance_page_preprocess_maintenance_page(&$variables) {
 
-  // Render array for the maintenance page CSS file.
-  $css_file = array(
-    '#type' => 'html_tag',
-    '#tag' => 'link',
-    '#attributes' => array(
-      'rel' => 'stylesheet',
-      'media' => 'screen',
-      'href' => '/' . drupal_get_path('theme', 'site_frontend') . '/css/' . FSA_MAINTENANCE_PAGE_CSS_FILE,
+  // Create an array to hold the HTML <head> content. We need this since we're
+  // not using the standard Drupal head content.
+  $variables['head_array'] = array(
+
+    // Maintenance page CSS file
+    'css_file' => array(
+      '#type' => 'html_tag',
+      '#tag' => 'link',
+      '#attributes' => array(
+        'rel' => 'stylesheet',
+        'media' => 'screen',
+        'href' => '/' . drupal_get_path('theme', 'site_frontend') . '/css/' . FSA_MAINTENANCE_PAGE_CSS_FILE,
+      ),
+    ),
+
+    // Viewport meta tag
+    'viewport_meta_tag' => array(
+      '#type' => 'html_tag',
+      '#tag' => 'meta',
+      '#attributes' => array(
+        'name' => 'viewport',
+        'content' => 'width=device-width, initial-scale=0.8, minimum-scale=0.5, maximum-scale=5.0',
+      ),
+    ),
+
+    // Favicon
+    'favicon' => array(
+      '#type' => 'html_tag',
+      '#tag' => 'link',
+      '#attributes' => array(
+        'rel' => 'shortcut icon',
+        'href' => url('sites/all/themes/site_frontend/images/favicon.ico', array('absolute' => TRUE)),
+        'type' => 'image/vnd.microsoft.icon',
+      ),
     ),
   );
 
