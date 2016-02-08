@@ -3358,3 +3358,21 @@ function _fsa_report_problem_export_rating_data() {
   // Call drupal_exit().
   drupal_exit();
 }
+
+
+/**
+ * Replacement callback function for rating AHAH function
+ *
+ * Allows the language of the returned response to be set
+ *
+ * @param string $lang_code
+ *   The language code to be used. Defaults to 'en'
+ *
+ * @see rate_vote_ahah()
+ */
+function fsa_report_problem_rate_vote_ahah($lang_code = 'en') {
+  global $language;
+  $languages = language_list();
+  $language = !empty($languages[$lang_code]) ? $languages[$lang_code] : $language;
+  rate_vote_ahah();
+}
