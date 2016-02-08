@@ -55,14 +55,40 @@ function fsa_maintenance_page_menu() {
  */
 function fsa_maintenance_page_preprocess_maintenance_page(&$variables) {
 
-  // Render array for the maintenance page CSS file.
-  $css_file = array(
-    '#type' => 'html_tag',
-    '#tag' => 'link',
-    '#attributes' => array(
-      'rel' => 'stylesheet',
-      'media' => 'screen',
-      'href' => '/' . drupal_get_path('theme', 'site_frontend') . '/css/' . FSA_MAINTENANCE_PAGE_CSS_FILE,
+  // Create an array to hold the HTML <head> content. We need this since we're
+  // not using the standard Drupal head content.
+  $variables['head_array'] = array(
+
+    // Maintenance page CSS file
+    'css_file' => array(
+      '#type' => 'html_tag',
+      '#tag' => 'link',
+      '#attributes' => array(
+        'rel' => 'stylesheet',
+        'media' => 'screen',
+        'href' => '/' . drupal_get_path('theme', 'site_frontend') . '/css/' . FSA_MAINTENANCE_PAGE_CSS_FILE,
+      ),
+    ),
+
+    // Viewport meta tag
+    'viewport_meta_tag' => array(
+      '#type' => 'html_tag',
+      '#tag' => 'meta',
+      '#attributes' => array(
+        'name' => 'viewport',
+        'content' => 'width=device-width, initial-scale=0.8, minimum-scale=0.5, maximum-scale=5.0',
+      ),
+    ),
+
+    // Favicon
+    'favicon' => array(
+      '#type' => 'html_tag',
+      '#tag' => 'link',
+      '#attributes' => array(
+        'rel' => 'shortcut icon',
+        'href' => url('sites/all/themes/site_frontend/images/favicon.ico', array('absolute' => TRUE)),
+        'type' => 'image/vnd.microsoft.icon',
+      ),
     ),
   );
 
@@ -72,24 +98,17 @@ function fsa_maintenance_page_preprocess_maintenance_page(&$variables) {
 
   // Make sure $head_title reflects the page title
   if (drupal_get_title()) {
-    $head_title_array = array(
+    $variables['head_title_array'] = array(
       'title' => strip_tags(drupal_get_title()),
       'name' => check_plain(variable_get('site_slogan', t('Food Standards Agency'))),
     );
   }
   else {
-    $head_title_array = array(
+    $variables['head_title_array'] = array(
       'title' => strip_tags($variables['title']),
       'name' => t('Food Standards Agency'),
     );
   }
-
-  // Flatten the $head_title array
-  // @todo Move this to a process function
-  $variables['head_title'] = implode(' | ', array_values($head_title_array));
-
-  // Set the 'css_file' variable
-  $variables['css_file'] = $css_file;
 
   // Render the social media icons block in the header
   $variables['page']['header_social_media'] = _fsa_maintenance_page_social_media_icons();
@@ -172,6 +191,18 @@ function fsa_maintenance_page_preprocess_maintenance_page(&$variables) {
       '#weight' => 5,
     );
   }
+}
+
+
+/**
+ * Process function for the site maintenance page
+ */
+function fsa_maintenance_page_process_maintenance_page(&$variables) {
+  // Render the $head variable.
+  $variables['head'] = !empty($variables['head_array']) ? drupal_render($variables['head_array']) : '';
+
+  // Flatten the $head_title array
+  $variables['head_title'] = implode(' | ', array_values($variables['head_title_array']));
 }
 
 
