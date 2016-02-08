@@ -3132,7 +3132,17 @@ function _fsa_report_problem_rate_widget($widget_machine_name, $weight = 10, $ni
   $build['#type'] = 'item';
   $build['#title'] = check_plain(locale($widget->title));
   $build['#markup'] = rate_embed($node, $widget_machine_name, $mode);
-
+  // If the page language is anything other than English, include the page
+  // language code in the path for the autocomplete widget AJAX call. This
+  // overrides the default setting that comes from the Rate module
+  // @see fsa_report_problem_rate_vote_ahah()
+  if ($lang_code != 'en') {
+    drupal_add_js(array(
+      'rate' => array(
+        'basePath' => url("rate/vote/js/$lang_code"),
+      )
+    ), array('type' => 'setting'));
+  }
   return $build;
 }
 
