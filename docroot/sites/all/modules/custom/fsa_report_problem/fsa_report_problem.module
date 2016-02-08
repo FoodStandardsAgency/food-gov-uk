@@ -281,6 +281,29 @@ function fsa_report_problem_menu() {
 
 
 /**
+ * Implements hook_menu_alter().
+ */
+function fsa_report_problem_menu_alter(&$items) {
+  // If RATE_PATH_AHAH is not defined, exit now
+  if (!defined('RATE_PATH_AHAH')) {
+    return;
+  }
+
+  // If there is no item for RATE_PATH_AHAH, exit now
+  if (empty($items[RATE_PATH_AHAH])) {
+    return;
+  }
+
+  // Alter the callback for RATE_PATH_AHAH to enable other languages
+  $items[RATE_PATH_AHAH] = array(
+    'page callback' => 'fsa_report_problem_rate_vote_ahah',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK
+  );
+
+}
+
+/**
  * Implements hook_block_info().
  */
 function fsa_report_problem_block_info() {
