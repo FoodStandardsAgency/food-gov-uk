@@ -3136,6 +3136,8 @@ function _fsa_report_problem_rate_widget($widget_machine_name, $weight = 10, $ni
   // language code in the path for the autocomplete widget AJAX call. This
   // overrides the default setting that comes from the Rate module
   // @see fsa_report_problem_rate_vote_ahah()
+  global $language;
+  $lang_code = !empty($language->language) ? $language->language : 'en';
   if ($lang_code != 'en') {
     drupal_add_js(array(
       'rate' => array(
