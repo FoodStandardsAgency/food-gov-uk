@@ -281,6 +281,29 @@ function fsa_report_problem_menu() {
 
 
 /**
+ * Implements hook_menu_alter().
+ */
+function fsa_report_problem_menu_alter(&$items) {
+  // If RATE_PATH_AHAH is not defined, exit now
+  if (!defined('RATE_PATH_AHAH')) {
+    return;
+  }
+
+  // If there is no item for RATE_PATH_AHAH, exit now
+  if (empty($items[RATE_PATH_AHAH])) {
+    return;
+  }
+
+  // Alter the callback for RATE_PATH_AHAH to enable other languages
+  $items[RATE_PATH_AHAH] = array(
+    'page callback' => 'fsa_report_problem_rate_vote_ahah',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK
+  );
+
+}
+
+/**
  * Implements hook_block_info().
  */
 function fsa_report_problem_block_info() {
@@ -3109,7 +3132,19 @@ function _fsa_report_problem_rate_widget($widget_machine_name, $weight = 10, $ni
   $build['#type'] = 'item';
   $build['#title'] = check_plain(locale($widget->title));
   $build['#markup'] = rate_embed($node, $widget_machine_name, $mode);
-
+  // If the page language is anything other than English, include the page
+  // language code in the path for the autocomplete widget AJAX call. This
+  // overrides the default setting that comes from the Rate module
+  // @see fsa_report_problem_rate_vote_ahah()
+  global $language;
+  $lang_code = !empty($language->language) ? $language->language : 'en';
+  if ($lang_code != 'en') {
+    drupal_add_js(array(
+      'rate' => array(
+        'basePath' => url("rate/vote/js/$lang_code"),
+      )
+    ), array('type' => 'setting'));
+  }
   return $build;
 }
 
@@ -3357,4 +3392,22 @@ function _fsa_report_problem_export_rating_data() {
   print $output;
   // Call drupal_exit().
   drupal_exit();
+}
+
+
+/**
+ * Replacement callback function for rating AHAH function
+ *
+ * Allows the language of the returned response to be set
+ *
+ * @param string $lang_code
+ *   The language code to be used. Defaults to 'en'
+ *
+ * @see rate_vote_ahah()
+ */
+function fsa_report_problem_rate_vote_ahah($lang_code = 'en') {
+  global $language;
+  $languages = language_list();
+  $language = !empty($languages[$lang_code]) ? $languages[$lang_code] : $language;
+  rate_vote_ahah();
 }
