@@ -1,0 +1,122 @@
+*, *:after, *:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  *behavior: url("../behaviors/box-sizing/boxsizing.php"); }
+
+.circles {
+  overflow: hidden; }
+  .circles .circle {
+    float: left;
+    clear: none;
+    margin: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 11px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #aaaaaa;
+    white-space: nowrap;
+    border-color: #c14618; }
+    .circles .circle:hover, .circles .circle.filled {
+      border-color: #c14618; }
+    .circles .circle.empty {
+      border-color: #aaaaaa; }
+    .circles .circle.filled .inner-circle {
+      display: block;
+      width: 20px;
+      height: 20px;
+      border-radius: 10px;
+      margin: -1px;
+      border: 0px solid #fff;
+      background-color: #c14618; }
+  .circles .rate-text {
+    color: #c14618;
+    padding: 0;
+    float: left;
+    font-weight: bold;
+    font-size: 1.2em;
+    line-height: 18px;
+    padding-top: 12px;
+    padding-left: 5px;
+    padding-top: 3px; }
+
+#edit-rate-widget {
+  margin-top: 3em; }
+
+.rate-widget-circles ul {
+  float: left;
+  list-style: none;
+  margin: 10px 0;
+  overflow: hidden;
+  padding: 0; }
+  .rate-widget-circles ul.rate-circles-widget-populated li {
+    border-color: #c14618; }
+.rate-widget-circles li {
+  float: left;
+  clear: none;
+  margin: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 22px;
+  border-width: 4px;
+  border-style: solid;
+  border-color: #aaaaaa;
+  white-space: nowrap; }
+  .rate-widget-circles li:hover, .rate-widget-circles li.filled {
+    border-color: #c14618; }
+  .rate-widget-circles li.empty {
+    border-color: #aaaaaa; }
+  @media screen and (min-width: 481px) {
+    .rate-widget-circles li {
+      float: left;
+      clear: none;
+      margin: 0;
+      width: 22px;
+      height: 22px;
+      border-radius: 11px;
+      border-width: 2px;
+      border-style: solid;
+      border-color: #aaaaaa;
+      white-space: nowrap; }
+      .rate-widget-circles li:hover, .rate-widget-circles li.filled {
+        border-color: #c14618; }
+      .rate-widget-circles li.empty {
+        border-color: #aaaaaa; } }
+  .rate-widget-circles li a {
+    display: block;
+    text-indent: -99999px; }
+  .rate-widget-circles li:hover a, .rate-widget-circles li .rate-circles-btn-filled {
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    margin: -1px;
+    border: 0px solid #fff;
+    background-color: #c14618; }
+    @media screen and (min-width: 481px) {
+      .rate-widget-circles li:hover a, .rate-widget-circles li .rate-circles-btn-filled {
+        display: block;
+        width: 20px;
+        height: 20px;
+        border-radius: 10px;
+        margin: -1px;
+        border: 0px solid #fff;
+        background-color: #c14618; } }
+
+#rate-value-description {
+  color: #c14618;
+  padding: 0;
+  float: left;
+  font-weight: bold;
+  font-size: 1.2em;
+  line-height: 18px;
+  padding-top: 12px;
+  padding-left: 5px; }
+
+.rate-info, .rate-info-new {
+  clear: left;
+  font-size: 0.8em;
+  color: #666; }
+
+/*# sourceMappingURL=circles.css.map */

@@ -1794,3 +1794,265 @@ function _fsa_report_problem_api_status_check_now($form, &$form_state) {
   $message .= !empty($overall_status->healthy) ? t('All APIs are healthy.') : t('Issues were found with one or more APIs. See below for details');
   drupal_set_message($message, $message_type);
 }
+
+
+/**
+ * Form builder: rating results form
+ */
+function fsa_report_problem_rating_results_form($form, &$form_state) {
+
+  // Get all the available widgets
+  $widgets = variable_get(RATE_VAR_WIDGETS, array());
+
+  // Get the machine name of the widget assigned to this service - if set.
+  $widget_name = _fsa_report_problem_selected_rating_widget();
+
+  // Set a message if no rating widget is selected
+  if (empty($widget_name)) {
+    drupal_set_message('No rating widget has been selected, so there are no results to display.', 'warning');
+  }
+
+  // Fieldset for the form to select the widget
+  $form['widget_selector'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Select a rating widget'),
+    '#collapsible' => TRUE,
+    '#collapsed' => !empty($widget_name),
+  );
+
+  // Construct the options array for the widget select box
+  $widget_options = array();
+  foreach ($widgets as $widget) {
+    $widget_options[$widget->name] = $widget->title;
+  }
+
+  // If no widget is selected, set a warning
+  $form['widget_selector']['no_widget'] = array(
+    '#prefix' => '<strong>',
+    '#markup' => t('You must select a rating widget before you can see ratings for this service.'),
+    '#suffix' => '</strong>',
+    '#access' => empty($widget_name),
+  );
+
+  // Select box to choose a rate widget
+  $form['widget_selector']['select_widget'] = array(
+    '#type' => 'select',
+    '#title' => t('Select a rating widget'),
+    '#options' => $widget_options,
+    '#default_value' => $widget_name,
+    '#empty_option' => t('Please choose'),
+    '#required' => TRUE,
+  );
+
+  // Submit button for choosing a widget
+  $form['widget_selector']['select_submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Select widget'),
+    '#submit' => array('fsa_report_problem_rate_widget_selector_submit'),
+  );
+
+  // If we don't have a widget set, return now as we can't show results.
+  if (empty($widget_name)) {
+    return $form;
+  }
+
+  // Set widget to NULL
+  $widget = NULL;
+  // Get details for the selected widget
+  foreach ($widgets as $id => $details) {
+    if ($details->name == $widget_name) {
+      $widget = $details;
+      break;
+    }
+  }
+  // Get the nid for the node
+  $nid = _fsa_report_problem_get_nid();
+  // Load the node
+  $node = !empty($nid) ? node_load($nid) : NULL;
+
+  // If we have no node, set an error.
+  if (empty($node)) {
+    $form['error'] = array(
+      '#markup' => t('No node found'),
+    );
+    return $form;
+  }
+
+  $votingapi_results = votingapi_select_results(array(
+    'entity_type' => 'node',
+    'entity_id' => $node->nid,
+    'tag' => $widget->tag,
+    'value_type' => $widget->value_type,
+  ));
+
+  $count = 0;
+  $average = 0;
+  $sum = 0;
+  $votingapi_functions = array('count', 'average', 'sum');
+
+  foreach ($votingapi_results as $result) {
+    if (!in_array($result['function'], $votingapi_functions)) { //custom options, need to tally these together to get a total count
+      $count += $result['value'];
+    }
+    else {
+      ${$result['function']} = $result['value'];
+    }
+  }
+
+  // Get all the results
+  $query = db_select('votingapi_vote', 'vv')
+    ->fields('vv', array('value'))
+    ->condition('vv.entity_type', 'node')
+    ->condition('vv.entity_id', $node->nid);
+  $results = $query->execute()->fetchCol();
+
+  // If we have no results, display a message and exit now.
+  if (count($results) == 0) {
+    $form['results'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Rating results'),
+    );
+    $form['results']['zero_results'] = array(
+      '#markup' => t('There have been no ratings so far.'),
+    );
+    return $form;
+  }
+
+  // Calculate mean, mode and median scores
+  $mean = round(array_sum($results) / count($results));
+  $median = array_median($results);
+  $values = array_count_values($results);
+  $mode = array_search(max($values), $values);
+
+  $form['heading'] = array(
+    '#type' => 'html_tag',
+    '#tag' => 'h2',
+    '#value' => t('User ratings'),
+  );
+
+
+  $form['introduction'] = array(
+    '#prefix' => '<p>',
+    '#markup' => t('This page shows how visitors rated the service.'),
+    '#suffix' => '</p>',
+  );
+
+  $form['overview'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Overview'),
+  );
+
+  $form['overview']['average'] = array(
+    '#type' => 'item',
+    '#title' => t('Average rating'),
+    '#description' => t('This is the sum of all the scores divided by the number of votes.'),
+    '#markup' => theme('circle_rating', array('score' => $mean)),
+  );
+
+  $form['overview']['mode'] = array(
+    '#type' => 'item',
+    '#title' => t('Most common rating'),
+    '#description' => t('This is the mode of the scores.'),
+    '#markup' => theme('circle_rating', array('score' => $mode)),
+  );
+
+  $form['overview']['median'] = array(
+    '#type' => 'item',
+    '#title' => t('Median rating'),
+    '#description' => t('This is the rating that falls in the middle of the scores when ranked in order.'),
+    '#markup' => theme('circle_rating', array('score' => $median)),
+  );
+
+  $form['overview']['total_votes'] = array(
+    '#type' => 'item',
+    '#title' => t('Total votes'),
+    '#markup' => $count,
+  );
+
+  // Display a table with vote counts per button.
+  if (count($widget->options) > 1) {
+    $widget_options = array_reverse($widget->options);
+    $rows = array();
+    foreach ($widget_options as $option) {
+      $query = db_select('votingapi_vote', 'vv')
+        ->condition('vv.entity_type', 'node')
+        ->condition('vv.entity_id', $node->nid)
+        ->condition('vv.value_type', $widget->value_type)
+        ->condition('vv.value', $option[0])
+        ->condition('vv.tag', $widget->tag)
+        ->condition('vv.timestamp', 0, '>')
+        ->orderBy('vv.value', 'DESC');
+      $field = $query->addExpression('COUNT(*)', 'vote_count');
+      $total_count = $query->execute()->fetchField();
+      $circles = $option[0];
+      $score = $circles * $total_count;
+      $title = $widget->translate ? t($option[1]) : $option[1];
+      $ratings = array(
+        '#theme' => 'circle_rating',
+        '#score' => $circles,
+        '#description' => $title,
+      );
+      $title = drupal_render($ratings);
+      $rows[] = array($title, $total_count);
+    }
+    $header = array(t('Rating'), t('Votes'));
+  }
+
+  $form['breakdown'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Breakdown of ratings'),
+  );
+
+  $form['breakdown']['table'] = array(
+    '#theme' => 'table',
+    '#header' => $header,
+    '#rows' => $rows,
+  );
+
+  $form['#attached']['css'] = array(
+    drupal_get_path('module', 'fsa_report_problem') . '/css/circles.css',
+  );
+
+  return $form;
+}
+
+
+
+
+/**
+ * Calculates the median of an array of integers
+ *
+ * @param type $array
+ * @return type
+ * @throws DomainException
+ */
+function array_median($array) {
+  // perhaps all non numeric values should filtered out of $array here?
+  $iCount = count($array);
+  if ($iCount == 0) {
+    throw new DomainException('Median of an empty array is undefined');
+  }
+  // if we're down here it must mean $array
+  // has at least 1 item in the array.
+  $middle_index = floor($iCount / 2);
+  sort($array, SORT_NUMERIC);
+  $median = $array[$middle_index]; // assume an odd # of items
+  // Handle the even case by averaging the middle 2 items
+  if ($iCount % 2 == 0) {
+    $median = ($median + $array[$middle_index - 1]) / 2;
+  }
+  return $median;
+}
+
+
+/**
+ * Submit handler - set rating widget
+ */
+function fsa_report_problem_rate_widget_selector_submit($form, &$form_state) {
+  $values = $form_state['values'];
+  $name = !empty($values['select_widget']) ? $values['select_widget'] : NULL;
+  if (!empty($name)) {
+    _fsa_report_problem_selected_rating_widget($name);
+    drupal_set_message('Rating widget set.');
+  }
+}

@@ -1,0 +1,136 @@
+// Taken from normalize.css. Needed to maintain consistency in display between
+// the front-end interface and the admin theme since Adminimal doesn't contain
+// this.
+// NB: May affect other styling in the admin interface, so be aware!
+*, *:after, *:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  *behavior: url('../behaviors/box-sizing/boxsizing.php');
+}
+
+// Creates an outer circle
+@mixin circle($size: 22px, $borderWidth: 2px) {
+  $borderRadius: $size/2;
+  float: left;
+  clear: none;
+  margin: 0;
+  width: $size;
+  height: $size;
+  border-radius: $borderRadius;
+  border-width: $borderWidth;
+  border-style: solid;
+  //padding: 3px;
+  border-color: #aaaaaa;
+  white-space: nowrap;
+
+  &:hover, &.filled {
+    border-color: #c14618;
+  }
+
+  &.empty {
+    border-color: #aaaaaa;
+  }  
+}
+
+// Creates an inner circle
+@mixin inner-circle($size: 20px, $border: 0px, $color: #c14618) {
+  display: block;
+  width: $size;
+  height: $size;
+  border-radius: $size/2;
+  //margin: $margin;
+  margin: -1px;
+  border: $border solid #fff;
+  background-color: $color;
+}
+
+// Styling for rate value descriptions
+@mixin rate-value-description {
+  color: #c14618;
+  padding: 0;
+  float: left;
+  font-weight: bold;
+  font-size: 1.2em;
+  line-height: 18px;
+  padding-top: 12px;
+  padding-left: 5px;
+}
+
+// Display ratings in the admin section
+.circles {
+  overflow: hidden;
+  .circle {
+    @include circle;
+    border-color: #c14618;
+    
+    &.filled .inner-circle {
+      @include inner-circle;
+    }
+  }
+  .rate-text {
+    @include rate-value-description;
+    padding-top: 3px;
+  }
+}
+
+
+#edit-rate-widget {
+  margin-top: 3em;
+}
+
+// Rating widgets
+.rate-widget-circles {
+  
+  ul {
+    float: left;
+    list-style: none;
+    margin: 10px 0;
+    overflow: hidden;
+    padding: 0;
+    
+    &.rate-circles-widget-populated {
+      li {
+        border-color: #c14618;
+      }
+    }
+    
+  }
+
+  li {
+    @include circle(44px, 4px);
+
+    @media screen and (min-width: 481px) {
+      @include circle;
+    }
+
+    a {
+      display: block;
+      text-indent: -99999px;
+    }
+
+    &:hover a, .rate-circles-btn-filled {
+      @include inner-circle(40px);
+
+      @media screen and (min-width: 481px) {
+        @include inner-circle;
+      }
+
+    }
+
+  }
+
+}
+
+// Rating valud descriptions
+#rate-value-description {
+  @include rate-value-description;
+}
+
+
+// Rate info
+.rate-info, .rate-info-new {
+  clear: left;
+  font-size: 0.8em;
+  color: #666;
+}
