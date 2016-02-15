@@ -3188,10 +3188,63 @@ function _fsa_report_problem_mapit_http_options() {
  * @return array
  *   Render array for the Rate widget
  *
+ * @todo Remove old code
+ *
  * @see rate_get_active_widgets()
  * @see rate_embed()
  */
 function _fsa_report_problem_rate_widget($widget_machine_name, $weight = 10, $nid = NULL, $mode = 1) {
+
+  // Temporary code here...
+
+  // Get the name of the property assigned to the node object
+  $widget_property = "rate_$widget_machine_name";
+
+  // Get the node object from the menu
+  $node = menu_get_object();
+
+  // If we have no nid then it's not a node. If the widget property is empty,
+  // then we have no widget. In either case, return an empty string.
+  if (empty($node->nid) || empty($node->$widget_property)) {
+    return '';
+  }
+
+  // Create a container render array.
+  $build = array(
+    '#type' => 'container',
+    '#tag' => 'div',
+    '#attributes' => array(
+      'class' => array(
+        'rate-widget-container',
+      ),
+      'id' => array(
+        'edit-rate-widget',
+      ),
+    ),
+  );
+
+  // Add the rate widget to the render array
+  $build['widget'] = $node->$widget_property;
+
+  // If the page language is anything other than English, include the page
+  // language code in the path for the autocomplete widget AJAX call. This
+  // overrides the default setting that comes from the Rate module
+  // @see fsa_report_problem_rate_vote_ahah()
+  global $language;
+  $lang_code = !empty($language->language) ? $language->language : 'en';
+  if ($lang_code != 'en') {
+    drupal_add_js(array(
+      'rate' => array(
+        'basePath' => url("rate/vote/js/$lang_code"),
+      )
+    ), array('type' => 'setting'));
+  }
+  // Return the render array
+  return $build;
+
+
+  // Old code below here...
+  // @todo Remove this once we're happy with the new code
 
   // Create the base render array.
   $build = array(
