@@ -317,10 +317,19 @@ function fsa_report_problem_menu_alter(&$items) {
  */
 function fsa_report_problem_block_info() {
   $blocks = array();
+
+  // Report a food problem
   $blocks['report_problem_form'] = array(
     'info' => t('Report a food problem form'),
     'cache' => DRUPAL_NO_CACHE,
   );
+
+  // Search for local authority
+  $blocks['local_authority_search'] = array(
+    'info' => t('Search for local authority'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+
   return $blocks;
 }
 
