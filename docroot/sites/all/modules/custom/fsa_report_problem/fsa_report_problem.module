@@ -1499,16 +1499,25 @@ function _fsa_report_problem_status_message($status = FSA_REPORT_PROBLEM_STATUS_
  * @param array $data
  *   Associative array of data to be used in token replacements.
  *
- * @return string|array
+ * @return string|object
  *   If no $key parameter is supplied, all text entries are returned as an
  *   associative array.
- *   If a $key is supplied that matches an entry, an associative array with two
- *   elements 'value' and 'format' is returned, where 'value' is the text and
- *   'format' is the text format, eg 'plain_text'
+ *   If a $key is supplied that matches an entry, an object of class
+ *   FsaReportProblemTextEntry() is returned.
  *   If a $key is supplied that doesn't match an entry, an empty string is
  *   returned.
+ *
+ * @todo Allow default text to be supplied to enable text to be output without
+ *   a corresponding entry having been created yet.
+ * @todo Separate out text entries into different types, eg step titles etc
+ * @todo Separate text entries for different blocks and add parameter to allow
+ *   return of entries for a specified block.
  */
-function _fsa_report_problem_text($key = NULL, $data = array()) {
+function _fsa_report_problem_text() {
+
+  $args = func_get_args();
+  $key = !empty($args[0]) ? $args[0] : NULL;
+  $data = !empty($args[1]) && is_array($args[1]) ? $args[1] : array();
 
   $text = array(
     'find_business_intro' => array(
@@ -1647,9 +1656,11 @@ function _fsa_report_problem_text($key = NULL, $data = array()) {
   if (array_key_exists($key, $text)) {
     $variable_name = "fsa_report_problem_text_${key}";
     $text_content = variable_get("fsa_report_problem_text_${key}");
-    return array(
-      'value' => token_replace(!empty($text_content['value']) ? $text_content['value'] : (!empty($text[$key]['default']) ? $text[$key]['default'] : ''), $data),
-      'format' => !empty($text[$key]['format']) ? $text[$key]['format'] : 'full_html',
+    return new FsaReportProblemTextEntry(
+      $text_content['value'],
+      !empty($text[$key]['format']) ? $text[$key]['format'] : NULL,
+      !empty($text[$key]['default']) ? $text[$key]['default'] : NULL,
+      $data
     );
   }
   else {
