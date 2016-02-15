@@ -1513,7 +1513,8 @@ function _fsa_report_problem_status_message($status = FSA_REPORT_PROBLEM_STATUS_
     FSA_REPORT_PROBLEM_STATUS_BETA => _fsa_report_problem_text('service_status_beta'),
     FSA_REPORT_PROBLEM_STATUS_OFFLINE => _fsa_report_problem_text('service_status_offline'),
   );
-  return !empty($messages[$status]['value']) ? $messages[$status]['value'] : '';
+  //return !empty($messages[$status]['value']) ? $messages[$status]['value'] : '';
+  return !empty($messages[$status]) ? $messages[$status] : '';
 }
 
 /**
