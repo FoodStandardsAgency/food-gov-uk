@@ -3487,3 +3487,89 @@ function _fsa_report_problem_clear_submission() {
   // Clear the submission
   ctools_object_cache_clear(FSA_REPORT_PROBLEM_CTOOLS_OBJECT_CACHE_TYPE, FSA_REPORT_PROBLEM_CTOOLS_OBJECT_CACHE_NAME);
 }
+
+
+/**
+ * Class for text entries
+ */
+class FsaReportProblemTextEntry implements ArrayAccess {
+
+  public $value;
+  private $format;
+  private $default;
+  private $data;
+
+  /**
+   * Constructor function
+   */
+  function __construct($value = NULL, $format = 'html_text', $default = NULL, $data = NULL) {
+    $this->setValue($value, $default);
+    $this->format = $format;
+    $this->data = $data;
+  }
+
+  /**
+   * Set the text value
+   *
+   * @prarm string $text
+   *   The text to use for the value property - if set
+   *
+   * @param string $default
+   *   (optional) The default text to use if none is set
+   */
+  public function setValue($text, $default = NULL) {
+    $this->value = !empty($text) ? $text: $default;
+  }
+
+
+  /**
+   * Replace tokens method
+   */
+  private function replaceTokens() {
+    return token_replace($this->value, $this->data);
+  }
+
+
+  /**
+   * Tostring function - allows the $value to be printed directly
+   */
+  function __toString() {
+    return $this->replaceTokens();
+  }
+
+
+  /**
+   * Offset exists method
+   */
+  public function offsetExists($offset) {
+    return property_exists($this, $offset);
+  }
+
+
+  /**
+   * Offset unset
+   */
+  public function offsetUnset($offset) {
+    unset($this->$offset);
+  }
+
+
+  /**
+   * Offset get
+   */
+  public function offsetGet($offset) {
+    if ($offset == 'value') {
+      return $this->replaceTokens();
+    }
+
+    return isset($this->$offset) ? $this->$offset : NULL;
+  }
+
+
+  /**
+   * Offset set
+   */
+  public function offsetSet($offset, $value) {
+    $this->$offset = $value;
+  }
+}
