@@ -2685,6 +2685,10 @@ function _fsa_report_problem_node_path() {
 
 /**
  * Helper function: gets a local authority entity based on sanitised name
+ *
+ * @deprecated
+ *   No longer required since we do not need to load a local authority entity
+ *   by alias any more.
  */
 function _fsa_report_problem_load_authority_by_alias($alias) {
   $alias = str_replace('--', '_', $alias);
