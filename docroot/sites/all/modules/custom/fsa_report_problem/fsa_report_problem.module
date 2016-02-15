@@ -3511,6 +3511,257 @@ function fsa_report_problem_rate_vote_ahah($lang_code = 'en') {
 
 
 /**
+ * Helper function: returns content for the specified block as render array
+ *
+ * @param string $delta
+ *   The delta of the block whose content we are going to render. If not
+ *   provided, we assume 'local_authority_search'
+ *
+ * @return array
+ *   A renderable array of block content.
+ */
+function _fsa_report_problem_block_content($delta = 'local_authority_search') {
+
+  // Render array for the block content
+  $block_content = array(
+    '#theme' => 'report_problem_block_content',
+  );
+
+  // Create a function name based on the block delta and call it if available
+  $function = __FUNCTION__ . "__$delta";
+
+  // If the block content function is not callable, return an error message.
+  if (!is_callable($function)) {
+    // Log an error
+    watchdog('fsa_report_problem', 'Function %function_name is not callable. Could not generate content for block %block_delta.', array('%function_name' => $function, '%block_delta' => $delta), WATCHDOG_ERROR);
+    // Return a render array for the error message
+    $block_content['#content'] = array(
+      '#type' => 'html_tag',
+      '#tag' => 'p',
+      '#value' => t('Unfortunately an error has ocurred. Please try again later.'),
+    );
+    return $block_content;
+  }
+
+  // Call the block content function, passing the block delta
+  $block_content += call_user_func_array($function, array($delta));
+
+  // If $block_content is a string, change it to a render array with #markup
+  if (!is_array($block_content['#content'])) {
+    $block_content['#content'] = array(
+      '#markup' => $block_content['#content'],
+    );
+  }
+
+  // Add attached CSS
+  $block_content['#attached'] = !empty($block_content['#attached']) ? $block_content['#attached'] : array();
+  $block_content['#attached']['css'] = array(
+    drupal_get_path('module', 'fsa_report_problem') . '/css/report-problem.css',
+  );
+
+  // Return the block content render array
+  return $block_content;
+}
+
+
+/**
+ * Helper function: provides block content for local authority search block
+ */
+function _fsa_report_problem_block_content__local_authority_search($delta = '') {
+
+  // An empty array for the block content
+  $block_content = array('#content' => '');
+
+  // Get all the submitted data
+  $submission = _fsa_report_problem_get_submission();
+
+  // Some defaults
+  $content = array();
+  $step_count = !empty($submission->step_count) ? $submission->step_count : 2;
+  $current_step = !empty($submission->current_step) ? $submission->current_step : 1;
+  $step_title = _fsa_report_problem_text('step_title_find_business');
+
+  // The start URL for the service
+  $start_url = _fsa_report_problem_get_start_path();
+
+  // Get the current page URL
+  $request_path = request_path();
+
+  // Get the path after the start path
+  $path = trim(str_replace($start_url, '', $request_path), '/');
+
+  // If it's a local authority path, trim off everything after the first /
+  if (strpos($path, 'authority/') === 0) {
+    $path = substr($path, 0, strpos($path, '/'));
+  }
+
+  switch($path) {
+
+    // Step 1: business lookup form (default case)
+    default:
+      // As this is the first stage, let's clear any submission data
+      _fsa_report_problem_clear_submission();
+      // Reset step count - in case we have any data from previous submissions
+      $step_count = 2;
+      module_load_include('php', 'fsa_report_problem', 'forms/business_lookup_form');
+      $content = drupal_get_form('fsa_report_problem_business_lookup_form', 'authority');
+      break;
+
+    // Step 1b: Postcode search
+    case 'postcode':
+      module_load_include('php', 'fsa_report_problem', 'forms/postcode_search_form');
+      $content = drupal_get_form('fsa_report_problem_postcode_search_form', $delta, $path);
+      $step_title = _fsa_report_problem_text('step_title_postcode_search');
+      break;
+
+    // Step 2: Select a business from search results - no autocomplete
+    case 'select-business':
+      module_load_include('php', 'fsa_report_problem', 'forms/business_results_form');
+      $content = drupal_get_form('fsa_report_problem_business_results_form');
+      $step_count = 3;
+      $current_step = 2;
+      $step_title = _fsa_report_problem_text('step_title_choose_business');
+      break;
+
+    // Step 3: Local authority details page
+    case 'authority':
+
+      // Get all the submitted data
+      $submission = _fsa_report_problem_get_submission();
+
+      // If we have no submission, we can't really display this page, so we
+      // need to redirect to the start page
+      if (empty($submission)) {
+        drupal_set_message(t('Sorry, an error seems to have happened. Please try again.'), 'error');
+        drupal_goto(url(_fsa_report_problem_get_start_path()));
+      }
+
+      // Get the local authority data
+      $local_authority = _fsa_report_problem_get_submission('local_authority');
+
+      // Get the postcode - if supplied
+      $postcode = !empty($submission->postcode) ? _fsa_report_problem_format_postcode($submission->postcode) : '';
+
+      // Which version of intro text should we use. Depends on whether we are
+      // doing a postcode-based search.
+      $intro_text = !empty($postcode) ? 'local_authority_intro_postcode' : 'local_authority_intro';
+
+      // Add the intro text to the block content
+      $content['intro_text'] = array(
+        '#type' => 'form_intro',
+        '#text' => _fsa_report_problem_text($intro_text, array('food_establishment' => !empty($submission->business) ? $submission->business : array('name' => 'this business', 'postcode' => $postcode))),
+      );
+
+      // Add the local authority details
+      $content['local_authority_details'] = array(
+        '#theme' => 'local_authority_details',
+        '#local_authority' => $local_authority,
+      );
+
+      $step_count = $step_count > 2 ? $step_count : 2;
+      $current_step = $step_count;
+      $step_title = _fsa_report_problem_text('step_title_local_authority_details');
+
+      // Clear the submission details. Do we need this here?
+      _fsa_report_problem_clear_submission();
+      break;
+  }
+
+  // Return a partial render array.
+  return array(
+    '#content' => $content,
+    '#step_count' => $step_count,
+    '#current_step' => $current_step,
+    '#step_title' => $step_title,
+  );
+
+}
+
+
+/**
+ * Helper function: generates block content for the full report problem service
+ */
+function _fsa_report_problem_block_content__report_problem_form($delta = '') {
+
+  // An empty array for the block content
+  $block_content = array('#content' => '');
+
+  // Get all the submitted data
+  $submission = _fsa_report_problem_get_submission();
+
+  // Some defaults
+  $content = array();
+  $step_count = !empty($submission->step_count) ? $submission->step_count : 3;
+  $current_step = !empty($submission->current_step) ? $submission->current_step : 1;
+  $step_title = _fsa_report_problem_text('step_title_find_business');
+
+  // Get the current page URL
+  $request_path = request_path();
+
+  // Get the path after the start path
+  $path = trim(str_replace(_fsa_report_problem_get_start_path(), '', $request_path), '/');
+
+  switch($path) {
+
+    // Step 1: Search for business by name and location
+    default:
+      // As this is the first stage, let's clear any preexisting submission data
+      _fsa_report_problem_clear_submission();
+      // Reset step count - in case we have any data from previous submissions
+      $step_count = 3;
+      module_load_include('php', 'fsa_report_problem', 'forms/business_lookup_form');
+      $content = drupal_get_form('fsa_report_problem_business_lookup_form', 'report');
+      break;
+
+    // Step 2: Select a business from search results - no autocomplete
+    case 'select-business':
+      $step_count = 4;
+      module_load_include('php', 'fsa_report_problem', 'forms/business_results_form');
+      $content = drupal_get_form('fsa_report_problem_business_results_form', 'report', $step_count);
+      $current_step = 2;
+      $step_title = _fsa_report_problem_text('step_title_choose_business');
+      break;
+
+    // Step 3: Make a report
+    case 'report':
+      module_load_include('php', 'fsa_report_problem', 'forms/make_report_form');
+      $content = drupal_get_form('fsa_report_problem_make_report_form');
+      $step_title = _fsa_report_problem_text('step_title_make_report');
+      $step_count = $step_count > 3 ? $step_count : 3;
+      $current_step = $step_count - 1;
+      break;
+
+    // Step 3a: Make a report - manual version
+    case 'report/manual':
+      module_load_include('php', 'fsa_report_problem', 'forms/make_report_form');
+      $content = drupal_get_form('fsa_report_problem_make_report_form', TRUE);
+      $step_title = _fsa_report_problem_text('step_title_make_report');
+      $step_count = 2;
+      $current_step = 1;
+      break;
+
+    // Step 4: Report complete
+    case 'complete':
+      module_load_include('php', 'fsa_report_problem', 'forms/report_complete_form');
+      $content = drupal_get_form('fsa_report_problem_report_complete_form');
+      $step_title = _fsa_report_problem_text('step_title_report_complete');
+      $current_step = $step_count;
+      // Clear the submission data
+      _fsa_report_problem_clear_submission();
+      break;
+  }
+
+  // Return a partial render array.
+  return array(
+    '#content' => $content,
+    '#step_count' => $step_count,
+    '#current_step' => $current_step,
+    '#step_title' => $step_title,
+  );
+}
+
+
+/**
  * Helper function: Get CTools cache data
  *
  * @param string $key
