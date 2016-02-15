@@ -2179,8 +2179,16 @@ function fsa_report_problem_init() {
     }
   }
 
-  // If we have no path, exit now.
+  // Temporary handling of search for local authority path
+  // @todo Handle this properly
+  $search_for_local_authority_path = 'enforcement/search-for-local-authority';
+  if (strpos($request_path, $search_for_local_authority_path) === 0) {
+    $_GET['q'] = drupal_get_normal_path($search_for_local_authority_path);
+    return;
+  }
+// If we have no path, exit now.
   if (empty($path)) {
+    // @todo Reinstate this once we've sorted the alternative path for search
     return;
   }
 
