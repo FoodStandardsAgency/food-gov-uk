@@ -2734,6 +2734,37 @@ function _fsa_report_problem_load_authority_by_alias($alias) {
   return 0;
 }
 
+/**
+ * Helper function: generates an 'alias' based on local authority name
+ *
+ * This is used in URLs
+ *
+ * @param string $name
+ *   The name of the local authority
+ *
+ * @return string
+ *   A sanitsed version of the local authority name suitable for use in a URL
+ */
+function _fsa_report_problem_local_authority_alias($name = '') {
+  // Return an empty string if no name parameter is supplied.
+  if (empty($name)) {
+    return '';
+  }
+  module_load_include('inc', 'pathauto', 'pathauto');
+  // If Pathauto is available, use its pathauto_cleanstring() function to
+  // generate a clean version of the name as alias
+  if (is_callable('pathauto_cleanstring')) {
+    $alias = pathauto_cleanstring($name);
+  }
+  // In the unlikely event that we don't have access to pathauto_cleanstring(),
+  // we'll use a simple regex replace to make a 'clean', URL-friendly alias
+  else {
+    $alias = strtolower(preg_replace("/[\s|,|&|\?]/", '-', trim($name)));
+    $alias = rawurlencode(preg_replace("/-{2,}/", '-', $alias));
+  }
+  return $alias;
+}
+
 
 /**
  * Helper function: formats a URL for display
