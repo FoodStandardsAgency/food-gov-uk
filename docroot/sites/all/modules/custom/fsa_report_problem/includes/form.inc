@@ -32,6 +32,9 @@
  *
  * The mode is changed via the admin UI.
  *
+ * @deprecated
+ *   Use separate form includes instead.
+ *
  */
 function fsa_report_problem_form($form, &$form_state) {
 
@@ -183,6 +186,9 @@ function fsa_report_problem_form($form, &$form_state) {
 
 /**
  * Form builder: Step 1 - Find a business subform
+ *
+ * @deprecated
+ *   Use separate form includes instead
  */
 function fsa_report_problem_find_business_form($form, &$form_state) {
 
@@ -304,6 +310,9 @@ function fsa_report_problem_find_business_form($form, &$form_state) {
  * This form lists business found via the server-side Google Places lookup.
  * It is displayed only if the user does not use the client-side JavaScript
  * auto-complete - or if autocomplete is turned off via the URL.
+ *
+ * @deprecated
+ *   Use separate form includes instead
  */
 function fsa_report_problem_results_form($form, &$form_state) {
   $form_state['non_autocomplete'] = TRUE;
@@ -495,6 +504,9 @@ function fsa_report_problem_make_report_form($form, &$form_state) {
 
 /**
  * Validation function for postcode search form
+ *
+ * @deprecated
+ *   Use separate form includes instead
  */
 function fsa_report_problem_form_validate($form, &$form_state) {
 
@@ -581,6 +593,9 @@ function fsa_report_problem_form_validate($form, &$form_state) {
 
 /**
  * Submit handler for the main report a problem form
+ *
+ * @deprecated
+ *   Use separate form includes instead
  */
 function fsa_report_problem_form_submit(&$form, &$form_state) {
 
@@ -884,6 +899,9 @@ function fsa_report_problem_form_submit(&$form, &$form_state) {
 
 /**
  * Form builder: Step 4 - Report complete
+ *
+ * @deprecated
+ *   Use separate form includes instead
  */
 function fsa_report_problem_report_complete_form($form, &$form_state) {
 
@@ -957,6 +975,9 @@ function _fsa_report_problem_step_filter($var) {
 
 /**
  * Form builder: display local authority details
+ *
+ * @deprecated
+ *   Use separate form includes instead
  */
 function fsa_report_problem_local_authority_details_form($form, &$form_state) {
 
@@ -1022,6 +1043,9 @@ function fsa_report_problem_local_authority_details_form($form, &$form_state) {
 
 /**
  * Form builder: Postcode search form
+ *
+ * @deprecated
+ *   Use separate form includes instead
  *
  * This form is used to search for a local authority by postcode, using MapIt
  */
