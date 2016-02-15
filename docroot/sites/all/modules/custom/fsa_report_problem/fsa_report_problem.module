@@ -49,6 +49,15 @@ define('FSA_REPORT_PROBLEM_MAPIT_BASE_URL', 'http://mapit.mysociety.org');
  */
 define('FSA_REPORT_PROBLEM_MAPIT_USER_AGENT', 'UK Food Standards Agency (http://www.food.gov.uk)');
 
+/**
+ * Object type for CTools object cache
+ */
+define('FSA_REPORT_PROBLEM_CTOOLS_OBJECT_CACHE_TYPE', 'submission');
+
+/**
+ * Object name for CTools object cache
+ */
+define('FSA_REPORT_PROBLEM_CTOOLS_OBJECT_CACHE_NAME', 'search_for_local_authority_submission');
 
 /**
  * Implements hook_permission().
@@ -3424,4 +3433,57 @@ function fsa_report_problem_rate_vote_ahah($lang_code = 'en') {
   $languages = language_list();
   $language = !empty($languages[$lang_code]) ? $languages[$lang_code] : $language;
   rate_vote_ahah();
+}
+
+
+/**
+ * Helper function: Get CTools cache data
+ *
+ * @param string $key
+ *   (optional) The specific key from the cache object that we want to return.
+ */
+function _fsa_report_problem_get_submission($key = NULL) {
+  // Include the CTools object cache
+  ctools_include('object-cache');
+  // Get CTools object cache data
+  $submission = ctools_object_cache_get(FSA_REPORT_PROBLEM_CTOOLS_OBJECT_CACHE_TYPE, FSA_REPORT_PROBLEM_CTOOLS_OBJECT_CACHE_NAME);
+  // If no $key parameter is supplied, simply return all the data
+  if (empty($key)) {
+    return $submission;
+  }
+  // If a $key parameter is supplied and it exists, return it. Otherwise return
+  // NULL.
+  if (is_object($submission) && property_exists($submission, $key)) {
+    return $submission->$key;
+  }
+  else {
+    return NULL;
+  }
+}
+
+
+/**
+ * Helper function: Set CTools object cache data
+ */
+function _fsa_report_problem_set_submission($data = NULL) {
+  // The cached data needs to be an object. If it's an array, we turn it into
+  // an object now.
+  if (is_array($data)) {
+    $data = (object) $data;
+  }
+  // Include the CTools object cache
+  ctools_include('object-cache');
+  // Set the CTools object cache data
+  ctools_object_cache_set(FSA_REPORT_PROBLEM_CTOOLS_OBJECT_CACHE_TYPE, FSA_REPORT_PROBLEM_CTOOLS_OBJECT_CACHE_NAME, $data);
+}
+
+
+/**
+ * Helper function: Clears submission data from the CTools cache
+ */
+function _fsa_report_problem_clear_submission() {
+  // Include the CTools object cache
+  ctools_include('object-cache');
+  // Clear the submission
+  ctools_object_cache_clear(FSA_REPORT_PROBLEM_CTOOLS_OBJECT_CACHE_TYPE, FSA_REPORT_PROBLEM_CTOOLS_OBJECT_CACHE_NAME);
 }
