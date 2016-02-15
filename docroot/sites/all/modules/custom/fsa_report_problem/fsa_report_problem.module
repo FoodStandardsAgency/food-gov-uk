@@ -342,10 +342,27 @@ function fsa_report_problem_block_view($delta = '') {
   // Array to hold the block.
   $block = array();
 
+  // At present, if data capture is turned off, we show search for local
+  // authority, while if it is turned on, we show report a food problem. This
+  // will change in the next iteration once we have provided two separate
+  // services, but for now this is the way it works.
+  // @todo Handle differently once two separate services defined.
+  if (!_fsa_report_problem_capture_user_data()) {
+    $delta = 'local_authority_search';
+  }
+
+  // @todo Get rid of this switch() statement; it's not necessary.
   switch ($delta) {
+
+    // Search for local authority
+    case 'local_authority_search':
+      $block['content'] = _fsa_report_problem_block_content($delta);
+      break;
 
     // Search for an establishment form
     case 'report_problem_form':
+      $block['content'] = _fsa_report_problem_block_content($delta);
+      break;
 
       // Check the API status - this is just for testing purposes
       // @todo Remove this/incorporate it properly
