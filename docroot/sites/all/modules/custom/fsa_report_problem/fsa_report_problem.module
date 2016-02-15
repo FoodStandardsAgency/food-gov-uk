@@ -496,6 +496,16 @@ function fsa_report_problem_theme($existing, $type, $theme, $path) {
         'status' => array(),
       ),
     ),
+    'report_problem_block_content' => array(
+      'template' => 'theme/report-problem-block-content',
+      'variables' => array(
+        'step_count' => NULL,
+        'current_step' => NULL,
+        'step_title' => NULL,
+        'status_message' => NULL,
+        'content' => NULL,
+      ),
+    ),
     'rate_template_circles' => array(
       'variables' => array('links' => NULL, 'results' => NULL, 'mode' => NULL, 'just_voted' => FALSE, 'content_type' => NULL, 'content_id' => NULL, 'display_options' => NULL),
       'template' => 'theme/rate-template-circles',
