@@ -3004,6 +3004,21 @@ function _fsa_report_problem_variable_setup($langcode = 'cy') {
  */
 function _fsa_report_problem_get_start_path($lang_code = NULL, $suffix = '', $internal = FALSE) {
 
+  // This is a much simpler re-implementation of this function. The old version
+  // is below.
+  $internal_path = current_path();
+
+  // If we want the internal path, return it now
+  if ($internal) {
+    return $internal_path;
+  }
+
+  // Get the alias for the internal path
+  $alias = drupal_get_path_alias($internal_path);
+
+  // Return the alias - with any additional suffix
+  return $alias . (!empty($suffix) ? "/$suffix" : '');
+
   // Get the current language.
   global $language;
 
