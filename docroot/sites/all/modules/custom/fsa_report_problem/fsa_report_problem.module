@@ -3772,6 +3772,105 @@ function _fsa_report_problem_block_content__local_authority_search($delta = '') 
 
 
 /**
+ * Helper function: provides block content for find food safety team block
+ */
+function _fsa_report_problem_block_content__find_food_safety_team($delta = '') {
+
+  // An empty array for the block content
+  $block_content = array('#content' => '');
+
+  // Get all the submitted data
+  $submission = _fsa_report_problem_get_submission();
+
+  // Some defaults
+  $content = array();
+  $step_count = 2;
+  $current_step = 1;
+  $step_title = _fsa_report_problem_text('step_title_postcode_search');
+
+  // The start URL for the service
+  $start_url = _fsa_report_problem_get_start_path();
+
+  // Get the current page URL
+  $request_path = request_path();
+
+  // Get the path after the start path
+  $path = trim(str_replace($start_url, '', $request_path), '/');
+
+  // If it's a local authority path, trim off everything after the first /
+  if (strpos($path, 'authority/') === 0) {
+    $path = substr($path, 0, strpos($path, '/'));
+  }
+
+  switch($path) {
+
+    // Step 1: Postcode search
+    default:
+      module_load_include('php', 'fsa_report_problem', 'forms/postcode_search_form');
+      $content = drupal_get_form('fsa_report_problem_postcode_search_form', $delta, $path);
+      break;
+
+    // Step 2: Local authority details page
+    case 'authority':
+
+      // Get all the submitted data
+      $submission = _fsa_report_problem_get_submission();
+
+      // If we have no submission, we can't really display this page, so we
+      // need to redirect to the start page
+      if (empty($submission)) {
+        drupal_set_message(t('Sorry, an error seems to have happened. Please try again.'), 'error');
+        drupal_goto(url(_fsa_report_problem_get_start_path()));
+      }
+
+      // Get the local authority data
+      $local_authority = _fsa_report_problem_get_submission('local_authority');
+
+      // Get the postcode - if supplied
+      $postcode = !empty($submission->postcode) ? _fsa_report_problem_format_postcode($submission->postcode) : '';
+
+      // Which version of intro text should we use. Depends on whether we are
+      // doing a postcode-based search.
+      $intro_text = !empty($postcode) ? 'local_authority_intro_postcode' : 'local_authority_intro';
+
+      // Add the intro text to the block content
+      $content['intro_text'] = array(
+        '#type' => 'form_intro',
+        '#text' => _fsa_report_problem_text($intro_text, array('food_establishment' => !empty($submission->business) ? $submission->business : array('name' => 'this business', 'postcode' => $postcode))),
+      );
+
+      // Add the local authority details
+      $content['local_authority_details'] = array(
+        '#theme' => 'local_authority_details',
+        '#local_authority' => $local_authority,
+      );
+
+      // Embed the rating widget - if set
+      $rating_widget = _fsa_report_problem_selected_rating_widget();
+      if (!empty($rating_widget)) {
+        $content['rate_widget'] = _fsa_report_problem_rate_widget($rating_widget);
+      }
+
+      $current_step = $step_count;
+      $step_title = _fsa_report_problem_text('step_title_local_authority_details');
+
+      // Clear the submission details. Do we need this here?
+      _fsa_report_problem_clear_submission();
+      break;
+  }
+
+  // Return a partial render array.
+  return array(
+    '#content' => $content,
+    '#step_count' => $step_count,
+    '#current_step' => $current_step,
+    '#step_title' => $step_title,
+  );
+
+}
+
+
+/**
  * Helper function: generates block content for the full report problem service
  */
 function _fsa_report_problem_block_content__report_problem_form($delta = '') {
