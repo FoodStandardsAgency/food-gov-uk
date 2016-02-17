@@ -4141,3 +4141,17 @@ class FsaReportProblemTextEntry implements ArrayAccess {
     $this->$offset = $value;
   }
 }
+
+
+/**
+ * Helper function: returns an array of text entry categories and descriptions
+ */
+function _fsa_report_problem_text_categories() {
+  $categories = array(
+    FSA_REPORT_PROBLEM_TEXT_CATEGORY_ERROR => t('Error messages'),
+    FSA_REPORT_PROBLEM_TEXT_CATEGORY_STEP_TITLE => t('Step titles'),
+    FSA_REPORT_PROBLEM_TEXT_CATEGORY_SERVICE_STATUS => t('Service status'),
+    FSA_REPORT_PROBLEM_TEXT_CATEGORY_GENERAL => t('General'),
+  );
+  return $categories;
+}
