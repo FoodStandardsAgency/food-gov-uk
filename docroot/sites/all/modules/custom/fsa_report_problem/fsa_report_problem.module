@@ -1828,7 +1828,6 @@ function _fsa_report_problem_text__find_food_safety_team() {
   $text['postcode_search_intro'] = array(
     'title' => t('Postcode search form intro'),
     'description' => t('Intro text for the search for authority by postcode lookup form as used in the Find a food safety officer service'),
-    'default' => 'This is a test',
     'format' => 'full_html',
   );
 
