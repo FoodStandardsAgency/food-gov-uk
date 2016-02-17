@@ -340,7 +340,7 @@ function fsa_report_problem_block_info() {
 
   // Report a food problem
   $blocks['report_problem_form'] = array(
-    'info' => t('Report a food problem form'),
+    'info' => t('Report a food problem'),
     'cache' => DRUPAL_NO_CACHE,
   );
 
