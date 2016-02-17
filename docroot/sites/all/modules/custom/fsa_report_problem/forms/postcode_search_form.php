@@ -28,7 +28,7 @@ function fsa_report_problem_postcode_search_form($form, &$form_state, $delta = N
 
   $form['intro'] = array(
     '#type' => 'form_intro',
-    '#text' => _fsa_report_problem_text('postcode_search_intro'),
+    '#text' => _fsa_report_problem_text('postcode_search_intro', NULL, NULL, $delta),
   );
 
   $form['postcode'] = array(
@@ -85,7 +85,7 @@ function fsa_report_problem_postcode_search_form_validate($form, &$form_state) {
   // UK postcodes are between 6 and 8 characters in length including the space.
   // If it's longer or shorter than this, then it's invalid, so set an error
   if (strlen($postcode) < 5 || strlen($postcode) > 7) {
-    $error_message = _fsa_report_problem_text('postcode_incomplete');
+    $error_message = _fsa_report_problem_text('postcode_incomplete', NULL, NULL, $delta);
     $error_message = !empty($error_message['value']) ? $error_message['value'] : t('Sorry, the postcode you entered appears to be invalid. Please try again, making sure you enter the full postcode.');
     form_set_error('postcode', $error_message);
     return;
@@ -136,7 +136,7 @@ function fsa_report_problem_postcode_search_form_validate($form, &$form_state) {
   }
 
   // The postcode hasn't matched any of the patterns, so it must be invalid.
-  $error_message = _fsa_report_problem_text('postcode_invalid');
+  $error_message = _fsa_report_problem_text('postcode_invalid', NULL, NULL, $delta);
   $error_message = !empty($error_message['value']) ? $error_message['value'] : t('Sorry, the postcode you entered does not appear to be valid. Please try again.');
   form_set_error('postcode', $error_message);
 }
@@ -183,7 +183,7 @@ function fsa_report_problem_postcode_search_form_submit($form, &$form_state) {
   // set, go back to the previous stage and set an error.
   if (empty($local_authority) || empty($local_authority['id'])) {
     $next_stage = 'postcode_search';
-    $error_message = _fsa_report_problem_text('postcode_not_found');
+    $error_message = _fsa_report_problem_text('postcode_not_found', NULL, NULL, $delta);
     drupal_set_message($error_message['value'], 'error');
     return;
   }
