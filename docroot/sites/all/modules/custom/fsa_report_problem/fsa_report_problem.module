@@ -60,6 +60,26 @@ define('FSA_REPORT_PROBLEM_CTOOLS_OBJECT_CACHE_TYPE', 'submission');
 define('FSA_REPORT_PROBLEM_CTOOLS_OBJECT_CACHE_NAME', 'search_for_local_authority_submission');
 
 /**
+ * Text entry category - errors
+ */
+define('FSA_REPORT_PROBLEM_TEXT_CATEGORY_ERROR', 'error');
+
+/**
+ * Text entry category - step titles
+ */
+define('FSA_REPORT_PROBLEM_TEXT_CATEGORY_STEP_TITLE', 'step_title');
+
+/**
+ * Text entry category - service status
+ */
+define('FSA_REPORT_PROBLEM_TEXT_CATEGORY_SERVICE_STATUS', 'service_status');
+
+/**
+ * Text entry category - general
+ */
+define('FSA_REPORT_PROBLEM_TEXT_CATEGORY_GENERAL', 'general');
+
+/**
  * Implements hook_permission().
  */
 function fsa_report_problem_permission() {
