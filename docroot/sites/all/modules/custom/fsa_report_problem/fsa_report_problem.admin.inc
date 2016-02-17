@@ -1639,6 +1639,10 @@ function fsa_report_problem_authority_edit_form_submit(&$form, &$form_state) {
     }
     $authority->url = !empty($fhrs_authority->Url) ? $fhrs_authority->Url : NULL;
   }
+  // Add the food safety team email to the entity before saving - if populated
+  if (!empty($form_state['values']['food_safety_team_email'])) {
+    $authority->food_safety_team_email = $form_state['values']['food_safety_team_email'];
+  }
   $result = $authority->save();
 
   switch ($result) {
