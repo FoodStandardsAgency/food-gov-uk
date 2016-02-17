@@ -1570,6 +1570,18 @@ function fsa_report_problem_authority_edit_form($form, &$form_state, $aid = 0) {
     '#default_value' => !empty($authority) ? $authority->local_authority_id : NULL,
   );
 
+  $form['additional_details'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Additional details'),
+
+    // Food safety team email address
+    'food_safety_team_email' => array(
+      '#type' => 'textfield',
+      '#title' => t('Food safety team email address'),
+      '#default_value' => !empty($authority->food_safety_team_email) ? $authority->food_safety_team_email : NULL,
+    ),
+  );
+
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Save'),
