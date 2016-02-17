@@ -57,6 +57,8 @@ function fsa_report_problem_postcode_search_form($form, &$form_state, $delta = N
     '#prefix' => '<p><br>',
     '#markup' => l(t('Search by business name instead'), _fsa_report_problem_get_start_path()),
     '#suffix' => '</p>',
+    // Don't show this link for Find a food safety team - it's postcode only
+    '#access' => $delta != 'find_food_safety_team',
   );
 
   return $form;
