@@ -1419,6 +1419,18 @@ function fsa_report_problem_authority_view_form($form, &$form_state, $aid = 0) {
     '#markup' => !empty($authority->url) ? l(_fsa_report_problem_format_url($authority->url), $authority->url) : t('No URL available on FHRS'),
   );
 
+  $form['additional_details'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Additional details'),
+
+    // Food safety team email address
+    'food_safety_team_email' => array(
+      '#type' => item,
+      '#title' => t('Food safety team email address'),
+      '#markup' => !empty($authority->food_safety_team_email) ? $authority->food_safety_team_email : t('Not set'),
+    ),
+  );
+
   return $form;
 }
 
