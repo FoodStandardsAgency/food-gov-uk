@@ -566,12 +566,74 @@ function fsa_food_report_admin_form($form, &$form_state) {
  * Form builder: Report a food problem text editing administration form
  */
 function fsa_food_report_text_form($form, &$form_state) {
-  $text = _fsa_report_problem_text();
 
   $form['text_title'] = array(
     '#type' => 'item',
-    '#title' => t('Text'),
+    '#title' => t('Manage text'),
   );
+
+  // Create a list of services
+  $services = array(
+   'default' => array(
+      'info' => t('Default'),
+    ),
+  );
+  // Get services from hook_block_info()
+  $services += fsa_report_problem_block_info();
+
+
+  // Get the list of text categories
+  $categories = _fsa_report_problem_text_categories();
+  // Build the fieldsets for services and categories
+  foreach ($services as $service => $details) {
+    $form[$service] = array(
+      '#type' => 'fieldset',
+      '#title' => $details['info'],
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    );
+    // Get the text entries
+    foreach ($categories as $cat => $category) {
+      $form[$service][$cat] = array(
+        '#type' => 'fieldset',
+        '#title' => $category,
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+      );
+
+      $text_entries = _fsa_report_problem_text(NULL, NULL, NULL, $service, $cat);
+
+      $form[$service][$cat][$service . '_text'] = array(
+        '#type' => 'vertical_tabs',
+        '#title' => t('Text entries'),
+      );
+
+      foreach ($text_entries as $key => $entry) {
+        if (empty($entry['category'])) {
+          $entry['category'] = FSA_REPORT_PROBLEM_TEXT_CATEGORY_GENERAL;
+        }
+        if ($entry['category'] == $cat) {
+          $form[$service][$cat][$service . '_text']["fsa_report_problem_text_${key}_container"] = array(
+            '#type' => 'fieldset',
+            '#title' => filter_xss($entry['title']),
+            '#description' => filter_xss($entry['description']),
+          );
+          $form[$service][$cat][$service . '_text']["fsa_report_problem_text_${key}_container"]["fsa_report_problem_text_${service}_${key}"] = array(
+            '#type' => 'text_format',
+            '#title' => $entry['title'],
+            '#title_display' => 'invisible',
+            '#default_value' => $entry['value'],
+            '#format' => empty($entry['format']) ? 'full_html' : $entry['format'],
+          );
+        }
+      }
+
+    }
+  }
+
+  return system_settings_form($form);
+
+  // Old form below
 
 
   $form['text'] = array(
