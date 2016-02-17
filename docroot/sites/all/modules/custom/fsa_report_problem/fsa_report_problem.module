@@ -330,6 +330,12 @@ function fsa_report_problem_block_info() {
     'cache' => DRUPAL_NO_CACHE,
   );
 
+  // Find a food safety team
+  $blocks['find_food_safety_team'] = array(
+    'info' => t('Find a food safety team'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+
   return $blocks;
 }
 
@@ -347,7 +353,7 @@ function fsa_report_problem_block_view($delta = '') {
   // will change in the next iteration once we have provided two separate
   // services, but for now this is the way it works.
   // @todo Handle differently once two separate services defined.
-  if (!_fsa_report_problem_capture_user_data()) {
+  if (!_fsa_report_problem_capture_user_data() && $delta != 'find_food_safety_team') {
     $delta = 'local_authority_search';
   }
 
@@ -361,6 +367,10 @@ function fsa_report_problem_block_view($delta = '') {
 
     // Search for an establishment form
     case 'report_problem_form':
+      $block['content'] = _fsa_report_problem_block_content($delta);
+      break;
+
+    case 'find_food_safety_team':
       $block['content'] = _fsa_report_problem_block_content($delta);
       break;
 
