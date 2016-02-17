@@ -1731,13 +1731,79 @@ function _fsa_report_problem_text() {
     ),
   );
 
+  // Get additional service-specific text entries
+  $services = fsa_report_problem_block_info();
+  // Empty array to hold additional text entries temporarily before merging
+  $additional_text = array();
+  foreach ($services as $service_name => $details) {
+    $function = __FUNCTION__ . '__' . $service_name;
+    if (is_callable($function)) {
+      $additional_text = $function();
+      foreach($additional_text as $k => $value) {
+        // Avoid collisions by prepending service name to key
+        $additional_text["${service_name}_$k"] = $value;
+        // Set the category to default if not already set
+        if (empty($additional_text["${service_name}_$k"]['category'])) {
+          $additional_text["${service_name}_$k"]['category'] = FSA_REPORT_PROBLEM_TEXT_CATEGORY_GENERAL;
+        }
+        // Unset original key
+        unset($additional_text[$k]);
+      }
+      // Add the new text entries to the original text
+      $text += $additional_text;
+      // Unset the additional text entries array
+      unset($additional_text);
+    }
+  }
+
+  // If no key is specified, we want to return all relevant text entries
   if (empty($key)) {
+
+    // Filter by service - if supplied and not default
+    if (!empty($service) && $service != 'default') {
+      $function = __FUNCTION__ . '__' . $service;
+      $text = is_callable($function) ? $function() : array();
+    }
+
+    // Filter by category - if supplied
+    if (!empty($category)) {
+      foreach ($text as $key => $entry) {
+        $text[$key]['category'] = empty($entry['category']) ? FSA_REPORT_PROBLEM_TEXT_CATEGORY_GENERAL : $entry['category'];
+        if ($text[$key]['category'] != $category) {
+          unset($text[$key]);
+        }
+      }
+    }
+
+    // Get the values for the text entries
+    foreach ($text as $key => $entry) {
+      $variable_name = !empty($service) ? "fsa_report_problem_text_${service}_${key}" : "fsa_report_problem_text_${key}";
+      $variable_value = variable_get($variable_name);
+      $default_value = variable_get("fsa_report_problem_text_${key}");
+      $text[$key]['value'] = is_array($default_value) && !empty($default_value['value']) ? $default_value['value'] : NULL;
+      $text[$key]['format'] = is_array($default_value) && !empty($default_value['format']) ? $default_value['format'] : NULL;
+      $text[$key]['value'] = empty($text[$key]['value']) && !empty($entry['default']) ? $entry['default'] : $text[$key]['value'];
+      $text[$key]['format'] = !empty($text[$key]['format']) && !empty($entry['format']) ? $entry['format'] : 'full_html';
+      if (is_array($variable_value)) {
+        $text[$key] = array_merge($entry, $variable_value);
+      }
+    }
+
     return $text;
   }
 
-  if (array_key_exists($key, $text)) {
+  $service_key = !empty($service) ? "${service}_${key}" : NULL;
+  if (array_key_exists($key, $text) || array_key_exists($service_key, $text)) {
+    // First try for a service-specific entry
+    if (!empty($service_key)) {
+      $variable_name = "fsa_report_problem_text_${service_key}";
+    }
+    $text_content = variable_get("fsa_report_problem_text_${service_key}");
     $variable_name = "fsa_report_problem_text_${key}";
-    $text_content = variable_get("fsa_report_problem_text_${key}");
+    // If no service-specific text entry, try for a generic version
+    if (empty($text_content)) {
+      $text_content = variable_get("fsa_report_problem_text_${key}");
+    }
     return new FsaReportProblemTextEntry(
       $text_content['value'],
       !empty($text[$key]['format']) ? $text[$key]['format'] : NULL,
