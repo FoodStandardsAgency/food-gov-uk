@@ -1425,7 +1425,7 @@ function fsa_report_problem_authority_view_form($form, &$form_state, $aid = 0) {
 
     // Food safety team email address
     'food_safety_team_email' => array(
-      '#type' => item,
+      '#type' => 'item',
       '#title' => t('Food safety team email address'),
       '#markup' => !empty($authority->food_safety_team_email) ? $authority->food_safety_team_email : t('Not set'),
     ),
