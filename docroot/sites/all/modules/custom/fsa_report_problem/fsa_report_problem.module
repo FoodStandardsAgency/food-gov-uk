@@ -1574,8 +1574,19 @@ function _fsa_report_problem_status_message($status = FSA_REPORT_PROBLEM_STATUS_
 function _fsa_report_problem_text() {
 
   $args = func_get_args();
-  $key = !empty($args[0]) ? $args[0] : NULL;
-  $data = !empty($args[1]) && is_array($args[1]) ? $args[1] : array();
+
+  if (count($args) > 1 && is_array($args[1])) {
+    array_splice($args, 2, 0, array(NULL));
+  }
+
+  // This is the order in which the params are expected
+  // However, $default can be ommitted
+  list($key, $default, $data, $service, $category) = array_pad($args, 5, NULL);
+
+  // If set, $data should be an array
+  if (!is_array($data)) {
+    $data = array();
+  }
 
   $text = array(
     'find_business_intro' => array(
