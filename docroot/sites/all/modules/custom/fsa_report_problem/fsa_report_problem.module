@@ -532,6 +532,7 @@ function fsa_report_problem_theme($existing, $type, $theme, $path) {
       'template' => 'theme/local-authority-details',
       'variables' => array(
         'local_authority' => NULL,
+        'delta' => NULL,
       ),
     ),
     'external_api_status' => array(
