@@ -1753,6 +1753,22 @@ function _fsa_report_problem_text() {
 }
 
 
+/**
+ * Helper function: provides text entries for the find food safety team block
+ */
+function _fsa_report_problem_text__find_food_safety_team() {
+  $text = array();
+
+  $text['postcode_search_intro'] = array(
+    'title' => t('Postcode search form intro'),
+    'description' => t('Intro text for the search for authority by postcode lookup form as used in the Find a food safety officer service'),
+    'default' => 'This is a test',
+    'format' => 'full_html',
+  );
+
+  return $text;
+}
+
 
 
 /**
