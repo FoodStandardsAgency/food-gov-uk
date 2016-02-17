@@ -336,6 +336,11 @@ function fsa_report_problem_local_authorities_new() {
       'type' => 'property',
       'specifier' => 'email',
     ),
+    'food_safety_team_email' => array(
+      'data' => t('Food safety email'),
+      'type' => 'property',
+      'specifier' => 'food_safety_team_email',
+    ),
   );
 
   // Load up the local authority entities.
@@ -383,6 +388,7 @@ function fsa_report_problem_local_authorities_new() {
         'data' => $authority->email,
         'class' => $authority->email != $authority->fhrs_email ? array('email-override') : array(),
       ),
+      array('data' => !empty($authority->food_safety_team_email) ? $authority->food_safety_team_email : t('Not set')),
     );
   }
 
