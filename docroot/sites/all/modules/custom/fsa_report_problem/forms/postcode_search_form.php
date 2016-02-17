@@ -192,6 +192,7 @@ function fsa_report_problem_postcode_search_form_submit($form, &$form_state) {
   $la = fsa_report_problem_get_local_authority_by_area_id($local_authority['id']);
   $local_authority['name'] = !empty($la->name) ? $la->name: t('No name');
   $local_authority['email'] = !empty($la->email) ? $la->email: NULL;
+  $local_authority['food_safety_team_email'] = !empty($la->food_safety_team_email) ? $la->food_safety_team_email: NULL;
   $local_authority['url'] = !empty($la->url) ? $la->url : NULL;
 
   // If we've got this far, we have a local authority, so let's redirect to the
