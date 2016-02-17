@@ -2364,6 +2364,11 @@ function template_preprocess_local_authority_details(&$variables) {
   }
   // Set the local authority email address
   $variables['email'] = !empty($local_authority['email']) ? $local_authority['email'] : NULL;
+  // If we're on the final stage of the find a food safety team service, then
+  // we want to show the food_safety_team_email address if populated.
+  if ($variables['delta'] == 'find_food_safety_team' && !empty($local_authority['food_safety_team_email'])) {
+    $variables['email'] = $local_authority['food_safety_team_email'];
+  }
   // Create a link for the email address
   $variables['email_link'] = !empty($variables['email']) ? l($variables['email'], 'mailto:' . $variables['email'], array('absolute' => TRUE)) : NULL;
   // Set the local authority URL
@@ -3844,6 +3849,7 @@ function _fsa_report_problem_block_content__find_food_safety_team($delta = '') {
       $content['local_authority_details'] = array(
         '#theme' => 'local_authority_details',
         '#local_authority' => $local_authority,
+        '#delta' => $delta,
       );
 
       // Embed the rating widget - if set
