@@ -1604,6 +1604,7 @@ function _fsa_report_problem_text() {
     'no_matching_business' => array(
       'title' => t('No matching business'),
       'description' => t('This text appears at the top of the business search results when no matching business is found.'),
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_ERROR,
     ),
     'choose_business_bottom' => array(
       'title' => t('Text beneath business choice'),
@@ -1625,18 +1626,21 @@ function _fsa_report_problem_text() {
       'title' => t('Postcode not found error'),
       'description' => t('Error text displayed when a postcode search returns no results'),
       'format' => 'plain_text',
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_ERROR,
     ),
     'postcode_incomplete' => array(
       'title' => t('Incomplete postcode error'),
       'description' => t('Error message displayed when an incomplete postcode is entered into the postcode search'),
       'format' => 'plain_text',
       'default' => t('Sorry, the postcode you entered does not appear to be valid. Please try again, making sure you enter the full postcode.'),
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_ERROR,
     ),
     'postcode_invalid' => array(
       'title' => t('Invalid postcode error'),
       'description' => t('Error message displayed when a user searches for an invalid postcode'),
       'format' => 'plain_text',
       'default' => t('Sorry, the postcode you entered does not appear to be valid. Please try again.'),
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_ERROR,
     ),
     'local_authority_intro' => array(
       'title' => t('Local authority details intro'),
@@ -1669,52 +1673,61 @@ function _fsa_report_problem_text() {
       'title' => t('Service status - Alpha'),
       'description' => t('Description of service status when in Alpha'),
       'format' => 'plain_text',
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_SERVICE_STATUS,
     ),
     'service_status_beta' => array(
       'title' => t('Service status - Beta'),
       'description' => t('Description of service status when in Beta'),
       'format' => 'plain_text',
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_SERVICE_STATUS,
     ),
     'service_status_offline' => array(
       'title' => t('Service status - Offline'),
       'description' => t('Description of service status when it is offline'),
       'format' => 'plain_text',
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_SERVICE_STATUS,
     ),
     'step_title_find_business' => array(
       'title' => t('Step indicator - find business'),
       'description' => t('Heading for the find a business step in the progress indicator'),
       'default' => t('Find a business'),
       'format' => 'plain_text',
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_STEP_TITLE,
     ),
     'step_title_choose_business' => array(
       'title' => t('Step indicator - choose a business'),
       'description' => t('Heading for the choose a business listing step in the progress indicator'),
       'default' => t('Choose a business'),
       'format' => 'plain_text',
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_STEP_TITLE,
     ),
     'step_title_make_report' => array(
       'title' => t('Step indicator - make a report'),
       'description' => t('Heading for the make a report step in the progress indicator'),
       'default' => t('Tell us about the food problem'),
       'format' => 'plain_text',
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_STEP_TITLE,
     ),
     'step_title_report_complete' => array(
       'title' => t('Step indicator - report complete'),
       'description' => t('Heading for the report complete step in the progress indicator'),
       'default' => t('Report complete'),
       'format' => 'plain_text',
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_STEP_TITLE,
     ),
     'step_title_local_authority_details' => array(
       'title' => t('Step indicator - local authority details'),
       'description' => t('Heading for the local authority details step in the progress indicator'),
       'default' => t('Local authority details'),
       'format' => 'plain_text',
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_STEP_TITLE,
     ),
     'step_title_postcode_search' => array(
       'title' => t('Step indicator - postcode search'),
       'description' => t('Heading for the local authority postcode search step in the progress indicator'),
       'default' => t('Search by postcode'),
       'format' => 'plain_text',
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_STEP_TITLE,
     ),
   );
 
