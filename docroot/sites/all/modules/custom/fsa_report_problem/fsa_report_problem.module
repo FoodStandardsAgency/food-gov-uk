@@ -1798,10 +1798,10 @@ function _fsa_report_problem_text() {
     if (!empty($service_key)) {
       $variable_name = "fsa_report_problem_text_${service_key}";
     }
-    $text_content = variable_get("fsa_report_problem_text_${service_key}");
+    $text_content = variable_get("fsa_report_problem_text_${service_key}", array());
     $variable_name = "fsa_report_problem_text_${key}";
     // If no service-specific text entry, try for a generic version
-    if (empty($text_content)) {
+    if (empty($text_content['value'])) {
       $text_content = variable_get("fsa_report_problem_text_${key}");
     }
     return new FsaReportProblemTextEntry(
