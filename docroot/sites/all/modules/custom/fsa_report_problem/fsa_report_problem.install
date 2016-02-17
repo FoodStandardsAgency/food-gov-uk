@@ -215,6 +215,12 @@ function fsa_report_problem_schema() {
         'length' => 256,
         'not null' => FALSE,
       ),
+      'food_safety_team_email' => array(
+        'description' => 'Email address for the local authority food safety team',
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => FALSE,
+      ),
       'manual' => array(
         'description' => 'Indicates whether this local authority has been entered manually via the admin GUI or imported',
         'type' => 'int',
@@ -455,3 +461,23 @@ function fsa_report_problem_update_7009() {
   }
 }
 
+
+/**
+ * Adds a food safety team email field to the local_authority_details table.
+ */
+function fsa_report_problem_update_7010() {
+
+  // If the field already exists, return now.
+  if (db_field_exists('local_authority_details', 'food_safety_team_email')) {
+    return;
+  }
+
+  $spec = array(
+    'description' => 'Email address for the local authority food safety team',
+    'type' => 'varchar',
+    'length' => 256,
+    'not null' => FALSE,
+  );
+
+  db_add_field('local_authority_details', 'food_safety_team_email', $spec);
+}
