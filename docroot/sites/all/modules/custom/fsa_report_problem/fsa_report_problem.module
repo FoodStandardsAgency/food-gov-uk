@@ -4167,7 +4167,16 @@ function _fsa_report_problem_nids() {
     foreach ($services as $name => $details) {
       $node_details = variable_get('fsa_report_problem_' . $name . '_node_nid');
       if (!empty($node_details)){
-          $nids[_fsa_report_problem_extract_nid($node_details)] = $name;
+        $nid = _fsa_report_problem_extract_nid($node_details);
+        $nids[$nid] = $name;
+        // See if there are any translations available
+        $translations = _fsa_report_problem_get_transaltion_nids($nid);
+        // Add translations to the $nids array
+        if (!empty($translations)) {
+          foreach ($translations as $tnid => $title) {
+            $nids[$tnid] = $name;
+          }
+        }
       }
     }
   }
