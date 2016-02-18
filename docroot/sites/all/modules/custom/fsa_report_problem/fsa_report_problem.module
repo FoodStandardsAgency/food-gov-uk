@@ -3562,6 +3562,11 @@ function _fsa_report_problem_block_content($delta = 'local_authority_search') {
   $block_content = array(
     '#theme' => 'report_problem_block_content',
     '#delta' => $delta,
+    '#attached' => array(
+      'css' => array(
+        drupal_get_path('module', 'fsa_report_problem') . '/css/report-problem.css',
+      ),
+    ),
   );
 
   // Create a function name based on the block delta and call it if available
@@ -3589,12 +3594,6 @@ function _fsa_report_problem_block_content($delta = 'local_authority_search') {
       '#markup' => $block_content['#content'],
     );
   }
-
-  // Add attached CSS
-  $block_content['#attached'] = !empty($block_content['#attached']) ? $block_content['#attached'] : array();
-  $block_content['#attached']['css'] = array(
-    drupal_get_path('module', 'fsa_report_problem') . '/css/report-problem.css',
-  );
 
   // Return the block content render array
   return $block_content;
