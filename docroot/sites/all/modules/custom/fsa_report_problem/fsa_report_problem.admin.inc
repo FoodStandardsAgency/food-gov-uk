@@ -533,13 +533,14 @@ function fsa_food_report_admin_form($form, &$form_state) {
     '#title' => t('Service status'),
   );
 
-  $form['service_status']['fsa_report_problem_service_status'] = array(
-    '#type' => 'select',
-    '#title' => t('Service status'),
-    '#options' => _fsa_report_problem_service_statuses(),
-    '#default_value' => variable_get('fsa_report_problem_service_status', FSA_REPORT_PROBLEM_STATUS_PRODUCTION),
-    '#description' => t('What is the status of the food problem reporting service? Status text can be set via the <a href="@text_url">Edit text interface.</a>', array('@text_url' => url('admin/config/foodproblems/text'))),
-  );
+  foreach($services as $service_name => $service_details) {
+    $form['service_status']['fsa_report_problem_' . $service_name . '_service_status'] = array(
+      '#type' => 'select',
+      '#title' => $service_details['info'],
+      '#options' => _fsa_report_problem_service_statuses(),
+      '#default_value' => _fsa_report_problem_service_status($service_name),
+    );
+  }
 
   $form['data_capture'] = array(
     '#type' => 'fieldset',
