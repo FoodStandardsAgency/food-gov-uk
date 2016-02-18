@@ -370,74 +370,24 @@ function fsa_report_problem_block_view($delta = '') {
   // Array to hold the block.
   $block = array();
 
-  // At present, if data capture is turned off, we show search for local
-  // authority, while if it is turned on, we show report a food problem. This
-  // will change in the next iteration once we have provided two separate
-  // services, but for now this is the way it works.
-  // @todo Handle differently once two separate services defined.
-  if (!_fsa_report_problem_capture_user_data() && $delta != 'find_food_safety_team') {
+  // The data capture on/off feature is now deprecated, but just in case, we
+  // allow it to function here by setting the block delta to
+  // 'local_authority_search' if the requested delta is 'report_problem_form'
+  // and data capture is turned off.
+  if (!_fsa_report_problem_capture_user_data() && $delta != 'report_problem_form') {
     $delta = 'local_authority_search';
   }
 
-  // @todo Get rid of this switch() statement; it's not necessary.
-  switch ($delta) {
+  // Get the block content
+  $block['content'] = _fsa_report_problem_block_content($delta);
 
-    // Search for local authority
-    case 'local_authority_search':
-      $block['content'] = _fsa_report_problem_block_content($delta);
-      break;
-
-    // Search for an establishment form
-    case 'report_problem_form':
-      $block['content'] = _fsa_report_problem_block_content($delta);
-      break;
-
-    case 'find_food_safety_team':
-      $block['content'] = _fsa_report_problem_block_content($delta);
-      break;
-
-      // Check the API status - this is just for testing purposes
-      // @todo Remove this/incorporate it properly
-
-
-      if (FSA_REPORT_PROBLEM_STATUS == FSA_REPORT_PROBLEM_STATUS_OFFLINE || !_fsa_report_problem_api_status()->healthy) {
-        $block['content'] = array(
-          'heading' => array(
-            '#type' => 'html_tag',
-            '#tag' => 'h2',
-            '#value' => t('Service currently unavailable'),
-            '#attributes' => array(
-              'class' => array('service-offline'),
-            ),
-          ),
-          'message' => array(
-            '#type' => 'html_tag',
-            '#tag' => 'p',
-            '#value' => _fsa_report_problem_status_message(FSA_REPORT_PROBLEM_STATUS_OFFLINE),
-            '#attributes' => array(
-              'class' => array('service-offline'),
-            ),
-          ),
-          '#attached' => array(
-            'css' => array(
-              drupal_get_path('module', 'fsa_report_problem') . '/css/report-problem.css',
-            ),
-          ),
-        );
-        break;
-      }
-      module_load_include('inc', 'fsa_report_problem', 'includes/form');
-      $block['content'] = drupal_get_form('fsa_report_problem_form');
-
-      if (!empty($block['content'])) {
-        $contextual_links = array(
-          'admin/config/foodproblems',
-          array(),
-        );
-        $block['content']['#contextual_links']['fsa_report_problem'] = $contextual_links;
-      }
-
-      break;
+  // Add some additional contextual links
+  if (!empty($block['content'])) {
+    $contextual_links = array(
+      'admin/config/foodproblems',
+      array(),
+    );
+    $block['content']['#contextual_links']['fsa_report_problem'] = $contextual_links;
   }
 
   return $block;
