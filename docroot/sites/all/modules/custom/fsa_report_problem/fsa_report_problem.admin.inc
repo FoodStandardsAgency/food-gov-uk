@@ -545,6 +545,7 @@ function fsa_food_report_admin_form($form, &$form_state) {
   $form['data_capture'] = array(
     '#type' => 'fieldset',
     '#title' => t('User data capture'),
+    '#access' => FALSE, // Temporarily hide this section
   );
 
   $form['data_capture']['fsa_report_problem_capture_user_data'] = array(
