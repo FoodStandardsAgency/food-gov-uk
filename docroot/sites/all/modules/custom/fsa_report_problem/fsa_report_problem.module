@@ -26,6 +26,8 @@ define('FSA_REPORT_PROBLEM_STATUS_OFFLINE', 3);
 
 /**
  * Status
+ * @deprecated
+ *   This has now been superseded by a service-specific status variable.
  */
 define('FSA_REPORT_PROBLEM_STATUS', variable_get('fsa_report_problem_service_status', FSA_REPORT_PROBLEM_STATUS_PRODUCTION));
 
