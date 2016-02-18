@@ -2250,20 +2250,9 @@ function fsa_report_problem_init() {
 
   // Get the request path
   $request_path = request_path();
-
-  // Get the nid of the node associated with the report a problem block
-  $nid = _fsa_report_problem_get_nid();
-
-  // Create an array of nids with the primary node as an element
-  $nids = array($nid);
-
-  // See if there are any translations available
-  $translations = _fsa_report_problem_get_transaltion_nids($nid);
-
-  // If we have any translations, add their nids to the array.
-  if (!empty($translations)) {
-    $nids = array_merge($nids, array_keys($translations));
-  }
+  
+  // Get the nids of nodes associated with the blocks
+  $nids = array_keys(_fsa_report_problem_nids());
 
   // A variable to hold the actual path. We set it to NULL initially.
   $path = NULL;
@@ -2276,20 +2265,6 @@ function fsa_report_problem_init() {
     if (strpos($request_path, $temp_path) === 0) {
       $path = $temp_path;
       break;
-    }
-  }
-
-  // Temporary handling of search for local authority path and find a food
-  // safety team path
-  // @todo Handle this properly using context and the admin UI
-  $paths = array(
-    'enforcement/search-for-local-authority',
-    'enforcement/find-a-food-safety-team',
-  );
-  foreach ($paths as $start_path) {
-    if (strpos($request_path, $start_path) === 0) {
-      $_GET['q'] = drupal_get_normal_path($start_path);
-      return;
     }
   }
 
