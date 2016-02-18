@@ -140,6 +140,12 @@ function fsa_report_problem_postcode_search_form_validate($form, &$form_state) {
  */
 function fsa_report_problem_postcode_search_form_submit($form, &$form_state) {
 
+  // Get the block delta
+  $delta = !empty($form['#delta']) ? $form['#delta'] : NULL;
+
+  // Get the $path
+  $path = isset($form['#path']) ? $form['#path'] : 'postcode';
+
   // By default, redirect to the postcode page itself. This will handle errors.
   // If postcode lookup is successful, we'll amend the redirect then.
   $redirect = _fsa_report_problem_get_start_path(NULL, 'postcode');
