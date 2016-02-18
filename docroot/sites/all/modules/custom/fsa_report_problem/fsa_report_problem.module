@@ -4157,3 +4157,22 @@ function _fsa_report_problem_nids() {
   }
   return $nids;
 }
+
+
+/**
+ * Helper function: returns status of the specified service
+ */
+function _fsa_report_problem_service_status($delta = '') {
+  $services = module_invoke('fsa_report_problem', 'block_info');
+  foreach ($services as $key => $service) {
+    $variable_name = "fsa_report_problem_${key}_service_status";
+    $services[$key]['status'] = variable_get($variable_name, FSA_REPORT_PROBLEM_STATUS_PRODUCTION);
+  }
+  if (empty($delta)) {
+    return $services;
+  }
+  else {
+    return !empty($services[$delta]) ? $services[$delta]['status'] : NULL;
+  }
+}
+
