@@ -5,16 +5,15 @@
  */
 ?>
 <div class="<?php print render($classes); ?> fsa-report-problem-form">
-
-  <?php if (FSA_REPORT_PROBLEM_STATUS > FSA_REPORT_PROBLEM_STATUS_PRODUCTION): ?>
+  <?php if ($service_status > FSA_REPORT_PROBLEM_STATUS_PRODUCTION && $service_status != FSA_REPORT_PROBLEM_STATUS_OFFLINE): ?>
     <!-- Phase banner: alpha, beta status -->
     <div class="phase-banner">
       <p>
-        <strong class="phase-tag <?php print strtolower(_fsa_report_problem_status_description(FSA_REPORT_PROBLEM_STATUS)); ?>">
-          <?php print _fsa_report_problem_status_description(FSA_REPORT_PROBLEM_STATUS); ?>
+        <strong class="phase-tag <?php print strtolower(_fsa_report_problem_status_description($service_status)); ?>">
+          <?php print _fsa_report_problem_status_description($service_status); ?>
         </strong>
         <span>
-          <?php print _fsa_report_problem_status_message(FSA_REPORT_PROBLEM_STATUS); ?>
+          <?php print _fsa_report_problem_status_message($service_status); ?>
         </span>
       </p>
     </div>
