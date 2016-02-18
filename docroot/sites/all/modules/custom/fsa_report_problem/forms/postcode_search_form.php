@@ -148,7 +148,7 @@ function fsa_report_problem_postcode_search_form_submit($form, &$form_state) {
 
   // By default, redirect to the postcode page itself. This will handle errors.
   // If postcode lookup is successful, we'll amend the redirect then.
-  $redirect = _fsa_report_problem_get_start_path(NULL, 'postcode');
+  $redirect = _fsa_report_problem_get_start_path(NULL, $path);
   $form_state['redirect'] = $redirect;
 
   // Get the values from the form_state parameter
