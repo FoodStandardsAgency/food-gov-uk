@@ -4236,3 +4236,22 @@ function _fsa_report_problem_text_categories() {
   );
   return $categories;
 }
+
+
+/**
+ * Helper function: returns an array of node IDs associated with block deltas
+ */
+function _fsa_report_problem_nids() {
+  $nids = &drupal_static(__FUNCTION__);
+  if (!isset($nids)) {
+    $services = module_invoke('fsa_report_problem', 'block_info');
+    $nids = array();
+    foreach ($services as $name => $details) {
+      $node_details = variable_get('fsa_report_problem_' . $name . '_node_nid');
+      if (!empty($node_details)){
+          $nids[_fsa_report_problem_extract_nid($node_details)] = $name;
+      }
+    }
+  }
+  return $nids;
+}
