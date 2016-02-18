@@ -3561,6 +3561,7 @@ function _fsa_report_problem_block_content($delta = 'local_authority_search') {
   // Render array for the block content
   $block_content = array(
     '#theme' => 'report_problem_block_content',
+    '#delta' => $delta,
   );
 
   // Create a function name based on the block delta and call it if available
