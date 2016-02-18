@@ -2678,23 +2678,6 @@ function _fsa_report_problem_step_title($id = NULL) {
 
 
 /**
- * Implements hook_context_plugins().
- */
-function fsa_report_problem_context_plugins() {
-  $plugins = array();
-  $plugins['fsa_report_problem_context_condition_report_problem_node'] = array(
-    'handler' => array(
-      'path' => drupal_get_path('module', 'fsa_report_problem') . '/includes',
-      'file' => 'fsa_report_problem_context_condition_report_problem_node.inc',
-      'class' => 'fsa_report_problem_context_condition_report_problem_node',
-      'parent' => 'context_condition',
-    ),
-  );
-  return $plugins;
-}
-
-
-/**
  * Implements hook_context_registry().
  *
  */
