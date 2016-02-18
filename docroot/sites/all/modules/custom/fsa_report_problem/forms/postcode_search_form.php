@@ -11,20 +11,7 @@
  */
 function fsa_report_problem_postcode_search_form($form, &$form_state, $delta = NULL, $path = NULL) {
 
-  // Are we capturing user data? If so, don't show this form.
-  if (_fsa_report_problem_capture_user_data()) {
-    $form['err_message'] = array(
-      '#type' => 'html_tag',
-      '#tag' => 'p',
-      '#value' => t('Sorry, an error has occurred. Please return to the <a href="@start_page">start page</a>.', array('@start_page' => url(_fsa_report_problem_get_start_path()))),
-      '#attributes' => array(
-        'class' => array(
-          'form-intro',
-        ),
-      ),
-    );
-    return $form;
-  }
+  // @todo For report a food problem, don't allow this form to appear
 
   $form['intro'] = array(
     '#type' => 'form_intro',
