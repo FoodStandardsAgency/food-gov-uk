@@ -483,42 +483,48 @@ function fsa_report_problem_local_authorities() {
  */
 function fsa_food_report_admin_form($form, &$form_state) {
 
+  // Get the services from hook_block_info()
+  $services = fsa_report_problem_block_info();
+
+  // Fieldset for the pages assigned to the blocks
   $form['node'] = array(
     '#type' => 'fieldset',
     '#collapsible' => TRUE,
     '#collapsed' => FALSE,
-    '#title' => t('Page'),
+    '#title' => t('Pages'),
   );
 
-  // Get the node on which the block is set to appear - if set.
-  $node = variable_get('fsa_report_problem_node_nid');
-  // Extract the nid from the node value - if populated. Otherwise set as NULL.
-  $nid = !empty($node) ? _fsa_report_problem_get_nid($node) : NULL;
-
-  // Set the intro text for the node fieldset based on whether a node has
-  // already been set.
-  if (empty($nid)) {
-    $intro = t('We need to tell the form on which page it should appear. Use the field below to find it.');
-  }
-  else {
-    $intro = t('The <a href="@url" target="_blank">page</a> on which the form is set to appear is show below. You can change this deleting the value and adding a new one.', array('@url' => url('node/'. $nid)));
-  }
+  // Fieldset intro text
+  $intro = t('Select the nodes on which the services provided by this module will appear.');
 
   $form['node']['intro'] = array(
     '#markup' => $intro,
   );
 
-  $form['node']['fsa_report_problem_node_nid'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Page title'),
-    '#description' => t('Enter the title or node ID of the page on which the form should appear'),
-    '#default_value' => variable_get('fsa_report_problem_node_nid'),
-    '#autocomplete_path' => 'admin/config/foodproblems/nodes',
-    '#size' => 80,
-    '#attributes' => array(
-      'autocomplete' => 'off',
-    ),
-  );
+  // Variable to determine whether all pages have been set.
+  $all_pages_set = TRUE;
+
+  // Provide a text field for all the services
+  foreach ($services as $service_name => $service_details) {
+    $variable_name = 'fsa_report_problem_' . $service_name . '_node_nid';
+    $default_value = variable_get($variable_name);
+    if (empty($default_value)) {
+      $all_pages_set = FALSE;
+    }
+    $form['node'][$variable_name] = array(
+      '#type' => 'textfield',
+      '#title' => $service_details['info'],
+      '#default_value' => $default_value,
+      '#autocomplete_path' => 'admin/config/foodproblems/nodes',
+      '#size' => 80,
+      '#attributes' => array(
+        'autocomplete' => 'off',
+      ),
+    );
+  }
+
+  // If all the pages are set, collapse the fieldset
+  $form['node']['#collapsed'] = $all_pages_set;
 
   $form['service_status'] = array(
     '#type' => 'fieldset',
