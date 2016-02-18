@@ -4239,6 +4239,34 @@ function _fsa_report_problem_text_categories() {
 
 
 /**
+ * Implements hook_page_build().
+ *
+ * We use this function to add the blocks to the relevant pages.
+ */
+function fsa_report_problem_page_build(&$page) {
+  // Get the menu object to find out what node (if any) is currently loaded
+  $menu_object = menu_get_object();
+  // Try to get the nid from the menu object
+  $nid = !empty($menu_object) && !empty($menu_object->nid) ? $menu_object->nid : NULL;
+  // No nid? We're not on a node, so exit now
+  if (empty($nid)) {
+    return;
+  }
+  // Get a list of nids associated with blocks from this module.
+  $nids = _fsa_report_problem_nids();
+  // Is the current node in the list? If not, exit now
+  if (!key_exists($nid, $nids)) {
+    return;
+  }
+  // Get the delta of the block to display
+  $delta = $nids[$nid];
+  // Get the block content and add it to the page content
+  $block = module_invoke('fsa_report_problem', 'block_view', $delta);
+  $page['content'][$delta] = $block['content'];
+}
+
+
+/**
  * Helper function: returns an array of node IDs associated with block deltas
  */
 function _fsa_report_problem_nids() {
