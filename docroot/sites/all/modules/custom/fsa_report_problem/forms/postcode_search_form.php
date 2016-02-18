@@ -13,6 +13,12 @@ function fsa_report_problem_postcode_search_form($form, &$form_state, $delta = N
 
   // @todo For report a food problem, don't allow this form to appear
 
+  // Pass the block $delta to the submit handler
+  $form['#delta'] = $delta;
+
+  // Pass the $path to the submit handler
+  $form['#path'] = $path;
+
   $form['intro'] = array(
     '#type' => 'form_intro',
     '#text' => _fsa_report_problem_text('postcode_search_intro', NULL, NULL, $delta),
