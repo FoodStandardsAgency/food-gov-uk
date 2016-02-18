@@ -2678,23 +2678,6 @@ function _fsa_report_problem_step_title($id = NULL) {
 
 
 /**
- * Implements hook_context_registry().
- *
- */
-function fsa_report_problem_context_registry() {
-  return array(
-    'conditions' => array(
-      'report_problem_node_nid' => array(
-        'title' => t('Report problem page'),
-        'description' => t('Set this context based on node ID of the current node.'),
-        'plugin' => 'fsa_report_problem_context_condition_report_problem_node',
-      ),
-    ),
-  );
-}
-
-
-/**
  * Implements hook_node_view()
  */
 function fsa_report_problem_node_view($node, $view_mode, $langcode) {
