@@ -3569,6 +3569,18 @@ function _fsa_report_problem_block_content($delta = 'local_authority_search') {
     ),
   );
 
+  // Get the service status for this block
+  $service_status = _fsa_report_problem_service_status($delta);
+  // If this block is offline, return a message now.
+  if ($service_status == FSA_REPORT_PROBLEM_STATUS_OFFLINE) {
+    $block_content['#content'] = array(
+      '#type' => 'html_tag',
+      '#tag' => 'p',
+      '#value' => _fsa_report_problem_status_message($service_status),
+    );
+    return $block_content;
+  }
+
   // Create a function name based on the block delta and call it if available
   $function = __FUNCTION__ . "__$delta";
 
