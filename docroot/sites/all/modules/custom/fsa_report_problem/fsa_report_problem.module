@@ -570,6 +570,7 @@ function fsa_report_problem_theme($existing, $type, $theme, $path) {
         'step_title' => NULL,
         'status_message' => NULL,
         'content' => NULL,
+        'delta' => NULL,
       ),
     ),
     'rate_template_circles' => array(
