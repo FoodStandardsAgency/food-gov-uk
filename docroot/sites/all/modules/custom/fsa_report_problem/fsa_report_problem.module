@@ -4090,9 +4090,10 @@ function fsa_report_problem_page_build(&$page) {
   }
   // Get the delta of the block to display
   $delta = $nids[$nid];
-  // Get the block content and add it to the page content
-  $block = module_invoke('fsa_report_problem', 'block_view', $delta);
-  $page['content'][$delta] = $block['content'];
+  // Get the block render array and add it to the page content
+  $block = block_load('fsa_report_problem', $delta);
+  $render_array = _block_get_renderable_array(_block_render_blocks(array($block)));
+  $page['content'][$delta] = $render_array;
 }
 
 
