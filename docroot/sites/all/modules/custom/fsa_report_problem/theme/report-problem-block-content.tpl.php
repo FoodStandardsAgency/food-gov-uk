@@ -20,10 +20,12 @@
   <?php endif; ?>
 
   <!-- Step indicator -->
-  <div class="step-indicator">
-    <h2><?php print $step_title; ?></h2>
-    <p><?php print t('Step @current_step of @step_count', array('@current_step' => $current_step, '@step_count' => $step_count)); ?></p>
-  </div>
+  <?php if (!empty($step_title) && !empty($current_step) && !empty($step_count)): ?>
+    <div class="step-indicator">
+      <h2><?php print $step_title; ?></h2>
+      <p><?php print t('Step @current_step of @step_count', array('@current_step' => $current_step, '@step_count' => $step_count)); ?></p>
+    </div>
+  <?php endif; ?>
 
   <!-- Main block content -->
   <?php print render($content); ?>
