@@ -2678,28 +2678,6 @@ function _fsa_report_problem_step_title($id = NULL) {
 
 
 /**
- * Implements hook_node_view()
- */
-function fsa_report_problem_node_view($node, $view_mode, $langcode) {
-  // If we're not in full view mode, exit now.
-  if ($view_mode != 'full') {
-    return;
-  }
-  // Get the menu object
-  $menu_object = menu_get_object();
-  // Get the nid property of the menu object - if defined
-  $nid = !empty($menu_object->nid) ? $menu_object->nid : NULL;
-  // If the menu object doesn't have a nid, exit now
-  if (empty($nid)) {
-    return;
-  }
-  if ($plugin = context_get_plugin('condition', 'report_problem_node_nid')) {
-    $plugin->execute($nid);
-  }
-}
-
-
-/**
  * Autocomplete callback for nodes
  */
 function _fsa_report_problem_nodes_autocomplete($string) {
