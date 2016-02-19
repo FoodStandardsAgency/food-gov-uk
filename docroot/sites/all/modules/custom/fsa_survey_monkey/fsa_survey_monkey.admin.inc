@@ -42,6 +42,7 @@ function fsa_survey_monkey_admin_form($form, &$form_state) {
     '#theme' => 'table',
     '#header' => $header,
     '#rows' => $rows,
+    '#empty' => t('There are no surveys to display'),
   );
 
   return $form;

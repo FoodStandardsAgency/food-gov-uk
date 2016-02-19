@@ -68,7 +68,7 @@ function fsa_survey_monkey_menu() {
  * Helper function: gets a list of all existing SurveyMonkey surveys
  */
 function _fsa_survey_monkey_get_surveys() {
-  $surveys = variable_get(FSA_SURVEY_MONKEY_VARIABLE_PREFIX . '_surveys');
+  $surveys = variable_get(FSA_SURVEY_MONKEY_VARIABLE_PREFIX . '_surveys', array());
   return $surveys;
 }
 
