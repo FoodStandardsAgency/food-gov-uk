@@ -1773,12 +1773,44 @@ function _fsa_report_problem_text() {
  * Helper function: provides text entries for the find food safety team block
  */
 function _fsa_report_problem_text__find_food_safety_team() {
-  $text = array();
-
-  $text['postcode_search_intro'] = array(
+  $text = array(
+    'postcode_search_intro' => array(
     'title' => t('Postcode search form intro'),
     'description' => t('Intro text for the search for authority by postcode lookup form as used in the Find a food safety officer service'),
     'format' => 'full_html',
+    ),
+    'service_status_alpha' => array(
+      'title' => t('Service status - Alpha'),
+      'description' => t('Description of service status when in Alpha'),
+      'format' => 'plain_text',
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_SERVICE_STATUS,
+    ),
+    'service_status_beta' => array(
+      'title' => t('Service status - Beta'),
+      'description' => t('Description of service status when in Beta'),
+      'format' => 'plain_text',
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_SERVICE_STATUS,
+    ),
+    'service_status_offline' => array(
+      'title' => t('Service status - Offline'),
+      'description' => t('Description of service status when it is offline'),
+      'format' => 'plain_text',
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_SERVICE_STATUS,
+    ),
+    'step_title_postcode_search' => array(
+      'title' => t('Step indicator - postcode search'),
+      'description' => t('Heading for the local authority postcode search step in the progress indicator'),
+      'default' => t('Search by postcode'),
+      'format' => 'plain_text',
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_STEP_TITLE,
+    ),
+    'step_title_local_authority_details' => array(
+      'title' => t('Step indicator - local authority details'),
+      'description' => t('Heading for the local authority details step in the progress indicator'),
+      'default' => t('Local authority details'),
+      'format' => 'plain_text',
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_STEP_TITLE,
+    ),
   );
 
   return $text;
