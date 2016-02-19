@@ -246,23 +246,45 @@ function fsa_survey_monkey_page_build(&$page) {
     return;
   }
 
-  // Get the current path
-  $path = request_path();
+  // Get the request path. If on homepage, get homepage path from variable
+  $request_path = drupal_is_front_page() ? variable_get('site_frontpage', current_path()) : request_path();
 
   // We don't want to show surveys on admin paths, so exit now if this is one
-  if (path_is_admin($path)) {
+  if (path_is_admin($request_path)) {
     return;
   }
 
   foreach ($surveys as $key => $survey) {
     $code = !empty($survey['code']) ? $survey['code'] : NULL;
-    if (!empty($code)) {
+    $path_options = !empty($survey['path_options']) ? $survey['path_options'] : NULL;
+    //$paths = !empty($survey['paths']) ? explode(PHP_EOL, $survey['paths']) : array();
+    $paths = !empty($survey['paths']) ? $survey['paths'] : '';
+    $authenticated_users = !empty($survey['authenticated_users']);
+    if (!empty($code) && !empty($path_options)) {
+
+      // If the user is logged in and we're not showing this survey to
+      // authenticated users, skep this survey
+      if (user_is_logged_in() && !$authenticated_users) {
+        continue;
+      }
+
+      // If the path options specify homepage only and we're not on the
+      // homepage, skip this survey
+      if ($path_options == 'home_only' && !drupal_is_front_page()) {
+        continue;
+      }
+
+      // If paths are specified, check that the current path matches one of them
+      if ($path_options == 'specified') {
+        if (!drupal_match_path($request_path, $paths)) {
+          continue;
+        }
+      }
       drupal_add_js(
         _fsa_survey_monkey_strip_script_tags($code),
         array(
           'type' => 'inline',
           'scope' => 'footer',
-          //'weight' => 5
         )
       );
     }
