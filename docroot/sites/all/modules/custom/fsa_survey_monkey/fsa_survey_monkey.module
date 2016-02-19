@@ -191,3 +191,27 @@ function _fsa_survey_monkey_edit_survey($key = NULL, $survey = NULL) {
   // Save the surveys
   return _fsa_survey_monkey_save_surveys($surveys);
 }
+
+
+/**
+ * Helper function: returns an array of active surveys
+ *
+ * @return array
+ *   An array of active surveys or an empty array if none are present
+ */
+function _fsa_survey_monkey_get_active_surveys() {
+  // Get all surveys
+  $surveys = _fsa_survey_monkey_get_surveys();
+  // If we have no surveys, return an empty array now
+  if (count($surveys) == 0) {
+    return array();
+  }
+  // Loop through all surveys, unsetting any that are not flagged as active
+  foreach ($surveys as $key => $survey) {
+    if (empty($survey['status'])) {
+      unset($surveys[$key]);
+    }
+  }
+  // Return the surveys that are left
+  return $surveys;
+}
