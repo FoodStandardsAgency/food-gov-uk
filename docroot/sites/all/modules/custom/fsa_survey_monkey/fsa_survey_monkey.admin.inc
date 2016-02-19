@@ -70,6 +70,43 @@ function fsa_survey_monkey_add_survey_form($form, &$form_state, $key = NULL) {
     '#default_value' => !empty($survey['code']) ? $survey['code'] : NULL,
   );
 
+
+  $form['path_container'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Path settings'),
+  );
+
+  $form['path_container']['path_options'] = array(
+    '#type' => 'select',
+    '#title' => t('Where should the survey appear?'),
+    '#options' => array(
+      'all' => t('All pages'),
+      'home_only' => t('Only on the homepage'),
+      'specified' => t('On specified pages'),
+    ),
+    '#empty_option' => t('Please choose an option'),
+    '#default_value' => !empty($survey['path_options']) ? $survey['path_options'] : NULL,
+  );
+
+  $form['path_container']['paths'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Paths on which to display the survey'),
+    '#description' => t('Specify pages by using their paths. Enter one path per line. The \'*\' character is a wildcard. Example paths are blog for the blog page and <em>blog/*</em> for every personal blog. <em>&lt;front&gt;</em> is the front page.'),
+    '#default_value' => !empty($survey['paths']) ? $survey['paths'] : NULL,
+    '#states' => array(
+      'visible' => array(
+        ':input[name="path_options"]' => array('value' => 'specified'),
+      ),
+    ),
+  );
+
+  $form['authenticated_users'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Show surveys to authenticated users'),
+    '#description' => t('Tick this box if you want authenticated users to see this survey'),
+    '#default_value' => !empty($survey['authenticated_users']) ? $survey['authenticated_users'] : NULL,
+  );
+
   $form['status'] = array(
     '#type' => 'checkbox',
     '#title' => t('Active'),
@@ -96,6 +133,9 @@ function fsa_survey_monkey_add_survey_form_submit(&$form, &$form_state) {
     'name' => $values['name'],
     'code' => $values['code'],
     'status' => $values['status'],
+    'path_options' => $values['path_options'],
+    'paths' => $values['paths'],
+    'authenticated_users' => $values['authenticated_users'],
   );
 
   if ($form['#edit'] && !is_null($form['#key'])) {
