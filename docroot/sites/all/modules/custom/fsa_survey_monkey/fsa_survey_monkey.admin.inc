@@ -12,10 +12,17 @@ function fsa_survey_monkey_admin_form($form, &$form_state) {
   $header = array(
     t('Name'),
     t('Status'),
+    t('Pages'),
     t('Operations')
   );
 
   $rows = array();
+
+  $path_options = array(
+    'home_only' => t('Homepage only'),
+    'specified' => t('Specified paths'),
+    'all' => t('Show on all pages'),
+  );
 
   $surveys = _fsa_survey_monkey_get_surveys();
   foreach ($surveys as $key => $survey) {
@@ -26,6 +33,7 @@ function fsa_survey_monkey_admin_form($form, &$form_state) {
     $rows[] = array(
       'name' => $survey['name'],
       'status' => !empty($survey['status']) ? t('Active') : t('Disabled'),
+      'path_options' => !empty($survey['path_options']) ? $path_options[$survey['path_options']] : t('Not set'),
       'operations' => implode(' | ', $operations),
     );
   }
