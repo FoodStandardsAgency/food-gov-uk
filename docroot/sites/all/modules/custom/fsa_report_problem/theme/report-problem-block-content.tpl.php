@@ -13,7 +13,7 @@
           <?php print _fsa_report_problem_status_description($service_status); ?>
         </strong>
         <span>
-          <?php print _fsa_report_problem_status_message($service_status); ?>
+          <?php print _fsa_report_problem_status_message($service_status, $delta); ?>
         </span>
       </p>
     </div>
