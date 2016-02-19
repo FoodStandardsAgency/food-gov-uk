@@ -230,3 +230,41 @@ function _fsa_survey_monkey_strip_script_tags($code = NULL) {
   $code = ltrim($code, '<script>');
   return rtrim($code, '</script>');
 }
+
+
+/**
+ * Implements hook_page_build().
+ *
+ * We use this to add any active surveys to the page render array.
+ */
+function fsa_survey_monkey_page_build(&$page) {
+
+  // Get any active surveys
+  $surveys = _fsa_survey_monkey_get_active_surveys();
+  // If there are no active surveys, return now
+  if (empty($surveys)) {
+    return;
+  }
+
+  // Get the current path
+  $path = request_path();
+
+  // We don't want to show surveys on admin paths, so exit now if this is one
+  if (path_is_admin($path)) {
+    return;
+  }
+
+  foreach ($surveys as $key => $survey) {
+    $code = !empty($survey['code']) ? $survey['code'] : NULL;
+    if (!empty($code)) {
+      drupal_add_js(
+        _fsa_survey_monkey_strip_script_tags($code),
+        array(
+          'type' => 'inline',
+          'scope' => 'footer',
+          //'weight' => 5
+        )
+      );
+    }
+  }
+}
