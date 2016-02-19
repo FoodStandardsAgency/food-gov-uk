@@ -65,7 +65,7 @@ function fsa_survey_monkey_add_survey_form($form, &$form_state, $key = NULL) {
   $form['name'] = array(
     '#type' => 'textfield',
     '#title' => t('Name'),
-    '#description' => t('Give this survey a name so you can recognise it later'),
+    '#description' => t('Give this survey a name so you can identify it'),
     '#required' => TRUE,
     '#default_value' => !empty($survey['name']) ? $survey['name'] : NULL,
   );
