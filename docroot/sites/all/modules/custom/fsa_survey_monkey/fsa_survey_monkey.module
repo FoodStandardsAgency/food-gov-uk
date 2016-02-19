@@ -215,3 +215,18 @@ function _fsa_survey_monkey_get_active_surveys() {
   // Return the surveys that are left
   return $surveys;
 }
+
+
+/**
+ * Helper function: strips <script></script> tags from code
+ *
+ * @param string $code
+ *   JavaScript code from SurveyMonkey - possibly including <script> tags
+ *
+ * @return string
+ *   JavaScript code with <script></script> tags removed.
+ */
+function _fsa_survey_monkey_strip_script_tags($code = NULL) {
+  $code = ltrim($code, '<script>');
+  return rtrim($code, '</script>');
+}
