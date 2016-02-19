@@ -3656,7 +3656,7 @@ function _fsa_report_problem_block_content__local_authority_search($delta = '') 
   $content = array();
   $step_count = !empty($submission->step_count) ? $submission->step_count : 2;
   $current_step = !empty($submission->current_step) ? $submission->current_step : 1;
-  $step_title = _fsa_report_problem_text('step_title_find_business');
+  $step_title = _fsa_report_problem_text('step_title_find_business', NULL, NULL, $delta);
 
   // The start URL for the service
   $start_url = _fsa_report_problem_get_start_path();
@@ -3688,7 +3688,7 @@ function _fsa_report_problem_block_content__local_authority_search($delta = '') 
     case 'postcode':
       module_load_include('php', 'fsa_report_problem', 'forms/postcode_search_form');
       $content = drupal_get_form('fsa_report_problem_postcode_search_form', $delta, $path);
-      $step_title = _fsa_report_problem_text('step_title_postcode_search');
+      $step_title = _fsa_report_problem_text('step_title_postcode_search', NULL, NULL, $delta);
       break;
 
     // Step 2: Select a business from search results - no autocomplete
@@ -3697,7 +3697,7 @@ function _fsa_report_problem_block_content__local_authority_search($delta = '') 
       $content = drupal_get_form('fsa_report_problem_business_results_form');
       $step_count = 3;
       $current_step = 2;
-      $step_title = _fsa_report_problem_text('step_title_choose_business');
+      $step_title = _fsa_report_problem_text('step_title_choose_business', NULL, NULL, $delta);
       break;
 
     // Step 3: Local authority details page
@@ -3743,7 +3743,7 @@ function _fsa_report_problem_block_content__local_authority_search($delta = '') 
 
       $step_count = $step_count > 2 ? $step_count : 2;
       $current_step = $step_count;
-      $step_title = _fsa_report_problem_text('step_title_local_authority_details');
+      $step_title = _fsa_report_problem_text('step_title_local_authority_details', NULL, NULL, $delta);
 
       // Clear the submission details. Do we need this here?
       _fsa_report_problem_clear_submission();
@@ -3776,7 +3776,7 @@ function _fsa_report_problem_block_content__find_food_safety_team($delta = '') {
   $content = array();
   $step_count = 2;
   $current_step = 1;
-  $step_title = _fsa_report_problem_text('step_title_postcode_search');
+  $step_title = _fsa_report_problem_text('step_title_postcode_search', NULL, NULL, $delta);
 
   // The start URL for the service
   $start_url = _fsa_report_problem_get_start_path();
@@ -3843,7 +3843,7 @@ function _fsa_report_problem_block_content__find_food_safety_team($delta = '') {
       }
 
       $current_step = $step_count;
-      $step_title = _fsa_report_problem_text('step_title_local_authority_details');
+      $step_title = _fsa_report_problem_text('step_title_local_authority_details', NULL, NULL, $delta);
 
       // Clear the submission details. Do we need this here?
       _fsa_report_problem_clear_submission();
