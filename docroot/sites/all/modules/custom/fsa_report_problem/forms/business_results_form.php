@@ -129,7 +129,7 @@ function fsa_report_problem_business_results_form_submit($form, &$form_state) {
 
   // Attempt to get local authority data for the business from MapIt
   try {
-    $local_authority = fsa_report_problem_get_local_authority($business['geometry']['location']['lng'], $business['geometry']['location']['lat']);
+    $local_authority = fsa_report_problem_get_local_authority($business['geometry']['location']['lng'], $business['geometry']['location']['lat'], $delta);
   }
   catch (MapItApiException $e) {
     watchdog_exception('fsa_report_problem', $e);
