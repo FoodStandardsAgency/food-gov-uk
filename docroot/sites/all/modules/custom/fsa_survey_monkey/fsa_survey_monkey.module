@@ -1,0 +1,292 @@
+<?php
+/**
+ * @file
+ * Module code for the FSA Survey Monkey module.
+ */
+
+/**
+ * Prefix for use in variables in this module
+ */
+define('FSA_SURVEY_MONKEY_VARIABLE_PREFIX', 'fsa_survey_monkey');
+
+/**
+ * Admin path for this module
+ */
+define('FSA_SURVEY_MONKEY_ADMIN_PATH', 'admin/config/services/surveymonkey');
+
+
+/**
+ * Implements hook_menu().
+ */
+function fsa_survey_monkey_menu() {
+  $items = array();
+
+  $items[FSA_SURVEY_MONKEY_ADMIN_PATH] = array(
+    'title' => 'SurveyMonkey surveys',
+    'description' => 'Administer SurveyMonkey surveys',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_survey_monkey_admin_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'fsa_survey_monkey.admin.inc'
+  );
+
+  $items[FSA_SURVEY_MONKEY_ADMIN_PATH . '/add'] = array(
+    'title' => 'Add SurveyMonkey survey',
+    'description' => 'Add a new SurveyMonkey survey',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_survey_monkey_add_survey_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'fsa_survey_monkey.admin.inc',
+    'type' => MENU_LOCAL_ACTION,
+  );
+
+  $items[FSA_SURVEY_MONKEY_ADMIN_PATH . '/edit/%'] = array(
+    'title' => 'Edit survey',
+    'description' => 'Edit this SurveyMonkey survey',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_survey_monkey_add_survey_form', 5),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'fsa_survey_monkey.admin.inc',
+    'type' => MENU_CALLBACK,
+  );
+
+  $items[FSA_SURVEY_MONKEY_ADMIN_PATH . '/delete/%'] = array(
+    'title' => 'Delete survey',
+    'description' => 'Delete this SurveyMonkey survey',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_survey_monkey_delete_survey_form', 5),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'fsa_survey_monkey.admin.inc',
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+
+/**
+ * Helper function: gets a list of all existing SurveyMonkey surveys
+ */
+function _fsa_survey_monkey_get_surveys() {
+  $surveys = variable_get(FSA_SURVEY_MONKEY_VARIABLE_PREFIX . '_surveys', array());
+  return $surveys;
+}
+
+
+/**
+ * Helper function: returns an individual survey by index
+ *
+ * @param int $key
+ *   The array key for the survey being requested
+ *
+ * @return array
+ *   An array of survey details if a survey exists for the given $key, otherwise
+ *   an empty array
+ */
+function _fsa_survey_monkey_get_survey($key = NULL) {
+  if (is_null($key)) {
+    return array();
+  }
+  $surveys = _fsa_survey_monkey_get_surveys();
+  if (count($surveys) == 0) {
+    return array();
+  }
+  if (isset($surveys[$key])) {
+    return $surveys[$key];
+  }
+  return array();
+}
+
+
+/**
+ * Helper function: save surveys
+ *
+ * @param array $surveys
+ *   An array of surveys to save
+ *
+ * @return boolean
+ *   TRUE if successful, FALSE otherwise
+ */
+function _fsa_survey_monkey_save_surveys($surveys = NULL) {
+  if (is_null($surveys) || !is_array($surveys)) {
+    return FALSE;
+  }
+  variable_set(FSA_SURVEY_MONKEY_VARIABLE_PREFIX . '_surveys', $surveys);
+  return TRUE;
+}
+
+
+/**
+ * Helper function: delete a survey
+ *
+ * @param int $key
+ *   The key of the survey to be deleted
+ *
+ * @return boolean
+ *   TRUE if successfull; FALSE otherwise
+ */
+function _fsa_survey_monkey_delete_survey($key = NULL) {
+  // If $key is NULL or not numeric, return FALSE now
+  if (is_null($key) || !is_numeric($key)) {
+    return FALSE;
+  }
+  // Get the surveys
+  $surveys = _fsa_survey_monkey_get_surveys();
+  // If the key exists, unset it
+  if (isset($surveys[$key])) {
+    unset($surveys[$key]);
+    return _fsa_survey_monkey_save_surveys($surveys);
+  }
+  return FALSE;
+}
+
+
+/**
+ * Helper function: add a survey
+ *
+ * @param array $survey
+ *   An associative array of survey properties
+ *
+ * @return boolean
+ *   TRUE if successful; FALSE otherwise
+ */
+function _fsa_survey_monkey_add_survey($survey = NULL) {
+  // If $survey is empty, return FALSE now
+  if (empty($survey)) {
+    return FALSE;
+  }
+  // Get the existing surveys
+  $surveys = _fsa_survey_monkey_get_surveys();
+  // Add the new survey
+  $surveys[] = $survey;
+  // Save the surveys
+  return _fsa_survey_monkey_save_surveys($surveys);
+}
+
+
+/**
+ * Helper function: update a survey
+ *
+ * @param int $key
+ *   The key for the survey
+ * @param array $survey
+ *   An associative array of survey properties
+ *
+ * @return boolean
+ *   TRUE if successful; FALSE otherwise
+ */
+function _fsa_survey_monkey_edit_survey($key = NULL, $survey = NULL) {
+  // If we have no key or survey details return FALSE now
+  if (is_null($key) || empty($survey)) {
+    return FALSE;
+  }
+  // Get the surveys
+  $surveys = _fsa_survey_monkey_get_surveys();
+  // If our survey doesn't exist, return FALSE now
+  if (!isset($surveys[$key])) {
+    return FALSE;
+  }
+  // Update the new survey details
+  $surveys[$key] = $survey;
+  // Save the surveys
+  return _fsa_survey_monkey_save_surveys($surveys);
+}
+
+
+/**
+ * Helper function: returns an array of active surveys
+ *
+ * @return array
+ *   An array of active surveys or an empty array if none are present
+ */
+function _fsa_survey_monkey_get_active_surveys() {
+  // Get all surveys
+  $surveys = _fsa_survey_monkey_get_surveys();
+  // If we have no surveys, return an empty array now
+  if (count($surveys) == 0) {
+    return array();
+  }
+  // Loop through all surveys, unsetting any that are not flagged as active
+  foreach ($surveys as $key => $survey) {
+    if (empty($survey['status'])) {
+      unset($surveys[$key]);
+    }
+  }
+  // Return the surveys that are left
+  return $surveys;
+}
+
+
+/**
+ * Helper function: strips <script></script> tags from code
+ *
+ * @param string $code
+ *   JavaScript code from SurveyMonkey - possibly including <script> tags
+ *
+ * @return string
+ *   JavaScript code with <script></script> tags removed.
+ */
+function _fsa_survey_monkey_strip_script_tags($code = NULL) {
+  $code = ltrim($code, '<script>');
+  return rtrim($code, '</script>');
+}
+
+
+/**
+ * Implements hook_page_build().
+ *
+ * We use this to add any active surveys to the page render array.
+ */
+function fsa_survey_monkey_page_build(&$page) {
+
+  // Get any active surveys
+  $surveys = _fsa_survey_monkey_get_active_surveys();
+  // If there are no active surveys, return now
+  if (empty($surveys)) {
+    return;
+  }
+
+  // Get the request path. If on homepage, get homepage path from variable
+  $request_path = drupal_is_front_page() ? variable_get('site_frontpage', current_path()) : request_path();
+
+  // We don't want to show surveys on admin paths, so exit now if this is one
+  if (path_is_admin($request_path)) {
+    return;
+  }
+
+  foreach ($surveys as $key => $survey) {
+    $code = !empty($survey['code']) ? $survey['code'] : NULL;
+    $path_options = !empty($survey['path_options']) ? $survey['path_options'] : NULL;
+    //$paths = !empty($survey['paths']) ? explode(PHP_EOL, $survey['paths']) : array();
+    $paths = !empty($survey['paths']) ? $survey['paths'] : '';
+    $authenticated_users = !empty($survey['authenticated_users']);
+    if (!empty($code) && !empty($path_options)) {
+
+      // If the user is logged in and we're not showing this survey to
+      // authenticated users, skep this survey
+      if (user_is_logged_in() && !$authenticated_users) {
+        continue;
+      }
+
+      // If the path options specify homepage only and we're not on the
+      // homepage, skip this survey
+      if ($path_options == 'home_only' && !drupal_is_front_page()) {
+        continue;
+      }
+
+      // If paths are specified, check that the current path matches one of them
+      if ($path_options == 'specified') {
+        if (!drupal_match_path($request_path, $paths)) {
+          continue;
+        }
+      }
+      drupal_add_js(
+        _fsa_survey_monkey_strip_script_tags($code),
+        array(
+          'type' => 'inline',
+          'scope' => 'footer',
+        )
+      );
+    }
+  }
+}
