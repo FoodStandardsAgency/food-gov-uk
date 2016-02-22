@@ -1739,6 +1739,88 @@ function fsa_report_problem_authority_edit_form_submit(&$form, &$form_state) {
  * Form builder: Admin API form
  */
 function fsa_report_problem_api_admin_form($form, &$form_state) {
+
+  // Get the services
+  $services = module_invoke('fsa_report_problem', 'block_info');
+
+  // Global API settings
+  $global_api_settings = _fsa_report_problem_api_settings();
+
+  $form['global_apis_heading'] = array(
+    '#type' => 'html_tag',
+    '#tag' => 'h2',
+    '#value' => t('Global API settings'),
+  );
+
+  $form['global_apis'] = array(
+    '#type' => 'vertical_tabs',
+    '#title' => t('Global API settings'),
+  );
+
+  foreach ($global_api_settings as $api => $settings) {
+    $form['global_apis']["${api}_settings"] = array(
+      '#type' => 'fieldset',
+      '#title' => _fsa_report_problem_api_name($api),
+    );
+
+    foreach ($settings as $key => $properties) {
+      $variable_name = 'fsa_report_problem_' . $api . '_api_' . $key;
+      $field_type = !empty($properties['type']) ? $properties['type'] : 'textfield';
+      $field_title = !empty($properties['title']) ? $properties['title'] : $key;
+      $options = !empty($properties['options']) ? $properties['options'] : NULL;
+      $form['global_apis']["${api}_settings"][$variable_name] = array(
+        '#type' => $field_type,
+        '#title' => $field_title,
+        '#default_value' => _fsa_report_problem_api_setting($api, $key, NULL),
+      );
+      if (!empty($options)) {
+        $form['global_apis']["${api}_settings"][$variable_name]['#options'] = $options;
+      }
+    }
+  }
+
+  $form['apis_heading'] = array(
+    '#type' => 'html_tag',
+    '#tag' => 'h2',
+    '#value' => t('Service-specific API settings'),
+  );
+
+  $form['apis'] = array(
+    '#type' => 'vertical_tabs',
+    '#title' => t('API settings'),
+  );
+
+  foreach ($services as $delta => $service) {
+    $form['apis'][$delta . '_container'] = array(
+      '#type' => 'fieldset',
+      '#title' => !empty($service['info']) ? $service['info'] : $delta,
+    );
+
+    foreach (_fsa_report_problem_api_settings($delta) as $machine_name => $settings) {
+      $form['apis'][$delta . '_container'][$delta . '_' . $machine_name] = array(
+        '#type' => 'fieldset',
+        '#title' => _fsa_report_problem_api_name($machine_name),
+        '#group' => $delta . '_container',
+      );
+
+      foreach ($settings as $key => $properties) {
+        $variable_name = 'fsa_report_problem_' . "${delta}_" . $machine_name . '_api_' . $key;
+        $field_type = !empty($properties['type']) ? $properties['type'] : 'textfield';
+        $field_title = !empty($properties['title']) ? $properties['title'] : $key;
+        $options = !empty($properties['options']) ? $properties['options'] : NULL;
+        $form['apis'][$delta . '_container'][$delta . '_' . $machine_name][$variable_name] = array(
+          '#type' => $field_type,
+          '#title' => $field_title,
+          '#default_value' => _fsa_report_problem_api_setting($machine_name, $key, $delta)
+        );
+      }
+    }
+  }
+
+  return system_settings_form($form);
+
+  // Old form below.
+
   $form['google_places_settings'] = array(
     '#type' => 'fieldset',
     '#title' => t('Google Places API settings'),
