@@ -3304,11 +3304,17 @@ function _fsa_report_problem_mapit_url($path = '') {
 /**
  * Helper function: returns the MapIt user agent
  *
+ * @param string $delta
+ *   (optional) The $delta of the block being used eg 'find_food_safety_officer'
+ *
  * @return string
  *   User agent string for MapIt API requests
+ *
+ * @see _fsa_report_problem_mapit_http_options()
+ * @see _fsa_report_problem_api_setting()
  */
-function _fsa_report_problem_mapit_user_agent() {
-  return variable_get('fsa_report_problem_mapit_user_agent', FSA_REPORT_PROBLEM_MAPIT_USER_AGENT);
+function _fsa_report_problem_mapit_user_agent($delta = NULL) {
+  return _fsa_report_problem_api_setting('mapit', 'user_agent', $delta);
 }
 
 
