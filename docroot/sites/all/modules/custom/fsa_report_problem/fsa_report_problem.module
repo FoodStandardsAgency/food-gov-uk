@@ -3065,6 +3065,21 @@ function _fsa_report_problem_api_setting($api = NULL, $setting = NULL, $delta = 
 
 
 /**
+ * Helper function: returns a human-readable name for an external API
+ *
+ * @param string $machine_name
+ *   The $machine_name of the external API, eg 'mapit'
+ */
+function _fsa_report_problem_api_name($machine_name) {
+  $api_names = array(
+    'mapit' => t('MapIt'),
+    'google_places' => t('Google Places'),
+  );
+  return !empty($api_names[$machine_name]) ? $api_names[$machine_name] : '';
+}
+
+
+/**
  * Helper function: gets the nids of any translations of the given nid
  *
  * @param int $nid
