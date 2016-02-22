@@ -776,10 +776,13 @@ function template_preprocess_problem_report(&$variables) {
  * @param string $location
  *   The location of the business
  *
+ * @param string $delta
+ *   (optional) The delta of the block for which we are returning results
+ *
  * @param integer $max_results
- *   The maximum number of results to return. Note that this currently has no
- *   effect since the maximum number of results per request is limited by
- *   Google.
+ *   (optional) The maximum number of results to return. Note that this
+ *   currently has no effect since the maximum number of results per request is
+ *   limited by Google.
  *
  * @throws GooglePlacesApiException
  *   If there are any issues with the request, including standard HTTP errors,
@@ -793,13 +796,13 @@ function template_preprocess_problem_report(&$variables) {
  *   An array of Google Places results. This will be empty if no results are
  *   returned.
  */
-function fsa_report_problem_get_google_results($name, $location = '', $user_location = NULL, $max_results = 60) {
+function fsa_report_problem_get_google_results($name, $location = '', $user_location = NULL, $delta = NULL, $max_results = 60) {
 
   // Get the endpoint
-  $endpoint = variable_get('fsa_report_problem_google_places_api_endpoint', 'https://maps.googleapis.com/maps/api/place/textsearch/json');
+  $endpoint = _fsa_report_problem_api_setting('google_places', 'endpoint', $delta, 'https://maps.googleapis.com/maps/api/place/textsearch/json');
 
   // Get the API key
-  $api_key = variable_get('fsa_report_problem_google_places_api_key');
+  $api_key = _fsa_report_problem_api_setting('google_places', 'api_key', $delta);
 
   // If we don't have an API key, throw an exception now
   if (empty($api_key)) {
@@ -812,10 +815,10 @@ function fsa_report_problem_get_google_results($name, $location = '', $user_loca
 
   // Set the minimum number of results. We'll re-query Google Places until we
   // either get this number or run out of pages.
-  $result_threshold = variable_get('fsa_report_problem_google_places_min_results', 5);
+  $result_threshold = _fsa_report_problem_api_setting('google_places', 'min_results', $delta, 5);
 
   // Number of seconds to wait before re-querying Google Places
-  $time_between_requests = variable_get('fsa_report_problem_google_places_delay', 2);
+  $time_between_requests = _fsa_report_problem_api_setting('google_places', 'delay', $delta, 2);
 
   // Build query parameters
   $query = "$name $location";
