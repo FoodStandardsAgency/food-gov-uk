@@ -3001,6 +3001,69 @@ function _fsa_report_problem_api_settings($delta = NULL) {
   }
   return $settings;
 }
+
+
+/**
+ * Helper function: returns an external API setting value
+ *
+ * @param string $api
+ *   The API in question eg 'mapit'
+ * @param string $setting
+ *   The setting for which we want to retrieve the value, eg 'user_agent'
+ * @param string $delta
+ *   (optional) The service for which we wish to retrieve the API setting
+ *   value. If none is supplied, we try to find a global value instead.
+ * @param string $default
+ *   (optional) Default value to return if no matching variable value is found.
+ *
+ * @return various
+ *   The value of the given $setting for the given $api for the given $delta or
+ *   global setting if $delta is not provided. If no relevant setting is found,
+ *   NULL is returned.
+ */
+function _fsa_report_problem_api_setting($api = NULL, $setting = NULL, $delta = NULL, $default = NULL) {
+
+  // If we have no params, return NULL
+  if (empty($api) && empty($setting)) {
+    return $default;
+  }
+
+  // Get the API settings
+  $api_settings = _fsa_report_problem_api_settings($delta);
+
+  // If the given $api does not correspond to one of the entries in the
+  // $api_settings array, then it's probably not a real setting, so return the
+  // $default value now
+  if (!key_exists($api, $api_settings)) {
+    return $default;
+  }
+
+  // Get the default value. If the setting has a default value provided, we'll
+  // use that, but if not, we'll use the default provided in the function
+  // params. Probably we want the argument params to override any inherent
+  // defaults though, so just in case we want to override any defaults with a
+  // NULL value, we check for number of arguments, rather than a NULL value.
+  $settings = $api_settings[$api];
+  if (func_num_args() < 4) {
+    $setting_properties = key_exists($setting, $settings) ? $settings[$setting] : array();
+    $default = key_exists('default_value', $setting_properties) ? $setting_properties['default_value'] : $default;
+  }
+
+  // Build a variable name based on the supplied params
+  $variable_prefix = 'fsa_report_problem';
+  $variable_name = $api . '_api_' . $setting;
+
+  // If we have a $delta value, first try to get it.
+  if (!empty($delta)) {
+    $return_value = variable_get($variable_prefix . "_${delta}_" . $variable_name, variable_get("${variable_prefix}_${variable_name}", $default));
+  }
+  else {
+    $return_value = variable_get("${variable_prefix}_${variable_name}", $default);
+  }
+  return $return_value;
+}
+
+
 /**
  * Helper function: gets the nids of any translations of the given nid
  *
