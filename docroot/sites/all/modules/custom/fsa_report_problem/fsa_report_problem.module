@@ -3851,7 +3851,7 @@ function _fsa_report_problem_block_content__local_authority_search($delta = '') 
       // Reset step count - in case we have any data from previous submissions
       $step_count = 2;
       module_load_include('php', 'fsa_report_problem', 'forms/business_lookup_form');
-      $content = drupal_get_form('fsa_report_problem_business_lookup_form', 'authority');
+      $content = drupal_get_form('fsa_report_problem_business_lookup_form', 'authority', $delta);
       break;
 
     // Step 1b: Postcode search
@@ -4063,7 +4063,7 @@ function _fsa_report_problem_block_content__report_problem_form($delta = '') {
       // Reset step count - in case we have any data from previous submissions
       $step_count = 3;
       module_load_include('php', 'fsa_report_problem', 'forms/business_lookup_form');
-      $content = drupal_get_form('fsa_report_problem_business_lookup_form', 'report');
+      $content = drupal_get_form('fsa_report_problem_business_lookup_form', 'report', $delta);
       break;
 
     // Step 2: Select a business from search results - no autocomplete
