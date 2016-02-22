@@ -3131,7 +3131,7 @@ function _fsa_report_problem_get_transaltion_nids($nid = NULL) {
  * @global object $language
  *   The language object.
  */
-function _fsa_report_problem_variable_setup($langcode = 'cy') {
+function _fsa_report_problem_variable_setup($langcode = 'cy', $reset = FALSE) {
   // Get the current language settings so we can pass them to
   // hook_variable_info.
   global $language;
@@ -3160,6 +3160,11 @@ function _fsa_report_problem_variable_setup($langcode = 'cy') {
     variable_set('variable_realm_list_language', $variable_realm_list_language);
   }
 
+  // If we're not resetting the variable values, exit now.
+  if (!$reset) {
+    return;
+  }
+  
   // Translate the variables
   if (function_exists('i18n_variable_set')) {
     foreach ($translate_vars as $var) {
