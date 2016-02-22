@@ -164,7 +164,7 @@ function fsa_report_problem_business_lookup_form_submit($form, &$form_state) {
   // report stage.
   if (!empty($lat) && !empty($lng) && !empty($name) && !empty($address)) {
     try {
-      $local_authority = fsa_report_problem_get_local_authority($lng, $lat);
+      $local_authority = fsa_report_problem_get_local_authority($lng, $lat, $delta);
     }
     catch (MapItApiException $e) {
       watchdog_exception('fsa_report_problem', $e);
