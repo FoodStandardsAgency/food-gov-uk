@@ -187,7 +187,7 @@ function fsa_report_problem_business_lookup_form_submit($form, &$form_state) {
   else {
     try {
       // Get business listings from the Google Places API.
-      $businesses = fsa_report_problem_get_google_results($name, $address, $user_location);
+      $businesses = fsa_report_problem_get_google_results($name, $address, $user_location, $delta);
       // No businesses found? Set an error and return to stage 1.
       if (count($businesses) == 0) {
         // Don't redirect if we have no businesses
