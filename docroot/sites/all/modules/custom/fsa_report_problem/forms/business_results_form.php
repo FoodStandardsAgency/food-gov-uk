@@ -11,10 +11,13 @@
  * It is displayed only if the user does not use the client-side JavaScript
  * auto-complete - or if autocomplete is turned off via the URL.
  */
-function fsa_report_problem_business_results_form($form, &$form_state, $next_stage = 'authority', $step_count = 3) {
+function fsa_report_problem_business_results_form($form, &$form_state, $next_stage = 'authority', $step_count = 3, $delta = NULL) {
 
   // Set the next stage
   $form['#next_stage'] = $next_stage;
+
+  // Set the delta
+  $form['#delta'] = $delta;
 
   // Get the submission data
   $submission = _fsa_report_problem_get_submission();
@@ -121,9 +124,12 @@ function fsa_report_problem_business_results_form_submit($form, &$form_state) {
   // Get the business that the user selected by clicking the form button
   $business = $businesses[$form_state['triggering_element']['#attributes']['data-business-id']];
 
+  // Get the block delta
+  $delta = !empty($form['#delta']) ? $form['#delta'] : NULL;
+
   // Attempt to get local authority data for the business from MapIt
   try {
-    $local_authority = fsa_report_problem_get_local_authority($business['geometry']['location']['lng'], $business['geometry']['location']['lat']);
+    $local_authority = fsa_report_problem_get_local_authority($business['geometry']['location']['lng'], $business['geometry']['location']['lat'], $delta);
   }
   catch (MapItApiException $e) {
     watchdog_exception('fsa_report_problem', $e);

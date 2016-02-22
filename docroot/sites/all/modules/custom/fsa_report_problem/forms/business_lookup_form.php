@@ -20,13 +20,19 @@
  *   is then passed to the submit handler for this form to enable redirection
  *   to the appropriate step of the process.
  *
+ * @param string $delta
+ *   (optional) The delta of the block calling the form.
+ *
  * @return array
  *   The complete form array ready for rendering
  */
-function fsa_report_problem_business_lookup_form($form, &$form_state, $next_stage = 'select-business') {
+function fsa_report_problem_business_lookup_form($form, &$form_state, $next_stage = 'select-business', $delta = NULL) {
 
   // Set the next stage
   $form['#next_stage'] = $next_stage;
+
+  // Set the block delta
+  $form['#delta'] = $delta;
 
   // Hidden field for location
   $form['business_location'] = array(
@@ -140,6 +146,9 @@ function fsa_report_problem_business_lookup_form_submit($form, &$form_state) {
   // Get the next stage from the $form array.
   $next_stage = !empty($form['#next_stage']) ? $form['#next_stage'] : 'select-business';
 
+  // Get the block delta
+  $delta = !empty($form['#delta']) ? $form['#delta'] : NULL;
+
   $form_state['redirect'] = url(_fsa_report_problem_get_start_path(NULL, 'select-business'));
 
   $lat = !empty($form_state['values']['lat']) ? $form_state['values']['lat'] : '';
@@ -155,7 +164,7 @@ function fsa_report_problem_business_lookup_form_submit($form, &$form_state) {
   // report stage.
   if (!empty($lat) && !empty($lng) && !empty($name) && !empty($address)) {
     try {
-      $local_authority = fsa_report_problem_get_local_authority($lng, $lat);
+      $local_authority = fsa_report_problem_get_local_authority($lng, $lat, $delta);
     }
     catch (MapItApiException $e) {
       watchdog_exception('fsa_report_problem', $e);
@@ -178,7 +187,7 @@ function fsa_report_problem_business_lookup_form_submit($form, &$form_state) {
   else {
     try {
       // Get business listings from the Google Places API.
-      $businesses = fsa_report_problem_get_google_results($name, $address, $user_location);
+      $businesses = fsa_report_problem_get_google_results($name, $address, $user_location, $delta);
       // No businesses found? Set an error and return to stage 1.
       if (count($businesses) == 0) {
         // Don't redirect if we have no businesses

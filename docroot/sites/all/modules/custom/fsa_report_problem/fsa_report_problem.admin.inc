@@ -336,6 +336,11 @@ function fsa_report_problem_local_authorities_new() {
       'type' => 'property',
       'specifier' => 'email',
     ),
+    'food_safety_team_email' => array(
+      'data' => t('Food safety email'),
+      'type' => 'property',
+      'specifier' => 'food_safety_team_email',
+    ),
   );
 
   // Load up the local authority entities.
@@ -383,6 +388,7 @@ function fsa_report_problem_local_authorities_new() {
         'data' => $authority->email,
         'class' => $authority->email != $authority->fhrs_email ? array('email-override') : array(),
       ),
+      array('data' => !empty($authority->food_safety_team_email) ? $authority->food_safety_team_email : t('Not set')),
     );
   }
 
@@ -477,42 +483,48 @@ function fsa_report_problem_local_authorities() {
  */
 function fsa_food_report_admin_form($form, &$form_state) {
 
+  // Get the services from hook_block_info()
+  $services = fsa_report_problem_block_info();
+
+  // Fieldset for the pages assigned to the blocks
   $form['node'] = array(
     '#type' => 'fieldset',
     '#collapsible' => TRUE,
     '#collapsed' => FALSE,
-    '#title' => t('Page'),
+    '#title' => t('Pages'),
   );
 
-  // Get the node on which the block is set to appear - if set.
-  $node = variable_get('fsa_report_problem_node_nid');
-  // Extract the nid from the node value - if populated. Otherwise set as NULL.
-  $nid = !empty($node) ? _fsa_report_problem_get_nid($node) : NULL;
-
-  // Set the intro text for the node fieldset based on whether a node has
-  // already been set.
-  if (empty($nid)) {
-    $intro = t('We need to tell the form on which page it should appear. Use the field below to find it.');
-  }
-  else {
-    $intro = t('The <a href="@url" target="_blank">page</a> on which the form is set to appear is show below. You can change this deleting the value and adding a new one.', array('@url' => url('node/'. $nid)));
-  }
+  // Fieldset intro text
+  $intro = t('Select the nodes on which the services provided by this module will appear.');
 
   $form['node']['intro'] = array(
     '#markup' => $intro,
   );
 
-  $form['node']['fsa_report_problem_node_nid'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Page title'),
-    '#description' => t('Enter the title or node ID of the page on which the form should appear'),
-    '#default_value' => variable_get('fsa_report_problem_node_nid'),
-    '#autocomplete_path' => 'admin/config/foodproblems/nodes',
-    '#size' => 80,
-    '#attributes' => array(
-      'autocomplete' => 'off',
-    ),
-  );
+  // Variable to determine whether all pages have been set.
+  $all_pages_set = TRUE;
+
+  // Provide a text field for all the services
+  foreach ($services as $service_name => $service_details) {
+    $variable_name = 'fsa_report_problem_' . $service_name . '_node_nid';
+    $default_value = variable_get($variable_name);
+    if (empty($default_value)) {
+      $all_pages_set = FALSE;
+    }
+    $form['node'][$variable_name] = array(
+      '#type' => 'textfield',
+      '#title' => $service_details['info'],
+      '#default_value' => $default_value,
+      '#autocomplete_path' => 'admin/config/foodproblems/nodes',
+      '#size' => 80,
+      '#attributes' => array(
+        'autocomplete' => 'off',
+      ),
+    );
+  }
+
+  // If all the pages are set, collapse the fieldset
+  $form['node']['#collapsed'] = $all_pages_set;
 
   $form['service_status'] = array(
     '#type' => 'fieldset',
@@ -521,17 +533,19 @@ function fsa_food_report_admin_form($form, &$form_state) {
     '#title' => t('Service status'),
   );
 
-  $form['service_status']['fsa_report_problem_service_status'] = array(
-    '#type' => 'select',
-    '#title' => t('Service status'),
-    '#options' => _fsa_report_problem_service_statuses(),
-    '#default_value' => variable_get('fsa_report_problem_service_status', FSA_REPORT_PROBLEM_STATUS_PRODUCTION),
-    '#description' => t('What is the status of the food problem reporting service? Status text can be set via the <a href="@text_url">Edit text interface.</a>', array('@text_url' => url('admin/config/foodproblems/text'))),
-  );
+  foreach($services as $service_name => $service_details) {
+    $form['service_status']['fsa_report_problem_' . $service_name . '_service_status'] = array(
+      '#type' => 'select',
+      '#title' => $service_details['info'],
+      '#options' => _fsa_report_problem_service_statuses(),
+      '#default_value' => _fsa_report_problem_service_status($service_name),
+    );
+  }
 
   $form['data_capture'] = array(
     '#type' => 'fieldset',
     '#title' => t('User data capture'),
+    '#access' => FALSE, // Temporarily hide this section
   );
 
   $form['data_capture']['fsa_report_problem_capture_user_data'] = array(
@@ -560,12 +574,74 @@ function fsa_food_report_admin_form($form, &$form_state) {
  * Form builder: Report a food problem text editing administration form
  */
 function fsa_food_report_text_form($form, &$form_state) {
-  $text = _fsa_report_problem_text();
 
   $form['text_title'] = array(
     '#type' => 'item',
-    '#title' => t('Text'),
+    '#title' => t('Manage text'),
   );
+
+  // Create a list of services
+  $services = array(
+   'default' => array(
+      'info' => t('Default'),
+    ),
+  );
+  // Get services from hook_block_info()
+  $services += fsa_report_problem_block_info();
+
+
+  // Get the list of text categories
+  $categories = _fsa_report_problem_text_categories();
+  // Build the fieldsets for services and categories
+  foreach ($services as $service => $details) {
+    $form[$service] = array(
+      '#type' => 'fieldset',
+      '#title' => $details['info'],
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    );
+    // Get the text entries
+    foreach ($categories as $cat => $category) {
+      $form[$service][$cat] = array(
+        '#type' => 'fieldset',
+        '#title' => $category,
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+      );
+
+      $text_entries = _fsa_report_problem_text(NULL, NULL, NULL, $service, $cat);
+
+      $form[$service][$cat][$service . '_text'] = array(
+        '#type' => 'vertical_tabs',
+        '#title' => t('Text entries'),
+      );
+
+      foreach ($text_entries as $key => $entry) {
+        if (empty($entry['category'])) {
+          $entry['category'] = FSA_REPORT_PROBLEM_TEXT_CATEGORY_GENERAL;
+        }
+        if ($entry['category'] == $cat) {
+          $form[$service][$cat][$service . '_text']["fsa_report_problem_text_${key}_container"] = array(
+            '#type' => 'fieldset',
+            '#title' => filter_xss($entry['title']),
+            '#description' => filter_xss($entry['description']),
+          );
+          $form[$service][$cat][$service . '_text']["fsa_report_problem_text_${key}_container"]["fsa_report_problem_text_${service}_${key}"] = array(
+            '#type' => 'text_format',
+            '#title' => $entry['title'],
+            '#title_display' => 'invisible',
+            '#default_value' => $entry['value'],
+            '#format' => empty($entry['format']) ? 'full_html' : $entry['format'],
+          );
+        }
+      }
+
+    }
+  }
+
+  return system_settings_form($form);
+
+  // Old form below
 
 
   $form['text'] = array(
@@ -1413,6 +1489,18 @@ function fsa_report_problem_authority_view_form($form, &$form_state, $aid = 0) {
     '#markup' => !empty($authority->url) ? l(_fsa_report_problem_format_url($authority->url), $authority->url) : t('No URL available on FHRS'),
   );
 
+  $form['additional_details'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Additional details'),
+
+    // Food safety team email address
+    'food_safety_team_email' => array(
+      '#type' => 'item',
+      '#title' => t('Food safety team email address'),
+      '#markup' => !empty($authority->food_safety_team_email) ? $authority->food_safety_team_email : t('Not set'),
+    ),
+  );
+
   return $form;
 }
 
@@ -1552,6 +1640,18 @@ function fsa_report_problem_authority_edit_form($form, &$form_state, $aid = 0) {
     '#default_value' => !empty($authority) ? $authority->local_authority_id : NULL,
   );
 
+  $form['additional_details'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Additional details'),
+
+    // Food safety team email address
+    'food_safety_team_email' => array(
+      '#type' => 'textfield',
+      '#title' => t('Food safety team email address'),
+      '#default_value' => !empty($authority->food_safety_team_email) ? $authority->food_safety_team_email : NULL,
+    ),
+  );
+
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Save'),
@@ -1609,6 +1709,10 @@ function fsa_report_problem_authority_edit_form_submit(&$form, &$form_state) {
     }
     $authority->url = !empty($fhrs_authority->Url) ? $fhrs_authority->Url : NULL;
   }
+  // Add the food safety team email to the entity before saving - if populated
+  if (!empty($form_state['values']['food_safety_team_email'])) {
+    $authority->food_safety_team_email = $form_state['values']['food_safety_team_email'];
+  }
   $result = $authority->save();
 
   switch ($result) {
@@ -1635,6 +1739,88 @@ function fsa_report_problem_authority_edit_form_submit(&$form, &$form_state) {
  * Form builder: Admin API form
  */
 function fsa_report_problem_api_admin_form($form, &$form_state) {
+
+  // Get the services
+  $services = module_invoke('fsa_report_problem', 'block_info');
+
+  // Global API settings
+  $global_api_settings = _fsa_report_problem_api_settings();
+
+  $form['global_apis_heading'] = array(
+    '#type' => 'html_tag',
+    '#tag' => 'h2',
+    '#value' => t('Global API settings'),
+  );
+
+  $form['global_apis'] = array(
+    '#type' => 'vertical_tabs',
+    '#title' => t('Global API settings'),
+  );
+
+  foreach ($global_api_settings as $api => $settings) {
+    $form['global_apis']["${api}_settings"] = array(
+      '#type' => 'fieldset',
+      '#title' => _fsa_report_problem_api_name($api),
+    );
+
+    foreach ($settings as $key => $properties) {
+      $variable_name = 'fsa_report_problem_' . $api . '_api_' . $key;
+      $field_type = !empty($properties['type']) ? $properties['type'] : 'textfield';
+      $field_title = !empty($properties['title']) ? $properties['title'] : $key;
+      $options = !empty($properties['options']) ? $properties['options'] : NULL;
+      $form['global_apis']["${api}_settings"][$variable_name] = array(
+        '#type' => $field_type,
+        '#title' => $field_title,
+        '#default_value' => _fsa_report_problem_api_setting($api, $key, NULL),
+      );
+      if (!empty($options)) {
+        $form['global_apis']["${api}_settings"][$variable_name]['#options'] = $options;
+      }
+    }
+  }
+
+  $form['apis_heading'] = array(
+    '#type' => 'html_tag',
+    '#tag' => 'h2',
+    '#value' => t('Service-specific API settings'),
+  );
+
+  $form['apis'] = array(
+    '#type' => 'vertical_tabs',
+    '#title' => t('API settings'),
+  );
+
+  foreach ($services as $delta => $service) {
+    $form['apis'][$delta . '_container'] = array(
+      '#type' => 'fieldset',
+      '#title' => !empty($service['info']) ? $service['info'] : $delta,
+    );
+
+    foreach (_fsa_report_problem_api_settings($delta) as $machine_name => $settings) {
+      $form['apis'][$delta . '_container'][$delta . '_' . $machine_name] = array(
+        '#type' => 'fieldset',
+        '#title' => _fsa_report_problem_api_name($machine_name),
+        '#group' => $delta . '_container',
+      );
+
+      foreach ($settings as $key => $properties) {
+        $variable_name = 'fsa_report_problem_' . "${delta}_" . $machine_name . '_api_' . $key;
+        $field_type = !empty($properties['type']) ? $properties['type'] : 'textfield';
+        $field_title = !empty($properties['title']) ? $properties['title'] : $key;
+        $options = !empty($properties['options']) ? $properties['options'] : NULL;
+        $form['apis'][$delta . '_container'][$delta . '_' . $machine_name][$variable_name] = array(
+          '#type' => $field_type,
+          '#title' => $field_title,
+          '#default_value' => _fsa_report_problem_api_setting($machine_name, $key, $delta)
+        );
+      }
+    }
+  }
+
+  return system_settings_form($form);
+
+  // Old form below.
+
   $form['google_places_settings'] = array(
     '#type' => 'fieldset',
     '#title' => t('Google Places API settings'),

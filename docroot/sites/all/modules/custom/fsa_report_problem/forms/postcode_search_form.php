@@ -11,24 +11,17 @@
  */
 function fsa_report_problem_postcode_search_form($form, &$form_state, $delta = NULL, $path = NULL) {
 
-  // Are we capturing user data? If so, don't show this form.
-  if (_fsa_report_problem_capture_user_data()) {
-    $form['err_message'] = array(
-      '#type' => 'html_tag',
-      '#tag' => 'p',
-      '#value' => t('Sorry, an error has occurred. Please return to the <a href="@start_page">start page</a>.', array('@start_page' => url(_fsa_report_problem_get_start_path()))),
-      '#attributes' => array(
-        'class' => array(
-          'form-intro',
-        ),
-      ),
-    );
-    return $form;
-  }
+  // @todo For report a food problem, don't allow this form to appear
+
+  // Pass the block $delta to the submit handler
+  $form['#delta'] = $delta;
+
+  // Pass the $path to the submit handler
+  $form['#path'] = $path;
 
   $form['intro'] = array(
     '#type' => 'form_intro',
-    '#text' => _fsa_report_problem_text('postcode_search_intro'),
+    '#text' => _fsa_report_problem_text('postcode_search_intro', NULL, NULL, $delta),
   );
 
   $form['postcode'] = array(
@@ -57,6 +50,8 @@ function fsa_report_problem_postcode_search_form($form, &$form_state, $delta = N
     '#prefix' => '<p><br>',
     '#markup' => l(t('Search by business name instead'), _fsa_report_problem_get_start_path()),
     '#suffix' => '</p>',
+    // Don't show this link for Find a food safety team - it's postcode only
+    '#access' => $delta != 'find_food_safety_team',
   );
 
   return $form;
@@ -83,7 +78,7 @@ function fsa_report_problem_postcode_search_form_validate($form, &$form_state) {
   // UK postcodes are between 6 and 8 characters in length including the space.
   // If it's longer or shorter than this, then it's invalid, so set an error
   if (strlen($postcode) < 5 || strlen($postcode) > 7) {
-    $error_message = _fsa_report_problem_text('postcode_incomplete');
+    $error_message = _fsa_report_problem_text('postcode_incomplete', NULL, NULL, $delta);
     $error_message = !empty($error_message['value']) ? $error_message['value'] : t('Sorry, the postcode you entered appears to be invalid. Please try again, making sure you enter the full postcode.');
     form_set_error('postcode', $error_message);
     return;
@@ -134,7 +129,7 @@ function fsa_report_problem_postcode_search_form_validate($form, &$form_state) {
   }
 
   // The postcode hasn't matched any of the patterns, so it must be invalid.
-  $error_message = _fsa_report_problem_text('postcode_invalid');
+  $error_message = _fsa_report_problem_text('postcode_invalid', NULL, NULL, $delta);
   $error_message = !empty($error_message['value']) ? $error_message['value'] : t('Sorry, the postcode you entered does not appear to be valid. Please try again.');
   form_set_error('postcode', $error_message);
 }
@@ -145,9 +140,15 @@ function fsa_report_problem_postcode_search_form_validate($form, &$form_state) {
  */
 function fsa_report_problem_postcode_search_form_submit($form, &$form_state) {
 
+  // Get the block delta
+  $delta = !empty($form['#delta']) ? $form['#delta'] : NULL;
+
+  // Get the $path
+  $path = isset($form['#path']) ? $form['#path'] : 'postcode';
+
   // By default, redirect to the postcode page itself. This will handle errors.
   // If postcode lookup is successful, we'll amend the redirect then.
-  $redirect = _fsa_report_problem_get_start_path(NULL, 'postcode');
+  $redirect = _fsa_report_problem_get_start_path(NULL, $path);
   $form_state['redirect'] = $redirect;
 
   // Get the values from the form_state parameter
@@ -167,7 +168,7 @@ function fsa_report_problem_postcode_search_form_submit($form, &$form_state) {
 
   // Get the local authority details from MapIt
   try {
-    $local_authority = fsa_report_problem_get_local_authority_by_postcode($postcode);
+    $local_authority = fsa_report_problem_get_local_authority_by_postcode($postcode, $delta);
   }
   catch (MapItApiException $e) {
     watchdog_exception('fsa_report_problem', $e);
@@ -181,7 +182,7 @@ function fsa_report_problem_postcode_search_form_submit($form, &$form_state) {
   // set, go back to the previous stage and set an error.
   if (empty($local_authority) || empty($local_authority['id'])) {
     $next_stage = 'postcode_search';
-    $error_message = _fsa_report_problem_text('postcode_not_found');
+    $error_message = _fsa_report_problem_text('postcode_not_found', NULL, NULL, $delta);
     drupal_set_message($error_message['value'], 'error');
     return;
   }
@@ -190,6 +191,7 @@ function fsa_report_problem_postcode_search_form_submit($form, &$form_state) {
   $la = fsa_report_problem_get_local_authority_by_area_id($local_authority['id']);
   $local_authority['name'] = !empty($la->name) ? $la->name: t('No name');
   $local_authority['email'] = !empty($la->email) ? $la->email: NULL;
+  $local_authority['food_safety_team_email'] = !empty($la->food_safety_team_email) ? $la->food_safety_team_email: NULL;
   $local_authority['url'] = !empty($la->url) ? $la->url : NULL;
 
   // If we've got this far, we have a local authority, so let's redirect to the
