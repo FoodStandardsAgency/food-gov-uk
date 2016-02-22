@@ -168,7 +168,7 @@ function fsa_report_problem_postcode_search_form_submit($form, &$form_state) {
 
   // Get the local authority details from MapIt
   try {
-    $local_authority = fsa_report_problem_get_local_authority_by_postcode($postcode);
+    $local_authority = fsa_report_problem_get_local_authority_by_postcode($postcode, $delta);
   }
   catch (MapItApiException $e) {
     watchdog_exception('fsa_report_problem', $e);
