@@ -961,7 +961,7 @@ function fsa_report_problem_get_local_authority($lng, $lat, $delta = NULL) {
  * @return array
  *   An associative array of local authority properties
  */
-function fsa_report_problem_get_local_authority_by_postcode($postcode = NULL) {
+function fsa_report_problem_get_local_authority_by_postcode($postcode = NULL, $delta = NULL) {
 
   if (empty($postcode)) {
     return array();
@@ -969,7 +969,7 @@ function fsa_report_problem_get_local_authority_by_postcode($postcode = NULL) {
   $postcode = urlencode($postcode);
   $endpoint = _fsa_report_problem_mapit_url('postcode');
   $url = url("$endpoint/$postcode");
-  $area_data = drupal_http_request($url, _fsa_report_problem_mapit_http_options());
+  $area_data = drupal_http_request($url, _fsa_report_problem_mapit_http_options($delta));
   $data = drupal_json_decode($area_data->data);
 
   // If response code other than 200, or if data is empty, throw an exception.
