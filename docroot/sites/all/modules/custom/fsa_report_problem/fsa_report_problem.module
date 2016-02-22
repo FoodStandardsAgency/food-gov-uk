@@ -2912,6 +2912,95 @@ function _fsa_report_problem_apis() {
   );
 }
 
+
+/**
+ * Helper function: returns API settings for a service
+ *
+ * @param string $delta
+ *   (optional) The $delta of the block/service for which we are retrieveing API
+ *   settings. If no $delta is supplied, global settings are returned.
+ *
+ * @return array
+ *   API settings for the given block/service or global API settings
+ */
+function _fsa_report_problem_api_settings($delta = NULL) {
+
+  // Global settings
+  $global_settings = array(
+    'google_places' => array(
+      'endpoint' => array(
+        'title' => t('API endpoint'),
+        'default_value' => 'https://sdfdasiofhdsaifhdsio',
+      ),
+      'delay' => array(
+        'title' => t('Time between requests'),
+        'default_value' => 2,
+      ),
+      'min_results' => array(
+        'title' => t('Minimum result threshold'),
+        'default_value' => 5,
+      ),
+    ),
+    'mapit' => array(
+      'user_agent' => array(
+        'title' => t('User agent string'),
+        'default_value' => 'sdafadsfdsaf',
+      ),
+      'base_url' => array(
+        'title' => 'Base URL',
+        'default_value' => 'http://mapit.mysociety.org',
+      ),
+      'authority_types' => array(
+        'title' => t('Authority types'),
+        'type' => 'checkboxes',
+        'options' => _fsa_report_problem_mapit_authority_types(TRUE),
+        'default_value' => _fsa_report_problem_mapit_authority_types(),
+      ),
+    ),
+  );
+
+  if (empty($delta)) {
+    return $global_settings;
+  }
+
+  // An array of API settings
+  $settings = array();
+
+  switch ($delta) {
+    case 'report_problem_form':
+      $settings['mapit'] = array(
+        'user_agent' => array(
+          'title' => t('User agent string'),
+        ),
+      );
+      $settings['google_places'] = array(
+        'api_key' => array(
+          'title' => t('API key'),
+        ),
+      );
+      break;
+    case 'local_authority_search':
+      $settings['mapit'] = array(
+        'user_agent' => array(
+          'title' => t('User agent string'),
+        ),
+      );
+      $settings['google_places'] = array(
+        'api_key' => array(
+          'title' => t('API key'),
+        ),
+      );
+      break;
+    case 'find_food_safety_team':
+      $settings['mapit'] = array(
+        'user_agent' => array(
+          'title' => t('User agent string'),
+        ),
+      );
+      break;
+  }
+  return $settings;
+}
 /**
  * Helper function: gets the nids of any translations of the given nid
  *
