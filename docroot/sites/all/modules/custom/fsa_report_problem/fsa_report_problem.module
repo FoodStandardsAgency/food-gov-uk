@@ -923,6 +923,9 @@ function fsa_report_problem_get_google_results($name, $location = '', $user_loca
  * @param float $lat
  *   The latitude for which to find a local authority
  *
+ * @param string $delta
+ *   (optional) The block $delta of the service, eg 'find_food_safety_officer'
+ *
  * @return array
  *   An associative array of local authority properties
  *
@@ -930,10 +933,10 @@ function fsa_report_problem_get_google_results($name, $location = '', $user_loca
  *   An exception is thrown if the request to the API returns anything but a 200
  *   response. Any calling code must handle this exception.
  */
-function fsa_report_problem_get_local_authority($lng, $lat) {
+function fsa_report_problem_get_local_authority($lng, $lat, $delta = NULL) {
   $endpoint = _fsa_report_problem_mapit_url('point/4326');
   $url = url("$endpoint/$lng,$lat", array('query' => array('type' => implode(',', _fsa_report_problem_mapit_authority_types()))));
-  $area_data = drupal_http_request($url, _fsa_report_problem_mapit_http_options());
+  $area_data = drupal_http_request($url, _fsa_report_problem_mapit_http_options($delta));
 
   // Get the data - if available.
   $data = !empty($area_data->data) ? drupal_json_decode($area_data->data) : NULL;
