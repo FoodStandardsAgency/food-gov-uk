@@ -3876,8 +3876,8 @@ function _fsa_report_problem_block_content__local_authority_search($delta = '') 
     // Step 2: Select a business from search results - no autocomplete
     case 'select-business':
       module_load_include('php', 'fsa_report_problem', 'forms/business_results_form');
-      $content = drupal_get_form('fsa_report_problem_business_results_form');
       $step_count = 3;
+      $content = drupal_get_form('fsa_report_problem_business_results_form', 'authority', $step_count, $delta);
       $current_step = 2;
       $step_title = _fsa_report_problem_text('step_title_choose_business', NULL, NULL, $delta);
       break;
@@ -4082,7 +4082,7 @@ function _fsa_report_problem_block_content__report_problem_form($delta = '') {
     case 'select-business':
       $step_count = 4;
       module_load_include('php', 'fsa_report_problem', 'forms/business_results_form');
-      $content = drupal_get_form('fsa_report_problem_business_results_form', 'report', $step_count);
+      $content = drupal_get_form('fsa_report_problem_business_results_form', 'report', $step_count, $delta);
       $current_step = 2;
       $step_title = _fsa_report_problem_text('step_title_choose_business');
       break;
