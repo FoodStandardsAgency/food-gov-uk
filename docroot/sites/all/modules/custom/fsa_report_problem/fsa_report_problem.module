@@ -1830,6 +1830,24 @@ function _fsa_report_problem_text__find_food_safety_team() {
 }
 
 
+/**
+ * Helper function: provides text entries for search for local authority
+ */
+function _fsa_report_problem_text__local_authority_search() {
+  $text = array(
+    'postcode_search_intro' => array(
+    'title' => t('Postcode search form intro'),
+    'description' => t('Intro text for the search for authority by postcode lookup form as used in the Find a food safety officer service'),
+    'format' => 'full_html',
+    ),
+    'choose_business_intro' => array(
+      'title' => t('Business choice form intro'),
+      'description' => t('This text appears at the top of the screen where users can select a business'),
+    ),
+  );
+  return $text;
+}
+
 
 /**
  * Implements hook_token_info().
