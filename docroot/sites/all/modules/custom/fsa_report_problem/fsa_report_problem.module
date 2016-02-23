@@ -3920,6 +3920,7 @@ function _fsa_report_problem_block_content__local_authority_search($delta = '') 
       $content['local_authority_details'] = array(
         '#theme' => 'local_authority_details',
         '#local_authority' => $local_authority,
+        '#delta' => $delta,
       );
 
       // Embed the rating widget - if set
