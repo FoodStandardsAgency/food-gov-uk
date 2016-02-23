@@ -4368,5 +4368,8 @@ function _fsa_report_problem_service_status($delta = '') {
  * Preprocess function for block content
  */
 function template_preprocess_report_problem_block_content(&$variables) {
+  // Remove any HTML tags from the step title - we want it plain
+  $variables['step_title'] = strip_tags($variables['step_title']);
+  // Set the service status based on the $delta
   $variables['service_status'] = _fsa_report_problem_service_status($variables['delta']);
 }
