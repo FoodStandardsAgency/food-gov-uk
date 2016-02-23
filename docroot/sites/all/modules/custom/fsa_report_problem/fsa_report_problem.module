@@ -4101,6 +4101,11 @@ function _fsa_report_problem_block_content__report_problem_form($delta = '') {
       $current_step = $step_count - 1;
       break;
 
+    // Old Step 3a: Manual report - redirect
+    case 'manual':
+      drupal_goto(_fsa_report_problem_get_start_path(NULL, 'report/manual'));
+      break;
+
     // Step 3a: Make a report - manual version
     case 'report/manual':
       module_load_include('php', 'fsa_report_problem', 'forms/make_report_form');
