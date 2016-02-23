@@ -2936,7 +2936,7 @@ function _fsa_report_problem_api_settings($delta = NULL) {
     'google_places' => array(
       'endpoint' => array(
         'title' => t('API endpoint'),
-        'default_value' => 'https://sdfdasiofhdsaifhdsio',
+        'default_value' => 'https://maps.googleapis.com/maps/api/place/textsearch/json',
       ),
       'delay' => array(
         'title' => t('Time between requests'),
@@ -2950,7 +2950,7 @@ function _fsa_report_problem_api_settings($delta = NULL) {
     'mapit' => array(
       'user_agent' => array(
         'title' => t('User agent string'),
-        'default_value' => 'sdafadsfdsaf',
+        'default_value' => 'UK Food Standards Agency (http://www.food.gov.uk)',
       ),
       'base_url' => array(
         'title' => 'Base URL',
