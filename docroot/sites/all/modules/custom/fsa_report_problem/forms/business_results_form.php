@@ -68,7 +68,7 @@ function fsa_report_problem_business_results_form($form, &$form_state, $next_sta
     );
 
     // Set the verb to appear on the buttons to select a business.
-    $button_verb = _fsa_report_problem_capture_user_data() ? t('Report') : t('Choose');
+    $button_verb = $delta == 'report_problem_form' ? t('Report') : t('Choose');
 
     $form['business_wrapper_' . $id][$id] = array(
       '#type' => 'submit',
