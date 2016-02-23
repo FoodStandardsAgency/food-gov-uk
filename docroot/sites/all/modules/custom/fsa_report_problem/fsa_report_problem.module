@@ -4221,6 +4221,11 @@ class FsaReportProblemTextEntry implements ArrayAccess {
    * Replace tokens method
    */
   private function replaceTokens() {
+    // If we have no value, return an empty string now.
+    if (empty($this->value)) {
+      return '';
+    }
+    // Replace any tokens and return the value
     return token_replace($this->value, $this->data);
   }
 
