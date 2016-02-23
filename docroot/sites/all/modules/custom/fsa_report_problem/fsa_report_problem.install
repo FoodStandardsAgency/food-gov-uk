@@ -489,3 +489,11 @@ function fsa_report_problem_update_7010() {
 function fsa_report_problem_update_7011() {
   _fsa_report_problem_variable_setup();
 }
+
+
+/**
+ * Makes new service-specific language entries translatable
+ */
+function fsa_report_problem_update_7012() {
+  _fsa_report_problem_variable_setup();
+}
