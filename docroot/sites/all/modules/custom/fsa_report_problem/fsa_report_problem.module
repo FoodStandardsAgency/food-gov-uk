@@ -1761,7 +1761,7 @@ function _fsa_report_problem_text() {
       $text_content = variable_get("fsa_report_problem_text_${key}");
     }
     return new FsaReportProblemTextEntry(
-      $text_content['value'],
+      !empty($text_content['value']) ? $text_content['value'] : '',
       !empty($text[$key]['format']) ? $text[$key]['format'] : NULL,
       !empty($text[$key]['default']) ? $text[$key]['default'] : NULL,
       $data

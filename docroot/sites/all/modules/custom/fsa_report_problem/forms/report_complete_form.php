@@ -17,6 +17,14 @@ function fsa_report_problem_report_complete_form($form, &$form_state) {
   $local_authority_name = !empty($local_authority['name']) ? $local_authority['name'] : '';
   $local_authority_email = !empty($local_authority['email']) ? $local_authority['email'] : '';
 
+  // Translate the local authority name if we're not on an English page
+  global $language;
+  $lang_code = !empty($language->language) ? $language->language : 'en';
+  $local_authority_name = !empty($local_authority['name']) ? $local_authority['name'] : NULL;
+  if ($lang_code != 'en' && !empty($local_authority_name)) {
+    $local_authority_name = locale($local_authority_name);
+  }
+
   // Create a report object for use with tokens
   $report = (object) array('local_authority_name' => $local_authority_name, 'local_authority_email' => $local_authority_email);
 
