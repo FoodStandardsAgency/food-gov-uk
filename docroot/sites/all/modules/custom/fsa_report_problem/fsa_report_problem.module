@@ -2936,7 +2936,7 @@ function _fsa_report_problem_api_settings($delta = NULL) {
     'google_places' => array(
       'endpoint' => array(
         'title' => t('API endpoint'),
-        'default_value' => 'https://sdfdasiofhdsaifhdsio',
+        'default_value' => 'https://maps.googleapis.com/maps/api/place/textsearch/json',
       ),
       'delay' => array(
         'title' => t('Time between requests'),
@@ -2950,7 +2950,7 @@ function _fsa_report_problem_api_settings($delta = NULL) {
     'mapit' => array(
       'user_agent' => array(
         'title' => t('User agent string'),
-        'default_value' => 'sdafadsfdsaf',
+        'default_value' => 'UK Food Standards Agency (http://www.food.gov.uk)',
       ),
       'base_url' => array(
         'title' => 'Base URL',
@@ -4221,6 +4221,11 @@ class FsaReportProblemTextEntry implements ArrayAccess {
    * Replace tokens method
    */
   private function replaceTokens() {
+    // If we have no value, return an empty string now.
+    if (empty($this->value)) {
+      return '';
+    }
+    // Replace any tokens and return the value
     return token_replace($this->value, $this->data);
   }
 
@@ -4363,5 +4368,8 @@ function _fsa_report_problem_service_status($delta = '') {
  * Preprocess function for block content
  */
 function template_preprocess_report_problem_block_content(&$variables) {
+  // Remove any HTML tags from the step title - we want it plain
+  $variables['step_title'] = strip_tags($variables['step_title']);
+  // Set the service status based on the $delta
   $variables['service_status'] = _fsa_report_problem_service_status($variables['delta']);
 }
