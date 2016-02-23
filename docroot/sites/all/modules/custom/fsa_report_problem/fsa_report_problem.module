@@ -2938,6 +2938,11 @@ function _fsa_report_problem_api_settings($delta = NULL) {
         'title' => t('API endpoint'),
         'default_value' => 'https://maps.googleapis.com/maps/api/place/textsearch/json',
       ),
+      'query_suffix' => array(
+        'title' => t('Query suffix'),
+        'default_value' => 'UK',
+        'description' => t('Enter any terms you wish to add automatcially to Google Places search queries to help restrict search results, eg \'UK\''),
+      ),
       'delay' => array(
         'title' => t('Time between requests'),
         'default_value' => 2,
