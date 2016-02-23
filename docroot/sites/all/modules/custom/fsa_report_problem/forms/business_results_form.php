@@ -34,13 +34,13 @@ function fsa_report_problem_business_results_form($form, &$form_state, $next_sta
   if (count($businesses) === 0) {
     $form['no_results_message'] = array(
       '#type' => 'form_intro',
-      '#text' => _fsa_report_problem_text('no_matching_business'),
+      '#text' => _fsa_report_problem_text('no_matching_business', NULL, NULL, $delta),
     );
   }
   else {
     $form['intro'] = array(
       '#type' => 'form_intro',
-      '#text' => _fsa_report_problem_text('choose_business_intro'),
+      '#text' => _fsa_report_problem_text('choose_business_intro', NULL, NULL, $delta),
     );
   }
 
