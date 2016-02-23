@@ -1,0 +1,1563 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  fsa_report_problem.admin.inc: n/a
+#  fsa_report_problem.module: n/a
+#  forms/make_report_form.php: n/a
+#  includes/form.inc: n/a
+#  fsa_report_problem.variable.inc: n/a
+#  theme/local-authority-details.tpl.php: n/a
+#  forms/postcode_search_form.php: n/a
+#  classes/GooglePlacesApiStatus.class.php: n/a
+#  fsa_report_problem.info: n/a
+#  forms/business_lookup_form.php: n/a
+#  forms/business_results_form.php: n/a
+#  forms/report_complete_form.php: n/a
+#  js/circles.js: n/a
+#  theme/external-api-status.tpl.php: n/a
+#  theme/report-problem-block-content.tpl.php: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2016-02-23 17:14+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: fsa_report_problem.admin.inc:27;171;1277
+msgid "ID"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:31
+msgid "Business name"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:35
+msgid "Report date"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:39 fsa_report_problem.module:632;743;1858 forms/make_report_form.php:80 includes/form.inc:453
+msgid "Local authority"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:43;335;371;454
+msgid "Local authority email"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:67
+msgid "Unsent reports"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:73
+msgid "The following reports have not yet been sent to the relevant local authority. This typically means that there is no email address on record for that authority."
+msgstr ""
+
+#: fsa_report_problem.admin.inc:80
+msgid "No unsent reports found"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:87
+msgid "Sent reports"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:88
+msgid "No sent reports found"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:94
+msgid "The following reports have been forwarded to the relevant local authority."
+msgstr ""
+
+#: fsa_report_problem.admin.inc:172;1086;1278
+msgid "Name"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:173;1279
+msgid "Type"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:174;1280
+msgid "Authority (from FHRS)"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:180;1286
+msgid "Select an authority"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:187;1293
+msgid "Unmatched authorities and areas"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:194;1300
+msgid "Matched authorities and areas"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:263;1368
+msgid "Save relationships"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:303;415
+msgid "This page shows the mapping of local authority areas provided by MapIt to local authorities held in the FHRS database. Only the IDs are held within Drupal."
+msgstr ""
+
+#: fsa_report_problem.admin.inc:314;367
+msgid "MapIt area name"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:320;368
+msgid "MapIt ID"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:325;369;1471 fsa_report_problem.module:657
+msgid "FHRS ID"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:330;370;453;942;1122;1448;1564 fsa_report_problem.module:1875
+msgid "Local authority name"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:340
+msgid "Food safety email"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:391;1087;1093;1501;1639
+msgid "Not set"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:450
+msgid "Area ID"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:451
+msgid "Area name"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:452
+msgid "Authority ID"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:494
+msgid "Pages"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:498
+msgid "Select the nodes on which the services provided by this module will appear."
+msgstr ""
+
+#: fsa_report_problem.admin.inc:533 fsa_report_problem.module:4328
+msgid "Service status"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:547
+msgid "User data capture"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:553
+msgid "Capture user data?"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:554 fsa_report_problem.variable.inc:43
+msgid "If user data capture is turned off, the users will be given details of the relevant local authority and will have to make contact directly."
+msgstr ""
+
+#: fsa_report_problem.admin.inc:556
+msgid "No"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:557
+msgid "Yes"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:580
+msgid "Manage text"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:586
+msgid "Default"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:616
+msgid "Text entries"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:650
+msgid "Text"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:680;688
+msgid "Available tokens"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:704;709
+msgid "Emails"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:728;835
+msgid "Subject"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:739
+msgid "Recipient email address"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:750
+msgid "Default recipient email address"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:751
+msgid "This email address is used as a fallback if the dynamic email recipient is not present."
+msgstr ""
+
+#: fsa_report_problem.admin.inc:762
+msgid "Sender email address"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:772;830;841
+msgid "Message"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:774
+msgid "View available tokens."
+msgstr ""
+
+#: fsa_report_problem.admin.inc:804
+msgid "This report has already been sent. Are you sure you want to forward it?"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:808
+msgid "There is currently no local authority email associated with this report. You can try to find one by clicking on the Set local authority tab."
+msgstr ""
+
+#: fsa_report_problem.admin.inc:813
+msgid "Address details"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:818
+msgid "To"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:824
+msgid "From"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:848
+msgid "Send"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:873
+msgid "This report has been forwarded to %to"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:937
+msgid "Use this form to add a custom email address for a local authority. This will be used in place of the address stored in FHRS. To remove a custom email address, simply clear the value from the email field and submit the form."
+msgstr ""
+
+#: fsa_report_problem.admin.inc:948
+msgid "FHRS email address"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:949
+msgid "No email address on record in FHRS"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:954
+msgid "MapIt area"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:957
+msgid "None selected"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:967
+msgid "Custom email address"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:968
+msgid "Email address for the local authority. This will be used in place of the email address stored in FHRS. An empty value will remove the custom email address."
+msgstr ""
+
+#: fsa_report_problem.admin.inc:975
+msgid "Save configuration"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1045
+msgid "Local authority updated"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1076;1113;1443;1559 fsa_report_problem.module:1684;1823
+msgid "Local authority details"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1081
+msgid "Based on the postcode !postcode, we have found the following local authority. If you would like to use this authority, please click the button below."
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1092 theme/local-authority-details.tpl.php:13
+msgid "Email address"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1098
+msgid "Use this local authority"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1103
+msgid "Sorry, we could not find any matching local authorities. Please try again."
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1117
+msgid "This report already has the following local authority assigned to it. You can change it by searching for another authority by poscode below."
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1128 fsa_report_problem.module:1880
+msgid "Local authority email address"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1129
+msgid "No email address found"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1140;1151 forms/make_report_form.php:63 forms/postcode_search_form.php:29 includes/form.inc:443;1078
+msgid "Postcode"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1146
+msgid "Enter the full postcode of the business in the box below, then click the submit button to find the relevant local authority."
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1157
+msgid "Find authority by postcode"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1184
+msgid "An error has occurred looking up the postcode"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1205
+msgid "Sorry, we could not find a local authority for that postcode"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1229
+msgid "Report updated."
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1254
+msgid "An error has occurred with the MapIt API."
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1433;1535
+msgid "Local authority not found."
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1454;1571;1587;1598
+msgid "MapIt area ID"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1460;1612
+msgid "FHRS details"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1465;1618
+msgid "FHRS name"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1477;1606
+msgid "Report a food problem email address"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1483;1624
+msgid "FHRS Email address"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1484
+msgid "No email address available on FHRS"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1489;1630
+msgid "FHRS URL"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1490;1631
+msgid "No URL available on FHRS"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1495;1646
+msgid "Additional details"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1500;1651
+msgid "Food safety team email address"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1589;2034
+msgid "Please choose"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1594;1595
+msgid "An error has occurred accessing MapIt. Please try again later."
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1625
+msgid "No email address on file"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1638
+msgid "FHRS authority"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1658
+msgid "Save"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1724
+msgid "Local authority %name created."
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1727
+msgid "Local authority %name updated."
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1753;1758
+msgid "Global API settings"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1788
+msgid "Service-specific API settings"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1793 fsa_report_problem.module:200
+msgid "API settings"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1831
+msgid "Google Places API settings"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1838
+msgid "Google Places API endpoint"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1844
+msgid "Google Places API key"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1850 fsa_report_problem.module:2972
+msgid "Time between requests"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1852
+msgid "Set the time in seconds between successive requests to the Google Places API"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1858 fsa_report_problem.module:2976
+msgid "Minimum result threshold"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1860
+msgid "Set the ideal minimum number of results to return from Google Places. If fewer results are retrieved on the first request, another request will be made up to a maximum of three."
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1866
+msgid "MapIt API settings"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1873
+msgid "MapIt base URL"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1879
+msgid "User agent"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1880
+msgid "This is used by MapIt to determine usage of their API. It should not be changed without first informing MapIt."
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1886 fsa_report_problem.module:2990
+msgid "Authority types"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1893
+msgid "External API status"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1904
+msgid "Overall status"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1911
+msgid "Check now"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1919
+msgid "status"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1983
+msgid "API status checked."
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1985
+msgid "All APIs are healthy."
+msgstr ""
+
+#: fsa_report_problem.admin.inc:1985
+msgid "Issues were found with one or more APIs. See below for details"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:2009;2031
+msgid "Select a rating widget"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:2023
+msgid "You must select a rating widget before you can see ratings for this service."
+msgstr ""
+
+#: fsa_report_problem.admin.inc:2041
+msgid "Select widget"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:2067
+msgid "No node found"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:2104
+msgid "Rating results"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:2107
+msgid "There have been no ratings so far."
+msgstr ""
+
+#: fsa_report_problem.admin.inc:2121
+msgid "User ratings"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:2127
+msgid "This page shows how visitors rated the service."
+msgstr ""
+
+#: fsa_report_problem.admin.inc:2133
+msgid "Overview"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:2138
+msgid "Average rating"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:2139
+msgid "This is the sum of all the scores divided by the number of votes."
+msgstr ""
+
+#: fsa_report_problem.admin.inc:2145
+msgid "Most common rating"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:2146
+msgid "This is the mode of the scores."
+msgstr ""
+
+#: fsa_report_problem.admin.inc:2152
+msgid "Median rating"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:2153
+msgid "This is the rating that falls in the middle of the scores when ranked in order."
+msgstr ""
+
+#: fsa_report_problem.admin.inc:2159
+msgid "Total votes"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:2189
+msgid "Rating"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:2189
+msgid "Votes"
+msgstr ""
+
+#: fsa_report_problem.admin.inc:2194
+msgid "Breakdown of ratings"
+msgstr ""
+
+#: fsa_report_problem.variable.inc:16 fsa_report_problem.module:345
+msgid "Report a food problem"
+msgstr ""
+
+#: fsa_report_problem.variable.inc:17
+msgid "Variables for use with the FSA report a problem module"
+msgstr ""
+
+#: fsa_report_problem.variable.inc:32
+msgid "Report a problem service status"
+msgstr ""
+
+#: fsa_report_problem.variable.inc:34
+msgid "Determines the status of the report a problem service - alpha, beta, production, offline."
+msgstr ""
+
+#: fsa_report_problem.variable.inc:42
+msgid "Capture user data"
+msgstr ""
+
+#: fsa_report_problem.variable.inc:52
+msgid "Datestamp for the last import of FHRS data"
+msgstr ""
+
+#: fsa_report_problem.variable.inc:53
+msgid "This is the datestamp of the last import of FHRS local authority data. This should happen once a day on cron."
+msgstr ""
+
+#: fsa_report_problem.variable.inc:62
+msgid "URL for the Google Places API endpoint"
+msgstr ""
+
+#: fsa_report_problem.variable.inc:71
+msgid "API key for the Google Places API"
+msgstr ""
+
+#: fsa_report_problem.variable.inc:80
+msgid "Time between Google Places API requests"
+msgstr ""
+
+#: fsa_report_problem.variable.inc:81
+msgid "The delay between repeat requests to the Google Places API"
+msgstr ""
+
+#: fsa_report_problem.variable.inc:90
+msgid "Minimum Google Places API threshold"
+msgstr ""
+
+#: fsa_report_problem.variable.inc:91
+msgid "The minimum number of Google Places results that the system will attempt to return. It will keep making requests until either it retrieves this many results or it runs out of requests."
+msgstr ""
+
+#: fsa_report_problem.variable.inc:100
+msgid "Page on which to display the report problem block"
+msgstr ""
+
+#: fsa_report_problem.variable.inc:101
+msgid "Stores the page title and Nid of the page on which the report a food problem block is to appear. It will also appear on any translations of this node."
+msgstr ""
+
+#: fsa_report_problem.variable.inc:114;115
+msgid "message"
+msgstr ""
+
+#: fsa_report_problem.variable.inc:123;124
+msgid "subject"
+msgstr ""
+
+#: fsa_report_problem.variable.inc:134;135
+msgid "default recipient"
+msgstr ""
+
+#: fsa_report_problem.variable.inc:146;147
+msgid "sender email address"
+msgstr ""
+
+#: fsa_report_problem.module:92
+msgid "View food problem reports"
+msgstr ""
+
+#: fsa_report_problem.module:93;113
+msgid "View reports of problems with food premises"
+msgstr ""
+
+#: fsa_report_problem.module:97;157
+msgid "Administer food problem reporting"
+msgstr ""
+
+#: fsa_report_problem.module:98
+msgid "Perform administration functions relating to the food problem reporting system"
+msgstr ""
+
+#: fsa_report_problem.module:351
+msgid "Search for local authority"
+msgstr ""
+
+#: fsa_report_problem.module:357
+msgid "Find a food safety team"
+msgstr ""
+
+#: fsa_report_problem.module:430
+msgid "Sorry, we couldn't find any matching establishments."
+msgstr ""
+
+#: fsa_report_problem.module:513
+msgid "External API"
+msgstr ""
+
+#: fsa_report_problem.module:537
+msgid "Poor"
+msgstr ""
+
+#: fsa_report_problem.module:538
+msgid "Fair"
+msgstr ""
+
+#: fsa_report_problem.module:539
+msgid "Good"
+msgstr ""
+
+#: fsa_report_problem.module:540
+msgid "Very good"
+msgstr ""
+
+#: fsa_report_problem.module:541
+msgid "Excellent"
+msgstr ""
+
+#: fsa_report_problem.module:618
+msgid "Problem report"
+msgstr ""
+
+#: fsa_report_problem.module:659
+msgid "Local authority ID from FHRS"
+msgstr ""
+
+#: fsa_report_problem.module:732
+msgid "Please note, this report has not yet been forwarded to the relevant local authority"
+msgstr ""
+
+#: fsa_report_problem.module:750
+msgid "Reported by"
+msgstr ""
+
+#: fsa_report_problem.module:755
+msgid "Date the problem occurred"
+msgstr ""
+
+#: fsa_report_problem.module:761
+msgid "Problem details"
+msgstr ""
+
+#: fsa_report_problem.module:809 classes/GooglePlacesApiStatus.class.php:26
+msgid "No Google Places API key available."
+msgstr ""
+
+#: fsa_report_problem.module:883
+msgid "HTTP error"
+msgstr ""
+
+#: fsa_report_problem.module:889
+msgid "Google Places API denied request"
+msgstr ""
+
+#: fsa_report_problem.module:896
+msgid "Google Places API over query limit"
+msgstr ""
+
+#: fsa_report_problem.module:1252
+msgid "ACTION REQUIRED:"
+msgstr ""
+
+#: fsa_report_problem.module:1286
+msgid "Dear @reporter_name"
+msgstr ""
+
+#: fsa_report_problem.module:1289
+msgid "Dear Sir or Madam"
+msgstr ""
+
+#: fsa_report_problem.module:1485
+msgid "Alpha"
+msgstr ""
+
+#: fsa_report_problem.module:1486
+msgid "Beta"
+msgstr ""
+
+#: fsa_report_problem.module:1487
+msgid "Production"
+msgstr ""
+
+#: fsa_report_problem.module:1488
+msgid "Offline"
+msgstr ""
+
+#: fsa_report_problem.module:1556
+msgid "Business search form intro"
+msgstr ""
+
+#: fsa_report_problem.module:1557
+msgid "This is the text that appears at the top of the business lookup form."
+msgstr ""
+
+#: fsa_report_problem.module:1560
+msgid "Business search additional info"
+msgstr ""
+
+#: fsa_report_problem.module:1561
+msgid "This text displays beneath the form on the introductory page."
+msgstr ""
+
+#: fsa_report_problem.module:1564;1844
+msgid "Business choice form intro"
+msgstr ""
+
+#: fsa_report_problem.module:1565;1845
+msgid "This text appears at the top of the screen where users can select a business"
+msgstr ""
+
+#: fsa_report_problem.module:1568
+msgid "No matching business"
+msgstr ""
+
+#: fsa_report_problem.module:1569
+msgid "This text appears at the top of the business search results when no matching business is found."
+msgstr ""
+
+#: fsa_report_problem.module:1573
+msgid "Text beneath business choice"
+msgstr ""
+
+#: fsa_report_problem.module:1574
+msgid "This text appears beneath the list of businesses."
+msgstr ""
+
+#: fsa_report_problem.module:1577
+msgid "Report page intro"
+msgstr ""
+
+#: fsa_report_problem.module:1578
+msgid "Intro text for the main report page"
+msgstr ""
+
+#: fsa_report_problem.module:1581
+msgid "Report page intro - manual entry"
+msgstr ""
+
+#: fsa_report_problem.module:1582
+msgid "Intro text for the manual entry version of the main report page"
+msgstr ""
+
+#: fsa_report_problem.module:1585;1791;1839
+msgid "Postcode search form intro"
+msgstr ""
+
+#: fsa_report_problem.module:1586
+msgid "Intro text for the search for authority by postcode lookup form"
+msgstr ""
+
+#: fsa_report_problem.module:1589
+msgid "Postcode not found error"
+msgstr ""
+
+#: fsa_report_problem.module:1590
+msgid "Error text displayed when a postcode search returns no results"
+msgstr ""
+
+#: fsa_report_problem.module:1595
+msgid "Incomplete postcode error"
+msgstr ""
+
+#: fsa_report_problem.module:1596
+msgid "Error message displayed when an incomplete postcode is entered into the postcode search"
+msgstr ""
+
+#: fsa_report_problem.module:1598
+msgid "Sorry, the postcode you entered does not appear to be valid. Please try again, making sure you enter the full postcode."
+msgstr ""
+
+#: fsa_report_problem.module:1602
+msgid "Invalid postcode error"
+msgstr ""
+
+#: fsa_report_problem.module:1603
+msgid "Error message displayed when a user searches for an invalid postcode"
+msgstr ""
+
+#: fsa_report_problem.module:1605 forms/postcode_search_form.php:133 includes/form.inc:589
+msgid "Sorry, the postcode you entered does not appear to be valid. Please try again."
+msgstr ""
+
+#: fsa_report_problem.module:1609
+msgid "Local authority details intro"
+msgstr ""
+
+#: fsa_report_problem.module:1610
+msgid "Introductory text for the local authority details page. Appears only if user data capture is turned off."
+msgstr ""
+
+#: fsa_report_problem.module:1613
+msgid "Local authority details intro - postcode search"
+msgstr ""
+
+#: fsa_report_problem.module:1614
+msgid "Introductory text for the local authority details page following a postcode search. Appears only if user data capture is turned off."
+msgstr ""
+
+#: fsa_report_problem.module:1617;1618
+msgid "Report complete text"
+msgstr ""
+
+#: fsa_report_problem.module:1621;1622
+msgid "Report complete text - manual entry"
+msgstr ""
+
+#: fsa_report_problem.module:1625
+msgid "Contact your local authority"
+msgstr ""
+
+#: fsa_report_problem.module:1626
+msgid "Contact details for the local authority - if available"
+msgstr ""
+
+#: fsa_report_problem.module:1630
+msgid "Under development notice - email"
+msgstr ""
+
+#: fsa_report_problem.module:1631
+msgid "This notice will appear at the top of emails to local authorities when the system is under development."
+msgstr ""
+
+#: fsa_report_problem.module:1636;1796
+msgid "Service status - Alpha"
+msgstr ""
+
+#: fsa_report_problem.module:1637;1797
+msgid "Description of service status when in Alpha"
+msgstr ""
+
+#: fsa_report_problem.module:1642;1802
+msgid "Service status - Beta"
+msgstr ""
+
+#: fsa_report_problem.module:1643;1803
+msgid "Description of service status when in Beta"
+msgstr ""
+
+#: fsa_report_problem.module:1648;1808
+msgid "Service status - Offline"
+msgstr ""
+
+#: fsa_report_problem.module:1649;1809
+msgid "Description of service status when it is offline"
+msgstr ""
+
+#: fsa_report_problem.module:1654
+msgid "Step indicator - find business"
+msgstr ""
+
+#: fsa_report_problem.module:1655
+msgid "Heading for the find a business step in the progress indicator"
+msgstr ""
+
+#: fsa_report_problem.module:1656
+msgid "Find a business"
+msgstr ""
+
+#: fsa_report_problem.module:1661
+msgid "Step indicator - choose a business"
+msgstr ""
+
+#: fsa_report_problem.module:1662
+msgid "Heading for the choose a business listing step in the progress indicator"
+msgstr ""
+
+#: fsa_report_problem.module:1663
+msgid "Choose a business"
+msgstr ""
+
+#: fsa_report_problem.module:1668
+msgid "Step indicator - make a report"
+msgstr ""
+
+#: fsa_report_problem.module:1669
+msgid "Heading for the make a report step in the progress indicator"
+msgstr ""
+
+#: fsa_report_problem.module:1670
+msgid "Tell us about the food problem"
+msgstr ""
+
+#: fsa_report_problem.module:1675
+msgid "Step indicator - report complete"
+msgstr ""
+
+#: fsa_report_problem.module:1676
+msgid "Heading for the report complete step in the progress indicator"
+msgstr ""
+
+#: fsa_report_problem.module:1677
+msgid "Report complete"
+msgstr ""
+
+#: fsa_report_problem.module:1682;1821
+msgid "Step indicator - local authority details"
+msgstr ""
+
+#: fsa_report_problem.module:1683;1822
+msgid "Heading for the local authority details step in the progress indicator"
+msgstr ""
+
+#: fsa_report_problem.module:1689;1814
+msgid "Step indicator - postcode search"
+msgstr ""
+
+#: fsa_report_problem.module:1690;1815
+msgid "Heading for the local authority postcode search step in the progress indicator"
+msgstr ""
+
+#: fsa_report_problem.module:1691;1816
+msgid "Search by postcode"
+msgstr ""
+
+#: fsa_report_problem.module:1792;1840
+msgid "Intro text for the search for authority by postcode lookup form as used in the Find a food safety officer service"
+msgstr ""
+
+#: fsa_report_problem.module:1859
+msgid "Local authority information as used in the report a problem module"
+msgstr ""
+
+#: fsa_report_problem.module:1863;121
+msgid "Food problem report"
+msgstr ""
+
+#: fsa_report_problem.module:1864
+msgid "Food problem report properties"
+msgstr ""
+
+#: fsa_report_problem.module:1868
+msgid "Food establishment"
+msgstr ""
+
+#: fsa_report_problem.module:1869
+msgid "Food establishment properties"
+msgstr ""
+
+#: fsa_report_problem.module:1876
+msgid "The name of the local authority"
+msgstr ""
+
+#: fsa_report_problem.module:1881
+msgid "The email address of the local authority as held on the FHRS database"
+msgstr ""
+
+#: fsa_report_problem.module:1885
+msgid "Report ID"
+msgstr ""
+
+#: fsa_report_problem.module:1886
+msgid "The unique ID of the report as stored on the system"
+msgstr ""
+
+#: fsa_report_problem.module:1890
+msgid "Establishment name"
+msgstr ""
+
+#: fsa_report_problem.module:1891
+msgid "The name of the food establishment where the problem was experienced"
+msgstr ""
+
+#: fsa_report_problem.module:1895
+msgid "Establishment postcode"
+msgstr ""
+
+#: fsa_report_problem.module:1896
+msgid "The postcode of the food establishment where the problem was experienced"
+msgstr ""
+
+#: fsa_report_problem.module:1993
+msgid "The reporter withheld his/her details."
+msgstr ""
+
+#: fsa_report_problem.module:2012
+msgid "this business"
+msgstr ""
+
+#: fsa_report_problem.module:2061
+msgid "Food problem report - [food_report:business_name]"
+msgstr ""
+
+#: fsa_report_problem.module:2062
+msgid "This is a food problem report from a member of the public via food.gov.uk."
+msgstr ""
+
+#: fsa_report_problem.module:2064
+msgid "Problem report email"
+msgstr ""
+
+#: fsa_report_problem.module:2066
+msgid "This is the email that will be sent to the local authority to notify them of a problem. If no email address is available for the local authority, then an email will be sent instead to the default recipient email address."
+msgstr ""
+
+#: fsa_report_problem.module:2070
+msgid "Thank you for your report"
+msgstr ""
+
+#: fsa_report_problem.module:2071
+msgid "Thank you for reporting a food problem at [food_report:business_name], [food_report:business_address]."
+msgstr ""
+
+#: fsa_report_problem.module:2073
+msgid "Acknowledgement email"
+msgstr ""
+
+#: fsa_report_problem.module:2075
+msgid "This is the acknowledgement email that will be sent to the user on submission of the report if he or she has included his/her email address."
+msgstr ""
+
+#: fsa_report_problem.module:2355
+msgid "More configuration options"
+msgstr ""
+
+#: fsa_report_problem.module:2356
+msgid "Full configuration options for the Report a Food Problem service can be found at <a href=\"@config_link\">Admin > Configuration > Food problem reporting</a>."
+msgstr ""
+
+#: fsa_report_problem.module:2963
+msgid "API endpoint"
+msgstr ""
+
+#: fsa_report_problem.module:2967
+msgid "Query suffix"
+msgstr ""
+
+#: fsa_report_problem.module:2969
+msgid "Enter any terms you wish to add automatcially to Google Places search queries to help restrict search results, eg 'UK'"
+msgstr ""
+
+#: fsa_report_problem.module:2982;3009;3021;3033
+msgid "User agent string"
+msgstr ""
+
+#: fsa_report_problem.module:3014;3026
+msgid "API key"
+msgstr ""
+
+#: fsa_report_problem.module:3111
+msgid "MapIt"
+msgstr ""
+
+#: fsa_report_problem.module:3112
+msgid "Google Places"
+msgstr ""
+
+#: fsa_report_problem.module:3297
+msgid "%type: !message in %function (line %line of %file)."
+msgstr ""
+
+#: fsa_report_problem.module:3303
+msgid "No data available"
+msgstr ""
+
+#: fsa_report_problem.module:3307
+msgid "OK"
+msgstr ""
+
+#: fsa_report_problem.module:3311
+msgid "Problems detected"
+msgstr ""
+
+#: fsa_report_problem.module:3462
+msgid "Could not embed rate widget."
+msgstr ""
+
+#: fsa_report_problem.module:3550
+msgid "Circles"
+msgstr ""
+
+#: fsa_report_problem.module:3601
+msgid "Voting is closed."
+msgstr ""
+
+#: fsa_report_problem.module:3606
+msgid "You rated the service as <strong>@vote</strong>."
+msgstr ""
+
+#: fsa_report_problem.module:3669
+msgid "10 seconds"
+msgstr ""
+
+#: fsa_report_problem.module:3670
+msgid "30 seconds"
+msgstr ""
+
+#: fsa_report_problem.module:3671
+msgid "1 min"
+msgstr ""
+
+#: fsa_report_problem.module:3718
+msgid "Sorry, a problem occured exporting the data."
+msgstr ""
+
+#: fsa_report_problem.module:3740
+msgid "Sorry a problem occured exporting the data"
+msgstr ""
+
+#: fsa_report_problem.module:3841
+msgid "Unfortunately an error has ocurred. Please try again later."
+msgstr ""
+
+#: fsa_report_problem.module:3929;4030
+msgid "Sorry, an error seems to have happened. Please try again."
+msgstr ""
+
+#: fsa_report_problem.module:4326
+msgid "Error messages"
+msgstr ""
+
+#: fsa_report_problem.module:4327
+msgid "Step titles"
+msgstr ""
+
+#: fsa_report_problem.module:4329
+msgid "General"
+msgstr ""
+
+#: fsa_report_problem.module:2204;2212;2217
+msgid "Food report"
+msgstr ""
+
+#: fsa_report_problem.module:2204
+msgid "FHRS authority update already run today. Exiting."
+msgstr ""
+
+#: fsa_report_problem.module:2212
+msgid "FHRS authority data updated."
+msgstr ""
+
+#: fsa_report_problem.module:2217
+msgid "An error occurred updating the FHRS data. Will try again on next Cron run."
+msgstr ""
+
+#: fsa_report_problem.module:2589;3836
+msgid "fsa_report_problem"
+msgstr ""
+
+#: fsa_report_problem.module:2589
+msgid "Updated text entry: %text_id."
+msgstr ""
+
+#: fsa_report_problem.module:3836
+msgid "Function %function_name is not callable. Could not generate content for block %block_delta."
+msgstr ""
+
+#: fsa_report_problem.module:437
+msgid "Your search for \"%name\" in \"%address\" brought up 1 result."
+msgid_plural "Your search for \"%name\" in \"%address\" brought up @count results."
+msgstr[0] ""
+msgstr[1] ""
+
+#: fsa_report_problem.module:112
+msgid "Food problem reports"
+msgstr ""
+
+#: fsa_report_problem.module:122
+msgid "View detail for this food problem report"
+msgstr ""
+
+#: fsa_report_problem.module:130;240
+msgid "View"
+msgstr ""
+
+#: fsa_report_problem.module:136
+msgid "Forward"
+msgstr ""
+
+#: fsa_report_problem.module:137
+msgid "Forward this food problem report by email"
+msgstr ""
+
+#: fsa_report_problem.module:146
+msgid "Set local authority"
+msgstr ""
+
+#: fsa_report_problem.module:147
+msgid "Set the local authority for this food problem report"
+msgstr ""
+
+#: fsa_report_problem.module:156
+msgid "Food problem reporting"
+msgstr ""
+
+#: fsa_report_problem.module:165
+msgid "Configuration"
+msgstr ""
+
+#: fsa_report_problem.module:166
+msgid "Administer food problem reporting configuration"
+msgstr ""
+
+#: fsa_report_problem.module:176
+msgid "Edit text"
+msgstr ""
+
+#: fsa_report_problem.module:177
+msgid "Edit text elements used in the food problem reporting system"
+msgstr ""
+
+#: fsa_report_problem.module:188
+msgid "Manage emails"
+msgstr ""
+
+#: fsa_report_problem.module:189
+msgid "Manage emails generated by the food problem reporting system"
+msgstr ""
+
+#: fsa_report_problem.module:201
+msgid "Manage and configure API settings for the food problem reporting system"
+msgstr ""
+
+#: fsa_report_problem.module:211
+msgid "Local authority data"
+msgstr ""
+
+#: fsa_report_problem.module:212
+msgid "Manage local authority data for use in the food problem reporting system"
+msgstr ""
+
+#: fsa_report_problem.module:221
+msgid "Add new local authority"
+msgstr ""
+
+#: fsa_report_problem.module:222
+msgid "Add a new local authority for use with the food problem reporting system"
+msgstr ""
+
+#: fsa_report_problem.module:231
+msgid "View Local authority data"
+msgstr ""
+
+#: fsa_report_problem.module:232
+msgid "Manage details for this local authority"
+msgstr ""
+
+#: fsa_report_problem.module:246
+msgid "Edit"
+msgstr ""
+
+#: fsa_report_problem.module:247
+msgid "Edit details for this local authority"
+msgstr ""
+
+#: fsa_report_problem.module:256
+msgid "Edit Local authority data"
+msgstr ""
+
+#: fsa_report_problem.module:257
+msgid "Edit details for a local authority"
+msgstr ""
+
+#: fsa_report_problem.module:265
+msgid "Import local authority data"
+msgstr ""
+
+#: fsa_report_problem.module:266
+msgid "Import local authority data from MapIt and the FHRS system"
+msgstr ""
+
+#: fsa_report_problem.module:276
+msgid "Ratings"
+msgstr ""
+
+#: fsa_report_problem.module:277
+msgid "View user ratings for the service"
+msgstr ""
+
+#: fsa_report_problem.module:287
+msgid "Export rating data"
+msgstr ""
+
+#: fsa_report_problem.module:288
+msgid "Export rating data for the service"
+msgstr ""
+
+#: fsa_report_problem.module:297
+msgid "Autocomplete for nodes"
+msgstr ""
+
+#: fsa_report_problem.module:304
+msgid "Autocomplete for postcodes"
+msgstr ""
+
+#: fsa_report_problem.info:0
+msgid "Report a problem"
+msgstr ""
+
+#: fsa_report_problem.info:0
+msgid "Enables members of the public to report a problem with a food establishment."
+msgstr ""
+
+#: fsa_report_problem.info:0
+msgid "FSA Custom"
+msgstr ""
+
+#: forms/business_lookup_form.php:96 includes/form.inc:265
+msgid "Business name and location"
+msgstr ""
+
+#: forms/business_lookup_form.php:98 includes/form.inc:267
+msgid "Please enter the name and location of the business."
+msgstr ""
+
+#: forms/business_lookup_form.php:101 includes/form.inc:270
+msgid "Enter the business name and address"
+msgstr ""
+
+#: forms/business_lookup_form.php:109 forms/postcode_search_form.php:44 includes/form.inc:278;1093
+msgid "Submit"
+msgstr ""
+
+#: forms/business_lookup_form.php:171;206 includes/form.inc:726;755
+msgid "We're sorry, but an error occurred looking up the business. Please try again later."
+msgstr ""
+
+#: forms/business_lookup_form.php:198 includes/form.inc:747
+msgid "Sorry, we could not find any matching businesses. Please try again."
+msgstr ""
+
+#: forms/business_results_form.php:49 includes/form.inc:337
+msgid "Your search for %search_term found @result_count businesses."
+msgstr ""
+
+#: forms/business_results_form.php:71 includes/form.inc:359
+msgid "Report"
+msgstr ""
+
+#: forms/business_results_form.php:71 includes/form.inc:359
+msgid "Choose"
+msgstr ""
+
+#: forms/business_results_form.php:76 includes/form.inc:364
+msgid "@select this business"
+msgstr ""
+
+#: forms/business_results_form.php:80;81 includes/form.inc:368;369
+msgid "@select !business_name, !business_address"
+msgstr ""
+
+#: forms/business_results_form.php:90 includes/form.inc:378
+msgid "Powered by Google"
+msgstr ""
+
+#: forms/make_report_form.php:42 includes/form.inc:424
+msgid "Name of the business"
+msgstr ""
+
+#: forms/make_report_form.php:52 includes/form.inc:434
+msgid "Business address"
+msgstr ""
+
+#: forms/make_report_form.php:64 includes/form.inc:444
+msgid "Please provide the postcode of the business if you know it. This will help us to identify the relevant local authority to investigate the problem."
+msgstr ""
+
+#: forms/make_report_form.php:87 includes/form.inc:461
+msgid "Your name (optional)"
+msgstr ""
+
+#: forms/make_report_form.php:88 includes/form.inc:462
+msgid "The local authority would only use this when contacting you about your issue."
+msgstr ""
+
+#: forms/make_report_form.php:93 includes/form.inc:467
+msgid "Your email address (optional)"
+msgstr ""
+
+#: forms/make_report_form.php:94 includes/form.inc:468
+msgid "This would only be used by the local authority to contact you about your issue."
+msgstr ""
+
+#: forms/make_report_form.php:102 includes/form.inc:476
+msgid "Date and approximate time the food issue happened"
+msgstr ""
+
+#: forms/make_report_form.php:113 includes/form.inc:487
+msgid "Details of the food issue"
+msgstr ""
+
+#: forms/make_report_form.php:114 includes/form.inc:488
+msgid "If you want to remain anonymous, make sure you don’t include anything that could identify you or any people you were with."
+msgstr ""
+
+#: forms/make_report_form.php:122 includes/form.inc:496
+msgid "Submit report"
+msgstr ""
+
+#: forms/postcode_search_form.php:31 includes/form.inc:1080
+msgid "Enter the full postcode of the business to search for its local authority."
+msgstr ""
+
+#: forms/postcode_search_form.php:35 includes/form.inc:1084
+msgid "Enter the full postcode of the business"
+msgstr ""
+
+#: forms/postcode_search_form.php:51 includes/form.inc:1100
+msgid "Search by business name instead"
+msgstr ""
+
+#: forms/postcode_search_form.php:71 includes/form.inc:527
+msgid "Please enter a postcode"
+msgstr ""
+
+#: forms/postcode_search_form.php:82 includes/form.inc:538
+msgid "Sorry, the postcode you entered appears to be invalid. Please try again, making sure you enter the full postcode."
+msgstr ""
+
+#: forms/postcode_search_form.php:163 includes/form.inc:640
+msgid "No postcode was supplied. Please try again."
+msgstr ""
+
+#: forms/postcode_search_form.php:192 includes/form.inc:670
+msgid "No name"
+msgstr ""
+
+#: forms/report_complete_form.php:57
+msgid "A confirmation email has been sent to the email address you provided."
+msgstr ""
+
+#: includes/form.inc:173
+msgid "Step @step of @steps"
+msgstr ""
+
+#: includes/form.inc:403;1059
+msgid "Sorry, an error has occurred. Please return to the <a href=\"@start_page\">start page</a>."
+msgstr ""
+
+#: includes/form.inc:942
+msgid "Please quote reference !reference in all correspondence."
+msgstr ""
+
+#: includes/form.inc:949
+msgid "A confirmation email has been sent to @reporter_email."
+msgstr ""
+
+#: includes/form.inc:1017
+msgid "Sorry, we could not find a local authority"
+msgstr ""
+
+#: js/circles.js:0
+msgid "Saving rating..."
+msgstr ""
+
+#: theme/external-api-status.tpl.php:11
+msgid "Status"
+msgstr ""
+
+#: theme/external-api-status.tpl.php:26
+msgid "Exception details:"
+msgstr ""
+
+#: theme/local-authority-details.tpl.php:15
+msgid "Sorry, we do not have an email address on record for this local authority. Please visit their website or contact their main switchboard for further information."
+msgstr ""
+
+#: theme/local-authority-details.tpl.php:18
+msgid "Website"
+msgstr ""
+
+#: theme/report-problem-block-content.tpl.php:26
+msgid "Step @current_step of @step_count"
+msgstr ""
