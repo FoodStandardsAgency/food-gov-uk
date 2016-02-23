@@ -626,11 +626,12 @@ function fsa_food_report_text_form($form, &$form_state) {
             '#title' => filter_xss($entry['title']),
             '#description' => filter_xss($entry['description']),
           );
-          $form[$service][$cat][$service . '_text']["fsa_report_problem_text_${key}_container"]["fsa_report_problem_text_${service}_${key}"] = array(
+          $variable_name = $service != 'default' ? "fsa_report_problem_text_${service}_${key}" : "fsa_report_problem_text_${key}";
+          $form[$service][$cat][$service . '_text']["fsa_report_problem_text_${key}_container"][$variable_name] = array(
             '#type' => 'text_format',
             '#title' => $entry['title'],
             '#title_display' => 'invisible',
-            '#default_value' => $entry['value'],
+            '#default_value' => !empty($entry['value']) ? $entry['value'] : NULL,
             '#format' => empty($entry['format']) ? 'full_html' : $entry['format'],
           );
         }
