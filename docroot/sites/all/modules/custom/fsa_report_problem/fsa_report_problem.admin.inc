@@ -1474,7 +1474,7 @@ function fsa_report_problem_authority_view_form($form, &$form_state, $aid = 0) {
 
   $form['fhrs']['email'] = array(
     '#type' => 'item',
-    '#title' => t('Email address'),
+    '#title' => t('Report a food problem email address'),
     '#markup' => $authority->email,
   );
 
@@ -1603,7 +1603,7 @@ function fsa_report_problem_authority_edit_form($form, &$form_state, $aid = 0) {
 
   $form['local_authority_details']['email'] = array(
     '#type' => 'textfield',
-    '#title' => t('Email address'),
+    '#title' => t('Report a food problem email address'),
     '#default_value' => !empty($authority) ? $authority->email : NULL,
   );
 
