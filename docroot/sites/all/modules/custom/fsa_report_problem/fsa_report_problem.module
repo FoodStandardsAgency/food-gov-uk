@@ -4024,10 +4024,12 @@ function _fsa_report_problem_block_content__find_food_safety_team($delta = '') {
       );
 
       // Embed the rating widget - if set
-      $rating_widget = _fsa_report_problem_selected_rating_widget();
-      if (!empty($rating_widget)) {
-        $content['rate_widget'] = _fsa_report_problem_rate_widget($rating_widget);
-      }
+      // Temporarily disabled as not currently required in this service
+      // @todo Enable service selection for ratings widgets
+      //$rating_widget = _fsa_report_problem_selected_rating_widget();
+      //if (!empty($rating_widget)) {
+      //  $content['rate_widget'] = _fsa_report_problem_rate_widget($rating_widget);
+      //}
 
       $current_step = $step_count;
       $step_title = _fsa_report_problem_text('step_title_local_authority_details', NULL, NULL, $delta);
@@ -4119,6 +4121,11 @@ function _fsa_report_problem_block_content__report_problem_form($delta = '') {
     case 'complete':
       module_load_include('php', 'fsa_report_problem', 'forms/report_complete_form');
       $content = drupal_get_form('fsa_report_problem_report_complete_form');
+      // Embed the rating widget - if set
+      $rating_widget = _fsa_report_problem_selected_rating_widget();
+      if (!empty($rating_widget)) {
+        $content['rate_widget'] = _fsa_report_problem_rate_widget($rating_widget);
+      }
       $step_title = _fsa_report_problem_text('step_title_report_complete');
       $current_step = $step_count;
       // Clear the submission data
