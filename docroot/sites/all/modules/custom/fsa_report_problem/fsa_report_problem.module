@@ -822,6 +822,13 @@ function fsa_report_problem_get_google_results($name, $location = '', $user_loca
 
   // Build query parameters
   $query = "$name $location";
+  // Add a suffix to the search query. This comes from an API setting that can
+  // be amended on the API configuration page for this module in Drupal. Adding
+  // 'UK' to the search results helps to restrict results to UK-based businesses
+  $query_suffix = _fsa_report_problem_api_setting('google_places', 'query_suffix');
+  if (!empty($query_suffix)) {
+    $query .= " $query_suffix";
+  }
   $options = array(
     'query' => array(
       'key' => $api_key,
@@ -2937,6 +2944,11 @@ function _fsa_report_problem_api_settings($delta = NULL) {
       'endpoint' => array(
         'title' => t('API endpoint'),
         'default_value' => 'https://maps.googleapis.com/maps/api/place/textsearch/json',
+      ),
+      'query_suffix' => array(
+        'title' => t('Query suffix'),
+        'default_value' => 'UK',
+        'description' => t('Enter any terms you wish to add automatcially to Google Places search queries to help restrict search results, eg \'UK\''),
       ),
       'delay' => array(
         'title' => t('Time between requests'),

@@ -1768,10 +1768,12 @@ function fsa_report_problem_api_admin_form($form, &$form_state) {
       $variable_name = 'fsa_report_problem_' . $api . '_api_' . $key;
       $field_type = !empty($properties['type']) ? $properties['type'] : 'textfield';
       $field_title = !empty($properties['title']) ? $properties['title'] : $key;
+      $description = !empty($properties['description']) ? $properties['description'] : NULL;
       $options = !empty($properties['options']) ? $properties['options'] : NULL;
       $form['global_apis']["${api}_settings"][$variable_name] = array(
         '#type' => $field_type,
         '#title' => $field_title,
+        '#description' => $description,
         '#default_value' => _fsa_report_problem_api_setting($api, $key, NULL),
       );
       if (!empty($options)) {
@@ -1808,10 +1810,12 @@ function fsa_report_problem_api_admin_form($form, &$form_state) {
         $variable_name = 'fsa_report_problem_' . "${delta}_" . $machine_name . '_api_' . $key;
         $field_type = !empty($properties['type']) ? $properties['type'] : 'textfield';
         $field_title = !empty($properties['title']) ? $properties['title'] : $key;
+        $description = !empty($properties['description']) ? $properties['description'] : NULL;
         $options = !empty($properties['options']) ? $properties['options'] : NULL;
         $form['apis'][$delta . '_container'][$delta . '_' . $machine_name][$variable_name] = array(
           '#type' => $field_type,
           '#title' => $field_title,
+          '#description' => $description,
           '#default_value' => _fsa_report_problem_api_setting($machine_name, $key, $delta)
         );
       }
