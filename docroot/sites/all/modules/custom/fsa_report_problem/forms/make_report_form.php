@@ -23,6 +23,9 @@
  */
 function fsa_report_problem_make_report_form($form, &$form_state, $manual = FALSE) {
 
+  // Set a form value for whether or not this is a manual report
+  $form['#manual'] = $manual;
+
   // Get the submission details
   $submission = _fsa_report_problem_get_submission();
 
