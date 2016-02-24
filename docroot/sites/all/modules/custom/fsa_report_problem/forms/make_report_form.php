@@ -142,7 +142,7 @@ function fsa_report_problem_make_report_form($form, &$form_state, $manual = FALS
 function fsa_report_problem_make_report_form_submit($form, &$form_state) {
 
   // We want this form to redirect to the Report complete page
-  $form_state['redirect'] = _fsa_report_problem_get_start_path(NULL, 'complete');
+  $form_state['redirect'] = !empty($form['#manual']) ? _fsa_report_problem_get_start_path(NULL, 'complete/manual') : _fsa_report_problem_get_start_path(NULL, 'complete');
 
   // Get the submission data from the CTools object cache
   $submission = _fsa_report_problem_get_submission();
