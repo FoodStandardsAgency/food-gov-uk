@@ -4149,6 +4149,7 @@ function _fsa_report_problem_block_content__report_problem_form($delta = '') {
       break;
 
     // Step 4: Report complete
+    case 'complete/manual':
     case 'complete':
       module_load_include('php', 'fsa_report_problem', 'forms/report_complete_form');
       $content = drupal_get_form('fsa_report_problem_report_complete_form');
