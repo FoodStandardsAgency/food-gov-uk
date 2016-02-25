@@ -1289,12 +1289,19 @@ function fsa_report_problem_mail($key, &$message, $params) {
         $message['body'][] = t('Dear Sir or Madam');
       }
 
-      $message['body'][] = token_replace($message_details['message'], array('report' => $params['report']));
+      // Create a local authority object and get the contact statement
+      $local_authority = (object) array(
+        'contact_statement' => !empty($params['report']->local_authority_email) ? strip_tags(_fsa_report_problem_text('contact_local_authority', array('report' => $params['report']))) : NULL,
+      );
 
-      if (!empty($params['report']->local_authority_email)) {
-        $contact = _fsa_report_problem_text('contact_local_authority', array('report' => $params['report']));
-        $message['body'][] = "\r\n\r\n" . $contact['value'];
-      }
+      $message_body = token_replace($message_details['message'], array('report' => $params['report'], 'local_authority' => $local_authority));
+      // Normalise the line breaks by changing all to Linux types
+      $message_body = preg_replace("/\r\n?/", "\n", $message_body);
+      // Replace any examples of more than two line breaks with exactly two
+      $message_body = preg_replace("/\n{2,}/", "\n\n", $message_body);
+
+      $message['body'][] = $message_body;
+
       break;
   }
 }
