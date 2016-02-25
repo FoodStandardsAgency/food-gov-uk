@@ -1263,7 +1263,7 @@ function fsa_report_problem_mail($key, &$message, $params) {
       //$message['subject'] .= !empty($params['report']->business_name) ? ' - ' . $params['report']->business_name : '';
       //$message['body'][] = drupal_render($message_body);
 
-      if (FSA_REPORT_PROBLEM_STATUS > FSA_REPORT_PROBLEM_STATUS_PRODUCTION) {
+      if (!empty($message_details['include_dev_message'])) {
         $status_message = _fsa_report_problem_text('email_development_notice');
         if (!empty($status_message['value'])) {
           $message['body'][] = $status_message['value'];
