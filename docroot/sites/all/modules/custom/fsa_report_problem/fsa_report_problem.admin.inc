@@ -755,9 +755,10 @@ function fsa_food_report_email_form($form, &$form_state) {
     $emails[$key]['sender_email'] = !empty($emails[$key]['sender_email']) ? $emails[$key]['sender_email'] : '';
     $item['sender_email'] = variable_get("fsa_report_problem_email_${key}_sender_email", $emails[$key]['sender_email']);
 
-    if (!empty($item['sender_email'])) {
     $emails[$key]['reply_to_email'] = !empty($emails[$key]['reply_to_email']) ? $emails[$key]['reply_to_email'] : '';
     $item['reply_to_email'] = variable_get("fsa_report_problem_email_${key}_reply_to_email", $emails[$key]['reply_to_email']);
+
+    if (isset($item['sender_email'])) {
       $form['email_text']["fsa_report_problem_email_${key}_container"]["fsa_report_problem_email_${key}_sender_email"] = array(
         '#type' => 'textfield',
         '#default_value' => $item['sender_email'],
