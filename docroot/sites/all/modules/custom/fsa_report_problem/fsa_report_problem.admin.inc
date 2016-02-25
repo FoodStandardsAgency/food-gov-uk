@@ -763,6 +763,14 @@ function fsa_food_report_email_form($form, &$form_state) {
       );
     }
 
+    if (isset($item['reply_to_email'])) {
+      $form['email_text']["fsa_report_problem_email_${key}_container"]["fsa_report_problem_email_${key}_reply_to_email"] = array(
+        '#type' => 'textfield',
+        '#default_value' => $item['reply_to_email'],
+        '#title' => t('Reply to email address'),
+        '#description' => t('This is the email address to which replies and bouncebacks will be sent'),
+      );
+    }
     $item['message'] = variable_get("fsa_report_problem_email_${key}_message", $emails[$key]['message']);
 
     if (!empty($item['message'])) {
