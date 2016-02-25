@@ -773,6 +773,14 @@ function fsa_food_report_email_form($form, &$form_state) {
         '#description' => t('This is the email address to which replies and bouncebacks will be sent'),
       );
     }
+
+     $form['email_text']["fsa_report_problem_email_${key}_container"]["fsa_report_problem_email_${key}_include_dev_message"] = array(
+       '#type' => 'checkbox',
+       '#title' => t('Include development message'),
+       '#description' => t('If this box is ticked, a message stating that this service is in development will be added to this email. You can edit this message via the Edit text tab.'),
+       '#default_value' => variable_get("fsa_report_problem_email_${key}_include_dev_message", FALSE),
+      );
+
     $item['message'] = variable_get("fsa_report_problem_email_${key}_message", $emails[$key]['message']);
 
     if (!empty($item['message'])) {
