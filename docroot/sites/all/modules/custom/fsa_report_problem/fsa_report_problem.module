@@ -2123,6 +2123,7 @@ function _fsa_report_problem_email($key = NULL) {
     $email['sender_email'] = variable_get("${variable_name}_sender_email", !empty($email['default_recipient']) ? $email['default_recipient'] : NULL);
     $email['default_recipient'] = variable_get("${variable_name}_default_recipient", !empty($email['default_recipient']) ? $email['default_recipient'] : NULL);
     $email['reply_to_email'] = variable_get("${variable_name}_reply_to_email", !empty($email['reply_to_email']) ? $email['reply_to_email'] : NULL);
+    $email['include_dev_message'] = variable_get("${variable_name}_include_dev_message", FALSE);
     return $email;
   }
   else {
