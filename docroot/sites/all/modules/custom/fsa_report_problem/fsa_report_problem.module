@@ -1296,6 +1296,13 @@ function fsa_report_problem_mail($key, &$message, $params) {
         $message['headers']['Return-Path'] = $message_details['reply_to_email'];
       }
 
+      if (!empty($message_details['include_dev_message'])) {
+        $status_message = _fsa_report_problem_text('email_development_notice');
+        if (!empty($status_message['value'])) {
+          $message['body'][] = $status_message['value'];
+        }
+      }
+
       if (!empty($params['report']->reporter_name)) {
         $message['body'][] = t('Dear @reporter_name', array('@reporter_name' => $params['report']->reporter_name));
       }
