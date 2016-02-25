@@ -1930,6 +1930,9 @@ function fsa_report_problem_tokens($type, $tokens, array $data = array(), array 
 
     if (!empty($data['local_authority'])) {
       $local_authority = $data['local_authority'];
+      if (!is_object($local_authority)) {
+        $local_authority = new stdClass();
+      }
     }
     elseif (!empty($data['report'])) {
       $report = $data['report'];
@@ -1949,6 +1952,14 @@ function fsa_report_problem_tokens($type, $tokens, array $data = array(), array 
         case 'email':
           if (!empty($local_authority->email)) {
             $replacements[$original] = $local_authority->email;
+          }
+          break;
+        case 'contact_statement':
+          if (!empty($local_authority->contact_statement)) {
+            $replacements[$original] = $local_authority->contact_statement;
+          }
+          else {
+            $replacements[$original] = '';
           }
           break;
       }
