@@ -1248,7 +1248,14 @@ function fsa_report_problem_mail($key, &$message, $params) {
       $message['from'] = !empty($message_details['sender_email']) ? $message_details['sender_email'] : $message['from'];
       $message['headers']['From'] = $message['from'];
 
-      $message['subject'] = FSA_REPORT_PROBLEM_STATUS > FSA_REPORT_PROBLEM_STATUS_PRODUCTION ? 'TEST :: ' : '';
+      // If we have a reply-to header for this email, use it
+      if (!empty($message_details['reply_to_email'])) {
+        $message['headers']['Reply-to'] = $message_details['reply_to_email'];
+        // Also set Return-Path so that bouncebacks go here as well
+        $message['headers']['Return-Path'] = $message_details['reply_to_email'];
+      }
+
+      $message['subject'] = '';
       $message['subject'] .= empty($report->local_authority_email) ? t('ACTION REQUIRED:') . ' ' : '';
 
       $message['subject'] .= token_replace($message_details['subject'], array('report' => $params['report']));
@@ -1256,7 +1263,7 @@ function fsa_report_problem_mail($key, &$message, $params) {
       //$message['subject'] .= !empty($params['report']->business_name) ? ' - ' . $params['report']->business_name : '';
       //$message['body'][] = drupal_render($message_body);
 
-      if (FSA_REPORT_PROBLEM_STATUS > FSA_REPORT_PROBLEM_STATUS_PRODUCTION) {
+      if (!empty($message_details['include_dev_message'])) {
         $status_message = _fsa_report_problem_text('email_development_notice');
         if (!empty($status_message['value'])) {
           $message['body'][] = $status_message['value'];
@@ -1281,6 +1288,20 @@ function fsa_report_problem_mail($key, &$message, $params) {
       //$message['body'][] = drupal_render($message_body);
       $message_details = _fsa_report_problem_email('acknowledgement');
       $message['subject'] .= token_replace($message_details['subject'], array('report' => $params['report']));
+
+      // If we have a reply-to header for this email, use it
+      if (!empty($message_details['reply_to_email'])) {
+        $message['headers']['Reply-to'] = $message_details['reply_to_email'];
+        // Also set Return-Path so that bouncebacks go here as well
+        $message['headers']['Return-Path'] = $message_details['reply_to_email'];
+      }
+
+      if (!empty($message_details['include_dev_message'])) {
+        $status_message = _fsa_report_problem_text('email_development_notice');
+        if (!empty($status_message['value'])) {
+          $message['body'][] = $status_message['value'];
+        }
+      }
 
       if (!empty($params['report']->reporter_name)) {
         $message['body'][] = t('Dear @reporter_name', array('@reporter_name' => $params['report']->reporter_name));
@@ -2081,6 +2102,7 @@ function _fsa_report_problem_email($key = NULL) {
     'default_recipient' => 'test@test.com',
     'title' => t('Problem report email'),
     'sender_email' => 'reports@food.gov.uk', // @todo update this when we know what it should be
+    'reply_to_email' => 'digital.communications@foodstandards.gsi.gov.uk',
     'description' => t('This is the email that will be sent to the local authority to notify them of a problem. If no email address is available for the local authority, then an email will be sent instead to the default recipient email address.'),
   );
 
@@ -2090,6 +2112,7 @@ function _fsa_report_problem_email($key = NULL) {
     'recipient' => '',
     'title' => t('Acknowledgement email'),
     'sender_email' => 'reports@food.gov.uk', // @todo update this when we know what it should be
+    'reply_to_email' => 'digital.communications@foodstandards.gsi.gov.uk',
     'description' => t('This is the acknowledgement email that will be sent to the user on submission of the report if he or she has included his/her email address.'),
   );
 
@@ -2106,6 +2129,8 @@ function _fsa_report_problem_email($key = NULL) {
     $email['recipient'] = variable_get("${variable_name}_recipient", $email['recipient']);
     $email['sender_email'] = variable_get("${variable_name}_sender_email", !empty($email['default_recipient']) ? $email['default_recipient'] : NULL);
     $email['default_recipient'] = variable_get("${variable_name}_default_recipient", !empty($email['default_recipient']) ? $email['default_recipient'] : NULL);
+    $email['reply_to_email'] = variable_get("${variable_name}_reply_to_email", !empty($email['reply_to_email']) ? $email['reply_to_email'] : NULL);
+    $email['include_dev_message'] = variable_get("${variable_name}_include_dev_message", FALSE);
     return $email;
   }
   else {

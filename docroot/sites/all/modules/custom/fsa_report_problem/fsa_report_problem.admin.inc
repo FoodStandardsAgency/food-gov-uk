@@ -755,13 +755,33 @@ function fsa_food_report_email_form($form, &$form_state) {
     $emails[$key]['sender_email'] = !empty($emails[$key]['sender_email']) ? $emails[$key]['sender_email'] : '';
     $item['sender_email'] = variable_get("fsa_report_problem_email_${key}_sender_email", $emails[$key]['sender_email']);
 
-    if (!empty($item['sender_email'])) {
+    $emails[$key]['reply_to_email'] = !empty($emails[$key]['reply_to_email']) ? $emails[$key]['reply_to_email'] : '';
+    $item['reply_to_email'] = variable_get("fsa_report_problem_email_${key}_reply_to_email", $emails[$key]['reply_to_email']);
+
+    if (isset($item['sender_email'])) {
       $form['email_text']["fsa_report_problem_email_${key}_container"]["fsa_report_problem_email_${key}_sender_email"] = array(
         '#type' => 'textfield',
         '#default_value' => $item['sender_email'],
         '#title' => t('Sender email address'),
+        '#description' => t('This is the email address that will appear in the recipient\'s From column.'),
       );
     }
+
+    if (isset($item['reply_to_email'])) {
+      $form['email_text']["fsa_report_problem_email_${key}_container"]["fsa_report_problem_email_${key}_reply_to_email"] = array(
+        '#type' => 'textfield',
+        '#default_value' => $item['reply_to_email'],
+        '#title' => t('Reply to email address'),
+        '#description' => t('This is the email address to which replies and bouncebacks will be sent'),
+      );
+    }
+
+     $form['email_text']["fsa_report_problem_email_${key}_container"]["fsa_report_problem_email_${key}_include_dev_message"] = array(
+       '#type' => 'checkbox',
+       '#title' => t('Include development message'),
+       '#description' => t('If this box is ticked, a message stating that this service is in development will be added to this email. You can edit this message via the Edit text tab.'),
+       '#default_value' => variable_get("fsa_report_problem_email_${key}_include_dev_message", FALSE),
+      );
 
     $item['message'] = variable_get("fsa_report_problem_email_${key}_message", $emails[$key]['message']);
 
