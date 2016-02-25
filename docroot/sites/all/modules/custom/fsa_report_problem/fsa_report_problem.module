@@ -1248,7 +1248,6 @@ function fsa_report_problem_mail($key, &$message, $params) {
       $message['from'] = !empty($message_details['sender_email']) ? $message_details['sender_email'] : $message['from'];
       $message['headers']['From'] = $message['from'];
 
-      $message['subject'] = FSA_REPORT_PROBLEM_STATUS > FSA_REPORT_PROBLEM_STATUS_PRODUCTION ? 'TEST :: ' : '';
       // If we have a reply-to header for this email, use it
       if (!empty($message_details['reply_to_email'])) {
         $message['headers']['Reply-to'] = $message_details['reply_to_email'];
@@ -1256,6 +1255,7 @@ function fsa_report_problem_mail($key, &$message, $params) {
         $message['headers']['Return-Path'] = $message_details['reply_to_email'];
       }
 
+      $message['subject'] = '';
       $message['subject'] .= empty($report->local_authority_email) ? t('ACTION REQUIRED:') . ' ' : '';
 
       $message['subject'] .= token_replace($message_details['subject'], array('report' => $params['report']));
