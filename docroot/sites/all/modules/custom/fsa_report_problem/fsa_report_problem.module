@@ -1249,6 +1249,13 @@ function fsa_report_problem_mail($key, &$message, $params) {
       $message['headers']['From'] = $message['from'];
 
       $message['subject'] = FSA_REPORT_PROBLEM_STATUS > FSA_REPORT_PROBLEM_STATUS_PRODUCTION ? 'TEST :: ' : '';
+      // If we have a reply-to header for this email, use it
+      if (!empty($message_details['reply_to_email'])) {
+        $message['headers']['Reply-to'] = $message_details['reply_to_email'];
+        // Also set Return-Path so that bouncebacks go here as well
+        $message['headers']['Return-Path'] = $message_details['reply_to_email'];
+      }
+
       $message['subject'] .= empty($report->local_authority_email) ? t('ACTION REQUIRED:') . ' ' : '';
 
       $message['subject'] .= token_replace($message_details['subject'], array('report' => $params['report']));
@@ -1281,6 +1288,13 @@ function fsa_report_problem_mail($key, &$message, $params) {
       //$message['body'][] = drupal_render($message_body);
       $message_details = _fsa_report_problem_email('acknowledgement');
       $message['subject'] .= token_replace($message_details['subject'], array('report' => $params['report']));
+
+      // If we have a reply-to header for this email, use it
+      if (!empty($message_details['reply_to_email'])) {
+        $message['headers']['Reply-to'] = $message_details['reply_to_email'];
+        // Also set Return-Path so that bouncebacks go here as well
+        $message['headers']['Return-Path'] = $message_details['reply_to_email'];
+      }
 
       if (!empty($params['report']->reporter_name)) {
         $message['body'][] = t('Dear @reporter_name', array('@reporter_name' => $params['report']->reporter_name));
