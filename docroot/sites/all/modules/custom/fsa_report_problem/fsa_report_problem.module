@@ -2081,6 +2081,7 @@ function _fsa_report_problem_email($key = NULL) {
     'default_recipient' => 'test@test.com',
     'title' => t('Problem report email'),
     'sender_email' => 'reports@food.gov.uk', // @todo update this when we know what it should be
+    'reply_to_email' => 'digital.communications@foodstandards.gsi.gov.uk',
     'description' => t('This is the email that will be sent to the local authority to notify them of a problem. If no email address is available for the local authority, then an email will be sent instead to the default recipient email address.'),
   );
 
@@ -2090,6 +2091,7 @@ function _fsa_report_problem_email($key = NULL) {
     'recipient' => '',
     'title' => t('Acknowledgement email'),
     'sender_email' => 'reports@food.gov.uk', // @todo update this when we know what it should be
+    'reply_to_email' => 'digital.communications@foodstandards.gsi.gov.uk',
     'description' => t('This is the acknowledgement email that will be sent to the user on submission of the report if he or she has included his/her email address.'),
   );
 
@@ -2106,6 +2108,7 @@ function _fsa_report_problem_email($key = NULL) {
     $email['recipient'] = variable_get("${variable_name}_recipient", $email['recipient']);
     $email['sender_email'] = variable_get("${variable_name}_sender_email", !empty($email['default_recipient']) ? $email['default_recipient'] : NULL);
     $email['default_recipient'] = variable_get("${variable_name}_default_recipient", !empty($email['default_recipient']) ? $email['default_recipient'] : NULL);
+    $email['reply_to_email'] = variable_get("${variable_name}_reply_to_email", !empty($email['reply_to_email']) ? $email['reply_to_email'] : NULL);
     return $email;
   }
   else {
