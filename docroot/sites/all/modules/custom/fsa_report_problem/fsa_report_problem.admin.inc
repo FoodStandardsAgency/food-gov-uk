@@ -762,6 +762,7 @@ function fsa_food_report_email_form($form, &$form_state) {
         '#type' => 'textfield',
         '#default_value' => $item['sender_email'],
         '#title' => t('Sender email address'),
+        '#description' => t('This is the email address that will appear in the recipient\'s From column.'),
       );
     }
 
