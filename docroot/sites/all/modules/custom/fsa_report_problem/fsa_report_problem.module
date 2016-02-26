@@ -4378,6 +4378,7 @@ function _fsa_report_problem_text_categories() {
     FSA_REPORT_PROBLEM_TEXT_CATEGORY_STEP_TITLE => t('Step titles'),
     FSA_REPORT_PROBLEM_TEXT_CATEGORY_SERVICE_STATUS => t('Service status'),
     FSA_REPORT_PROBLEM_TEXT_CATEGORY_GENERAL => t('General'),
+    FSA_REPORT_PROBLEM_TEXT_CATEGORY_FIELD_LABEL => t('Field labels'),
   );
   return $categories;
 }
