@@ -1725,6 +1725,20 @@ function _fsa_report_problem_text() {
       'format' => 'plain_text',
       'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_STEP_TITLE,
     ),
+    'field_placeholder_postcode' => array(
+      'title' => t('Field placeholder - postcode'),
+      'description' => t('Placeholder text for the postcode lookup field'),
+      'default' => t('Enter a full postcode'),
+      'format' => 'plain_text',
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_FIELD_LABEL,
+    ),
+    'field_description_postcode' => array(
+      'title' => t('Field description - postcode'),
+      'description' => t('Description text for the postcode lookup field - appears below the field'),
+      'default' => t('Enter a full postcode to find a local food safety team'),
+      'format' => 'plain_text',
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_FIELD_LABEL,
+    ),
   );
 
   // Get additional service-specific text entries
@@ -1858,6 +1872,20 @@ function _fsa_report_problem_text__find_food_safety_team() {
       'default' => t('Local authority details'),
       'format' => 'plain_text',
       'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_STEP_TITLE,
+    ),
+    'field_placeholder_postcode' => array(
+      'title' => t('Field placeholder - postcode'),
+      'description' => t('Placeholder text for the postcode lookup field'),
+      'default' => t('Enter a full postcode'),
+      'format' => 'plain_text',
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_FIELD_LABEL,
+    ),
+    'field_description_postcode' => array(
+      'title' => t('Field description - postcode'),
+      'description' => t('Description text for the postcode lookup field - appears below the field'),
+      'default' => t('Enter a full postcode to find a local food safety team'),
+      'format' => 'plain_text',
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_FIELD_LABEL,
     ),
   );
 
