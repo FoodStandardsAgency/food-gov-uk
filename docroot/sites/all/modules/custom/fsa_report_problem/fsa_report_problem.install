@@ -497,3 +497,10 @@ function fsa_report_problem_update_7011() {
 function fsa_report_problem_update_7012() {
   _fsa_report_problem_variable_setup();
 }
+
+/**
+ * Makes new language entries translatable
+ */
+function fsa_report_problem_update_7013() {
+  _fsa_report_problem_variable_setup();
+}

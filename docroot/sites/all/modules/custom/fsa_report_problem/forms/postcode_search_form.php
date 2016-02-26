@@ -28,11 +28,11 @@ function fsa_report_problem_postcode_search_form($form, &$form_state, $delta = N
     '#type' => 'textfield',
     '#title' => t('Postcode'),
     '#title_display' => 'invisible',
-    '#description' => t('Enter the full postcode of the business to search for its local authority.'),
+    '#description' => _fsa_report_problem_text('field_description_postcode', NULL, NULL, $delta)->getPlain(),
     '#required' => TRUE,
     '#maxlength' => 8,
     '#attributes' => array(
-      'placeholder' => t('Enter the full postcode of the business'),
+      'placeholder' => _fsa_report_problem_text('field_placeholder_postcode', NULL, NULL, $delta)->getPlain(),
     ),
     // Postcode autocomplete - disabled for now
     // @todo Enable/disable via the admin interface
@@ -62,6 +62,9 @@ function fsa_report_problem_postcode_search_form($form, &$form_state, $delta = N
  * Validation function for postcode search form
  */
 function fsa_report_problem_postcode_search_form_validate($form, &$form_state) {
+
+  // Get the block delta
+  $delta = !empty($form['#delta']) ? $form['#delta'] : NULL;
 
   // Get the postcode from the form_state
   $postcode = isset($form_state['values']['postcode']) ? $form_state['values']['postcode'] : NULL;

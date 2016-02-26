@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "POT-Creation-Date: 2016-02-23 17:18+0000\n"
-"PO-Revision-Date: 2016-02-23 17:29+0000\n"
+"PO-Revision-Date: 2016-02-25 14:34+0000\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Welsh <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=((n==1)?(0):((n==2)?(1):(((n!=8)&&(n!=11))?(2):3)));\n"
-"X-Generator: Poedit 1.8.7\n"
+"X-Generator: Poedit 1.8.6\n"
 
 #: fsa_report_problem.admin.inc:27;171;1277
 msgid "ID"
@@ -398,7 +398,7 @@ msgstr ""
 
 #: fsa_report_problem.admin.inc:1594;1595
 msgid "An error has occurred accessing MapIt. Please try again later."
-msgstr ""
+msgstr "Mae rhywbeth wedi mynd o'i le wrth geisio cael mynediad i MapIt. Rhowch gynnig arall arni mae o law."
 
 #: fsa_report_problem.admin.inc:1625
 msgid "No email address on file"
@@ -678,15 +678,15 @@ msgstr ""
 
 #: fsa_report_problem.module:351
 msgid "Search for local authority"
-msgstr ""
+msgstr "Dewch o hyd i awdurdod lleol"
 
 #: fsa_report_problem.module:357
 msgid "Find a food safety team"
-msgstr ""
+msgstr "Dewch o hyd i’ch tîm diogelwch bwyd"
 
 #: fsa_report_problem.module:430
 msgid "Sorry, we couldn't find any matching establishments."
-msgstr ""
+msgstr "Ymddiheuriadau, nid oes cofnod gennym o'r sefydliad hwn"
 
 #: fsa_report_problem.module:513
 msgid "External API"
@@ -694,23 +694,23 @@ msgstr ""
 
 #: fsa_report_problem.module:537
 msgid "Poor"
-msgstr ""
+msgstr "Gwael iawn"
 
 #: fsa_report_problem.module:538
 msgid "Fair"
-msgstr ""
+msgstr "Gwael"
 
 #: fsa_report_problem.module:539
 msgid "Good"
-msgstr ""
+msgstr "Boddhaol"
 
 #: fsa_report_problem.module:540
 msgid "Very good"
-msgstr ""
+msgstr "Da"
 
 #: fsa_report_problem.module:541
 msgid "Excellent"
-msgstr "Ardderchog"
+msgstr "Da iawn"
 
 #: fsa_report_problem.module:618
 msgid "Problem report"
@@ -854,7 +854,7 @@ msgstr ""
 
 #: fsa_report_problem.module:1595
 msgid "Incomplete postcode error"
-msgstr ""
+msgstr "Nid yw'r cod post yn gyflawn"
 
 #: fsa_report_problem.module:1596
 msgid "Error message displayed when an incomplete postcode is entered into the postcode search"
@@ -862,11 +862,11 @@ msgstr ""
 
 #: fsa_report_problem.module:1598
 msgid "Sorry, the postcode you entered does not appear to be valid. Please try again, making sure you enter the full postcode."
-msgstr ""
+msgstr "Ymddiheuriadau, mae'n ymddangos nad yw'r cod post yn ddilys. Rhowch gynnig arall arni, gan sicrhau bod y cod post yn llawn gennych."
 
 #: fsa_report_problem.module:1602
 msgid "Invalid postcode error"
-msgstr ""
+msgstr "Nid yw'r cod post yn ddilys"
 
 #: fsa_report_problem.module:1603
 msgid "Error message displayed when a user searches for an invalid postcode"
@@ -875,7 +875,7 @@ msgstr ""
 #: fsa_report_problem.module:1605 forms/postcode_search_form.php:133
 #: includes/form.inc:589
 msgid "Sorry, the postcode you entered does not appear to be valid. Please try again."
-msgstr ""
+msgstr "Ymddiheuriadau, mae'n ymddangos nad yw'r cod post yn ddilys. Rhowch gynnig arall arni"
 
 #: fsa_report_problem.module:1609
 msgid "Local authority details intro"
@@ -1035,7 +1035,7 @@ msgstr ""
 
 #: fsa_report_problem.module:1876
 msgid "The name of the local authority"
-msgstr ""
+msgstr "Enw'r awdurdod lleol"
 
 #: fsa_report_problem.module:1881
 msgid "The email address of the local authority as held on the FHRS database"
@@ -1051,19 +1051,19 @@ msgstr ""
 
 #: fsa_report_problem.module:1890
 msgid "Establishment name"
-msgstr ""
+msgstr "Enw'r sefydliad"
 
 #: fsa_report_problem.module:1891
 msgid "The name of the food establishment where the problem was experienced"
-msgstr ""
+msgstr "Enw'r sefydliad bwyd lle digwyddodd y broblem"
 
 #: fsa_report_problem.module:1895
 msgid "Establishment postcode"
-msgstr ""
+msgstr "Cod post y sefydliad"
 
 #: fsa_report_problem.module:1896
 msgid "The postcode of the food establishment where the problem was experienced"
-msgstr ""
+msgstr "Cod post y sefydliad bwyd lle digwyddodd y broblem"
 
 #: fsa_report_problem.module:1993
 msgid "The reporter withheld his/her details."
@@ -1091,11 +1091,11 @@ msgstr ""
 
 #: fsa_report_problem.module:2070
 msgid "Thank you for your report"
-msgstr ""
+msgstr "Diolch am eich adroddiad"
 
 #: fsa_report_problem.module:2071
 msgid "Thank you for reporting a food problem at [food_report:business_name], [food_report:business_address]."
-msgstr ""
+msgstr "Diolch am roi gwybod am broblem fwyd yn [food_report:business_name], [food_report:business_address]."
 
 #: fsa_report_problem.module:2073
 msgid "Acknowledgement email"
@@ -1195,11 +1195,11 @@ msgstr ""
 
 #: fsa_report_problem.module:3841
 msgid "Unfortunately an error has ocurred. Please try again later."
-msgstr ""
+msgstr "Yn anffodus, mae rhywbeth wedi mynd o'i le. Rhowch gynnig arall arni maes o law."
 
 #: fsa_report_problem.module:3929;4030
 msgid "Sorry, an error seems to have happened. Please try again."
-msgstr ""
+msgstr "Ymddiheuriadau, mae rhywbeth wedi mynd o'i le. Rhowch gynnig arall arni."
 
 #: fsa_report_problem.module:4326
 msgid "Error messages"
@@ -1251,7 +1251,7 @@ msgstr[3] ""
 
 #: fsa_report_problem.module:112
 msgid "Food problem reports"
-msgstr ""
+msgstr "Adroddiadau problemau bwyd"
 
 #: fsa_report_problem.module:122
 msgid "View detail for this food problem report"
@@ -1279,7 +1279,7 @@ msgstr ""
 
 #: fsa_report_problem.module:156
 msgid "Food problem reporting"
-msgstr ""
+msgstr "Rhoi gwybod am problem fwyd"
 
 #: fsa_report_problem.module:165
 msgid "Configuration"
@@ -1395,7 +1395,7 @@ msgstr ""
 
 #: forms/business_lookup_form.php:96 includes/form.inc:265
 msgid "Business name and location"
-msgstr ""
+msgstr "Enw a lleoliad y busnes"
 
 #: forms/business_lookup_form.php:98 includes/form.inc:267
 msgid "Please enter the name and location of the business."
@@ -1412,11 +1412,11 @@ msgstr "Cyflwyno"
 
 #: forms/business_lookup_form.php:171;206 includes/form.inc:726;755
 msgid "We're sorry, but an error occurred looking up the business. Please try again later."
-msgstr ""
+msgstr "Ymddiheuriuadau, mae rhywbeth wedi mynd o'i le wrth geisio dod o hyd i'r busnes. Rhowch gynnig arall arni maes o law."
 
 #: forms/business_lookup_form.php:198 includes/form.inc:747
 msgid "Sorry, we could not find any matching businesses. Please try again."
-msgstr ""
+msgstr "Ymddiheuriadau, nid oes cofnod gennym o'r sefydliad hwn. Rhowch gynnig arall arni."
 
 #: forms/business_results_form.php:49 includes/form.inc:337
 msgid "Your search for %search_term found @result_count businesses."
@@ -1444,47 +1444,47 @@ msgstr ""
 
 #: forms/make_report_form.php:42 includes/form.inc:424
 msgid "Name of the business"
-msgstr ""
+msgstr "Enw’r busnes"
 
 #: forms/make_report_form.php:52 includes/form.inc:434
 msgid "Business address"
-msgstr ""
+msgstr "Cyfeiriad y busnes"
 
 #: forms/make_report_form.php:64 includes/form.inc:444
 msgid "Please provide the postcode of the business if you know it. This will help us to identify the relevant local authority to investigate the problem."
-msgstr ""
+msgstr "Rhowch god post y busnes os yn bosibl. Bydd hyn yn ein helpu i gysylltu â’r awdurdod lleol perthnasol a fydd yn archwilio’r broblem."
 
 #: forms/make_report_form.php:87 includes/form.inc:461
 msgid "Your name (optional)"
-msgstr ""
+msgstr "Eich enw (dewisol)"
 
 #: forms/make_report_form.php:88 includes/form.inc:462
 msgid "The local authority would only use this when contacting you about your issue."
-msgstr ""
+msgstr "Dim ond wrth gysylltu â chi am eich problem y byddai’r awdurdod lleol yn defnyddio hwn"
 
 #: forms/make_report_form.php:93 includes/form.inc:467
 msgid "Your email address (optional)"
-msgstr ""
+msgstr "Eich cyfeiriad e-bost (dewisol)"
 
 #: forms/make_report_form.php:94 includes/form.inc:468
 msgid "This would only be used by the local authority to contact you about your issue."
-msgstr ""
+msgstr "Dim ond wrth gysylltu â chi am eich problem y byddai’r awdurdod lleol yn defnyddio hwn"
 
 #: forms/make_report_form.php:102 includes/form.inc:476
 msgid "Date and approximate time the food issue happened"
-msgstr ""
+msgstr "Dyddiad ac amser bras y digwyddodd y broblem hon"
 
 #: forms/make_report_form.php:113 includes/form.inc:487
 msgid "Details of the food issue"
-msgstr ""
+msgstr "Manylion y broblem"
 
 #: forms/make_report_form.php:114 includes/form.inc:488
 msgid "If you want to remain anonymous, make sure you don’t include anything that could identify you or any people you were with."
-msgstr ""
+msgstr "Os hoffech aros yn ddi-enw, peidiwch â chynnwys unrhyw fanylion a allai arwain at eich enwi chi neu’r bobl a oedd gyda chi"
 
 #: forms/make_report_form.php:122 includes/form.inc:496
 msgid "Submit report"
-msgstr ""
+msgstr "Cyflwyno'r addrodiad"
 
 #: forms/postcode_search_form.php:31 includes/form.inc:1080
 msgid "Enter the full postcode of the business to search for its local authority."
@@ -1500,7 +1500,7 @@ msgstr "Chwilio drwy enw'r busnes yn lle"
 
 #: forms/postcode_search_form.php:71 includes/form.inc:527
 msgid "Please enter a postcode"
-msgstr ""
+msgstr "Ysgrifennwch god post"
 
 #: forms/postcode_search_form.php:82 includes/form.inc:538
 msgid "Sorry, the postcode you entered appears to be invalid. Please try again, making sure you enter the full postcode."
@@ -1508,15 +1508,15 @@ msgstr ""
 
 #: forms/postcode_search_form.php:163 includes/form.inc:640
 msgid "No postcode was supplied. Please try again."
-msgstr ""
+msgstr "Nid oedd cod post wedi'i ddarparu gennych. Rhowch gynnig arall arni."
 
 #: forms/postcode_search_form.php:192 includes/form.inc:670
 msgid "No name"
-msgstr ""
+msgstr "No name"
 
 #: forms/report_complete_form.php:57
 msgid "A confirmation email has been sent to the email address you provided."
-msgstr ""
+msgstr "Rydym wedi anfon e-bost atoch chi"
 
 #: includes/form.inc:173
 msgid "Step @step of @steps"
@@ -1528,19 +1528,19 @@ msgstr ""
 
 #: includes/form.inc:942
 msgid "Please quote reference !reference in all correspondence."
-msgstr ""
+msgstr "Dylech ddefnyddio'r cyfeirnod !reference wrth gyfathrebu â ni pob tro."
 
 #: includes/form.inc:949
 msgid "A confirmation email has been sent to @reporter_email."
-msgstr ""
+msgstr "Rydym wedi anfon e-bost at @reporter_email."
 
 #: includes/form.inc:1017
 msgid "Sorry, we could not find a local authority"
-msgstr ""
+msgstr "Ymddiheuriadau, nid oedd yn bosibl dod o hyd i awdurdod lleol"
 
 #: js/circles.js:0
 msgid "Saving rating..."
-msgstr "Gan arbed ardrethu..."
+msgstr "Arbed eich dewis"
 
 #: theme/external-api-status.tpl.php:11
 msgid "Status"
