@@ -77,6 +77,11 @@ define('FSA_REPORT_PROBLEM_TEXT_CATEGORY_STEP_TITLE', 'step_title');
 define('FSA_REPORT_PROBLEM_TEXT_CATEGORY_SERVICE_STATUS', 'service_status');
 
 /**
+ * Text entry category - field label
+ */
+define('FSA_REPORT_PROBLEM_TEXT_CATEGORY_FIELD_LABEL', 'field_label');
+
+/**
  * Text entry category - general
  */
 define('FSA_REPORT_PROBLEM_TEXT_CATEGORY_GENERAL', 'general');
