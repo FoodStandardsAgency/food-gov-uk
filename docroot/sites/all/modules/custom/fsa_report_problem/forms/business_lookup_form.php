@@ -74,7 +74,7 @@ function fsa_report_problem_business_lookup_form($form, &$form_state, $next_stag
   if (!empty($form_state['no_businesses_found'])) {
     $form['no_results_message'] = array(
       '#type' => 'form_intro',
-      '#text' => _fsa_report_problem_text('no_matching_business'),
+      '#text' => _fsa_report_problem_text('no_matching_business', NULL, NULL, $delta),
       '#access' => FALSE,
     );
   }
@@ -195,7 +195,7 @@ function fsa_report_problem_business_lookup_form_submit($form, &$form_state) {
         // Get the business name - if available
         $business_name = !empty($form_state['values']['business_name']) ? $form_state['values']['business_name'] : '';
         // Get the error message
-        $error_message = empty($business_name) ? array('value' => t('Sorry, we could not find any matching businesses. Please try again.')) : _fsa_report_problem_text('no_matching_business', array('food_establishment' => array('name' => $business_name)));
+        $error_message = empty($business_name) ? array('value' => t('Sorry, we could not find any matching businesses. Please try again.')) : _fsa_report_problem_text('no_matching_business', NULL, array('food_establishment' => array('name' => $business_name)), $delta);
         // Display the message
         drupal_set_message(strip_tags($error_message['value'], '<em><i><a>'), 'error');
       }
