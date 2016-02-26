@@ -1618,6 +1618,10 @@ function _fsa_report_problem_text() {
       'title' => t('Postcode search form intro'),
       'description' => t('Intro text for the search for authority by postcode lookup form'),
     ),
+    'postcode_search_extra' => array(
+      'title' => t('Postcode search additional info'),
+      'description' => t('This text displays beneath the form on the postcode lookup page.'),
+    ),
     'postcode_not_found' => array(
       'title' => t('Postcode not found error'),
       'description' => t('Error text displayed when a postcode search returns no results'),
@@ -1840,6 +1844,10 @@ function _fsa_report_problem_text__find_food_safety_team() {
     'title' => t('Postcode search form intro'),
     'description' => t('Intro text for the search for authority by postcode lookup form as used in the Find a food safety officer service'),
     'format' => 'full_html',
+    ),
+    'postcode_search_extra' => array(
+      'title' => t('Postcode search additional info'),
+      'description' => t('This text displays beneath the form on the postcode lookup page.'),
     ),
     'service_status_alpha' => array(
       'title' => t('Service status - Alpha'),
