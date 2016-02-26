@@ -379,7 +379,7 @@ function fsa_report_problem_block_view($delta = '') {
   // allow it to function here by setting the block delta to
   // 'local_authority_search' if the requested delta is 'report_problem_form'
   // and data capture is turned off.
-  if (!_fsa_report_problem_capture_user_data() && $delta != 'report_problem_form') {
+  if (!_fsa_report_problem_capture_user_data() && $delta == 'report_problem_form') {
     $delta = 'local_authority_search';
   }
 
