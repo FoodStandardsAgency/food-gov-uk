@@ -1724,26 +1724,28 @@ function _fsa_report_problem_text() {
 
   // Get additional service-specific text entries
   $services = fsa_report_problem_block_info();
-  // Empty array to hold additional text entries temporarily before merging
-  $additional_text = array();
-  foreach ($services as $service_name => $details) {
-    $function = __FUNCTION__ . '__' . $service_name;
-    if (is_callable($function)) {
-      $additional_text = $function();
-      foreach($additional_text as $k => $value) {
-        // Avoid collisions by prepending service name to key
-        $additional_text["${service_name}_$k"] = $value;
-        // Set the category to default if not already set
-        if (empty($additional_text["${service_name}_$k"]['category'])) {
-          $additional_text["${service_name}_$k"]['category'] = FSA_REPORT_PROBLEM_TEXT_CATEGORY_GENERAL;
+  if ($service != 'default') {
+    // Empty array to hold additional text entries temporarily before merging
+    $additional_text = array();
+    foreach ($services as $service_name => $details) {
+      $function = __FUNCTION__ . '__' . $service_name;
+      if (is_callable($function)) {
+        $additional_text = $function();
+        foreach($additional_text as $k => $value) {
+          // Avoid collisions by prepending service name to key
+          $additional_text["${service_name}_$k"] = $value;
+          // Set the category to default if not already set
+          if (empty($additional_text["${service_name}_$k"]['category'])) {
+            $additional_text["${service_name}_$k"]['category'] = FSA_REPORT_PROBLEM_TEXT_CATEGORY_GENERAL;
+          }
+          // Unset original key
+          unset($additional_text[$k]);
         }
-        // Unset original key
-        unset($additional_text[$k]);
+        // Add the new text entries to the original text
+        $text += $additional_text;
+        // Unset the additional text entries array
+        unset($additional_text);
       }
-      // Add the new text entries to the original text
-      $text += $additional_text;
-      // Unset the additional text entries array
-      unset($additional_text);
     }
   }
 
