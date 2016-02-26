@@ -4101,7 +4101,22 @@ function _fsa_report_problem_block_content__find_food_safety_team($delta = '') {
     // Step 1: Postcode search
     default:
       module_load_include('php', 'fsa_report_problem', 'forms/postcode_search_form');
-      $content = drupal_get_form('fsa_report_problem_postcode_search_form', $delta, $path);
+      // Get the postcode search form
+      $content['form'] = drupal_get_form('fsa_report_problem_postcode_search_form', $delta, $path);
+      // Get the postcode search additional text
+      $content['extra'] = array(
+        '#type' => 'container',
+        '#attributes' => array(
+          'class' => array(
+            'form-intro',
+            'postcode-search-extra',
+          ),
+        ),
+        'text' => array(
+          '#markup' => _fsa_report_problem_text('postcode_search_extra', NULL, NULL, $delta),
+        ),
+      );
+
       break;
 
     // Step 2: Local authority details page
