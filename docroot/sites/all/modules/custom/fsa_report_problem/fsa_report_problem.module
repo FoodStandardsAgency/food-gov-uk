@@ -1915,6 +1915,15 @@ function _fsa_report_problem_text__local_authority_search() {
       'title' => t('Business choice form intro'),
       'description' => t('This text appears at the top of the screen where users can select a business'),
     ),
+    'choose_business_bottom' => array(
+      'title' => t('Text beneath business choice'),
+      'description' => t('This text appears beneath the list of businesses.'),
+    ),
+    'no_matching_business' => array(
+      'title' => t('No matching business'),
+      'description' => t('This text appears at the top of the business search results when no matching business is found.'),
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_ERROR,
+    ),
   );
   return $text;
 }
