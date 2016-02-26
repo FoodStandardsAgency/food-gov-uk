@@ -4338,6 +4338,16 @@ class FsaReportProblemTextEntry implements ArrayAccess {
     $this->value = !empty($text) ? $text: $default;
   }
 
+  /**
+   * Get the text value
+   *
+   * @return string
+   *   The value of the $data property of this object
+   */
+  public function getValue() {
+    return !empty($this->value) ? $this->value : '';
+  }
+
 
   /**
    * Replace tokens method
