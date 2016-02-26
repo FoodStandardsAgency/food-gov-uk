@@ -28,11 +28,11 @@ function fsa_report_problem_postcode_search_form($form, &$form_state, $delta = N
     '#type' => 'textfield',
     '#title' => t('Postcode'),
     '#title_display' => 'invisible',
-    '#description' => _fsa_report_problem_text('field_description_postcode', NULL, NULL, $delta),
+    '#description' => _fsa_report_problem_text('field_description_postcode', NULL, NULL, $delta)->getPlain(),
     '#required' => TRUE,
     '#maxlength' => 8,
     '#attributes' => array(
-      'placeholder' => _fsa_report_problem_text('field_placeholder_postcode', NULL, NULL, $delta)->getValue(),
+      'placeholder' => _fsa_report_problem_text('field_placeholder_postcode', NULL, NULL, $delta)->getPlain(),
     ),
     // Postcode autocomplete - disabled for now
     // @todo Enable/disable via the admin interface

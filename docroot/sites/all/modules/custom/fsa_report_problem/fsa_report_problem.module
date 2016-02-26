@@ -4380,6 +4380,16 @@ class FsaReportProblemTextEntry implements ArrayAccess {
     return !empty($this->value) ? $this->value : '';
   }
 
+  /**
+   * Get the text value as plain text - no HTML
+   *
+   * @return string
+   *   A plain text (no HTML) version of the $data property of this object
+   */
+  public function getPlain() {
+    return strip_tags($this->getValue());
+  }
+
 
   /**
    * Replace tokens method
