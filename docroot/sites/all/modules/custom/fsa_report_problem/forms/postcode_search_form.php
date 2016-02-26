@@ -63,6 +63,9 @@ function fsa_report_problem_postcode_search_form($form, &$form_state, $delta = N
  */
 function fsa_report_problem_postcode_search_form_validate($form, &$form_state) {
 
+  // Get the block delta
+  $delta = !empty($form['#delta']) ? $form['#delta'] : NULL;
+
   // Get the postcode from the form_state
   $postcode = isset($form_state['values']['postcode']) ? $form_state['values']['postcode'] : NULL;
 
