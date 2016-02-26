@@ -92,7 +92,7 @@ function fsa_report_problem_business_results_form($form, &$form_state, $next_sta
 
   $form['botom_text'] = array(
     '#prefix' => '<div class="not-listed">',
-    '#markup' => _fsa_report_problem_text('choose_business_bottom'),
+    '#markup' => _fsa_report_problem_text('choose_business_bottom', NULL, NULL, $delta),
     '#suffix' => '</div>',
   );
 

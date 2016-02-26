@@ -77,6 +77,11 @@ define('FSA_REPORT_PROBLEM_TEXT_CATEGORY_STEP_TITLE', 'step_title');
 define('FSA_REPORT_PROBLEM_TEXT_CATEGORY_SERVICE_STATUS', 'service_status');
 
 /**
+ * Text entry category - field label
+ */
+define('FSA_REPORT_PROBLEM_TEXT_CATEGORY_FIELD_LABEL', 'field_label');
+
+/**
  * Text entry category - general
  */
 define('FSA_REPORT_PROBLEM_TEXT_CATEGORY_GENERAL', 'general');
@@ -374,7 +379,7 @@ function fsa_report_problem_block_view($delta = '') {
   // allow it to function here by setting the block delta to
   // 'local_authority_search' if the requested delta is 'report_problem_form'
   // and data capture is turned off.
-  if (!_fsa_report_problem_capture_user_data() && $delta != 'report_problem_form') {
+  if (!_fsa_report_problem_capture_user_data() && $delta == 'report_problem_form') {
     $delta = 'local_authority_search';
   }
 
@@ -1613,6 +1618,10 @@ function _fsa_report_problem_text() {
       'title' => t('Postcode search form intro'),
       'description' => t('Intro text for the search for authority by postcode lookup form'),
     ),
+    'postcode_search_extra' => array(
+      'title' => t('Postcode search additional info'),
+      'description' => t('This text displays beneath the form on the postcode lookup page.'),
+    ),
     'postcode_not_found' => array(
       'title' => t('Postcode not found error'),
       'description' => t('Error text displayed when a postcode search returns no results'),
@@ -1720,30 +1729,46 @@ function _fsa_report_problem_text() {
       'format' => 'plain_text',
       'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_STEP_TITLE,
     ),
+    'field_placeholder_postcode' => array(
+      'title' => t('Field placeholder - postcode'),
+      'description' => t('Placeholder text for the postcode lookup field'),
+      'default' => t('Enter a full postcode'),
+      'format' => 'plain_text',
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_FIELD_LABEL,
+    ),
+    'field_description_postcode' => array(
+      'title' => t('Field description - postcode'),
+      'description' => t('Description text for the postcode lookup field - appears below the field'),
+      'default' => t('Enter a full postcode to find a local food safety team'),
+      'format' => 'plain_text',
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_FIELD_LABEL,
+    ),
   );
 
   // Get additional service-specific text entries
   $services = fsa_report_problem_block_info();
-  // Empty array to hold additional text entries temporarily before merging
-  $additional_text = array();
-  foreach ($services as $service_name => $details) {
-    $function = __FUNCTION__ . '__' . $service_name;
-    if (is_callable($function)) {
-      $additional_text = $function();
-      foreach($additional_text as $k => $value) {
-        // Avoid collisions by prepending service name to key
-        $additional_text["${service_name}_$k"] = $value;
-        // Set the category to default if not already set
-        if (empty($additional_text["${service_name}_$k"]['category'])) {
-          $additional_text["${service_name}_$k"]['category'] = FSA_REPORT_PROBLEM_TEXT_CATEGORY_GENERAL;
+  if ($service != 'default') {
+    // Empty array to hold additional text entries temporarily before merging
+    $additional_text = array();
+    foreach ($services as $service_name => $details) {
+      $function = __FUNCTION__ . '__' . $service_name;
+      if (is_callable($function)) {
+        $additional_text = $function();
+        foreach($additional_text as $k => $value) {
+          // Avoid collisions by prepending service name to key
+          $additional_text["${service_name}_$k"] = $value;
+          // Set the category to default if not already set
+          if (empty($additional_text["${service_name}_$k"]['category'])) {
+            $additional_text["${service_name}_$k"]['category'] = FSA_REPORT_PROBLEM_TEXT_CATEGORY_GENERAL;
+          }
+          // Unset original key
+          unset($additional_text[$k]);
         }
-        // Unset original key
-        unset($additional_text[$k]);
+        // Add the new text entries to the original text
+        $text += $additional_text;
+        // Unset the additional text entries array
+        unset($additional_text);
       }
-      // Add the new text entries to the original text
-      $text += $additional_text;
-      // Unset the additional text entries array
-      unset($additional_text);
     }
   }
 
@@ -1820,6 +1845,10 @@ function _fsa_report_problem_text__find_food_safety_team() {
     'description' => t('Intro text for the search for authority by postcode lookup form as used in the Find a food safety officer service'),
     'format' => 'full_html',
     ),
+    'postcode_search_extra' => array(
+      'title' => t('Postcode search additional info'),
+      'description' => t('This text displays beneath the form on the postcode lookup page.'),
+    ),
     'service_status_alpha' => array(
       'title' => t('Service status - Alpha'),
       'description' => t('Description of service status when in Alpha'),
@@ -1852,6 +1881,20 @@ function _fsa_report_problem_text__find_food_safety_team() {
       'format' => 'plain_text',
       'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_STEP_TITLE,
     ),
+    'field_placeholder_postcode' => array(
+      'title' => t('Field placeholder - postcode'),
+      'description' => t('Placeholder text for the postcode lookup field'),
+      'default' => t('Enter a full postcode'),
+      'format' => 'plain_text',
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_FIELD_LABEL,
+    ),
+    'field_description_postcode' => array(
+      'title' => t('Field description - postcode'),
+      'description' => t('Description text for the postcode lookup field - appears below the field'),
+      'default' => t('Enter a full postcode to find a local food safety team'),
+      'format' => 'plain_text',
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_FIELD_LABEL,
+    ),
   );
 
   return $text;
@@ -1871,6 +1914,15 @@ function _fsa_report_problem_text__local_authority_search() {
     'choose_business_intro' => array(
       'title' => t('Business choice form intro'),
       'description' => t('This text appears at the top of the screen where users can select a business'),
+    ),
+    'choose_business_bottom' => array(
+      'title' => t('Text beneath business choice'),
+      'description' => t('This text appears beneath the list of businesses.'),
+    ),
+    'no_matching_business' => array(
+      'title' => t('No matching business'),
+      'description' => t('This text appears at the top of the business search results when no matching business is found.'),
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_ERROR,
     ),
   );
   return $text;
@@ -4058,7 +4110,22 @@ function _fsa_report_problem_block_content__find_food_safety_team($delta = '') {
     // Step 1: Postcode search
     default:
       module_load_include('php', 'fsa_report_problem', 'forms/postcode_search_form');
-      $content = drupal_get_form('fsa_report_problem_postcode_search_form', $delta, $path);
+      // Get the postcode search form
+      $content['form'] = drupal_get_form('fsa_report_problem_postcode_search_form', $delta, $path);
+      // Get the postcode search additional text
+      $content['extra'] = array(
+        '#type' => 'container',
+        '#attributes' => array(
+          'class' => array(
+            'form-intro',
+            'postcode-search-extra',
+          ),
+        ),
+        'text' => array(
+          '#markup' => _fsa_report_problem_text('postcode_search_extra', NULL, NULL, $delta),
+        ),
+      );
+
       break;
 
     // Step 2: Local authority details page
@@ -4303,6 +4370,16 @@ class FsaReportProblemTextEntry implements ArrayAccess {
     $this->value = !empty($text) ? $text: $default;
   }
 
+  /**
+   * Get the text value
+   *
+   * @return string
+   *   The value of the $data property of this object
+   */
+  public function getValue() {
+    return !empty($this->value) ? $this->value : '';
+  }
+
 
   /**
    * Replace tokens method
@@ -4371,6 +4448,7 @@ function _fsa_report_problem_text_categories() {
     FSA_REPORT_PROBLEM_TEXT_CATEGORY_STEP_TITLE => t('Step titles'),
     FSA_REPORT_PROBLEM_TEXT_CATEGORY_SERVICE_STATUS => t('Service status'),
     FSA_REPORT_PROBLEM_TEXT_CATEGORY_GENERAL => t('General'),
+    FSA_REPORT_PROBLEM_TEXT_CATEGORY_FIELD_LABEL => t('Field labels'),
   );
   return $categories;
 }
