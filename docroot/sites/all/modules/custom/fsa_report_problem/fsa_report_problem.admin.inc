@@ -9,41 +9,45 @@
  */
 function fsa_report_problem_view_reports($form, &$form_state) {
 
+  // Create the table header row. This will allow sorting via column headers.
+  $header = array(
+    array(
+      'data' => t('ID'),
+      'type' => 'property',
+      'specifier' => 'rid',
+    ),
+    array(
+      'data' => t('Business name'),
+      'specifier' => 'business_name',
+      'type' => 'property',
+    ),
+    array(
+      'data' => t('Report date'),
+      'specifier' => 'problem_date',
+      'type' => 'property',
+    ),
+    array(
+      'data' => t('Local authority'),
+      'specifier' => 'local_authority_name',
+      'type' => 'property',
+    ),
+    array(
+      'data' => t('Local authority email'),
+      'specifier' => 'local_authority_email',
+      'type' => 'property',
+    ),
+  );
+
+  // Create a new EntityFieldQuery using the headers for sorting.
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'problem_report');
-    //->propertyCondition('email_sent', 0);
-
+  $query->tablesort($header);
   $results = $query->execute();
 
   $rids = !empty($results['problem_report']) ? array_keys($results['problem_report']) : array();
 
-
   // Load all of the problem reports
   $reports = entity_load('problem_report', $rids);
-
-  // Create the table header row.
-  $header = array(
-    array(
-      'data' => t('ID'),
-      'field' => 'rid',
-    ),
-    array(
-      'data' => t('Business name'),
-      'field' => 'business_name',
-    ),
-    array(
-      'data' => t('Report date'),
-      'field' => 'report_date',
-    ),
-    array(
-      'data' => t('Local authority'),
-      'field' => 'local_authority_name',
-    ),
-    array(
-      'data' => t('Local authority email'),
-      'field' => 'local_authority_email',
-    ),
-  );
 
   // Display the report data
   //$rows = array();
