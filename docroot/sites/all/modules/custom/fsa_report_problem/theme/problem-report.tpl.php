@@ -22,6 +22,7 @@
     <?php print render($local_authority); ?>
     <?php print render($reporter_name); ?>
     <?php print render($problem_date); ?>
+    <?php print render($report_date); ?>
   </div>
 
   <?php print render($problem_details); ?>
