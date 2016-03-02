@@ -761,6 +761,7 @@ function template_preprocess_problem_report(&$variables) {
     '#type' => 'item',
     '#markup' => implode(', ', $reporter_details),
     '#title' => t('Reported by'),
+    '#access' => count($reporter_details) > 0,
   );
 
   $variables['problem_date'] = array(
