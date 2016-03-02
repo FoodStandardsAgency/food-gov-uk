@@ -761,6 +761,12 @@ function template_preprocess_problem_report(&$variables) {
     '#markup' => format_date($report->problem_date, 'medium'),
   );
 
+  $variables['report_date'] = array(
+    '#type' => 'item',
+    '#title' => t('Date report submitted'),
+    '#markup' => format_date($report->created, 'medium'),
+  );
+
   $variables['problem_details'] = array(
     '#type' => 'item',
     '#title' => t('Problem details'),
