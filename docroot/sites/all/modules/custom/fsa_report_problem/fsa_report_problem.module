@@ -748,10 +748,18 @@ function template_preprocess_problem_report(&$variables) {
     '#title' => t('Local authority'),
   );
 
+  // Build an array of reporter details - name and email address
+  $reporter_details = array();
+  if (!empty($variables['reporter_name'])) {
+    $reporter_details[] = $variables['reporter_name'];
+  }
+  if (!empty($variables['reporter_email'])) {
+    $reporter_details[] = l($variables['reporter_email'], 'mailto:' . $variables['reporter_email']);
+  }
 
   $variables['reporter_name'] = array(
     '#type' => 'item',
-    '#markup' => $variables['reporter_name'] . (!empty($variables['reporter_email']) ? ', ' . l($variables['reporter_email'], 'mailto:' . $variables['reporter_email']) : ''),
+    '#markup' => implode(', ', $reporter_details),
     '#title' => t('Reported by'),
   );
 
