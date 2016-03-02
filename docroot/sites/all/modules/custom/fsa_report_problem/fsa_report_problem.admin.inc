@@ -22,7 +22,12 @@ function fsa_report_problem_view_reports($form, &$form_state) {
       'type' => 'property',
     ),
     array(
-      'data' => t('Report date'),
+      'data' => t('Submitted'),
+      'specifier' => 'created',
+      'type' => 'property',
+    ),
+    array(
+      'data' => t('Problem date'),
       'specifier' => 'problem_date',
       'type' => 'property',
     ),
@@ -59,6 +64,7 @@ function fsa_report_problem_view_reports($form, &$form_state) {
       l($report->rid, $uri['path']),
       $report->business_name,
       !empty($report->problem_date) ? format_date($report->problem_date, 'medium') : '',
+      !empty($report->created) ? format_date($report->created, 'custom', 'j F Y') : '',
       $report->local_authority_name,
       $report->local_authority_email,
     );
