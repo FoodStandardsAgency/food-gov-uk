@@ -138,6 +138,31 @@ function fsa_report_problem_view_reports($form, &$form_state) {
  */
 function problem_report_view($rid) {
   $reports = entity_load('problem_report', array($rid));
+
+  // If we have no reports or the requested report doesn't exist, return an
+  // error message now.
+  if (empty($reports) || !isset($reports[$rid])) {
+    // Get the link back to the previous page
+    $previous_page = implode('/', array_slice(arg(), 0, -1));
+    // Build a render array for the error message and link back to list page
+    $build = array(
+      'message' => array(
+        '#type' => 'html_tag',
+        '#tag' => 'p',
+        '#value' => t('Sorry, we could not find this report.'),
+      ),
+      'link' => array(
+        '#prefix' => '<p>',
+        '#type' => 'link',
+        '#title' => t('Back to report list'),
+        '#href' => $previous_page,
+        '#suffix' => '</p>',
+      ),
+    );
+    // Return the render array for the error message
+    return $build;
+  }
+
   $report = $reports[$rid];
   $output = entity_view('problem_report', array($report));
   $output = $output['problem_report'][$rid];
