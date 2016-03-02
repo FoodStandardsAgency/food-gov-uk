@@ -22,7 +22,12 @@ function fsa_report_problem_view_reports($form, &$form_state) {
       'type' => 'property',
     ),
     array(
-      'data' => t('Report date'),
+      'data' => t('Submitted'),
+      'specifier' => 'created',
+      'type' => 'property',
+    ),
+    array(
+      'data' => t('Problem date'),
       'specifier' => 'problem_date',
       'type' => 'property',
     ),
@@ -57,8 +62,9 @@ function fsa_report_problem_view_reports($form, &$form_state) {
     $status = empty($report->email_sent) ? 'unsent' : 'sent';
     $report_list[$status][] = array(
       l($report->rid, $uri['path']),
-      $report->business_name,
-      !empty($report->problem_date) ? format_date($report->problem_date, 'medium') : '',
+      is_callable('mb_strimwidth') ? mb_strimwidth($report->business_name, 0, 44, '...') : substr($report->business_name, 0, 44),
+      !empty($report->created) ? format_date($report->created, 'custom', 'j F Y') : '',
+      !empty($report->problem_date) ? format_date($report->problem_date, 'custom', 'j F Y') : '',
       $report->local_authority_name,
       $report->local_authority_email,
     );
