@@ -9,41 +9,45 @@
  */
 function fsa_report_problem_view_reports($form, &$form_state) {
 
+  // Create the table header row. This will allow sorting via column headers.
+  $header = array(
+    array(
+      'data' => t('ID'),
+      'type' => 'property',
+      'specifier' => 'rid',
+    ),
+    array(
+      'data' => t('Business name'),
+      'specifier' => 'business_name',
+      'type' => 'property',
+    ),
+    array(
+      'data' => t('Date submitted'),
+      'specifier' => 'created',
+      'type' => 'property',
+    ),
+    array(
+      'data' => t('Local authority'),
+      'specifier' => 'local_authority_name',
+      'type' => 'property',
+    ),
+    array(
+      'data' => t('Local authority email'),
+      'specifier' => 'local_authority_email',
+      'type' => 'property',
+    ),
+  );
+
+  // Create a new EntityFieldQuery using the headers for sorting.
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'problem_report');
-    //->propertyCondition('email_sent', 0);
-
+  $query->tablesort($header);
   $results = $query->execute();
 
   $rids = !empty($results['problem_report']) ? array_keys($results['problem_report']) : array();
 
-
   // Load all of the problem reports
   $reports = entity_load('problem_report', $rids);
-
-  // Create the table header row.
-  $header = array(
-    array(
-      'data' => t('ID'),
-      'field' => 'rid',
-    ),
-    array(
-      'data' => t('Business name'),
-      'field' => 'business_name',
-    ),
-    array(
-      'data' => t('Report date'),
-      'field' => 'report_date',
-    ),
-    array(
-      'data' => t('Local authority'),
-      'field' => 'local_authority_name',
-    ),
-    array(
-      'data' => t('Local authority email'),
-      'field' => 'local_authority_email',
-    ),
-  );
 
   // Display the report data
   //$rows = array();
@@ -53,8 +57,8 @@ function fsa_report_problem_view_reports($form, &$form_state) {
     $status = empty($report->email_sent) ? 'unsent' : 'sent';
     $report_list[$status][] = array(
       l($report->rid, $uri['path']),
-      $report->business_name,
-      !empty($report->problem_date) ? format_date($report->problem_date, 'medium') : '',
+      is_callable('mb_strimwidth') ? mb_strimwidth($report->business_name, 0, 44, '...') : substr($report->business_name, 0, 44),
+      !empty($report->created) ? format_date($report->created, 'custom', 'j F Y') : '',
       $report->local_authority_name,
       $report->local_authority_email,
     );
@@ -128,6 +132,31 @@ function fsa_report_problem_view_reports($form, &$form_state) {
  */
 function problem_report_view($rid) {
   $reports = entity_load('problem_report', array($rid));
+
+  // If we have no reports or the requested report doesn't exist, return an
+  // error message now.
+  if (empty($reports) || !isset($reports[$rid])) {
+    // Get the link back to the previous page
+    $previous_page = implode('/', array_slice(arg(), 0, -1));
+    // Build a render array for the error message and link back to list page
+    $build = array(
+      'message' => array(
+        '#type' => 'html_tag',
+        '#tag' => 'p',
+        '#value' => t('Sorry, we could not find this report.'),
+      ),
+      'link' => array(
+        '#prefix' => '<p>',
+        '#type' => 'link',
+        '#title' => t('Back to report list'),
+        '#href' => $previous_page,
+        '#suffix' => '</p>',
+      ),
+    );
+    // Return the render array for the error message
+    return $build;
+  }
+
   $report = $reports[$rid];
   $output = entity_view('problem_report', array($report));
   $output = $output['problem_report'][$rid];
