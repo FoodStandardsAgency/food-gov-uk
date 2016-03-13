@@ -2285,6 +2285,7 @@ function _fsa_report_problem_update_fhrs_data() {
     if (!empty($fhrs_auth)) {
       $authority->fhrs_name = $fhrs_auth->Name;
       $authority->fhrs_email = $fhrs_auth->Email;
+      $authority->url = $fhrs_auth->Url;
       if (!empty($authority->fhrs_email) && (empty($authority->email) || !$email_override)) {
         $authority->email = $authority->fhrs_email;
       }
