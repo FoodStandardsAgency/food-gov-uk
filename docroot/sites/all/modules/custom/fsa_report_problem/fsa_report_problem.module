@@ -2322,6 +2322,9 @@ function _fsa_report_problem_update_fhrs_data() {
  */
 function fsa_report_problem_cron() {
 
+  // Remove reporter data from sent reports
+  _fsa_report_problem_remove_reporter_details();
+
   // Get the last time the FHRS data was updated
   $last_import = variable_get('fsa_report_problem_fhrs_last_import', 0);
 
