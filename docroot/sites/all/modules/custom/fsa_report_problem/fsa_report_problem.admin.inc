@@ -555,6 +555,26 @@ function fsa_food_report_admin_form($form, &$form_state) {
   // If all the pages are set, collapse the fieldset
   $form['node']['#collapsed'] = $all_pages_set;
 
+  $form['data_capture_settings'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Data capture'),
+    '#collapsible' => TRUE,
+  );
+
+  $form['data_capture_settings']['fsa_report_problem_reporter_name_required'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Reporter name required'),
+    '#description' => t('Tick this box to make the reporter name field mandatory.'),
+    '#default_value' => variable_get('fsa_report_problem_reporter_name_required', 'FALSE'),
+  );
+
+  $form['data_capture_settings']['fsa_report_problem_reporter_email_required'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Reporter email address required'),
+    '#description' => t('Tick this box to make the reporter email address field mandatory.'),
+    '#default_value' => variable_get('fsa_report_problem_reporter_email_required', 'FALSE'),
+  );
+
   $form['service_status'] = array(
     '#type' => 'fieldset',
     '#collapsible' => TRUE,
