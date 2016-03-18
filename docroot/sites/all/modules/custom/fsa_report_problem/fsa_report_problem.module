@@ -766,7 +766,7 @@ function template_preprocess_problem_report(&$variables) {
     '#type' => 'item',
     '#markup' => implode(', ', $reporter_details),
     '#title' => t('Reported by'),
-    '#access' => count($reporter_details) > 0,
+    '#access' => FSA_REPORT_PROBLEM_SHOW_REPORTER_DETAILS ? count($reporter_details) > 0 : FALSE,
   );
 
   $variables['problem_date'] = array(
