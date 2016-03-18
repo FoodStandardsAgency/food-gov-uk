@@ -4581,3 +4581,70 @@ function template_preprocess_report_problem_block_content(&$variables) {
   // Set the service status based on the $delta
   $variables['service_status'] = _fsa_report_problem_service_status($variables['delta']);
 }
+
+
+/**
+ * Helper function: removes reporter name and email address once report sent
+ *
+ * This function is called by hook_cron()
+ */
+function _fsa_report_problem_remove_reporter_details() {
+  // Select all problem reports where the email has been sent
+  $query = db_select('problem_reports', 'pr')
+    ->fields('pr')
+    ->condition('email_sent', 1);
+  // Select only those reports for which we have a reporter name or email
+  $or = db_or();
+  $or->condition('reporter_email', '', '!=');
+  $or->condition('reporter_name', '', '!=');
+  $query->condition($or);
+  // Execute the query
+  $reports = $query->execute()->fetchAllAssoc('rid');
+  // If we have no reports with reporter details, exit now
+  if (count($reports) == 0) {
+    return;
+  }
+
+  // Clear the reporter_name and reporter_email fields for sent reports
+  // First get the IDs of the reports
+  $rids = array_keys($reports);
+  // Update the report entities
+  return _fsa_report_problem_remove_report_reporter_details($rids);
+}
+
+
+/**
+ * Helper function: removes reporter details from the specified reports
+ *
+ * @param array|integer $rids
+ *   The ID or IDs of the reports from which we want to remove the reporter
+ *   details.
+ *
+ * @return array
+ *   An array of the IDs of the reports from which the reporter details have
+ *   been removed.
+ */
+function _fsa_report_problem_remove_report_reporter_details($rids) {
+  // An array to return
+  $return_array = array();
+  // If $rids is not already an array, make it one now
+  $rids = !is_array($rids) ? array($rids) : $rids;
+  // Load the reports
+  $reports = entity_load('problem_report', $rids);
+  // If we have no reports, exit now.
+  if (empty($reports)) {
+    return $return_array;
+  }
+  foreach ($reports as $rid => $report) {
+    $report->reporter_name = '';
+    $report->reporter_email = '';
+    if($report->save() == SAVED_UPDATED) {
+      $return_array[] = $rid;
+      watchdog('fsa_report_problem', 'Removed reporter data for report @rid.', array('@rid' => $rid));
+    }
+    else {
+      watchdog('fsa_report_problem', 'Failed to remove reporter data for report @rid.', array('@rid' => $rid), WATCHDOG_NOTICE);
+    }
+  }
+  return $return_array;
+}
