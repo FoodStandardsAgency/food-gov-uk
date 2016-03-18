@@ -87,6 +87,11 @@ define('FSA_REPORT_PROBLEM_TEXT_CATEGORY_FIELD_LABEL', 'field_label');
 define('FSA_REPORT_PROBLEM_TEXT_CATEGORY_GENERAL', 'general');
 
 /**
+ * Determines whether reporter details are displayed in Drupal
+ */
+define('FSA_REPORT_PROBLEM_SHOW_REPORTER_DETAILS', FALSE);
+
+/**
  * Implements hook_permission().
  */
 function fsa_report_problem_permission() {
