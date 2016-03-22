@@ -85,16 +85,22 @@ function fsa_report_problem_make_report_form($form, &$form_state, $manual = FALS
     );
   }
 
+  // Are reporter name ane email address required?
+  $reporter_name_required = variable_get('fsa_report_problem_reporter_name_required', FALSE);
+  $reporter_email_required = variable_get('fsa_report_problem_reporter_email_required', FALSE);
+
   $form['reporter_name'] = array(
     '#type' => 'textfield',
-    '#title' => t('Your name (optional)'),
+    '#title' => $reporter_name_required ? t('Your name') : t('Your name (optional)'),
     '#description' => t('The local authority would only use this when contacting you about your issue.'),
+    '#required' => $reporter_name_required,
   );
 
   $form['reporter_email'] = array(
     '#type' => 'textfield',
-    '#title' => t('Your email address (optional)'),
+    '#title' => $reporter_email_required ? t('Your email address') : t('Your email address (optional)'),
     '#description' => t('This would only be used by the local authority to contact you about your issue.'),
+    '#required' => $reporter_email_required,
   );
 
   // @todo Change this to a single date field and add a free-text field for the
