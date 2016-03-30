@@ -4639,3 +4639,67 @@ function _fsa_report_problem_remove_report_reporter_details($rids) {
   }
   return $return_array;
 }
+
+
+/**
+ * Helper function: validates a postcode using similar approach to MapIt
+ *
+ * @param string $postcode
+ *   The postcode to be validated
+ * @return boolean
+ *   TRUE if the postcode is valid; FALSE otherwise
+ */
+function _fsa_report_problem_valid_postcode($postcode) {
+
+  // Get rid of any spaces in the postcode and convert it to uppercase.
+  $postcode = strtoupper(str_replace(' ', '', $postcode));
+
+  // Perform local postcode validation that mimics MapIt's validation.
+  // @see https://github.com/mysociety/mapit/blob/b471659b14b8912948247fa72bdbc5f65c5a6a61/mapit_gb/countries.py
+
+  // Special postcodes. If it matches one of these exactly, it's valid, so
+  // return TRUE immediately.
+  if (in_array($postcode, array(
+    'ASCN1ZZ',  // Ascension Island
+    'BBND1ZZ',  // BIOT
+    'BIQQ1ZZ',  // British Antarctic Territory
+    'FIQQ1ZZ',  // Falkland Islands
+    'PCRN1ZZ',  // Pitcairn Islands
+    'SIQQ1ZZ',  // South Georgia and the South Sandwich Islands
+    'STHL1ZZ',  // St Helena
+    'TDCU1ZZ',  // Tristan da Cunha
+    'TKCA1ZZ',  // Turks and Caicos Islands
+    'GIR0AA', 'G1R0AA',  // Girobank
+    'SANTA1', 'XM45HQ',  // Santa Claus
+  ))) {
+    return TRUE;
+  }
+
+  // Now for standard postcodes
+  $inward = 'ABDEFGHJLNPQRSTUWXYZ';
+  $fst = 'ABCDEFGHIJKLMNOPRSTUWYZ';
+  $sec = 'ABCDEFGHJKLMNOPQRSTUVWXY';
+  $thd = 'ABCDEFGHJKSTUW';
+  $fth = 'ABEHMNPRVWXY';
+
+  // An array of regex patterns to use for validation
+  $patterns = array(
+    sprintf('/[%1$s][1-9]\d[%2$s][%3$s]$/', $fst, $inward, $inward),
+    sprintf('/[%1$s][1-9]\d\d[%2$s][%3$s]$/', $fst, $inward, $inward),
+    sprintf('/[%1$s][%2$s]\d\d[%3$s][%4$s]$/', $fst, $sec, $inward, $inward),
+    sprintf('/[%1$s][%2$s][1-9]\d\d[%3$s][%4$s]$/', $fst, $sec, $inward, $inward),
+    sprintf('/[%1$s][1-9][%2$s]\d[%3$s][%4$s]$/', $fst, $thd, $inward, $inward),
+    sprintf('/[%1$s][%2$s][1-9][%3$s]\d[%4$s][%5$s]$/', $fst, $sec, $fth, $inward, $inward),
+  );
+
+  // If the postcode matches one of these patterns, it's valid, so return.
+  foreach ($patterns as $pattern) {
+    if (preg_match($pattern, $postcode)) {
+      return TRUE;
+    }
+  }
+
+  // No match has been found, so return FALSE
+  return FALSE;
+}
+
