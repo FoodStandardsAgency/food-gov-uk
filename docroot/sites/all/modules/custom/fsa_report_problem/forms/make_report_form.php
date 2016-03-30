@@ -187,7 +187,7 @@ function fsa_report_problem_make_report_form_submit($form, &$form_state) {
   $entity->reporter_name = $form_state['values']['reporter_name'];
   $entity->reporter_email = $form_state['values']['reporter_email'];
   $entity->business_location = $form_state['values']['business_address'];
-  $entity->business_postcode = !empty($form_state['values']['business_postcode']) ? $form_state['values']['business_postcode'] : NULL;
+  $entity->business_postcode = !empty($form_state['values']['business_postcode']) ? _fsa_report_problem_format_postcode($form_state['values']['business_postcode']) : NULL;
   $entity->coordinates = !empty($form_state['coords']) ? $form_state['coords'] : NULL;
   $entity->problem_details = $form_state['values']['issue_details'];
 
