@@ -158,6 +158,22 @@ function fsa_report_problem_make_report_form_submit($form, &$form_state) {
 
   $area_id = $local_authority['id'];
 
+  // If we don't have an area ID, it's probably a manual submission. That being
+  // the case, we may have a second chance to get the local authority using the
+  // business postcode - if supplied. Let's give that a go.
+  if (empty($area_id)) {
+    $postcode = !empty($form_state['values']['business_postcode']) ? _fsa_report_problem_format_postcode($form_state['values']['business_postcode']) : NULL;
+    // If we have a valid postcode, let's look up the local authority
+    if (!empty($postcode) && _fsa_report_problem_valid_postcode($postcode)) {
+      $local_authority = fsa_report_problem_get_local_authority_by_postcode($postcode);
+      $area_id = !empty($local_authority['id']) ? $local_authority['id'] : 0;
+      // If we have a local authority, set the submission value to it so that
+      // we can use it on the report complete form.
+      if (!empty($local_authority['id'])) {
+        $submission->local_authority = $local_authority;
+      }
+    }
+  }
 
   // Get a local authority entity based on the area ID from MapIt
   $la = fsa_report_problem_get_local_authority_by_area_id($area_id);
