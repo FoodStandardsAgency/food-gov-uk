@@ -3,6 +3,10 @@
  * JavaScript functions for the Report a food problem module
  */
 
+// If the Google object isn't available, create an empty object.
+if (!window['google']) {
+  window['google'] = {};
+}
 (function ($) {
   Drupal.behaviors.reportProblem = {
     attach: function (context) {
