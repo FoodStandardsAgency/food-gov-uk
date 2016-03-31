@@ -16,7 +16,9 @@ if (!window['google']) {
         return;
       }
 
-      this.initialiseAutocomplete();
+      if ($('.fsa-report-problem-business-lookup-form').length > 0) {
+        this.initialiseAutocomplete();
+      }
     },
 
     // Initialise the autocomplete function for Google Places
