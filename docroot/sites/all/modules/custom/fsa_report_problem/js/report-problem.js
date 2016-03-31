@@ -20,6 +20,7 @@ if (!window['google']) {
         this.initialiseAutocomplete();
       }
       this.addOverlay();
+      this.initialiseSubmitDisable();
     },
 
     // Initialise the submit button disable function
