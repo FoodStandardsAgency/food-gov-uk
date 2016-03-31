@@ -77,6 +77,8 @@ function fsa_report_problem_business_results_form($form, &$form_state, $next_sta
       '#name' => 'op' . $id,
       '#attributes' => array(
         'data-business-id' => $id,
+        'class' => array('report-problem-submit'),
+        'data-overlay-text' => t('Looking up local authority details'),
         'title' => t('@select !business_name, !business_address', array('!business_name' =>  htmlspecialchars($business['name'], ENT_COMPAT, 'UTF-8'), '!business_address' => htmlspecialchars($business['formatted_address'], ENT_COMPAT, 'UTF-8'), '@select' => $button_verb)),
         'aria-label' => t('@select !business_name, !business_address', array('!business_name' =>  htmlspecialchars($business['name'], ENT_COMPAT, 'UTF-8'), '!business_address' => htmlspecialchars($business['formatted_address'], ENT_COMPAT, 'UTF-8'), '@select' => $button_verb)),
       ),
@@ -94,6 +96,13 @@ function fsa_report_problem_business_results_form($form, &$form_state, $next_sta
     '#prefix' => '<div class="not-listed">',
     '#markup' => _fsa_report_problem_text('choose_business_bottom', NULL, NULL, $delta),
     '#suffix' => '</div>',
+  );
+
+  // Include the form JavaScript
+  $form['#attached'] = array(
+    'js' => array(
+      drupal_get_path('module', 'fsa_report_problem') . '/js/report-problem.js' => array('preprocess' => FALSE),
+    ),
   );
 
   if (!empty($submission)) {

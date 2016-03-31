@@ -48,12 +48,15 @@
     font-size: 1.5em; }
     .fsa-report-problem-form .form-type-item label {
       font-size: 1em; }
-  .fsa-report-problem-form input[type="submit"] {
+  .fsa-report-problem-form input[type="submit"],
+  .fsa-report-problem-form .submit-button-clicked {
     background-color: #ededed;
     border: 1px solid #ccc;
     font-size: 1.5em;
     margin-right: 10px;
     padding: 8px 14px; }
+  .fsa-report-problem-form .submit-button-clicked {
+    display: inline-block; }
   .fsa-report-problem-form .container-inline-date .date-padding {
     float: none;
     padding: 0; }
@@ -171,5 +174,38 @@ p.service-offline {
   font-size: 1.5em;
   line-height: 1.35;
   padding-left: 40px; }
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+  display: none; }
+  .modal-overlay .throbber {
+    background-position: center center;
+    background-repeat: no-repeat;
+    color: #ddd;
+    font-size: 130%;
+    left: 0;
+    position: fixed;
+    top: 48.5%;
+    width: 100%;
+    z-index: 1001; }
+    .modal-overlay .throbber img {
+      background-color: #222;
+      border-radius: 5px;
+      display: inline-block;
+      padding: 4px; }
+    .modal-overlay .throbber span {
+      display: block;
+      font-size: 1.2em;
+      font-weight: bold;
+      padding-top: 6px;
+      padding-left: 10px;
+      vertical-align: top; }
 
 /*# sourceMappingURL=report-problem.css.map */
