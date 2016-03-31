@@ -92,14 +92,19 @@
     
   }
   
-  input[type="submit"] {
+  input[type="submit"],
+  .submit-button-clicked {
     background-color: #ededed;
     border: 1px solid #ccc;
     font-size: 1.5em;
     margin-right: 10px;
     padding: 8px 14px;
   }
-  
+
+  .submit-button-clicked {
+    display: inline-block;
+  }
+
   // Special formattting for the date picker fields.
   .container-inline-date {
     .date-padding {
