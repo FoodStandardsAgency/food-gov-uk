@@ -22,6 +22,26 @@ if (!window['google']) {
       this.addOverlay();
     },
 
+    // Initialise the submit button disable function
+    initialiseSubmitDisable: function() {
+      $('.report-problem-submit').click(function(e){
+        // Get the overlay text from the submit button or use a default
+        var overlayText = $(this).attr('data-overlay-text');
+        if (!overlayText) {
+          overlayText = Drupal.t('Processing');
+        }
+        // Hide the submit button to prevent re-submission
+        $(this).hide();
+        // Insert a replacement ersatz submit button in its place.
+        $('<div>', {
+          'text': overlayText + '...',
+          'class': 'submit-button-clicked'
+        }).appendTo($(this).parent());
+        // Show the modal overlay
+        Drupal.behaviors.reportProblem.showOverlay(overlayText);
+      });
+    },
+
     // Initialise the autocomplete function for Google Places
     initialiseAutocomplete: function() {
       var reportProblem = this;
