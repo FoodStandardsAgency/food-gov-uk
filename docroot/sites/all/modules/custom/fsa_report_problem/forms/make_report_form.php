@@ -129,6 +129,17 @@ function fsa_report_problem_make_report_form($form, &$form_state, $manual = FALS
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Submit report'),
+    '#attributes' => array(
+      'class' => array('report-problem-submit'),
+      'data-overlay-text' => t('Submitting your report'),
+    ),
+  );
+
+  // Include the form JavaScript
+  $form['#attached'] = array(
+    'js' => array(
+      drupal_get_path('module', 'fsa_report_problem') . '/js/report-problem.js' => array('preprocess' => FALSE),
+    ),
   );
 
   // If this is a manual submission, we need to set the step count accordingly
