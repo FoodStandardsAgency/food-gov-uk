@@ -317,3 +317,45 @@ $border-colour: $grey-2;
   line-height: 1.35;
   padding-left: 40px;
 }
+
+
+// Styling for the modal overlay that prevents multiple form submissions
+.modal-overlay {
+  background-color: rgba(0,0,0,0.5);
+  display: none;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+
+  .throbber {
+    background-position: center center;
+    background-repeat: no-repeat;
+    color: #ddd;
+    font-size: 130%;
+    left: 0;
+    position: fixed;
+    top: 48.5%;
+    width: 100%;
+    z-index: 1001;
+
+    img {
+      background-color: #222;
+      border-radius: 5px;
+      display: inline-block;
+      padding: 4px;
+    }
+
+    span {
+      display: block;
+      font-size: 1.2em;
+      font-weight: bold;
+      padding-top: 6px;
+      padding-left: 10px;
+      vertical-align: top;
+    }
+  }
+}
