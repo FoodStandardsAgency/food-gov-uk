@@ -3,6 +3,10 @@
  * JavaScript functions for the Report a food problem module
  */
 
+// If the Google object isn't available, create an empty object.
+if (!window['google']) {
+  window['google'] = {};
+}
 (function ($) {
   Drupal.behaviors.reportProblem = {
     attach: function (context) {
@@ -12,7 +16,31 @@
         return;
       }
 
-      this.initialiseAutocomplete();
+      if ($('.fsa-report-problem-business-lookup-form').length > 0) {
+        this.initialiseAutocomplete();
+      }
+      this.addOverlay();
+      this.initialiseSubmitDisable();
+    },
+
+    // Initialise the submit button disable function
+    initialiseSubmitDisable: function() {
+      $('.report-problem-submit').click(function(e){
+        // Get the overlay text from the submit button or use a default
+        var overlayText = $(this).attr('data-overlay-text');
+        if (!overlayText) {
+          overlayText = Drupal.t('Processing');
+        }
+        // Hide the submit button to prevent re-submission
+        $(this).hide();
+        // Insert a replacement ersatz submit button in its place.
+        $('<div>', {
+          'text': overlayText + '...',
+          'class': 'submit-button-clicked'
+        }).appendTo($(this).parent());
+        // Show the modal overlay
+        Drupal.behaviors.reportProblem.showOverlay(overlayText);
+      });
     },
 
     // Initialise the autocomplete function for Google Places
@@ -124,6 +152,45 @@
         });
       }
     },
+
+    // Add an overlay element that will be displayed when submit is clicked
+    addOverlay: function() {
+      // Create the outer modal overlay element
+      $overlay = $('<div>', {
+        'class' : 'modal-overlay'
+      });
+      // Create an element to hold the throbber image
+      $throbber = $('<span>', {
+        'class' : 'throbber'
+      });
+      // Create the throbber image
+      $img = $('<img>', {
+        'src' : '/sites/all/modules/contrib/views/images/loading-small.gif'
+      });
+      // Append the image to the throbber and the throbber to the overlay
+      $throbber.append($img).appendTo($overlay);
+      // Add the overlay to the body
+      $('body').append($overlay);
+    },
+
+    // Display the overlay when the submit button is clicked
+    showOverlay: function(overlayText) {
+      // Get the text to display in the modal overlay
+      var defaultOverlayText = 'Processing';
+      if (overlayText == '') {
+        overlayText = defaultOverlayText;
+      }
+      // Create an element to include the text
+      var $modalOverlayText = $('<span>', {
+        'class' : 'modal-overlay-text',
+        'text' : overlayText + '...'
+      });
+      // Add the text element to the modal overlay
+      $modalOverlay = $('.modal-overlay');
+      $modalOverlay.find('.throbber').append($modalOverlayText);
+      // Display the modal overlay
+      $modalOverlay.show();
+    }
 
   };
 })(jQuery, google);
