@@ -13,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2016-02-23 17:18+0000\n"
-"PO-Revision-Date: 2016-02-25 14:34+0000\n"
+"POT-Creation-Date: 2016-03-31 16:56+0100\n"
+"PO-Revision-Date: 2016-03-31 16:58+0100\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Welsh <EMAIL@ADDRESS>\n"
 "Language: cy\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=((n==1)?(0):((n==2)?(1):(((n!=8)&&(n!=11))?(2):3)));\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 1.8.7\n"
 
 #: fsa_report_problem.admin.inc:27;171;1277
 msgid "ID"
@@ -1561,3 +1561,12 @@ msgstr "Gwefan"
 #: theme/report-problem-block-content.tpl.php:26
 msgid "Step @current_step of @step_count"
 msgstr "Cam @current_step o @step_count"
+
+msgid "Looking up business details"
+msgstr "Chwilio am fanylion y busnes"
+
+msgid "Submitting your report"
+msgstr "Mae’ch adroddiad yn cael ei anfon"
+
+msgid "Looking up local authority details"
+msgstr "Chwilio am fanylion yr awdurdod lleol"

@@ -1561,3 +1561,12 @@ msgstr ""
 #: theme/report-problem-block-content.tpl.php:26
 msgid "Step @current_step of @step_count"
 msgstr ""
+
+msgid "Looking up business details"
+msgstr ""
+
+msgid "Submitting your report"
+msgstr ""
+
+msgid "Looking up local authority details"
+msgstr ""
