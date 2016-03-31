@@ -152,5 +152,24 @@ if (!window['google']) {
       $('body').append($overlay);
     },
 
+    // Display the overlay when the submit button is clicked
+    showOverlay: function(overlayText) {
+      // Get the text to display in the modal overlay
+      var defaultOverlayText = 'Processing';
+      if (overlayText == '') {
+        overlayText = defaultOverlayText;
+      }
+      // Create an element to include the text
+      var $modalOverlayText = $('<span>', {
+        'class' : 'modal-overlay-text',
+        'text' : overlayText + '...'
+      });
+      // Add the text element to the modal overlay
+      $modalOverlay = $('.modal-overlay');
+      $modalOverlay.find('.throbber').append($modalOverlayText);
+      // Display the modal overlay
+      $modalOverlay.show();
+    }
+
   };
 })(jQuery, google);
