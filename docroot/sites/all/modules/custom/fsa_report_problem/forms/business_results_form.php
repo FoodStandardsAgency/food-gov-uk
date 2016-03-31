@@ -77,6 +77,8 @@ function fsa_report_problem_business_results_form($form, &$form_state, $next_sta
       '#name' => 'op' . $id,
       '#attributes' => array(
         'data-business-id' => $id,
+        'class' => array('report-problem-submit'),
+        'data-overlay-text' => t('Looking up local authority   details'),
         'title' => t('@select !business_name, !business_address', array('!business_name' =>  htmlspecialchars($business['name'], ENT_COMPAT, 'UTF-8'), '!business_address' => htmlspecialchars($business['formatted_address'], ENT_COMPAT, 'UTF-8'), '@select' => $button_verb)),
         'aria-label' => t('@select !business_name, !business_address', array('!business_name' =>  htmlspecialchars($business['name'], ENT_COMPAT, 'UTF-8'), '!business_address' => htmlspecialchars($business['formatted_address'], ENT_COMPAT, 'UTF-8'), '@select' => $button_verb)),
       ),
