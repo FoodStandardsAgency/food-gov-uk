@@ -98,6 +98,13 @@ function fsa_report_problem_business_results_form($form, &$form_state, $next_sta
     '#suffix' => '</div>',
   );
 
+  // Include the form JavaScript
+  $form['#attached'] = array(
+    'js' => array(
+      drupal_get_path('module', 'fsa_report_problem') . '/js/report-problem.js' => array('preprocess' => FALSE),
+    ),
+  );
+
   if (!empty($submission)) {
     $submission->step_count = $step_count;
   }
