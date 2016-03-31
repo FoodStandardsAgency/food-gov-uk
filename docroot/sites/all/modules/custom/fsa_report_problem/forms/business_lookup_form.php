@@ -107,6 +107,10 @@ function fsa_report_problem_business_lookup_form($form, &$form_state, $next_stag
   $form['field_wrapper']['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Submit'),
+    '#attributes' => array(
+      'class' => array('report-problem-submit'),
+      'data-overlay-text' => t('Looking up business details'),
+    ),
   );
 
 
