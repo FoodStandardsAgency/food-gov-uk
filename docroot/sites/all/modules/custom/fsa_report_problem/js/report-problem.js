@@ -131,5 +131,25 @@ if (!window['google']) {
       }
     },
 
+    // Add an overlay element that will be displayed when submit is clicked
+    addOverlay: function() {
+      // Create the outer modal overlay element
+      $overlay = $('<div>', {
+        'class' : 'modal-overlay'
+      });
+      // Create an element to hold the throbber image
+      $throbber = $('<span>', {
+        'class' : 'throbber'
+      });
+      // Create the throbber image
+      $img = $('<img>', {
+        'src' : '/sites/all/modules/contrib/views/images/loading-small.gif'
+      });
+      // Append the image to the throbber and the throbber to the overlay
+      $throbber.append($img).appendTo($overlay);
+      // Add the overlay to the body
+      $('body').append($overlay);
+    },
+
   };
 })(jQuery, google);
