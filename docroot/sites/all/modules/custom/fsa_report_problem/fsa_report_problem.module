@@ -1277,7 +1277,9 @@ function fsa_report_problem_mail($key, &$message, $params) {
       if (!empty($message_details['reply_to_email'])) {
         $message['headers']['Reply-to'] = $message_details['reply_to_email'];
         // Also set Return-Path so that bouncebacks go here as well
-        $message['headers']['Return-Path'] = $message_details['reply_to_email'];
+        // We're commenting this out now as it appears to be causing problems
+        // with email delivery via MessageLabs - see #10383
+        //$message['headers']['Return-Path'] = $message_details['reply_to_email'];
       }
 
       $message['subject'] = '';
@@ -1318,7 +1320,9 @@ function fsa_report_problem_mail($key, &$message, $params) {
       if (!empty($message_details['reply_to_email'])) {
         $message['headers']['Reply-to'] = $message_details['reply_to_email'];
         // Also set Return-Path so that bouncebacks go here as well
-        $message['headers']['Return-Path'] = $message_details['reply_to_email'];
+        // We're commenting this out now as it appears to be causing problems
+        // with email delivery via MessageLabs - see #10383
+        //$message['headers']['Return-Path'] = $message_details['reply_to_email'];
       }
 
       if (!empty($message_details['include_dev_message'])) {
