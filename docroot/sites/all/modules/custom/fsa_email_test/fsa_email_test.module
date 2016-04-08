@@ -1,0 +1,182 @@
+<?php
+/**
+ * @file
+ * Module code for the FSA Email test module
+ */
+
+
+/**
+ * Define the default to address
+ */
+define('FSA_EMAIL_TEST_DEFAULT_TO', 'digital.communications@foodstandards.gsi.gov.uk');
+
+/**
+ * Define the default subject
+ */
+define('FSA_EMAIL_TEST_DEFAULT_SUBJECT', t('Test email'));
+
+/**
+ * Define the default message body
+ */
+define('FSA_EMAIL_TEST_DEFAULT_BODY', t('This is a test email'));
+
+/**
+ * Define the menu link base path
+ */
+define('FSA_EMAIL_TEST_MENU_PATH', 'admin/config/development/emailtest');
+
+
+/**
+ * Implements hook_permission().
+ */
+function fsa_email_test_permission() {
+  return array(
+    'send test emails' => array(
+      'title' => t('Send test emails'),
+      'description' => t('Sent test emails using the FSA Email test module'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function fsa_email_test_menu() {
+  $items = array();
+  $items[FSA_EMAIL_TEST_MENU_PATH] = array(
+    'title' => 'Email test',
+    'description' => 'Send test emails with configurable headers',
+    'access arguments' => array('send test emails'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_email_test_form'),
+    'file' => 'fsa_email_test.admin.inc',
+  );
+  $items[FSA_EMAIL_TEST_MENU_PATH . '/send'] = array(
+    'title' => 'Send a test email',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -2,
+  );
+  $items[FSA_EMAIL_TEST_MENU_PATH . '/config'] = array(
+    'title' => 'Configure',
+    'description' => 'Set configuration settings for the FSA email test module',
+    'access arguments' => array('send test emails'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_email_test_admin_form'),
+    'file' => 'fsa_email_test.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+  // If dblog is enabled, then we can allow users to see a log of sent mails
+  if (module_exists('dblog')) {
+    $items[FSA_EMAIL_TEST_MENU_PATH . '/log'] = array(
+      'title' => 'Sent email log',
+      'description' => 'View a log of test emails sent',
+      'access arguments' => array('send test emails'),
+      'page callback' => 'fsa_email_test_email_log',
+      'file' => 'fsa_email_test.pages.inc',
+      'type' => MENU_LOCAL_TASK,
+      'weight' => -1,
+    );
+    $items[FSA_EMAIL_TEST_MENU_PATH . '/log/%'] = array(
+      'title' => 'View test email details',
+      'description' => 'View details of a test email sent',
+      'access arguments' => array('send test emails'),
+      'page callback' => 'fsa_email_test_view_email_message',
+      'page arguments' => array(5),
+      'file' => 'fsa_email_test.pages.inc',
+    );
+  }
+  return $items;
+}
+
+/**
+ * Helper function: returns an array of possible headers
+ */
+function _fsa_email_test_headers() {
+  return array(
+    'To' => array(
+      'title' => t('To'),
+      'default_value' => variable_get('fsa_email_test_default_to'),
+    ),
+    'From' => array(
+      'title' => t('From'),
+      'default_value' => variable_get('site_mail'),
+    ),
+    'Sender' => array(
+      'title' => t('Sender')
+    ),
+    'Reply-to' => array(
+      'title' => t('Reply to'),
+    ),
+    'Return-path' => array(
+      'title' => t('Return path'),
+    ),
+  );
+}
+
+
+/**
+ * Implements hook_mail().
+ */
+function fsa_email_test_mail($key, &$message, $params) {
+
+  // Get the available headers
+  $headers = _fsa_email_test_headers();
+
+  // Check to see what headers have been supplied and set them, with the
+  // excpetion of To, which we don't want to duplicate as it's already in the
+  // $message array.
+  foreach ($headers as $header => $label) {
+    if (!empty($params[$header]) && $header != 'To') {
+      $message['headers'][$header] = $params[$header];
+    }
+  }
+
+  // Set the subject
+  $message['subject'] = !empty($params['subject']) ? $params['subject'] : variable_get('fsa_email_test_default_subject');
+
+  // Set the body
+  $message['body'][] = !empty($params['body']) ? $params['body'] : variable_get('fsa_email_test_default_body');
+}
+
+
+/**
+ * Implements hook_theme().
+ */
+function fsa_email_test_theme() {
+  return array(
+    'fsa_email_test_message_details' => array(
+      'template' => 'theme/fsa-email-test-message-details',
+      'variables' => array(
+        'message_details' => array(),
+      ),
+    ),
+  );
+}
+
+
+/**
+ * Preprocess function for message details
+ *
+ * @see fsa-email-test-message-details.tpl.php
+ */
+function template_preprocess_fsa_email_test_message_details(&$variables) {
+  // Get the message details
+  $message_details = !empty($variables['message_details']) ? $variables['message_details'] : array();
+  // Get the to address
+  $variables['to'] = !empty($message_details['@to']) ? $message_details['@to'] : 'None';
+  // Get the from address
+  $variables['from'] = !empty($message_details['From']) ? $message_details['From'] : 'None';
+  // Set the email subject
+  $variables['subject'] = !empty($message_details['subject']) ? $message_details['subject'] : 'None';
+  // Set the email body
+  $variables['body'] = !empty($message_details['body']) ? $message_details['body'] : 'None';
+  // Set the sent date
+  $variables['date_sent'] = !empty($message_details['date_sent']) ? format_date($message_details['date_sent'], 'long') : NULL;
+  // Get the headers
+  $headers = $message_details;
+  // Unset the headers we don't need
+  foreach (array('subject', 'body', '@to', 'From', 'date_sent') as $header) {
+    unset($headers[$header]);
+  }
+  $variables['headers'] = $headers;
+}
