@@ -1282,6 +1282,10 @@ function fsa_report_problem_mail($key, &$message, $params) {
         //$message['headers']['Return-Path'] = $message_details['reply_to_email'];
       }
 
+      // Set the Sender header - this should avoid issues where email clients
+      // such as Outlook show 'on behalf of' in the from address.
+      $message['headers']['Sender'] = $message['from'];
+
       $message['subject'] = '';
       $message['subject'] .= empty($report->local_authority_email) ? t('ACTION REQUIRED:') . ' ' : '';
 
@@ -1315,6 +1319,14 @@ function fsa_report_problem_mail($key, &$message, $params) {
       //$message['body'][] = drupal_render($message_body);
       $message_details = _fsa_report_problem_email('acknowledgement');
       $message['subject'] .= token_replace($message_details['subject'], array('report' => $params['report']));
+
+      // Set the From address
+      $message['from'] = !empty($message_details['sender_email']) ? $message_details['sender_email'] : $message['from'];
+      $message['headers']['From'] = $message['from'];
+
+      // Set the Sender header - this should avoid issues where email clients
+      // such as Outlook show 'on behalf of' in the from address.
+      $message['headers']['Sender'] = $message['from'];
 
       // If we have a reply-to header for this email, use it
       if (!empty($message_details['reply_to_email'])) {
