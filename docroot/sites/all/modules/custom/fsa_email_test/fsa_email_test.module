@@ -107,7 +107,7 @@ function _fsa_email_test_headers() {
     'Reply-to' => array(
       'title' => t('Reply to'),
     ),
-    'Return-path' => array(
+    'Return-Path' => array(
       'title' => t('Return path'),
     ),
   );
