@@ -1,0 +1,27 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the FSA Email test module
+ */
+
+
+/**
+ * Implements hook_install().
+ */
+function fsa_email_test_install() {
+  // Set variable defaults
+  variable_set('fsa_email_test_default_to', FSA_EMAIL_TEST_DEFAULT_TO);
+  variable_set('fsa_email_test_default_subject', FSA_EMAIL_TEST_DEFAULT_SUBJECT);
+  variable_set('fsa_email_test_default_body', FSA_EMAIL_TEST_DEFAULT_BODY);
+}
+
+
+/**
+ * Implements hook_uninstall().
+ */
+function fsa_email_test_uninstall() {
+  // Remove variables
+  variable_del('fsa_email_test_default_to');
+  variable_del('fsa_email_test_default_subject');
+  variable_del('fsa_email_test_default_body');
+}

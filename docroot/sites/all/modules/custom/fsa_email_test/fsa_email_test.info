@@ -1,0 +1,4 @@
+name = FSA Email test module
+description = Allows testing of emails from Drupal
+core = 7.x
+package = FSA Custom
