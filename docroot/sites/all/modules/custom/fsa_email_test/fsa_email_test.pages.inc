@@ -20,6 +20,8 @@ function fsa_email_test_email_log() {
   $headers = array(
     t('Subject'),
     t('To'),
+    t('From'),
+    t('Reply to'),
     t('Date'),
   );
 
@@ -31,6 +33,8 @@ function fsa_email_test_email_log() {
     $rows[] = array(
       l($message_details['subject'], current_path() . '/' . $message->wid),
       $message_details['@to'],
+      $message_details['From'],
+      !empty($message_details['Reply-to']) ? $message_details['Reply-to'] : NULL,
       !empty($message_details['date_sent']) ? format_date($message_details['date_sent'], 'short') : format_date($message->timestamp, 'short'),
     );
   }
