@@ -26,6 +26,10 @@ function FSA_language_negotiation_menu() {
   return $items;
 }
 
+
+/**
+ * Implements hook_language_negotiation_info().
+ */
 function FSA_language_negotiation_language_negotiation_info() {
   return array(
     'site_version' => array(
