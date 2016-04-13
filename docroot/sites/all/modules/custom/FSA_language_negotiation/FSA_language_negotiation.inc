@@ -10,21 +10,22 @@
  * @return string
  */
 function FSA_language_negotiation_wales($languages) {
+
+  // Require path.inc from Core as we need it for drupal_match_path()
+  require_once DRUPAL_ROOT . '/' . variable_get('path_inc', 'includes/path.inc');
+
+  // Set the default language to English
   $language = 'en';
 
-  // force all pages within the Cymru to be in Welsh
-  // specify all the paths that could denote the welsh section
-  $paths = array(
-      'wales/about-fsa-wales/cymru',
-      'wales/cymru',
-  );
+  // Get the paths for Welsh language
+  $paths = _FSA_language_negotiation_get_paths();
 
-  foreach ($paths as $path) {
-    if (substr($_GET['q'], 0, strlen($path)) == $path)  {
-      $language = 'cy';
-    }
+  // If any of the paths match the current path, set language code to cy.
+  if (drupal_match_path($_GET['q'], $paths)) {
+    $language = 'cy';
   }
 
+  // Return the language code
   return $language;
 }
 
