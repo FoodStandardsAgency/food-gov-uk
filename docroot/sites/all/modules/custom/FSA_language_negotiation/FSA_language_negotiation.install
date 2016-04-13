@@ -1,0 +1,43 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for FSA language netotiation module
+ *
+ * Note that due to a 'bug' in Drupal Core, update functions for modules that
+ * contain uppercase letters don't get run. The functions in this file are here
+ * for the sake of completeness, but they will NOT work on current versions of
+ * Drupal.
+ *
+ * The only apparent solution is to rename the module to lowercase or to patch
+ * Drupal Core, but since these functions aren't essential, that's more trouble
+ * than it's currently worth.
+ *
+ * @see https://www.drupal.org/node/854360
+ * @see https://www.drupal.org/node/150215
+ */
+
+/**
+ * Implements hook_install();
+ */
+function FSA_language_negotiation_install() {
+  // Set the default paths variable.
+  variable_set('FSA_language_negotiation_paths', _FSA_language_negotiation_default_paths());
+}
+
+
+/**
+ * Sets the Welsh language paths variable to the default paths
+ */
+function FSA_language_negotiation_update_7001() {
+  // Set the default paths variable
+  variable_set('FSA_language_negotiation_paths', _FSA_language_negotiation_default_paths());
+}
+
+
+/**
+ * Implements hook_uninstall().
+ */
+function FSA_language_negotiation_uninstall() {
+  // Delete the variable for default paths
+  variable_del('FSA_language_negotiation_paths');
+}
