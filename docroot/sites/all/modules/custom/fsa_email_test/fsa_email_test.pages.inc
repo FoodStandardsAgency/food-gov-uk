@@ -30,8 +30,12 @@ function fsa_email_test_email_log() {
   foreach ($messages as $message) {
 
     $message_details = unserialize($message->variables);
+    $subject = $message_details['subject'];
+    if (is_callable('mb_strimwidth')) {
+      $subject = mb_strimwidth($subject, 0, 45, '...');
+    }
     $rows[] = array(
-      l($message_details['subject'], current_path() . '/' . $message->wid),
+      l($subject, current_path() . '/' . $message->wid),
       $message_details['@to'],
       $message_details['From'],
       !empty($message_details['Reply-to']) ? $message_details['Reply-to'] : NULL,
