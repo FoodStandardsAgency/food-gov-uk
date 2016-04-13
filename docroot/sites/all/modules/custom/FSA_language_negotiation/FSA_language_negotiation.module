@@ -1,9 +1,11 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Peter
- * Date: 04/07/14
- * Time: 20:20
+ * @file
+ * Module file for the FSA language negotiation module.
+ *
+ * This module allows path-based language negotiation that can be modified by
+ * administrators with the appropriate permissions. It is used primarily to set
+ * the paths that are to be displayed in Welsh.
  */
 
 function FSA_language_negotiation_language_negotiation_info() {
