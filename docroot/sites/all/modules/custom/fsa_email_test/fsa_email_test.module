@@ -77,7 +77,7 @@ function fsa_email_test_menu() {
       'weight' => -1,
     );
     $items[FSA_EMAIL_TEST_MENU_PATH . '/log/%'] = array(
-      'title' => 'View test email details',
+      'title' => 'View message details',
       'description' => 'View details of a test email sent',
       'access arguments' => array('send test emails'),
       'page callback' => 'fsa_email_test_view_email_message',
