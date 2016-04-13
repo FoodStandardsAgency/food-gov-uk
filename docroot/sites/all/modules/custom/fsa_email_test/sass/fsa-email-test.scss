@@ -42,7 +42,11 @@ input#edit-return-path {
 // Formatting for the message log
 .fsa-email-test-message-details {
 
-   div.message-header {
+  h2 {
+    margin-top: 2em;
+  }
+
+  div.message-header {
      border-bottom: 1px dotted #ccc;
      padding: 5px 0;
 
@@ -63,7 +67,13 @@ input#edit-return-path {
    }
 
    .message-body {
-     padding-top: 20px;
+
+     h2 {
+       border-bottom: 1px dotted #ccc;
+       margin-bottom: 1em;
+       padding-bottom: 0.5em;
+     }
+
    }
 
 

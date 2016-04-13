@@ -26,6 +26,8 @@ input#edit-return-path {
   padding: 5px 7px;
   text-align: left; }
 
+.fsa-email-test-message-details h2 {
+  margin-top: 2em; }
 .fsa-email-test-message-details div.message-header {
   border-bottom: 1px dotted #ccc;
   padding: 5px 0; }
@@ -37,7 +39,9 @@ input#edit-return-path {
     width: 15%; }
   .fsa-email-test-message-details div.message-header .message-header-value {
     display: inline-block; }
-.fsa-email-test-message-details .message-body {
-  padding-top: 20px; }
+.fsa-email-test-message-details .message-body h2 {
+  border-bottom: 1px dotted #ccc;
+  margin-bottom: 1em;
+  padding-bottom: 0.5em; }
 
 /*# sourceMappingURL=fsa-email-test.css.map */
