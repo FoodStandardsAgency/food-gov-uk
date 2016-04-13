@@ -34,7 +34,20 @@
       </div>
     </div>
   <?php endforeach; ?>
+  <?php if (!empty($module) || !empty($key)): ?>
+    <h2>Module details</h2>
+    <div class="message-header message-header-module">
+      <div class="message-header-name"><?php print t('Module'); ?></div>
+      <div class="message-header-value"><?php print $module; ?></div>
+    </div>
+    <div class="message-header message-header-from">
+      <div class="message-header-name"><?php print t('Key'); ?></div>
+      <div class="message-header-value"><?php print $key; ?></div>
+    </div>
+  <?php endif; ?>
+
   <div class="message-body">
+    <h2>Message</h2>
     <pre>
 <?php print render($body); ?>
     </pre>
