@@ -2115,6 +2115,9 @@ function fsa_report_problem_tokens($type, $tokens, array $data = array(), array 
             if (!empty($report->reporter_email)) {
               $reporter[] = $report->reporter_email;
             }
+            if (!empty($report->reporter_phone)) {
+              $reporter[] = $report->reporter_phone;
+            }
             $replacements[$original] = implode(', ', $reporter);
           }
           break;
