@@ -135,10 +135,10 @@ function fsa_report_problem_menu() {
     'description' => 'View reports of problems with food premises',
     // Use a custom access callback
     'access callback' => '_fsa_report_problem_view_reports_access',
-    // In the access arguments, we pass an array of roles that can access the
-    // food problem reports without having access to the main site reports
-    // section. At present it's just 'Report a food problem'
-    'access arguments' => array('Report a food problem'),
+    // In the access arguments, we pass an array of permissions that can access
+    // the food problem reports without having access to the main site reports
+    // section. At present it's just 'view food problem reports'
+    'access arguments' => array('view food problem reports'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('fsa_report_problem_view_reports'),
     'file' => 'fsa_report_problem.admin.inc',
@@ -4812,13 +4812,13 @@ function _fsa_report_problem_form_field_text(&$element, $label = NULL, $descript
  * Access callback - allows users to view food problem reports
  *
  * This function provides access to a special top-level admin menu item that
- * allows non-admin users with the role 'Report a food problem' to view food
+ * allows non-admin users with the specified permissions to view food
  * problem reports without been granted access to other reports or admin
  * functions. Since it's effectively a duplicate item of a link under Reports,
  * we hide it from users who can access site reports.
  *
  * @params array
- *   Roles to be allowed access are passed as parameters to this function
+ *   Permissions to be allowed access are passed as parameters to this function
  *
  * @return boolean
  *   TRUE if the user is allowed to access the menu item; FALSE otherwise.
@@ -4834,21 +4834,17 @@ function _fsa_report_problem_view_reports_access() {
     return FALSE;
   }
 
-  // Get the roles from the arguments
-  $roles = func_get_args();
+  // Get the permissions from the arguments
+  $permissions = func_get_args();
 
-  // If we have no roles, return FALSE
-  if (empty($roles)) {
+  // If we have no permissions, return FALSE
+  if (empty($permissions)) {
     return FALSE;
   }
 
-  // Get all the user roles
-  $user_roles = user_roles();
-
-  // Check to see if the current user has each of the specified roles
-  foreach ($roles as $role) {
-    $rid = array_search($role, $user_roles);
-    if (user_has_role($rid, $user)) {
+  // Check to see if the current user has each of the specified permissions
+  foreach ($permissions as $permission) {
+    if (user_access($permission)) {
       return TRUE;
     }
   }
