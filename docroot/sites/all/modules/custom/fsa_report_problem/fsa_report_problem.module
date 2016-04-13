@@ -4789,3 +4789,53 @@ function _fsa_report_problem_form_field_text(&$element, $label = NULL, $descript
     }
   }
 }
+
+
+/*
+ * Access callback - allows users to view food problem reports
+ *
+ * This function provides access to a special top-level admin menu item that
+ * allows non-admin users with the role 'Report a food problem' to view food
+ * problem reports without been granted access to other reports or admin
+ * functions. Since it's effectively a duplicate item of a link under Reports,
+ * we hide it from users who can access site reports.
+ *
+ * @params array
+ *   Roles to be allowed access are passed as parameters to this function
+ *
+ * @return boolean
+ *   TRUE if the user is allowed to access the menu item; FALSE otherwise.
+ */
+function _fsa_report_problem_view_reports_access() {
+
+  // Load the global user object
+  global $user;
+
+  // If the user already has access to site reports, then there's no need for
+  // them to see the special menu item, so return FALSE now.
+  if (user_access('access site reports')) {
+    return FALSE;
+  }
+
+  // Get the roles from the arguments
+  $roles = func_get_args();
+
+  // If we have no roles, return FALSE
+  if (empty($roles)) {
+    return FALSE;
+  }
+
+  // Get all the user roles
+  $user_roles = user_roles();
+
+  // Check to see if the current user has each of the specified roles
+  foreach ($roles as $role) {
+    $rid = array_search($role, $user_roles);
+    if (user_has_role($rid, $user)) {
+      return TRUE;
+    }
+  }
+
+  // If all else fails, return FALSE - no access
+  return FALSE;
+}
