@@ -1,9 +1,7 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Peter
- * Date: 04/07/14
- * Time: 20:21
+ * @file
+ * Language negotiation functions for the FSA language negotiation module
  */
 
 /**
