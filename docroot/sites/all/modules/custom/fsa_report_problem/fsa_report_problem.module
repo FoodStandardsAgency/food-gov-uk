@@ -4629,6 +4629,7 @@ function _fsa_report_problem_remove_report_reporter_details($rids) {
   foreach ($reports as $rid => $report) {
     $report->reporter_name = '';
     $report->reporter_email = '';
+    $report->reporter_phone = '';
     if($report->save() == SAVED_UPDATED) {
       $return_array[] = $rid;
       watchdog('fsa_report_problem', 'Removed reporter data for report @rid.', array('@rid' => $rid));
