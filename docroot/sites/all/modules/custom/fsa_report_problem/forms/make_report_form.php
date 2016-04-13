@@ -103,6 +103,13 @@ function fsa_report_problem_make_report_form($form, &$form_state, $manual = FALS
     '#required' => $reporter_email_required,
   );
 
+  $form['reporter_phone'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Your phone number (optional)'),
+    '#description' => t('This would only be used by the local authority to contact you about your issue.'),
+    '#required' => FALSE,
+  );
+
   // @todo Change this to a single date field and add a free-text field for the
   // time as some users find the time selector confusing
   $today = date("Y-m-d H:i:s");
