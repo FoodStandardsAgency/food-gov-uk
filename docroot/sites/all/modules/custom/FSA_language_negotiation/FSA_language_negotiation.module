@@ -39,6 +39,7 @@ function FSA_language_negotiation_language_negotiation_info() {
       // Language detection runs before Drupal Bootstrap completes.
       'file'        => drupal_get_path('module', 'FSA_language_negotiation') . '/FSA_language_negotiation.inc',
       'description' => t('Determine the language from the welsh section of the site.'),
+      'config' => 'admin/config/regional/language/configure/welsh-site-section',
     ),
   );
 }
