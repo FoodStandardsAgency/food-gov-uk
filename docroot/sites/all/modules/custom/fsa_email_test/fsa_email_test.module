@@ -183,6 +183,16 @@ function template_preprocess_fsa_email_test_message_details(&$variables) {
   }
   $variables['headers'] = $headers;
 }
+
+
+/**
+ * Implements hook_mail_alter().
+ */
+function fsa_email_test_mail_alter(&$message) {
+  _fsa_email_test_log_message($message);
+}
+
+
 /**
  * Helper function: logs details of an email message to Watchdog
  */
