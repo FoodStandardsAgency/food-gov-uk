@@ -172,10 +172,13 @@ function template_preprocess_fsa_email_test_message_details(&$variables) {
   $variables['body'] = !empty($message_details['body']) ? $message_details['body'] : 'None';
   // Set the sent date
   $variables['date_sent'] = !empty($message_details['date_sent']) ? format_date($message_details['date_sent'], 'long') : NULL;
+  // Set the module and key
+  $variables['module'] = !empty($message_details['@module']) ? $message_details['@module'] : 'Not set';
+  $variables['key'] = !empty($message_details['@key']) ? $message_details['@key'] : 'Not set';
   // Get the headers
   $headers = $message_details;
   // Unset the headers we don't need
-  foreach (array('subject', 'body', '@to', 'From', 'date_sent') as $header) {
+  foreach (array('subject', 'body', '@to', 'From', 'date_sent', '@module', '@key') as $header) {
     unset($headers[$header]);
   }
   $variables['headers'] = $headers;
