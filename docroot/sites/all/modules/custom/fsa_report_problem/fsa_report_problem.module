@@ -761,6 +761,9 @@ function template_preprocess_problem_report(&$variables) {
   if (!empty($variables['reporter_email'])) {
     $reporter_details[] = l($variables['reporter_email'], 'mailto:' . $variables['reporter_email']);
   }
+  if (!empty($variables['reporter_phone'])) {
+    $reporter_details[] = 't: ' .$variables['reporter_phone'];
+  }
 
   $variables['reporter_name'] = array(
     '#type' => 'item',
