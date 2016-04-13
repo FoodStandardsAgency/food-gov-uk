@@ -30,6 +30,18 @@ function FSA_language_negotiation_wales($languages) {
 
 
 /**
+ * Helper function: gets paths assigned to Welsh language
+ *
+ * @return string
+ *   A list of paths for Welsh language separated by new lines
+ */
+function _FSA_language_negotiation_get_paths() {
+  // Return the value of the variable or the defaults
+  return variable_get('FSA_language_negotiation_paths', _FSA_language_negotiation_default_paths());
+}
+
+
+/**
  * Helper function: defines default paths to trigger Welsh language
  *
  * @return string
