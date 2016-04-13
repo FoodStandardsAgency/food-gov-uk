@@ -1475,6 +1475,7 @@ function _fsa_report_problem_preprocess_problem_report(&$variables) {
   $vars = array(
     'reporter_name',
     'reporter_email',
+    'reporter_phone',
     'business_name',
     'business_location',
     'business_postcode',
