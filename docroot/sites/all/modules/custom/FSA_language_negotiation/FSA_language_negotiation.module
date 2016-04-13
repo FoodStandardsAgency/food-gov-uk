@@ -8,6 +8,24 @@
  * the paths that are to be displayed in Welsh.
  */
 
+
+/**
+ * Implements hook_menu().
+ */
+function FSA_language_negotiation_menu() {
+  $items = array();
+  // Admin page for configuring Welsh language paths
+  $items['admin/config/regional/language/configure/welsh-site-section'] = array(
+    'title' => 'Welsh site section language negotation',
+    'description' => 'Configure settings for Welsh site section language negotiation',
+    'access arguments' => array('administer languages'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('FSA_language_negotiation_admin_form'),
+    'file' => 'FSA_language_negotiation.admin.inc',
+  );
+  return $items;
+}
+
 function FSA_language_negotiation_language_negotiation_info() {
   return array(
     'site_version' => array(
