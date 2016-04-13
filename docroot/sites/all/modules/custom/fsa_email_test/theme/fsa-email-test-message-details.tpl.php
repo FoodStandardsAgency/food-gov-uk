@@ -5,6 +5,7 @@
  */
 ?>
 <div class="<?php print $classes; ?>">
+  <h2>Email headers</h2>
   <div class="message-header message-header-to">
     <div class="message-header-name"><?php print t('To'); ?></div>
     <div class="message-header-value"><?php print $to; ?></div>
