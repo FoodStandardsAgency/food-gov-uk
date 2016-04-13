@@ -27,3 +27,18 @@ function FSA_language_negotiation_wales($languages) {
 
   return $language;
 }
+
+
+/**
+ * Helper function: defines default paths to trigger Welsh language
+ *
+ * @return string
+ *   A list of default paths for Welsh language, separated by new lines
+ */
+function _FSA_language_negotiation_default_paths() {
+  $paths = array(
+    'wales/about-fsa-wales/cymru*',
+    'wales/cymru*',
+  );
+  return implode(PHP_EOL, $paths);
+}
