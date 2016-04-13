@@ -778,6 +778,9 @@ function template_preprocess_problem_report(&$variables) {
   if (!empty($variables['reporter_email'])) {
     $reporter_details[] = l($variables['reporter_email'], 'mailto:' . $variables['reporter_email']);
   }
+  if (!empty($variables['reporter_phone'])) {
+    $reporter_details[] = 't: ' .$variables['reporter_phone'];
+  }
 
   $variables['reporter_name'] = array(
     '#type' => 'item',
@@ -1508,6 +1511,7 @@ function _fsa_report_problem_preprocess_problem_report(&$variables) {
   $vars = array(
     'reporter_name',
     'reporter_email',
+    'reporter_phone',
     'business_name',
     'business_location',
     'business_postcode',
@@ -2143,6 +2147,9 @@ function fsa_report_problem_tokens($type, $tokens, array $data = array(), array 
             }
             if (!empty($report->reporter_email)) {
               $reporter[] = $report->reporter_email;
+            }
+            if (!empty($report->reporter_phone)) {
+              $reporter[] = $report->reporter_phone;
             }
             $replacements[$original] = implode(', ', $reporter);
           }
@@ -4662,6 +4669,7 @@ function _fsa_report_problem_remove_report_reporter_details($rids) {
   foreach ($reports as $rid => $report) {
     $report->reporter_name = '';
     $report->reporter_email = '';
+    $report->reporter_phone = '';
     if($report->save() == SAVED_UPDATED) {
       $return_array[] = $rid;
       watchdog('fsa_report_problem', 'Removed reporter data for report @rid.', array('@rid' => $rid));

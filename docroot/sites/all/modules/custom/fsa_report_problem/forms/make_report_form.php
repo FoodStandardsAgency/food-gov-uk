@@ -103,6 +103,13 @@ function fsa_report_problem_make_report_form($form, &$form_state, $manual = FALS
     '#required' => $reporter_email_required,
   );
 
+  $form['reporter_phone'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Your phone number (optional)'),
+    '#description' => t('This would only be used by the local authority to contact you about your issue.'),
+    '#required' => FALSE,
+  );
+
   // @todo Change this to a single date field and add a free-text field for the
   // time as some users find the time selector confusing
   $today = date("Y-m-d H:i:s");
@@ -197,6 +204,7 @@ function fsa_report_problem_make_report_form_submit($form, &$form_state) {
   $entity->changed = REQUEST_TIME;
   $entity->reporter_name = $form_state['values']['reporter_name'];
   $entity->reporter_email = $form_state['values']['reporter_email'];
+  $entity->reporter_phone = $form_state['values']['reporter_phone'];
   $entity->business_location = $form_state['values']['business_address'];
   $entity->business_postcode = !empty($form_state['values']['business_postcode']) ? _fsa_report_problem_format_postcode($form_state['values']['business_postcode']) : NULL;
   $entity->coordinates = !empty($form_state['coords']) ? $form_state['coords'] : NULL;

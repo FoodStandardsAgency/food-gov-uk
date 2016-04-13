@@ -73,6 +73,12 @@ function fsa_report_problem_schema() {
         'length' => 128,
         'not null' => FALSE,
       ),
+      'reporter_phone' => array(
+        'description' => 'The phone number of the person reporting the problem.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => FALSE,
+      ),
       'problem_date' => array(
         'description' => 'The date when the problem happened - as reported by the reporter.',
         'type' => 'int',
@@ -503,4 +509,25 @@ function fsa_report_problem_update_7012() {
  */
 function fsa_report_problem_update_7013() {
   _fsa_report_problem_variable_setup();
+}
+
+
+/**
+ * Adds a reporter phone number to the problem_reports table.
+ */
+function fsa_report_problem_update_7014() {
+
+  // If the field already exists, return now.
+  if (db_field_exists('problem_reports', 'reporter_phone')) {
+    return;
+  }
+
+  $spec = array(
+        'description' => 'The phone number of the person reporting the problem.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => FALSE,
+      );
+
+  db_add_field('problem_reports', 'reporter_phone', $spec);
 }
