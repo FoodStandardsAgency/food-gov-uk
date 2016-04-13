@@ -183,3 +183,20 @@ function template_preprocess_fsa_email_test_message_details(&$variables) {
   }
   $variables['headers'] = $headers;
 }
+/**
+ * Helper function: logs details of an email message to Watchdog
+ */
+function _fsa_email_test_log_message($message) {
+  $message_details = !empty($message['headers']) ? $message['headers'] : array();
+  $message_details['@to'] = !empty($message['to']) ? $message['to'] : 'Not set';
+  $message_details['subject'] = !empty($message['subject']) ? $message['subject'] : 'None';
+  $message_details['body'] = !empty($message['body']) ? $message['body'] : 'None';
+  $message_details['date_sent'] = time();
+  $message_details['@module'] = $message['module'];
+  $message_details['@key'] = $message['key'];
+  $watchdog_link = NULL;
+  if (is_array($message_details['body'])) {
+    $message_details['body'] = implode("\n\n", $message_details['body']);
+  }
+  watchdog('fsa_email_test_message', 'Email sent to @to by the @module module.', $message_details, WATCHDOG_INFO, $watchdog_link);
+}
