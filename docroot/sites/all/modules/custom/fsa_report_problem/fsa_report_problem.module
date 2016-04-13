@@ -127,6 +127,23 @@ function fsa_report_problem_menu() {
     'file' => 'fsa_report_problem.admin.inc',
   );
 
+  // This is essentially a duplicate of the above menu item, but is here to
+  // enable users with the role 'Report a food problem' to view food problem
+  // reports without being granted access to all of the site reporting.
+  $items['admin/food-problem-reports'] = array(
+    'title' => 'Food problem reports',
+    'description' => 'View reports of problems with food premises',
+    // Use a custom access callback
+    'access callback' => '_fsa_report_problem_view_reports_access',
+    // In the access arguments, we pass an array of permissions that can access
+    // the food problem reports without having access to the main site reports
+    // section. At present it's just 'view food problem reports'
+    'access arguments' => array('view food problem reports'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_report_problem_view_reports'),
+    'file' => 'fsa_report_problem.admin.inc',
+  );
+
   $items['admin/reports/food-problems/%'] = array(
     'title' => 'Food problem report',
     'description' => 'View detail for this food problem report',
@@ -4719,3 +4736,48 @@ function _fsa_report_problem_valid_postcode($postcode) {
   return FALSE;
 }
 
+
+/**
+ * Access callback - allows users to view food problem reports
+ *
+ * This function provides access to a special top-level admin menu item that
+ * allows non-admin users with the specified permissions to view food
+ * problem reports without been granted access to other reports or admin
+ * functions. Since it's effectively a duplicate item of a link under Reports,
+ * we hide it from users who can access site reports.
+ *
+ * @params array
+ *   Permissions to be allowed access are passed as parameters to this function
+ *
+ * @return boolean
+ *   TRUE if the user is allowed to access the menu item; FALSE otherwise.
+ */
+function _fsa_report_problem_view_reports_access() {
+
+  // Load the global user object
+  global $user;
+
+  // If the user already has access to site reports, then there's no need for
+  // them to see the special menu item, so return FALSE now.
+  if (user_access('access site reports')) {
+    return FALSE;
+  }
+
+  // Get the permissions from the arguments
+  $permissions = func_get_args();
+
+  // If we have no permissions, return FALSE
+  if (empty($permissions)) {
+    return FALSE;
+  }
+
+  // Check to see if the current user has each of the specified permissions
+  foreach ($permissions as $permission) {
+    if (user_access($permission)) {
+      return TRUE;
+    }
+  }
+
+  // If all else fails, return FALSE - no access
+  return FALSE;
+}
