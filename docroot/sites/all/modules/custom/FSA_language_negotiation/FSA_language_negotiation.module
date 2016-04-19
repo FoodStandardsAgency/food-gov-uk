@@ -1,11 +1,35 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Peter
- * Date: 04/07/14
- * Time: 20:20
+ * @file
+ * Module file for the FSA language negotiation module.
+ *
+ * This module allows path-based language negotiation that can be modified by
+ * administrators with the appropriate permissions. It is used primarily to set
+ * the paths that are to be displayed in Welsh.
  */
 
+
+/**
+ * Implements hook_menu().
+ */
+function FSA_language_negotiation_menu() {
+  $items = array();
+  // Admin page for configuring Welsh language paths
+  $items['admin/config/regional/language/configure/welsh-site-section'] = array(
+    'title' => 'Welsh site section language negotation',
+    'description' => 'Configure settings for Welsh site section language negotiation',
+    'access arguments' => array('administer languages'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('FSA_language_negotiation_admin_form'),
+    'file' => 'FSA_language_negotiation.admin.inc',
+  );
+  return $items;
+}
+
+
+/**
+ * Implements hook_language_negotiation_info().
+ */
 function FSA_language_negotiation_language_negotiation_info() {
   return array(
     'site_version' => array(
@@ -19,6 +43,7 @@ function FSA_language_negotiation_language_negotiation_info() {
       // Language detection runs before Drupal Bootstrap completes.
       'file'        => drupal_get_path('module', 'FSA_language_negotiation') . '/FSA_language_negotiation.inc',
       'description' => t('Determine the language from the welsh section of the site.'),
+      'config' => 'admin/config/regional/language/configure/welsh-site-section',
     ),
   );
 }
