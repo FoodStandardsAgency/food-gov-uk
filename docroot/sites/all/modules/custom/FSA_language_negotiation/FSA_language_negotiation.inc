@@ -52,6 +52,7 @@ function _FSA_language_negotiation_default_paths() {
   $paths = array(
     'wales/about-fsa-wales/cymru*',
     'wales/cymru*',
+    'wales/wales',
   );
   return implode(PHP_EOL, $paths);
 }
