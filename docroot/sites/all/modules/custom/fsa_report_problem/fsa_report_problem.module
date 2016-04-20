@@ -795,7 +795,7 @@ function template_preprocess_problem_report(&$variables) {
   $variables['problem_date'] = array(
     '#type' => 'item',
     '#title' => t('Date the problem occurred'),
-    '#markup' => format_date($report->problem_date, 'medium'),
+    '#markup' => FSA_REPORT_PROBLEM_CAPTURE_PROBLEM_TIME ? format_date($report->problem_date, 'medium') : format_date($report->problem_date, 'custom', 'd F Y'),
   );
 
   $variables['report_date'] = array(
