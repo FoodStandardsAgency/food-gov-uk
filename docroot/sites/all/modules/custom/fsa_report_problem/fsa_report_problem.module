@@ -1767,6 +1767,48 @@ function _fsa_report_problem_text() {
       'format' => 'plain_text',
       'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_FIELD_LABEL,
     ),
+    'field_title_reporter_phone' => array(
+      'title' => t('Field label - reporter phone number'),
+      'description' => t('Field label for the reporter phone number field'),
+      'default' => t('Your phone number'),
+      'format' => 'plain_text',
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_FIELD_LABEL,
+    ),
+    'field_description_reporter_phone' => array(
+      'title' => t('Field description - reporter phone number'),
+      'description' => t('Descriptive help text for the reporter phone number field'),
+      'default' => t('This would only be used by the local authority to contact you about your issue.'),
+      'format' => 'plain_text',
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_FIELD_LABEL,
+    ),
+    'field_title_reporter_name' => array(
+      'title' => t('Field label - reporter name'),
+      'description' => t('Field label for the reporter name field'),
+      'default' => t('Your name'),
+      'format' => 'plain_text',
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_FIELD_LABEL,
+    ),
+    'field_description_reporter_name' => array(
+      'title' => t('Field description - reporter name'),
+      'description' => t('Descriptive help text for the reporter name field'),
+      'default' => t('This would only be used by the local authority to contact you about your issue.'),
+      'format' => 'plain_text',
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_FIELD_LABEL,
+    ),
+    'field_title_reporter_email' => array(
+      'title' => t('Field label - reporter email'),
+      'description' => t('Field label for the reporter email field'),
+      'default' => t('Your email address'),
+      'format' => 'plain_text',
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_FIELD_LABEL,
+    ),
+    'field_description_reporter_email' => array(
+      'title' => t('Field description - reporter email'),
+      'description' => t('Descriptive help text for the reporter email field'),
+      'default' => t('This would only be used by the local authority to contact you about your issue.'),
+      'format' => 'plain_text',
+      'category' => FSA_REPORT_PROBLEM_TEXT_CATEGORY_FIELD_LABEL,
+    ),
   );
 
   // Get additional service-specific text entries
