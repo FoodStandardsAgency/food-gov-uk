@@ -774,6 +774,7 @@ function template_preprocess_problem_report(&$variables) {
     '#type' => 'item',
     '#markup' => $variables['local_authority_name'] . (!empty($variables['local_authority_email']) ? ', ' . $variables['local_authority_email'] : ''),
     '#title' => t('Local authority'),
+    '#access' => !empty($variables['local_authority_name']),
   );
 
   // Build an array of reporter details - name and email address
