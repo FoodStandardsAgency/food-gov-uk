@@ -105,16 +105,23 @@ function fsa_report_problem_make_report_form($form, &$form_state, $manual = FALS
 
   // @todo Change this to a single date field and add a free-text field for the
   // time as some users find the time selector confusing
-  $today = date("Y-m-d H:i:s");
+  $today = date('Y-m-d H:i:s');
+  $issue_date_label = t('Date the food issue happened');
+  $issue_date_format = 'd F Y';
+  if (FSA_REPORT_PROBLEM_CAPTURE_PROBLEM_TIME) {
+    $issue_date_format = 'd F Y H:i';
+    $issue_date_label = t('Date and approximate time the food issue happened');
+  }
   $form['issue_date'] = array(
     '#type' => 'date_popup',
-    '#title' => t('Date and approximate time the food issue happened'),
+    '#title' => $issue_date_label,
     '#default_value' => $today,
     '#date_type' => DATE_UNIX,
     '#date_timezone' => date_default_timezone(),
-    '#date_format' => 'd/m/Y h:i a',
+    '#date_format' => $issue_date_format,
     '#date_increment' => 1,
     '#date_year_range' => '-1:+1',
+    '#date_label_position' => FSA_REPORT_PROBLEM_CAPTURE_PROBLEM_TIME ? 'above' : 'invisible',
   );
 
   $form['issue_details'] = array(
