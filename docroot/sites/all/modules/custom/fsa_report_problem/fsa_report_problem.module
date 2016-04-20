@@ -92,6 +92,12 @@ define('FSA_REPORT_PROBLEM_TEXT_CATEGORY_GENERAL', 'general');
 define('FSA_REPORT_PROBLEM_SHOW_REPORTER_DETAILS', FALSE);
 
 /**
+ * Determines whether to capture the time the food problem occurred or just date
+ */
+define('FSA_REPORT_PROBLEM_CAPTURE_PROBLEM_TIME', FALSE);
+
+
+/**
  * Implements hook_permission().
  */
 function fsa_report_problem_permission() {
