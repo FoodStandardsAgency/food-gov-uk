@@ -4771,7 +4771,7 @@ function _fsa_report_problem_valid_postcode($postcode) {
 }
 
 
-/*
+/**
  * Access callback - allows users to view food problem reports
  *
  * This function provides access to a special top-level admin menu item that
