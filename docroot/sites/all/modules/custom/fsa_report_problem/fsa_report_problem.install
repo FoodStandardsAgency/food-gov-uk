@@ -531,3 +531,11 @@ function fsa_report_problem_update_7014() {
 
   db_add_field('problem_reports', 'reporter_phone', $spec);
 }
+
+
+/**
+ * Makes new language entries translatable
+ */
+function fsa_report_problem_update_7015() {
+  _fsa_report_problem_variable_setup();
+}
