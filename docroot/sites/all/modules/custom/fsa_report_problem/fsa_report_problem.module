@@ -4711,3 +4711,39 @@ function _fsa_report_problem_valid_postcode($postcode) {
   return FALSE;
 }
 
+
+/**
+ * Helper function: provides label, description and placeholder for form fields
+ *
+ * @param array $element
+ *   The form element - passed by reference
+ * @param string $label
+ *   (optional) Text to use for the label (title) element
+ * @param string $description
+ *   (optional) Text to use for the description element
+ * @param string $placeholder
+ *   (optional) Text to use for the placeholder attribute
+ */
+function _fsa_report_problem_form_field_text(&$element, $label = NULL, $description = NULL, $placeholder = NULL) {
+  // Set the field label (title) if supplied
+  if (!empty($label)) {
+    $element['#title'] = trim(strip_tags($label));
+    if (empty($element['#required'])) {
+      $element['#title'] .= ' (' . t('optional') . ')';
+    }
+  }
+  if (!empty($description)) {
+    $element['#description'] = trim(strip_tags($description));
+  }
+  if (!empty($placeholder)) {
+    $attributes = array(
+      'placeholder' => trim(strip_tags($placeholder)),
+    );
+    if (!empty($element['#attributes'])) {
+      $element['#attributes'] += $attributes;
+    }
+    else {
+      $element['#attributes'] = $attributes;
+    }
+  }
+}
