@@ -2177,7 +2177,7 @@ function fsa_report_problem_tokens($type, $tokens, array $data = array(), array 
           break;
         case 'report_date':
           if (!empty($report->problem_date)) {
-            $replacements[$original] = format_date($report->problem_date, 'medium');
+            $replacements[$original] = FSA_REPORT_PROBLEM_CAPTURE_PROBLEM_TIME ? format_date($report->problem_date, 'medium') : format_date($report->problem_date, 'custom', 'd F Y');
           }
           break;
         case 'problem_details':
