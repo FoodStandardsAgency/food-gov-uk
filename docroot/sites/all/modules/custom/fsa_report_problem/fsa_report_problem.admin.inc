@@ -6,6 +6,9 @@
 
 /**
  * Form builder: Provides admin listing of submitted food problem reports
+ * 
+ * @deprecated
+ *   This listing is now provided by a view
  */
 function fsa_report_problem_view_reports($form, &$form_state) {
 
