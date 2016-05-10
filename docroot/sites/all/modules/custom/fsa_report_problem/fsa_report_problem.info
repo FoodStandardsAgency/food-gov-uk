@@ -4,6 +4,8 @@ core = 7.x
 package = FSA Custom
 files[] = includes/form.inc
 dependencies[] = fhrs_api
+dependencies[] = views_data_export
+
 files[] = classes/GooglePlacesApiException.class.php
 files[] = classes/MapItApiException.class.php
 files[] = classes/ExternalApiStatus.class.php
