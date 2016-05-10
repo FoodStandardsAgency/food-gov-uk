@@ -560,3 +560,18 @@ function fsa_report_problem_update_7016() {
 
   db_add_field('problem_reports', 'manual_submission', $spec);
 }
+
+
+/**
+ * Enables new modules that we need for exporting food problem report data
+ */
+function fsa_report_problem_update_7017() {
+  // We enable the Views data export module and the Mimemail module, which in
+  // turn should require the Mail system module.
+  $module_list = array(
+    'views_data_export',
+    'mimemail',
+  );
+  // Enable the modules
+  module_enable($module_list);
+}
