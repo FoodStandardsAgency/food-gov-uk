@@ -1365,6 +1365,15 @@ function fsa_report_problem_mail($key, &$message, $params) {
   );
 
   switch ($key) {
+    case 'weekly_report':
+
+      $message['subject'] = $params['subject'];
+      $message['params']['attachments'][] = $params['attachment'];
+      $message['params']['plain'] = TRUE;
+      $message['body'] = $params['body'];
+      drupal_set_message('Email sent');
+      break;
+
     case 'problem_report':
 
       $report = $params['report'];
