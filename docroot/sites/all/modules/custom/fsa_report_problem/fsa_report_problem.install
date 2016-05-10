@@ -581,3 +581,16 @@ function fsa_report_problem_update_7017() {
   // Enable the modules
   module_enable($module_list);
 }
+
+
+/**
+ * Sets the relevant mail system classes
+ */
+function fsa_report_problem_update_7018() {
+  // Set the default MailSystemInterface class to be the out-of-the-box Drupal
+  // class: DefaultMailSystem
+  mailsystem_set(array(mailsystem_default_id() => 'DefaultMailSystem'));
+  // For the food problem weekly reports, we want to use the MimeMailSystem
+  // class as it allows us to add attachment
+  mailsystem_set(array('fsa_report_problem_weekly_report' => 'MimeMailSystem'));
+}
