@@ -5,6 +5,7 @@ package = FSA Custom
 files[] = includes/form.inc
 dependencies[] = fhrs_api
 dependencies[] = views_data_export
+dependencies[] = mimemail
 
 files[] = classes/GooglePlacesApiException.class.php
 files[] = classes/MapItApiException.class.php
