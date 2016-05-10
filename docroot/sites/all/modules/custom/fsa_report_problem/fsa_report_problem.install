@@ -128,6 +128,12 @@ function fsa_report_problem_schema() {
         'not null' => FALSE,
         'default' => 0,
       ),
+      'manual_submission' => array(
+        'description' => 'Indicates that this submission is manual, ie not via the business lookup forms.',
+        'type' => 'int',
+        'not null' => FALSE,
+        'default' => 0,
+      ),
       'created' => array(
         'description' => 'The UNIX timestamp when the problem was reported',
         'type' => 'int',
@@ -532,4 +538,25 @@ function fsa_report_problem_update_7014() {
  */
 function fsa_report_problem_update_7015() {
   _fsa_report_problem_variable_setup();
+}
+
+
+/**
+ * Adds a 'manual_submission' field to the problem reports table.
+ */
+function fsa_report_problem_update_7016() {
+
+  // If the field already exists, return now.
+  if (db_field_exists('problem_reports', 'manual_submission')) {
+    return;
+  }
+
+  $spec = array(
+    'description' => 'Indicates that this submission is manual, ie not via the business lookup forms.',
+    'type' => 'int',
+    'not null' => FALSE,
+    'default' => 0,
+  );
+
+  db_add_field('problem_reports', 'manual_submission', $spec);
 }
