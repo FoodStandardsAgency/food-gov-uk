@@ -2439,6 +2439,9 @@ function _fsa_report_problem_update_fhrs_data() {
  */
 function fsa_report_problem_cron() {
 
+  // Send the weekly report
+  _fsa_report_problem_weekly_email_report();
+
   // Remove reporter data from sent reports
   _fsa_report_problem_remove_reporter_details();
 
