@@ -4877,3 +4877,32 @@ function _fsa_report_problem_view_reports_access() {
   // If all else fails, return FALSE - no access
   return FALSE;
 }
+
+
+/**
+ * Helper function: retrieves/sets the last data export date for the given user
+ *
+ * @param int $uid
+ *   The user ID of the user for which we want to get the most recent export
+ *   date.
+ *
+ * @param int $date
+ *   (optional) If supplied, this will be set as the user's last export date. It
+ *   should be a UNIX timestamp.
+ *
+ * @return int
+ *   A UNIX timestamp for the last export date for the given user, or 0 if the
+ *   user has never exported data.
+ */
+function _fsa_report_problem_last_export_date($uid, $date = NULL) {
+  // Get the username for the given user
+  $username = !empty($uid) ? user_load($uid)->name : 'anonymous';
+  // Get the existing export dates
+  $export_dates = variable_get('fsa_report_problem_last_export_date', array());
+  $last_export = !empty($export_dates[$username]) ? $export_dates[$username] : 0;
+  if (!empty($date)) {
+    $export_dates[$username] = $date;
+    variable_set('fsa_report_problem_last_export_date', $export_dates);
+  }
+  return $last_export;
+}
