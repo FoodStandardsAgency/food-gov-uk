@@ -4880,6 +4880,63 @@ function _fsa_report_problem_view_reports_access() {
 
 
 /**
+ * Helper function: sends a weekly email report for data analysis
+ */
+function _fsa_report_problem_weekly_email_report() {
+
+  // Get the request time
+  $request_time = REQUEST_TIME;
+
+  // The report should be sent first thing on Monday, so if we're on any other
+  // day, exit now.
+  if (format_date($request_time, 'custom', 'w') != 1) {
+    return;
+  }
+  
+  // Get the last time the report was sent
+  global $user;
+  $last_sent = _fsa_report_problem_last_export_date($user->uid);
+  
+  // If the report has already been sent today, exit now
+  if (!empty($last_sent)){
+    if (format_date($last_sent, 'custom', 'Y F d') == format_date($request_time, 'custom', 'Y F d')) {
+      return;
+    }
+  }
+  
+  // Get the email details
+  $email = _fsa_report_problem_email('weekly_report');
+
+  // Get the report data
+  $view = views_get_view('food_problem_reports');
+  $view->set_arguments(array($last_sent));
+  $reports = $view->render('csv_export');
+
+  $mail_params = array(
+    'subject' => !empty($last_sent) ? t('Food problem reports - @start to @end', array('@start' => format_date($last_sent, 'custom', 'd F Y'), '@end' => format_date($request_time, 'custom', 'd F Y'))) : t('Food problem reports'),
+    'attachment' => array(
+      'filecontent' => $reports,
+      'filename' => "food_reports_export_" . format_date($request_time, 'custom', 'Y-m-d') . ".csv",
+      'filemime' => 'application/csv',
+    ),
+    'body' => $email['message'],
+  );
+
+  // Send the email
+  $message = drupal_mail('fsa_report_problem', 'weekly_report', $email['default_recipient'], user_preferred_language($user), $mail_params, $email['sender_email'], TRUE);
+  if ($message) {
+   watchdog('fsa_report_problem', 'Weekly email report sent');
+  }
+  else {
+   watchdog('fsa_report_problem', 'Problem sending weekly report email', array(), WATCHDOG_ERROR);
+  }
+
+  // Set the last sent time
+  _fsa_report_problem_last_export_date($user->uid, $request_time);
+}
+
+
+/**
  * Helper function: retrieves/sets the last data export date for the given user
  *
  * @param int $uid
