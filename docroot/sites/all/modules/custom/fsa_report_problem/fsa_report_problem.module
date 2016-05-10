@@ -2299,6 +2299,15 @@ function _fsa_report_problem_email($key = NULL) {
     'description' => t('This is the acknowledgement email that will be sent to the user on submission of the report if he or she has included his/her email address.'),
   );
 
+  $emails['weekly_report'] = array(
+    'subject' => t('Food problem reports'),
+    'message' => t('The latest food problem reports are attached.'),
+    'default_recipient' => 'operations.data@foodstandards.gsi.gov.uk, webmaster@foodstandards.gsi.gov.uk',
+    'sender_email' => 'digital.communications@foodstandards.gsi.gov.uk',
+    'title' => t('Weekly data export'),
+    'description' => t('Email sent weekly to the data team'),
+   );
+
   if (empty($key)) {
     return $emails;
   }
