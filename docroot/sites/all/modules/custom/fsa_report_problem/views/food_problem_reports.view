@@ -1,0 +1,716 @@
+<?php
+/**
+ * @file
+ * View to list food problem reports
+ */
+
+$view = new view();
+$view->name = 'food_problem_reports';
+$view->description = 'Lists food problem reports and allows them to be exported in CSV format';
+$view->tag = 'default';
+$view->base_table = 'problem_reports';
+$view->human_name = 'Food problem reports';
+$view->core = 7;
+$view->api_version = '3.0';
+$view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+/* Display: Master */
+$handler = $view->new_display('default', 'Master', 'default');
+$handler->display->display_options['title'] = 'Food problem reports';
+$handler->display->display_options['use_more_always'] = FALSE;
+$handler->display->display_options['access']['type'] = 'perm';
+$handler->display->display_options['access']['perm'] = 'view food problem reports';
+$handler->display->display_options['cache']['type'] = 'none';
+$handler->display->display_options['query']['type'] = 'views_query';
+$handler->display->display_options['exposed_form']['type'] = 'basic';
+$handler->display->display_options['pager']['type'] = 'full';
+$handler->display->display_options['pager']['options']['items_per_page'] = '20';
+$handler->display->display_options['pager']['options']['offset'] = '0';
+$handler->display->display_options['pager']['options']['id'] = '0';
+$handler->display->display_options['pager']['options']['quantity'] = '9';
+$handler->display->display_options['style_plugin'] = 'table';
+$handler->display->display_options['style_options']['columns'] = array(
+  'report_id' => 'report_id',
+  'business_name' => 'business_name',
+  'business_address' => 'business_address',
+  'business_postcode' => 'business_postcode',
+  'problem_date' => 'problem_date',
+  'date_submitted' => 'date_submitted',
+  'local_authority_name' => 'local_authority_name',
+  'local_authority_email' => 'local_authority_email',
+  'problem_details' => 'problem_details',
+  'email_sent' => 'email_sent',
+  'manual_submission' => 'manual_submission',
+);
+$handler->display->display_options['style_options']['default'] = '-1';
+$handler->display->display_options['style_options']['info'] = array(
+  'report_id' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'business_name' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'business_address' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'business_postcode' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'problem_date' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'date_submitted' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'desc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'local_authority_name' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'local_authority_email' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'problem_details' => array(
+    'sortable' => 0,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'email_sent' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'manual_submission' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+);
+$handler->display->display_options['style_options']['sticky'] = TRUE;
+/* Field: Problem report: Report ID */
+$handler->display->display_options['fields']['report_id']['id'] = 'report_id';
+$handler->display->display_options['fields']['report_id']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['report_id']['field'] = 'report_id';
+$handler->display->display_options['fields']['report_id']['link_to_report'] = TRUE;
+/* Field: Problem report: Business name */
+$handler->display->display_options['fields']['business_name']['id'] = 'business_name';
+$handler->display->display_options['fields']['business_name']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['business_name']['field'] = 'business_name';
+$handler->display->display_options['fields']['business_name']['link_to_report'] = TRUE;
+/* Field: Problem report: Business address */
+$handler->display->display_options['fields']['business_address']['id'] = 'business_address';
+$handler->display->display_options['fields']['business_address']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['business_address']['field'] = 'business_address';
+/* Field: Problem report: Business postcode */
+$handler->display->display_options['fields']['business_postcode']['id'] = 'business_postcode';
+$handler->display->display_options['fields']['business_postcode']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['business_postcode']['field'] = 'business_postcode';
+/* Field: Problem report: Date of problem */
+$handler->display->display_options['fields']['problem_date']['id'] = 'problem_date';
+$handler->display->display_options['fields']['problem_date']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['problem_date']['field'] = 'problem_date';
+$handler->display->display_options['fields']['problem_date']['label'] = 'Problem date';
+$handler->display->display_options['fields']['problem_date']['date_format'] = 'standard';
+$handler->display->display_options['fields']['problem_date']['second_date_format'] = 'long';
+/* Field: Problem report: Date submitted */
+$handler->display->display_options['fields']['date_submitted']['id'] = 'date_submitted';
+$handler->display->display_options['fields']['date_submitted']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['date_submitted']['field'] = 'date_submitted';
+$handler->display->display_options['fields']['date_submitted']['date_format'] = 'standard';
+$handler->display->display_options['fields']['date_submitted']['second_date_format'] = 'long';
+/* Field: Problem report: Local authority name */
+$handler->display->display_options['fields']['local_authority_name']['id'] = 'local_authority_name';
+$handler->display->display_options['fields']['local_authority_name']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['local_authority_name']['field'] = 'local_authority_name';
+/* Field: Problem report: Local authority email */
+$handler->display->display_options['fields']['local_authority_email']['id'] = 'local_authority_email';
+$handler->display->display_options['fields']['local_authority_email']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['local_authority_email']['field'] = 'local_authority_email';
+/* Field: Problem report: Food problem details */
+$handler->display->display_options['fields']['problem_details']['id'] = 'problem_details';
+$handler->display->display_options['fields']['problem_details']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['problem_details']['field'] = 'problem_details';
+/* Field: Problem report: Email sent */
+$handler->display->display_options['fields']['email_sent']['id'] = 'email_sent';
+$handler->display->display_options['fields']['email_sent']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['email_sent']['field'] = 'email_sent';
+$handler->display->display_options['fields']['email_sent']['not'] = 0;
+/* Field: Problem report: Manual submission */
+$handler->display->display_options['fields']['manual_submission']['id'] = 'manual_submission';
+$handler->display->display_options['fields']['manual_submission']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['manual_submission']['field'] = 'manual_submission';
+/* Filter criterion: Problem report: Status */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'problem_reports';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = 'All';
+$handler->display->display_options['filters']['status']['exposed'] = TRUE;
+$handler->display->display_options['filters']['status']['expose']['operator_id'] = '';
+$handler->display->display_options['filters']['status']['expose']['label'] = 'True';
+$handler->display->display_options['filters']['status']['expose']['operator'] = 'status_op';
+$handler->display->display_options['filters']['status']['expose']['identifier'] = 'status';
+$handler->display->display_options['filters']['status']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+  4 => 0,
+  5 => 0,
+  6 => 0,
+  8 => 0,
+  9 => 0,
+  10 => 0,
+  11 => 0,
+  12 => 0,
+  13 => 0,
+  14 => 0,
+  15 => 0,
+  16 => 0,
+);
+
+/* Display: CSV export */
+$handler = $view->new_display('views_data_export', 'CSV export', 'csv_export');
+$handler->display->display_options['pager']['type'] = 'none';
+$handler->display->display_options['pager']['options']['offset'] = '0';
+$handler->display->display_options['style_plugin'] = 'views_data_export_csv';
+$handler->display->display_options['style_options']['attach_text'] = 'csv';
+$handler->display->display_options['style_options']['provide_file'] = 0;
+$handler->display->display_options['style_options']['parent_sort'] = 1;
+$handler->display->display_options['style_options']['quote'] = 1;
+$handler->display->display_options['style_options']['trim'] = 0;
+$handler->display->display_options['style_options']['replace_newlines'] = 0;
+$handler->display->display_options['style_options']['newline_token'] = '1';
+$handler->display->display_options['style_options']['header'] = 1;
+$handler->display->display_options['style_options']['keep_html'] = 0;
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Problem report: Report ID */
+$handler->display->display_options['fields']['report_id']['id'] = 'report_id';
+$handler->display->display_options['fields']['report_id']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['report_id']['field'] = 'report_id';
+$handler->display->display_options['fields']['report_id']['link_to_report'] = TRUE;
+/* Field: Problem report: Business name */
+$handler->display->display_options['fields']['business_name']['id'] = 'business_name';
+$handler->display->display_options['fields']['business_name']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['business_name']['field'] = 'business_name';
+$handler->display->display_options['fields']['business_name']['link_to_report'] = TRUE;
+/* Field: Problem report: Business address */
+$handler->display->display_options['fields']['business_address']['id'] = 'business_address';
+$handler->display->display_options['fields']['business_address']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['business_address']['field'] = 'business_address';
+/* Field: Problem report: Business postcode */
+$handler->display->display_options['fields']['business_postcode']['id'] = 'business_postcode';
+$handler->display->display_options['fields']['business_postcode']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['business_postcode']['field'] = 'business_postcode';
+/* Field: Problem report: Date of problem */
+$handler->display->display_options['fields']['problem_date']['id'] = 'problem_date';
+$handler->display->display_options['fields']['problem_date']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['problem_date']['field'] = 'problem_date';
+$handler->display->display_options['fields']['problem_date']['label'] = 'Problem date';
+$handler->display->display_options['fields']['problem_date']['date_format'] = 'standard';
+$handler->display->display_options['fields']['problem_date']['second_date_format'] = 'long';
+/* Field: Problem report: Date submitted */
+$handler->display->display_options['fields']['date_submitted']['id'] = 'date_submitted';
+$handler->display->display_options['fields']['date_submitted']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['date_submitted']['field'] = 'date_submitted';
+$handler->display->display_options['fields']['date_submitted']['date_format'] = 'standard';
+$handler->display->display_options['fields']['date_submitted']['second_date_format'] = 'long';
+/* Field: Problem report: Local authority name */
+$handler->display->display_options['fields']['local_authority_name']['id'] = 'local_authority_name';
+$handler->display->display_options['fields']['local_authority_name']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['local_authority_name']['field'] = 'local_authority_name';
+/* Field: Problem report: Local authority email */
+$handler->display->display_options['fields']['local_authority_email']['id'] = 'local_authority_email';
+$handler->display->display_options['fields']['local_authority_email']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['local_authority_email']['field'] = 'local_authority_email';
+/* Field: Problem report: Manual submission */
+$handler->display->display_options['fields']['manual_submission']['id'] = 'manual_submission';
+$handler->display->display_options['fields']['manual_submission']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['manual_submission']['field'] = 'manual_submission';
+$handler->display->display_options['fields']['manual_submission']['not'] = 0;
+/* Field: Problem report: Food problem details */
+$handler->display->display_options['fields']['problem_details']['id'] = 'problem_details';
+$handler->display->display_options['fields']['problem_details']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['problem_details']['field'] = 'problem_details';
+/* Field: Problem report: Email sent */
+$handler->display->display_options['fields']['email_sent']['id'] = 'email_sent';
+$handler->display->display_options['fields']['email_sent']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['email_sent']['field'] = 'email_sent';
+$handler->display->display_options['fields']['email_sent']['exclude'] = TRUE;
+$handler->display->display_options['fields']['email_sent']['not'] = 0;
+$handler->display->display_options['defaults']['arguments'] = FALSE;
+/* Contextual filter: Problem report: Date submitted */
+$handler->display->display_options['arguments']['date_submitted']['id'] = 'date_submitted';
+$handler->display->display_options['arguments']['date_submitted']['table'] = 'problem_reports';
+$handler->display->display_options['arguments']['date_submitted']['field'] = 'date_submitted';
+$handler->display->display_options['arguments']['date_submitted']['default_argument_type'] = 'fixed';
+$handler->display->display_options['arguments']['date_submitted']['summary']['number_of_records'] = '0';
+$handler->display->display_options['arguments']['date_submitted']['summary']['format'] = 'default_summary';
+$handler->display->display_options['arguments']['date_submitted']['summary_options']['items_per_page'] = '25';
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: Problem report: Email sent */
+$handler->display->display_options['filters']['email_sent']['id'] = 'email_sent';
+$handler->display->display_options['filters']['email_sent']['table'] = 'problem_reports';
+$handler->display->display_options['filters']['email_sent']['field'] = 'email_sent';
+$handler->display->display_options['filters']['email_sent']['value'] = '1';
+$handler->display->display_options['filters']['email_sent']['exposed'] = TRUE;
+$handler->display->display_options['filters']['email_sent']['expose']['operator_id'] = '';
+$handler->display->display_options['filters']['email_sent']['expose']['label'] = 'True';
+$handler->display->display_options['filters']['email_sent']['expose']['operator'] = 'email_sent_op';
+$handler->display->display_options['filters']['email_sent']['expose']['identifier'] = 'email_sent';
+$handler->display->display_options['filters']['email_sent']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+  4 => 0,
+  5 => 0,
+  6 => 0,
+  8 => 0,
+  9 => 0,
+  10 => 0,
+  11 => 0,
+  12 => 0,
+  13 => 0,
+  14 => 0,
+  15 => 0,
+  16 => 0,
+);
+/* Filter criterion: Problem report: Business name */
+$handler->display->display_options['filters']['business_name']['id'] = 'business_name';
+$handler->display->display_options['filters']['business_name']['table'] = 'problem_reports';
+$handler->display->display_options['filters']['business_name']['field'] = 'business_name';
+$handler->display->display_options['filters']['business_name']['operator'] = 'contains';
+$handler->display->display_options['filters']['business_name']['exposed'] = TRUE;
+$handler->display->display_options['filters']['business_name']['expose']['operator_id'] = 'business_name_op';
+$handler->display->display_options['filters']['business_name']['expose']['label'] = 'Business name';
+$handler->display->display_options['filters']['business_name']['expose']['operator'] = 'business_name_op';
+$handler->display->display_options['filters']['business_name']['expose']['identifier'] = 'business_name';
+$handler->display->display_options['filters']['business_name']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+  4 => 0,
+  5 => 0,
+  6 => 0,
+  8 => 0,
+  9 => 0,
+  10 => 0,
+  11 => 0,
+  12 => 0,
+  13 => 0,
+  14 => 0,
+  15 => 0,
+  16 => 0,
+);
+/* Filter criterion: Problem report: Local authority name */
+$handler->display->display_options['filters']['local_authority_name']['id'] = 'local_authority_name';
+$handler->display->display_options['filters']['local_authority_name']['table'] = 'problem_reports';
+$handler->display->display_options['filters']['local_authority_name']['field'] = 'local_authority_name';
+$handler->display->display_options['filters']['local_authority_name']['operator'] = 'contains';
+$handler->display->display_options['filters']['local_authority_name']['exposed'] = TRUE;
+$handler->display->display_options['filters']['local_authority_name']['expose']['operator_id'] = 'local_authority_name_op';
+$handler->display->display_options['filters']['local_authority_name']['expose']['label'] = 'Local authority name';
+$handler->display->display_options['filters']['local_authority_name']['expose']['operator'] = 'local_authority_name_op';
+$handler->display->display_options['filters']['local_authority_name']['expose']['identifier'] = 'local_authority_name';
+$handler->display->display_options['filters']['local_authority_name']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+  4 => 0,
+  5 => 0,
+  6 => 0,
+  8 => 0,
+  9 => 0,
+  10 => 0,
+  11 => 0,
+  12 => 0,
+  13 => 0,
+  14 => 0,
+  15 => 0,
+  16 => 0,
+);
+/* Filter criterion: Problem report: Manual submission */
+$handler->display->display_options['filters']['manual_submission']['id'] = 'manual_submission';
+$handler->display->display_options['filters']['manual_submission']['table'] = 'problem_reports';
+$handler->display->display_options['filters']['manual_submission']['field'] = 'manual_submission';
+$handler->display->display_options['filters']['manual_submission']['value'] = 'All';
+$handler->display->display_options['filters']['manual_submission']['exposed'] = TRUE;
+$handler->display->display_options['filters']['manual_submission']['expose']['operator_id'] = '';
+$handler->display->display_options['filters']['manual_submission']['expose']['label'] = 'True';
+$handler->display->display_options['filters']['manual_submission']['expose']['operator'] = 'manual_submission_op';
+$handler->display->display_options['filters']['manual_submission']['expose']['identifier'] = 'manual_submission';
+$handler->display->display_options['filters']['manual_submission']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+  4 => 0,
+  5 => 0,
+  6 => 0,
+  8 => 0,
+  9 => 0,
+  10 => 0,
+  11 => 0,
+  12 => 0,
+  13 => 0,
+  14 => 0,
+  15 => 0,
+  16 => 0,
+);
+$handler->display->display_options['path'] = 'admin/reports/food-problems/csv';
+$handler->display->display_options['displays'] = array(
+  'page_1' => 'page_1',
+  'default' => 0,
+);
+
+/* Display: Page */
+$handler = $view->new_display('page', 'Page', 'page_1');
+$handler->display->display_options['defaults']['style_plugin'] = FALSE;
+$handler->display->display_options['style_plugin'] = 'table';
+$handler->display->display_options['style_options']['columns'] = array(
+  'report_id' => 'report_id',
+  'business_name' => 'business_name',
+  'business_address' => 'business_address',
+  'business_postcode' => 'business_postcode',
+  'problem_date' => 'problem_date',
+  'date_submitted' => 'date_submitted',
+  'local_authority_name' => 'local_authority_name',
+  'local_authority_email' => 'local_authority_email',
+  'problem_details' => 'problem_details',
+  'email_sent' => 'email_sent',
+  'manual_submission' => 'manual_submission',
+);
+$handler->display->display_options['style_options']['default'] = 'date_submitted';
+$handler->display->display_options['style_options']['info'] = array(
+  'report_id' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'business_name' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'business_address' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'business_postcode' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'problem_date' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'date_submitted' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'desc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'local_authority_name' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'local_authority_email' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'problem_details' => array(
+    'sortable' => 0,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'email_sent' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+  'manual_submission' => array(
+    'sortable' => 1,
+    'default_sort_order' => 'asc',
+    'align' => '',
+    'separator' => '',
+    'empty_column' => 0,
+  ),
+);
+$handler->display->display_options['style_options']['sticky'] = TRUE;
+$handler->display->display_options['defaults']['style_options'] = FALSE;
+$handler->display->display_options['defaults']['row_plugin'] = FALSE;
+$handler->display->display_options['defaults']['row_options'] = FALSE;
+$handler->display->display_options['defaults']['header'] = FALSE;
+/* Header: Global: Result summary with an additional token to change the items/page */
+$handler->display->display_options['header']['webform_result']['id'] = 'webform_result';
+$handler->display->display_options['header']['webform_result']['table'] = 'views';
+$handler->display->display_options['header']['webform_result']['field'] = 'webform_result';
+$handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: Problem report: Report ID */
+$handler->display->display_options['fields']['report_id']['id'] = 'report_id';
+$handler->display->display_options['fields']['report_id']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['report_id']['field'] = 'report_id';
+$handler->display->display_options['fields']['report_id']['link_to_report'] = TRUE;
+/* Field: Problem report: Business name */
+$handler->display->display_options['fields']['business_name']['id'] = 'business_name';
+$handler->display->display_options['fields']['business_name']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['business_name']['field'] = 'business_name';
+$handler->display->display_options['fields']['business_name']['link_to_report'] = TRUE;
+/* Field: Problem report: Business address */
+$handler->display->display_options['fields']['business_address']['id'] = 'business_address';
+$handler->display->display_options['fields']['business_address']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['business_address']['field'] = 'business_address';
+/* Field: Problem report: Business postcode */
+$handler->display->display_options['fields']['business_postcode']['id'] = 'business_postcode';
+$handler->display->display_options['fields']['business_postcode']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['business_postcode']['field'] = 'business_postcode';
+/* Field: Problem report: Date of problem */
+$handler->display->display_options['fields']['problem_date']['id'] = 'problem_date';
+$handler->display->display_options['fields']['problem_date']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['problem_date']['field'] = 'problem_date';
+$handler->display->display_options['fields']['problem_date']['label'] = 'Problem date';
+$handler->display->display_options['fields']['problem_date']['exclude'] = TRUE;
+$handler->display->display_options['fields']['problem_date']['date_format'] = 'standard';
+$handler->display->display_options['fields']['problem_date']['second_date_format'] = 'long';
+/* Field: Problem report: Date submitted */
+$handler->display->display_options['fields']['date_submitted']['id'] = 'date_submitted';
+$handler->display->display_options['fields']['date_submitted']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['date_submitted']['field'] = 'date_submitted';
+$handler->display->display_options['fields']['date_submitted']['date_format'] = 'standard';
+$handler->display->display_options['fields']['date_submitted']['second_date_format'] = 'long';
+/* Field: Problem report: Local authority name */
+$handler->display->display_options['fields']['local_authority_name']['id'] = 'local_authority_name';
+$handler->display->display_options['fields']['local_authority_name']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['local_authority_name']['field'] = 'local_authority_name';
+/* Field: Problem report: Local authority email */
+$handler->display->display_options['fields']['local_authority_email']['id'] = 'local_authority_email';
+$handler->display->display_options['fields']['local_authority_email']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['local_authority_email']['field'] = 'local_authority_email';
+/* Field: Problem report: Food problem details */
+$handler->display->display_options['fields']['problem_details']['id'] = 'problem_details';
+$handler->display->display_options['fields']['problem_details']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['problem_details']['field'] = 'problem_details';
+$handler->display->display_options['fields']['problem_details']['exclude'] = TRUE;
+/* Field: Problem report: Email sent */
+$handler->display->display_options['fields']['email_sent']['id'] = 'email_sent';
+$handler->display->display_options['fields']['email_sent']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['email_sent']['field'] = 'email_sent';
+$handler->display->display_options['fields']['email_sent']['not'] = 0;
+/* Field: Problem report: Manual submission */
+$handler->display->display_options['fields']['manual_submission']['id'] = 'manual_submission';
+$handler->display->display_options['fields']['manual_submission']['table'] = 'problem_reports';
+$handler->display->display_options['fields']['manual_submission']['field'] = 'manual_submission';
+$handler->display->display_options['fields']['manual_submission']['not'] = 0;
+$handler->display->display_options['defaults']['filter_groups'] = FALSE;
+$handler->display->display_options['defaults']['filters'] = FALSE;
+/* Filter criterion: Problem report: Business name */
+$handler->display->display_options['filters']['business_name']['id'] = 'business_name';
+$handler->display->display_options['filters']['business_name']['table'] = 'problem_reports';
+$handler->display->display_options['filters']['business_name']['field'] = 'business_name';
+$handler->display->display_options['filters']['business_name']['operator'] = 'contains';
+$handler->display->display_options['filters']['business_name']['group'] = 1;
+$handler->display->display_options['filters']['business_name']['exposed'] = TRUE;
+$handler->display->display_options['filters']['business_name']['expose']['operator_id'] = 'business_name_op';
+$handler->display->display_options['filters']['business_name']['expose']['label'] = 'Business name';
+$handler->display->display_options['filters']['business_name']['expose']['operator'] = 'business_name_op';
+$handler->display->display_options['filters']['business_name']['expose']['identifier'] = 'business_name';
+$handler->display->display_options['filters']['business_name']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+  4 => 0,
+  5 => 0,
+  6 => 0,
+  8 => 0,
+  9 => 0,
+  10 => 0,
+  11 => 0,
+  12 => 0,
+  13 => 0,
+  14 => 0,
+  15 => 0,
+  16 => 0,
+);
+/* Filter criterion: Problem report: Local authority name */
+$handler->display->display_options['filters']['local_authority_name']['id'] = 'local_authority_name';
+$handler->display->display_options['filters']['local_authority_name']['table'] = 'problem_reports';
+$handler->display->display_options['filters']['local_authority_name']['field'] = 'local_authority_name';
+$handler->display->display_options['filters']['local_authority_name']['operator'] = 'contains';
+$handler->display->display_options['filters']['local_authority_name']['value'] = 'Aberdeen City Council';
+$handler->display->display_options['filters']['local_authority_name']['group'] = 1;
+$handler->display->display_options['filters']['local_authority_name']['exposed'] = TRUE;
+$handler->display->display_options['filters']['local_authority_name']['expose']['operator_id'] = '';
+$handler->display->display_options['filters']['local_authority_name']['expose']['label'] = 'Local authority';
+$handler->display->display_options['filters']['local_authority_name']['expose']['operator'] = 'local_authority_name_op';
+$handler->display->display_options['filters']['local_authority_name']['expose']['identifier'] = 'local_authority_name';
+$handler->display->display_options['filters']['local_authority_name']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+  4 => 0,
+  5 => 0,
+  6 => 0,
+  8 => 0,
+  9 => 0,
+  10 => 0,
+  11 => 0,
+  12 => 0,
+  13 => 0,
+  14 => 0,
+  15 => 0,
+  16 => 0,
+);
+/* Filter criterion: Problem report: Manual submission */
+$handler->display->display_options['filters']['manual_submission']['id'] = 'manual_submission';
+$handler->display->display_options['filters']['manual_submission']['table'] = 'problem_reports';
+$handler->display->display_options['filters']['manual_submission']['field'] = 'manual_submission';
+$handler->display->display_options['filters']['manual_submission']['value'] = 'All';
+$handler->display->display_options['filters']['manual_submission']['group'] = 1;
+$handler->display->display_options['filters']['manual_submission']['exposed'] = TRUE;
+$handler->display->display_options['filters']['manual_submission']['expose']['operator_id'] = '';
+$handler->display->display_options['filters']['manual_submission']['expose']['label'] = 'Manual submission';
+$handler->display->display_options['filters']['manual_submission']['expose']['operator'] = 'manual_submission_op';
+$handler->display->display_options['filters']['manual_submission']['expose']['identifier'] = 'manual_submission';
+$handler->display->display_options['filters']['manual_submission']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+  4 => 0,
+  5 => 0,
+  6 => 0,
+  8 => 0,
+  9 => 0,
+  10 => 0,
+  11 => 0,
+  12 => 0,
+  13 => 0,
+  14 => 0,
+  15 => 0,
+  16 => 0,
+);
+/* Filter criterion: Problem report: Email sent */
+$handler->display->display_options['filters']['email_sent']['id'] = 'email_sent';
+$handler->display->display_options['filters']['email_sent']['table'] = 'problem_reports';
+$handler->display->display_options['filters']['email_sent']['field'] = 'email_sent';
+$handler->display->display_options['filters']['email_sent']['value'] = '0';
+$handler->display->display_options['filters']['email_sent']['exposed'] = TRUE;
+$handler->display->display_options['filters']['email_sent']['expose']['operator_id'] = '';
+$handler->display->display_options['filters']['email_sent']['expose']['label'] = 'Email sent';
+$handler->display->display_options['filters']['email_sent']['expose']['operator'] = 'email_sent_op';
+$handler->display->display_options['filters']['email_sent']['expose']['identifier'] = 'email_sent';
+$handler->display->display_options['filters']['email_sent']['expose']['remember_roles'] = array(
+  2 => '2',
+  1 => 0,
+  3 => 0,
+  4 => 0,
+  5 => 0,
+  6 => 0,
+  8 => 0,
+  9 => 0,
+  10 => 0,
+  11 => 0,
+  12 => 0,
+  13 => 0,
+  14 => 0,
+  15 => 0,
+  16 => 0,
+);
+$handler->display->display_options['path'] = 'admin/reports/food-problems';
+$handler->display->display_options['menu']['type'] = 'normal';
+$handler->display->display_options['menu']['title'] = 'Food problem reports';
+$handler->display->display_options['menu']['weight'] = '0';
+$handler->display->display_options['menu']['name'] = 'management';
+$handler->display->display_options['menu']['context'] = 0;
+$handler->display->display_options['menu']['context_only_inline'] = 0;
+$translatables['food_problem_reports'] = array(
+  t('Master'),
+  t('Food problem reports'),
+  t('more'),
+  t('Apply'),
+  t('Reset'),
+  t('Sort by'),
+  t('Asc'),
+  t('Desc'),
+  t('Items per page'),
+  t('- All -'),
+  t('Offset'),
+  t('« first'),
+  t('‹ previous'),
+  t('next ›'),
+  t('last »'),
+  t('Report ID'),
+  t('Business name'),
+  t('Business address'),
+  t('Business postcode'),
+  t('Problem date'),
+  t('Date submitted'),
+  t('Local authority name'),
+  t('Local authority email'),
+  t('Food problem details'),
+  t('Email sent'),
+  t('Manual submission'),
+  t('True'),
+  t('CSV export'),
+  t('All'),
+  t('Page'),
+  t('Displaying @start - @end of @total. @items_per_page_links'),
+  t('Local authority'),
+);

@@ -134,6 +134,12 @@ function fsa_report_problem_schema() {
         'not null' => FALSE,
         'default' => 0,
       ),
+      'manual_submission' => array(
+        'description' => 'Indicates that this submission is manual, ie not via the business lookup forms.',
+        'type' => 'int',
+        'not null' => FALSE,
+        'default' => 0,
+      ),
       'created' => array(
         'description' => 'The UNIX timestamp when the problem was reported',
         'type' => 'int',
@@ -538,4 +544,40 @@ function fsa_report_problem_update_7014() {
  */
 function fsa_report_problem_update_7015() {
   _fsa_report_problem_variable_setup();
+}
+
+
+/**
+ * Adds a 'manual_submission' field to the problem reports table.
+ */
+function fsa_report_problem_update_7016() {
+
+  // If the field already exists, return now.
+  if (db_field_exists('problem_reports', 'manual_submission')) {
+    return;
+  }
+
+  $spec = array(
+    'description' => 'Indicates that this submission is manual, ie not via the business lookup forms.',
+    'type' => 'int',
+    'not null' => FALSE,
+    'default' => 0,
+  );
+
+  db_add_field('problem_reports', 'manual_submission', $spec);
+}
+
+
+/**
+ * Enables new modules that we need for exporting food problem report data
+ */
+function fsa_report_problem_update_7017() {
+  // We enable the Views data export module and the Mimemail module, which in
+  // turn should require the Mail system module.
+  $module_list = array(
+    'views_data_export',
+    'mimemail',
+  );
+  // Enable the modules
+  module_enable($module_list);
 }

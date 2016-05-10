@@ -165,6 +165,9 @@ function fsa_report_problem_make_report_form($form, &$form_state, $manual = FALS
  */
 function fsa_report_problem_make_report_form_submit($form, &$form_state) {
 
+  // Is this a manual submission?
+  $manual_submission = !empty($form['#manual']) ? 1 : 0;
+  
   // We want this form to redirect to the Report complete page
   $form_state['redirect'] = !empty($form['#manual']) ? _fsa_report_problem_get_start_path(NULL, 'complete/manual') : _fsa_report_problem_get_start_path(NULL, 'complete');
 
@@ -209,6 +212,7 @@ function fsa_report_problem_make_report_form_submit($form, &$form_state) {
   $entity->business_postcode = !empty($form_state['values']['business_postcode']) ? _fsa_report_problem_format_postcode($form_state['values']['business_postcode']) : NULL;
   $entity->coordinates = !empty($form_state['coords']) ? $form_state['coords'] : NULL;
   $entity->problem_details = $form_state['values']['issue_details'];
+  $entity->manual_submission = $manual_submission;
 
   if ($la) {
     $entity->local_authority_name = $la->name;
