@@ -640,9 +640,11 @@ function fsa_report_problem_entity_info() {
 
   $info['problem_report'] = array(
     'label' => t('Problem report'),
+    'plural label' => t('Food problem reports'),
     'base table' => 'problem_reports',
     'entity keys' => array(
       'id' => 'rid',
+      'label' => 'business_name',
     ),
     'entity class' => 'Entity',
     'controller class' => 'ProblemReportEntityController',
@@ -650,6 +652,7 @@ function fsa_report_problem_entity_info() {
     'module' => 'fsa_report_problem',
     'fieldable' => TRUE,
     'bundles' => array(),
+    'views controller class' => 'ProblemReportViewsController',
   );
 
   $info['local_authority'] = array(
@@ -674,6 +677,84 @@ function fsa_report_problem_entity_info() {
  */
 function fsa_report_problem_entity_property_info() {
   $entity_property_info = array();
+
+    // Report ID
+  $entity_property_info['problem_report'] = array(
+    'properties' => array(
+      'report_id' => array(
+        'type'  => 'integer',
+        'label' => t('Report ID'),
+        'description' => t('The unique ID of the food problem report.'),
+        'schema field' => 'rid',
+      ),
+      'business_name' => array(
+        'type'  => 'text',
+        'label' => t('Business name'),
+        'description' => t('The name of the business being reported.'),
+        'schema field' => 'business_name',
+      ),
+      'business_address' => array(
+        'type'  => 'text',
+        'label' => t('Business address'),
+        'description' => t('The address of the business being reported.'),
+        'schema field' => 'business_location',
+      ),
+      'business_postcode' => array(
+        'type'  => 'text',
+        'label' => t('Business postcode'),
+        'description' => t('The postcode of the business being reported.'),
+        'schema field' => 'business_postcode',
+      ),
+      'status' => array(
+        'type'  => 'boolean',
+        'label' => t('Status'),
+        'description' => t('Indicates the status of the report (not currently used).'),
+        'schema field' => 'status',
+      ),
+      'email_sent' => array(
+        'type'  => 'boolean',
+        'label' => t('Email sent'),
+        'description' => t('Indicates whether the report has been forwarded to the relevant local authority.'),
+        'schema field' => 'email_sent',
+      ),
+      'date_submitted' => array(
+        'type'  => 'date',
+        'label' => t('Date submitted'),
+        'description' => t('The date when the report was submitted.'),
+        'schema field' => 'created',
+      ),
+      'problem_date' => array(
+        'type'  => 'date',
+        'label' => t('Date of problem'),
+        'description' => t('The date when the food problem was encountered.'),
+        'schema field' => 'problem_date',
+      ),
+      'local_authority_name' => array(
+        'type'  => 'text',
+        'label' => t('Local authority name'),
+        'description' => t('The name of the local authority responsible for investigating the problem.'),
+        'schema field' => 'local_authority_name',
+      ),
+      'local_authority_email' => array(
+        'type'  => 'text',
+        'label' => t('Local authority email'),
+        'description' => t('The email address of the local authority responsible for investigating the problem.'),
+        'schema field' => 'local_authority_email',
+      ),
+      'problem_details' => array(
+        'type'  => 'text',
+        'label' => t('Food problem details'),
+        'description' => t('Details of the food problem experienced by the user.'),
+        'schema field' => 'problem_details',
+      ),
+      'manual_submission' => array(
+        'type'  => 'boolean',
+        'label' => t('Manual submission'),
+        'description' => t('Indicates whether this report was submitted manually instead of using the business finder.'),
+        'schema field' => 'manual_submission',
+      ),
+    ),
+  );
 
   $entity_property_info['local_authority'] = array(
     'properties' => array(
@@ -721,6 +802,21 @@ class LocalAuthorityEntityController extends EntityAPIController {
     return $build;
   }
 
+}
+
+
+/**
+ * Problem report Views Controller class.
+ */
+class ProblemReportViewsController extends EntityDefaultViewsController {
+  public function views_data() {
+    $data = parent::views_data();
+    $data['problem_reports']['report_id']['field']['handler'] = 'fsa_report_problem_views_handler_field_problem_report';
+    $data['problem_reports']['business_name']['field']['handler'] = 'fsa_report_problem_views_handler_field_problem_report';
+    $data['problem_reports']['date_submitted']['argument']['handler'] = 'fsa_report_problem_views_handler_argument_last_export';
+    $data['problem_reports']['local_authority_name']['filter']['handler'] = 'fsa_report_problem_views_handler_filter_local_authority';
+    return $data;
+  }
 }
 
 
