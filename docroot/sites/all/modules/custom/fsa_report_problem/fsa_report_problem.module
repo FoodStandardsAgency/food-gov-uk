@@ -754,6 +754,36 @@ function fsa_report_problem_entity_property_info() {
         'description' => t('Local authority ID from FHRS'),
         'schema field' => 'local_authority_id',
       ),
+      'area_id' => array(
+        'label' => t('MapIt area ID'),
+        'type' => 'integer',
+        'description' => t('Local area ID from MapIt'),
+        'schema field' => 'area_id',
+      ),
+      'name' => array(
+        'label' => t('Local authority name'),
+        'type' => 'text',
+        'description' => t('Local authority name'),
+        'schema field' => 'name',
+      ),
+      'email' => array(
+        'label' => t('Email'),
+        'type' => 'text',
+        'description' => t('Local authority email'),
+        'schema field' => 'email',
+      ),
+      'fhrs_email' => array(
+        'label' => t('FHRS Email'),
+        'type' => 'text',
+        'description' => t('Local authority email from FHRS'),
+        'schema field' => 'fhrs_email',
+      ),
+      'food_safety_team_email' => array(
+        'label' => t('Food safety email'),
+        'type' => 'text',
+        'description' => t('Food safety team email address'),
+        'schema field' => 'food_safety_team_email',
+      ),
     ),
   );
 
