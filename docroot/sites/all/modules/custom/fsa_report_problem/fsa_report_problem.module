@@ -231,16 +231,6 @@ function fsa_report_problem_menu() {
     'weight' => 40,
   );
 
-  $items['admin/config/foodproblems/authorities'] = array(
-    'title' => 'Local authority data',
-    'description' => 'Manage local authority data for use in the food problem reporting system',
-    'page callback' => 'fsa_report_problem_local_authorities_new',
-    'access arguments' => array('administer food problem reporting'),
-    'file' => 'fsa_report_problem.admin.inc',
-    'type' => MENU_LOCAL_TASK,
-    'weight' => 30,
-  );
-
   $items['admin/config/foodproblems/authorities/add'] = array(
     'title' => 'Add new local authority',
     'description' => 'Add a new local authority for use with the food problem reporting system',
@@ -657,9 +647,11 @@ function fsa_report_problem_entity_info() {
 
   $info['local_authority'] = array(
     'label' => t('Local authority'),
+    'plural label' => t('Local authorities'),
     'base table' => 'local_authority_details',
     'entity keys' => array(
       'id' => 'aid',
+      'label' => 'name',
     ),
     'entity class' => 'Entity',
     'controller class' => 'LocalAuthorityEntityController',
@@ -667,6 +659,7 @@ function fsa_report_problem_entity_info() {
     'module' => 'fsa_report_problem',
     'fieldable' => TRUE,
     'bundles' => array(),
+    'views controller class' => 'LocalAuthorityViewsController',
   );
 
   return $info;
@@ -764,6 +757,36 @@ function fsa_report_problem_entity_property_info() {
         'description' => t('Local authority ID from FHRS'),
         'schema field' => 'local_authority_id',
       ),
+      'area_id' => array(
+        'label' => t('MapIt area ID'),
+        'type' => 'integer',
+        'description' => t('Local area ID from MapIt'),
+        'schema field' => 'area_id',
+      ),
+      'name' => array(
+        'label' => t('Local authority name'),
+        'type' => 'text',
+        'description' => t('Local authority name'),
+        'schema field' => 'name',
+      ),
+      'email' => array(
+        'label' => t('Email'),
+        'type' => 'text',
+        'description' => t('Local authority email'),
+        'schema field' => 'email',
+      ),
+      'fhrs_email' => array(
+        'label' => t('FHRS Email'),
+        'type' => 'text',
+        'description' => t('Local authority email from FHRS'),
+        'schema field' => 'fhrs_email',
+      ),
+      'food_safety_team_email' => array(
+        'label' => t('Food safety email'),
+        'type' => 'text',
+        'description' => t('Food safety team email address'),
+        'schema field' => 'food_safety_team_email',
+      ),
     ),
   );
 
@@ -815,6 +838,48 @@ class ProblemReportViewsController extends EntityDefaultViewsController {
     $data['problem_reports']['business_name']['field']['handler'] = 'fsa_report_problem_views_handler_field_problem_report';
     $data['problem_reports']['date_submitted']['argument']['handler'] = 'fsa_report_problem_views_handler_argument_last_export';
     $data['problem_reports']['local_authority_name']['filter']['handler'] = 'fsa_report_problem_views_handler_filter_local_authority';
+    return $data;
+  }
+}
+
+
+/**
+ * Problem report Views Controller class.
+ */
+class LocalAuthorityViewsController extends EntityDefaultViewsController {
+  public function views_data() {
+    $data = parent::views_data();
+    
+    $data['local_authority_details']['name']['field']['handler'] = 'fsa_report_problem_views_handler_field_local_authority';
+    $data['local_authority_details']['email']['field']['handler'] = 'fsa_report_problem_views_handler_field_local_authority_email';
+    
+    $data['local_authority_details']['operations'] = array(
+      'field' => array(
+        'title' => t('Operations'),
+        'help' => t('Provide links to operations such as editing.'),
+        'handler' => 'fsa_report_problem_views_handler_field_local_authority_operations',
+      ),
+    );
+    
+    $data['local_authority_details_custom']['table']['group'] = t('Local authorities custom');
+    $data['local_authority_details_custom']['table']['join'] = array(
+      '#global' => array(),
+    );  
+    
+    $data['local_authority_details_custom']['email_overridden'] = array(
+      'title' => t('Email overridden'),
+      'help' => t('Indicates whether the email address stored in FHRS has been overridden'),
+      'field' => array(
+        'handler' => 'fsa_report_problem_views_handler_field_local_authority_email_overridden',
+        'click sortable' => TRUE,
+      ),
+      'sort' => array(
+        'handler' => 'fsa_report_problem_views_handler_sort_local_authority_email_override',
+      ),
+      'filter' => array(
+        'handler' => 'fsa_report_problem_views_handler_filter_local_authority_email_override',
+      ),
+    );
     return $data;
   }
 }

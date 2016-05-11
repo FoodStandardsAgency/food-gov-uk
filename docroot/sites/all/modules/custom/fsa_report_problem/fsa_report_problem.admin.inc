@@ -326,6 +326,9 @@ function fsa_report_problem_authorities_import_form_submit(&$form, &$form_state)
  *
  * @return array
  *   Render array for the table.
+ *
+ * @deprecated
+ *   This has now been superseded by a view
  */
 function fsa_report_problem_local_authorities_new() {
 
