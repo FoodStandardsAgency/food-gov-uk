@@ -840,6 +840,48 @@ class ProblemReportViewsController extends EntityDefaultViewsController {
 }
 
 
+/**
+ * Problem report Views Controller class.
+ */
+class LocalAuthorityViewsController extends EntityDefaultViewsController {
+  public function views_data() {
+    $data = parent::views_data();
+    
+    $data['local_authority_details']['name']['field']['handler'] = 'fsa_report_problem_views_handler_field_local_authority';
+    $data['local_authority_details']['email']['field']['handler'] = 'fsa_report_problem_views_handler_field_local_authority_email';
+    
+    $data['local_authority_details']['operations'] = array(
+      'field' => array(
+        'title' => t('Operations'),
+        'help' => t('Provide links to operations such as editing.'),
+        'handler' => 'fsa_report_problem_views_handler_field_local_authority_operations',
+      ),
+    );
+    
+    $data['local_authority_details_custom']['table']['group'] = t('Local authorities custom');
+    $data['local_authority_details_custom']['table']['join'] = array(
+      '#global' => array(),
+    );  
+    
+    $data['local_authority_details_custom']['email_overridden'] = array(
+      'title' => t('Email overridden'),
+      'help' => t('Indicates whether the email address stored in FHRS has been overridden'),
+      'field' => array(
+        'handler' => 'fsa_report_problem_views_handler_field_local_authority_email_overridden',
+        'click sortable' => TRUE,
+      ),
+      'sort' => array(
+        'handler' => 'fsa_report_problem_views_handler_sort_local_authority_email_override',
+      ),
+      'filter' => array(
+        'handler' => 'fsa_report_problem_views_handler_filter_local_authority_email_override',
+      ),
+    );
+    return $data;
+  }
+}
+
+
 
 /**
  * Entity uri callback.
