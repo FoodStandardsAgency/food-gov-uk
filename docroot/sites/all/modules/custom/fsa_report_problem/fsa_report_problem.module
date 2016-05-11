@@ -647,9 +647,11 @@ function fsa_report_problem_entity_info() {
 
   $info['local_authority'] = array(
     'label' => t('Local authority'),
+    'plural label' => t('Local authorities'),
     'base table' => 'local_authority_details',
     'entity keys' => array(
       'id' => 'aid',
+      'label' => 'name',
     ),
     'entity class' => 'Entity',
     'controller class' => 'LocalAuthorityEntityController',
@@ -657,6 +659,7 @@ function fsa_report_problem_entity_info() {
     'module' => 'fsa_report_problem',
     'fieldable' => TRUE,
     'bundles' => array(),
+    'views controller class' => 'LocalAuthorityViewsController',
   );
 
   return $info;
