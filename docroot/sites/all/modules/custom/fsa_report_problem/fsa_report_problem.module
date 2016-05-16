@@ -4984,8 +4984,8 @@ function _fsa_report_problem_weekly_email_report() {
     'subject' => !empty($last_sent) ? t('Food problem reports - @start to @end', array('@start' => format_date($last_sent, 'custom', 'd F Y'), '@end' => format_date($request_time, 'custom', 'd F Y'))) : t('Food problem reports'),
     'attachment' => array(
       'filecontent' => $reports,
-      'filename' => "food_reports_export_" . format_date($request_time, 'custom', 'Y-m-d') . ".csv",
-      'filemime' => 'application/csv',
+      'filename' => _fsa_report_problem_generate_export_filename('food_problem_reports'),
+      'filemime' => 'text/csv',
     ),
     'body' => $email['message'],
   );
