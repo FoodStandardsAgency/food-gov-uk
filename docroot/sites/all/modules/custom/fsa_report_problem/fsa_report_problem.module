@@ -5087,8 +5087,8 @@ function _fsa_report_problem_weekly_email_report() {
     'subject' => !empty($last_sent) ? t('Food problem reports - @start to @end', array('@start' => format_date($last_sent, 'custom', 'd F Y'), '@end' => format_date($request_time, 'custom', 'd F Y'))) : t('Food problem reports'),
     'attachment' => array(
       'filecontent' => $reports,
-      'filename' => "food_reports_export_" . format_date($request_time, 'custom', 'Y-m-d') . ".csv",
-      'filemime' => 'application/csv',
+      'filename' => _fsa_report_problem_generate_export_filename('food_problem_reports'),
+      'filemime' => 'text/csv',
     ),
     'body' => $email['message'],
   );
@@ -5144,4 +5144,50 @@ function fsa_report_problem_views_api() {
     'api' => 3.0,
     'path' => drupal_get_path('module', 'fsa_report_problem') . '/views',
   );
+}
+
+
+/**
+ * Helper function: generates export filename.
+ *
+ * @param string $prefix
+ *   (optional) String to add at the start of the generated filename. Defaults
+ *   to 'export'.
+ * @param string $extension
+ *   (optional) Extension to append to the filename. Defaults to '.csv'
+ * @param string $date_format
+ *   (optional) The format to use for the date stamp portion of the returned
+ *   filename. Must be a valid PHP date format, see:
+ *   http://php.net/manual/en/function.date.php
+ *   Defaults to 'Ymd_hms', eg '20160516_101230'.
+ *
+ * @return string
+ *   Filename in the form: ${prefix}_${date_stamp}.${extension}, eg:
+ *   'export_20160516_101230.csv'
+ */
+function _fsa_report_problem_generate_export_filename($prefix = 'export', $extension = 'csv', $date_format = 'Ymd_hms') {
+  $date_stamp = format_date(REQUEST_TIME, 'custom', $date_format);
+  return $prefix . '_' . $date_stamp . '.' . $extension;
+}
+
+
+/**
+ * Implements hook_views_post_execute().
+ */
+function fsa_report_problem_views_post_execute(&$view) {
+  // Get the style plugin
+  $style_plugin = $view->style_plugin;
+  // Get the class name of the plugin
+  $style_plugin_name = !empty($style_plugin) && is_object($style_plugin) ? get_class($style_plugin) : '';
+  // If the class name is 'views_data_export_plugin_style_export_csv', modify
+  // the HTTP headers for the CSV file
+  if ($style_plugin_name == 'views_data_export_plugin_style_export_csv') {
+    // We override the default Content-type header, and we add an additional
+    // Content-disposition header so that we can modify the filename and
+    // try to ensure that the CSV file opens properly.
+    $style_plugin->definition['export headers'] = array(
+      'Content-type' => 'text/csv; name="' . _fsa_report_problem_generate_export_filename($view->name) . '"',
+      'Content-disposition' => 'attachment; filename="' . _fsa_report_problem_generate_export_filename($view->name) . '"',
+    );
+  }
 }
