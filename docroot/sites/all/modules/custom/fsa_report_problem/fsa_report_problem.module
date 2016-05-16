@@ -5042,3 +5042,27 @@ function fsa_report_problem_views_api() {
     'path' => drupal_get_path('module', 'fsa_report_problem') . '/views',
   );
 }
+
+
+/**
+ * Helper function: generates export filename.
+ *
+ * @param string $prefix
+ *   (optional) String to add at the start of the generated filename. Defaults
+ *   to 'export'.
+ * @param string $extension
+ *   (optional) Extension to append to the filename. Defaults to '.csv'
+ * @param string $date_format
+ *   (optional) The format to use for the date stamp portion of the returned
+ *   filename. Must be a valid PHP date format, see:
+ *   http://php.net/manual/en/function.date.php
+ *   Defaults to 'Ymd_hms', eg '20160516_101230'.
+ *
+ * @return string
+ *   Filename in the form: ${prefix}_${date_stamp}.${extension}, eg:
+ *   'export_20160516_101230.csv'
+ */
+function _fsa_report_problem_generate_export_filename($prefix = 'export', $extension = 'csv', $date_format = 'Ymd_hms') {
+  $date_stamp = format_date(REQUEST_TIME, 'custom', $date_format);
+  return $prefix . '_' . $date_stamp . '.' . $extension;
+}
