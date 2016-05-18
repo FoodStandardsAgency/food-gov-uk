@@ -581,7 +581,7 @@ function fsa_food_report_admin_form($form, &$form_state) {
         '#type' => 'checkbox',
         '#title' => t('@label required', array('@label' => ucfirst($label))),
         '#description' => t('Tick this box to make the @fieldname field mandatory.', array('@fieldname' => $label)),
-        '#default_value' => variable_get("fsa_report_problem_reporter_${key}_required", 'FALSE'),
+        '#default_value' => variable_get("fsa_report_problem_reporter_${key}_required", FALSE),
       ),
 
     );
