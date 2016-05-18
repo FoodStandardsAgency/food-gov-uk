@@ -5191,3 +5191,44 @@ function fsa_report_problem_views_post_execute(&$view) {
     );
   }
 }
+
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * We use this hook to alter the exposed filter form of the food problem
+ * reports view. In particular, we change the filter labels of the manual
+ * submission and email sent dropdowns from True/False to Yes/No in order to be
+ * more user-friendly and tie in with the values in the table.
+ */
+function fsa_report_problem_form_views_exposed_form_alter(&$form, $form_state, $form_id) {
+
+  // Get the ID from the form
+  $id = !empty($form['#id']) ? str_replace('views-exposed-form-', '', $form['#id']) : NULL;
+
+  // Set the view and display name for which we want to alter the filters
+  $view_name = 'food_problem_reports';
+  $display_name = 'page_1';
+
+  // If this isn't the view/display we want, exit now
+  if ($id != str_replace('_', '-', "${view_name}_${display_name}")) {
+    return;
+  }
+
+  // An array of yes/no labels
+  $yes_no = array(t('No'), t('Yes'));
+
+  // Change labels for the manual submission and email_sent filters to Yes/No.
+  // By default, they're set to True/False
+  $fields = array('manual_submission', 'email_sent');
+  foreach ($fields as $field) {
+    if (!empty($form[$field]) && !empty($form[$field]['#options'])) {
+      foreach ($form[$field]['#options'] as $key => $value) {
+        if (isset($yes_no[$key])) {
+          $form[$field]['#options'][$key] = $yes_no[$key];
+        }
+      }
+    }
+  }
+
+}
