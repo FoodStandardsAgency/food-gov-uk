@@ -572,9 +572,24 @@ function fsa_food_report_admin_form($form, &$form_state) {
 
   // Create the fieldsets for each field
   foreach ($data_capture_fields as $key => $label) {
+
+    // Show all fields apart from phone by default
+    $default_show = $key == 'phone' ? FALSE : TRUE;
+
+    // Create the fieldset
     $form['data_capture_settings']["${key}_container"] = array(
       '#type' => 'fieldset',
       '#title' => ucfirst($label),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+
+      // Add checkboxes to determine whether the fields are displayed to users
+      "fsa_report_problem_reporter_${key}_show" => array(
+        '#type' => 'checkbox',
+        '#title' => t('Capture @label', array('@label' => $label)),
+        '#description' => t('Tick this box to display a field to capture the @fieldname.', array('@fieldname' => $label)),
+        '#default_value' => variable_get("fsa_report_problem_reporter_${key}_show", $default_show),
+      ),
 
       // Add checkboxes to determine whether the fields are mandatory
       "fsa_report_problem_reporter_${key}_required" => array(
