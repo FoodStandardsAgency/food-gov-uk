@@ -608,13 +608,6 @@ function fsa_food_report_admin_form($form, &$form_state) {
     );
   }
 
-  $form['data_capture_settings']['fsa_report_problem_reporter_phone_required'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Reporter phone number required'),
-    '#description' => t('Tick this box to make the reporter phone number field mandatory.'),
-    '#default_value' => variable_get('fsa_report_problem_reporter_phone_required', 'FALSE'),
-  );
-
   $form['service_status'] = array(
     '#type' => 'fieldset',
     '#collapsible' => TRUE,
