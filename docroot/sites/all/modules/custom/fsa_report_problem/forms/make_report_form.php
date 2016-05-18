@@ -88,18 +88,21 @@ function fsa_report_problem_make_report_form($form, &$form_state, $manual = FALS
   $form['reporter_name'] = array(
     '#type' => 'textfield',
     '#required' => variable_get('fsa_report_problem_reporter_name_required', FALSE),
+    '#access' => variable_get('fsa_report_problem_reporter_name_show', FALSE),
   );
   _fsa_report_problem_form_field_text($form['reporter_name'], _fsa_report_problem_text('field_title_reporter_name'), _fsa_report_problem_text('field_description_reporter_name'));
 
   $form['reporter_email'] = array(
     '#type' => 'textfield',
     '#required' => variable_get('fsa_report_problem_reporter_email_required', FALSE),
+    '#access' => variable_get('fsa_report_problem_reporter_email_show', FALSE),
   );
   _fsa_report_problem_form_field_text($form['reporter_email'], _fsa_report_problem_text('field_title_reporter_email'), _fsa_report_problem_text('field_description_reporter_email'));
 
   $form['reporter_phone'] = array(
     '#type' => 'textfield',
     '#required' => variable_get('fsa_report_problem_reporter_phone_required', FALSE),
+    '#access' => variable_get('fsa_report_problem_reporter_phone_show', FALSE),
   );
   _fsa_report_problem_form_field_text($form['reporter_phone'], _fsa_report_problem_text('field_title_reporter_phone'), _fsa_report_problem_text('field_description_reporter_phone'));
 
