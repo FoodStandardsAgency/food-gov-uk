@@ -141,6 +141,23 @@ function fsa_report_problem_menu() {
     'file' => 'fsa_report_problem.admin.inc',
   );
 
+  // This is essentially a duplicate of the above menu item, but is here to
+  // enable users with the role 'Report a food problem' to view food problem
+  // reports without being granted access to all of the site reporting.
+  $items['admin/food-problem-reports'] = array(
+    'title' => 'Food problem reports',
+    'description' => 'View reports of problems with food premises',
+    // Use a custom access callback
+    'access callback' => '_fsa_report_problem_view_reports_access',
+    // In the access arguments, we pass an array of permissions that can access
+    // the food problem reports without having access to the main site reports
+    // section. At present it's just 'view food problem reports'
+    'access arguments' => array('view food problem reports'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('fsa_report_problem_view_reports'),
+    'file' => 'fsa_report_problem.admin.inc',
+  );
+
   $items['admin/reports/food-problems/%'] = array(
     'title' => 'Food problem report',
     'description' => 'View detail for this food problem report',
@@ -5013,7 +5030,7 @@ function _fsa_report_problem_view_reports_access() {
 }
 
 
-/*
+/**
  * Helper function: provides label, description and placeholder for form fields
  *
  * @param array $element
