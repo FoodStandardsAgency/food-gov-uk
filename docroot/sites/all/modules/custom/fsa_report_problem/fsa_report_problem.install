@@ -73,6 +73,12 @@ function fsa_report_problem_schema() {
         'length' => 128,
         'not null' => FALSE,
       ),
+      'reporter_phone' => array(
+        'description' => 'The phone number of the person reporting the problem.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => FALSE,
+      ),
       'problem_date' => array(
         'description' => 'The date when the problem happened - as reported by the reporter.',
         'type' => 'int',

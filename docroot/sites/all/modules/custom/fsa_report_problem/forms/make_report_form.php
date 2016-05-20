@@ -85,23 +85,26 @@ function fsa_report_problem_make_report_form($form, &$form_state, $manual = FALS
     );
   }
 
-  // Are reporter name ane email address required?
-  $reporter_name_required = variable_get('fsa_report_problem_reporter_name_required', FALSE);
-  $reporter_email_required = variable_get('fsa_report_problem_reporter_email_required', FALSE);
-
   $form['reporter_name'] = array(
     '#type' => 'textfield',
-    '#title' => $reporter_name_required ? t('Your name') : t('Your name (optional)'),
-    '#description' => t('The local authority would only use this when contacting you about your issue.'),
-    '#required' => $reporter_name_required,
+    '#required' => variable_get('fsa_report_problem_reporter_name_required', FALSE),
+    '#access' => variable_get('fsa_report_problem_reporter_name_show', FALSE),
   );
+  _fsa_report_problem_form_field_text($form['reporter_name'], _fsa_report_problem_text('field_title_reporter_name'), _fsa_report_problem_text('field_description_reporter_name'));
 
   $form['reporter_email'] = array(
     '#type' => 'textfield',
-    '#title' => $reporter_email_required ? t('Your email address') : t('Your email address (optional)'),
-    '#description' => t('This would only be used by the local authority to contact you about your issue.'),
-    '#required' => $reporter_email_required,
+    '#required' => variable_get('fsa_report_problem_reporter_email_required', FALSE),
+    '#access' => variable_get('fsa_report_problem_reporter_email_show', FALSE),
   );
+  _fsa_report_problem_form_field_text($form['reporter_email'], _fsa_report_problem_text('field_title_reporter_email'), _fsa_report_problem_text('field_description_reporter_email'));
+
+  $form['reporter_phone'] = array(
+    '#type' => 'textfield',
+    '#required' => variable_get('fsa_report_problem_reporter_phone_required', FALSE),
+    '#access' => variable_get('fsa_report_problem_reporter_phone_show', FALSE),
+  );
+  _fsa_report_problem_form_field_text($form['reporter_phone'], _fsa_report_problem_text('field_title_reporter_phone'), _fsa_report_problem_text('field_description_reporter_phone'));
 
   // @todo Change this to a single date field and add a free-text field for the
   // time as some users find the time selector confusing
@@ -207,6 +210,7 @@ function fsa_report_problem_make_report_form_submit($form, &$form_state) {
   $entity->changed = REQUEST_TIME;
   $entity->reporter_name = $form_state['values']['reporter_name'];
   $entity->reporter_email = $form_state['values']['reporter_email'];
+  $entity->reporter_phone = $form_state['values']['reporter_phone'];
   $entity->business_location = $form_state['values']['business_address'];
   $entity->business_postcode = !empty($form_state['values']['business_postcode']) ? _fsa_report_problem_format_postcode($form_state['values']['business_postcode']) : NULL;
   $entity->coordinates = !empty($form_state['coords']) ? $form_state['coords'] : NULL;

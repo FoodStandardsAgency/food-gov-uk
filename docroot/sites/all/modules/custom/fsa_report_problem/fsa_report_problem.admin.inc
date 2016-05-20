@@ -567,19 +567,46 @@ function fsa_food_report_admin_form($form, &$form_state) {
     '#collapsible' => TRUE,
   );
 
-  $form['data_capture_settings']['fsa_report_problem_reporter_name_required'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Reporter name required'),
-    '#description' => t('Tick this box to make the reporter name field mandatory.'),
-    '#default_value' => variable_get('fsa_report_problem_reporter_name_required', 'FALSE'),
+  // Set options for the data capture fields
+  // We'll allow administrators to determine which fields are displayed and
+  // whether they're mandatory
+  $data_capture_fields = array(
+    'name' => t('reporter name'),
+    'email' => t('reporter email address'),
+    'phone' => t('reporter phone number'),
   );
 
-  $form['data_capture_settings']['fsa_report_problem_reporter_email_required'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Reporter email address required'),
-    '#description' => t('Tick this box to make the reporter email address field mandatory.'),
-    '#default_value' => variable_get('fsa_report_problem_reporter_email_required', 'FALSE'),
-  );
+  // Create the fieldsets for each field
+  foreach ($data_capture_fields as $key => $label) {
+
+    // Show all fields apart from phone by default
+    $default_show = $key == 'phone' ? FALSE : TRUE;
+
+    // Create the fieldset
+    $form['data_capture_settings']["${key}_container"] = array(
+      '#type' => 'fieldset',
+      '#title' => ucfirst($label),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+
+      // Add checkboxes to determine whether the fields are displayed to users
+      "fsa_report_problem_reporter_${key}_show" => array(
+        '#type' => 'checkbox',
+        '#title' => t('Capture @label', array('@label' => $label)),
+        '#description' => t('Tick this box to display a field to capture the @fieldname.', array('@fieldname' => $label)),
+        '#default_value' => variable_get("fsa_report_problem_reporter_${key}_show", $default_show),
+      ),
+
+      // Add checkboxes to determine whether the fields are mandatory
+      "fsa_report_problem_reporter_${key}_required" => array(
+        '#type' => 'checkbox',
+        '#title' => t('@label required', array('@label' => ucfirst($label))),
+        '#description' => t('Tick this box to make the @fieldname field mandatory.', array('@fieldname' => $label)),
+        '#default_value' => variable_get("fsa_report_problem_reporter_${key}_required", FALSE),
+      ),
+
+    );
+  }
 
   $form['service_status'] = array(
     '#type' => 'fieldset',
