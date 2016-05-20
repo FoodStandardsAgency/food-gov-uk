@@ -124,15 +124,6 @@ function fsa_report_problem_permission() {
 function fsa_report_problem_menu() {
   $items = array();
 
-  $items['admin/reports/food-problems'] = array(
-    'title' => 'Food problem reports',
-    'description' => 'View reports of problems with food premises',
-    'access arguments' => array('view food problem reports'),
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('fsa_report_problem_view_reports'),
-    'file' => 'fsa_report_problem.admin.inc',
-  );
-
   // This is essentially a duplicate of the above menu item, but is here to
   // enable users with the role 'Report a food problem' to view food problem
   // reports without being granted access to all of the site reporting.
@@ -145,8 +136,8 @@ function fsa_report_problem_menu() {
     // the food problem reports without having access to the main site reports
     // section. At present it's just 'view food problem reports'
     'access arguments' => array('view food problem reports'),
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('fsa_report_problem_view_reports'),
+    'page callback' => 'views_page',
+    'page arguments' => array('food_problem_reports', 'page_1'),
     'file' => 'fsa_report_problem.admin.inc',
   );
 
@@ -238,16 +229,6 @@ function fsa_report_problem_menu() {
     'file' => 'fsa_report_problem.admin.inc',
     'type' => MENU_LOCAL_TASK,
     'weight' => 40,
-  );
-
-  $items['admin/config/foodproblems/authorities'] = array(
-    'title' => 'Local authority data',
-    'description' => 'Manage local authority data for use in the food problem reporting system',
-    'page callback' => 'fsa_report_problem_local_authorities_new',
-    'access arguments' => array('administer food problem reporting'),
-    'file' => 'fsa_report_problem.admin.inc',
-    'type' => MENU_LOCAL_TASK,
-    'weight' => 30,
   );
 
   $items['admin/config/foodproblems/authorities/add'] = array(
@@ -649,9 +630,11 @@ function fsa_report_problem_entity_info() {
 
   $info['problem_report'] = array(
     'label' => t('Problem report'),
+    'plural label' => t('Food problem reports'),
     'base table' => 'problem_reports',
     'entity keys' => array(
       'id' => 'rid',
+      'label' => 'business_name',
     ),
     'entity class' => 'Entity',
     'controller class' => 'ProblemReportEntityController',
@@ -659,13 +642,16 @@ function fsa_report_problem_entity_info() {
     'module' => 'fsa_report_problem',
     'fieldable' => TRUE,
     'bundles' => array(),
+    'views controller class' => 'ProblemReportViewsController',
   );
 
   $info['local_authority'] = array(
     'label' => t('Local authority'),
+    'plural label' => t('Local authorities'),
     'base table' => 'local_authority_details',
     'entity keys' => array(
       'id' => 'aid',
+      'label' => 'name',
     ),
     'entity class' => 'Entity',
     'controller class' => 'LocalAuthorityEntityController',
@@ -673,6 +659,7 @@ function fsa_report_problem_entity_info() {
     'module' => 'fsa_report_problem',
     'fieldable' => TRUE,
     'bundles' => array(),
+    'views controller class' => 'LocalAuthorityViewsController',
   );
 
   return $info;
@@ -684,6 +671,84 @@ function fsa_report_problem_entity_info() {
 function fsa_report_problem_entity_property_info() {
   $entity_property_info = array();
 
+    // Report ID
+  $entity_property_info['problem_report'] = array(
+    'properties' => array(
+      'report_id' => array(
+        'type'  => 'integer',
+        'label' => t('Report ID'),
+        'description' => t('The unique ID of the food problem report.'),
+        'schema field' => 'rid',
+      ),
+      'business_name' => array(
+        'type'  => 'text',
+        'label' => t('Business name'),
+        'description' => t('The name of the business being reported.'),
+        'schema field' => 'business_name',
+      ),
+      'business_address' => array(
+        'type'  => 'text',
+        'label' => t('Business address'),
+        'description' => t('The address of the business being reported.'),
+        'schema field' => 'business_location',
+      ),
+      'business_postcode' => array(
+        'type'  => 'text',
+        'label' => t('Business postcode'),
+        'description' => t('The postcode of the business being reported.'),
+        'schema field' => 'business_postcode',
+      ),
+      'status' => array(
+        'type'  => 'boolean',
+        'label' => t('Status'),
+        'description' => t('Indicates the status of the report (not currently used).'),
+        'schema field' => 'status',
+      ),
+      'email_sent' => array(
+        'type'  => 'boolean',
+        'label' => t('Email sent'),
+        'description' => t('Indicates whether the report has been forwarded to the relevant local authority.'),
+        'schema field' => 'email_sent',
+      ),
+      'date_submitted' => array(
+        'type'  => 'date',
+        'label' => t('Date submitted'),
+        'description' => t('The date when the report was submitted.'),
+        'schema field' => 'created',
+      ),
+      'problem_date' => array(
+        'type'  => 'date',
+        'label' => t('Date of problem'),
+        'description' => t('The date when the food problem was encountered.'),
+        'schema field' => 'problem_date',
+      ),
+      'local_authority_name' => array(
+        'type'  => 'text',
+        'label' => t('Local authority name'),
+        'description' => t('The name of the local authority responsible for investigating the problem.'),
+        'schema field' => 'local_authority_name',
+      ),
+      'local_authority_email' => array(
+        'type'  => 'text',
+        'label' => t('Local authority email'),
+        'description' => t('The email address of the local authority responsible for investigating the problem.'),
+        'schema field' => 'local_authority_email',
+      ),
+      'problem_details' => array(
+        'type'  => 'text',
+        'label' => t('Food problem details'),
+        'description' => t('Details of the food problem experienced by the user.'),
+        'schema field' => 'problem_details',
+      ),
+      'manual_submission' => array(
+        'type'  => 'boolean',
+        'label' => t('Manual submission'),
+        'description' => t('Indicates whether this report was submitted manually instead of using the business finder.'),
+        'schema field' => 'manual_submission',
+      ),
+    ),
+  );
+
   $entity_property_info['local_authority'] = array(
     'properties' => array(
       'local_authority_id' => array(
@@ -691,6 +756,36 @@ function fsa_report_problem_entity_property_info() {
         'type' => 'integer',
         'description' => t('Local authority ID from FHRS'),
         'schema field' => 'local_authority_id',
+      ),
+      'area_id' => array(
+        'label' => t('MapIt area ID'),
+        'type' => 'integer',
+        'description' => t('Local area ID from MapIt'),
+        'schema field' => 'area_id',
+      ),
+      'name' => array(
+        'label' => t('Local authority name'),
+        'type' => 'text',
+        'description' => t('Local authority name'),
+        'schema field' => 'name',
+      ),
+      'email' => array(
+        'label' => t('Email'),
+        'type' => 'text',
+        'description' => t('Local authority email'),
+        'schema field' => 'email',
+      ),
+      'fhrs_email' => array(
+        'label' => t('FHRS Email'),
+        'type' => 'text',
+        'description' => t('Local authority email from FHRS'),
+        'schema field' => 'fhrs_email',
+      ),
+      'food_safety_team_email' => array(
+        'label' => t('Food safety email'),
+        'type' => 'text',
+        'description' => t('Food safety team email address'),
+        'schema field' => 'food_safety_team_email',
       ),
     ),
   );
@@ -730,6 +825,63 @@ class LocalAuthorityEntityController extends EntityAPIController {
     return $build;
   }
 
+}
+
+
+/**
+ * Problem report Views Controller class.
+ */
+class ProblemReportViewsController extends EntityDefaultViewsController {
+  public function views_data() {
+    $data = parent::views_data();
+    $data['problem_reports']['report_id']['field']['handler'] = 'fsa_report_problem_views_handler_field_problem_report';
+    $data['problem_reports']['business_name']['field']['handler'] = 'fsa_report_problem_views_handler_field_problem_report';
+    $data['problem_reports']['date_submitted']['argument']['handler'] = 'fsa_report_problem_views_handler_argument_last_export';
+    $data['problem_reports']['local_authority_name']['filter']['handler'] = 'fsa_report_problem_views_handler_filter_local_authority';
+    return $data;
+  }
+}
+
+
+/**
+ * Problem report Views Controller class.
+ */
+class LocalAuthorityViewsController extends EntityDefaultViewsController {
+  public function views_data() {
+    $data = parent::views_data();
+    
+    $data['local_authority_details']['name']['field']['handler'] = 'fsa_report_problem_views_handler_field_local_authority';
+    $data['local_authority_details']['email']['field']['handler'] = 'fsa_report_problem_views_handler_field_local_authority_email';
+    
+    $data['local_authority_details']['operations'] = array(
+      'field' => array(
+        'title' => t('Operations'),
+        'help' => t('Provide links to operations such as editing.'),
+        'handler' => 'fsa_report_problem_views_handler_field_local_authority_operations',
+      ),
+    );
+    
+    $data['local_authority_details_custom']['table']['group'] = t('Local authorities custom');
+    $data['local_authority_details_custom']['table']['join'] = array(
+      '#global' => array(),
+    );  
+    
+    $data['local_authority_details_custom']['email_overridden'] = array(
+      'title' => t('Email overridden'),
+      'help' => t('Indicates whether the email address stored in FHRS has been overridden'),
+      'field' => array(
+        'handler' => 'fsa_report_problem_views_handler_field_local_authority_email_overridden',
+        'click sortable' => TRUE,
+      ),
+      'sort' => array(
+        'handler' => 'fsa_report_problem_views_handler_sort_local_authority_email_override',
+      ),
+      'filter' => array(
+        'handler' => 'fsa_report_problem_views_handler_filter_local_authority_email_override',
+      ),
+    );
+    return $data;
+  }
 }
 
 
@@ -1278,6 +1430,15 @@ function fsa_report_problem_mail($key, &$message, $params) {
   );
 
   switch ($key) {
+    case 'weekly_report':
+
+      $message['subject'] = $params['subject'];
+      $message['params']['attachments'][] = $params['attachment'];
+      $message['params']['plain'] = TRUE;
+      $message['body'] = $params['body'];
+      drupal_set_message('Email sent');
+      break;
+
     case 'problem_report':
 
       $report = $params['report'];
@@ -2212,6 +2373,15 @@ function _fsa_report_problem_email($key = NULL) {
     'description' => t('This is the acknowledgement email that will be sent to the user on submission of the report if he or she has included his/her email address.'),
   );
 
+  $emails['weekly_report'] = array(
+    'subject' => t('Food problem reports'),
+    'message' => t('The latest food problem reports are attached.'),
+    'default_recipient' => 'operations.data@foodstandards.gsi.gov.uk, webmaster@foodstandards.gsi.gov.uk',
+    'sender_email' => 'digital.communications@foodstandards.gsi.gov.uk',
+    'title' => t('Weekly data export'),
+    'description' => t('Email sent weekly to the data team'),
+   );
+
   if (empty($key)) {
     return $emails;
   }
@@ -2333,6 +2503,9 @@ function _fsa_report_problem_update_fhrs_data() {
  * Implements hook_cron().
  */
 function fsa_report_problem_cron() {
+
+  // Send the weekly report
+  _fsa_report_problem_weekly_email_report();
 
   // Remove reporter data from sent reports
   _fsa_report_problem_remove_reporter_details();
@@ -4771,4 +4944,188 @@ function _fsa_report_problem_view_reports_access() {
 
   // If all else fails, return FALSE - no access
   return FALSE;
+}
+
+
+/**
+ * Helper function: sends a weekly email report for data analysis
+ */
+function _fsa_report_problem_weekly_email_report() {
+
+  // Get the request time
+  $request_time = REQUEST_TIME;
+
+  // The report should be sent first thing on Monday, so if we're on any other
+  // day, exit now.
+  if (format_date($request_time, 'custom', 'w') != 1) {
+    return;
+  }
+  
+  // Get the last time the report was sent
+  global $user;
+  $last_sent = _fsa_report_problem_last_export_date($user->uid);
+  
+  // If the report has already been sent today, exit now
+  if (!empty($last_sent)){
+    if (format_date($last_sent, 'custom', 'Y F d') == format_date($request_time, 'custom', 'Y F d')) {
+      return;
+    }
+  }
+  
+  // Get the email details
+  $email = _fsa_report_problem_email('weekly_report');
+
+  // Get the report data
+  $view = views_get_view('food_problem_reports');
+  $view->set_arguments(array($last_sent));
+  $reports = $view->render('csv_export');
+
+  $mail_params = array(
+    'subject' => !empty($last_sent) ? t('Food problem reports - @start to @end', array('@start' => format_date($last_sent, 'custom', 'd F Y'), '@end' => format_date($request_time, 'custom', 'd F Y'))) : t('Food problem reports'),
+    'attachment' => array(
+      'filecontent' => $reports,
+      'filename' => _fsa_report_problem_generate_export_filename('food_problem_reports'),
+      'filemime' => 'text/csv',
+    ),
+    'body' => $email['message'],
+  );
+
+  // Send the email
+  $message = drupal_mail('fsa_report_problem', 'weekly_report', $email['default_recipient'], user_preferred_language($user), $mail_params, $email['sender_email'], TRUE);
+  if ($message) {
+   watchdog('fsa_report_problem', 'Weekly email report sent');
+  }
+  else {
+   watchdog('fsa_report_problem', 'Problem sending weekly report email', array(), WATCHDOG_ERROR);
+  }
+
+  // Set the last sent time
+  _fsa_report_problem_last_export_date($user->uid, $request_time);
+}
+
+
+/**
+ * Helper function: retrieves/sets the last data export date for the given user
+ *
+ * @param int $uid
+ *   The user ID of the user for which we want to get the most recent export
+ *   date.
+ *
+ * @param int $date
+ *   (optional) If supplied, this will be set as the user's last export date. It
+ *   should be a UNIX timestamp.
+ *
+ * @return int
+ *   A UNIX timestamp for the last export date for the given user, or 0 if the
+ *   user has never exported data.
+ */
+function _fsa_report_problem_last_export_date($uid, $date = NULL) {
+  // Get the username for the given user
+  $username = !empty($uid) ? user_load($uid)->name : 'anonymous';
+  // Get the existing export dates
+  $export_dates = variable_get('fsa_report_problem_last_export_date', array());
+  $last_export = !empty($export_dates[$username]) ? $export_dates[$username] : 0;
+  if (!empty($date)) {
+    $export_dates[$username] = $date;
+    variable_set('fsa_report_problem_last_export_date', $export_dates);
+  }
+  return $last_export;
+}
+
+
+/**
+ * Implements hook_views_api();
+ */
+function fsa_report_problem_views_api() {
+  return array(
+    'api' => 3.0,
+    'path' => drupal_get_path('module', 'fsa_report_problem') . '/views',
+  );
+}
+
+
+/**
+ * Helper function: generates export filename.
+ *
+ * @param string $prefix
+ *   (optional) String to add at the start of the generated filename. Defaults
+ *   to 'export'.
+ * @param string $extension
+ *   (optional) Extension to append to the filename. Defaults to '.csv'
+ * @param string $date_format
+ *   (optional) The format to use for the date stamp portion of the returned
+ *   filename. Must be a valid PHP date format, see:
+ *   http://php.net/manual/en/function.date.php
+ *   Defaults to 'Ymd_hms', eg '20160516_101230'.
+ *
+ * @return string
+ *   Filename in the form: ${prefix}_${date_stamp}.${extension}, eg:
+ *   'export_20160516_101230.csv'
+ */
+function _fsa_report_problem_generate_export_filename($prefix = 'export', $extension = 'csv', $date_format = 'Ymd_hms') {
+  $date_stamp = format_date(REQUEST_TIME, 'custom', $date_format);
+  return $prefix . '_' . $date_stamp . '.' . $extension;
+}
+
+
+/**
+ * Implements hook_views_post_execute().
+ */
+function fsa_report_problem_views_post_execute(&$view) {
+  // Get the style plugin
+  $style_plugin = $view->style_plugin;
+  // Get the class name of the plugin
+  $style_plugin_name = !empty($style_plugin) && is_object($style_plugin) ? get_class($style_plugin) : '';
+  // If the class name is 'views_data_export_plugin_style_export_csv', modify
+  // the HTTP headers for the CSV file
+  if ($style_plugin_name == 'views_data_export_plugin_style_export_csv') {
+    // We override the default Content-type header, and we add an additional
+    // Content-disposition header so that we can modify the filename and
+    // try to ensure that the CSV file opens properly.
+    $style_plugin->definition['export headers'] = array(
+      'Content-type' => 'text/csv; name="' . _fsa_report_problem_generate_export_filename($view->name) . '"',
+      'Content-disposition' => 'attachment; filename="' . _fsa_report_problem_generate_export_filename($view->name) . '"',
+    );
+  }
+}
+
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * We use this hook to alter the exposed filter form of the food problem
+ * reports view. In particular, we change the filter labels of the manual
+ * submission and email sent dropdowns from True/False to Yes/No in order to be
+ * more user-friendly and tie in with the values in the table.
+ */
+function fsa_report_problem_form_views_exposed_form_alter(&$form, $form_state, $form_id) {
+
+  // Get the ID from the form
+  $id = !empty($form['#id']) ? str_replace('views-exposed-form-', '', $form['#id']) : NULL;
+
+  // Set the view and display name for which we want to alter the filters
+  $view_name = 'food_problem_reports';
+  $display_name = 'page_1';
+
+  // If this isn't the view/display we want, exit now
+  if ($id != str_replace('_', '-', "${view_name}_${display_name}")) {
+    return;
+  }
+
+  // An array of yes/no labels
+  $yes_no = array(t('No'), t('Yes'));
+
+  // Change labels for the manual submission and email_sent filters to Yes/No.
+  // By default, they're set to True/False
+  $fields = array('manual_submission', 'email_sent');
+  foreach ($fields as $field) {
+    if (!empty($form[$field]) && !empty($form[$field]['#options'])) {
+      foreach ($form[$field]['#options'] as $key => $value) {
+        if (isset($yes_no[$key])) {
+          $form[$field]['#options'][$key] = $yes_no[$key];
+        }
+      }
+    }
+  }
+
 }
