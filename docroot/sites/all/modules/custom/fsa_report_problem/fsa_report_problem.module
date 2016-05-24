@@ -5247,5 +5247,4 @@ function fsa_report_problem_form_views_exposed_form_alter(&$form, $form_state, $
       }
     }
   }
-
 }

@@ -207,7 +207,8 @@ $handler->display->display_options['path'] = 'admin/config/foodproblems/authorit
 $handler->display->display_options['menu']['type'] = 'tab';
 $handler->display->display_options['menu']['title'] = 'Local authority data';
 $handler->display->display_options['menu']['description'] = 'Manage local authority data for use in the food problem reporting system';
-$handler->display->display_options['menu']['weight'] = 30;
+$handler->display->display_options['menu']['weight'] = '30';
+$handler->display->display_options['menu']['name'] = 'management';
 $handler->display->display_options['menu']['context'] = 0;
 $handler->display->display_options['menu']['context_only_inline'] = 0;
 
