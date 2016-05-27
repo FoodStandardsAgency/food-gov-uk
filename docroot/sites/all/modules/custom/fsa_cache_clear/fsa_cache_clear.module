@@ -972,3 +972,18 @@ function _fsa_cache_clear_file_operation_cloudflare_purge() {
   // Not currently implemented as a view is used in place of the standard
   // files admin page.
 }
+
+
+/**
+ * Helper function: returns select CloudFlare API version
+ */
+function _fsa_cache_clear_cloudflare_api_version() {
+  // Define the minimum supported version. For now, since version 1 ceases to be
+  // supported as of 9 November 2016, we'll use that to determine it.
+  $min_version = REQUEST_TIME >= strtotime('9 November 2016') ? 4 : 1;
+  // Get the chosen version from the settings or use the minimum
+  $version = _fsa_cache_clear_settings('cloudflare_api_version', $min_version);
+  // Return the chosen version - unless it's less than the minimum version, in
+  // which case return the minimum version instead.
+  return $version >= $min_version ? $version : $min_version;
+}
