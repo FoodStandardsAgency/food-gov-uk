@@ -7,7 +7,7 @@
 /**
 * Implements hook_install().
 */
-function fsa_revisioning_deploy_install() {
+function fsa_revisioning_install() {
   // Set an initial value for the schema version so updates will run on install.
   drupal_set_installed_schema_version('fsa_revisioning', 7000);
 }
