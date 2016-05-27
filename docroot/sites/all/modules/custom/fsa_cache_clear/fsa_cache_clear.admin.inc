@@ -67,6 +67,17 @@ function fsa_cache_clear_admin_settings_form($form, &$form_state) {
     '#default_value' => isset($settings['queue_cloudflare']) ? $settings['queue_cloudflare'] : FSA_CACHE_CLEAR_QUEUE_CLOUDFLARE,
   );
 
+  $form['cloudflare_settings']['cloudflare_api_version'] = array(
+    '#type' => 'radios',
+    '#title' => t('CloudFlare API version'),
+    '#description' => t('Select the version of the CloudFlare API to use. NB: Version 1 will no longer be supported after 9 November 2016. <a href="@more">Find out more.</a>', array('@more' => 'https://www.cloudflare.com/migrating-to-v4/')),
+    '#options' => array(
+      1 => t('Version 1'),
+      4 => t('Version 4'),
+    ),
+    '#default_value' => _fsa_cache_clear_cloudflare_api_version(),
+  );
+
   // Textbox to hold the CloudFlare endpoint URL.
   $form['cloudflare_settings']['cloudflare_endpoint'] = array(
     '#type' => 'textfield',
