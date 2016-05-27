@@ -1,0 +1,59 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall hooks for the FSA revisioning module
+ */
+
+
+/**
+ * Sets the weight of the Revisioning schedule module to be greater than that of
+ * the Revisioning module.
+ */
+function fsa_revisioning_update_7001() {
+  // In order to work properly, the node_presave() hook of the
+  // revisioning_scheduler module should be called after the same hook for the
+  // revisioning module. To ensure this, we need to adjust the weights in the
+  // system table.
+
+  // Get the weight of the Revisioning module
+  $weight = db_select('system', 's')
+    ->fields('s', array('weight'))
+    ->condition('name', 'revisioning')
+    ->execute()->fetchField();
+
+  // Add 1 to the Revisioning module's weight
+  $new_weight = is_numeric($weight) ? $weight + 1 : NULL;
+
+  // Assign the new weight to the Revisioning scheduler module
+  if (!is_null($new_weight)) {
+    db_update('system')
+      ->fields(array('weight' => $new_weight))
+      ->condition('name', 'revisioning_scheduler')
+      ->execute();
+  }
+}
+
+
+/**
+ * Sets the weight of this module to be greater than that of the Revisioning
+ * scheduler module
+ */
+function fsa_revisioning_update_7002() {
+
+  // Get the weight of the Revisioning scheduler
+  $weight = db_select('system', 's')
+    ->fields('s', array('weight'))
+    ->condition('name', 'revisioning_scheduler')
+    ->execute()->fetchField();
+
+  // Add 1 to the Revisioning scheduler module's weight
+  $new_weight = is_numeric($weight) ? $weight + 1 : NULL;
+
+  // Assign the new weight to this module
+  if (!is_null($new_weight)) {
+    db_update('system')
+      ->fields(array('weight' => $new_weight))
+      ->condition('name', 'fsa_revisioning')
+      ->execute();
+  }
+}
