@@ -1,0 +1,6 @@
+name = FSA revisioning
+description = "Provides some enhancements and fixes for the Revisioning module"
+core = 7.x
+package = FSA Custom
+dependencies[] = revisioning
+dependencies[] = revisioning_scheduler
