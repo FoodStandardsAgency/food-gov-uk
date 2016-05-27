@@ -165,6 +165,7 @@ function fsa_cache_clear_admin_settings_form_submit($form, &$form_state) {
     'cloudflare_email',
     'cloudflare_domains',
     'cloudflare_endpoint',
+    'cloudflare_api_version',
   );
 
   // Loop through the settings, assigning them as we go or setting an error
