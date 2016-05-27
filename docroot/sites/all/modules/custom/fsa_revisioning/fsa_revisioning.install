@@ -4,6 +4,14 @@
  * Install, update and uninstall hooks for the FSA revisioning module
  */
 
+/**
+* Implements hook_install().
+*/
+function fsa_revisioning_deploy_install() {
+  // Set an initial value for the schema version so updates will run on install.
+  drupal_set_installed_schema_version('fsa_revisioning', 7000);
+}
+
 
 /**
  * Sets the weight of the Revisioning schedule module to be greater than that of
