@@ -1,0 +1,4 @@
+name = FSA CloudFlare API
+description = "Provides a Drupal functions for interacting with the CloudFlare API"
+core = 7.x
+package = FSA Custom

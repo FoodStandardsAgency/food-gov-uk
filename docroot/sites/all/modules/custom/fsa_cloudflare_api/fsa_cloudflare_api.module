@@ -1,0 +1,77 @@
+<?php
+/**
+ * @file
+ * Module code for the FSA CloudFlare API module
+ */
+
+// Register our autload function
+spl_autoload_register('_fsa_cloudflare_api_autoload');
+
+/**
+ * Autoload function: translates a fully qualified class name into a path
+ */
+function _fsa_cloudflare_api_autoload($class) {
+  $path = str_replace('Drupal', '', $class);
+  $path = drupal_get_path('module', 'fsa_cloudflare_api') . '/src' . $path . '.class.php';
+  $path = str_replace('\\', '/', $path);
+  $path = DRUPAL_ROOT . "/$path";
+  if (file_exists($path)) {
+    require($path);
+  }
+}
+
+
+/**
+ * Purges URLs from the CloudFlare API
+ *
+ * @param array $urls
+ *   An array of fully qualified URLs to purge from the CloudFlare cache
+ * @param array $params
+ *   An associative array of parameters to pass to the CloudFlare API in order
+ *   to retrieve the zone identifier for the domain from which the URLs are to
+ *   be purged. This should include at least the 'name' parameter. URLs will be
+ *   purged from the fist zone returned.
+ * @param string $email
+ *   (optional) Email address registered with CloudFlare
+ * @param string $key
+ *   (optional) CloudFlare API key
+ */
+function fsa_cloudflare_api_purge_urls($urls, $params = array(), $email = NULL, $key = NULL) {
+  // First we need the zone identifier
+  $api = _cloudflare_api_object('CloudFlareZoneApi', 4, $email, $key);
+  $zones = $api->getZones($params);
+  if (!empty($zones) && is_object($zones) && !empty($zones->result) && is_array($zones->result) && isset($zones->result[0])) {
+    $zone_id = !empty($zones->result[0]->id) ? $zones->result[0]->id : NULL;
+  }
+  if (empty($zone_id)) {
+    return FALSE;
+  }
+  // Make sure $urls is an array
+  $urls = !empty($urls) && !is_array($urls) ? array($urls) : $urls;
+  // Call the API method to clear the cache
+  try {
+    $result = $api->purgeCache($zone_id, $urls);
+    return is_object($result) && !empty($result->success);
+  }
+  catch (\Drupal\fsa_cloudflare_api\CloudFlareApiException $e) {
+    $e->logMessage();
+    return FALSE;
+  }
+}
+
+
+/**
+ * Helper function: returns a CloudFlare API object of the required version
+ *
+ * @param string $class
+ *   The name of the class of which we want an object
+ * @param int $version
+ *   (optional) The version of the CloudFlare API for which we want an object
+ * @return object
+ *   An instance of the CloudFlare API class specified in $class for the version
+ *   of the API specified in $version
+ */
+function _cloudflare_api_object($class, $version = 4, $email = NULL, $key = NULL) {
+  $class_name = "Drupal\\fsa_cloudflare_api\\v${version}\\$class";
+  return new $class_name($email, $key);
+}
