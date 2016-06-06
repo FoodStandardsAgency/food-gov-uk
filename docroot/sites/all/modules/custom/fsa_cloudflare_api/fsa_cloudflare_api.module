@@ -35,10 +35,12 @@ function _fsa_cloudflare_api_autoload($class) {
  *   (optional) Email address registered with CloudFlare
  * @param string $key
  *   (optional) CloudFlare API key
+ * @param int $api_version
+ *   (optional) CloudFlare API version to use. Defaults to 4.
  */
-function fsa_cloudflare_api_purge_urls($urls, $params = array(), $email = NULL, $key = NULL) {
+function fsa_cloudflare_api_purge_urls($urls, $params = array(), $email = NULL, $key = NULL, $api_version = 4) {
   // First we need the zone identifier
-  $api = _cloudflare_api_object('CloudFlareZoneApi', 4, $email, $key);
+  $api = _cloudflare_api_object('CloudFlareZoneApi', $api_version, $email, $key);
   $zones = $api->getZones($params);
   if (!empty($zones) && is_object($zones) && !empty($zones->result) && is_array($zones->result) && isset($zones->result[0])) {
     $zone_id = !empty($zones->result[0]->id) ? $zones->result[0]->id : NULL;
