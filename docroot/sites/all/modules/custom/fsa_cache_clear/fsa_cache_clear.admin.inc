@@ -274,9 +274,22 @@ function fsa_cache_clear_purge_form_submit($form, &$form_state) {
   }
   
   if (!empty($caches_to_clear['cloudflare'])) {
-    _fsa_cache_clear_cloudflare_queue_url($url, _fsa_cache_clear_get_object_type_from_path($url), FALSE);
+    $urls = _fsa_cache_clear_cloudflare_get_urls($url, _fsa_cache_clear_get_object_type_from_path($url), FALSE);
+    // These URLs are just for testing with invalid URLs that should cause
+    // errors in CloudFlare
+    // @todo Remove the below code
+    $urls = array(
+      'http://cot.food.gov.uk/sites/default/files/FSA Incident Management Plan.pdf',
+      'http://www.food.gov.uk/sites/default/files/FSA Incident Management Plan.pdf',
+    );
+    if (_fsa_cache_clear_cloudflare_purge_urls($urls)) {
+      drupal_set_message(t('CloudFlare cache cleared for @url', array('@url' => $url)));
+    }
+    else {
+      drupal_set_message(t('An error occurred purging the URLs from the CloudFlare cache. Please see the server log for details.'), 'error');
+    }
+    //_fsa_cache_clear_cloudflare_queue_url($url, _fsa_cache_clear_get_object_type_from_path($url), FALSE);
     // @todo Let the user know if any problems occurred.
-    drupal_set_message(t('CloudFlare cache cleared for @url', array('@url' => $url)));
   }
   
 }
