@@ -1,0 +1,5 @@
+name = FSA GUID
+description = "Provides a globally unique identifier for a content item for use in RSS feeds that are consumed by GovDelivery."
+core = 7.x
+package = FSA Custom
+dependencies[] = views
