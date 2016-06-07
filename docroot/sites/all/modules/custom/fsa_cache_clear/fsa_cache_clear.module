@@ -987,3 +987,20 @@ function _fsa_cache_clear_cloudflare_api_version() {
   // which case return the minimum version instead.
   return $version >= $min_version ? $version : $min_version;
 }
+
+
+/**
+ * Clear URLs immediately from the CloudFlare cache
+ *
+ * @param array|string $urls
+ *   An array of URLs or a single URL to be purged from the CloudFlare cache.
+ *   The URLs should be fully qualified, including domains and protocols.
+ * @return boolean
+ *   TRUE if successful; FALSE otherwise.
+ *
+ * Exception handling is carried out by the CloudFlare API module, and any
+ * errors will be logged to Watchdog.
+ */
+function _fsa_cache_clear_cloudflare_purge_urls($urls) {
+  return fsa_cloudflare_api_purge_urls($urls, array('name' => 'food.gov.uk'), _fsa_cache_clear_settings('cloudflare_email'), _fsa_cache_clear_settings('cloudflare_api_key'));
+}
