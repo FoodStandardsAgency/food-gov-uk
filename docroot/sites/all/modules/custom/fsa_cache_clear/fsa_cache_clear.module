@@ -990,6 +990,116 @@ function _fsa_cache_clear_cloudflare_api_version() {
 
 
 /**
+ * Helper function build a list of URLs to be purged from CloudFlare
+ *
+ * @param string $path
+ *   The path to be cleared from the CloudFlare cache
+ *
+ * @param string $object_type
+ *   The type of object corresponding to the path
+ *
+ * @param boolean $queue
+ *   (optional) Determines whether the request to clear the CloudFlare cache for
+ *   the given path will be queued for execution on cron run or carried out
+ *   immediately. The default is TRUE.
+ *
+ * @param boolean $force_committee_domains
+ *   (optional) If set to TRUE, then if the $object_type is set to file, URLs
+ *   will be generated for each committee domain. Defaults to FALSE.
+ *
+ * @return NULL
+ *
+ * @see fsa_cache_clear_file_entity_edit_submit()
+ * @see _fsa_cache_clear_cloudflare_queue_add_items()
+ */
+function _fsa_cache_clear_cloudflare_get_urls($path = NULL, $object_type = NULL, $queue = TRUE, $force_committe_domains = FALSE) {
+
+  // If we have no URL, return now.
+  if (empty($path)) {
+    //drupal_set_message('No path supplied', 'error');
+    return;
+  }
+
+  // Exclude certain URLs from being purged (mainly internal ones)
+  $exclude = array(
+    "@^batch$@",
+  );
+
+  foreach ($exclude as $pattern) {
+    if (preg_match($pattern, $path)) {
+      return;
+    }
+  }
+
+  // An array to hold the URLs to be purged from CloudFlare
+  $urls = array();
+
+  // Get the domains set for the CloudFlare cache.
+  $domains = _fsa_cache_clear_settings('cloudflare_domains');
+
+  // Get committee domains.
+  $committee_domains = _fsa_cache_clear_committee_domains();
+
+  // If we're purging a file object, we need to make sure we purge it from all
+  // of the committee subdomains as well as any configured by the users.
+  if ($object_type == 'file' && (!$queue || $force_committe_domains)) {
+    // Purging of files is now usually handled by the custom submit function:
+    // `fsa_cache_clear_file_entity_edit_submit()`. This function handles image
+    // derivative files, which can't easily be handled here. The exception to
+    // this rule is when the $queue parameter is FALSE, eg when we're using the
+    // purge now functionality.
+    // Don't clear the homepage for files.
+    if ($path == '<front>') {
+      return;
+    }
+    $domains = array_merge($domains, array_keys($committee_domains));
+  }
+
+  // If we're not purging a file object, check whether the path matches a
+  // committee site, and if so, construct additional URLs based on the committee
+  // subdomain. We need to clear for both HTTP and HTTPS versions of the URL.
+  else {
+    foreach ($committee_domains as $subdomain => $committee_path) {
+      if (strpos($path, $committee_path) === 0) {
+        $url = $subdomain . '/' . str_replace($committee_path, '', $path);
+        $url = str_replace('//', '/', $url);
+        $urls[] = "http://$url";
+        $urls[] = "https://$url";
+      }
+    }
+  }
+
+  // According to the CloudFlare API documentation, we need to clear both HTTP
+  // and HTTPS versions of a URL separately
+  // @see https://www.cloudflare.com/docs/client-api.html#s4.5
+  // We also need to clear the cache for each of the defined domains.
+  foreach ($domains as $domain) {
+    $urls[] = "http://$domain/$path";
+    $urls[] = "https://$domain/$path";
+  }
+
+  return $urls;
+
+  if ($queue) {
+    // Add the URLs to the queue to be cleared.
+    _fsa_cache_clear_cloudflare_queue_add_items($urls);
+  }
+  else {
+    // Clear each URL from the CloudFlare cache.
+    foreach ($urls as $url) {
+      try {
+        _fsa_cache_clear_cloudflare_purge_individual_url($url);
+      }
+      catch (Exception $e) {
+        watchdog_exception('fsa_cache_clear', $e);
+      }
+    }
+  }
+
+}
+
+
+/**
  * Clear URLs immediately from the CloudFlare cache
  *
  * @param array|string $urls
