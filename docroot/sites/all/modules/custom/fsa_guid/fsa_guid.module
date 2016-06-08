@@ -1,0 +1,226 @@
+<?php
+/**
+ * @file
+ * Main module file for the FSA GUID module
+ */
+
+
+/**
+ * Implements hook_permission().
+ */
+function fsa_guid_permission() {
+  return array(
+    'update fsa guid' => array(
+      'title' => t('Update GUID for RSS feeds'),
+      'description' => t('Allows the user to force the GUID for a node to be updated when saving, thereby changing it in RSS feeds.'),
+    ),
+  );
+}
+
+
+/**
+ * Implements hook_views_api().
+ */
+function fsa_guid_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'fsa_guid') . '/views',
+  );
+}
+
+
+/**
+ * Helper function: generates a GUID based on node ID and GUID version
+ *
+ * @param int $nid
+ *   A node ID
+ * @param int $guid_version
+ *   (optional) A GUID version - defaults to 0
+ *
+ * @return string
+ *   A GUID - currently of the form ${nid}-${guid_version}
+ */
+function _fsa_guid_generate_guid($nid, $guid_version = 0) {
+  $guid = "${nid}-${guid_version}";
+  // Give other modules the chance to modify the GUID
+  drupal_alter('fsa_guid', $guid, $nid, $guid_version);
+  return $guid;
+}
+
+
+/**
+ * Helper function: gets a GUID for the given Node ID
+ */
+function _fsa_guid_get_guid($nid) {
+  $guids = _fsa_guid_get_guids(array($nid));
+  return isset($guids[$nid]) ? $guids[$nid] : _fsa_guid_generate_guid($nid);
+}
+
+
+/**
+ * Helper function: generates GUIDs for an array of Node IDs
+ *
+ * @param array $nids
+ *   An array of node IDs
+ *
+ * @return array
+ *   An associative array of node IDs to GUIDs
+ */
+function _fsa_guid_get_guids($nids) {
+  $guids = _fsa_guid_get_guid_version_multiple($nids);
+  foreach ($guids as $nid => $guid) {
+    $guids[$nid] = _fsa_guid_generate_guid($nid, $guid);
+  }
+  return $guids;
+}
+
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function fsa_guid_form_node_form_alter(&$form, &$form_state) {
+  if (empty($form['additional_settings'])) {
+    return;
+  }
+  // Get the node
+  $node = !empty($form['#node']) ? $form['#node'] : NULL;
+  // Add a vertical tab
+  $form['additional_settings']['fsa_guid'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Update GUID'),
+    '#weight' => 50,
+    '#access' => user_access('update fsa guid'),
+  );
+  $form['additional_settings']['fsa_guid']['update_guid'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Update the GUID for this page'),
+    '#description' => t('Ticking this box will cause the globally unique identifier for this page to be updated. This will tell external services such as GovDelivery that the content has changed. Tick this ONLY if you want to trigger a change in such systems. If in doubt, leave unchecked.'),
+    '#access' => user_access('update fsa guid'),
+  );
+  $guid_details = _fsa_guid_get_guid_details($node->nid);
+  if (!empty($guid_details)) {
+    $form['additional_settings']['fsa_guid']['guid_settings'] = array(
+      '#type' => 'item',
+      '#markup' => t('Current GUID version is @guid_version. Last updated on @date by @user.', array('@guid_version' => $guid_details['guid_version'], '@date' => format_date($guid_details['updated'], 'long'), '@user' => user_load($guid_details['uid'])->name)),
+    );
+  }
+}
+
+
+/**
+ * Helper function: returns the GUID version for a given nid
+ *
+ * @param int $nid
+ *   The node ID for which we want to get a GUID version
+ * @return int
+ *   The GUID version for the given $nid - 0 if not set.
+ */
+function _fsa_guid_get_guid_version($nid) {
+  $nids = is_array($nid) ? $nid : array($nid);
+  $guids = _fsa_guid_get_guid_version_multiple($nids);
+  return !empty($guids[$nid]) ? $guids[$nid] : 0;
+}
+
+
+/**
+ * Helper function: gets multiple GUID versions based on an array of $nids
+ *
+ * @param array $nids
+ *   An array of node IDs
+ *
+ * @return array
+ *   An associative array of node IDs with their GUID versions. If there is no
+ *   GUID version set for a given node ID, 0 is assigned.
+ */
+function _fsa_guid_get_guid_version_multiple($nids) {
+  // Create an associative array of Node IDs, all with a value of 0
+  $return = array_combine($nids, array_fill(0, count($nids), 0));
+  // Get the GUIDs from the database
+  $query = db_select('fsa_guid', 'f');
+  $query->fields('f', array('nid', 'guid_version'));
+  $query->condition('nid', $nids, 'in');
+  $result = $query->execute()->fetchAllKeyed(0, 1);
+  // Combine the query result with the $return array to associate any GUIDs with
+  // their respective Node IDs, but leaving any unassociated node IDs set to 0
+  $result += $return;
+  // Sort the return array by node ID.
+  ksort($result);
+  return $result;
+}
+
+
+/**
+ * Implements hook_node_update().
+ */
+function fsa_guid_node_update($node) {
+  if (empty($node->update_guid)) {
+    return;
+  }
+  global $user;
+  _fsa_guid_set_guid_version($node->nid, $node->vid, $user->uid);
+}
+
+
+/**
+ * Helper function: returns GUID details for a node
+ *
+ * @param int $nid
+ *   Node ID for which we want to return GUID details
+ *
+ * @return array|NULL
+ *   If GUID details are found, an associative array of GUID details; NULL if
+ *   GUID is found.
+ */
+function _fsa_guid_get_guid_details($nid) {
+  $query = db_select('fsa_guid', 'f');
+  $query->fields('f');
+  $query->condition('nid', $nid);
+  $result = $query->execute()->fetchAssoc();
+  return !empty($result) && is_array($result) ? $result : NULL;
+}
+
+
+/**
+ * Helper function: sets the GUID version for the given node
+ *
+ * @param int $nid
+ *   The node ID of the node
+ * @param int $vid
+ *   The revision ID of the node
+ * @param int $uid
+ *   Ths ID of the user creating the GUID
+ *
+ * @return int
+ *   STATUS_UPDATE if an update query is run
+ *   STATUS_INSERT if an insert query is run
+ */
+function _fsa_guid_set_guid_version($nid, $vid, $uid) {
+  // First, get the current version, if any
+  $current_version = _fsa_guid_get_guid_version($nid);
+  // Now increment the number
+  $guid_version = $current_version + 1;
+  // Update the database table with the new credentials
+  $query = db_merge('fsa_guid')
+    ->key(array('nid' => $nid))
+    ->fields(array(
+      'nid' => $nid,
+      'vid' => $vid,
+      'uid' => $uid,
+      'updated' => REQUEST_TIME,
+      'guid_version' => $guid_version,
+    ));
+  $update = $query->execute();
+  return $update;
+}
+
+
+/**
+ * Implements hook_node_load().
+ */
+function fsa_guid_node_load($nodes, $types) {
+  // Get any GUIDs for the given nodes based on their node IDs
+  $guids = _fsa_guid_get_guids(array_keys($nodes));
+  foreach ($nodes as $nid => $node) {
+    $node->fsa_guid = isset($guids[$nid]) ? $guids[$nid] : NULL;
+  }
+}
