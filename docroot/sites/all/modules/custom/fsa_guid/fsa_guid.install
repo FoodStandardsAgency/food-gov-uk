@@ -3,3 +3,54 @@
  * @file
  * Install, update and uninstall functions for the FSA GUID module
  */
+
+
+/**
+ * Implements hook_schema().
+ */
+function fsa_guid_schema() {
+  $schema['fsa_guid'] = array(
+    'description' => 'Table for storing FSA GUIDs for use in RSS feeds',
+    'fields' => array(
+      'gid' => array(
+        'description' => 'A unique ID for the GUID',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'nid' => array(
+        'description' => 'The Node ID of the node for which a GUID is stored',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'vid' => array(
+        'description' => 'The version ID of the node for which a GUID is stored',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'description' => 'The ID of the user creating this GUID',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'updated' => array(
+        'description' => 'The Unix timestamp when the GUID was last updated.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'guid_version' => array(
+        'description' => 'The version of the GUID - typically appended to the node ID',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('gid'),
+  );
+  return $schema;
+}

@@ -3,3 +3,4 @@ description = "Provides a globally unique identifier for a content item for use 
 core = 7.x
 package = FSA Custom
 dependencies[] = views
+files[] = views/handlers/fsa_guid_views_handler_field_guid.inc
