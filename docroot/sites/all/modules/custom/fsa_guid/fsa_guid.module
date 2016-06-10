@@ -6,6 +6,24 @@
 
 
 /**
+ * The default GUID pattern
+ */
+define('FSA_GUID_DEFAULT_PATTERN', '[fsa_guid:nid]-[fsa_guid:gid]');
+
+
+/**
+ * The pattern to user when generating GUIDs
+ */
+define('FSA_GUID_PATTERN', variable_get('fsa_guid_pattern', FSA_GUID_DEFAULT_PATTERN));
+
+
+/**
+ * Default GUID format for RSS feeds
+ */
+define('FSA_GUID_DEFAULT_FORMAT', 'drupal');
+
+
+/**
  * Implements hook_permission().
  */
 function fsa_guid_permission() {
@@ -13,6 +31,48 @@ function fsa_guid_permission() {
     'update fsa guid' => array(
       'title' => t('Update GUID for RSS feeds'),
       'description' => t('Allows the user to force the GUID for a node to be updated when saving, thereby changing it in RSS feeds.'),
+      'restrict access' => TRUE,
+      'warning' => t('Functionality accessible using this permission can trigger mass emails or texts via GovDelivery. Give to trusted roles only.'),
+    ),
+    'administer fsa guid' => array(
+      'title' => t('Administer FSA GUID for RSS feeds'),
+      'description' => t('Allows the user to perform administrative functions on GUIDs, including modifying the GUID pattern and resetting GUIDs.'),
+      'restrict access' => TRUE,
+      'warning' => t('Functionality accessible using this permission can trigger mass emails or texts via GovDelivery. Give to trusted roles only.'),
+    ),
+  );
+}
+
+
+/**
+ * Implements hook_menu().
+ */
+function fsa_guid_menu() {
+  return array(
+    'admin/config/system/fsa-guid' => array(
+      'title' => 'FSA GUID',
+      'description'=> 'Administer the FSA GUID',
+      'access arguments' => array('administer fsa guid'),
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('fsa_guid_admin_form'),
+      'file' => 'fsa_guid.admin.inc',
+      'type' => MENU_NORMAL_ITEM,
+    ),
+    'admin/config/system/fsa-guid/admin' => array(
+      'title' => 'Set the GUID pattern',
+      'description' => 'Amend the pattern used to generate GUIDs',
+      'type' => MENU_DEFAULT_LOCAL_TASK,
+      'weight' => 10,
+    ),
+    'admin/config/system/fsa-guid/reset' => array(
+      'title' => 'Reset GUIDs',
+      'description'=> 'Reset all FSA GUID values',
+      'access arguments' => array('administer fsa guid'),
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('fsa_guid_reset_form'),
+      'file' => 'fsa_guid.admin.inc',
+      'type' => MENU_LOCAL_TASK,
+      'weight' => 20,
     ),
   );
 }
@@ -41,7 +101,8 @@ function fsa_guid_views_api() {
  *   A GUID - currently of the form ${nid}-${guid_version}
  */
 function _fsa_guid_generate_guid($nid, $guid_version = 0) {
-  $guid = "${nid}-${guid_version}";
+  $pattern = FSA_GUID_PATTERN;
+  $guid = token_replace($pattern, array('nid' => $nid, 'gid' => $guid_version));
   // Give other modules the chance to modify the GUID
   drupal_alter('fsa_guid', $guid, $nid, $guid_version);
   return $guid;
@@ -223,5 +284,87 @@ function fsa_guid_node_load($nodes, $types) {
   $guids = _fsa_guid_get_guids(array_keys($nodes));
   foreach ($nodes as $nid => $node) {
     $node->fsa_guid = isset($guids[$nid]) ? $guids[$nid] : NULL;
+  }
+}
+
+
+/**
+ * Implements hook_token_info().
+ */
+function fsa_guid_token_info() {
+  $type = array(
+    'name' => t('FSA GUID'),
+    'description' => t('Tokens used for generating GUIDs'),
+  );
+
+  $guid['nid'] = array(
+    'name' => t('Node ID'),
+    'description' => t('The ID of the node for which we are generating a GUID'),
+    'required' => TRUE,
+  );
+
+  $guid['gid'] = array(
+    'name' => t('GUID version'),
+    'description' => t('The version number of the GUID'),
+    'required' => TRUE,
+  );
+
+  return array(
+    'types' => array('fsa_guid' => $type),
+    'tokens' => array('fsa_guid' => $guid),
+  );
+
+}
+
+
+/**
+ * Implements hook_tokens().
+ */
+function fsa_guid_tokens($type, $tokens, array $data = array(), array $options = array()) {
+  $replacements = array();
+  if ($type != 'fsa_guid') {
+    return $replacements;
+  }
+  $nid = !empty($data['nid']) ? $data['nid'] : 0;
+  $gid = !empty($data['gid']) ? $data['gid'] : 0;
+  foreach ($tokens as $name => $original) {
+    switch ($name) {
+      case 'nid':
+        $replacements[$original] = $nid;
+        break;
+      case 'gid':
+        $replacements[$original] = $gid;
+        break;
+    }
+  }
+  return $replacements;
+}
+
+
+/**
+ * Helper function: resets all GUIDs
+ */
+function _fsa_guid_reset_guids() {
+  $deleted = db_delete('fsa_guid')->execute();
+  if (!empty($deleted)) {
+    watchdog('fsa_guid', 'GUIDs reset');
+  }
+  return $deleted;
+}
+
+
+/**
+ * Implements hook_views_plugins_alter().
+ */
+function fsa_guid_views_plugins_alter(&$plugins) {
+  if (!empty($plugins['row']['node_rss'])) {
+    // We substitute our own views row style plugin for RSS items for the
+    // standard Drupal version so that we can alter the GUID format.
+    $properties = array(
+      'handler' => 'fsa_guid_views_plugin_row_node_rss',
+      'path' => drupal_get_path('module', 'fsa_guid') . '/views/plugins',
+      'file' => 'fsa_guid_views_plugin_row_node_rss.inc',
+    );
+    $plugins['row']['node_rss'] = $properties + $plugins['row']['node_rss'];
   }
 }

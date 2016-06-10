@@ -4,3 +4,4 @@ core = 7.x
 package = FSA Custom
 dependencies[] = views
 files[] = views/handlers/fsa_guid_views_handler_field_guid.inc
+files[] = views/plugins/fsa_guid_views_plugin_row_node_rss.inc
