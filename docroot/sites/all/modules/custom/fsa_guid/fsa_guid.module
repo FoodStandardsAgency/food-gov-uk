@@ -85,13 +85,14 @@ function fsa_guid_form_node_form_alter(&$form, &$form_state) {
   // Get the node
   $node = !empty($form['#node']) ? $form['#node'] : NULL;
   // Add a vertical tab
-  $form['additional_settings']['fsa_guid'] = array(
+  $form['fsa_guid'] = array(
     '#type' => 'fieldset',
     '#title' => t('Update GUID'),
-    '#weight' => 50,
+    '#weight' => !empty($form['options']['#weight']) ? $form['options']['#weight'] - 1 : 50,
     '#access' => user_access('update fsa guid'),
+    '#group' => 'additional_settings',
   );
-  $form['additional_settings']['fsa_guid']['update_guid'] = array(
+  $form['fsa_guid']['update_guid'] = array(
     '#type' => 'checkbox',
     '#title' => t('Update the GUID for this page'),
     '#description' => t('Ticking this box will cause the globally unique identifier for this page to be updated. This will tell external services such as GovDelivery that the content has changed. Tick this ONLY if you want to trigger a change in such systems. If in doubt, leave unchecked.'),
