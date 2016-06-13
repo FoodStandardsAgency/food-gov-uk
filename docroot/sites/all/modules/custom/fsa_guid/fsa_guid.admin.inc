@@ -38,7 +38,7 @@ function fsa_guid_admin_form($form, &$form_state) {
   $form['available_tokens']['tokens'] = array(
     '#theme' => 'token_tree',
     '#token_types' => array('fsa_guid'),
-    '#global_types' => FALSE,
+    '#global_types' => TRUE,
   );
   return system_settings_form($form);
 }
