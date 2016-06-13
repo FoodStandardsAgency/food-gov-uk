@@ -309,6 +309,12 @@ function fsa_guid_token_info() {
     'required' => TRUE,
   );
 
+  $guid['node_url'] = array(
+    'name' => t('Node URL'),
+    'description' => t('The absolute URL of the node'),
+    'required' => FALSE,
+  );
+
   return array(
     'types' => array('fsa_guid' => $type),
     'tokens' => array('fsa_guid' => $guid),
@@ -334,6 +340,9 @@ function fsa_guid_tokens($type, $tokens, array $data = array(), array $options =
         break;
       case 'gid':
         $replacements[$original] = $gid;
+        break;
+      case 'node_url':
+        $replacements[$original] = url(drupal_get_path_alias("node/$nid"), array('absolute' => TRUE));
         break;
     }
   }
