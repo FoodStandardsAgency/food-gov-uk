@@ -39,6 +39,11 @@ function fsa_revisioning_form_node_form_alter(&$form, &$form_state, $form_id) {
       $publication_date_field['#element_validate'] = array('_fsa_revisioning_publication_date_validate');
       // Replace the existing publication_date field with our new version
       $form['revision_information']['publication_date'] = $publication_date_field;
+      // If the publication date field is populated, then default the
+      // 'revision_operation' radio button to the third option
+      if (!empty($form['revision_information']['publication_date']['#default_value'])) {
+        $form['revision_information']['revision_operation']['#default_value'] = REVISIONING_NEW_REVISION_WITH_MODERATION;
+      }
     }
 
     // Attach our little JavaScript file to supplement existing functionality
