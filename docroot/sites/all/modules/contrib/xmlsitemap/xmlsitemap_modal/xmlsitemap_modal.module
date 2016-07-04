@@ -27,7 +27,7 @@ function xmlsitemap_modal_get_form() {
 
     $form_state = array(
       'ajax' => TRUE,
-      'build_info' => array('args' => $args),
+      'args' => $args,
     );
     $commands = ctools_modal_form_wrapper($form_id, $form_state);
 
@@ -37,8 +37,8 @@ function xmlsitemap_modal_get_form() {
         $commands[] = ctools_ajax_command_redirect($_GET['destination']);
       }
     }
-    print ajax_render($commands);
-    exit;
+    return ajax_render($commands);
+    //return ctools_ajax_render($commands);
   }
   else {
     array_unshift($args, $form_id);
