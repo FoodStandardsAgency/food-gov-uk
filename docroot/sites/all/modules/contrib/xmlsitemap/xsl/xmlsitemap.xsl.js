@@ -28,10 +28,9 @@ $.tablesorter.addParser({
 });
 
 $(document).ready(function() {
-  // Set some location variables.
-  var h1 = $('h1');
-  h1.text(h1.text() + ': ' + location);
-  document.title = h1.text();
+  // Set some location variales.
+  $('h1').append(': ' + location);
+  document.title += ': ' + location;
 
   $('table').tablesorter({
     sortList: [[0,0]],
