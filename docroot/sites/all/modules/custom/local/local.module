@@ -458,3 +458,14 @@ function local_national_archives_site_url_alter(&$site_url, &$url) {
   }
 
 }
+
+
+
+
+/** 
+ * Implements hook_form_FORM_ID_alter(). 
+ */
+ 
+ function local_form_node_form_alter(&$form, &$form_state) {
+ 	$form['#attached']['css'][] = drupal_get_path('module', 'local') . '/css/local.css';
+ }
