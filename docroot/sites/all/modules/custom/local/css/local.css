@@ -20,7 +20,7 @@
 /*To fix the accordion height issues in admin interface resulting from field_group update */ 
 
 .field-group-format-wrapper.field-group-accordion-item.ui-accordion-content {
-	height: auto;
+	height: auto !important;
 }
 
 
