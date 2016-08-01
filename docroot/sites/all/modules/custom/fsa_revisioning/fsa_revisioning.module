@@ -1,0 +1,98 @@
+<?php
+/**
+ * @file
+ * Module file for the FSA revisioning module
+ */
+
+
+/**
+ * Implements hook_form_BASEFORMID_alter().
+ *
+ * We use this to modify the node edit form.
+ *
+ */
+function fsa_revisioning_form_node_form_alter(&$form, &$form_state, $form_id) {
+
+  // Make sure we're on the right form
+  if (!empty($form['#node_edit_form']) && variable_get('revisioning_scheduler_on_edit_form', TRUE)) {
+
+    // Use a date popup, rather than a standard textfield - if available
+    if (!empty($form['revision_information']['publication_date']) && module_exists('date')) {
+      // Get the existing publication date field
+      $publication_date_field = $form['revision_information']['publication_date'];
+      // Change its type to date_popup
+      $publication_date_field['#type'] = 'date_popup';
+      // Set the date format to use 24-hour clock
+      $publication_date_field['#date_format'] = 'j F Y - H:i';
+      // Set the year range
+      $publication_date_field['#date_year_range'] = '0:+3';
+      // Unset size and maxlength as they cause validation issues
+      unset($publication_date_field['#size']);
+      unset($publication_date_field['#maxlength']);
+      // Get the publication date - if set
+      $publication_date = $publication_date_field['#default_value'];
+      // Format the publication date in a way suitable for date_popup
+      $publication_date_field['#default_value'] = !empty($publication_date) ? format_date(strtotime($publication_date), 'custom', 'Y-m-d H:i:s') : NULL;
+      // Change the description text
+      $publication_date_field['#description'] = t('Enter the date and time on which you want this content to be published. If you do not wish to schedule publication, leave the field blank.');
+      // Add a validation handler
+      $publication_date_field['#element_validate'] = array('_fsa_revisioning_publication_date_validate');
+      // Replace the existing publication_date field with our new version
+      $form['revision_information']['publication_date'] = $publication_date_field;
+      // If the publication date field is populated, then default the
+      // 'revision_operation' radio button to the third option
+      if (!empty($form['revision_information']['publication_date']['#default_value'])) {
+        $form['revision_information']['revision_operation']['#default_value'] = REVISIONING_NEW_REVISION_WITH_MODERATION;
+      }
+    }
+
+    // Attach our little JavaScript file to supplement existing functionality
+    $form['#attached']['js'][] = array(
+      'data' => drupal_get_path('module', 'fsa_revisioning') . '/js/fsa-revision-schedule.js',
+      'type' => 'file',
+      'weight' => 100,
+    );
+  }
+}
+
+
+/**
+ * Validation function for review date
+ *
+ * We use this to ensure that:
+ * 1. If publication date has been set, we have both a date and a time
+ * 2. Publication date is not in the past
+ *
+ * The check for publication dates in the past is taken directly from
+ * _revisioning_scheduler_schedule_publication()
+ *
+ * @see revisioning_scheduler_node_presave().
+ * @see _revisioning_scheduler_schedule_publication().
+ */
+function _fsa_revisioning_publication_date_validate($element, &$form_state, $form) {
+  // Get the value
+  $value = !empty($element['#value']) && is_array($element['#value']) ? $element['#value'] : array('date' => '', 'time' => '');
+  // Split the value into date and time elements
+  list($date, $time) = array_values($value);
+  // If date and time are both empty, we need go no further.
+  if (empty($date) && empty($time)) {
+    return;
+  }
+  // If either date or time is empty (but not both), set an error. We need both.
+  if (empty($date) xor empty($time)) {
+    form_set_error('publication_date', t('You must include both a date and a time when scheduling publication.'));
+    return;
+  }
+  // Now make sure that our publication date isn't in the past. This replicates
+  // functionality found in _revisioning_scheduler_schedule_publication(), but
+  // it allows us to inform the user before the node is updated.
+  $scheduled_time = strtotime($date . $time);
+  if (empty($scheduled_time) || !($scheduled_time > time() - REVISIONING_SCHEDULER_SLACK)) {
+    form_set_error('publication_date', t('Publication cannot be scheduled at this date and time: %date %time.', array('%date' => $date, '%time' => $time)));
+  }
+  // Set a message to say that publication will be scheduled immediately. The
+  // logic for this is taken directly from revisioning_scheduler_node_presave().
+  if ($scheduled_time > time() - REVISIONING_SCHEDULER_SLACK && $scheduled_time <= time()) {
+    drupal_set_message(t('Publication of this content will be scheduled immediately.'));
+  }
+}
