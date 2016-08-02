@@ -10,6 +10,20 @@
 
 
 /**
+ * Implements hook_permission().
+ */
+function FSA_language_negotiation_permission() {
+  return array(
+    'bypass translation string validation' => array(
+      'title' => t('Bypass validation for translated strings'),
+      'description' => t('Allows users to upload translations for strings that contain code that would normally fail validation.'),
+      'restrict access' => TRUE,
+    ),
+  );
+}
+
+
+/**
  * Implements hook_menu().
  */
 function FSA_language_negotiation_menu() {
