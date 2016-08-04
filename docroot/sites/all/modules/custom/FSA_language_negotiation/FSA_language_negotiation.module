@@ -10,6 +10,20 @@
 
 
 /**
+ * Implements hook_permission().
+ */
+function FSA_language_negotiation_permission() {
+  return array(
+    'bypass translation string validation' => array(
+      'title' => t('Bypass validation for translated strings'),
+      'description' => t('Allows users to upload translations for strings that contain code that would normally fail validation.'),
+      'restrict access' => TRUE,
+    ),
+  );
+}
+
+
+/**
  * Implements hook_menu().
  */
 function FSA_language_negotiation_menu() {
@@ -92,4 +106,46 @@ function FSA_language_switcher_wales($type, $path) {
   }
 
   return $links;
+}
+
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * We use this hook to add an alternative validation handler to the string
+ * translation edit form. We do this to allow users with a special permission to
+ * bypass the normal validation for translated strings. This enables us to
+ * translate strings that contain forbidden code, such as <div> tags.
+ *
+ * @see _FSA_language_negotiation_i18n_string_locale_translate_edit_form_validate()
+ * @see FSA_language_negotiation_permission()
+ */
+function FSA_language_negotiation_form_i18n_string_locale_translate_edit_form_alter(&$form, $form_state) {
+  // First, get rid of the existing validation function
+  $key = array_search('i18n_string_locale_translate_edit_form_validate', $form['#validate']);
+  if ($key !== FALSE) {
+    unset($form['#validate'][$key]);
+  }
+  // Now add our own in its place
+  if (is_callable('_FSA_language_negotiation_i18n_string_locale_translate_edit_form_validate')) {
+    $form['#validate'][] = '_FSA_language_negotiation_i18n_string_locale_translate_edit_form_validate';
+  }
+}
+
+
+/**
+ * Replacement validation function for locale translate edit form
+ *
+ * @see FSA_language_negotiation_permission()
+ * @see locale_translate_edit_form_validate()
+ * @see FSA_language_negotiation_form_i18n_string_locale_translate_edit_form_alter()
+ */
+function _FSA_language_negotiation_i18n_string_locale_translate_edit_form_validate($form, &$form_state) {
+  // If the user doesn't have permission to bypass validation, call the default
+  // validation function. Otherwise don't perform any validation at all.
+  if (!user_access('bypass translation string validation') && is_callable('locale_translate_edit_form_validate')) {
+    locale_translate_edit_form_validate($form, $form_state);
+  }
+  // @todo Consider adding some very basic validation to exclude really scary
+  // stuff such as PHP/SQL code. Possibly make this configurable.
 }
