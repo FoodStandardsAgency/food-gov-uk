@@ -99,10 +99,15 @@ function fsa_guid_views_api() {
  *
  * @return string
  *   A GUID - currently of the form ${nid}-${guid_version}
+ *
+ * @see _fsa_guid_token_replace()
  */
 function _fsa_guid_generate_guid($nid, $guid_version = 0) {
   $pattern = FSA_GUID_PATTERN;
-  $guid = token_replace($pattern, array('nid' => $nid, 'gid' => $guid_version));
+  // Replace the tokens in the GUID pattern with their actual values. Note that
+  // we're not using Drupal's built-in token_replace() function in order to
+  // avoid any potential caching issues - see #10866.
+  $guid = _fsa_guid_token_replace($pattern, array('nid' => $nid, 'gid' => $guid_version));
   // Give other modules the chance to modify the GUID
   drupal_alter('fsa_guid', $guid, $nid, $guid_version);
   return $guid;
