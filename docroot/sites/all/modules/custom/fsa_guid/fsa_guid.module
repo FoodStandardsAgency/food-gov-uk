@@ -24,6 +24,12 @@ define('FSA_GUID_DEFAULT_FORMAT', 'drupal');
 
 
 /**
+ * Base for token patterns
+ */
+define('FSA_GUID_TOKEN_BASE', 'fsa_guid');
+
+
+/**
  * Implements hook_permission().
  */
 function fsa_guid_permission() {
@@ -403,7 +409,7 @@ function _fsa_guid_token_replace($pattern, $data) {
     $nid = $data['nid'];
     $data['node_url'] = url(drupal_get_path_alias("node/$nid"), array('absolute' => TRUE));
   }
-  $token_base = 'fsa_guid';
+  $token_base = FSA_GUID_TOKEN_BASE;
   $return = $pattern;
   // Look through each data element and attempt to replace any tokens using it
   // in the $pattern string.

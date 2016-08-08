@@ -50,17 +50,35 @@ function fsa_guid_admin_form($form, &$form_state) {
 function fsa_guid_admin_form_validate(&$form, &$form_state) {
   $values = !empty($form_state['values']) ? $form_state['values'] : array();
   $guid_pattern = !empty($values['fsa_guid_pattern']) ? $values['fsa_guid_pattern'] : '';
+  // Check that a GUID pattern has been provided
   if (empty($guid_pattern)) {
     form_set_error('fsa_guid_pattern', t('You must provide a GUID pattern.'));
   }
+  // Check that required tokens are included
   $tokens = module_invoke('fsa_guid', 'token_info');
   $tokens = !empty($tokens['tokens']['fsa_guid']) ? $tokens['tokens']['fsa_guid'] : array();
   foreach ($tokens as $id => $details) {
-    if (!empty($details['required']) && strpos($guid_pattern, "[fsa_guid:${id}]") === FALSE) {
+    if (!empty($details['required']) && strpos($guid_pattern, "[" . FSA_GUID_TOKEN_BASE . ":${id}]") === FALSE) {
       form_set_error('fsa_guid_pattern', t('You must include the token %token as part of the GUID pattern', array('%token' => "[fsa_guid:${id}]")));
     }
   }
- }
+  // Check for any invalid tokens.
+  $pattern = "/\[.*?:.*?\]/";
+  // First, get anything that looks like a token
+  $check = preg_match_all($pattern, $guid_pattern, $matches);
+  if (!empty($matches)) {
+    $guids = !empty($matches[0]) ? $matches[0] : NULL;
+  }
+  // Now check that all tokens are valid
+  if (is_array($guids) && !empty($guids)) {
+    foreach ($guids as $guid) {
+      $tok = preg_match("/\[(.*)\:(.*?)\]/", $guid, $matches);
+      if (count($matches) > 2 && ($matches[1] != FSA_GUID_TOKEN_BASE || !array_key_exists($matches[2], $tokens))) {
+        form_set_error('fsa_guid_pattern', t('Sorry, %token is not a valid token. Please check and re-submit.', array('%token' => "[" . $matches[1] . ":" . $matches[2] . "]")));
+      }
+    }
+  }
+}
 
 
  /**
