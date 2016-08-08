@@ -60,7 +60,7 @@ function fsa_guid_admin_form_validate(&$form, &$form_state) {
       form_set_error('fsa_guid_pattern', t('You must include the token %token as part of the GUID pattern', array('%token' => "[fsa_guid:${id}]")));
     }
   }
- }
+}
 
 
  /**
