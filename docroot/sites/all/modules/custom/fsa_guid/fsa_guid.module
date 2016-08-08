@@ -377,3 +377,41 @@ function fsa_guid_views_plugins_alter(&$plugins) {
     $plugins['row']['node_rss'] = $properties + $plugins['row']['node_rss'];
   }
 }
+
+
+/**
+ * Helper function: alternative token replacement function
+ *
+ * This function takes the same parameters as Drupal Core's token_replace(), but
+ * is much simpler. It can replace only tokens provided by this module, and it
+ * does not use any form of caching.
+ *
+ * This function has been created in response to a strange issue whereby tokens
+ * in the RSS feed GUIDs were not replaced. This appears to be an aberration,
+ * and no explanation has been found, but clearing the caches fixed it, so we
+ * assume a caching issue was the root of the problem. See #10866.
+ */
+function _fsa_guid_token_replace($pattern, $data) {
+  // If we have a nid, we can derive the node URL in case anyone wants to
+  // include it.
+  if (!empty($data['nid'])) {
+    $nid = $data['nid'];
+    $data['node_url'] = url(drupal_get_path_alias("node/$nid"), array('absolute' => TRUE));
+  }
+  $token_base = 'fsa_guid';
+  $return = $pattern;
+  // Look through each data element and attempt to replace any tokens using it
+  // in the $pattern string.
+  foreach ($data as $key => $value) {
+    if (!is_null($value)) {
+      $return = str_replace("[$token_base:$key]", $value, $return);
+    }
+  }
+  // Check for the presence of anything that looks like a token, and if present,
+  // log a Watchdog error. The presence of an unmatched token would be a strong
+  // indication that something has gone wrong with the GUIDs.
+  if (preg_match("/\[.*?:.*?]/", $return, $matches)) {
+    watchdog('fsa_guid', 'Unmatched token %token in pattern @pattern for GUID: @guid', array('@guid' => $return, '%token' => implode(', ', $matches), '@pattern' => $pattern), WATCHDOG_ALERT);
+  }
+  return $return;
+}
