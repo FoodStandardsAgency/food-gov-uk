@@ -24,6 +24,12 @@ define('FSA_GUID_DEFAULT_FORMAT', 'drupal');
 
 
 /**
+ * Base for token patterns
+ */
+define('FSA_GUID_TOKEN_BASE', 'fsa_guid');
+
+
+/**
  * Implements hook_permission().
  */
 function fsa_guid_permission() {
