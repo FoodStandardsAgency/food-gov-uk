@@ -64,12 +64,12 @@ function fsa_guid_admin_form_validate(&$form, &$form_state) {
   }
   // Check for any invalid tokens.
   $pattern = "/\[.*?:.*?\]/";
-  $check = preg_match_all($pattern, $guid_pattern, $matches);
   // First, get anything that looks like a token
+  $check = preg_match_all($pattern, $guid_pattern, $matches);
   if (!empty($matches)) {
     $guids = !empty($matches[0]) ? $matches[0] : NULL;
   }
-  // Nowcheck that all tokens are valid
+  // Now check that all tokens are valid
   if (is_array($guids) && !empty($guids)) {
     foreach ($guids as $guid) {
       $tok = preg_match("/\[(.*)\:(.*?)\]/", $guid, $matches);
