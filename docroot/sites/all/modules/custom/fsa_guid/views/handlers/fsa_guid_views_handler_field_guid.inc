@@ -20,6 +20,8 @@ class fsa_guid_views_handler_field_guid extends views_handler_field_entity {
   function get_value($values, $field = NULL) {
     // Get the node entity
     $entity = parent::get_value($values);
+    // Get the node ID
+    $nid = !empty($entity->nid) ? $entity->nid : 0;
     // Return the node entity's fsa_guid property - if set; otherwise generate
     return !empty($entity->fsa_guid) ? $entity->fsa_guid : _fsa_guid_get_guid($nid);
   }
