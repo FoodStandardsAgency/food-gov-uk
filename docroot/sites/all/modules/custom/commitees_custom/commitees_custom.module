@@ -5,6 +5,11 @@
  * Custom features for the Committee sub sites and FSA pages.
  */
 
+/**
+ * All committees role name
+ */
+define('COMMITEES_CUSTOM_ALL_COMMITTEES_ROLE_NAME', 'All committee access');
+
 
 /**
  * Implements hook_form_alter().
