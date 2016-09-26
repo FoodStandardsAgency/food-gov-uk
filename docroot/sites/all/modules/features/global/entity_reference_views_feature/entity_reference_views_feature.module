@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Entity reference views feature.
+ */
+
+include_once 'entity_reference_views_feature.features.inc';

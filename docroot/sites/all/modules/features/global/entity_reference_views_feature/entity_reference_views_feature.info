@@ -1,0 +1,15 @@
+name = Entity reference views
+description = Provides views used in entity reference widget fields
+core = 7.x
+package = global
+version = 7.x-1.0
+dependencies[] = entityreference_view_widget
+dependencies[] = views
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features[views_view][] = admin__entityreference_selector_content
+features[views_view][] = admin_entity_reference_selector_meetings
+features[views_view][] = admin_entity_reference_selector_papers
+features[views_view][] = admin_entity_reference_selector_programme_project_lists
+features[views_view][] = admin_entity_reference_selector_project_lists
+features_exclude[dependencies][ctools] = ctools
