@@ -277,6 +277,11 @@ function commitees_custom_user_role_change($account, $roles_added, $roles_remove
     // Get all organic groups
     $groups = og_get_all_group();
     foreach ($groups as $gid) {
+      $group = entity_load_single('node', $gid);
+      // If the user is the manager of the group, move on
+      if (!empty($group->uid) && $group->uid == $account->uid) {
+        continue;
+      }
       og_ungroup('node', $gid, 'user', $account->uid);
     }
     drupal_set_message(t('Access to all committee sites has been removed for user %username.', array('%username' => $account->name)));
