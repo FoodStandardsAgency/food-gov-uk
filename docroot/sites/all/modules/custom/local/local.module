@@ -468,3 +468,63 @@ function local_national_archives_site_url_alter(&$site_url, &$url) {
  function local_form_node_form_alter(&$form, &$form_state) {
  	$form['#attached']['css'][] = drupal_get_path('module', 'local') . '/css/local.css';
  }
+
+
+ /**
+ * Returns an array of committee domains and their associated paths.
+ *
+ * @return array
+ *   Array of committee domains and their associated paths.
+ */
+function _local_committee_domains() {
+  $committee_domains = array(
+    'cot.food.gov.uk' => 'committee/committee-on-toxicity',
+    'acmsf.food.gov.uk' => 'committee/acmsf',
+    'acnfp.food.gov.uk'=> 'committee/acnfp',
+    'acaf.food.gov.uk' => 'committee/acaf',
+    'gacs.food.gov.uk'=> 'committee/gacs',
+    'ssrc.food.gov.uk'=> 'committee/social-science-research-committee-ssrc',
+  );
+  return $committee_domains;
+}
+
+
+/**
+ * Implements hook_cloudflare_cache_clear_urls_alter().
+ *
+ * Since files can be used in any committee site, we need to make sure that when
+ * we clear the CloudFlare cache for a file, we also do so for every committee
+ * domain.
+ *
+ * We do this using this hook, rather than the path-based one as we need to add
+ * domains to the resulting array.
+ *
+ * We also need to clear URLs for standard pages based on the committee domains.
+ */
+function local_cloudflare_cache_clear_urls_alter(&$urls, $wildcards, $object_type, $object) {
+  $temp_urls = $urls;
+  // Get the local committee domains
+  $committee_domains = _local_committee_domains();
+  foreach ($temp_urls as $url) {
+    // Extract the path part from the URL
+    $path = preg_replace("@^http(?:s)://.*?/(.*)$@", '$1', $url);
+    // Determine whether it's a file type based on the path
+    if (_cloudflare_cache_clear_get_object_type_from_path($path) == 'file') {
+      foreach (array_keys($committee_domains) as $committee_domain) {
+        foreach (cloudflare_cache_clear_get_protocols() as $protocol) {
+          $urls[] = $protocol . '://' . $committee_domain . '/' . $path;
+        }
+      }
+    }
+    // For pages, if they have a path that looks like a committee path, make
+    // sure the URL based on the relevant committee domain also gets cleared
+    foreach ($committee_domains as $committee_domain => $committee_path) {
+      if (strpos($path, $committee_path) === 0) {
+        foreach (cloudflare_cache_clear_get_protocols() as $protocol) {
+          $new_path = trim($protocol . '://' . $committee_domain . '/' . preg_replace("@^" . $committee_path . "/?(.*)$@", '$1', $path));
+          $urls[] = $new_path;
+        }
+      }
+    }
+  }
+}
