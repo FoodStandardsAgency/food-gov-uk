@@ -633,12 +633,12 @@ function _cloudflare_cache_clear_check_account_details($key, $email) {
 /**
  * Helper function: Determines whether CloudFlare account details are correct
  */
-function _cloudflare_cache_clear_account_authenticated($authenticated = NULL) {
+function _cloudflare_cache_clear_account_authenticated($authenticated = FALSE) {
   $variable_name = CLOUDFLARE_CACHE_CLEAR_VARIABLE_PREFIX . 'account_authenticated';
   if (func_num_args() > 0) {
     variable_set($variable_name, $authenticated);
   }
-  return variable_get($variable_name);
+  return variable_get($variable_name, FALSE);
 }
 
 
@@ -713,4 +713,18 @@ function _cloudflare_cache_clear_load_file_by_url($url) {
     return $file;
   }
   return NULL;
+}
+
+
+/**
+ * Returns the chosen protocols for clearing from the CloudFlare cache
+ */
+function cloudflare_cache_clear_get_protocols() {
+  $return = array();
+  foreach(array_values(_cloudflare_cache_clear_get_setting('protocols')) as $protocol) {
+    if (!empty($protocol)) {
+      $return[] = $protocol;
+    }
+  }
+  return $return;
 }
