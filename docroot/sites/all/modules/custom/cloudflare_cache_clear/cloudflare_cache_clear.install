@@ -1,0 +1,43 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the CloudFlare cache clear module
+ */
+
+/**
+ * Implements hook_install().
+ */
+function cloudflare_cache_clear_install() {
+  $variables = array(
+    '@config_url' => url('admin/config/services/cloudflare'),
+  );
+  drupal_set_message(t('CloudFlare cache clear module successfully installed. You should now <a href="@config_url">modify the configuration</a> in order for the module to function properly.', $variables));
+}
+
+
+/**
+ * Implements hook_uninstall().
+ */
+function cloudflare_cache_clear_uninstall() {
+  drupal_load('module', 'cloudflare_cache_clear');
+  // Delete  variables
+  $variables = array(
+    'api_key',
+    'email',
+    'zone',
+    'domains',
+    'protocols',
+    'entity_types',
+    'endpoint',
+    'api_version',
+    'urls_per_request',
+    'exclude_paths',
+    'exclude_admin_paths',
+    'log_level',
+    'account_authenticated',
+  );
+  foreach($variables as $variable) {
+    $variable_name = CLOUDFLARE_CACHE_CLEAR_VARIABLE_PREFIX . $variable;
+    variable_del($variable_name);
+  }
+}

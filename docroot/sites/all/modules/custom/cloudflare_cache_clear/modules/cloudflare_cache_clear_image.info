@@ -1,0 +1,5 @@
+name = CloudFlare cache clear image
+description = "Provides additional CloudFlare cache clearing functionality for images"
+core = 7.x
+package = CloudFlare
+dependencies = cloudflare_cache_clear

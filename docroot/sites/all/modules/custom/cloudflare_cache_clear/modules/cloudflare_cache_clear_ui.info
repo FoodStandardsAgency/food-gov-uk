@@ -1,0 +1,5 @@
+name = CloudFlare Cache Clear UI
+description = "Provides a user interface for the CloudFlare cache clear module"
+core = 7.x
+dependencies[] = cloudflare_cache_clear
+package = CloudFlare
