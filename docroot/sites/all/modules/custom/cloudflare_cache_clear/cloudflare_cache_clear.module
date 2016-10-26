@@ -1,0 +1,716 @@
+<?php
+/**
+ * @file Module code for the CloudFlare cache clearing module
+ */
+
+
+/**
+ * Variable prefix
+ */
+define('CLOUDFLARE_CACHE_CLEAR_VARIABLE_PREFIX', 'cloudflare_cache_clear_');
+
+/**
+ * Default CloudFlare API version - can be overridden via Drupal admin UI
+ */
+define('CLOUDFLARE_CACHE_CLEAR_DEFAULT_API_VERSION', 4);
+
+/**
+ * Default API endpoint - can be overridden via Drupal admin UI
+ */
+define('CLOUDFLARE_CACHE_CLEAR_DEFAULT_ENDPOINT', 'https://api.cloudflare.com/client');
+
+/**
+ * Default logging level - can be overridden via Drupal admin UI
+ */
+define('CLOUDFLARE_CACHE_CLEAR_DEFAULT_LOG_LEVEL', WATCHDOG_ERROR);
+
+
+/**
+ * Implements hook_permission().
+ */
+function cloudflare_cache_clear_permission() {
+  return array(
+    'administer cloudflare cache clear' => array(
+      'title' => t('Administer CloudFlare cache clearing'),
+      'description' => t('Perform administration and configuration tasks for the CloudFlare cache clearing module.'),
+    ),
+  );
+}
+
+
+/**
+ * Implements hook_menu().
+ */
+function cloudflare_cache_clear_menu() {
+  return array(
+    // Main configuration interface
+    'admin/config/services/cloudflare' => array(
+      'title' => 'CloudFlare',
+      'description' => 'Perform administration and configuration tasks for the CloudFlare cache clearing module',
+      'access arguments' => array('administer cloudflare cache clear'),
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('cloudflare_cache_clear_configuration_form'),
+      'file' => 'cloudflare_cache_clear.admin.inc',
+    ),
+    // Autocomplete callback for zones lookup field
+    'admin/config/services/cloudflare/zones' => array(
+      'title' => 'CloudFlare zones',
+      'description' => 'Autocomplete function for CloudFlare zones',
+      'access arguments' => array('administer cloudflare cache clear'),
+      'page callback' => '_cloudflare_cache_clear_zones_autocomplete',
+      'type' => MENU_CALLBACK,
+    ),
+  );
+}
+
+
+/**
+ * Implements hook_expire_cache().
+ *
+ * This hook is invoked by the Expire module when an entity needs to be purged
+ * from the cache.
+ *
+ * Note that since CloudFlare does not support wildcard cache purging, we just
+ * ignore these.
+ */
+function cloudflare_cache_clear_expire_cache($urls, $wildcards, $object_type, $object) {
+  $entity_types = _cloudflare_cache_clear_get_setting('entity_types');
+  if (empty($entity_types[$object_type])) {
+    if (!empty($object_type) && !empty($object)) {
+      $entity_info = entity_extract_ids($object_type, $object);
+      _cloudflare_cache_clear_log('Skipping CloudFlare cache clearing for  @object_type @entity_id.', array('@object_type' => $object_type, '@entity_id' => $entity_info[0]), WATCHDOG_DEBUG);
+    }
+    return;
+  }
+  // Allow other modules to alter the URLs to be purged by cache expiration
+  drupal_alter('cloudflare_cache_clear_expire_cache', $urls, $wildcards, $object_type, $object);
+  if (!empty($urls)) {
+    cloudflare_cache_clear_purge_urls($urls, $wildcards, $object_type, $object);
+  }
+}
+
+
+/**
+ * Purge URLs from the CloudFlare cache
+ *
+ * This function can be called to purge URLs from the CloudFlare cache.
+ *
+ * @param array $urls
+ *   An array of URLs to be purged from Cloudflare. Note that these should be
+ *   Drupal paths, not full URLs - ie they should not contain the protocol,
+ *   domain or a leading forward slash.
+ *
+ * @param array $wildcards
+ *   Not used. This is here only to be consistent with the Expire module.
+ *
+ * @param string $object_type
+ *   (optional) The type of obect that is being purged.
+ *
+ * @param object $object
+ *   (optional) The object that has triggered the purge.
+ *
+ */
+function cloudflare_cache_clear_purge_urls($urls, $wildcards = NULL, $object_type = NULL, $object = NULL) {
+  // Allow modules to alter the paths to be cleared
+  drupal_alter('cloudflare_cache_clear_paths', $urls, $wildcards, $object_type, $object);
+  // Allow modules to take action when URLs are to be purged
+  module_invoke_all('cloudflare_cache_clear', $urls, $wildcards, $object_type, $object);
+}
+
+
+/**
+ * Implements hook_cloudflare_cache_clear_paths_alter().
+ */
+function cloudflare_cache_clear_cloudflare_cache_clear_paths_alter(&$paths, $wildcards, $object_type, $object) {
+  // Remove paths that users have chosen to exclude from purging
+  $exclude_paths = _cloudflare_cache_clear_split_text(_cloudflare_cache_clear_get_setting('exclude_paths'));
+  foreach ($paths as $key => $path) {
+    if (in_array($path, $exclude_paths)) {
+      unset($paths[$key]);
+    }
+    // Exclude administrative paths - if selected by administrators (default).
+    if (_cloudflare_cache_clear_get_setting('exclude_admin_paths') && path_is_admin($path)) {
+      unset($paths[$key]);
+    }
+  }
+}
+
+
+/**
+ * Implements cloudflare_cache_clear().
+ */
+function cloudflare_cache_clear_cloudflare_cache_clear($urls, $wildcards = NULL, $object_type = NULL, $object = NULL) {
+  // Call the function that actually purges the URLs
+  _cloudflare_cache_clear_purge_urls($urls, $wildcards, $object_type, $object);
+}
+
+
+/**
+ * Helper function: gets available zones
+ *
+ * @return array
+ *   An array of available CloudFlare zone objects
+ */
+function _cloudflare_cache_clear_get_zones() {
+  $options = array(
+    'headers' => _cloudflare_cache_clear_auth_headers(),
+  );
+  $url = '/zones';
+  $response = drupal_http_request(_cloudflare_cache_clear_endpoint() . $url, $options);
+  if (empty($response) || !is_object($response) || empty($response->data)) {
+    return array();
+  }
+  else {
+    $result = json_decode($response->data);
+    return !empty($result->result) ? $result->result : array();
+  }
+}
+
+
+/**
+ * Helper function: returns CloudFlare authentication headers
+ *
+ * @return array
+ *   Associative array of CloudFlare authentication headers and their stored
+ *   values.
+ */
+function _cloudflare_cache_clear_auth_headers() {
+  return array(
+    'X-Auth-Key' => _cloudflare_cache_clear_get_setting('api_key'),
+    'X-Auth-Email' => _cloudflare_cache_clear_get_setting('email'),
+  );
+}
+
+
+/**
+ * Helper function: returns the CloudFlare API endpoint
+ *
+ * @peram integer $version
+ *   (optional) The specific version of the CloudFlare API to use. If omitted,
+ *   the default version or the version stored in settings will be used.
+ *
+ * @return string
+ *   The URL of the CloudFlare API endpoint. NB This does not include a trailing
+ *   slash.
+ */
+function _cloudflare_cache_clear_endpoint($version = CLOUDFLARE_CACHE_CLEAR_DEFAULT_API_VERSION) {
+  $endpoint = _cloudflare_cache_clear_get_setting('endpoint');
+  $version = func_num_args() > 0 ? func_get_arg(0) : _cloudflare_cache_clear_get_setting('api_version');
+  return "$endpoint/v$version";
+}
+
+
+/**
+ * Helper function: determines whether we can make a successful connection
+ *
+ * @deprecated This should no longer be used and can probably be removed.
+ */
+function _cloudflare_cache_clear_connect_status() {
+
+  // No API key or email address? Can't connect
+  $key = _cloudflare_cache_clear_get_setting('api_key');
+  $email = _cloudflare_cache_clear_get_setting('email');
+  if (empty($key) || empty($email)) {
+    return FALSE;
+  }
+
+  // Try to get zones
+  $zones = _cloudflare_cache_clear_get_zones();
+  if (empty($zones)) {
+    return FALSE;
+  }
+
+  return TRUE;
+
+}
+
+
+/**
+ * Helper function: determines whether account details are populated
+ *
+ * @return boolean
+ *   TRUE if both the API key and email address settings are populated. FALSE
+ *   otherwise.
+ */
+function _cloudflare_cache_clear_account_details_provided() {
+  $key = _cloudflare_cache_clear_get_setting('api_key');
+  $email = _cloudflare_cache_clear_get_setting('email');
+  return !empty($key) && !empty($email);
+}
+
+
+/**
+ * Autocomplete function for CloudFlare API zones
+ *
+ * @param string $string
+ *   Value of the autocomplete field - used to match with the CloudFlare zones.
+ *
+ * @return string
+ *   JSON formatted array of zone IDs and domains.
+ *
+ * @see cloudflare_cache_clear_menu().
+ * @see cloudflare_cache_clear_configuration_form()
+ */
+function _cloudflare_cache_clear_zones_autocomplete($string) {
+  $zones = &drupal_static(__FUNCTION__);
+  if (!isset($zones)) {
+    $zones = _cloudflare_cache_clear_get_zones();
+  }
+  $matches = array();
+  foreach ($zones as $zone) {
+    if (!empty($zone->name) && strpos($zone->name, $string) !== FALSE) {
+      $matches[$zone->id] = $zone->name;
+    }
+  }
+  drupal_json_output($matches);
+}
+
+
+
+/**
+ * Purge URLs from CloudFlare
+ *
+ * This is the function that actually purges the required URLs from CloudFlare.
+ *
+ * It should not be called directly. Instead, modules should call
+ * cloudflare_cache_clear_purge_urls().
+ *
+ * @param array $urls
+ *   An array of paths to be cleared from the CloudFlare cache
+ *
+ * @param array $wildcards
+ *   Not used. Exists only to be consistent with the Expire module.
+ *
+ * @param string object_type
+ *   (optional) The type of object that has caused a cache clearing event
+ *
+ * @param object $object
+ *   (optional) The object that has caused a cache clearing event.
+ */
+function _cloudflare_cache_clear_purge_urls($urls, $wildcards = NULL, $object_type = NULL, $object = NULL) {
+
+  if (empty($urls) || !is_array($urls)) {
+    return;
+  }
+
+  // An empty array to hold the files to be cleared from CloudFlare
+  $files = array();
+
+  // Build an array of domains to be cleared from CloudFlare
+  $domains = _cloudflare_cache_clear_domains();
+  foreach ($urls as $url) {
+    if (!empty($url)) {
+      foreach ($domains as $domain) {
+        $files[] = trim($domain) . '/' . trim($url);
+      }
+    }
+  }
+
+  // Make sure the files to be purged are unique. We don't want to waste API
+  // calls.
+  $files = array_unique($files);
+
+  // Allow other modules to alter the full URLs to be purged from CloudFlare
+  drupal_alter('cloudflare_cache_clear_urls', $files);
+
+  _cloudflare_cache_clear_log('@count URLs to be cleared from CloudFlare: !urls.', array('@count' => count($files), '!urls' => theme('item_list', array('items' => $files))), WATCHDOG_DEBUG);
+
+  // Break the list of URLs down into chunks based on the number of files that
+  // can be cleared from CloudFlare in one request - currently 30.
+  $queue = array_chunk($files, _cloudflare_cache_clear_get_setting('urls_per_request'));
+  // Define a threshold above which non-blocking requests will be used
+  $blocking_threshold = 2;
+
+  foreach ($queue as $item) {
+    $data = array(
+      'files' => $item,
+    );
+    $options = array(
+      'headers' => _cloudflare_cache_clear_auth_headers(),
+      'method' => 'DELETE',
+      'data' => json_encode($data, JSON_UNESCAPED_SLASHES),
+      // @todo Allow other modules to provide callbacks?
+      'callback' => array(
+        array(
+          'function' => '_cloudflare_cache_clear_log_request_details',
+        ),
+      ),
+    );
+    $url = _cloudflare_cache_clear_endpoint() . '/zones/' . _cloudflare_cache_clear_get_setting('zone') . '/purge_cache';
+
+    // If we need only one request, use standard drupal_http_request()
+    if (count($queue) === 1) {
+      $request = drupal_http_request($url, $options);
+      _cloudflare_cache_clear_log_request_details($request);
+    }
+    // If there are more files to clear than can be done in one request, we use
+    // httprl_request() instead to issue parallel requests.
+    else {
+      $options['blocking'] = count($queue) > $blocking_threshold ? FALSE : TRUE;
+      httprl_request($url, $options);
+    }
+  }
+
+  if (count($queue) > 1) {
+    $request = httprl_send_request();
+  }
+  drupal_set_message('Request to purge URLs sent to CloudFlare.');
+}
+
+
+/**
+ * Helper function: Returns a list of domains to be cleared from CloudFlare
+ *
+ * @return array
+ *   An array of domains to be used to clear URLs from the CloudFlare cache
+ */
+function _cloudflare_cache_clear_domains($allow_modification = TRUE) {
+  // Get the domains from the module settings
+  $domains = preg_split('/[\n\r]/', _cloudflare_cache_clear_get_setting('domains'));
+  // @todo Add a hook here to get additional domains
+  $return = array();
+  foreach ($domains as $key => $domain) {
+    if (empty($domain)) {
+      unset($domains[$key]);
+      continue;
+    }
+    foreach(array_values(_cloudflare_cache_clear_get_setting('protocols')) as $protocol) {
+      if (!empty($protocol)) {
+        $return[] = "$protocol://$domain";
+      }
+    }
+  }
+  // Allow other modules to alter the domains to be cleared
+  drupal_alter('cloudflare_cache_clear_domains', $return);
+  return $return;
+}
+
+
+/**
+ * Helper function: removes protocol from URL
+ */
+function _cloudflare_cache_clear_strip_url_protocol($url) {
+  return preg_replace("/^http(s)?:\/\//", '', $url);
+}
+
+
+/**
+ * Helper function: returns setting values for this module
+ *
+ * @param string $setting
+ *   The name of the setting to retrieve.
+ *
+ * @param mixed $default
+ *   A default value to use if the setting is not populated. NB. sometimes this
+ *   will override the defaults already set, but not always. See code below for
+ *   details.
+ *
+ * @return mixed
+ *   The value of the setting or a default if provided. If no corresponding
+ *   setting is found, NULL is returned.
+ */
+function _cloudflare_cache_clear_get_setting($setting, $default = NULL) {
+
+  $default_supplied = func_num_args() === 2 ? TRUE : FALSE;
+
+  $return = NULL;
+
+  if (empty($setting)) {
+    return $return;
+  }
+  $variable_name = CLOUDFLARE_CACHE_CLEAR_VARIABLE_PREFIX . $setting;
+
+  switch ($setting) {
+    case 'domains':
+      $default = $default_supplied && !empty($default) ? $default : _cloudflare_cache_clear_strip_url_protocol($GLOBALS['base_url']);
+      $return = variable_get($variable_name, $default);
+      break;
+    case 'protocols':
+      $default = $default_supplied && !empty($default) ? $default : array('http' => 'http');
+      $return = variable_get($variable_name, $default);
+      break;
+    case 'endpoint':
+      $default = CLOUDFLARE_CACHE_CLEAR_DEFAULT_ENDPOINT;
+      $return = variable_get($variable_name, $default);
+      $return = empty($return) ? $default : $return;
+      break;
+    case 'api_version':
+      $default = $default_supplied && !empty($default) ? $default : CLOUDFLARE_CACHE_CLEAR_DEFAULT_API_VERSION;
+      $return = variable_get($variable_name, $default);
+      break;
+    case 'urls_per_request':
+      $default = $default_supplied && !empty($default) ? $default : 30;
+      $return = variable_get($variable_name, $default);
+      $return = empty($return) ? $default : $return;
+      break;
+    case 'exclude_admin_paths':
+      $default = TRUE;
+      $return = variable_get($variable_name, $default);
+      break;
+    case 'log_level':
+      $default = CLOUDFLARE_CACHE_CLEAR_DEFAULT_LOG_LEVEL;
+      $return = variable_get($variable_name, $default);
+      break;
+    case 'entity_types':
+      $default = array('node', 'file');
+      $return = variable_get($variable_name, $default);
+      break;
+    default:
+      $return = variable_get($variable_name, $default);
+      break;
+  }
+
+  return $return;
+}
+
+
+/**
+ * Implements hook_cloudflare_cache_clear_domains_alter().
+ */
+function cloudflare_cache_clear_cloudflare_cache_clear_domains_alter(&$domains) {}
+
+
+/**
+ * Helper function: converts text separated by linebreaks into an array
+ */
+function _cloudflare_cache_clear_split_text($text) {
+  return preg_split("/(\r\n?|\n)/", $text);
+}
+
+
+/**
+ * Callback function for HTTPRL requests
+ *
+ * This is used primarily for logging the results of requests.
+ *
+ * @see _cloudflare_cache_clear_purge_urls()
+ * @todo Allow other modules to provide callbacks?
+ */
+function _cloudflare_cache_clear_log_request_details($request) {
+  if (empty($request)) {
+    return;
+  }
+  // If we're on debug level and devel is available, log a message to the
+  // screen.
+  if (_cloudflare_cache_clear_get_setting('log_level') == WATCHDOG_DEBUG && module_exists('devel')) {
+    dpm($request, 'CloudFlare cache clear request');
+  }
+
+  $status_message = property_exists($request, 'status') ? $request->status : (property_exists($request, 'status_message') ? $request->status_message : '');
+  $data = !empty($request->data) ? json_decode($request->data) : NULL;
+  $result_id = !empty($data) && !empty($data->result) && !empty($data->result->id) ? $data->result->id : '';
+  $errors = !empty($data) && !empty($data->errors) ? $data->errors : array();
+  $errs_array = array();
+  foreach ($errors as $error) {
+    $errs_array[] = $error->code . ' ' . $error->message;
+  }
+  $error_message = !empty($errs_array) ? implode(', ', $errs_array) : '';
+
+  $log_level = (!empty($request->code) && $request->code >= 400) ? WATCHDOG_ERROR : WATCHDOG_INFO;
+
+  if ($log_level <= WATCHDOG_ERROR) {
+    drupal_set_message(t('An error occurred purging pages from CloudFlare. Please check the logs for more information.'), 'error');
+  }
+
+  $message = array();
+  $message[] = 'CloudFlare cache clear request returned code @code with status %status.';
+  $message[] = !empty($result_id) ? 'The result ID was: @result_id.' : '';
+  $message[] = !empty($error_message) ? 'The following errors were returned: %error_message.' : '';
+  $message = implode(' ', $message);
+
+  $variables = array(
+    '@code' => $request->code,
+    '%status' => $status_message,
+    '@result_id' => $result_id,
+    '@request' => serialize($request),
+    '%error_message' => $error_message,
+  );
+
+  _cloudflare_cache_clear_log($message, $variables, $log_level);
+}
+
+
+/**
+ * Helper function: used to log messages
+ */
+function _cloudflare_cache_clear_log($message, $variables = array(), $level = WATCHDOG_NOTICE) {
+  if ($level > _cloudflare_cache_clear_get_setting('log_level')) {
+    return;
+  }
+  $type = 'cloudflare_cache_clear';
+  watchdog($type, $message, $variables, $level);
+}
+
+
+/**
+ * Helper function: returns a list of entity types for purging
+ */
+function _cloudflare_cache_clear_entity_types() {
+  $entity_types = module_invoke_all('cloudflare_cache_clear_entity_types');
+  return $entity_types;
+}
+
+
+/**
+ * Implements hook_action_info().
+ */
+function cloudflare_cache_clear_action_info() {
+  return array(
+    'cloudflare_cache_clear_clear_cache_action' => array(
+      'type' => 'entity',
+      'label' => t('Clear entity from the CloudFlare cache'),
+      'behavior' => array('none'), // We don't want this to trigger save hooks
+      'configurable' => FALSE,
+      'vbo_configurable' => FALSE,
+      'triggers' => array('any'),
+      'aggregate' => TRUE,
+    ),
+  );
+}
+
+
+/**
+ * Action callback
+ *
+ * @see cloudflare_cache_clear_action_info().
+ */
+function cloudflare_cache_clear_clear_cache_action($entities, $context) {
+  $urls = array();
+  $entities = !is_array($entities) ? array($entities) : $entities;
+  foreach ($entities as $entity) {
+    $entity_type = !empty($context['entity_type']) ? $context['entity_type'] : NULL;
+    $entity_ids = !empty($entity) && !empty($entity_type) ? entity_extract_ids($entity_type, $entity) : array();
+    $entity_id = !empty($entity_ids[0]) ? $entity_ids[0] : NULL;
+    $entity_uri = entity_uri($entity_type, $entity);
+    $internal_path = !empty($entity_uri['path']) ? $entity_uri['path'] : NULL;
+    $alias = drupal_get_path_alias($internal_path);
+    if (!empty($internal_path)) {
+      $urls[] = $internal_path;
+      if (!empty($alias) && $alias != $internal_path) {
+        $urls[] = $alias;
+      }
+    }
+  }
+  if (!empty($urls)) {
+    cloudflare_cache_clear_purge_urls($urls);
+  }
+}
+
+
+/**
+ * Helper function: Checks CloudFlare account details
+ */
+function _cloudflare_cache_clear_check_account_details($key, $email) {
+  $headers = empty($key) || empty($email) ? _cloudflare_cache_clear_auth_headers() : array('X-Auth-Key' => $key, 'X-Auth-Email' => $email);
+  $options = array(
+    'headers' => $headers,
+  );
+  // To check authentication, we just try to retrieve user details.
+  $url = _cloudflare_cache_clear_endpoint() . '/user';
+  $response = drupal_http_request($url, $options);
+  $success = !empty($response->code) && $response->code == 200;
+  $data = !empty($response->data) ? json_decode($response->data) : '';
+  $errors = !empty($data) && !empty($data->errors) ? $data->errors : array();
+  $errs = array();
+  foreach ($errors as $error) {
+    if (!empty($error->code) && !empty($error->message)) {
+      $errs[] = $error->code . ': ' . $error->message;
+    }
+    if (!empty($error->error_chain)) {
+      foreach ($error->error_chain as $err) {
+        $errs[] = $err->code . ': ' . $err->message;
+      }
+    }
+  }
+  $return = array(
+    'success' => $success,
+    'message' => implode(', ', $errs),
+  );
+  return $return;
+}
+
+
+/**
+ * Helper function: Determines whether CloudFlare account details are correct
+ */
+function _cloudflare_cache_clear_account_authenticated($authenticated = NULL) {
+  $variable_name = CLOUDFLARE_CACHE_CLEAR_VARIABLE_PREFIX . 'account_authenticated';
+  if (func_num_args() > 0) {
+    variable_set($variable_name, $authenticated);
+  }
+  return variable_get($variable_name);
+}
+
+
+/**
+ * Implements hook_cloudflare_cache_clear_entity_types().
+ */
+function cloudflare_cache_clear_cloudflare_cache_clear_entity_types() {
+  $entity_types = array(
+    'node' => t('Nodes'),
+    'file' => t('Files'),
+    'user' => t('Users'),
+    'taxonomy_term' => t('Taxonomy terms'),
+    'menu_link' => t('Menu links'),
+  );
+  return $entity_types;
+}
+
+
+/**
+ * Helper function to get the object type based on path
+ *
+ * This is very rudimentary, but for our purposes, we don't need anything
+ * especially sophisticated, since we use this function primarily within the
+ * purge now functionality.
+ *
+ */
+function _cloudflare_cache_clear_get_object_type_from_path($path) {
+  if (empty($path)) {
+    return NULL;
+  }
+
+  $public_path = variable_get('file_public_path');
+  $private_path = 'system/files';
+
+  // Is it a file path
+  if (strpos($path, $public_path) === 0 || strpos($path, $private_path) === 0) {
+    return 'file';
+  }
+
+  // Is it an unaliased node page?
+  if (strpos($path, 'node/') === 0 && strpos($path, 'node/add') === FALSE) {
+    return 'node';
+  }
+
+  // Is it a user path?
+  if (preg_match("/^user\/[0-9]+$/", $path)) {
+    return 'user';
+  }
+
+  // Check if our path is a node alias
+  if (preg_match("/^node\/[0-9]+/", drupal_lookup_path('source', $path))) {
+    return 'node';
+  }
+
+  return 'unknown';
+}
+
+
+/**
+ * Helper function: attempts to load a file object based on URL
+ */
+function _cloudflare_cache_clear_load_file_by_url($url) {
+  $public_path = variable_get('file_public_path');
+  $uri = str_replace($public_path . '/', 'public://', $url);
+  $query = db_select('file_managed', 'f')
+    ->fields('f', array('fid'))
+    ->condition('uri', $uri);
+  $fids = $query->execute()->fetchCol('fid');
+  if (!empty($fids)) {
+    $fid = current($fids);
+    $file = file_load($fid);
+    return $file;
+  }
+  return NULL;
+}

@@ -1,0 +1,39 @@
+<?php
+/**
+ * @file Module code for the CloudFlare cache clear UI module
+ */
+
+/**
+ * Implements hook_permission().
+ */
+function cloudflare_cache_clear_ui_permission() {
+  return array(
+    'cloudflare cache clear purge urls' => array(
+      'title' => t('Purge URLs from CloudFlare'),
+      'description' => t('Allows users to purge URLs from CloudFlare'),
+    ),
+  );
+}
+
+
+/**
+ * Implements hook_menu().
+ */
+function cloudflare_cache_clear_ui_menu() {
+  return array(
+    'admin/config/services/cloudflare/purge' => array(
+      'title' => 'Purge URLs',
+      'description' => 'Clear URLs from the CloudFlare cache',
+      'access arguments' => array('cloudflare cache clear purge urls'),
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('cloudflare_cache_clear_ui_purge_url_form'),
+      'file' => 'cloudflare_cache_clear_ui.admin.inc',
+      'type' => MENU_LOCAL_TASK,
+    ),
+    'admin/config/services/cloudflare/config' => array(
+      'title' => 'CloudFlare configuration',
+      'type' => MENU_DEFAULT_LOCAL_TASK,
+    ),
+  );
+}
+

@@ -1,0 +1,103 @@
+<?php
+/**
+ * @file Module code for the CloudFlare cache clear image module
+ */
+
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * @see fsa_cache_clear_file_entity_edit_submit()
+ */
+function cloudflare_cache_clear_image_form_file_entity_edit_alter(&$form, &$form_state, $form_id) {
+  if (!empty($form['actions']['submit']['#submit'])) {
+    // Add our submit handler to the file_entity edit form.
+    array_unshift($form['actions']['submit']['#submit'], 'cloudflare_cache_clear_image_file_entity_edit_submit');
+  }
+}
+
+
+/**
+ * Additional submit handler for the file entity edit form.
+ *
+ * We use this to determine which derived image files exist before they are
+ * deleted. We can then purge these derived files from CloudFlare.
+ */
+function cloudflare_cache_clear_image_file_entity_edit_submit($form, &$form_state) {
+  // Get the file object
+  $file = !empty($form_state['file']) ? $form_state['file'] : NULL;
+  // Get the replacement file object
+  $replace_file = !empty($form_state['values']['replace_upload']) ? TRUE : FALSE;
+  // If we have no file object or replacement file object, return now.
+  if (empty($file) || empty($replace_file)) {
+    return;
+  }
+  // An array to hold URLs for clearing.
+  $urls = array();
+  // Filename for the file to be replaced
+  $filename = file_uri_target($file->uri);
+  // Get the path for public files.
+  $public_path = variable_get('file_public_path');
+  // Add the filename to the URLs for clearing
+  $urls[] =  "$public_path/$filename";
+  // If the file is an image, we need to check whether it has any existing
+  // style derivatives, as these will need to be cleared from CloudFlare too.
+  if ($file->type == 'image') {
+    $urls = array_merge($urls, _cloudflare_cache_clear_image_style_urls($file));
+  }
+  cloudflare_cache_clear_purge_urls($urls);
+}
+
+
+/**
+ * Implements hook_cloudflare_cache_clear_manual_purge_urls_alter().
+ */
+function cloudflare_cache_clear_image_cloudflare_cache_clear_manual_purge_urls_alter(&$urls) {
+  $temp_urls = $urls;
+  foreach ($temp_urls as $url) {
+    $object_type = _cloudflare_cache_clear_get_object_type_from_path($url);
+    if ($object_type == 'file') {
+      $file = _cloudflare_cache_clear_load_file_by_url($url);
+      if (!empty($file) && !empty($file->type) && $file->type == 'image') {
+        $urls = array_merge($urls, _cloudflare_cache_clear_image_style_urls($file));
+      }
+    }
+  }
+}
+
+
+/**
+ * Helper function: returns URLs for image derivative files
+ */
+function _cloudflare_cache_clear_image_style_urls($file) {
+  $urls = array();
+  $public_path = variable_get('file_public_path');
+  if ($file->type == 'image') {
+    $filename = file_uri_target($file->uri);
+    $image_styles = image_styles();
+    foreach ($image_styles as $style_name => $style_properties) {
+      if (file_exists(image_style_path($style_name, $filename))) {
+        // Get the image style token to add to the URL for CloudFlare
+        $image_style_path_token = image_style_path_token($style_name,  "public://$filename");
+        // Add the path to be cleared from the CloudFlare cache, including the
+        // image derivative token as this is stored in CloudFlare.
+        $urls[] = $public_path . '/' . file_uri_target(image_style_path($style_name, $filename)) . "?" . IMAGE_DERIVATIVE_TOKEN . "=$image_style_path_token";
+      }
+    }
+  }
+  return $urls;
+}
+
+
+/**
+ * Implements hook_cloudflare_cache_clear_expire_cache_alter().
+ */
+function cloudflare_cache_clear_image_cloudflare_cache_clear_expire_cache_alter(&$urls, $wildcards, $object_type, $object) {
+  // If a file is an image, we don't want it to be cleared automatically when
+  // it is updated since we're handling this with a submit handler.
+  if ($object_type == 'file' && !empty($object) && !empty($object->type) && $object->type == 'image') {
+    foreach ($urls as $key => $url) {
+      unset($urls[$key]);
+    }
+  }
+}
