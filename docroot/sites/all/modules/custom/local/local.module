@@ -499,6 +499,8 @@ function _local_committee_domains() {
  *
  * We do this using this hook, rather than the path-based one as we need to add
  * domains to the resulting array.
+ *
+ * We also need to clear URLs for standard pages based on the committee domains.
  */
 function local_cloudflare_cache_clear_urls_alter(&$urls, $wildcards, $object_type, $object) {
   $temp_urls = $urls;
@@ -512,6 +514,16 @@ function local_cloudflare_cache_clear_urls_alter(&$urls, $wildcards, $object_typ
       foreach (array_keys($committee_domains) as $committee_domain) {
         foreach (cloudflare_cache_clear_get_protocols() as $protocol) {
           $urls[] = $protocol . '://' . $committee_domain . '/' . $path;
+        }
+      }
+    }
+    // For pages, if they have a path that looks like a committee path, make
+    // sure the URL based on the relevant committee domain also gets cleared
+    foreach ($committee_domains as $committee_domain => $committee_path) {
+      if (strpos($path, $committee_path) === 0) {
+        foreach (cloudflare_cache_clear_get_protocols() as $protocol) {
+          $new_path = trim($protocol . '://' . $committee_domain . '/' . preg_replace("@^" . $committee_path . "/?(.*)$@", '$1', $path));
+          $urls[] = $new_path;
         }
       }
     }
