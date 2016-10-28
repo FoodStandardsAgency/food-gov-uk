@@ -301,7 +301,7 @@ function _cloudflare_cache_clear_purge_urls($urls, $wildcards = NULL, $object_ty
   foreach ($urls as $url) {
     if (!empty($url)) {
       foreach ($domains as $domain) {
-        $files[] = trim($domain) . '/' . urlencode(trim($url));
+        $files[] = trim($domain) . '/' . drupal_encode_path(trim($url));
       }
     }
   }
