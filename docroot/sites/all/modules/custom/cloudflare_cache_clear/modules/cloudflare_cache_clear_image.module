@@ -29,7 +29,7 @@ function cloudflare_cache_clear_image_file_entity_edit_submit($form, &$form_stat
   // Get the replacement file object
   $replace_file = !empty($form_state['values']['replace_upload']) ? TRUE : FALSE;
   // If we have no file object or replacement file object, return now.
-  if (empty($file) || empty($replace_file)) {
+   if (empty($file) || empty($replace_file) || empty($file->type) || $file->type != 'image') {
     return;
   }
   // An array to hold URLs for clearing.
@@ -96,6 +96,13 @@ function cloudflare_cache_clear_image_cloudflare_cache_clear_expire_cache_alter(
   // If a file is an image, we don't want it to be cleared automatically when
   // it is updated since we're handling this with a submit handler.
   if ($object_type == 'file' && !empty($object) && !empty($object->type) && $object->type == 'image') {
+    foreach ($urls as $key => $url) {
+      unset($urls[$key]);
+    }
+  }
+  // If the ojbect is a file and it uses the temporary stream wrapper, don't
+  // clear the CloudFlare cache.
+  if ($object_type == 'file' && !empty($object) && !empty($object->uri) && strpos($object->uri, 'temporary://') === 0) {
     foreach ($urls as $key => $url) {
       unset($urls[$key]);
     }
