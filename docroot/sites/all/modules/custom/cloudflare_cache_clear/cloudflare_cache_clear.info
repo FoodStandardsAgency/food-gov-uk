@@ -1,0 +1,7 @@
+name = CloudFlare Cache Clear
+description = "Allows clearing of the CloudFlare cache"
+core = 7.x
+dependencies[] = expire
+dependencies[] = httprl
+configure = admin/config/services/cloudflare
+package = CloudFlare
