@@ -5,6 +5,11 @@
  * Custom features for the Committee sub sites and FSA pages.
  */
 
+/**
+ * All committees role name
+ */
+define('COMMITEES_CUSTOM_ALL_COMMITTEES_ROLE_NAME', 'All committee access');
+
 
 /**
  * Implements hook_form_alter().
@@ -122,3 +127,290 @@ function commitees_custom_og_after_build($form, &$form_state) {
   return $form;
 }
 
+
+/**
+ * Implements hook_user_update()
+ */
+function commitees_custom_user_update(&$edit, $account, $category) {
+  $original = !empty($account->original) ? $account->original : NULL;
+
+  // If the user has the all committees role, always add this account to all
+  // groups. This will help to ensure that the user gets added to new groups.
+  // It also means that if an administrator accidentally removes a group from a
+  // user who has this role, then it'll be put straight back again.
+  if (_commitees_custom_user_has_role(COMMITEES_CUSTOM_ALL_COMMITTEES_ROLE_NAME, $account)) {
+    $group_entities = _commitees_custom_add_user_to_all_groups($account);
+    if (!empty($group_entities)) {
+      drupal_set_message(t('User @username has been granted access to the following groups: @groups', _commitees_custom_group_change_message_variables($account, $group_entities)));
+    }
+    // Since the user has the role, we needn't do anything else here
+    return;
+  }
+  // Determine which (if any) user roles have changed as a result of the update
+  $roles_changed = _commitees_custom_user_roles_diff($original, $account);
+  // If nothing has changed, exit now.
+  if (empty($roles_changed['roles_removed']) && empty($roles_changed['roles_added'])) {
+    return;
+  }
+  // Invoke hook_user_role_change()
+  module_invoke_all('user_role_change', $account, $roles_changed['roles_added'], $roles_changed['roles_removed']);
+}
+
+
+/**
+ * Helper function: determines whether a user has a role based on role name
+ *
+ * @param string $name
+ *   The name of the role
+ *
+ * @param object $account
+ *   (optional) A user account. Defaults to the current user.
+ *
+ * @return boolean
+ *   TRUE if the user has the role in question; FALSE otherwise
+ */
+function _commitees_custom_user_has_role($name, $account = NULL) {
+  if (empty($name)) {
+    return FALSE;
+  }
+  $role = user_role_load_by_name($name);
+  // If we can't find a role, return FALSE
+  if (empty($role) || empty($role->rid)) {
+    return FALSE;
+  }
+  // If no $account is specified, use the current user account
+  if (!$account) {
+    $account = $GLOBALS['user'];
+  }
+  return user_has_role($role->rid, $account);
+}
+
+
+/**
+ * Helper function: determines whether roles are the same for two user accounts
+ *
+ * @param object $account1
+ *   The first user account
+ *
+ * @param object $account2
+ *   The second user account
+ *
+ * @return boolean
+ *   TRUE if the accounts have the same roles; FALSE otherwise
+ *
+ * @deprecated
+ *   This function is probably now defunct, its functionality having been
+ *   largely replaced by _commitees_custom_user_roles_diff()
+ *
+ * @see _commitees_custom_user_roles_diff()
+ *
+ * @todo Remove this function entirely if we decide we don't need it.
+ *
+ */
+function _commitees_custom_user_roles_match($account1, $account2) {
+  $account1_roles = array_keys($account1->roles);
+  $account2_roles = array_keys($account2->roles);
+  sort($account1_roles);
+  sort($account2_roles);
+  return count(array_diff($account1_roles, $account2_roles)) + count(array_diff($account2_roles, $account1_roles)) === 0;
+}
+
+
+/**
+ * Helper function: determines roles difference between two user account objects
+ *
+ * It is intended for use when a user account is updated in order to work out
+ * whether roles have been added or removed. However, it can just as easily be
+ * used to compare two different user accounts.
+ *
+ * @param object $account1
+ *   A Drupal user account object
+ *
+ * @param object $account2
+ *   A Drupal user account object
+ *
+ * @return array
+ *   An associative array with two elements:
+ *   - 'roles_removed': an array of role IDs that are present in $account1, but
+ *     absent in $account2
+ *   - 'roles_added': an array of role IDs that are absent from $account1, but
+ *     present in $account2
+ */
+function _commitees_custom_user_roles_diff($account1, $account2) {
+  // If we don't have any roles, return an empty array now
+  if (!property_exists($account2, 'roles') || !property_exists($account2, 'roles')) {
+    return array(
+      'roles_removed' => array(),
+      'roles_added' => array(),
+    );
+  }
+  $account1_roles = array_keys($account1->roles);
+  $account2_roles = array_keys($account2->roles);
+  // We need to sort the roles arrays to make sure we're copmparing like with
+  // like.
+  sort($account1_roles);
+  sort($account2_roles);
+  return array(
+    'roles_removed' => array_values(array_diff($account1_roles, $account2_roles)),
+    'roles_added' => array_values(array_diff($account2_roles, $account1_roles)),
+  ); 
+}
+
+
+/**
+ * Implements hook_user_role_change().
+ */
+function commitees_custom_user_role_change($account, $roles_added, $roles_removed) {
+  $all_committees_role = user_role_load_by_name(COMMITEES_CUSTOM_ALL_COMMITTEES_ROLE_NAME);
+  if (empty($all_committees_role->rid)) {
+    return;
+  }
+  // All committees role added
+  if (in_array($all_committees_role->rid, $roles_added)) {
+    $group_entities = _commitees_custom_add_user_to_all_groups($account);
+    if (!empty($group_entities)) {
+      drupal_set_message(t('User @username has been granted access to the following groups: @groups', _commitees_custom_group_change_message_variables($account, $group_entities)));
+    }
+  }
+  // All committees removed
+  if (in_array($all_committees_role->rid, $roles_removed)) {
+    // Get all organic groups
+    $groups = og_get_all_group();
+    foreach ($groups as $gid) {
+      $group = entity_load_single('node', $gid);
+      // If the user is the manager of the group, move on
+      if (!empty($group->uid) && $group->uid == $account->uid) {
+        continue;
+      }
+      og_ungroup('node', $gid, 'user', $account->uid);
+    }
+    drupal_set_message(t('Access to all committee sites has been removed for user %username.', array('%username' => $account->name)));
+  }
+}
+
+
+/**
+ * Helper function: adds a user account to all committees (organic groups)
+ *
+ * @param object $account
+ *   A user account object
+ *
+ * @return array
+ *   An array of Organic Group membership objects
+ */
+function _commitees_custom_add_user_to_all_groups($account) {
+  $groups = og_get_all_group();
+  $return = array();
+  foreach ($groups as $gid) {
+    $return[] = _commitees_custom_add_user_to_group($gid, $account);
+  }
+  return $return;
+}
+
+
+/**
+ * Helper function: adds a user account to a committee (organic group)
+ *
+ * @param integer $gid
+ *   The ID of the organic group
+ *
+ * @param object $account
+ *   A user account object
+ *
+ * @return object
+ *   An Organic Group membership object
+ */
+function _commitees_custom_add_user_to_group($gid, $account = NULL) {
+  if (empty($gid)) {
+    return;
+  }
+  global $user;
+
+  if (!isset($account)) {
+    $account = $user;
+  }
+  return og_group('node', $gid, array('entity_type' => 'user', 'entity' => $account));
+}
+
+
+/**
+ * Helper function: generates variables for use in user messages
+ *
+ * @param object $account
+ *   A user account object
+ *
+ * @param $memberships
+ *   An array of Organic Group membership objects
+ *
+ * @return array
+ *   An associative array suitable for use as the variables in the t() function
+ *   or in watchdog().
+ */
+function _commitees_custom_group_change_message_variables($account, $memberhips) {
+  $group_names = array();
+  foreach ($memberhips as $membership) {
+    if (!empty($membership->group_type) && !empty($membership->gid)) {
+      $group_entity_array = entity_load($membership->group_type, array($membership->gid));
+      $group_entity = !empty($group_entity_array[$membership->gid]) ? $group_entity_array[$membership->gid] : NULL;
+      $group_names[] = !empty($group_entity) ? entity_label($membership->group_type, $group_entity) : NULL;
+    }
+  }
+  return array(
+    '@username' => $account->name,
+    '%username' => $account->name,
+    '@groups' => implode(', ', $group_names),
+  );
+}
+
+
+/**
+ * Implements hook_node_insert().
+ */
+function commitees_custom_node_insert($node) {
+  // If this node corresponds to a group, then we'll want to ensure that users
+  // with the all communities role can access it.
+  if (og_is_group('node', $node) && !empty($node->nid)) {
+    // Load any users with the all committees role
+    $users = _commitees_custom_load_users_by_role(COMMITEES_CUSTOM_ALL_COMMITTEES_ROLE_NAME);
+    // Add each user to all groups
+    foreach ($users as $account) {
+      //_commitees_custom_add_user_to_all_groups($account);
+      _commitees_custom_add_user_to_group($node->nid, $account);
+    }
+  }
+}
+
+
+/**
+ * Implements hook_node_update().
+ */
+function commitees_custom_node_update($node) {
+  // Call the insert hook for this module
+  commitees_custom_node_insert($node);
+}
+
+
+/**
+ * Helper function: loads user objects by role
+ *
+ * @param mixed $rid
+ *   Either a role name or a role ID
+ *
+ * @return array
+ *   An array of user objects that have the role specified
+ */
+function _commitees_custom_load_users_by_role($rid) {
+  if (!is_numeric($rid)) {
+    $role = user_role_load_by_name($rid);
+    $rid = $role->rid;
+  }
+  if (empty($rid)) {
+    return array();
+  }
+  $query = db_select('users_roles', 'ur')
+    ->fields('ur', array('uid'))
+    ->condition('rid', $rid);
+  $uids = $query->execute()->fetchAll(PDO::FETCH_COLUMN);
+  $users = !empty($uids) ? user_load_multiple($uids) : array();
+  return $users;
+}

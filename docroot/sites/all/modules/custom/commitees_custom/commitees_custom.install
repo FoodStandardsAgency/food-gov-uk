@@ -1,0 +1,20 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the Committees Custom module
+ */
+
+/**
+ * Creates a new role 'All committee access'.
+ */
+function commitees_custom_update_7001() {
+  $role = new stdClass();
+  $role->name = COMMITEES_CUSTOM_ALL_COMMITTEES_ROLE_NAME;
+  $save = user_role_save($role);
+  if (!empty($save)) {
+    watchdog('committees_custom', 'New role @rolename created.', array('@rolename' => $role->name));
+  }
+  else {
+    watchdog('committees_custom', 'Failed to create role @rolename.', array('@rolename' => $role->name), WATCHDOG_ERROR);
+  }
+}
