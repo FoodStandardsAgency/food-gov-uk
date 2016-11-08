@@ -3406,6 +3406,9 @@ function _fsa_report_problem_api_settings($delta = NULL) {
         'user_agent' => array(
           'title' => t('User agent string'),
         ),
+        'api_key' => array(
+          'title' => t('API key'),
+        ),
       );
       $settings['google_places'] = array(
         'api_key' => array(
@@ -3418,6 +3421,9 @@ function _fsa_report_problem_api_settings($delta = NULL) {
         'user_agent' => array(
           'title' => t('User agent string'),
         ),
+        'api_key' => array(
+          'title' => t('API key'),
+        ),
       );
       $settings['google_places'] = array(
         'api_key' => array(
@@ -3429,6 +3435,9 @@ function _fsa_report_problem_api_settings($delta = NULL) {
       $settings['mapit'] = array(
         'user_agent' => array(
           'title' => t('User agent string'),
+        ),
+        'api_key' => array(
+          'title' => t('API key'),
         ),
       );
       break;
@@ -3755,6 +3764,14 @@ function _fsa_report_problem_mapit_user_agent($delta = NULL) {
 
 
 /**
+ * Helper function: returns the MapIt API key
+ */
+function _fsa_report_problem_mapit_api_key($delta = NULL) {
+  return _fsa_report_problem_api_setting('mapit', 'api_key', $delta);
+}
+
+
+/**
  * Helper function: returns MapIt HTTP request options
  *
  * @param string $delta
@@ -3773,6 +3790,7 @@ function _fsa_report_problem_mapit_http_options($delta = NULL) {
   $options = array();
   $options['headers'] = array(
     'User-Agent' => _fsa_report_problem_mapit_user_agent($delta),
+    'X-Api-Key' => _fsa_report_problem_mapit_api_key($delta),
   );
   return $options;
 }
