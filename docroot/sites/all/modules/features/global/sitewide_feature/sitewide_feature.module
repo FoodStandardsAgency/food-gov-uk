@@ -5,3 +5,45 @@
  */
 
 include_once 'sitewide_feature.features.inc';
+
+
+/**
+ * Implements hook_query_TAG_alter().
+ *
+ * We use this hook to alter the query built by the entity reference module to
+ * validate selections for node fields. By default, entity reference fields can
+ * reference only published nodes, but we have a requirement to reference those
+ * nodes that are yet to be published. We simply remove the condition that
+ * specifies that nodes be published.
+ *
+ * @see Ticket #102052: Drupal: invalid node
+ * @see Ticket #10861: Drupal: linking to unpublished pages
+ * @see EntityReference_SelectionHandler_Generic_node::buildEntityFieldQuery()
+ */
+function sitewide_feature_query_entityreference_alter(QueryAlterableInterface $query) {
+  // If there are no alter tags or we're not on an entity reference field,
+  // exit now.
+  if (empty($query->alterTags) || empty($query->alterTags['node_access']) || empty($query->alterTags['entityreference'])) {
+    return;
+  }
+  // Get the field name that is being validated
+  $field_name = !empty($query->alterMetaData) && !empty($query->alterMetaData['field']) && !empty($query->alterMetaData['field']['field_name']) ? $query->alterMetaData['field']['field_name'] : NULL;
+  // An array of field names for which we want to allow unpublished nodes to be
+  // referenced.
+  $field_names = array(
+    'field_child_page',
+  );
+  // If field name is empty or it's not one of the ones we're interested in,
+  // exit now.
+  if (empty($field_name) || !in_array($field_name, $field_names)) {
+    return;
+  }
+  // Get the conditions by reference - so we can alter them
+  $conditions =& $query->conditions();
+  // Find the node status condition and remove it.
+  foreach ($conditions as $key => $condition) {
+    if (!empty($condition['field']) && $condition['field'] == 'node.status') {
+      unset($conditions[$key]);
+    }
+  }
+}
