@@ -77,8 +77,13 @@ function cloudflare_cache_clear_expire_cache($urls, $wildcards, $object_type, $o
   $entity_types = _cloudflare_cache_clear_get_setting('entity_types');
   if (empty($entity_types[$object_type])) {
     if (!empty($object_type) && !empty($object)) {
-      $entity_info = entity_extract_ids($object_type, $object);
-      _cloudflare_cache_clear_log('Skipping CloudFlare cache clearing for  @object_type @entity_id.', array('@object_type' => $object_type, '@entity_id' => $entity_info[0]), WATCHDOG_DEBUG);
+      try {
+        $entity_info = entity_extract_ids($object_type, $object);
+        _cloudflare_cache_clear_log('Skipping CloudFlare cache clearing for @object_type @entity_id.', array('@object_type' => $object_type, '@entity_id' => $entity_info[0]), WATCHDOG_DEBUG);
+      }
+      catch (Exception $e) {
+        _cloudflare_cache_clear_log('Skipping CloudFlare cache clearing for @object_type. Information for this entity could not be retrieved in function @this_function() in @this_file Due to exception: @code - !message', array('@object_type' => $object_type, '@this_function' => __FUNCTION__, '@this_file' => __FILE__, '!message' => $e->getMessage(), '@code' => $e->getCode()), WATCHDOG_DEBUG);
+      }
     }
     return;
   }
@@ -338,8 +343,12 @@ function _cloudflare_cache_clear_purge_urls($urls, $wildcards = NULL, $object_ty
     );
     $url = _cloudflare_cache_clear_endpoint() . '/zones/' . _cloudflare_cache_clear_get_setting('zone') . '/purge_cache';
 
-    // If we need only one request, use standard drupal_http_request()
-    if (count($queue) === 1) {
+    // Check to see whether HTTPRL is overriding the core HTTP request function
+    $request_function = variable_get('drupal_http_request_function', FALSE);
+
+    // If we need only one request, use standard drupal_http_request() - unless
+    // HTTPRL is overriding the standard Drupal HTTP request function.
+    if (count($queue) === 1 && $request_function !== 'httprl_override_core') {
       $request = drupal_http_request($url, $options);
       _cloudflare_cache_clear_log_request_details($request);
     }
@@ -351,7 +360,7 @@ function _cloudflare_cache_clear_purge_urls($urls, $wildcards = NULL, $object_ty
     }
   }
 
-  if (count($queue) > 1) {
+  if (count($queue) > 1 || $request_function === 'httprl_override_core') {
     $request = httprl_send_request();
   }
   drupal_set_message('Request to purge URLs sent to CloudFlare.');
