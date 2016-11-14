@@ -77,8 +77,13 @@ function cloudflare_cache_clear_expire_cache($urls, $wildcards, $object_type, $o
   $entity_types = _cloudflare_cache_clear_get_setting('entity_types');
   if (empty($entity_types[$object_type])) {
     if (!empty($object_type) && !empty($object)) {
-      $entity_info = entity_extract_ids($object_type, $object);
-      _cloudflare_cache_clear_log('Skipping CloudFlare cache clearing for  @object_type @entity_id.', array('@object_type' => $object_type, '@entity_id' => $entity_info[0]), WATCHDOG_DEBUG);
+      try {
+        $entity_info = entity_extract_ids($object_type, $object);
+        _cloudflare_cache_clear_log('Skipping CloudFlare cache clearing for @object_type @entity_id.', array('@object_type' => $object_type, '@entity_id' => $entity_info[0]), WATCHDOG_DEBUG);
+      }
+      catch (Exception $e) {
+        _cloudflare_cache_clear_log('Skipping CloudFlare cache clearing for @object_type. Information for this entity could not be retrieved in function @this_function() in @this_file Due to exception: @code - !message', array('@object_type' => $object_type, '@this_function' => __FUNCTION__, '@this_file' => __FILE__, '!message' => $e->getMessage(), '@code' => $e->getCode()), WATCHDOG_DEBUG);
+      }
     }
     return;
   }
