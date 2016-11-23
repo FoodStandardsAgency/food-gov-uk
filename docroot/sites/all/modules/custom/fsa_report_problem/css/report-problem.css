@@ -144,7 +144,7 @@ p.service-offline {
     .phase-banner .phase-tag.alpha {
       background-color: #d53880; }
     .phase-banner .phase-tag.beta {
-      background-color: #f47738; }
+      background-color: #cc4906; }
   .phase-banner span {
     display: inline-block;
     width: 75%;
@@ -176,15 +176,15 @@ p.service-offline {
   padding-left: 40px; }
 
 .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  z-index: 1000;
   background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  height: 100%;
+  left: 0;
+  position: fixed;
   text-align: center;
-  display: none; }
+  top: 0;
+  width: 100%;
+  z-index: 1000; }
   .modal-overlay .throbber {
     background-position: center center;
     background-repeat: no-repeat;
