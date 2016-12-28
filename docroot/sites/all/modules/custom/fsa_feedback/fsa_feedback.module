@@ -727,6 +727,7 @@ function fsa_feedback_menu_alter(&$items) {
   // Substitute our admin form for the one from the contrib Feedback module.
   $items['admin/reports/feedback']['page arguments'] = array('fsa_feedback_admin_view_form');
   $items['admin/reports/feedback']['file'] = drupal_get_path('module', 'fsa_feedback.module');
+  $items['admin/reports/feedback']['page callback'] = '_fsa_feedback_admin_view_page';
 }
 
 /**
