@@ -1490,3 +1490,25 @@ function fsa_feedback_views_api() {
   );
 }
 
+
+/**
+ * Alternative admin view listing for feedback entries
+ */
+function _fsa_feedback_admin_view_page($form) {
+  $view = views_get_view('feedback_report');
+  $display = !empty($view) && !empty($view->display) && !empty($view->display['page']) ? $view->display['page'] : NULL;
+  $view_path = !empty($display) && !empty($display->display_options) && !empty($display->display_options['path']) ? $display->display_options['path'] : NULL;
+  $build = array(
+    'intro' => array(
+      '#markup' => t('Feedback submissions are displayed below.'),
+    ),
+    'report_link' => array(
+      '#prefix' => '<p>',
+      '#markup' => t('You can also <a href="@path">export</a> feedback submissions in CSV format.', array('@path' => url($view_path))),
+      '#suffix' => '</p>',
+      '#access' => !empty($view_path),
+    ),
+    'form' => drupal_get_form($form),
+  );
+  return $build;
+}
