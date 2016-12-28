@@ -1320,7 +1320,7 @@ function fsa_feedback_admin_view_form($form, &$form_state) {
   );
 
   // Set the form's theme function to be that from the contrib Feedback module.
-  $form ['#theme'][] = 'feedback_admin_view_form';
+  $form['#theme'][] = 'feedback_admin_view_form';
 
   return $form;
 }
