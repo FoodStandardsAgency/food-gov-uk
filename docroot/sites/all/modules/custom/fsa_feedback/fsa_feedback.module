@@ -714,6 +714,18 @@ function fsa_feedback_menu() {
     'type' => MENU_LOCAL_TASK,
     'weight' => 30,
   );
+
+  $view = views_get_view('feedback_report');
+  if (!empty($view)) {
+    $items['admin/reports/feedback/export'] = array(
+      'title' => 'Export feedback submissions',
+      'description' => 'View, filter and export feedback submissions',
+      'page callback' => 'views_page',
+      'access arguments' => array('administer feedback'),
+      'page arguments' => array('feedback_report', 'page'),
+    );
+  }
+
   return $items;
 }
 
@@ -727,6 +739,7 @@ function fsa_feedback_menu_alter(&$items) {
   // Substitute our admin form for the one from the contrib Feedback module.
   $items['admin/reports/feedback']['page arguments'] = array('fsa_feedback_admin_view_form');
   $items['admin/reports/feedback']['file'] = drupal_get_path('module', 'fsa_feedback.module');
+  $items['admin/reports/feedback']['page callback'] = '_fsa_feedback_admin_view_page';
 }
 
 /**
@@ -1320,7 +1333,7 @@ function fsa_feedback_admin_view_form($form, &$form_state) {
   );
 
   // Set the form's theme function to be that from the contrib Feedback module.
-  $form ['#theme'][] = 'feedback_admin_view_form';
+  $form['#theme'][] = 'feedback_admin_view_form';
 
   return $form;
 }
@@ -1477,4 +1490,38 @@ function _fsa_feedback_honeypot_setting($setting = NULL) {
 
   // If we get this far, return NULL - our setting doesn't exist.
   return NULL;
+}
+
+
+/**
+ * Implements hook_views_api();
+ */
+function fsa_feedback_views_api() {
+  return array(
+    'api' => 3.0,
+    'path' => drupal_get_path('module', 'fsa_feedback') . '/views',
+  );
+}
+
+
+/**
+ * Alternative admin view listing for feedback entries
+ */
+function _fsa_feedback_admin_view_page($form) {
+  $view = views_get_view('feedback_report');
+  $display = !empty($view) && !empty($view->display) && !empty($view->display['page']) ? $view->display['page'] : NULL;
+  $view_path = !empty($display) && !empty($display->display_options) && !empty($display->display_options['path']) ? $display->display_options['path'] : NULL;
+  $build = array(
+    'intro' => array(
+      '#markup' => t('Feedback submissions are displayed below.'),
+    ),
+    'report_link' => array(
+      '#prefix' => '<p>',
+      '#markup' => t('You can also <a href="@path">export</a> feedback submissions in CSV format.', array('@path' => url($view_path))),
+      '#suffix' => '</p>',
+      '#access' => !empty($view_path),
+    ),
+    'form' => drupal_get_form($form),
+  );
+  return $build;
 }
