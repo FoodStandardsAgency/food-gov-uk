@@ -1478,3 +1478,15 @@ function _fsa_feedback_honeypot_setting($setting = NULL) {
   // If we get this far, return NULL - our setting doesn't exist.
   return NULL;
 }
+
+
+/**
+ * Implements hook_views_api();
+ */
+function fsa_feedback_views_api() {
+  return array(
+    'api' => 3.0,
+    'path' => drupal_get_path('module', 'fsa_feedback') . '/views',
+  );
+}
+
