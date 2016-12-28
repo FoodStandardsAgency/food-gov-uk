@@ -714,6 +714,18 @@ function fsa_feedback_menu() {
     'type' => MENU_LOCAL_TASK,
     'weight' => 30,
   );
+
+  $view = views_get_view('feedback_report');
+  if (!empty($view)) {
+    $items['admin/reports/feedback/export'] = array(
+      'title' => 'Export feedback submissions',
+      'description' => 'View, filter and export feedback submissions',
+      'page callback' => 'views_page',
+      'access arguments' => array('administer feedback'),
+      'page arguments' => array('feedback_report', 'page'),
+    );
+  }
+
   return $items;
 }
 
