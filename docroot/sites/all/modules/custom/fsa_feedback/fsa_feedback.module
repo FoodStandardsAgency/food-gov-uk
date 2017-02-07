@@ -201,7 +201,11 @@ function fsa_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
     // errors to an empty array. This means that our validation function is
     // responsible for all validation. This is fine as it's a simple form.
     // @see feedback_form_validate()
-    $form['actions']['submit']['#limit_validation_errors'] = array();
+    //
+    // Commenting out the below as it interferes with Mollom validation. Testing
+    // has not revealed any issues so far.
+    // @see Ticket#: 103273 - Excessive spam in Feedback
+    //$form['actions']['submit']['#limit_validation_errors'] = array();
 
     // In order for the `#limit_validation_errors` to work, the submit button
     // must have its `#submit` element populated. However, if it's set to an
