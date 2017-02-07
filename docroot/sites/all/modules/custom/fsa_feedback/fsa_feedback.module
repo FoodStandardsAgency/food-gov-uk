@@ -1400,6 +1400,18 @@ function feedback_form_validate($form, &$form_state) {
     }
   }
 
+  // Check to see whether the 'What you were doing' and 'What went wrong' fields
+  // are different. Spam submissions typically just repeat themselves.
+  // Note that this validation can be disabled by setting the value of the
+  // variable 'fsa_feedback_form_validation_compare_fields' to FALSE.
+  if (variable_get('fsa_feedback_form_validation_compare_fields')) {
+    $doing = !empty($form_state['values']['doing']) ? trim(strtolower($form_state['values']['doing'])) : NULL;
+    $wrong = !empty($form_state['values']['wrong']) ? trim(strtolower($form_state['values']['wrong'])) : NULL;
+    if (!empty($doing) && !empty($wrong) && $doing == $wrong) {
+      form_set_error('doing', t('Sorry, it looks like you\'ve entered the same information in both fields. Please check your submission.'));
+    }
+  }
+
 }
 
 /**
