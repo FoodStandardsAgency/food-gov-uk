@@ -201,7 +201,11 @@ function fsa_feedback_form_feedback_form_alter(&$form, &$form_state, $form_id) {
     // errors to an empty array. This means that our validation function is
     // responsible for all validation. This is fine as it's a simple form.
     // @see feedback_form_validate()
-    $form['actions']['submit']['#limit_validation_errors'] = array();
+    //
+    // Commenting out the below as it interferes with Mollom validation. Testing
+    // has not revealed any issues so far.
+    // @see Ticket#: 103273 - Excessive spam in Feedback
+    //$form['actions']['submit']['#limit_validation_errors'] = array();
 
     // In order for the `#limit_validation_errors` to work, the submit button
     // must have its `#submit` element populated. However, if it's set to an
@@ -1524,4 +1528,25 @@ function _fsa_feedback_admin_view_page($form) {
     'form' => drupal_get_form($form),
   );
   return $build;
+}
+
+
+/**
+ * Implements hook_mollom_form_info_alter().
+ *
+ * We use this hook to tell Mollom about the additional fields on the feedback
+ * form.
+ *
+ * @param &$form_info
+ *   An associative array describing the protectable form. See
+ *   hook_mollom_form_info() for details.
+ * @param $form_id
+ *   The $form_id of the form.
+ */
+function fsa_feedback_mollom_form_info_alter(&$form_info, $form_id) {
+  // Additional fields on the feedback form
+  if ($form_id == 'feedback_form') {
+    $form_info['elements']['doing'] = t('What you were doing');
+    $form_info['elements']['wrong'] = t('What went wrong');
+  }
 }

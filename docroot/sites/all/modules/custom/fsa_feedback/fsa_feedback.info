@@ -3,4 +3,5 @@ description = "Enhanced feedback module for the FSA website. Provides additional
 core = 7.x
 package = Development
 dependencies[] = feedback
+dependencies[] = mollom
 files[] = views/fsa_feedback_views_handler_field_message_part.inc
