@@ -33,9 +33,17 @@ function fsa_feedback_update_7003() {
 
 
 /**
- * Enables Mollom protection for the feedback form
+ * Enables the Mollom module
  */
 function fsa_feedback_update_7004() {
+  module_enable(array('mollom'));
+}
+
+
+/**
+ * Enables Mollom protection for the feedback form
+ */
+function fsa_feedback_update_7005() {
 $mollom_form = mollom_form_new('feedback_form');
   $mollom_form['mode'] = 2;
   $mollom_form['checks'] = array('spam');
