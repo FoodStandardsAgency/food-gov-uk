@@ -57,3 +57,10 @@ $mollom_form = mollom_form_new('feedback_form');
   }
 }
 
+
+/**
+ * Sets the feedback form to compare fields by default
+ */
+function fsa_feedback_update_7006() {
+  variable_set('fsa_feedback_form_validation_compare_fields', TRUE);
+}
