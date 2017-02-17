@@ -485,6 +485,7 @@ function _local_committee_domains() {
     'acaf.food.gov.uk' => 'committee/acaf',
     'gacs.food.gov.uk'=> 'committee/gacs',
     'ssrc.food.gov.uk'=> 'committee/social-science-research-committee-ssrc',
+    'science-council.food.gov.uk'=> 'committee/science-council',
   );
   return $committee_domains;
 }
