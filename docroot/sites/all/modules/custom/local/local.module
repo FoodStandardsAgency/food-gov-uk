@@ -453,15 +453,31 @@ function local_national_archives_site_url_alter(&$site_url, &$url) {
  *   Array of committee domains and their associated paths.
  */
 function _local_committee_domains() {
-  $committee_domains = array(
-    'cot.food.gov.uk' => 'committee/committee-on-toxicity',
-    'acmsf.food.gov.uk' => 'committee/acmsf',
-    'acnfp.food.gov.uk'=> 'committee/acnfp',
-    'acaf.food.gov.uk' => 'committee/acaf',
-    'gacs.food.gov.uk'=> 'committee/gacs',
-    'ssrc.food.gov.uk'=> 'committee/social-science-research-committee-ssrc',
-    'science-council.food.gov.uk'=> 'committee/science-council',
-  );
+  // Use drupal_static() to avoid repeat calls
+  $committee_domains = &drupal_static(__FUNCTION__);
+  if (!isset($committee_domains)) {
+    // Get the domain mappings from cache if populated
+    if ($cache = cache_get('local_committee_domains')) {
+      $committee_domains = $cache->data;
+    }
+    else {
+      // An array of default domain mappings
+      $committee_domains = array(
+        'cot.food.gov.uk' => 'committee/committee-on-toxicity',
+        'acmsf.food.gov.uk' => 'committee/acmsf',
+        'acnfp.food.gov.uk'=> 'committee/acnfp',
+        'acaf.food.gov.uk' => 'committee/acaf',
+        'gacs.food.gov.uk'=> 'committee/gacs',
+        'ssrc.food.gov.uk'=> 'committee/social-science-research-committee-ssrc',
+      );
+      // Allow other modules to provide committee domain mappings
+      $committee_domains += module_invoke_all('committee_domains');
+      // Allow other modules to alter the committee domain mappings
+      drupal_alter('committee_domains', $committee_domains);
+      // Store the mappings in the cache to avoid repeat calls
+      cache_set('local_committee_domains', $committee_domains, 'cache');
+    }
+  }
   return $committee_domains;
 }
 
