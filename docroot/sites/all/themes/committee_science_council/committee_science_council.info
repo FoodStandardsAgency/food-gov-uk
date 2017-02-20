@@ -81,3 +81,8 @@ settings[omega_libraries][respond][status] = 1
 settings[omega_libraries][pie][status] = 1
 settings[omega_libraries][html5shiv][status] = 1
 settings[favicon_mimetype] = image/vnd.microsoft.icon
+settings[committee_domains][] = science-council.food.gov.uk
+settings[committee_domains][] = science-council.local.food.gov.uk
+settings[committee_domains][] = science-council.dev.food.gov.uk
+settings[committee_domains][] = science-council.staging.food.gov.uk
+
