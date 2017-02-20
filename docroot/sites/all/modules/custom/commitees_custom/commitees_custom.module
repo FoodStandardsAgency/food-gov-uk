@@ -414,3 +414,59 @@ function _commitees_custom_load_users_by_role($rid) {
   $users = !empty($uids) ? user_load_multiple($uids) : array();
   return $users;
 }
+
+
+/**
+ * Implements hook_committee_domains().
+ *
+ * We use this hook to provide additional committee domain mappings based on
+ * theme settings from the committee sub-themes.
+ *
+ * The theme setting `committee_domains` can be used within a theme's .info
+ * file to add additional mappings, eg:
+ *
+ * @code
+ * settings[committee_domains][] = science-council.food.gov.uk
+ * settings[committee_domains][] = science-council.local.food.gov.uk
+ * @endcode
+ *
+ * @see _local_committee_domains()
+ */
+function commitees_custom_committee_domains() {
+
+  // Get a list of committee site items
+  $results = (new EntityFieldQuery())
+    ->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'committee_site')
+    ->propertyCondition('status', 1)
+    ->execute();
+  // Get the node IDs
+  $nids = !empty($results['node']) && is_array($results['node']) ? array_keys($results['node']) : array();
+  // Load the nodes
+  $nodes = node_load_multiple($nids);
+  $themes = array();
+  // Get the themes associated with the committee sites
+  foreach ($nodes as $node) {
+    $wrapper = entity_metadata_wrapper('node', $node);
+    $theme = $wrapper->__isset('group_theme') && strpos($wrapper->group_theme->value(), 'committee') === 0 ? $wrapper->group_theme->value() : NULL;
+    if (!empty($theme)) {
+      $themes[] = array(
+        'theme' => $theme,
+        'path' => drupal_get_path_alias('node/' . $node->nid),
+      );
+    }
+  }
+  $domains = array();
+  // For each theme, see whether there's a theme setting for committee_domains
+  foreach ($themes as $theme) {
+    $settings = theme_get_setting('committee_domains', $theme['theme']);
+    if (is_array($settings)) {
+      foreach ($settings as $setting) {
+        $domains[$setting] = $theme['path'];
+      }
+    }
+  }
+  if (!empty($domains)) {
+    return $domains;
+  }
+}
