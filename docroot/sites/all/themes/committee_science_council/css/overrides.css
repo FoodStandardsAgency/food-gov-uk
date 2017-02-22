@@ -11,7 +11,7 @@
   /* removes IE gradient filter */
   background: none;
   background-image: none;
-  border-bottom: 3px solid #418DB6;
+  border-bottom: 3px solid #0373af;
   background-color: #8dc8e8;
 }
 
@@ -24,7 +24,7 @@
 /* page bottom borders */
 /* line 44, ../sass/overrides.scss */
 .main-wrapper {
-  border-bottom: 4px solid #418DB6;
+  border-bottom: 4px solid #0373af;
 }
 
 /* line 47, ../sass/overrides.scss */
@@ -41,7 +41,7 @@ h1.site-name {
 /* page title */
 /* line 57, ../sass/overrides.scss */
 h1 {
-  color: #418DB6;
+  color: #0373af;
 }
 
 /* content main */
@@ -54,19 +54,19 @@ h1 {
 /* line 67, ../sass/overrides.scss */
 a,
 .page-section-teaser .node__title a {
-  color: #418DB6;
+  color: #0373af;
 }
 
 /* line 71, ../sass/overrides.scss */
 a:hover,
 .page-section-teaser .node__title a:hover {
-  color: #418DB6;
+  color: #0373af;
 }
 
 /* back to top links */
 /* line 77, ../sass/overrides.scss */
 .section-back-top a {
-  color: #418DB6;
+  color: #0373af;
   background: url("../images/arrow-up.png") left 4px no-repeat;
 }
 
@@ -74,7 +74,7 @@ a:hover,
 /* line 83, ../sass/overrides.scss */
 .field--name-field-summary,
 .views-field-field-summary {
-  color: #418DB6;
+  color: #0373af;
 }
 
 /* section headings */
@@ -93,7 +93,7 @@ a:hover,
 /* committee news node title */
 /* line 102, ../sass/overrides.scss */
 .committee-news .node__title a {
-  color: #418DB6;
+  color: #0373af;
 }
 
 /* line 105, ../sass/overrides.scss */
@@ -113,7 +113,7 @@ a:hover,
 
 /* line 116, ../sass/overrides.scss */
 .committee-news .views-row {
-  border-bottom: 1px solid #418DB6;
+  border-bottom: 1px solid #0373af;
   padding: 7px 0 7px 0;
 }
 
@@ -137,37 +137,37 @@ a:hover,
 /* committee menu - see site front_frontent theme for the rest of the implementation */
 /* line 133, ../sass/overrides.scss */
 .l-sidebar-first .committee-menu {
-  border-top: 4px solid #418DB6;
+  border-top: 4px solid #0373af;
 }
 
 /* line 136, ../sass/overrides.scss */
 .l-sidebar-first .committee-menu .menu-block-wrapper a.active,
 .l-sidebar-first .committee-menu .block__content a.active {
-  color: #418DB6;
+  color: #0373af;
 }
 
 /* line 140, ../sass/overrides.scss */
 .l-sidebar-first .committee-menu .menu-block-wrapper li.expanded > a,
 .l-sidebar-first .committee-menu .block__content li.expanded > a {
-  color: #418DB6;
+  color: #0373af;
 }
 
 /* pages section subheadings eg related media */
 /* line 146, ../sass/overrides.scss */
 .page-section-subheading {
-  color: #418DB6;
+  color: #0373af;
 }
 
 /* file item links in page sections */
 /* line 151, ../sass/overrides.scss */
 .page-section-teaser .file-item a {
-  color: #418DB6;
+  color: #0373af;
 }
 
 /* table of contents */
 /* line 156, ../sass/overrides.scss */
 #table-of-contents-links a {
-  color: #418DB6;
+  color: #0373af;
 }
 
 /* line 159, ../sass/overrides.scss */
@@ -203,13 +203,13 @@ ul.toc-node-bullets li.toc-node-level-6 {
 /* generic block titles */
 /* line 179, ../sass/overrides.scss */
 .generic-blocks .field--name-field-title-side-content-generic {
-  color: #418DB6;
+  color: #0373af;
 }
 
 /* see also block */
 /* line 184, ../sass/overrides.scss */
 .see-also h2.block__title {
-  color: #418DB6;
+  color: #0373af;
 }
 
 /* line 187, ../sass/overrides.scss */
@@ -219,18 +219,18 @@ ul.toc-node-bullets li.toc-node-level-6 {
 
 /* line 190, ../sass/overrides.scss */
 .see-also .views-field-title a {
-  color: #418DB6;
+  color: #0373af;
 }
 
 /* external links block */
 /* line 195, ../sass/overrides.scss */
 .external-sites h2.block__title {
-  color: #418DB6;
+  color: #0373af;
 }
 
 /* line 198, ../sass/overrides.scss */
 .external-sites .views-field-field-url a {
-  color: #418DB6;
+  color: #0373af;
 }
 
 /* line 201, ../sass/overrides.scss */
@@ -241,7 +241,7 @@ ul.toc-node-bullets li.toc-node-level-6 {
 /* external sites with logos */
 /* line 206, ../sass/overrides.scss */
 .external-sites-with-logos .views-field-field-url a {
-  color: #418DB6;
+  color: #0373af;
 }
 
 /* line 209, ../sass/overrides.scss */
@@ -266,7 +266,7 @@ span.ext {
 .field--name-field-fc-section-body table,
 .field--name-body .field--type-text-with-summary table,
 .field--type-text-long table {
-  border-top: 1px solid #418DB6;
+  border-top: 1px solid #0373af;
 }
 
 /* line 230, ../sass/overrides.scss */
@@ -285,7 +285,7 @@ span.ext {
 .field--type-text-long thead td,
 .field--type-text-long tfoot th,
 .field--type-text-long tfoot td {
-  color: #418DB6;
+  color: #0373af;
 }
 
 /* guidance highlight box */
@@ -294,7 +294,7 @@ span.ext {
 .field--name-body .field--type-text-with-summary .guidance,
 .field--type-text-long .guidance {
   background: #f2f2f2;
-  border: 1px solid #418DB6;
+  border: 1px solid #0373af;
 }
 
 /* search results */
@@ -315,7 +315,7 @@ span.ext {
 .views-field-zs-view-mode-search-results-8 a,
 .views-field-zs-view-mode-search-results-9 a,
 .views-field-zs-view-mode-search-results-10 a {
-  color: #418DB6;
+  color: #0373af;
 }
 
 /* line 273, ../sass/overrides.scss */
@@ -335,7 +335,7 @@ span.ext {
 /* pager - pagenator */
 /* line 287, ../sass/overrides.scss */
 ul.pager li a {
-  color: #418DB6;
+  color: #0373af;
 }
 
 /* legacy CSS for tables from original old cot site */
@@ -446,12 +446,12 @@ ul.pager li a {
 .foodbase-links h2.block__title,
 .foodbase-links h3.block__title,
 .foodbase-links .block__title {
-  color: #418DB6;
+  color: #0373af;
 }
 
 /* line 314, ../sass/overrides.scss */
 .foodbase-links .views-field-field-url a {
-  color: #418DB6;
+  color: #0373af;
 }
 
 /* line 317, ../sass/overrides.scss */
@@ -484,7 +484,7 @@ ul.pager li a {
 /* line 338, ../sass/overrides.scss */
 .featured-side-content li:first-child .field-collection-view {
   border: 1px solid #87ceeb;
-  background: #418DB6;
+  background: #0373af;
 }
 
 /* featured side content blocks - second block internal content title */
@@ -538,13 +538,13 @@ h3.inline-section-heading {
 
 /* line 382, ../sass/overrides.scss */
 .meetings-table table tr {
-  border-bottom: 1px solid #418DB6;
+  border-bottom: 1px solid #0373af;
 }
 
 /* webform */
 /* line 388, ../sass/overrides.scss */
 .webfrom-node-template .field--name-body h2 {
-  color: #418DB6;
+  color: #0373af;
 }
 
 /************************* Print styling *******************************/
