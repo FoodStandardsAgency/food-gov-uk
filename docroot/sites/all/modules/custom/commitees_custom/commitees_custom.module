@@ -470,3 +470,123 @@ function commitees_custom_committee_domains() {
     return $domains;
   }
 }
+
+
+/**
+ * Helper function: creates file tag taxonomy term for committees
+ *
+ * @param string $name
+ *   The name of the taxonomy term
+ *
+ * @param string $parent_name
+ *   (optional) The name of the parent taxonomy term under which this term
+ *   should be created. Defaults to 'Committee papers'
+ *
+ * @param string $vocabulary_machine_name
+ *   (optional) The machine name of the vocabulary in which the term will be
+ *   created. Defaults to 'file_tags'.
+ *
+ * @return integer
+ *   SAVED_NEW:     A new taxonomy term has been successfully created
+ *   SAVED_UPDATED: A taxonomy term has been updated (not used)
+ *   4:             Taxonomy term already exists - no action taken
+ *   0:             An error occurred
+ */
+function _commitees_custom_create_file_tag($name, $parent_name = 'Committee papers', $vocabulary_machine_name = 'file_tags') {
+  $term = 0;
+  // No name, nothing to do here
+  if (empty($name)) {
+    return $term;
+  }
+  $vocabulary = taxonomy_vocabulary_machine_name_load($vocabulary_machine_name);
+  if (empty($vocabulary) || empty($vocabulary->vid)) {
+    watchdog('commitees_custom', 'Vocabuary @vocabulary_machine_name not found.', array('@vocabulary_machine_name' => $vocabulary_machine_name), WATCHDOG_ERROR);
+    return $term;
+  }
+  // Check whether a parent term matching the specified name exists
+  $parent_term = taxonomy_get_term_by_name($parent_name, $vocabulary_machine_name);
+  if (empty($parent_term) && !empty($parent_name)) {
+    watchdog('commitees_custom', 'No parent term with the name @parent_name could be found.', array('@parent_name' => $parent_name));
+    return 0;
+  }
+
+  // Determine whether the term already exists
+  $terms = taxonomy_get_term_by_name($name, $vocabulary_machine_name);
+  foreach ($terms as $term) {
+    $parents = taxonomy_get_parents($term->tid);
+    foreach ($parents as $parent) {
+      if ($parent->name == $parent_name) {
+        break;
+      }
+    }
+  }
+  // If the term already exists, exit now.
+  if (!empty($term)) {
+    watchdog('commitees_custom', 'Term @term_name already exists.', array('@term_name' => $name), WATCHDOG_NOTICE);
+    return 4;
+  }
+  // Get the parent element
+  $parents = taxonomy_get_term_by_name($parent_name);
+  $parent_tid = NULL;
+  foreach ($parents as $parent) {
+    $parents_array = taxonomy_get_parents($parent->tid);
+    if (!empty($parents_array)) {
+      $parent_tid = $parent->tid;
+    }
+  }
+  // Create a new term object
+  $term = new stdClass();
+  $term->name = $name;
+  $term->vid = $vocabulary->vid;
+  $term->parent = $parent->tid;
+  // Save the term and return the result of the operation
+  $status = taxonomy_term_save($term);
+  watchdog('commitees_custom', '@operation taxonomy term @term_name.', array('@operation' => $status == SAVED_NEW ? t('Created') : t('Updated'), '@term_name' => $name));
+  return $status;
+}
+
+
+/**
+ * Helper function: ensures that file tags exist for each committee site
+ */
+function _commitees_custom_create_file_tags() {
+  // First get all published committees
+  $query = (new EntityFieldQuery())
+    ->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'committee_site')
+    ->propertyCondition('status', 1);
+  $result = $query->execute();
+  $nids = !empty($result['node']) ? array_keys($result['node']) : array();
+  $nodes = node_load_multiple($nids);
+  $pattern = "@^.*?\((.*?)\).*$@";
+  foreach ($nodes as $node) {
+    // For committees that have a set of initials, eg COT, use this as the term
+    // name, otherwise just use the title
+    $term_name = preg_match($pattern, $node->title) ? preg_replace($pattern, '$1', $node->title) : $node->title;
+    // Attempt to create a new file tag taxonomy term - if it doesn't exist
+    $result = _commitees_custom_create_file_tag($term_name);
+    $vars = array('@name' => $term_name);
+    $message_type = 'status';
+    switch ($result) {
+      case SAVED_NEW:
+        $message = t('Created new taxonomy term @name.', $vars);
+        break;
+      case SAVED_UPDATED:
+        $message = t('Updated taxonomy term @name.', $vars);
+        break;
+      case 4:
+        $message = t('Did not create taxonomy term @name as it already exists.', $vars);
+        break;
+      default:
+        $message = t('An error occurred creating taxonomy term @name', $vars);
+        break;
+    }
+
+    if (drupal_is_cli()) {
+      drush_print($message);
+    }
+    else {
+      drupal_set_message($message, $message_type);
+    }
+  }
+}
