@@ -7,11 +7,12 @@
 
 $color-header-background: #8dc8e8;
 $color-side-content-background: #0373af;
+$color-side-content-border: #0373af;
 
 $color-header-border: #0373af;
 $color-footer-border: #0373af;
 
-$color-section-heading-background: #418DB6;
+$color-section-heading-background: #0373af;
 
 $color-headings: #0373af;
 $color-links: #0373af;
@@ -336,12 +337,12 @@ ul.pager li a {
 
 /* featured side content blocks - first block */
 .featured-side-content li:first-child .field-collection-view {
-	border: 1px solid #87ceeb;
+	border: 1px solid $color-side-content-border;
 	background: $color-side-content-background;
 }
 /* featured side content blocks - second block internal content title */
 .featured-side-content .field--name-field-title-side-content-generic {
-	color: #87ceeb;
+	color: $color-headings;
 }
 
 /* science field  */

@@ -5,7 +5,7 @@
  * colour 4: #666699	- links, sidebar menu top border, page titles, section subheadings, page summary, quote text, views row borders, table headings, guidance highlight box border
  */
 /* page header and top border */
-/* line 30, ../sass/overrides.scss */
+/* line 31, ../sass/overrides.scss */
 .header-wrapper {
   filter: none;
   /* removes IE gradient filter */
@@ -16,93 +16,93 @@
 }
 
 /* breadcrumb region border */
-/* line 39, ../sass/overrides.scss */
+/* line 40, ../sass/overrides.scss */
 .breadcrumb-accessibility-wrapper {
   border-top: none;
 }
 
 /* page bottom borders */
-/* line 44, ../sass/overrides.scss */
+/* line 45, ../sass/overrides.scss */
 .main-wrapper {
   border-bottom: 4px solid #0373af;
 }
 
-/* line 47, ../sass/overrides.scss */
+/* line 48, ../sass/overrides.scss */
 .bottom-menu-wrapper {
   border-top: none;
 }
 
 /* site name */
-/* line 52, ../sass/overrides.scss */
+/* line 53, ../sass/overrides.scss */
 h1.site-name {
   display: none;
 }
 
 /* page title */
-/* line 57, ../sass/overrides.scss */
+/* line 58, ../sass/overrides.scss */
 h1 {
   color: #0373af;
 }
 
 /* content main */
-/* line 62, ../sass/overrides.scss */
+/* line 63, ../sass/overrides.scss */
 .main-content-inner {
   padding-bottom: 50px;
 }
 
 /* links */
-/* line 67, ../sass/overrides.scss */
+/* line 68, ../sass/overrides.scss */
 a,
 .page-section-teaser .node__title a {
   color: #0373af;
 }
 
-/* line 71, ../sass/overrides.scss */
+/* line 72, ../sass/overrides.scss */
 a:hover,
 .page-section-teaser .node__title a:hover {
   color: #0373af;
 }
 
 /* back to top links */
-/* line 77, ../sass/overrides.scss */
+/* line 78, ../sass/overrides.scss */
 .section-back-top a {
   color: #0373af;
   background: url("../images/arrow-up.png") left 4px no-repeat;
 }
 
 /* summary field */
-/* line 83, ../sass/overrides.scss */
+/* line 84, ../sass/overrides.scss */
 .field--name-field-summary,
 .views-field-field-summary {
   color: #0373af;
 }
 
 /* section headings */
-/* line 90, ../sass/overrides.scss */
+/* line 91, ../sass/overrides.scss */
 .page-section-heading {
-  background: #418DB6;
+  background: #0373af;
 }
 
 /* latest news view title */
-/* line 96, ../sass/overrides.scss */
+/* line 97, ../sass/overrides.scss */
 .committee-news h2.block__title,
 .committee-news h3.block__title {
-  background: #418DB6;
+  background: #0373af;
 }
 
 /* committee news node title */
-/* line 102, ../sass/overrides.scss */
+/* line 103, ../sass/overrides.scss */
 .committee-news .node__title a {
   color: #0373af;
 }
 
-/* line 105, ../sass/overrides.scss */
+/* line 106, ../sass/overrides.scss */
 .committee-news {
   font-size: 1em;
   margin-bottom: 1.3em;
 }
 
-/* line 109, ../sass/overrides.scss */
+/* line 110, ../sass/overrides.scss */
 .committee-news h3.node__title,
 .committee-news h3.node__title {
   font-size: 1.3em;
@@ -111,165 +111,165 @@ a:hover,
   font-weight: bold;
 }
 
-/* line 116, ../sass/overrides.scss */
+/* line 117, ../sass/overrides.scss */
 .committee-news .views-row {
   border-bottom: 1px solid #0373af;
   padding: 7px 0 7px 0;
 }
 
-/* line 120, ../sass/overrides.scss */
+/* line 121, ../sass/overrides.scss */
 .committee-news .views-row.views-row-first {
   padding: 0 0 7px 0;
 }
 
-/* line 123, ../sass/overrides.scss */
+/* line 124, ../sass/overrides.scss */
 .committee-news .views-row.views-row-last {
   border-bottom: none;
   padding: 7px 0 0 0;
 }
 
-/* line 127, ../sass/overrides.scss */
+/* line 128, ../sass/overrides.scss */
 .committee-news .views-row.views-row-first.views-row-last {
   padding: 0 0 0 0;
   border-bottom: none;
 }
 
 /* committee menu - see site front_frontent theme for the rest of the implementation */
-/* line 133, ../sass/overrides.scss */
+/* line 134, ../sass/overrides.scss */
 .l-sidebar-first .committee-menu {
   border-top: 4px solid #0373af;
 }
 
-/* line 136, ../sass/overrides.scss */
+/* line 137, ../sass/overrides.scss */
 .l-sidebar-first .committee-menu .menu-block-wrapper a.active,
 .l-sidebar-first .committee-menu .block__content a.active {
   color: #0373af;
 }
 
-/* line 140, ../sass/overrides.scss */
+/* line 141, ../sass/overrides.scss */
 .l-sidebar-first .committee-menu .menu-block-wrapper li.expanded > a,
 .l-sidebar-first .committee-menu .block__content li.expanded > a {
   color: #0373af;
 }
 
 /* pages section subheadings eg related media */
-/* line 146, ../sass/overrides.scss */
+/* line 147, ../sass/overrides.scss */
 .page-section-subheading {
   color: #0373af;
 }
 
 /* file item links in page sections */
-/* line 151, ../sass/overrides.scss */
+/* line 152, ../sass/overrides.scss */
 .page-section-teaser .file-item a {
   color: #0373af;
 }
 
 /* table of contents */
-/* line 156, ../sass/overrides.scss */
+/* line 157, ../sass/overrides.scss */
 #table-of-contents-links a {
   color: #0373af;
 }
 
-/* line 159, ../sass/overrides.scss */
+/* line 160, ../sass/overrides.scss */
 ul.toc-node-bullets li.toc-node-level-1 {
   background: url("../images/arrow-down.png") 0px 4px no-repeat;
 }
 
-/* line 162, ../sass/overrides.scss */
+/* line 163, ../sass/overrides.scss */
 ul.toc-node-bullets li.toc-node-level-2 {
   background: url("../images/arrow-down.png") 14px 4px no-repeat;
 }
 
-/* line 165, ../sass/overrides.scss */
+/* line 166, ../sass/overrides.scss */
 ul.toc-node-bullets li.toc-node-level-3 {
   background: url("../images/arrow-down.png") 28px 4px no-repeat;
 }
 
-/* line 168, ../sass/overrides.scss */
+/* line 169, ../sass/overrides.scss */
 ul.toc-node-bullets li.toc-node-level-4 {
   background: url("../images/arrow-down.png") 42px 4px no-repeat;
 }
 
-/* line 171, ../sass/overrides.scss */
+/* line 172, ../sass/overrides.scss */
 ul.toc-node-bullets li.toc-node-level-5 {
   background: url("../images/arrow-down.png") 56px 4px no-repeat;
 }
 
-/* line 174, ../sass/overrides.scss */
+/* line 175, ../sass/overrides.scss */
 ul.toc-node-bullets li.toc-node-level-6 {
   background: url("../images/arrow-down.png") 70px 4px no-repeat;
 }
 
 /* generic block titles */
-/* line 179, ../sass/overrides.scss */
+/* line 180, ../sass/overrides.scss */
 .generic-blocks .field--name-field-title-side-content-generic {
   color: #0373af;
 }
 
 /* see also block */
-/* line 184, ../sass/overrides.scss */
+/* line 185, ../sass/overrides.scss */
 .see-also h2.block__title {
   color: #0373af;
 }
 
-/* line 187, ../sass/overrides.scss */
+/* line 188, ../sass/overrides.scss */
 .see-also .views-field-title {
   background: url("../images/thin-right-arrow.png") left 3px no-repeat;
 }
 
-/* line 190, ../sass/overrides.scss */
+/* line 191, ../sass/overrides.scss */
 .see-also .views-field-title a {
   color: #0373af;
 }
 
 /* external links block */
-/* line 195, ../sass/overrides.scss */
+/* line 196, ../sass/overrides.scss */
 .external-sites h2.block__title {
   color: #0373af;
 }
 
-/* line 198, ../sass/overrides.scss */
+/* line 199, ../sass/overrides.scss */
 .external-sites .views-field-field-url a {
   color: #0373af;
 }
 
-/* line 201, ../sass/overrides.scss */
+/* line 202, ../sass/overrides.scss */
 .external-sites .views-field-field-url {
   background: url("../images/thin-right-arrow.png") left 3px no-repeat;
 }
 
 /* external sites with logos */
-/* line 206, ../sass/overrides.scss */
+/* line 207, ../sass/overrides.scss */
 .external-sites-with-logos .views-field-field-url a {
   color: #0373af;
 }
 
-/* line 209, ../sass/overrides.scss */
+/* line 210, ../sass/overrides.scss */
 .external-sites-with-logos .views-field-field-url {
   background: url("../images/thin-right-arrow.png") left 3px no-repeat;
 }
 
 /* accessibility */
-/* line 214, ../sass/overrides.scss */
+/* line 215, ../sass/overrides.scss */
 #accessTools li#accessListen .icon {
   background: url("../images/listen.png") 0 0 no-repeat;
 }
 
 /* external link */
-/* line 219, ../sass/overrides.scss */
+/* line 220, ../sass/overrides.scss */
 span.ext {
   background: url("../images/external-link-icon.png") right center no-repeat;
 }
 
 /* tables */
-/* line 224, ../sass/overrides.scss */
+/* line 225, ../sass/overrides.scss */
 .field--name-field-fc-section-body table,
 .field--name-body .field--type-text-with-summary table,
 .field--type-text-long table {
   border-top: 1px solid #0373af;
 }
 
-/* line 230, ../sass/overrides.scss */
+/* line 231, ../sass/overrides.scss */
 .field--name-field-fc-section-body th,
 .field--name-field-fc-section-body thead th,
 .field--name-field-fc-section-body thead td,
@@ -289,7 +289,7 @@ span.ext {
 }
 
 /* guidance highlight box */
-/* line 249, ../sass/overrides.scss */
+/* line 250, ../sass/overrides.scss */
 .field--name-field-fc-section-body .guidance,
 .field--name-body .field--type-text-with-summary .guidance,
 .field--type-text-long .guidance {
@@ -298,13 +298,13 @@ span.ext {
 }
 
 /* search results */
-/* line 257, ../sass/overrides.scss */
+/* line 258, ../sass/overrides.scss */
 .current-search-item-text .search-results-heading,
 .current-search-item-text h2.search-results-heading {
   background: #666699;
 }
 
-/* line 261, ../sass/overrides.scss */
+/* line 262, ../sass/overrides.scss */
 .views-field-zs-view-mode-search-result a,
 .views-field-zs-view-mode-search-results-2 a,
 .views-field-zs-view-mode-search-results-3 a,
@@ -318,7 +318,7 @@ span.ext {
   color: #0373af;
 }
 
-/* line 273, ../sass/overrides.scss */
+/* line 274, ../sass/overrides.scss */
 .views-field-zs-view-mode-search-result,
 .views-field-zs-view-mode-search-results-2,
 .views-field-zs-view-mode-search-results-3,
@@ -333,20 +333,20 @@ span.ext {
 }
 
 /* pager - pagenator */
-/* line 287, ../sass/overrides.scss */
+/* line 288, ../sass/overrides.scss */
 ul.pager li a {
   color: #0373af;
 }
 
 /* legacy CSS for tables from original old cot site */
-/* line 292, ../sass/overrides.scss */
+/* line 293, ../sass/overrides.scss */
 .cottable {
   float: left;
   width: 100%;
   margin: 2px 0 20px 0;
 }
 
-/* line 293, ../sass/overrides.scss */
+/* line 294, ../sass/overrides.scss */
 .cottable th, .cottable td {
   font-family: Arial, sans-serif;
   font-size: 85%;
@@ -355,13 +355,13 @@ ul.pager li a {
   border-bottom: 1px solid #fff;
 }
 
-/* line 294, ../sass/overrides.scss */
+/* line 295, ../sass/overrides.scss */
 .cottable thead th {
   color: #666;
   border-bottom: 1px solid #99cc99;
 }
 
-/* line 295, ../sass/overrides.scss */
+/* line 296, ../sass/overrides.scss */
 .cottable tbody th {
   text-align: left;
   vertical-align: top;
@@ -369,7 +369,7 @@ ul.pager li a {
   color: #666;
 }
 
-/* line 296, ../sass/overrides.scss */
+/* line 297, ../sass/overrides.scss */
 .cottable td {
   color: #666;
   text-align: left;
@@ -380,41 +380,41 @@ ul.pager li a {
   border-bottom: 1px solid #fff;
 }
 
-/* line 297, ../sass/overrides.scss */
+/* line 298, ../sass/overrides.scss */
 .cottable td.lastrow {
   border-bottom: none;
 }
 
-/* line 298, ../sass/overrides.scss */
+/* line 299, ../sass/overrides.scss */
 .cottable td a {
   color: #006633;
   text-decoration: none;
 }
 
-/* line 299, ../sass/overrides.scss */
+/* line 300, ../sass/overrides.scss */
 .cottable td a:hover {
   color: #003300;
 }
 
-/* line 300, ../sass/overrides.scss */
+/* line 301, ../sass/overrides.scss */
 .cottable td ul {
   margin: 0 0 0 14px;
   padding-left: 3px;
 }
 
-/* line 301, ../sass/overrides.scss */
+/* line 302, ../sass/overrides.scss */
 .cottable td ul li {
   font-size: 130%;
 }
 
-/* line 302, ../sass/overrides.scss */
+/* line 303, ../sass/overrides.scss */
 .cottablenoborder {
   float: left;
   width: 100%;
   margin: 2px 0 20px 0;
 }
 
-/* line 303, ../sass/overrides.scss */
+/* line 304, ../sass/overrides.scss */
 .cottablenoborder th, .cottablenoborder td {
   font-family: Arial, sans-serif;
   font-size: 75%;
@@ -423,57 +423,57 @@ ul.pager li a {
   border-bottom: 1px solid #fff;
 }
 
-/* line 304, ../sass/overrides.scss */
+/* line 305, ../sass/overrides.scss */
 .cottablenoborder td a {
   color: #d56633;
   text-decoration: none;
 }
 
-/* line 305, ../sass/overrides.scss */
+/* line 306, ../sass/overrides.scss */
 .cottablenoborder td a:hover {
   color: #d56633;
   text-decoration: underline;
 }
 
-/* line 306, ../sass/overrides.scss */
+/* line 307, ../sass/overrides.scss */
 .cottablenoborder td ul {
   margin: 0 0 0 14px;
   padding-left: 3px;
 }
 
 /* foodbase links */
-/* line 309, ../sass/overrides.scss */
+/* line 310, ../sass/overrides.scss */
 .foodbase-links h2.block__title,
 .foodbase-links h3.block__title,
 .foodbase-links .block__title {
   color: #0373af;
 }
 
-/* line 314, ../sass/overrides.scss */
+/* line 315, ../sass/overrides.scss */
 .foodbase-links .views-field-field-url a {
   color: #0373af;
 }
 
-/* line 317, ../sass/overrides.scss */
+/* line 318, ../sass/overrides.scss */
 .foodbase-links .views-field-field-url {
   background: url("../images/thin-right-arrow.png") left 3px no-repeat;
 }
 
 /* quote box in page sections */
-/* line 322, ../sass/overrides.scss */
+/* line 323, ../sass/overrides.scss */
 .field--name-field-fc-section-quote {
   background-color: #eaeaea;
   color: #666699;
 }
 
-/* line 326, ../sass/overrides.scss */
+/* line 327, ../sass/overrides.scss */
 .field--name-field-fc-section-quote .field__items {
   background-image: url("../images/quote-top-left.png");
   background-repeat: no-repeat;
   background-position: top left;
 }
 
-/* line 331, ../sass/overrides.scss */
+/* line 332, ../sass/overrides.scss */
 .field--name-field-fc-section-quote .field__items .field__item {
   background-image: url("../images/quote-bottom-right.png");
   background-repeat: no-repeat;
@@ -481,39 +481,39 @@ ul.pager li a {
 }
 
 /* featured side content blocks - first block */
-/* line 338, ../sass/overrides.scss */
+/* line 339, ../sass/overrides.scss */
 .featured-side-content li:first-child .field-collection-view {
-  border: 1px solid #87ceeb;
+  border: 1px solid #0373af;
   background: #0373af;
 }
 
 /* featured side content blocks - second block internal content title */
-/* line 343, ../sass/overrides.scss */
+/* line 344, ../sass/overrides.scss */
 .featured-side-content .field--name-field-title-side-content-generic {
-  color: #87ceeb;
+  color: #0373af;
 }
 
 /* science field  */
-/* line 348, ../sass/overrides.scss */
+/* line 349, ../sass/overrides.scss */
 .field--name-field-science-data h2,
 .field--name-field-science-data h3,
 .field--name-field-science-data .field__label {
   color: #666699;
 }
 
-/* line 353, ../sass/overrides.scss */
+/* line 354, ../sass/overrides.scss */
 .field--name-field-science-data {
   border: 1px solid #666699;
 }
 
 /* science inline class applied using ckeditor */
-/* line 358, ../sass/overrides.scss */
+/* line 359, ../sass/overrides.scss */
 .science,
 .moreInfo {
   border: 1px solid #666699;
 }
 
-/* line 362, ../sass/overrides.scss */
+/* line 363, ../sass/overrides.scss */
 .science h2,
 .science h3,
 .moreInfo h2,
@@ -522,7 +522,7 @@ ul.pager li a {
 }
 
 /* inline section heading applied using ckeditor */
-/* line 370, ../sass/overrides.scss */
+/* line 371, ../sass/overrides.scss */
 .inline-section-heading,
 h2.inline-section-heading,
 h3.inline-section-heading {
@@ -530,19 +530,19 @@ h3.inline-section-heading {
 }
 
 /* meetings table - meetings listing */
-/* line 378, ../sass/overrides.scss */
+/* line 379, ../sass/overrides.scss */
 .meetings-table table caption h2,
 .meetings-table table caption h3 {
   background: #7f81c4;
 }
 
-/* line 382, ../sass/overrides.scss */
+/* line 383, ../sass/overrides.scss */
 .meetings-table table tr {
   border-bottom: 1px solid #0373af;
 }
 
 /* webform */
-/* line 388, ../sass/overrides.scss */
+/* line 389, ../sass/overrides.scss */
 .webfrom-node-template .field--name-body h2 {
   color: #0373af;
 }
@@ -551,40 +551,40 @@ h3.inline-section-heading {
 /* print styling overrides */
 @media print {
   /* page title */
-  /* line 398, ../sass/overrides.scss */
+  /* line 399, ../sass/overrides.scss */
   h1 {
     color: #000;
   }
 
   /* links */
-  /* line 402, ../sass/overrides.scss */
+  /* line 403, ../sass/overrides.scss */
   a,
   .page-section-teaser .node__title a {
     color: #000;
   }
 
   /* back to top links */
-  /* line 407, ../sass/overrides.scss */
+  /* line 408, ../sass/overrides.scss */
   .section-back-top {
     display: none;
   }
 
   /* summary field */
-  /* line 411, ../sass/overrides.scss */
+  /* line 412, ../sass/overrides.scss */
   .field--name-field-summary,
   .views-field-field-summary {
     color: #000;
   }
 
   /* section headings */
-  /* line 416, ../sass/overrides.scss */
+  /* line 417, ../sass/overrides.scss */
   .page-section-heading {
     background: none;
     background-color: transparent;
   }
 
   /* latest news view title */
-  /* line 421, ../sass/overrides.scss */
+  /* line 422, ../sass/overrides.scss */
   .committee-news h2.block__title,
   .committee-news h3.block__title {
     background: none;
@@ -592,49 +592,49 @@ h3.inline-section-heading {
   }
 
   /* committee news node title */
-  /* line 426, ../sass/overrides.scss */
+  /* line 427, ../sass/overrides.scss */
   .committee-news .node__title a {
     color: #000;
   }
 
-  /* line 429, ../sass/overrides.scss */
+  /* line 430, ../sass/overrides.scss */
   .committee-news .views-row {
     border-bottom: none;
   }
 
   /* pages section subheadings eg related media */
-  /* line 433, ../sass/overrides.scss */
+  /* line 434, ../sass/overrides.scss */
   .page-section-subheading {
     color: #000;
   }
 
   /* file item links in page sections */
-  /* line 437, ../sass/overrides.scss */
+  /* line 438, ../sass/overrides.scss */
   .page-section-teaser .file-item a {
     color: #000;
   }
 
   /* table of contents */
-  /* line 441, ../sass/overrides.scss */
+  /* line 442, ../sass/overrides.scss */
   #table-of-contents-links a {
     color: #000;
   }
 
   /* generic block titles */
-  /* line 445, ../sass/overrides.scss */
+  /* line 446, ../sass/overrides.scss */
   .generic-blocks .field--name-field-title-side-content-generic {
     color: #000;
   }
 
   /* tables */
-  /* line 449, ../sass/overrides.scss */
+  /* line 450, ../sass/overrides.scss */
   .field--name-field-fc-section-body table,
   .field--name-body .field--type-text-with-summary table,
   .field--type-text-long table {
     border-top: 1px solid #000;
   }
 
-  /* line 454, ../sass/overrides.scss */
+  /* line 455, ../sass/overrides.scss */
   .field--name-field-fc-section-body th,
   .field--name-field-fc-section-body thead th,
   .field--name-field-fc-section-body thead td,
@@ -654,7 +654,7 @@ h3.inline-section-heading {
   }
 
   /* guidance highlight box */
-  /* line 472, ../sass/overrides.scss */
+  /* line 473, ../sass/overrides.scss */
   .field--name-field-fc-section-body .guidance,
   .field--name-body .field--type-text-with-summary .guidance,
   .field--type-text-long .guidance {
@@ -664,13 +664,13 @@ h3.inline-section-heading {
   }
 
   /* search results */
-  /* line 480, ../sass/overrides.scss */
+  /* line 481, ../sass/overrides.scss */
   .current-search-item-text .search-results-heading,
   .current-search-item-text h2.search-results-heading {
     background: #000;
   }
 
-  /* line 484, ../sass/overrides.scss */
+  /* line 485, ../sass/overrides.scss */
   .views-field-zs-view-mode-search-result a,
   .views-field-zs-view-mode-search-results-2 a,
   .views-field-zs-view-mode-search-results-3 a,
@@ -684,7 +684,7 @@ h3.inline-section-heading {
     color: #000;
   }
 
-  /* line 496, ../sass/overrides.scss */
+  /* line 497, ../sass/overrides.scss */
   .views-field-zs-view-mode-search-result,
   .views-field-zs-view-mode-search-results-2,
   .views-field-zs-view-mode-search-results-3,
@@ -699,39 +699,39 @@ h3.inline-section-heading {
   }
 
   /* foodbase links */
-  /* line 509, ../sass/overrides.scss */
+  /* line 510, ../sass/overrides.scss */
   .foodbase-links h2.block__title,
   .foodbase-links h3.block__title,
   .foodbase-links .block__title {
     color: #000;
   }
 
-  /* line 514, ../sass/overrides.scss */
+  /* line 515, ../sass/overrides.scss */
   .foodbase-links .views-field-field-url a {
     color: #000;
   }
 
   /* science field  */
-  /* line 518, ../sass/overrides.scss */
+  /* line 519, ../sass/overrides.scss */
   .field--name-field-science-data h2,
   .field--name-field-science-data h3,
   .field--name-field-science-data .field__label {
     color: #000;
   }
 
-  /* line 523, ../sass/overrides.scss */
+  /* line 524, ../sass/overrides.scss */
   .field--name-field-science-data {
     border: 1px solid #000;
   }
 
   /* science inline class applied using ckeditor */
-  /* line 527, ../sass/overrides.scss */
+  /* line 528, ../sass/overrides.scss */
   .science,
   .moreInfo {
     border: 1px solid #000;
   }
 
-  /* line 531, ../sass/overrides.scss */
+  /* line 532, ../sass/overrides.scss */
   .science h2,
   .science h3,
   .moreInfo h2,
@@ -740,7 +740,7 @@ h3.inline-section-heading {
   }
 
   /* inline section heading applied using ckeditor */
-  /* line 538, ../sass/overrides.scss */
+  /* line 539, ../sass/overrides.scss */
   .inline-section-heading,
   h2.inline-section-heading,
   h3.inline-section-heading {
@@ -749,7 +749,7 @@ h3.inline-section-heading {
   }
 
   /* meetings table - meetings listing */
-  /* line 545, ../sass/overrides.scss */
+  /* line 546, ../sass/overrides.scss */
   .meetings-table table caption h2,
   .meetings-table table caption h3 {
     background: none;
@@ -757,7 +757,7 @@ h3.inline-section-heading {
     border-top: 1px solid #000;
   }
 
-  /* line 551, ../sass/overrides.scss */
+  /* line 552, ../sass/overrides.scss */
   .meetings-table table tr {
     border-bottom: 1px solid #000;
   }
