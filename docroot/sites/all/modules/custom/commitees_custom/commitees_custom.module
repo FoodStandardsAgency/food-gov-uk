@@ -414,3 +414,179 @@ function _commitees_custom_load_users_by_role($rid) {
   $users = !empty($uids) ? user_load_multiple($uids) : array();
   return $users;
 }
+
+
+/**
+ * Implements hook_committee_domains().
+ *
+ * We use this hook to provide additional committee domain mappings based on
+ * theme settings from the committee sub-themes.
+ *
+ * The theme setting `committee_domains` can be used within a theme's .info
+ * file to add additional mappings, eg:
+ *
+ * @code
+ * settings[committee_domains][] = science-council.food.gov.uk
+ * settings[committee_domains][] = science-council.local.food.gov.uk
+ * @endcode
+ *
+ * @see _local_committee_domains()
+ */
+function commitees_custom_committee_domains() {
+
+  // Get a list of committee site items
+  $results = (new EntityFieldQuery())
+    ->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'committee_site')
+    ->propertyCondition('status', 1)
+    ->execute();
+  // Get the node IDs
+  $nids = !empty($results['node']) && is_array($results['node']) ? array_keys($results['node']) : array();
+  // Load the nodes
+  $nodes = node_load_multiple($nids);
+  $themes = array();
+  // Get the themes associated with the committee sites
+  foreach ($nodes as $node) {
+    $wrapper = entity_metadata_wrapper('node', $node);
+    $theme = $wrapper->__isset('group_theme') && strpos($wrapper->group_theme->value(), 'committee') === 0 ? $wrapper->group_theme->value() : NULL;
+    if (!empty($theme)) {
+      $themes[] = array(
+        'theme' => $theme,
+        'path' => drupal_get_path_alias('node/' . $node->nid),
+      );
+    }
+  }
+  $domains = array();
+  // For each theme, see whether there's a theme setting for committee_domains
+  foreach ($themes as $theme) {
+    $settings = theme_get_setting('committee_domains', $theme['theme']);
+    if (is_array($settings)) {
+      foreach ($settings as $setting) {
+        $domains[$setting] = $theme['path'];
+      }
+    }
+  }
+  if (!empty($domains)) {
+    return $domains;
+  }
+}
+
+
+/**
+ * Helper function: creates file tag taxonomy term for committees
+ *
+ * @param string $name
+ *   The name of the taxonomy term
+ *
+ * @param string $parent_name
+ *   (optional) The name of the parent taxonomy term under which this term
+ *   should be created. Defaults to 'Committee papers'
+ *
+ * @param string $vocabulary_machine_name
+ *   (optional) The machine name of the vocabulary in which the term will be
+ *   created. Defaults to 'file_tags'.
+ *
+ * @return integer
+ *   SAVED_NEW:     A new taxonomy term has been successfully created
+ *   SAVED_UPDATED: A taxonomy term has been updated (not used)
+ *   4:             Taxonomy term already exists - no action taken
+ *   0:             An error occurred
+ */
+function _commitees_custom_create_file_tag($name, $parent_name = 'Committee papers', $vocabulary_machine_name = 'file_tags') {
+  $term = 0;
+  // No name, nothing to do here
+  if (empty($name)) {
+    return $term;
+  }
+  $vocabulary = taxonomy_vocabulary_machine_name_load($vocabulary_machine_name);
+  if (empty($vocabulary) || empty($vocabulary->vid)) {
+    watchdog('commitees_custom', 'Vocabuary @vocabulary_machine_name not found.', array('@vocabulary_machine_name' => $vocabulary_machine_name), WATCHDOG_ERROR);
+    return $term;
+  }
+  // Check whether a parent term matching the specified name exists
+  $parent_term = taxonomy_get_term_by_name($parent_name, $vocabulary_machine_name);
+  if (empty($parent_term) && !empty($parent_name)) {
+    watchdog('commitees_custom', 'No parent term with the name @parent_name could be found.', array('@parent_name' => $parent_name));
+    return 0;
+  }
+
+  // Determine whether the term already exists
+  $terms = taxonomy_get_term_by_name($name, $vocabulary_machine_name);
+  foreach ($terms as $term) {
+    $parents = taxonomy_get_parents($term->tid);
+    foreach ($parents as $parent) {
+      if ($parent->name == $parent_name) {
+        break;
+      }
+    }
+  }
+  // If the term already exists, exit now.
+  if (!empty($term)) {
+    watchdog('commitees_custom', 'Term @term_name already exists.', array('@term_name' => $name), WATCHDOG_NOTICE);
+    return 4;
+  }
+  // Get the parent element
+  $parents = taxonomy_get_term_by_name($parent_name);
+  $parent_tid = NULL;
+  foreach ($parents as $parent) {
+    $parents_array = taxonomy_get_parents($parent->tid);
+    if (!empty($parents_array)) {
+      $parent_tid = $parent->tid;
+    }
+  }
+  // Create a new term object
+  $term = new stdClass();
+  $term->name = $name;
+  $term->vid = $vocabulary->vid;
+  $term->parent = $parent->tid;
+  // Save the term and return the result of the operation
+  $status = taxonomy_term_save($term);
+  watchdog('commitees_custom', '@operation taxonomy term @term_name.', array('@operation' => $status == SAVED_NEW ? t('Created') : t('Updated'), '@term_name' => $name));
+  return $status;
+}
+
+
+/**
+ * Helper function: ensures that file tags exist for each committee site
+ */
+function _commitees_custom_create_file_tags() {
+  // First get all published committees
+  $query = (new EntityFieldQuery())
+    ->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'committee_site')
+    ->propertyCondition('status', 1);
+  $result = $query->execute();
+  $nids = !empty($result['node']) ? array_keys($result['node']) : array();
+  $nodes = node_load_multiple($nids);
+  $pattern = "@^.*?\((.*?)\).*$@";
+  foreach ($nodes as $node) {
+    // For committees that have a set of initials, eg COT, use this as the term
+    // name, otherwise just use the title
+    $term_name = preg_match($pattern, $node->title) ? preg_replace($pattern, '$1', $node->title) : $node->title;
+    // Attempt to create a new file tag taxonomy term - if it doesn't exist
+    $result = _commitees_custom_create_file_tag($term_name);
+    $vars = array('@name' => $term_name);
+    $message_type = 'status';
+    switch ($result) {
+      case SAVED_NEW:
+        $message = t('Created new taxonomy term @name.', $vars);
+        break;
+      case SAVED_UPDATED:
+        $message = t('Updated taxonomy term @name.', $vars);
+        break;
+      case 4:
+        $message = t('Did not create taxonomy term @name as it already exists.', $vars);
+        break;
+      default:
+        $message = t('An error occurred creating taxonomy term @name', $vars);
+        break;
+    }
+
+    if (drupal_is_cli()) {
+      drush_print($message);
+    }
+    else {
+      drupal_set_message($message, $message_type);
+    }
+  }
+}

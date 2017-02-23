@@ -18,3 +18,19 @@ function commitees_custom_update_7001() {
     watchdog('committees_custom', 'Failed to create role @rolename.', array('@rolename' => $role->name), WATCHDOG_ERROR);
   }
 }
+
+
+/**
+ * Enables the Science Council committee theme
+ */
+function commitees_custom_update_7003() {
+  theme_enable(array('committee_science_council'));
+}
+
+
+/**
+ * Creates new taxonomy terms for committee items
+ */
+function commitees_custom_update_7004() {
+  _commitees_custom_create_file_tags();
+}

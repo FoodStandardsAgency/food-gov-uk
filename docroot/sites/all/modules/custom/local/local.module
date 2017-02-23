@@ -106,16 +106,7 @@ function local_url_inbound_alter(&$path, $original_path, $path_language) {
   if (!REWRITE_COMMITTEE_URLS) return; // short circuit rewriting if disabled
   // map committee domain to the path.
   // do not include leading or trailing slash
-  $path_domains = array(
-    'cot.food.gov.uk' => 'committee/committee-on-toxicity',
-    'cot.staging.food.gov.uk' => 'committee/committee-on-toxicity',
-    'acmsf.food.gov.uk' => 'committee/acmsf',
-    'acnfp.food.gov.uk'=> 'committee/acnfp',
-    'acaf.food.gov.uk' => 'committee/acaf',
-    'acaf.staging.food.gov.uk' => 'committee/acaf',
-    'gacs.food.gov.uk'=> 'committee/gacs',
-    'ssrc.food.gov.uk'=> 'committee/social-science-research-committee-ssrc',
-  );
+  $path_domains = _local_committee_domains();
   // if $_SERVER['HTTP_HOST'] is one of the path domains, rewrite the path
 
   if (in_array($_SERVER['HTTP_HOST'], array_keys($path_domains))) {
@@ -151,14 +142,7 @@ function local_url_outbound_alter(&$path, &$options, $original_path) {
   if (!REWRITE_COMMITTEE_URLS) return; // short circuit rewriting if disabled
   global $user;
   $site_domain = local_get_site_domain();
-  $path_domains = array(
-    'cot.food.gov.uk' => 'committee/committee-on-toxicity',
-    'acmsf.food.gov.uk' => 'committee/acmsf',
-    'acnfp.food.gov.uk'=> 'committee/acnfp',
-    'acaf.food.gov.uk' => 'committee/acaf',
-    'gacs.food.gov.uk'=> 'committee/gacs',
-    'ssrc.food.gov.uk'=> 'committee/social-science-research-committee-ssrc',
-  );
+  $path_domains = _local_committee_domains();
   // only do this for non-auth users
   if (!$user->uid && !$options['external'] && !$options['absolute']) {
     // if we are already on one of the committee domains
@@ -428,16 +412,7 @@ function local_siteimprove_editing_page_options_alter(&$editing_page_options) {
 function local_national_archives_site_url_alter(&$site_url, &$url) {
 
   // An array of committee domains mapped to site paths.
-  // @todo As this is used in multiple places in this module, create a helper
-  //   function to return it. That will make management easier in future.
-  $path_domains = array(
-    'cot.food.gov.uk' => 'committee/committee-on-toxicity',
-    'acmsf.food.gov.uk' => 'committee/acmsf',
-    'acnfp.food.gov.uk'=> 'committee/acnfp',
-    'acaf.food.gov.uk' => 'committee/acaf',
-    'gacs.food.gov.uk'=> 'committee/gacs',
-    'ssrc.food.gov.uk'=> 'committee/social-science-research-committee-ssrc',
-  );
+  $path_domains = _local_committee_domains();
 
   // Flip the committee domains array so that the keys become the values and
   // vice-versa. We adopt this approach, rather than simply creating the array
@@ -478,14 +453,31 @@ function local_national_archives_site_url_alter(&$site_url, &$url) {
  *   Array of committee domains and their associated paths.
  */
 function _local_committee_domains() {
-  $committee_domains = array(
-    'cot.food.gov.uk' => 'committee/committee-on-toxicity',
-    'acmsf.food.gov.uk' => 'committee/acmsf',
-    'acnfp.food.gov.uk'=> 'committee/acnfp',
-    'acaf.food.gov.uk' => 'committee/acaf',
-    'gacs.food.gov.uk'=> 'committee/gacs',
-    'ssrc.food.gov.uk'=> 'committee/social-science-research-committee-ssrc',
-  );
+  // Use drupal_static() to avoid repeat calls
+  $committee_domains = &drupal_static(__FUNCTION__);
+  if (!isset($committee_domains)) {
+    // Get the domain mappings from cache if populated
+    if ($cache = cache_get('local_committee_domains')) {
+      $committee_domains = $cache->data;
+    }
+    else {
+      // An array of default domain mappings
+      $committee_domains = array(
+        'cot.food.gov.uk' => 'committee/committee-on-toxicity',
+        'acmsf.food.gov.uk' => 'committee/acmsf',
+        'acnfp.food.gov.uk'=> 'committee/acnfp',
+        'acaf.food.gov.uk' => 'committee/acaf',
+        'gacs.food.gov.uk'=> 'committee/gacs',
+        'ssrc.food.gov.uk'=> 'committee/social-science-research-committee-ssrc',
+      );
+      // Allow other modules to provide committee domain mappings
+      $committee_domains += module_invoke_all('committee_domains');
+      // Allow other modules to alter the committee domain mappings
+      drupal_alter('committee_domains', $committee_domains);
+      // Store the mappings in the cache to avoid repeat calls
+      cache_set('local_committee_domains', $committee_domains, 'cache');
+    }
+  }
   return $committee_domains;
 }
 
