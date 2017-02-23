@@ -30,3 +30,37 @@ function fsa_feedback_update_7003() {
   _fsa_feedback_import_translations('cy');
   _fsa_feedback_variable_setup();
 }
+
+
+/**
+ * Enables the Mollom module
+ */
+function fsa_feedback_update_7004() {
+  module_enable(array('mollom'));
+}
+
+
+/**
+ * Enables Mollom protection for the feedback form
+ */
+function fsa_feedback_update_7005() {
+$mollom_form = mollom_form_new('feedback_form');
+  $mollom_form['mode'] = 2;
+  $mollom_form['checks'] = array('spam');
+  $mollom_form['enabled_fields'] = array(
+    'doing',
+    'wrong',
+  );
+  $success = mollom_form_save($mollom_form);
+  if (!$success) {
+    throw new DrupalUpdateException('Cannot add Mollom Captcha to the Feedback form.');
+  }
+}
+
+
+/**
+ * Sets the feedback form to compare fields by default
+ */
+function fsa_feedback_update_7006() {
+  variable_set('fsa_feedback_form_validation_compare_fields', TRUE);
+}
