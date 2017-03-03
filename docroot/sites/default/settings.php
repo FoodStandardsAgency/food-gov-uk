@@ -335,7 +335,7 @@ fast_404_ext_check();
 
 
 if (strpos($_GET['q'], 'admin') === 0) {
-  ini_set('memory_limit', '512M');
+  ini_set('memory_limit', '700M');
   ini_set('max_execution_time', 120);
 }
 
