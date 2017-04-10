@@ -1278,7 +1278,7 @@ function fsa_report_problem_report_local_authority_form_submit(&$form, &$form_st
     case 'postcode':
       $postcode = !empty($form_state['values']['postcode']) ? $form_state['values']['postcode'] : '';
       try {
-        $la = fsa_report_problem_get_local_authority_by_postcode($postcode);
+        $la = fsa_report_problem_get_local_authority_by_postcode($postcode, 'report_problem_form');
         $area_id = $la['id'];
       }
       catch (MapItApiException $e) {
