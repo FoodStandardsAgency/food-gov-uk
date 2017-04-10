@@ -189,7 +189,7 @@ function fsa_report_problem_make_report_form_submit($form, &$form_state) {
     $postcode = !empty($form_state['values']['business_postcode']) ? _fsa_report_problem_format_postcode($form_state['values']['business_postcode']) : NULL;
     // If we have a valid postcode, let's look up the local authority
     if (!empty($postcode) && _fsa_report_problem_valid_postcode($postcode)) {
-      $local_authority = fsa_report_problem_get_local_authority_by_postcode($postcode);
+      $local_authority = fsa_report_problem_get_local_authority_by_postcode($postcode, 'report_problem_form');
       $area_id = !empty($local_authority['id']) ? $local_authority['id'] : 0;
       // If we have a local authority, set the submission value to it so that
       // we can use it on the report complete form.
