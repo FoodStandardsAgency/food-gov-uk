@@ -47,3 +47,55 @@ function sitewide_feature_query_entityreference_alter(QueryAlterableInterface $q
     }
   }
 }
+
+
+/**
+ * Implements hooK_redirect_alter($redirect)
+ *
+ * We use this hook to replace redirects to the old version of National Archives
+ * links with the new URL.
+ */
+function sitewide_feature_redirect_alter($redirect) {
+  $redirect->redirect = _sitewide_feature_national_archives_url_update($redirect->redirect);
+}
+
+
+/**
+ * Implements template_preprocess_field().
+ *
+ * We use this hook to replace old-style National Archives URLs stored in the
+ * field_url field used on external_link nodes with the new version of the URL.
+ */
+function sitewide_feature_preprocess_field(&$variables) {
+  // Get the element
+  $element = !empty($variables['element']) ? $variables['element'] : array();
+  // Get the field name
+  $field_name = !empty($element['#field_name']) ? $element['#field_name'] : NULL;
+  // If the field name is other than 'field_url', leave now
+  if ($field_name != 'field_url') {
+    return;
+  }
+  // Get the field items
+  $items = !empty($variables['items']) ? $variables['items'] : array();
+  // Replace the URL
+  foreach ($items as $key => $item) {
+    $variables['items'][$key]['#element']['url'] = _sitewide_feature_national_archives_url_update($item['#element']['url']);
+    $variables['items'][$key]['#element']['display_url'] = _sitewide_feature_national_archives_url_update($item['#element']['display_url']);
+  }
+}
+
+
+/**
+ * Helper function: replace old-styls National Archives URLs with new versions
+ */
+function _sitewide_feature_national_archives_url_update($url) {
+  // This is hte old National Archives URL
+  $old_domain = 'http://tna.europarchive.org';
+  // And this is the new one
+  $new_domain = 'http://webarchive.nationalarchives.gov.uk';
+  // Replace the old with the new in the URL and display URL elements
+  if (strpos($url, $old_domain) !== FALSE) {
+    $url = str_replace($old_domain, $new_domain, $url);
+  }
+  return $url;
+}
