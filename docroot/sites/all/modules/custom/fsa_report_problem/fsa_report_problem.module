@@ -1506,6 +1506,7 @@ function fsa_report_problem_mail($key, &$message, $params) {
     case 'report_forward':
       $message['body'][] = $params['message'];
       $message['subject'] = $params['subject'];
+      $message['headers']['Return-Path'] = $message['from'];
       break;
 
     case 'acknowledgement':
