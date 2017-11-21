@@ -1480,7 +1480,9 @@ function fsa_report_problem_mail($key, &$message, $params) {
 
       // Add a custom header to allow mail to be dropped by Postfix based on the
       // sender email
-      $message['headers']['X-Reporter'] = $message['from'];
+      if (!empty($report->reporter_email)) {
+        $message['headers']['X-Reporter'] = $report->reporter_email;
+      }
 
       // If we have a reply-to header for this email, use it
       if (!empty($message_details['reply_to_email'])) {
