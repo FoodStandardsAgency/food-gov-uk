@@ -9,14 +9,18 @@
 <!-- begin site-frontend-blank-one-column-layout.tpl.php -->
 
 <div class="l-page blank">
-	
+
+  <?php if (!empty($page['header_top_banner'])): ?>
+    <?php print render($page['header_top_banner']); ?>
+  <?php endif; ?>
+
   <div class="main-wrapper">
     <div class="l-main">
 	  <div class="main-inner">
-		
+
         <div id="main-content" class="l-content" role="main">
 	      <div class="main-content-inner">
-		
+
 	          <?php print render($page['highlighted']); ?>
 
 	          <?php if ($page['content_top']): ?>
@@ -48,7 +52,7 @@
 
           </div> <!-- end main-content-inner -->
         </div> <!-- end l-content -->
-		
+
       </div> <!-- end main-inner -->
     </div> <!-- end main -->
   </div> <!-- end main-wrapper -->
@@ -56,4 +60,3 @@
 </div> <!-- end l-page -->
 
 <!-- end site-frontend-blank-one-column-layout.tpl.php -->
-

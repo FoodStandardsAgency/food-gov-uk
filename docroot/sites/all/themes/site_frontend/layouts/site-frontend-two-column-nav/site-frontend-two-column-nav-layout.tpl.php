@@ -12,6 +12,10 @@
 <!-- begin site-frontend-two-column-nav-layout.tpl.php -->
 <div class="l-page">
 
+  <?php if (!empty($page['header_top_banner'])): ?>
+    <?php print render($page['header_top_banner']); ?>
+  <?php endif; ?>
+
   <div class="header-wrapper">
     <div class="header-wrapper-inner">
       <header class="l-header" role="banner">
@@ -217,4 +221,3 @@
 </div> <!-- end l-page -->
 
 <!-- end site-frontend-two-column-nav-layout.tpl.php -->
-
