@@ -1,0 +1,61 @@
+@import "compass";
+
+// Paddings and widths
+$padding-vertical: 28px;
+$padding-horizontal: 20px;
+$border-width: 2px;
+$page-width: 960px;
+$page-padding: 20px;
+
+// Breakpoints
+$breakpoint-small: 480px;
+$breakpoint-medium: $page-width + (2 * $page-padding);
+
+// Colours
+$color-text: #2A0247;
+$color-link-underline: #6CB33F;
+$color-link-underline-hover: #007C75;
+$color-banner-background: #DBE0E4;
+$color-banner-background-alpha: 0.85;
+
+// Fonts
+$font-stack: Open Sans, Helvetica, Arial, sans-serif;
+
+.block--fsa-beta-banner {
+  background-color: $color-banner-background;
+  background-image: image-url('fsa_pattern.svg');
+  .block__content {
+    background-color: rgba($color-banner-background, $color-banner-background-alpha);
+    // We start with less vertical padding than we require on wider viewports so
+    // that we don't take up too much room on handheld devices
+    padding: $padding-vertical - 16px $padding-horizontal $padding-vertical - $border-width - 10px $padding-horizontal;
+    // For wider viewports, we increase vertical padding
+    @media screen and (min-width: $breakpoint-small) {
+      padding-top: $padding-vertical;
+      padding-bottom: $padding-vertical - $border-width;
+    }
+    // For viewports wider than the fixed screen width, we remove horizontal
+    // padding.
+    @media screen and (min-width: $breakpoint-medium) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .beta-link {
+      margin: 0 auto 0 auto;
+      width: $page-width;
+      a {
+        border-bottom: $border-width solid $color-link-underline;
+        color: $color-text;
+        display: inline-block;
+        font-family: $font-stack;
+        font-size: 1.9em;
+        line-height: initial;
+        padding-bottom: 0.1em;
+        &:hover, &:active, &:focus {
+          border-bottom-color: $color-link-underline-hover;
+          text-decoration: none !important;
+        }
+      }
+    }
+  }
+}

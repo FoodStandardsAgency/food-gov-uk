@@ -4,6 +4,7 @@ template = site-frontend-two-column-layout
 preview = preview.png
 
 ; Regions - these also need to exist in site_frontend.info
+regions[header_top_banner] = Top banner
 regions[header_branding] = Header Branding
 regions[header_top_menu] = Header Top Menu
 regions[header_search] = Header Search

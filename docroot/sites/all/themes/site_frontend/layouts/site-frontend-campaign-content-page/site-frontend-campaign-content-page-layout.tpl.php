@@ -9,6 +9,10 @@
 
 <div class="l-page layout--site-frontend-campaign-content-page">
 
+  <?php if (!empty($page['header_top_banner'])): ?>
+    <?php print render($page['header_top_banner']); ?>
+  <?php endif; ?>
+
   <div class="header-wrapper">
     <div class="header-wrapper-inner">
       <header class="l-header" role="banner">
