@@ -594,3 +594,14 @@ function fsa_report_problem_update_7018() {
   // class as it allows us to add attachment
   mailsystem_set(array('fsa_report_problem_weekly_report' => 'MimeMailSystem'));
 }
+
+
+/**
+ * Enables the beta banner module
+ */
+function fsa_report_problem_update_7019() {
+  // This enables the beta banner module. We put this here for the sake of
+  // convenience only - it has nothing to do with the functionality of this
+  // module - it is just here to avoid a manual step on deployment.
+  module_enable(array('fsa_beta_banner'));
+}
