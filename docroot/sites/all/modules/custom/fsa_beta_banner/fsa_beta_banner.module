@@ -36,6 +36,10 @@ function fsa_beta_banner_block_view($delta = '') {
           '#type' => 'link',
           '#title' => variable_get('fsa_beta_banner_text', t('Try our new food.gov.uk website')),
           '#href' => variable_get('fsa_beta_banner_href', 'https://beta.food.gov.uk'),
+          '#attributes' => array(
+            'target' => '_blank',
+            'title' => t('Visit the new beta.food.gov.uk site - opens in a new window'),
+          ),
         );
         // @todo Use '#attached' to do this instead
         drupal_add_css(drupal_get_path('module', 'fsa_beta_banner') . '/css/beta-banner.css');
