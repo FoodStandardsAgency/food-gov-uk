@@ -1,0 +1,63 @@
+<?php
+/**
+ * @file Module code for the FSA beta banner module
+ */
+
+
+ /**
+  * Implements hook_block_info().
+  */
+function fsa_beta_banner_block_info() {
+  $blocks = array();
+  $blocks['beta_banner'] = array(
+    'info' => t('Beta banner'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+    'region' => 'header_top_banner',
+    'status' => TRUE,
+    'visibility' => BLOCK_VISIBILITY_NOTLISTED,
+  );
+  return $blocks;
+}
+
+
+/**
+ * Implements hook_block_view().
+ */
+function fsa_beta_banner_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+    case 'beta_banner':
+      $block = array(
+        'subject' => NULL,
+        'content' => NULL,
+      );
+      if (variable_get('fsa_beta_banner_enabled', TRUE)) {
+        $block['content'] = array(
+          '#type' => 'link',
+          '#title' => variable_get('fsa_beta_banner_text', t('Try our new food.gov.uk website')),
+          '#href' => variable_get('fsa_beta_banner_href', 'https://beta.food.gov.uk'),
+          '#attributes' => array(
+            'target' => '_blank',
+            'title' => t('Visit the new beta.food.gov.uk site - opens in a new window'),
+          ),
+        );
+        // @todo Use '#attached' to do this instead
+        drupal_add_css(drupal_get_path('module', 'fsa_beta_banner') . '/css/beta-banner.css');
+      }
+      break;
+  }
+  return $block;
+}
+
+
+/**
+ * Implements hook_theme().
+ */
+function fsa_beta_banner_theme() {
+  return array(
+    'block__fsa_beta_banner' => array(
+      'template' => 'block--fsa-beta-banner',
+      'path' => drupal_get_path('module', 'fsa_beta_banner') . '/theme',
+    ),
+  );
+}

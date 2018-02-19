@@ -1,0 +1,3 @@
+name = FSA Beta Banner
+description = "Provides a site-wide banner to link to the new beta site"
+core = 7.x
