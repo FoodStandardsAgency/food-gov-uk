@@ -39,6 +39,7 @@ function fsa_beta_banner_block_view($delta = '') {
           '#attributes' => array(
             'target' => '_blank',
             'title' => t('Visit the new beta.food.gov.uk site - opens in a new window'),
+            'rel' => 'noopener noreferrer',
           ),
         );
         // @todo Use '#attached' to do this instead
