@@ -1,0 +1,15 @@
+<?php
+/**
+ * @file Install, update and uninstall hools for the sitewide_feature module
+ */
+
+
+ /**
+  * Enables the beta banner module
+  */
+ function sitewide_feature_update_7001() {
+   // This enables the beta banner module. We put this here for the sake of
+   // convenience only - it has nothing to do with the functionality of this
+   // module - it is just here to avoid a manual step on deployment.
+   module_enable(array('fsa_beta_banner'));
+ }

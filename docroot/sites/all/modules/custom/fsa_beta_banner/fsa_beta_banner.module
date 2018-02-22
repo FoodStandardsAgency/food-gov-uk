@@ -3,6 +3,16 @@
  * @file Module code for the FSA beta banner module
  */
 
+/**
+ * Default beta banner text
+ */
+define('FSA_BETA_BANNER_DEFAULT_TEXT', t('Try our new food.gov.uk website'));
+
+/**
+ * Default beta banner URL
+ */
+define('FSA_BETA_BANNER_DEFAULT_HREF', 'https://beta.food.gov.uk');
+
 
  /**
   * Implements hook_block_info().
@@ -21,6 +31,57 @@ function fsa_beta_banner_block_info() {
 
 
 /**
+ * Implements hook_block_configure().
+ */
+function fsa_beta_banner_block_configure($delta = '') {
+  $form = array();
+  if ($delta == 'beta_banner') {
+    // Beta banner settings fieldset
+    $form['fsa_beta_banner_settings'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Beta banner settings'),
+    );
+    // Checkbox to enable/disable the beta banner
+    $form['fsa_beta_banner_settings']['fsa_beta_banner_enabled'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Beta banner enabled'),
+      '#description' => t('Tick this box to enable the beta banner'),
+      '#default_value' => variable_get('fsa_beta_banner_enabled'),
+    );
+    // Text field to set the link text for the beta banner
+    $form['fsa_beta_banner_settings']['fsa_beta_banner_text'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Banner text'),
+      '#description' => t('Set the text to display in the beta banner.'),
+      '#required' => TRUE,
+      '#default_value' => variable_get('fsa_beta_banner_text', FSA_BETA_BANNER_DEFAULT_TEXT),
+    );
+    // Text field to set the link URL for the beta banner
+    $form['fsa_beta_banner_settings']['fsa_beta_banner_href'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Banner link URL'),
+      '#description' => t('Set the URL that the beta banner will link to.'),
+      '#required' => TRUE,
+      '#default_value' => variable_get('fsa_beta_banner_href', FSA_BETA_BANNER_DEFAULT_HREF),
+    );
+  }
+  return $form;
+}
+
+
+/**
+ * Implements hook_block_save().
+ */
+function fsa_beta_banner_block_save($delta = '', $edit = array()) {
+  if ($delta == 'beta_banner') {
+    variable_set('fsa_beta_banner_enabled', $edit['fsa_beta_banner_enabled']);
+    variable_set('fsa_beta_banner_text', $edit['fsa_beta_banner_text']);
+    variable_set('fsa_beta_banner_href', $edit['fsa_beta_banner_href']);
+  }
+}
+
+
+/**
  * Implements hook_block_view().
  */
 function fsa_beta_banner_block_view($delta = '') {
@@ -31,11 +92,16 @@ function fsa_beta_banner_block_view($delta = '') {
         'subject' => NULL,
         'content' => NULL,
       );
-      if (variable_get('fsa_beta_banner_enabled', TRUE)) {
+      if (variable_get('fsa_beta_banner_enabled', FALSE)) {
         $block['content'] = array(
           '#type' => 'link',
-          '#title' => variable_get('fsa_beta_banner_text', t('Try our new food.gov.uk website')),
-          '#href' => variable_get('fsa_beta_banner_href', 'https://beta.food.gov.uk'),
+          '#title' => variable_get('fsa_beta_banner_text', FSA_BETA_BANNER_DEFAULT_TEXT),
+          '#href' => variable_get('fsa_beta_banner_href', FSA_BETA_BANNER_DEFAULT_HREF),
+          '#attributes' => array(
+            'target' => '_blank',
+            'title' => t('Visit the new beta.food.gov.uk site - opens in a new window'),
+            'rel' => 'noopener',
+          ),
         );
         // @todo Use '#attached' to do this instead
         drupal_add_css(drupal_get_path('module', 'fsa_beta_banner') . '/css/beta-banner.css');
@@ -56,4 +122,27 @@ function fsa_beta_banner_theme() {
       'path' => drupal_get_path('module', 'fsa_beta_banner') . '/theme',
     ),
   );
+}
+
+
+/**
+ * Implements hook_form_alter().
+ *
+ * We use this hook to alter the block configure form for the beta_banner
+ * block so that it doesn't provide fields that aren't used by this block.
+ */
+function fsa_beta_banner_form_block_admin_configure_alter(&$form, &$form_state, $form_id) {
+  // Get the block delta
+  $delta = !empty($form['delta']['#value']) ? $form['delta']['#value'] : NULL;
+  // Act only on the beta_banner block
+  if ($delta != 'beta_banner') {
+    return;
+  }
+  // Hide the block title - it's not used for the beta banner.
+  $form['settings']['title']['#access'] = FALSE;
+  // Hide the CSS class field - we don't want it used here
+  $form['settings']['css_class']['#access'] = FALSE;
+  // Make the regions fieldset collapsed by default
+  $form['regions']['#collapsible'] = TRUE;
+  $form['regions']['#collapsed'] = TRUE;
 }
