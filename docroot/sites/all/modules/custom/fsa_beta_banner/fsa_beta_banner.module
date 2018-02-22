@@ -41,7 +41,7 @@ function fsa_beta_banner_block_view($delta = '') {
         'subject' => NULL,
         'content' => NULL,
       );
-      if (variable_get('fsa_beta_banner_enabled', TRUE)) {
+      if (variable_get('fsa_beta_banner_enabled', FALSE)) {
         $block['content'] = array(
           '#type' => 'link',
           '#title' => variable_get('fsa_beta_banner_text', FSA_BETA_BANNER_DEFAULT_TEXT),
