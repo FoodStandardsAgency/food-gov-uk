@@ -3,6 +3,16 @@
  * @file Module code for the FSA beta banner module
  */
 
+/**
+ * Default beta banner text
+ */
+define('FSA_BETA_BANNER_DEFAULT_TEXT', t('Try our new food.gov.uk website'));
+
+/**
+ * Default beta banner URL
+ */
+define('FSA_BETA_BANNER_DEFAULT_HREF', 'https://beta.food.gov.uk');
+
 
  /**
   * Implements hook_block_info().
