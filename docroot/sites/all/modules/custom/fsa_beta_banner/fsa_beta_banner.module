@@ -44,8 +44,8 @@ function fsa_beta_banner_block_view($delta = '') {
       if (variable_get('fsa_beta_banner_enabled', TRUE)) {
         $block['content'] = array(
           '#type' => 'link',
-          '#title' => variable_get('fsa_beta_banner_text', t('Try our new food.gov.uk website')),
-          '#href' => variable_get('fsa_beta_banner_href', 'https://beta.food.gov.uk'),
+          '#title' => variable_get('fsa_beta_banner_text', FSA_BETA_BANNER_DEFAULT_TEXT),
+          '#href' => variable_get('fsa_beta_banner_href', FSA_BETA_BANNER_DEFAULT_HREF),
           '#attributes' => array(
             'target' => '_blank',
             'title' => t('Visit the new beta.food.gov.uk site - opens in a new window'),
