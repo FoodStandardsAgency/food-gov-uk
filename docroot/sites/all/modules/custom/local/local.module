@@ -469,6 +469,7 @@ function _local_committee_domains() {
         'acaf.food.gov.uk' => 'committee/acaf',
         'gacs.food.gov.uk'=> 'committee/gacs',
         'ssrc.food.gov.uk'=> 'committee/social-science-research-committee-ssrc',
+        'acss.food.gov.uk' => 'committee/advisory-committee-for-social-sciences-acss',
       );
       // Allow other modules to provide committee domain mappings
       $committee_domains += module_invoke_all('committee_domains');
