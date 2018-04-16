@@ -26,7 +26,7 @@ function site_frontend_external_libraries() {
   // @see https://support.siriusopensource.com/index.pl?Action=AgentTicketZoom;TicketID=779
   $libraries['google_charts'] = array(
     'name' => 'Google Charts',
-    'url' => '//www.google.com/jsapi',
+    'url' => 'https://www.google.com/jsapi',
     'type' => 'js',
     'options' => array(
       'group' => JS_THEME,
