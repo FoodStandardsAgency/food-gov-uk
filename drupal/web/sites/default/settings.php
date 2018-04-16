@@ -376,3 +376,20 @@ if (file_exists('/var/www/site-php/food-settings.inc')) {
 if (file_exists(DRUPAL_ROOT . '/' . conf_path() . '/settings.local.php')) {
   include DRUPAL_ROOT . '/' . conf_path() . '/settings.local.php';
 }
+
+# Database configuration for UpCloud server.  
+$databases = array (
+  'default' =>
+  array (
+    'default' =>
+    array (
+      'database' => getenv('DB_NAME_DRUPAL'),
+      'username' => getenv('DB_USER_DRUPAL'),
+      'password' => getenv('DB_PASS_DRUPAL'),
+      'host'     => getenv('DB_HOST_DRUPAL'),
+      'port'     => '',
+      'driver'   => 'mysql',
+      'prefix'   => '',
+    ),
+  ),
+);
