@@ -21,6 +21,7 @@
    - { role: newrelic, tags: [ 'newrelic' ] }
    - { role: newrelic-sysmon, tags: [ 'newrelic-sysmon' ] }
    - { role: newrelic-infra, tags: [ 'newrelic-infra' ] }
+   - { role: solr, tags: [ 'solr' ] }
 
   vars_files:
   - prod-vars.yml
