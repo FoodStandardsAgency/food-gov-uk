@@ -470,6 +470,15 @@ function _local_committee_domains() {
         'gacs.food.gov.uk'=> 'committee/gacs',
         'ssrc.food.gov.uk'=> 'committee/social-science-research-committee-ssrc',
         'acss.food.gov.uk' => 'committee/advisory-committee-for-social-sciences-acss',
+        'science-council.food.gov.uk' => 'committee/science-council',
+
+        'cot.fsad7.prod.wunder.io' => 'committee/committee-on-toxicity',
+        'acmsf.fsad7.prod.wunder.io' => 'committee/acmsf',
+        'acnfp.fsad7.prod.wunder.io'=> 'committee/acnfp',
+        'acaf.fsad7.prod.wunder.io' => 'committee/acaf',
+        'ssrc.fsad7.prod.wunder.io'=> 'committee/social-science-research-committee-ssrc',
+        'acss.fsad7.prod.wunder.io' => 'committee/advisory-committee-for-social-sciences-acss',
+        'science-council.fsad7.prod.wunder.io' => 'committee/science-council',
       );
       // Allow other modules to provide committee domain mappings
       $committee_domains += module_invoke_all('committee_domains');
