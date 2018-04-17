@@ -85,4 +85,4 @@ settings[committee_domains][] = science-council.food.gov.uk
 settings[committee_domains][] = science-council.local.food.gov.uk
 settings[committee_domains][] = science-council.dev.food.gov.uk
 settings[committee_domains][] = science-council.staging.food.gov.uk
-
+settings[committee_domains][] = science-council.fsad7.prod.wunder.io
