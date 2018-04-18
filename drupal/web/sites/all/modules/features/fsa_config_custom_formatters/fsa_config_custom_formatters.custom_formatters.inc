@@ -97,7 +97,8 @@ function fsa_config_custom_formatters_custom_formatters_defaults() {
          $digitGroups = (integer) (log10($size)/log10(1024));
          $output .=  \'<span class="filesize">(\'. number_format(($size/pow(1024, $digitGroups)), 2, \'.\', \'\') . \' \'.  $units[$digitGroups] .\')</span>\';
       }
-      if (isset($item[\'field_file_description\']) and $summary = $item[\'field_file_description\'][$langcode][0][\'value\'] ) {
+      if (isset($item[\'field_file_description\'][$langcode][0][\'value\'])) {
+        $summary = $item[\'field_file_description\'][$langcode][0][\'value\'];
         $output .= \'<div class="file-summary">\'.  $summary .\'</div>\';
       }
       $output .= \'</div>\';
