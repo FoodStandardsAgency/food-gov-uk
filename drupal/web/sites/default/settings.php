@@ -68,7 +68,7 @@ if ($varnish_hosts = getenv('VARNISH_HOSTS')) {
   $conf['cache_backends'][] = 'sites/all/modules/contrib/varnish/varnish.cache.inc';
   $conf['cache_class_cache_page'] = 'VarnishCache';
   $conf['page_cache_invoke_hooks'] = FALSE;
-  $conf['varnish_control_key'] = '0dab0075-ecbb-4f0c-8cc0-839f16501ffe';
+  //$conf['varnish_control_key'] = '0dab0075-ecbb-4f0c-8cc0-839f16501ffe';
 }
 
 /**
@@ -393,3 +393,5 @@ $databases = array (
     ),
   ),
 );
+
+$conf['drupal_http_request_fails'] = FALSE;
