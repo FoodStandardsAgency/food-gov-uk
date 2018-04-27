@@ -47,6 +47,24 @@
         user: nginx
       tags: ['cron']
 
+    - name: make sure SSL certificate is installed
+      copy:
+        content: "{{ ssl_certificate }}"
+        dest: "/etc/nginx/ssl/{{ domain2_name }}.crt"
+        owner: root
+        group: root
+        mode: 0644
+      tags: ['certs']
+
+    - name: make sure SSL private key is installed
+      copy:
+        content: "{{ ssl_private_key }}"
+        dest: "/etc/nginx/ssl/{{ domain2_name }}.key"
+        owner: root
+        group: root
+        mode: 0600
+      tags: ['certs']
+
   vars:
     wkv_site_env: "prod"
 
@@ -66,6 +84,9 @@
     domain14_name: "acmsf.food.gov.uk"
     domain15_name: "acss.fsad7.prod.wunder.io"
     domain16_name: "acss.food.gov.uk"
+    domain17_name: "old.food.gov.uk"
+    domain18_name: "ww2.food.gov.uk"
+
     drupal_web_root: "/var/www/{{ domain1_name }}/current/web"
 
     varnish_control_key: "{{ varnish_control_key }}"
@@ -123,6 +144,12 @@
         http_port: 8080
         docroot: "{{ drupal_web_root }}"
       - server_name: "{{ domain16_name }}"
+        http_port: 8080
+        docroot: "{{ drupal_web_root }}"
+      - server_name: "{{ domain17_name }}"
+        http_port: 8080
+        docroot: "{{ drupal_web_root }}"
+      - server_name: "{{ domain18_name }}"
         http_port: 8080
         docroot: "{{ drupal_web_root }}"
 
@@ -224,7 +251,7 @@
     #certbot_commands: allows yo uto customize the command to run, see ansible/playbook/roles/certbot/defaults/main.yml
 
     # We need to make sure not to leak sites ahead of launch
-    basicauth_enabled: True
+    basicauth_enabled: False
     basicauth_credentials:
       - username: wunder
         password: Ia4xoh
@@ -362,6 +389,18 @@
             - name: prod16_http1
               address: 127.0.0.1
               port: 8080
+        - name: prod17
+          host: "{{ domain17_name }}"
+          backends:
+            - name: prod17_http1
+              address: 127.0.0.1
+              port: 8080
+        - name: prod18
+          host: "{{ domain18_name }}"
+          backends:
+            - name: prod18_http1
+              address: 127.0.0.1
+              port: 8080
 
     ## Sslterminator ##
     # we only use https for this host
@@ -372,15 +411,66 @@
         use_dhparam: True
         backends:
           - 127.0.0.1:8081
-#      - server_name: "{{ domain2_name }}"
-#        # Certbot is configured to smash all certificates into the first one
-#        # So domain2 uses domain1 certificate
-#        ssl_certificate: "/etc/letsencrypt/live/{{ domain1_name }}/fullchain.pem"
-#        ssl_certificate_key: "/etc/letsencrypt/live/{{ domain1_name}}/privkey.pem"
-#        use_dhparam: True
-#        backends:
-#          - 127.0.0.1:8081
-
+      - server_name: "{{ domain2_name }}"
+        ssl_certificate: "/etc/nginx/ssl/{{ domain2_name }}.crt"
+        ssl_certificate_key: "/etc/nginx/ssl/{{ domain2_name }}.key"
+        use_dhparam: True
+        backends:
+          - 127.0.0.1:8081
+      - server_name: "{{ domain4_name }}"
+        ssl_certificate: "/etc/nginx/ssl/{{ domain2_name }}.crt"
+        ssl_certificate_key: "/etc/nginx/ssl/{{ domain2_name }}.key"
+        use_dhparam: True
+        backends:
+          - 127.0.0.1:8081
+      - server_name: "{{ domain6_name }}"
+        ssl_certificate: "/etc/nginx/ssl/{{ domain2_name }}.crt"
+        ssl_certificate_key: "/etc/nginx/ssl/{{ domain2_name }}.key"
+        use_dhparam: True
+        backends:
+          - 127.0.0.1:8081
+      - server_name: "{{ domain8_name }}"
+        ssl_certificate: "/etc/nginx/ssl/{{ domain2_name }}.crt"
+        ssl_certificate_key: "/etc/nginx/ssl/{{ domain2_name }}.key"
+        use_dhparam: True
+        backends:
+          - 127.0.0.1:8081
+      - server_name: "{{ domain10_name }}"
+        ssl_certificate: "/etc/nginx/ssl/{{ domain2_name }}.crt"
+        ssl_certificate_key: "/etc/nginx/ssl/{{ domain2_name }}.key"
+        use_dhparam: True
+        backends:
+          - 127.0.0.1:8081
+      - server_name: "{{ domain12_name }}"
+        ssl_certificate: "/etc/nginx/ssl/{{ domain2_name }}.crt"
+        ssl_certificate_key: "/etc/nginx/ssl/{{ domain2_name }}.key"
+        use_dhparam: True
+        backends:
+          - 127.0.0.1:8081
+      - server_name: "{{ domain14_name }}"
+        ssl_certificate: "/etc/nginx/ssl/{{ domain2_name }}.crt"
+        ssl_certificate_key: "/etc/nginx/ssl/{{ domain2_name }}.key"
+        use_dhparam: True
+        backends:
+          - 127.0.0.1:8081
+      - server_name: "{{ domain16_name }}"
+        ssl_certificate: "/etc/nginx/ssl/{{ domain2_name }}.crt"
+        ssl_certificate_key: "/etc/nginx/ssl/{{ domain2_name }}.key"
+        use_dhparam: True
+        backends:
+          - 127.0.0.1:8081
+      - server_name: "{{ domain17_name }}"
+        ssl_certificate: "/etc/nginx/ssl/{{ domain2_name }}.crt"
+        ssl_certificate_key: "/etc/nginx/ssl/{{ domain2_name }}.key"
+        use_dhparam: True
+        backends:
+          - 127.0.0.1:8081
+      - server_name: "{{ domain18_name }}"
+        ssl_certificate: "/etc/nginx/ssl/{{ domain2_name }}.crt"
+        ssl_certificate_key: "/etc/nginx/ssl/{{ domain2_name }}.key"
+        use_dhparam: True
+        backends:
+          - 127.0.0.1:8081
     # Forward to www and https.
     httpforwards:
       - server_name: "{{ domain1_name }}"
@@ -415,6 +505,10 @@
         forwarded_domains: "{{ domain15_name}}"
       - server_name: "{{ domain16_name }}"
         forwarded_domains: "{{ domain16_name}}"
+      - server_name: "{{ domain17_name }}"
+        forwarded_domains: "{{ domain17_name}}"
+      - server_name: "{{ domain18_name }}"
+        forwarded_domains: "{{ domain18_name}}"
     # You can also use extra_forwards and httpextraforwards to define additional domains to listen & forward
     # See ansible/playbook/roles/sslterminator/templates/ssl_terminators.conf.j2 for reference.
 
