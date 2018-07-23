@@ -1,0 +1,533 @@
+<?php
+
+
+/**
+ *  Committee url rewrites.
+ *  We need to fake the subdomains for the various committee sites.
+ *  These sites map subdomains onto committee site content.
+ *
+ *  EG: cot.food.gov
+ */
+
+// set this constant to true if we want to do the url rewriting inside Drupal
+// These rules are used to translate the committee domains to the correct paths
+// The system is not compatible with fast_404 or globalredirect
+define('REWRITE_COMMITTEE_URLS', TRUE);
+
+/**
+ * Returns the main site domain for rewriting non committee urls
+ *
+ * @param boolean $admin
+ *   (optional) Determines whether to return an admin domain or front-end domain.
+ *
+ * @param string $protocol
+ *   (optional) The protocol to use with the domain. If none is specified,
+ *   protocol-relative URLs will be returned. If a protocol is supplied, it
+ *   should not contain the colon or the //, eg 'http', 'https'
+ *
+ * @return string
+ *   The domain for the local site
+ */
+function local_get_site_domain($admin = FALSE, $protocol = ''){
+
+  // Get a local development site domain if it's populated.
+  // This will typically be set in settings.local.php, but could also be
+  // set via drush in a Drupal variable.
+  $local_dev_domain = variable_get('local_dev_domain');
+
+  // If we have a local development domain, return it now.
+  if (!empty($local_dev_domain)) {
+    return $local_dev_domain;
+  }
+
+  // Get the environment.
+  $environment = local_get_environment();
+
+  // An array of available environments
+  if ($admin) {
+    $environments = array(
+      'local' => '//localadmin.food.gov.uk',
+      'development' => '//devadmin.food.gov.uk',
+      'staging' => '//stagingadmin.food.gov.uk',
+      'production' => '//admin.food.gov.uk',
+    );
+  }
+  else {
+    $environments = array(
+      'local' => '//local.food.gov.uk',
+      'development' => '//dev.food.gov.uk',
+      'staging' => '//staging.food.gov.uk',
+      'production' => '//www.food.gov.uk',
+    );
+  }
+
+  // Return the domain for the selected environment. If none is set, we return
+  // www.food.gov.uk as default.
+  $protocol = !empty($protocol) ? "$protocol:" : '';
+  return !empty($environment) && !empty($environments[$environment]) ? $protocol . $environments[$environment] : "$protocol//www.food.gov.uk";
+}
+
+/**
+ * Returns the name of the current environment.
+ *
+ * @return string
+ *   The name of the current environment. Possible values are:
+ *   - 'local' : a local development environment
+ *   - 'development' : The FSA development environment
+ *   - 'staging' : The FSA staging environment
+ *   - 'production' : The FSA production environment
+ *
+ * By default, this function uses the environment variable
+ * 'AH_SITE_ENVIRONMENT', but this can be overridden in a local settings file.
+ */
+function local_get_environment() {
+  // Get a local development site domain if it's populated.
+  $local_dev_domain = variable_get('local_dev_domain');
+  // If we have a local development domain, we're on the local environment.
+  if (!empty($local_dev_domain)) {
+    return 'local';
+  }
+  // Are we on a local development site?
+  $local_dev = variable_get('local_dev');
+  // If so, use 'local' as the environment, otherwise use the environment set in
+  // the Apache config file for the site.
+  $environment = !empty($local_dev) ? 'local' : getenv('AH_SITE_ENVIRONMENT');
+  // Return the environment name.
+  return $environment;
+}
+
+/**
+ * Implements hook url inbound alter
+ * @param $path
+ * @param $original_path
+ * @param $path_language
+ */
+function local_url_inbound_alter(&$path, $original_path, $path_language) {
+  if (!REWRITE_COMMITTEE_URLS) return; // short circuit rewriting if disabled
+  // map committee domain to the path.
+  // do not include leading or trailing slash
+  $path_domains = _local_committee_domains();
+  // if $_SERVER['HTTP_HOST'] is one of the path domains, rewrite the path
+
+  if (in_array($_SERVER['HTTP_HOST'], array_keys($path_domains))) {
+    $path_base = $path_domains[$_SERVER['HTTP_HOST']];
+    if (drupal_is_front_page()) {
+      $original_path = '';
+    }
+    $path_exploded = explode('/', $original_path);
+    // check that we are working with an alias here... a node url will not work.
+
+    if (!isset($path_exploded[0]) or $path_exploded[0] != 'node' ) {
+      if (strlen($path_base) < strlen($original_path) && (substr($original_path,0,strlen($path_base)) == $path_base)) {
+        // we are already on a committee path.....  bad?
+      }
+      else {
+        $path = $path_base. '/'. $original_path;
+      }
+
+      if ($source = drupal_lookup_path('source', trim($path,'/'), $path_language)) {
+        $path = $source;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_url_outbound_alter
+ * @param $path
+ * @param $options
+ * @param $original_path
+ */
+function local_url_outbound_alter(&$path, &$options, $original_path) {
+  if (!REWRITE_COMMITTEE_URLS) return; // short circuit rewriting if disabled
+  global $user;
+  $site_domain = local_get_site_domain();
+  $path_domains = _local_committee_domains();
+  // only do this for non-auth users
+  if (!$user->uid && !$options['external'] && !$options['absolute']) {
+    // if we are already on one of the committee domains
+    if (in_array($_SERVER['HTTP_HOST'], array_keys($path_domains))) {
+      $path_base = $path_domains[$_SERVER['HTTP_HOST']];
+      // do we want the front page?
+      if ($original_path == '<front>' or !$original_path) {
+        $path = '';
+      }
+      // make sure we have an original path, otherwise get_path_alias will revert to request... but this has issues
+      else  {
+        $alias = NULL;
+        $path_exploded = explode('/', $original_path);
+        // check that we have an internal path, and get it's alias if we need to
+        if ($path_exploded[0] == 'node') {
+          $alias = drupal_lookup_path('alias', $path);
+        }
+        if (!$alias) {
+          $alias = $original_path;
+        }
+        // if the path we are checking is shorter than the replacement string... ignore it
+        // otherwise, if our path is relative to the committee
+        if (strlen($path_base) < strlen($alias) && (substr($alias,0,strlen($path_base)) == $path_base)) {
+            $path = substr($alias,strlen($path_base)+1);
+            $options['alias'] = $path; // set the alias flag
+        }
+        else if ($alias == $path_base) {
+          // we are on the home page
+          $path = '';
+        }
+        else {
+          // we have a link that is not on the committee site
+          // set it up relative to the main domain
+          $path=$site_domain. '/'. $alias;
+          $options['external'] = true;
+          $options['absolute'] = true;
+        }
+      }
+    }
+    else {
+      // we are on the main domain, lets look for links to committee pages
+      $path_exploded = explode('/',$original_path);
+      if ($path_exploded[0] == 'node') {
+        $path_exploded = explode('/',drupal_lookup_path('alias', $original_path));
+      }
+
+      if ($path_exploded[0] == 'committee') {
+        // search the committee array for the first 2 elements of the path
+        if ($domain = array_search(implode('/',array_slice($path_exploded,0,2)),$path_domains)) {
+          $committee_path = implode('/', array_slice($path_exploded,2));
+          $committee[] = $domain;
+          if ($committee_path) {
+            $committee[] = $committee_path;
+          }
+          $path = 'http://'.implode('/', $committee);
+          $options['external'] = true;
+          $options['absolute'] = true;
+        }
+      }
+    }
+  }
+}
+
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function local_form_news_node_form_alter(&$form, &$form_state, $form_id) {
+
+  // Remove the 'England' option from Primary Nation selector on News content type, because there is no England section.
+  $options = array();
+
+  foreach ($form['field_primary_nation'][LANGUAGE_NONE]['#options'] as $key => $value) {
+    if ($value != 'England') {
+      $options[$key] = $value;
+    }
+  }
+
+  $form['field_primary_nation'][LANGUAGE_NONE]['#options'] = $options;
+}
+
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function local_form_ctools_jump_menu_alter(&$form, &$form_state, $form_id) {
+
+  $food_hygiene_rating_schemes = array(t('Food Hygiene Rating Scheme in Wales'), t('Food Hygiene Information Scheme in Scotland'), t('Food Hygiene Rating Scheme in Northern Ireland'));
+
+  // Use the menu title, which is provided as default option, to check this is a relevant jump menu.
+  // This will break if menu titles are changed, until $food_hygiene_rating_schemes is updated.
+  foreach ($form['jump']['#options'] as $key => $value) {
+
+    if ($key === '' && in_array($value, $food_hygiene_rating_schemes)) {
+      // Add label to select.
+      $form['jump']['#title'] = t('Check businesses in your area');
+      // Change default option
+      $form['jump']['#options'][$key] = t('Select your authority');
+    }
+  }
+
+}
+
+
+
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function local_theme_registry_alter(&$theme_registry) {
+
+  // Hide specific items in the main menu, so they don't display on the Primary Menu.
+  // Add our override function, which will adjust the variables then pass them through the original function.
+  if (isset($theme_registry['superfish_build'])) {
+    $theme_registry['superfish_build']['function'] = 'theme_local_superfish_build';
+  }
+}
+
+/**
+ *  Adjust the Superfish main menu.
+ *  Hide specific items in the main menu, so they don't display on the Primary Menu.
+ **/
+function theme_local_superfish_build($variables) {
+
+  // Links to be hidden on Main Menu.
+  // Specify which links should be Visible in the main menu
+  $show_links = array(
+    'Home',
+    'News & updates',
+    'Business & industry',
+    'Enforcement & regulation',
+    'Science & policy',
+    'About us'
+  );
+
+  foreach ($variables['menu'] as $key => $menu_item) {
+    if ($menu_item['link']['plid'] == 0 && !in_array($menu_item['link']['title'], $show_links)) {
+      unset($variables['menu'][$key]);
+    }
+  }
+
+  $output = theme_superfish_build($variables);
+  return $output;
+}
+
+function local_form_alter(&$form, &$form_state, $form_id){
+  $id = $form_id;
+}
+
+/**
+ * Quick form alter to give the search forms their own unique submit button ids that do not clash with the overlay
+ * @param $form
+ * @param $form_state
+ */
+function local_form_search_block_form_alter(&$form, &$form_state, $form_id){
+  $form['actions']['submit']['#id'] = drupal_html_id('submit-search_block_form');
+}
+
+/**
+ * Implements hook_node_view().
+ */
+function local_node_view($node, $view_mode, $langcode) {
+  // FAQ accordion effect.
+  if ($node->type == 'faq' && $view_mode == 'full') {
+    drupal_add_library('system','ui.accordion');
+    drupal_add_js(drupal_get_path('module', 'local') . '/js/local.js');
+    drupal_add_css(drupal_get_path('module', 'local') . '/css/local.css');
+  }
+}
+
+
+/**
+ * Implements hook_node_validate.
+ *
+ * We need to make sure that users do not add content to the top level of the menu
+ * @param $node
+ * @param $form
+ * @param $form_state
+ */
+function local_node_validate($node, $form, $form_state) {
+  $menu_required_types = array(
+    'document_page',
+    'faq',
+    'job'
+  );
+  $banned_plids = array('0','227');
+  if (in_array($node->type,$menu_required_types)) {
+    $plid = 0;
+    if (isset($node->menu['parent'])) {
+      $menu_parent = $node->menu['parent'][0];
+      list($menu, $plid) = explode(':',$menu_parent);
+    }
+    if (in_array($plid, $banned_plids )) {
+      form_set_error('menu', t('You must specify the location of your page in the menu'));
+    }
+  }
+}
+
+
+/**
+ * Implements hook_field_group_pre_render_alter().
+ *
+ * This is a temporary workaround to fix the issue of duplicated IDs on pages
+ * where mutliple field group elements are displayed, for instance:
+ *
+ * http://www.food.gov.uk/science/acrylamide
+ *
+ * This is a known bug in the Field Group module:
+ * http://www.drupal.org/project/field_group
+ *
+ * @see https://www.drupal.org/node/2037731
+ * @eee Ticket#2015012710000017 — Use unique identification for elements - FAQ
+ *
+ * The culprit is field_group_pre_render_div() in field_group.module, which adds
+ * an ID attribute to each group, but doesn't use Drupal's drupal_html_id()
+ * function to ensure that the ID is unique on a page.
+ *
+ * @see field_group_pre_render_div()
+ *
+ * The long-term fix is to upgrade the Field Group module.
+ *
+ */
+function local_field_group_pre_render_alter(&$element, $group, & $form) {
+
+  // For now, we just want to act on the FAQ elements.
+  $identifier = 'group_accordion_set|field_collection_item|field_fc_qanda|default';
+
+  // If we're on another group, exit now.
+  if ($group->identifier != $identifier) {
+    return;
+  }
+
+  // Unset the #prefix element as that's what's causing the problem.
+  unset($element['#prefix']);
+
+  // Recreate the #prefix element, but without the ID and with proper markup
+  // around the classes.
+  $element['#prefix'] = '<div class="' . $group->classes . '">';
+}
+
+
+/**
+ * Implements hook_siteimprove_editing_page_options_alter().
+ *
+ * This is used to ensure that the editing page URL rendered in the meta tag
+ * for SiteImprove uses the admin domain, rather than the front-end domain.
+ */
+function local_siteimprove_editing_page_options_alter(&$editing_page_options) {
+  $editing_page_options['base_url'] = local_get_site_domain(TRUE, 'https');
+}
+
+
+/**
+ * Implements hook_national_archives_site_url_alter().
+ *
+ * We use this to alter the redirects for committee URLs created by the
+ * National Archives module. We alter both the $site_url and the $url itself.
+ *
+ * We could have done this within the National Archives module itself, but the
+ * intention is to keep that module as generic and non-FSA-specific as possible.
+ *
+ * Also, we could have modified the URL as it was saved to the database, but
+ * this feels more future-proof in case committee domains change.
+ *
+ * @see _national_archives_expand_url().
+ */
+function local_national_archives_site_url_alter(&$site_url, &$url) {
+
+  // An array of committee domains mapped to site paths.
+  $path_domains = _local_committee_domains();
+
+  // Flip the committee domains array so that the keys become the values and
+  // vice-versa. We adopt this approach, rather than simply creating the array
+  // the other way around (which would be more convenient), in order to
+  // faciliate using the same helper function to provide the mappings in future.
+  $path_domains = array_flip($path_domains);
+
+  // Create a temporaray variable to hold the URL minus the pseudo protocol
+  $temp_path = str_replace(NATIONAL_ARCHIVES_PSEUDO_PROTOCOL, '', $url);
+
+  // If the path matches one of the committee domains, remove the starting part
+  // of the path and modify the site URL accordingly.
+  foreach ($path_domains as $path => $domain) {
+    if (strpos($temp_path, $path) === 0) {
+      $site_url = "http://$domain";
+      $url = str_replace("$path/", NATIONAL_ARCHIVES_PSEUDO_PROTOCOL, $temp_path);
+    }
+  }
+
+}
+
+
+
+
+/** 
+ * Implements hook_form_FORM_ID_alter(). 
+ */
+ 
+ function local_form_node_form_alter(&$form, &$form_state) {
+ 	$form['#attached']['css'][] = drupal_get_path('module', 'local') . '/css/local.css';
+ }
+
+
+ /**
+ * Returns an array of committee domains and their associated paths.
+ *
+ * @return array
+ *   Array of committee domains and their associated paths.
+ */
+function _local_committee_domains() {
+  // Use drupal_static() to avoid repeat calls
+  $committee_domains = &drupal_static(__FUNCTION__);
+  if (!isset($committee_domains)) {
+    // Get the domain mappings from cache if populated
+    if ($cache = cache_get('local_committee_domains')) {
+      $committee_domains = $cache->data;
+    }
+    else {
+      // An array of default domain mappings
+      $committee_domains = array(
+        'cot.food.gov.uk' => 'committee/committee-on-toxicity',
+        'acmsf.food.gov.uk' => 'committee/acmsf',
+        'acnfp.food.gov.uk'=> 'committee/acnfp',
+        'acaf.food.gov.uk' => 'committee/acaf',
+        'gacs.food.gov.uk'=> 'committee/gacs',
+        'ssrc.food.gov.uk'=> 'committee/social-science-research-committee-ssrc',
+        'acss.food.gov.uk' => 'committee/advisory-committee-for-social-sciences-acss',
+        'science-council.food.gov.uk' => 'committee/science-council',
+
+        'cot.fsad7.prod.wunder.io' => 'committee/committee-on-toxicity',
+        'acmsf.fsad7.prod.wunder.io' => 'committee/acmsf',
+        'acnfp.fsad7.prod.wunder.io'=> 'committee/acnfp',
+        'acaf.fsad7.prod.wunder.io' => 'committee/acaf',
+        'ssrc.fsad7.prod.wunder.io'=> 'committee/social-science-research-committee-ssrc',
+        'acss.fsad7.prod.wunder.io' => 'committee/advisory-committee-for-social-sciences-acss',
+        'science-council.fsad7.prod.wunder.io' => 'committee/science-council',
+      );
+      // Allow other modules to provide committee domain mappings
+      $committee_domains += module_invoke_all('committee_domains');
+      // Allow other modules to alter the committee domain mappings
+      drupal_alter('committee_domains', $committee_domains);
+      // Store the mappings in the cache to avoid repeat calls
+      cache_set('local_committee_domains', $committee_domains, 'cache');
+    }
+  }
+  return $committee_domains;
+}
+
+
+/**
+ * Implements hook_cloudflare_cache_clear_urls_alter().
+ *
+ * Since files can be used in any committee site, we need to make sure that when
+ * we clear the CloudFlare cache for a file, we also do so for every committee
+ * domain.
+ *
+ * We do this using this hook, rather than the path-based one as we need to add
+ * domains to the resulting array.
+ *
+ * We also need to clear URLs for standard pages based on the committee domains.
+ */
+function local_cloudflare_cache_clear_urls_alter(&$urls, $wildcards, $object_type, $object) {
+  $temp_urls = $urls;
+  // Get the local committee domains
+  $committee_domains = _local_committee_domains();
+  foreach ($temp_urls as $url) {
+    // Extract the path part from the URL
+    $path = preg_replace("@^http(?:s)://.*?/(.*)$@", '$1', $url);
+    // Determine whether it's a file type based on the path
+    if (_cloudflare_cache_clear_get_object_type_from_path($path) == 'file') {
+      foreach (array_keys($committee_domains) as $committee_domain) {
+        foreach (cloudflare_cache_clear_get_protocols() as $protocol) {
+          $urls[] = $protocol . '://' . $committee_domain . '/' . $path;
+        }
+      }
+    }
+    // For pages, if they have a path that looks like a committee path, make
+    // sure the URL based on the relevant committee domain also gets cleared
+    foreach ($committee_domains as $committee_domain => $committee_path) {
+      if (strpos($path, $committee_path) === 0) {
+        foreach (cloudflare_cache_clear_get_protocols() as $protocol) {
+          $new_path = trim($protocol . '://' . $committee_domain . '/' . preg_replace("@^" . $committee_path . "/?(.*)$@", '$1', $path));
+          $urls[] = $new_path;
+        }
+      }
+    }
+  }
+}
