@@ -1,4 +1,6 @@
 #!/bin/bash
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 VAULT_FILE=$WT_ANSIBLE_VAULT_FILE
 MYSQL_ROOT_PASS=
@@ -179,7 +181,7 @@ if [ ! $SKIP_REQUIREMENTS ] ; then
     # Install virtualenv
     which -a pipenv >> /dev/null
     if [[ $? != 0 ]] ; then
-      pip install pipenv
+      sudo pip install pipenv
     fi
     cd $ROOT/ansible
     VENV=`pipenv --venv`

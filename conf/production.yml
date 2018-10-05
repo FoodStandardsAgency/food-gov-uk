@@ -86,6 +86,7 @@
     domain16_name: "acss.food.gov.uk"
     domain17_name: "old.food.gov.uk"
     domain18_name: "ww2.food.gov.uk"
+    domain19_name: "acnfp.gov.uk"
 
     drupal_web_root: "/var/www/{{ domain1_name }}/current/web"
 
@@ -442,6 +443,7 @@
         backends:
           - 127.0.0.1:8081
       - server_name: "{{ domain12_name }}"
+        forwarded_domains: "{{ domain19_name }}"
         ssl_certificate: "/etc/nginx/ssl/{{ domain2_name }}.crt"
         ssl_certificate_key: "/etc/nginx/ssl/{{ domain2_name }}.key"
         use_dhparam: True
@@ -496,7 +498,7 @@
       - server_name: "{{ domain11_name }}"
         forwarded_domains: "{{ domain11_name}}"
       - server_name: "{{ domain12_name }}"
-        forwarded_domains: "{{ domain12_name}}"
+        forwarded_domains: "{{ domain12_name}} {{ domain19_name }}"
       - server_name: "{{ domain13_name }}"
         forwarded_domains: "{{ domain13_name}}"
       - server_name: "{{ domain14_name }}"
