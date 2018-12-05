@@ -7,85 +7,73 @@
  *
 **/
 
+if (file_exists('/var/www/site-php')) {
+  require('/var/www/site-php/foodsciencecommittee/foodsciencecommittee-settings.inc');
+}
+
+// Default Memcache.
+$conf['cache_backends'][] = 'sites/all/modules/contrib/memcache/memcache.inc';
+$conf['cache_default_class'] = 'MemCacheDrupal';
+// The 'cache_form' bin must be assigned no non-volatile storage.
+$conf['cache_class_cache_form'] = 'DrupalDatabaseCache';
+$conf['memcache_bins'] = array(
+  'cache' => 'default',
+  'cache_filter' => 'default',
+  'cache_menu' => 'default'
+);
+# Move semaphore out of the database and into memory for performance purposes
+$conf['lock_inc'] = 'sites/all/modules/contrib/memcache/memcache-lock.inc';
+$conf['memcache_stampede_protection'] = TRUE;
+$conf['memcache_pagecache_header'] = TRUE;
+
+// Acquia config.
+if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
+  $env = $_ENV['AH_SITE_ENVIRONMENT'];
+
+  $files_private_conf_path = conf_path();
+  $conf['file_private_path'] = '/mnt/files/' . $_ENV['AH_SITE_GROUP'] . '.' . $_ENV['AH_SITE_ENVIRONMENT'] . '/' . $files_private_conf_path . '/files-private';
+
+  $conf['print_pdf_autoconfig'] = 0;
+
+  if (isset($conf['memcache_servers'])) {
+    $conf['memcache_stampede_protection_ignore'] = array(
+      // Ignore some cids in 'cache_bootstrap'.
+      'cache_bootstrap' => array(
+        'module_implements',
+        'variables',
+        'lookup_cache',
+        'schema:runtime:*',
+        'theme_registry:runtime:*',
+        '_drupal_file_scan_cache',
+      ),
+      // Ignore all cids in the 'cache' bin starting with 'i18n:string:'
+      'cache' => array(
+        'i18n:string:*',
+      ),
+      // Disable stampede protection for the entire 'cache_path' and 'cache_rules'
+      // bins.
+      'cache_path',
+      'cache_rules',
+    );
+  }
+}
+else {
+// WKV_ENV_SITE is a legacy environment indicator.
+  $env = getenv('WKV_SITE_ENV');
+}
+
 $update_free_access = FALSE;
 
 $drupal_hash_salt = 'Lqn-efzYTXp7qrA-R9bFPO1Sju8WRI72spTAo61xW0A';
 
-ini_set('session.gc_probability', 1);
-ini_set('session.gc_divisor', 100);
-ini_set('session.gc_maxlifetime', 200000);
-ini_set('session.cookie_lifetime', 2000000);
-
-# $conf['maintenance_theme'] = 'bartik';
-
 $conf['404_fast_paths_exclude'] = '/\/(?:styles)\//';
 $conf['404_fast_paths'] = '/\.(?:txt|png|gif|jpe?g|css|js|ico|swf|flv|cgi|bat|pl|dll|exe|asp)$/i';
-
-/**
- * Allow DB configuration to be overridden by environment variables.
- */
-if ($mysql_host = getenv('MYSQL_HOST')) {
-  $databases['default']['default']['host'] = $mysql_host;
-}
 
 /**
  * Allow RABBITMQ configuration to be overridden by environment variables.
  */
 if ($rabbitmq_host = getenv('RABBITMQ_HOST')) {
   $conf['message_broker_amqp_host'] = $rabbitmq_host;
-}
-
-/**
- * Memcache settings.
- */
-$conf['cache_backends'][] = 'sites/all/modules/contrib/memcache/memcache.inc';
-$conf['cache_default_class'] = 'MemCacheDrupal';
-$conf['cache_class_cache_form'] = 'DrupalDatabaseCache';
-
-/**
- * Allow memcache configuration to be overridden by environment variables.
- */
-$conf['memcache_key_prefix'] = getenv('MEMCACHE_PREFIX') ?: 'drupal';
-if ($memcache_hosts = getenv('MEMCACHE_HOSTS')) {
-  $memcache_hosts = explode(' ', trim($memcache_hosts));
-  foreach ($memcache_hosts as $memcache_host) {
-    $conf['memcache_servers'][$memcache_host . ':11211'] = 'default';
-  }
-
-  $conf['memcache_bins'] = array(
-    'cache' => 'default',
-  );
-}
-
-
-/**
- * Allow Varnish configuration to be overridden by environment variables.
- */
-if ($varnish_hosts = getenv('VARNISH_HOSTS')) {
-  $conf['varnish_control_terminal'] = str_replace(' ', ':6082 ', $varnish_hosts) . ':6082';
-
-  // Configure page cache to use Varnish.
-  $conf['cache_backends'][] = 'sites/all/modules/contrib/varnish/varnish.cache.inc';
-  $conf['cache_class_cache_page'] = 'VarnishCache';
-  $conf['page_cache_invoke_hooks'] = FALSE;
-  //$conf['varnish_control_key'] = '0dab0075-ecbb-4f0c-8cc0-839f16501ffe';
-}
-
-/**
- * Allow Solr configuration to be overridden by environment variables.
- */
-if (($solr_host = getenv('SOLR_HOST')) && ($solr_core = getenv('SOLR_CORE'))) {
-  list($solr_ip, $solr_port) = explode(':', $solr_host);
-
-  $conf['search_api_solr_overrides'] = array(
-    'search' => array(
-      'options' => array(
-        'host' => $solr_ip,
-        'port' => $solr_port,
-        'path' => $solr_core,
-      ),
-    ),
-  );
 }
 
 /**
@@ -98,8 +86,24 @@ if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROT
 /**
  * Determine environment.
  */
-switch (getenv('AH_SITE_ENVIRONMENT')) {
-  case 'development':
+switch ($env) {
+  case 'prod':
+    $conf['less_devel'] = 0;
+    $conf['less_watch'] = 0;
+    $conf['preprocess_css'] = 1;
+    $conf['preprocess_js'] = 1;
+    $conf['user_register'] = 0;
+    $conf['error_level'] = 0;
+    $conf['cache'] = 1;
+    $conf['block_cache'] = 0;
+    $conf['cache_lifetime'] = 300;
+    $conf['page_cache_maximum_age'] = 600;
+    break;
+
+  case 'dev':
+    $conf['shield_enabled'] = 1;
+    $conf['shield_pass'] = '*Y8R77n4zGNE';
+    $conf['shield_user'] = 'foodsciencecommitteeuser';
 
     // Disable google experiments on every page of the site (so we don't get annoying redirects ALL the time)
     $conf['content_experiments_visibility'] = 0;
@@ -120,19 +124,11 @@ switch (getenv('AH_SITE_ENVIRONMENT')) {
 
     break;
 
-  case 'qa':
+  case 'test':
+    $conf['shield_enabled'] = 1;
+    $conf['shield_pass'] = '*Y8R77n4zGNE';
+    $conf['shield_user'] = 'foodsciencecommitteeuser';
 
-    // Disable google experiments on every page of the site (so we don't get annoying redirects ALL the time)
-    $conf['content_experiments_visibility'] = 0;
-    $conf['content_experiments_pages'] = '*';
-
-    $conf['less_devel'] = 0;
-    $conf['less_watch'] = 0;
-
-    // No additional settings!
-    break;
-
-  case 'staging':
     // Enable production performance settings.
     $conf['less_devel'] = 0;
     $conf['less_watch'] = 0;
@@ -155,22 +151,7 @@ switch (getenv('AH_SITE_ENVIRONMENT')) {
     );
     break;
 
- case 'production':
-    $conf['less_devel'] = 0;
-    $conf['less_watch'] = 0;
-    $conf['preprocess_css'] = 1;
-    $conf['preprocess_js'] = 1;
-    $conf['user_register'] = 0;
-    $conf['error_level'] = 0;
-    $conf['cache'] = 1;
-    $conf['block_cache'] = 0;
-    $conf['cache_lifetime'] = 300;
-    $conf['page_cache_maximum_age'] = 600;
-    break;
-
   case 'local':
-  default:
-
     // Disable google experiments on every page of the site (so we don't get annoying redirects ALL the time)
     $conf['content_experiments_visibility'] = 0;
     $conf['content_experiments_pages'] = '*';
@@ -183,18 +164,15 @@ switch (getenv('AH_SITE_ENVIRONMENT')) {
     // Enable some handy module
     $conf['environment_modules'] = array(
       'devel' => 'sites/all/modules/development/devel/devel.module',
-      //'stage_file_proxy' => 'sites/all/modules/contrib/contrib/stage_file_proxy/stage_file_proxy.module',
+      'stage_file_proxy' => 'sites/all/modules/contrib/contrib/stage_file_proxy/stage_file_proxy.module',
     );
-    // Disable memcache.
-    // Commenting out the below as it's causing problems when using Drush
-    // @see Ticket#2015022410000048
-    // The AH_SITE_ENVIRONMENT variable is not getting set when using Drush, so
-    // Drush was trying to use database caching, not memcache. Since we always
-    // have memcache in place, it should be fine to leave the below out.
-    // $conf['cache_default_class'] = 'DrupalDatabaseCache';
-    // Set stage file proxy source
-    //$conf['stage_file_proxy_origin'] = 'http://' . urlencode('username') . ':password@http://developmentdomain.com/';
-    //$conf['stage_file_proxy_use_imagecache_root'] = TRUE;
+
+    $conf['file_private_path'] = "/var/www/html/docroot/sites/default/files/private";
+
+    $conf['stage_file_proxy_origin'] = 'https://old.food.gov.uk';
+    $conf['memcache_servers'] = array(
+      'memcached:11211' => 'default',
+    );
 
     break;
 
@@ -355,43 +333,10 @@ $conf['shield_print'] =  'Authentication required';
 # @see _link_domains() in link.module
 $conf['link_extra_domains'] = array('scot');
 
-
-
-#========================== Local File Overrides
-/**
- * Load local development override configuration, if available.
- *
- * Use settings.local.php to override variables on secondary (staging,
- * development, etc) installations of this site. Typically used to disable
- * caching, JavaScript/CSS compression, re-routing of outgoing e-mails, and
- * other things that should not happen on development and testing sites.
- *
- * Keep this code block at the end of this file to take full effect.
- */
-
-if (file_exists('/var/www/site-php/food-settings.inc')) {
-  // server specific config
-  require('/var/www/site-php/food-settings.inc');
-}
-if (file_exists(DRUPAL_ROOT . '/' . conf_path() . '/settings.local.php')) {
-  include DRUPAL_ROOT . '/' . conf_path() . '/settings.local.php';
-}
-
-# Database configuration for UpCloud server.  
-$databases = array (
-  'default' =>
-  array (
-    'default' =>
-    array (
-      'database' => getenv('DB_NAME_DRUPAL'),
-      'username' => getenv('DB_USER_DRUPAL'),
-      'password' => getenv('DB_PASS_DRUPAL'),
-      'host'     => getenv('DB_HOST_DRUPAL'),
-      'port'     => '',
-      'driver'   => 'mysql',
-      'prefix'   => '',
-    ),
-  ),
-);
-
 $conf['drupal_http_request_fails'] = FALSE;
+
+// Automatically generated include for settings managed by ddev.
+$ddev_settings = dirname(__FILE__) . '/settings.ddev.php';
+if (is_readable($ddev_settings)) {
+  require $ddev_settings;
+}
