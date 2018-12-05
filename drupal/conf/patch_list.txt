@@ -1,4 +1,0 @@
-Core patches applied:
-
-Issue: https://www.drupal.org/node/1102570
-Patch: https://www.drupal.org/files/entity-array_flip_warning-1102570-95.patch
