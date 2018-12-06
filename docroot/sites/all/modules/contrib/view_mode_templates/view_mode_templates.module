@@ -11,7 +11,7 @@
 function view_mode_templates_theme() {
   $theme_functions = array();
 
-  // view mode templates
+  // View mode templates
   $templates = _view_mode_templates();
   foreach ($templates as $template => $module) {
     $theme_functions[$template] = array(
