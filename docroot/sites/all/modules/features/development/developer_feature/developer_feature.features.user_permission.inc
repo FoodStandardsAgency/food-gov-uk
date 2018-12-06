@@ -10,33 +10,6 @@
 function developer_feature_user_default_permissions() {
   $permissions = array();
 
-  // Exported permission: 'access backup and migrate'.
-  $permissions['access backup and migrate'] = array(
-    'name' => 'access backup and migrate',
-    'roles' => array(
-      'Administrator' => 'Administrator',
-    ),
-    'module' => 'backup_migrate',
-  );
-
-  // Exported permission: 'access backup files'.
-  $permissions['access backup files'] = array(
-    'name' => 'access backup files',
-    'roles' => array(
-      'Administrator' => 'Administrator',
-    ),
-    'module' => 'backup_migrate',
-  );
-
-  // Exported permission: 'access devel information'.
-  $permissions['access devel information'] = array(
-    'name' => 'access devel information',
-    'roles' => array(
-      'Administrator' => 'Administrator',
-    ),
-    'module' => 'devel',
-  );
-
   // Exported permission: 'admin_classes'.
   $permissions['admin_classes'] = array(
     'name' => 'admin_classes',
@@ -62,15 +35,6 @@ function developer_feature_user_default_permissions() {
       'Administrator' => 'Administrator',
     ),
     'module' => 'ds_ui',
-  );
-
-  // Exported permission: 'administer backup and migrate'.
-  $permissions['administer backup and migrate'] = array(
-    'name' => 'administer backup and migrate',
-    'roles' => array(
-      'Administrator' => 'Administrator',
-    ),
-    'module' => 'backup_migrate',
   );
 
   // Exported permission: 'administer contexts'.
@@ -118,15 +82,6 @@ function developer_feature_user_default_permissions() {
     'module' => 'context_ui',
   );
 
-  // Exported permission: 'delete backup files'.
-  $permissions['delete backup files'] = array(
-    'name' => 'delete backup files',
-    'roles' => array(
-      'Administrator' => 'Administrator',
-    ),
-    'module' => 'backup_migrate',
-  );
-
   // Exported permission: 'edit views basic settings'.
   $permissions['edit views basic settings'] = array(
     'name' => 'edit views basic settings',
@@ -134,42 +89,6 @@ function developer_feature_user_default_permissions() {
       'Administrator' => 'Administrator',
     ),
     'module' => 'views_ui_basic',
-  );
-
-  // Exported permission: 'execute php code'.
-  $permissions['execute php code'] = array(
-    'name' => 'execute php code',
-    'roles' => array(
-      'Administrator' => 'Administrator',
-    ),
-    'module' => 'devel',
-  );
-
-  // Exported permission: 'perform backup'.
-  $permissions['perform backup'] = array(
-    'name' => 'perform backup',
-    'roles' => array(
-      'Administrator' => 'Administrator',
-    ),
-    'module' => 'backup_migrate',
-  );
-
-  // Exported permission: 'restore from backup'.
-  $permissions['restore from backup'] = array(
-    'name' => 'restore from backup',
-    'roles' => array(
-      'Administrator' => 'Administrator',
-    ),
-    'module' => 'backup_migrate',
-  );
-
-  // Exported permission: 'switch users'.
-  $permissions['switch users'] = array(
-    'name' => 'switch users',
-    'roles' => array(
-      'Administrator' => 'Administrator',
-    ),
-    'module' => 'devel',
   );
 
   return $permissions;
