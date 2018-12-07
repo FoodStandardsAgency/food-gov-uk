@@ -307,28 +307,6 @@ fast_404_ext_check();
 //fast_404_path_check();
 
 
-# ========================= Memory boosting
-# Some admin pages are resource heavy. Rather than boosting the memory for all pages,
-# we can selectively increase memory for the pages that need it
-
-
-if (strpos($_GET['q'], 'admin') === 0) {
-  ini_set('memory_limit', '900M');
-  ini_set('max_execution_time', 120);
-}
-
-// Boost cron runs.
-if (isset($_GET['cron'])) { ini_set('memory_limit', '512M'); }
-
-
-# ========================= General Variable Overrides
-//shield settings
-$conf['shield_user'] = 'shield';
-$conf['shield_pass'] = 'down';
-$conf['shield_allow_cli'] = 1;
-$conf['shield_print'] =  'Authentication required';
-
-
 # ========================= Additional domains for validation
 # @see _link_domains() in link.module
 $conf['link_extra_domains'] = array('scot');
