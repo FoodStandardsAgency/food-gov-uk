@@ -174,6 +174,8 @@ switch ($env) {
       'memcached:11211' => 'default',
     );
 
+    $conf['local_dev_domain'] = $env;
+
     break;
 
 }

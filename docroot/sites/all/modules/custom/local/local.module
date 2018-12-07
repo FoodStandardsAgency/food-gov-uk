@@ -54,9 +54,9 @@ function local_get_site_domain($admin = FALSE, $protocol = ''){
   }
   else {
     $environments = array(
-      'local' => '//local.food.gov.uk',
-      'development' => '//dev.food.gov.uk',
-      'staging' => '//staging.food.gov.uk',
+      'local' => '//science-council.ddev.local',
+      'development' => '//foodsciencecommitteedev.prod.acquia-sites.com',
+      'staging' => '//foodsciencecommitteestg.prod.acquia-sites.com',
       'production' => '//www.food.gov.uk',
     );
   }
@@ -83,6 +83,7 @@ function local_get_site_domain($admin = FALSE, $protocol = ''){
 function local_get_environment() {
   // Get a local development site domain if it's populated.
   $local_dev_domain = variable_get('local_dev_domain');
+
   // If we have a local development domain, we're on the local environment.
   if (!empty($local_dev_domain)) {
     return 'local';
@@ -437,10 +438,10 @@ function local_national_archives_site_url_alter(&$site_url, &$url) {
 
 
 
-/** 
- * Implements hook_form_FORM_ID_alter(). 
+/**
+ * Implements hook_form_FORM_ID_alter().
  */
- 
+
  function local_form_node_form_alter(&$form, &$form_state) {
  	$form['#attached']['css'][] = drupal_get_path('module', 'local') . '/css/local.css';
  }
@@ -479,6 +480,15 @@ function _local_committee_domains() {
         'ssrc.fsad7.prod.wunder.io'=> 'committee/social-science-research-committee-ssrc',
         'acss.fsad7.prod.wunder.io' => 'committee/advisory-committee-for-social-sciences-acss',
         'science-council.fsad7.prod.wunder.io' => 'committee/science-council',
+
+        'cot.ddev.local' => 'committee/committee-on-toxicity',
+        'acmsf.ddev.local' => 'committee/acmsf',
+        'acnfp.ddev.local'=> 'committee/acnfp',
+        'acaf.ddev.local' => 'committee/acaf',
+        'gacs.ddev.local'=> 'committee/gacs',
+        'ssrc.ddev.local'=> 'committee/social-science-research-committee-ssrc',
+        'acss.ddev.local' => 'committee/advisory-committee-for-social-sciences-acss',
+        'science-council.ddev.local' => 'committee/science-council',
       );
       // Allow other modules to provide committee domain mappings
       $committee_domains += module_invoke_all('committee_domains');

@@ -80,5 +80,4 @@ settings[omega_libraries][pie][status] = 1
 settings[omega_libraries][html5shiv][status] = 1
 settings[favicon_mimetype] = image/vnd.microsoft.icon
 settings[committee_domains][] = acss.food.gov.uk
-settings[committee_domains][] = acss.dev.food.gov.uk
-settings[committee_domains][] = acss.staging.food.gov.uk
+settings[committee_domains][] = acss.ddev.local
