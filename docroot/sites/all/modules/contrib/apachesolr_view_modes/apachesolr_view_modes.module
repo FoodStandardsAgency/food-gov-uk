@@ -11,82 +11,19 @@
  */
 function apachesolr_view_modes_apachesolr_index_document_build(ApacheSolrDocument $document, $entity, $entity_type, $env_id) {
 
-//  if ($entity_type == 'node') {
-    $entities = array($entity);
-    $entity_info = entity_get_info($entity_type);
-    $enabled_view_modes = variable_get('apachesolr_view_modes_' . $entity->type, array());
-    if (isset($entity->language)) {
-      $langcode = $entity->language;
-    } else {
-      $langcode = NULL;
-    }
+  if ($entity_type == 'node') {
 
-    // Index whole entity rendered using each view mode.
+    $entity_info = entity_get_info('node');
+
+    // Index whole node rendered using each view mode.
     foreach ($entity_info['view modes'] as $view_mode => $label) {
-      // Only index view modes enabled.
-      if (in_array($view_mode, $enabled_view_modes)) {
-        $build = entity_view($entity_type, $entities, $view_mode, $langcode);
-        $build['links']['#access'] = FALSE; // Hide links.
 
-        $view_mode_search_result = render($build);
-        $document->addField('zs_view_mode_' . $view_mode, $view_mode_search_result);
-      }
+      $build = node_view($entity, $view_mode);
+      $build['links']['#access'] = FALSE; // Hide links.
+
+      $view_mode_search_result = render($build);
+      $document->addField('zs_view_mode_' . $view_mode, $view_mode_search_result);
     }
-//  }
-
-}
-
-
-/**
- * Implements hook_form_FORM_ID_alter().
- */
-function apachesolr_view_modes_form_field_ui_display_overview_form_alter(&$form, &$form_state) {
-  $bundle = $form['#bundle'];
-  $view_mode = $form['#view_mode'];
-  $enabled_view_modes = variable_get('apachesolr_view_modes_' . $bundle, array());
-
-  // Add additional settings vertical tab.
-  if (!isset($form['additional_settings'])) {
-    $form['additional_settings'] = array(
-      '#type' => 'vertical_tabs',
-      '#theme_wrappers' => array('vertical_tabs'),
-      '#prefix' => '<div>',
-      '#suffix' => '</div>',
-      '#tree' => TRUE,
-    );
-    $form['#attached']['js'][] = 'misc/form.js';
-    $form['#attached']['js'][] = 'misc/collapse.js';
   }
 
-  $form['additional_settings']['apachesolr_view_modes'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Apache Solr View Modes'),
-    '#description' => t('Enable this option to create an Apache Solr search index of nodes of this content type using this view mode.'),
-    '#collapsible' => TRUE,
-    '#collapsed' => FALSE,
-    '#parents' => array('additional_settings'),
-  );
-
-  $form['additional_settings']['apachesolr_view_modes']['apachesolr_view_modes_index'] = array(
-    '#type'          => 'checkbox',
-    '#title'         => t('Add to search'),
-    '#default_value' => (isset($enabled_view_modes[$view_mode]) && !empty($enabled_view_modes[$view_mode])) ? 1 : 0,
-  );
-
-  $form['#submit'] = array_merge($form['#submit'], array('apachesolr_view_modes_form_field_ui_display_overview_form_submit'));
-
-}
-
-function apachesolr_view_modes_form_field_ui_display_overview_form_submit($form, &$form_state) {
-  $bundle = $form['#bundle'];
-  $view_mode = $form['#view_mode'];
-  $enabled_view_modes = variable_get('apachesolr_view_modes_' . $bundle, array());
-  // Don't index the view mode unles it's checkbox is enabled.
-  unset($enabled_view_modes[$view_mode]);
-
-  if (isset($form_state['values']['additional_settings']['apachesolr_view_modes_index']) && !empty($form_state['values']['additional_settings']['apachesolr_view_modes_index'])) {
-    $enabled_view_modes[$view_mode] = $view_mode;
-  }
-
-  variable_set('apachesolr_view_modes_' . $bundle, $enabled_view_modes);
 }
