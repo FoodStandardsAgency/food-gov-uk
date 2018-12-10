@@ -49,6 +49,6 @@
 
   <?php print $field->wrapper_prefix; ?>
     <?php print $field->label_html; ?>
-    <?php print filter_xss($field->raw); ?>
+    <?php print filter_xss($field->raw, array('a', 'em', 'strong', 'ul', 'ol', 'img', 'li', 'h2', 'div', 'span')); ?>
   <?php print $field->wrapper_suffix; ?>
 <?php endforeach; ?>
