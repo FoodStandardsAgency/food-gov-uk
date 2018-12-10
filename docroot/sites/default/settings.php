@@ -173,7 +173,8 @@ switch ($env) {
 
 }
 
-$conf['stage_file_proxy_origin'] = 'https://old.food.gov.uk';
+// $conf['stage_file_proxy_origin'] = 'https://old.food.gov.uk';
+$conf['stage_file_proxy_origin'] = 'http://foodsciencecommittee.prod.acquia-sites.com';
 $conf['stage_file_proxy_hotlink'] = TRUE;
 
 // AH_SITE_ENVIRONMENT is also used as a constant.
