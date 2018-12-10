@@ -161,15 +161,8 @@ switch ($env) {
     $conf['preprocess_js'] = 1;
     $conf['less_devel'] = TRUE;
 
-    // Enable some handy module
-    $conf['environment_modules'] = array(
-      'devel' => 'sites/all/modules/development/devel/devel.module',
-      'stage_file_proxy' => 'sites/all/modules/contrib/contrib/stage_file_proxy/stage_file_proxy.module',
-    );
-
     $conf['file_private_path'] = "/var/www/html/docroot/sites/default/files/private";
 
-    $conf['stage_file_proxy_origin'] = 'https://old.food.gov.uk';
     $conf['memcache_servers'] = array(
       'memcached:11211' => 'default',
     );
@@ -179,6 +172,9 @@ switch ($env) {
     break;
 
 }
+
+$conf['stage_file_proxy_origin'] = 'https://old.food.gov.uk';
+$conf['stage_file_proxy_hotlink'] = TRUE;
 
 // AH_SITE_ENVIRONMENT is also used as a constant.
 define('AH_SITE_ENVIRONMENT', getenv('AH_SITE_ENVIRONMENT'));
