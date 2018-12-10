@@ -49,6 +49,6 @@
 
   <?php print $field->wrapper_prefix; ?>
     <?php print $field->label_html; ?>
-    <?php print $field->content; ?>
+    <?php print filter_xss($field->raw); ?>
   <?php print $field->wrapper_suffix; ?>
 <?php endforeach; ?>
