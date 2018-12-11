@@ -10,22 +10,45 @@
 (function ($) {
 
 /**
- * Attach behaviors to media element browse fields.
+ * Attach behaviors to media element upload fields.
  */
 Drupal.behaviors.mediaElement = {
   attach: function (context, settings) {
+    var $context = $(context);
+    var elements;
+
+    function initMediaBrowser(selector) {
+      var widget=$context.find(selector).once('media-browser-launch');
+      var browse=widget.siblings('.browse').add(widget.find('.browse'));
+      var upload=browse.siblings('.upload').add(widget.find('.upload'));
+      var attach=upload.siblings('.attach').add(widget.find('.attach'));
+      browse.show();
+      upload.hide();
+      attach.hide();
+      browse.bind('click', {configuration: settings.media.elements[selector]}, Drupal.media.openBrowser);
+    }
+
     if (settings.media && settings.media.elements) {
-      $.each(settings.media.elements, function(selector) {
-        var configuration = settings.media.elements[selector];
-        $(selector, context).children('.browse').unbind().bind('click', {configuration: configuration}, Drupal.media.openBrowser);
-      });
+      elements = settings.media.elements;
+      Object.keys(elements).forEach(initMediaBrowser);
     }
   },
-  detach: function (context, settings) {
-    if (settings.media && settings.media.elements) {
-      $.each(settings.media.elements, function(selector) {
-        $(selector, context).children('.browse').unbind('click', Drupal.media.openBrowser);
-      });
+  detach: function (context, settings, trigger) {
+    var $context = $(context);
+    var elements;
+
+    function removeMediaBrowser(selector) {
+      $context.find(selector)
+        .removeOnce('media-browser-launch')
+        .siblings('.browse').hide()
+        .siblings('.upload').show()
+        .siblings('.attach').show()
+        .siblings('.browse').unbind('click', Drupal.media.openBrowser);
+    }
+
+    if (trigger === 'unload' && settings.media && settings.media.elements) {
+      elements = settings.media.elements;
+      Object.keys(elements).forEach(removeMediaBrowser);
     }
   }
 };
@@ -54,10 +77,10 @@ Drupal.media.openBrowser = function (event) {
   var clickedButton = this;
   var configuration = event.data.configuration.global;
 
-  // Find the file ID and preview fields.
+  // Find the file ID, preview and upload fields.
   var fidField = $(this).siblings('.fid');
-
   var previewField = $(this).siblings('.preview');
+  var uploadField = $(this).siblings('.upload');
 
   // Find the edit and remove buttons.
   var editButton = $(this).siblings('.edit');
@@ -70,15 +93,29 @@ Drupal.media.openBrowser = function (event) {
       return;
     }
 
-    // Grab the first of the selected media files.
-    var mediaFile = mediaFiles[0];
+    var mediaFileValue;
+    // Process the value based on multiselect.
+    if (mediaFiles.length > 1) {
+      // Concatenate the array into a comma separated string.
+      mediaFileValue = mediaFiles.map(function(file) {
+        return file.fid;
+      }).join(',');
+    }
+    else {
+      // Grab the first of the selected media files.
+      mediaFileValue = mediaFiles[0].fid;
+
+      // Display a preview of the file using the selected media file's display.
+      previewField.html(mediaFileValue.preview);
+    }
 
     // Set the value of the hidden file ID field and trigger a change.
-    fidField.val(mediaFile.fid);
-    fidField.trigger('change');
+    uploadField.val(mediaFileValue);
+    uploadField.trigger('change');
 
-    // Display a preview of the file using the selected media file's display.
-    previewField.html(mediaFile.preview);
+    // Find the attach button and automatically trigger it.
+    var attachButton = uploadField.siblings('.attach');
+    attachButton.trigger('mousedown');
   }, configuration);
 
   return false;
@@ -109,7 +146,7 @@ Drupal.media.disableFields = function (event) {
   // behaviors) are excuted before any timeout functions are called, so we
   // don't have to worry about the fields being re-enabled too soon.
   // @todo If the previous sentence is true, why not set the timeout to 0?
-  var $fieldsToTemporarilyDisable = $('div.media-widget a.browse').not($enabledFields).not(':disabled');
+  var $fieldsToTemporarilyDisable = $('div.media-widget input.attach').not($enabledFields).not(':disabled');
   $fieldsToTemporarilyDisable.attr('disabled', 'disabled');
   setTimeout(function (){
     $fieldsToTemporarilyDisable.attr('disabled', false);
@@ -117,4 +154,3 @@ Drupal.media.disableFields = function (event) {
 };
 
 })(jQuery);
-

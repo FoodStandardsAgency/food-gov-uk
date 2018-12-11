@@ -40,7 +40,7 @@ function hook_media_wysiwyg_wysiwyg_allowed_view_modes_alter(&$view_modes, $file
 function hook_media_wysiwyg_format_form_prepare_alter(&$form, &$form_state, $file) {
   $form['preview']['#access'] = FALSE;
 
-  $file = $form['#media'];
+  $file = $form_state['file'];
   $form['heading']['#markup'] = t('Embedding %filename of type %filetype', array('%filename' => $file->filename, '%filetype' => $file->type));
 }
 
@@ -67,5 +67,20 @@ function hook_media_wysiwyg_format_form_prepare_alter(&$form, &$form_state, $fil
 function hook_media_wysiwyg_token_to_markup_alter(&$element, $tag_info, $settings) {
   if (empty($settings['wysiwyg'])) {
     $element['#attributes']['alt'] = t('This media has been output using the @mode view mode.', array('@mode' => $tag_info['view_mode']));
+  }
+}
+
+/**
+ * Alter list of attributes allowed to be stored in json and rendered in HTML.
+ * This example ensures that 'class' is always a permitted attribute.
+ *
+ * @param array $allowed_attributes
+ *   A flat array of attribute names.
+ *
+ * @see media_wysiwyg_allowed_attributes()
+ */
+function hook_media_wysiwyg_allowed_attributes_alter(&$allowed_attributes) {
+  if (!in_array('class', $allowed_attributes)) {
+    $allowed_attributes[] = 'class';
   }
 }
