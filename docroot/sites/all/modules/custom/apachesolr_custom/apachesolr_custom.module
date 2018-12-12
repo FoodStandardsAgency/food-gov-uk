@@ -482,7 +482,7 @@ function apachesolr_preprocess_views_view_fields(&$variables) {
     'nations___news_updates_news',
     'news_centre___search',
     'research_projects',
-    // 'search_sitewide',
+    'search_sitewide',
   );
 
   if (in_array($view->name, $views_ids) == FALSE) {
