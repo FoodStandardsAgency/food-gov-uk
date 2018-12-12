@@ -480,7 +480,7 @@ function apachesolr_preprocess_views_view_fields(&$variables) {
     'committees_search',
     'consultation_search',
     'nations___news_updates_news',
-    'news_centre__search',
+    'news_centre___search',
     'research_projects',
     // 'search_sitewide',
   );
