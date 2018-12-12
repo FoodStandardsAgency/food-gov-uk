@@ -74,7 +74,7 @@ function apachesolr_custom_apachesolr_index_document_build_node(ApacheSolrDocume
       break;
 
     case 'audit_news':
-      // we want audit news to come before audit reports  
+      // we want audit news to come before audit reports
       apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year');
       apachesolr_custom_year_field($document, $entity, 'field_year', 'is_last_updated_year_sort',10.001);
       //  The year title sort field needs to work descending. Audit news must also come first, so we add the ZZZZ to force it first
@@ -123,7 +123,7 @@ function apachesolr_custom_apachesolr_index_document_build_node(ApacheSolrDocume
       }
 
       break;
-    
+
     case 'research_project':
       // Research Project status
       if (isset($entity->field_project_status)) {
@@ -319,7 +319,7 @@ function apachesolr_custom_facetapi_facet_info(array $searcher_info) {
         array('display', SORT_ASC),
       ),
     );
-  
+
     // Research Project has status
     $facets['sm_field_project_status'] = array(
       'name' 			=> 'sm_field_project_status',
@@ -339,7 +339,7 @@ function apachesolr_custom_facetapi_facet_info(array $searcher_info) {
 	array('display', SORT_DESC),
       ),
     );
-  
+
   }
   return $facets;
 }
@@ -464,5 +464,38 @@ function _apache_solr_custom_apachesolr_file_status_callback($entity_id, $entity
   // Return the value of field_show_in_search_results.
   else {
     return (boolean) $entity->field_show_in_search_results->value();
+  }
+}
+
+/**
+ * Implements hook_preprocess_view_view_fields().
+ */
+function apachesolr_preprocess_views_view_fields(&$variables) {
+  $view = &$variables['view'];
+
+  $views_ids = array(
+    'audit_reports',
+    'committee_news_page',
+    'committee_papers_listing',
+    'committees_search',
+    'consultation_search',
+    'nations___news_updates_news',
+    'news_centre__search',
+    'research_projects',
+    // 'search_sitewide',
+  );
+
+  if (in_array($view->name, $views_ids) == FALSE) {
+    return;
+  }
+
+  // Preprocess each field in the row.
+  foreach ($variables['fields'] as &$field) {
+    if ($field->handler instanceof apachesolr_views_handler_field == FALSE) {
+      continue;
+    }
+
+    // Replace content with liberally filtered 'raw' value so that markup isn't escaped before rendering.
+    $field->content = urldecode($field->raw);
   }
 }
