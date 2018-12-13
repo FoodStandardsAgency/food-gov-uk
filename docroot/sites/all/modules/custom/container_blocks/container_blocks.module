@@ -32,7 +32,7 @@ function container_blocks_block_info() {
   $blocks['search_all_dependant_facets'] = array(
     'info' => t('Search All Dependant Facets'),
   );
-  
+
   $blocks['search_all_news_facets'] = array(
     'info' => t('Search All News Facets'),
   );
@@ -40,7 +40,7 @@ function container_blocks_block_info() {
   $blocks['search_food_alerts_facets'] = array(
     'info' => t('Search All News Facets (food alerts)'),
   );
-  
+
   $blocks['search_allergy_alerts_facets'] = array(
     'info' => t('Search All News Facets (allergy alerts)'),
   );
@@ -95,13 +95,13 @@ function container_blocks_block_view($delta = '') {
     case 'search_all_facets':
 
       $blocks[] = block_load('views', '-exp-search_sitewide-page');
-      $blocks[] = block_load('facetapi', 'bLPXAQDJqA1Re1OTSoyUJM9gUBaIgZMG');
-      $blocks[] = block_load('facetapi', 'ly6396gbtdufodpd8je0qyujejn73bws');
-      $blocks[] = block_load('facetapi', 'JA1S7gqOdiVJQxg5zwM1Pb8KjhJNGZjx');
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_lastupdated'));
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_nation'));
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_sitesection'));
 
       // Guidance dependant facets
-      $blocks[] = block_load('facetapi', '2114gf0ekix3fbtdoanmoe1w9krmhxv4');
-      $blocks[] = block_load('facetapi', 'p3fubrie0j3kxs8j2aewwxks2gqtkmih');
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_businesstype'));
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_topicbusinessguidance'));
 
       $content = container_blocks_concatenate_content($blocks);
 
@@ -125,13 +125,13 @@ function container_blocks_block_view($delta = '') {
       else if ($delta == 'search_allergy_alerts_facets') {
 	$blocks[] = block_load('views', '-exp-news_centre___search-page_2');
       }
-      $blocks[] = block_load('facetapi', 'mo10eVoL905Qwndxck1XcD0dZWgc0x7s');
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_newstype'));
       // updated time facet
       // $blocks[] = block_load('facetapi', 'bLPXAQDJqA1Re1OTSoyUJM9gUBaIgZMG');
       // Nation
-      $blocks[] = block_load('facetapi', 'ly6396gbtdufodpd8je0qyujejn73bws');
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_nation'));
       // Last updated year.
-      $blocks[] = block_load('facetapi', 'z0n0mr7e3co9o4fke31fjmkzq9qgwfqq');
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_lastupdatedyear'));
 
       $content = container_blocks_concatenate_content($blocks);
 
@@ -144,9 +144,9 @@ function container_blocks_block_view($delta = '') {
     case 'search_all_news_facets_nations':
       // a version of the news facets that does not have an option to filter by nation
       $blocks[] = block_load('views', '-exp-news_centre___search-page');
-      $blocks[] = block_load('facetapi', 'mo10eVoL905Qwndxck1XcD0dZWgc0x7s');
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_newstype'));
       // Last updated year.
-      $blocks[] = block_load('facetapi', 'z0n0mr7e3co9o4fke31fjmkzq9qgwfqq');
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_lastupdatedyear'));
 
       $content = container_blocks_concatenate_content($blocks);
 
@@ -160,9 +160,9 @@ function container_blocks_block_view($delta = '') {
     case 'search_news_facets_ireland':
       // a version of the news facets that does not have an option to filter by nation
       $blocks[] = block_load('views', '-exp-nations___news_updates_news-page');
-      $blocks[] = block_load('facetapi', 'mo10eVoL905Qwndxck1XcD0dZWgc0x7s');
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_newstype'));
       // Last updated year.
-      $blocks[] = block_load('facetapi', 'z0n0mr7e3co9o4fke31fjmkzq9qgwfqq');
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_lastupdatedyear'));
 
       $content = container_blocks_concatenate_content($blocks);
 
@@ -174,9 +174,9 @@ function container_blocks_block_view($delta = '') {
     case 'search_news_facets_scotland':
       // a version of the news facets that does not have an option to filter by nation
       $blocks[] = block_load('views', '-exp-nations___news_updates_news-page_1');
-      $blocks[] = block_load('facetapi', 'mo10eVoL905Qwndxck1XcD0dZWgc0x7s');
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_newstype'));
       // Last updated year.
-      $blocks[] = block_load('facetapi', 'z0n0mr7e3co9o4fke31fjmkzq9qgwfqq');
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_lastupdatedyear'));
 
       $content = container_blocks_concatenate_content($blocks);
 
@@ -188,9 +188,9 @@ function container_blocks_block_view($delta = '') {
     case 'search_news_facets_wales':
       // a version of the news facets that does not have an option to filter by nation
       $blocks[] = block_load('views', '-exp-nations___news_updates_news-page_2');
-      $blocks[] = block_load('facetapi', 'mo10eVoL905Qwndxck1XcD0dZWgc0x7s');
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_newstype'));
       // Last updated year.
-      $blocks[] = block_load('facetapi', 'z0n0mr7e3co9o4fke31fjmkzq9qgwfqq');
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_lastupdatedyear'));
 
       $content = container_blocks_concatenate_content($blocks);
 
@@ -202,9 +202,9 @@ function container_blocks_block_view($delta = '') {
     case 'search_news_facets_wales_welsh':
       // a version of the news facets that does not have an option to filter by nation
       $blocks[] = block_load('views', '-exp-nations___news_updates_news-page_3');
-      $blocks[] = block_load('facetapi', 'mo10eVoL905Qwndxck1XcD0dZWgc0x7s');
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_newstype'));
       // Last updated year.
-      $blocks[] = block_load('facetapi', 'z0n0mr7e3co9o4fke31fjmkzq9qgwfqq');
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_lastupdatedyear'));
 
       $content = container_blocks_concatenate_content($blocks);
 
@@ -217,7 +217,7 @@ function container_blocks_block_view($delta = '') {
     case 'search_alerts_facets':
       $blocks[] = block_load('views', '-exp-alerts-page');
       // Last updated year.
-      $blocks[] = block_load('facetapi', 'z0n0mr7e3co9o4fke31fjmkzq9qgwfqq');
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_lastupdatedyear'));
 
 
       $content = container_blocks_concatenate_content($blocks);
@@ -230,9 +230,9 @@ function container_blocks_block_view($delta = '') {
 
     case 'search_guidance':
       $blocks[] = block_load('views', '-exp-search_sitewide-page');
-      $blocks[] = block_load('facetapi', '2114gf0ekix3fbtdoanmoe1w9krmhxv4');
-      $blocks[] = block_load('facetapi', 'ly6396gbtdufodpd8je0qyujejn73bws');
-      $blocks[] = block_load('facetapi', 'p3fubrie0j3kxs8j2aewwxks2gqtkmih');
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_businesstype'));
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_nation'));
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_topicbusinessguidance'));
 
       $content = container_blocks_concatenate_content($blocks);
 
@@ -248,11 +248,11 @@ function container_blocks_block_view($delta = '') {
 
     case 'search_consultations':
       // Nation
-      $blocks[] = block_load('facetapi', 'ly6396gbtdufodpd8je0qyujejn73bws');
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_nation'));
       // Last updated year.
-      $blocks[] = block_load('facetapi', 'z0n0mr7e3co9o4fke31fjmkzq9qgwfqq');
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_lastupdatedyear'));
       //status
-      $blocks[] = block_load('facetapi', 'x4nnoysr1rqw1vfaghilcfbruu0t1ml1');
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_consultationstate'));
       $content = container_blocks_concatenate_content($blocks);
 
       if (!empty($content)) {
@@ -267,19 +267,17 @@ function container_blocks_block_view($delta = '') {
 
     case 'search_audit_reports':
       // Nation.
-      $blocks[] = block_load('facetapi', 'ly6396gbtdufodpd8je0qyujejn73bws');
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_nation'));
       // Audit type.
-      $blocks[] = block_load('facetapi', 'nad0zwsdksumabkwgcngpas5iikhjfmw');
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_audittype'));
       // Audit state.
-      $blocks[] = block_load('facetapi', 'rki2uwj1stot4co2v0tkak5avuy4ilhi');
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_auditstate'));
       // Authority type.
-      $blocks[] = block_load('facetapi', 'osdqst08lgwyuqprmimxdogailt1qynk');
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_authoritytype'));
       // Last updated year.
-      $blocks[] = block_load('facetapi', 'z0n0mr7e3co9o4fke31fjmkzq9qgwfqq');
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_lastupdatedyear'));
       // Has Action Plan.
-      $blocks[] = block_load('facetapi', 'ae1hugfdpdtovvqzvnuos6xa7bkpit9h');
-      
-
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_hasactionplan'));
 
       $content = container_blocks_concatenate_content($blocks);
 
@@ -295,9 +293,9 @@ function container_blocks_block_view($delta = '') {
 
     case 'search_committee_papers':
       // Published Year.
-      $blocks[] = block_load('facetapi', 'z0n0mr7e3co9o4fke31fjmkzq9qgwfqq');
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_lastupdatedyear'));
       // Freetag Topic.
-      $blocks[] = block_load('facetapi', 'hz3me3m90tyr28bumoupbsr1tvm009r8');
+      $blocks[] = block_load('facetapi', variable_get('facetblock_id_topic'));
 
       $content = container_blocks_concatenate_content($blocks);
 
