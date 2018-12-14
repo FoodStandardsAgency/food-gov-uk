@@ -105,22 +105,22 @@ switch ($env) {
     $conf['shield_pass'] = '*Y8R77n4zGNE';
     $conf['shield_user'] = 'foodsciencecommitteeuser';
 
+    // Enable production performance settings.
+    $conf['less_devel'] = 0;
+    $conf['less_watch'] = 0;
+    $conf['preprocess_css'] = 1;
+    $conf['preprocess_js'] = 1;
+    $conf['error_level'] = 0;
+    $conf['cache'] = 1;
+    $conf['block_cache'] = 0;
+    $conf['cache_lifetime'] = 300;
+    $conf['page_cache_maximum_age'] = 600;
+
     // Disable google experiments on every page of the site (so we don't get annoying redirects ALL the time)
     $conf['content_experiments_visibility'] = 0;
     $conf['content_experiments_pages'] = '*';
 
-    // Disable aggregation
-    $conf['preprocess_css'] = 0;
-    $conf['preprocess_js'] = 0;
-    $conf['less_devel'] = TRUE;
-
-
-    // Enable some handy module
-    $conf['environment_modules'] = array(
-     // 'devel' => 'sites/all/modules/development/devel/devel.module',
-     // 'shield' => 'sites/all/modules/development/shield/shield.module',
-      //'stage_file_proxy' => 'sites/all/modules/contrib/contrib/stage_file_proxy/stage_file_proxy.module',
-    );
+    $conf['stage_file_proxy_origin'] = 'http://foodsciencecommittee.prod.acquia-sites.com';
 
     break;
 
@@ -144,11 +144,8 @@ switch ($env) {
     $conf['content_experiments_visibility'] = 0;
     $conf['content_experiments_pages'] = '*';
 
-    // Enable some handy module
-    $conf['environment_modules'] = array(
-      //'shield' => 'sites/all/modules/development/shield/shield.module',
-      //'stage_file_proxy' => 'sites/all/modules/contrib/contrib/stage_file_proxy/stage_file_proxy.module',
-    );
+    $conf['stage_file_proxy_origin'] = 'http://foodsciencecommittee.prod.acquia-sites.com';
+
     break;
 
   case 'local':
@@ -169,7 +166,7 @@ switch ($env) {
 
     $conf['file_private_path'] = "/var/www/html/docroot/sites/default/files/private";
 
-    $conf['stage_file_proxy_origin'] = 'https://old.food.gov.uk';
+    $conf['stage_file_proxy_origin'] = 'http://foodsciencecommittee.prod.acquia-sites.com';
     $conf['memcache_servers'] = array(
       'memcached:11211' => 'default',
     );
