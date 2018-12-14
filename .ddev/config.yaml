@@ -20,8 +20,8 @@ provider: default
 hooks:
   post-import-db:
   - exec: drush updb
-  - exec: drush dis -y acquia_purge acquia_connector shield
-  - exec: drush en -y stage_file_proxy apachesolr
+  - exec: drush dis -y acquia_purge shield
+  - exec: drush en -y stage_file_proxy acquia_search
   - exec: drush cc all
 
 

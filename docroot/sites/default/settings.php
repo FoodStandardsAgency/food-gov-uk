@@ -105,22 +105,22 @@ switch ($env) {
     $conf['shield_pass'] = '*Y8R77n4zGNE';
     $conf['shield_user'] = 'foodsciencecommitteeuser';
 
+    // Enable production performance settings.
+    $conf['less_devel'] = 0;
+    $conf['less_watch'] = 0;
+    $conf['preprocess_css'] = 1;
+    $conf['preprocess_js'] = 1;
+    $conf['error_level'] = 0;
+    $conf['cache'] = 1;
+    $conf['block_cache'] = 0;
+    $conf['cache_lifetime'] = 300;
+    $conf['page_cache_maximum_age'] = 600;
+
     // Disable google experiments on every page of the site (so we don't get annoying redirects ALL the time)
     $conf['content_experiments_visibility'] = 0;
     $conf['content_experiments_pages'] = '*';
 
-    // Disable aggregation
-    $conf['preprocess_css'] = 0;
-    $conf['preprocess_js'] = 0;
-    $conf['less_devel'] = TRUE;
-
-
-    // Enable some handy module
-    $conf['environment_modules'] = array(
-     // 'devel' => 'sites/all/modules/development/devel/devel.module',
-     // 'shield' => 'sites/all/modules/development/shield/shield.module',
-      //'stage_file_proxy' => 'sites/all/modules/contrib/contrib/stage_file_proxy/stage_file_proxy.module',
-    );
+    $conf['stage_file_proxy_origin'] = 'http://foodsciencecommittee.prod.acquia-sites.com';
 
     break;
 
@@ -144,11 +144,8 @@ switch ($env) {
     $conf['content_experiments_visibility'] = 0;
     $conf['content_experiments_pages'] = '*';
 
-    // Enable some handy module
-    $conf['environment_modules'] = array(
-      //'shield' => 'sites/all/modules/development/shield/shield.module',
-      //'stage_file_proxy' => 'sites/all/modules/contrib/contrib/stage_file_proxy/stage_file_proxy.module',
-    );
+    $conf['stage_file_proxy_origin'] = 'http://foodsciencecommittee.prod.acquia-sites.com';
+
     break;
 
   case 'local':
@@ -163,6 +160,7 @@ switch ($env) {
 
     $conf['file_private_path'] = "/var/www/html/docroot/sites/default/files/private";
 
+    $conf['stage_file_proxy_origin'] = 'http://foodsciencecommittee.prod.acquia-sites.com';
     $conf['memcache_servers'] = array(
       'memcached:11211' => 'default',
     );
@@ -173,9 +171,43 @@ switch ($env) {
 
 }
 
-// $conf['stage_file_proxy_origin'] = 'https://old.food.gov.uk';
-$conf['stage_file_proxy_origin'] = 'http://foodsciencecommittee.prod.acquia-sites.com';
-$conf['stage_file_proxy_hotlink'] = TRUE;
+// Facet API blocks for Acquia Solr service. - ID varies as local and Acquia Solr instances set up their own blocks and don't share config.
+$conf['facetblock_id_auditstate'] = '';
+$conf['facetblock_id_audittype'] = 'Dbu9sMRrvNGDTRgYkJSWuwERWm7OxON1';
+$conf['facetblock_id_authority'] = '';
+$conf['facetblock_id_authoritytype'] = 'jpxv3pTBpWUHGgG3q7XdVRYFvFqDxTm6';
+$conf['facetblock_id_businesstype'] = 'I9nSebSbAynZRfowhnD50avYF6eoHEpA';
+$conf['facetblock_id_consultationdates'] = 'G2t3tK7Ye1CPrHE8gF2FTM6VyHfrb8Bl';
+$conf['facetblock_id_consultationstate'] = 'VYNWKAz5MrtjaiNPPHpbojbs1055Z6F6';
+$conf['facetblock_id_hasactionplan'] = '6onBZsf0uQdmtxCOwf2DBVNYRMVEnvuD';
+$conf['facetblock_id_lastupdatedyear'] = 'KiDl1M5DAJVw1c2XKmZapWWp1cbwGH0v';
+$conf['facetblock_id_lastupdated'] = 'AnL5uNyNDBSsuQ1xMNT1O3tH69EsuVEA';
+$conf['facetblock_id_nation'] = 'b05s4gOs922A8BaBCMo6WcxgfCTQ9kme';
+$conf['facetblock_id_newstype'] = 'JF1ktZywD1nWwTZi45sVmxE1W01bmI4U';
+$conf['facetblock_id_publicationyear'] = 'yGo565Qcsm5BOsYuiTaEQymfeguQY7s6';
+$conf['facetblock_id_sitesection'] = 'XFGmWphHe06gwyZ6cPPpYnoGLw9vLkGt';
+$conf['facetblock_id_topic'] = 'UV1SPaUDbnZep0QqVN20YZYaY2KWhGG1';
+$conf['facetblock_id_topicbusinessguidance'] = 'oK1SVGRyKPL1tmGLx0WR4CCUMDySI7t8';
+$conf['facetblock_id_year'] = 'uApNErYwaJKPj2o8bnmO8zQ9clamqo3q';
+
+// Legacy Solr service facet block IDs.
+// $conf['facetblock_id_auditstate'] = 'rkI2uwj1sToT4Co2v0tKak5AVUy4Ilhi';
+// $conf['facetblock_id_audittype'] = 'nAd0zwsdKsumABKwGcNGpas5iikhJFmW';
+// $conf['facetblock_id_authority'] = 'HYXY7PFNX9A8eDeFFQz5kd1ZaIElrspc';
+// $conf['facetblock_id_authoritytype'] = 'OsdQst08LGWYUqPRMiMxdOGailt1QYnk';
+// $conf['facetblock_id_businesstype'] = '2114gf0eKIX3FbtdoaNMoe1W9kRMHxV4';
+// $conf['facetblock_id_consultationdates'] = '4OSHDoCk6vIKerVR03R0jHzO1VoB4NH5';
+// $conf['facetblock_id_consultationstate'] = 'x4nnOYsR1rqw1vFaghilCfbRUu0t1Ml1';
+// $conf['facetblock_id_hasactionplan'] = 'AE1hugFdpdTovVqzvNUos6xA7bkPIT9h';
+// $conf['facetblock_id_lastupdatedyear'] = 'Z0N0mr7E3CO9o4Fke31FjmKzq9QGWFqQ';
+// $conf['facetblock_id_lastupdated'] = 'bLPXAQDJqA1Re1OTSoyUJM9gUBaIgZMG';
+// $conf['facetblock_id_nation'] = 'Ly6396GBTduFODpD8je0QyUjeJN73bws';
+// $conf['facetblock_id_newstype'] = 'mo10eVoL905Qwndxck1XcD0dZWgc0x7s';
+// $conf['facetblock_id_publicationyear'] = '78w49pdE99wOe9WeCQZpEdGVaDVby3QC';
+// $conf['facetblock_id_sitesection'] = 'JA1S7gqOdiVJQxg5zwM1Pb8KjhJNGZjx';
+// $conf['facetblock_id_topic'] = 'hz3Me3M90TYR28BuMoUPbsr1tvm009R8';
+// $conf['facetblock_id_topicbusinessguidance'] = 'p3fUbRiE0J3kxS8J2AEwWxKS2gqTkMiH';
+// $conf['facetblock_id_year'] = 'eFdsYzKmdlm3KMMSqDCo0IlN2zMmq0Tw';
 
 // AH_SITE_ENVIRONMENT is also used as a constant.
 define('AH_SITE_ENVIRONMENT', getenv('AH_SITE_ENVIRONMENT'));
