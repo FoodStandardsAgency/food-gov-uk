@@ -14,7 +14,7 @@ drush_alias=$site'.'$target_env
 # Update database schema.
 drush @$drush_alias updb -y
 
-if [[ "$target_env" =~ prod ]]; then
+if [ $target_env = "prod" ]; then
     # Clear all caches if the target environment is production.
     drush @$drush_alias cc all
 else
