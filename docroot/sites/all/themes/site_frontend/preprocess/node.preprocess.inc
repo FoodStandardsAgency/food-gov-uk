@@ -119,6 +119,14 @@ function site_frontend_preprocess_node__job(&$variables, $node = NULL) {
     $variables['title_link']['#options']['attributes']['target'] = '_blank';
   }
 
+  // Redirect field triggers indexing issues, so check the view mode + whether it's CLI or not
+  // and redirect if the user doesn't have permission to bypass redirect fields. If we leave
+  // the redirect field formatter in place, it is triggered when the node is 'built' as part of the
+  // Solr indexing process causing premature exit from the indexing process.
+  if ($variables['view_mode'] == 'full' && !drupal_is_cli() && !user_access('bypass redirection')) {
+    drupal_goto($node->field_url[LANGUAGE_NONE][0]['url']);
+  }
+
 }
 
 
