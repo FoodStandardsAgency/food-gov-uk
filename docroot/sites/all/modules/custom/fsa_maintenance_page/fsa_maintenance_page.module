@@ -85,23 +85,23 @@ function fsa_maintenance_page_preprocess_maintenance_page(&$variables) {
   );
 
   // Add the 'viewport' meta tag.
-  if (omega_theme_get_setting('omega_viewport', TRUE)) {
+  if (theme_get_setting('omega_viewport', TRUE)) {
     $content = array('width=device-width');
 
     // Add the 'initial-scale' property if configured.
-    if ($value = omega_theme_get_setting('omega_viewport_initial_scale')) {
+    if ($value = theme_get_setting('omega_viewport_initial_scale')) {
       $content[] = "initial-scale=$value";
     }
 
     // The minimum-scale and maximum-scale properties are ignored if
     // user-scalable is set to 'no'.
-    if (omega_theme_get_setting('omega_viewport_user_scaleable', TRUE) == FALSE) {
+    if (theme_get_setting('omega_viewport_user_scaleable', TRUE) == FALSE) {
       $content[] = 'user-scalable=no';
     }
     else {
       // Set the minimum-scale and maximum-scale properties if specified.
       foreach (array('minimum', 'maximum') as $type) {
-        if ($value = omega_theme_get_setting("omega_viewport_{$type}_scale")) {
+        if ($value = theme_get_setting("omega_viewport_{$type}_scale")) {
           $content[] = "$type-scale=$value";
         }
       }
