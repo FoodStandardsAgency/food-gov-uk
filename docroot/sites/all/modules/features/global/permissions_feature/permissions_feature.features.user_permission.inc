@@ -471,15 +471,6 @@ function permissions_feature_user_default_permissions() {
     'module' => 'uuid',
   );
 
-  // Exported permission: 'administer varnish'.
-  $permissions['administer varnish'] = array(
-    'name' => 'administer varnish',
-    'roles' => array(
-      'Administrator' => 'Administrator',
-    ),
-    'module' => 'varnish',
-  );
-
   // Exported permission: 'administer views'.
   $permissions['administer views'] = array(
     'name' => 'administer views',
