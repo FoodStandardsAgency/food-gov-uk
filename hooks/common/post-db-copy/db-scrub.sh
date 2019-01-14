@@ -112,4 +112,4 @@ TRUNCATE watchdog;
 
 
 EOF
-) drush @$site.$target_env ah-sql-cli --db=$db_name
+) | drush @$site.$target_env ah-sql-cli --db=$db_name
