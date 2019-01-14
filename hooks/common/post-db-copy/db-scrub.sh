@@ -75,33 +75,29 @@ echo "$site.$target_env: Scrubbing database $db_name"
 -- Admin user should not be same but not really well known
 -- UPDATE users SET pass='$REPLACE THIS$' WHERE uid = 1;
 
--- TRUNCATE accesslog;
--- TRUNCATE access;
-TRUNCATE cache
-TRUNCATE cache_admin_menu
-TRUNCATE cache_apachesolr
-TRUNCATE cache_block
-TRUNCATE cache_bootstrap
-TRUNCATE cache_entity_og_membership
-TRUNCATE cache_entity_og_membership_type
-TRUNCATE cache_features
-TRUNCATE cache_field
-TRUNCATE cache_filter
-TRUNCATE cache_form
-TRUNCATE cache_image
-TRUNCATE cache_libraries
-TRUNCATE cache_menu
-TRUNCATE cache_metatag
-TRUNCATE cache_page
-TRUNCATE cache_path
-TRUNCATE cache_path_breadcrumbs
-TRUNCATE cache_token
-TRUNCATE cache_update
-TRUNCATE cache_variable
-TRUNCATE cache_views
-TRUNCATE cache_views_data
--- TRUNCATE devel_queries;
--- TRUNCATE devel_times;
+TRUNCATE cache;
+TRUNCATE cache_admin_menu;
+TRUNCATE cache_apachesolr;
+TRUNCATE cache_block;
+TRUNCATE cache_bootstrap;
+TRUNCATE cache_entity_og_membership;
+TRUNCATE cache_entity_og_membership_type;
+TRUNCATE cache_features;
+TRUNCATE cache_field;
+TRUNCATE cache_filter;
+TRUNCATE cache_form;
+TRUNCATE cache_image;
+TRUNCATE cache_libraries;
+TRUNCATE cache_menu;
+TRUNCATE cache_metatag;
+TRUNCATE cache_page;
+TRUNCATE cache_path;
+TRUNCATE cache_path_breadcrumbs;
+TRUNCATE cache_token;
+TRUNCATE cache_update;
+TRUNCATE cache_variable;
+TRUNCATE cache_views;
+TRUNCATE cache_views_data;
 TRUNCATE flood;
 TRUNCATE history;
 TRUNCATE search_dataset;
