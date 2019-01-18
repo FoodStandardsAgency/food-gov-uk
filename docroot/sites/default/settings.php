@@ -83,6 +83,8 @@ if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROT
   $_SERVER['HTTPS'] = 'on';
 }
 
+$conf['stage_file_proxy_origin'] = 'https://old.food.gov.uk';
+
 /**
  * Determine environment.
  */
@@ -120,8 +122,6 @@ switch ($env) {
     $conf['content_experiments_visibility'] = 0;
     $conf['content_experiments_pages'] = '*';
 
-    $conf['stage_file_proxy_origin'] = 'http://foodsciencecommittee.prod.acquia-sites.com';
-
     break;
 
   case 'test':
@@ -144,8 +144,6 @@ switch ($env) {
     $conf['content_experiments_visibility'] = 0;
     $conf['content_experiments_pages'] = '*';
 
-    $conf['stage_file_proxy_origin'] = 'http://foodsciencecommittee.prod.acquia-sites.com';
-
     break;
 
   case 'local':
@@ -160,7 +158,6 @@ switch ($env) {
 
     $conf['file_private_path'] = "/var/www/html/docroot/sites/default/files/private";
 
-    $conf['stage_file_proxy_origin'] = 'http://foodsciencecommittee.prod.acquia-sites.com';
     $conf['memcache_servers'] = array(
       'memcached:11211' => 'default',
     );
