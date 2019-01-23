@@ -57,14 +57,14 @@ function local_get_site_domain($admin = FALSE, $protocol = ''){
       'local' => '//science-council.ddev.local',
       'development' => '//foodsciencecommitteedev.prod.acquia-sites.com',
       'staging' => '//foodsciencecommitteestg.prod.acquia-sites.com',
-      'production' => '//www.food.gov.uk',
+      'production' => '//old.food.gov.uk',
     );
   }
 
   // Return the domain for the selected environment. If none is set, we return
-  // www.food.gov.uk as default.
+  // old.food.gov.uk as default.
   $protocol = !empty($protocol) ? "$protocol:" : '';
-  return !empty($environment) && !empty($environments[$environment]) ? $protocol . $environments[$environment] : "$protocol//www.food.gov.uk";
+  return !empty($environment) && !empty($environments[$environment]) ? $protocol . $environments[$environment] : "$protocol//old.food.gov.uk";
 }
 
 /**
@@ -349,7 +349,7 @@ function local_node_validate($node, $form, $form_state) {
  * This is a temporary workaround to fix the issue of duplicated IDs on pages
  * where mutliple field group elements are displayed, for instance:
  *
- * http://www.food.gov.uk/science/acrylamide
+ * http://old.food.gov.uk/science/acrylamide
  *
  * This is a known bug in the Field Group module:
  * http://www.drupal.org/project/field_group
