@@ -64,3 +64,10 @@ $mollom_form = mollom_form_new('feedback_form');
 function fsa_feedback_update_7006() {
   variable_set('fsa_feedback_form_validation_compare_fields', TRUE);
 }
+
+/**
+ * Remove Mollom functionality for this form.
+ */
+function fsa_feedback_update_7007() {
+  mollom_form_delete('feedback_form');
+}
